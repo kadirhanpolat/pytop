@@ -1,7 +1,0 @@
-"""
-bases
-
-Bases for topologies.
-
-"""
-

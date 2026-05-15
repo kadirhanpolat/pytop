@@ -214,7 +214,7 @@ class TestOnePointCompactification:
         assert frozenset() in ext_top
 
     def test_infty_union_complement_of_closed_is_open(self):
-        """For each closed set C in original, {∞} ∪ (X \ C) must be open in extension."""
+        r"""For each closed set C in original, {∞} ∪ (X \ C) must be open in extension."""
         orig = _discrete2()
         orig_points = frozenset(orig.carrier)
         orig_top = [frozenset(u) for u in orig.topology]

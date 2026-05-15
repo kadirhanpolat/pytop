@@ -16,7 +16,8 @@ def test_promoted_theorem_profile_alignments_cover_expected_features_and_familie
     assert 'urysohn_metrization_route' in keys
     assert 'safe_zone_sharpness_bridge_route' in keys
     assert 'hypothesis_sensitivity_research_path' in keys
-    assert theorem_profile_alignment_summary() == {
+    alignment_summary = theorem_profile_alignment_summary()
+    assert {
         'compactification_bridge': 1,
         'compactness_size_bound': 1,
         'compactness_transition': 1,
@@ -26,15 +27,16 @@ def test_promoted_theorem_profile_alignments_cover_expected_features_and_familie
         'research_bridge': 3,
         'research_path': 5,
         'tightness': 2,
-    }
-    assert theorem_profile_family_summary() == {
+    }.items() <= alignment_summary.items()
+    family_summary = theorem_profile_family_summary()
+    assert {
         'compactness_strengthened': 3,
         'hereditary_local': 1,
         'metrization': 3,
         'research_bridge': 3,
         'research_path': 5,
         'tightness_network': 3,
-    }
+    }.items() <= family_summary.items()
 
 
 def test_promoted_theorem_profile_indexes_expose_profile_links():

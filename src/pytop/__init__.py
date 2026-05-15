@@ -295,10 +295,6 @@ from .preservation_legacy import (
 from .preservation_tables import (
     preservation_table,
     invariance_profile,
-    analyze_preservation as analyze_preservation_invariance,
-    preservation_table as preservation_table_v064,
-    invariance_profile as invariance_profile_v064,
-    analyze_preservation as analyze_preservation_v064,
     PreservationError,
 )
 from .counterexample_atlas import (
@@ -1466,10 +1462,7 @@ __all__ = [
     "preservation_table_lookup",
     "preservation_table",
     "invariance_profile",
-    "analyze_preservation_invariance",
-    "preservation_table_v064",
-    "invariance_profile_v064",
-    "analyze_preservation_v064",
+
     "PreservationError",
     "preservation_table_row",
     "preservation_table_column",
