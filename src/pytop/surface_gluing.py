@@ -129,4 +129,25 @@ def compare_gluing_to_surface_profile(profile: PolygonGluingProfile, surface: Su
 def gluing_profile_summary(profile: PolygonGluingProfile) -> dict[str, Any]:
     d = profile.pairing_diagnostic
     return {"name": profile.name, "edge_word": profile.edge_word, "expected_surface_key": profile.expected_surface_key, "pairing_valid": d.is_valid, "paired_labels": d.paired_labels, "boundary_labels": d.boundary_labels, "overused_labels": d.overused_labels, "label_counts": d.label_counts, "orientability_hint": profile.orientability_hint, "status": profile.status, "convention": profile.convention, "warnings": profile.warnings + d.warnings}
-__all__ = [name for name in globals() if not name.startswith("_")]
+__all__ = [
+    "SurfaceGluingError",
+    "EdgeToken",
+    "EdgePairingDiagnostic",
+    "PolygonGluingProfile",
+    "parse_edge_token",
+    "parse_edge_word",
+    "normalized_edge_word",
+    "edge_label_counts",
+    "validate_edge_pairing",
+    "label_orientation_pattern",
+    "orientability_heuristic",
+    "polygon_gluing_profile",
+    "sphere_gluing_profile",
+    "torus_gluing_profile",
+    "projective_plane_gluing_profile",
+    "klein_bottle_gluing_profile",
+    "mobius_band_gluing_profile",
+    "standard_gluing_profile",
+    "compare_gluing_to_surface_profile",
+    "gluing_profile_summary",
+]

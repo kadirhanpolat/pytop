@@ -106,4 +106,20 @@ def as_manifold_profile(profile: SurfaceProfile) -> ManifoldProfile:
     return manifold_profile(profile.name, 2, with_boundary=profile.has_boundary, local_model=local_model, orientability=profile.orientability, compact=profile.compact, connected=profile.connected, charts=("surface-profile teaching charts",), atlas_note="Created from a SurfaceProfile; not an independent atlas verification.", status=profile.status, warnings=profile.warnings, related_profiles=profile.related_profiles, metadata={"source_surface_profile": profile.name, **profile.metadata})
 def surface_profile_summary(profile: SurfaceProfile) -> dict[str, Any]:
     return {"name": profile.name, "dimension": profile.dimension, "orientability": profile.orientability, "genus": profile.genus, "nonorientable_genus": profile.nonorientable_genus, "boundary_component_count": profile.boundary_component_count, "compact": profile.compact, "connected": profile.connected, "model": profile.model, "gluing_word": profile.gluing_word, "fundamental_group_hint": profile.fundamental_group_hint, "status": profile.status, "warnings": profile.warnings, "classification_label": profile.classification_label, "has_boundary": profile.has_boundary}
-__all__ = [name for name in globals() if not name.startswith("_")]
+__all__ = [
+    "SurfaceProfileError",
+    "SurfaceProfile",
+    "surface_profile",
+    "sphere_surface_profile",
+    "torus_surface_profile",
+    "double_torus_surface_profile",
+    "disk_surface_profile",
+    "annulus_surface_profile",
+    "mobius_band_surface_profile",
+    "projective_plane_surface_profile",
+    "klein_bottle_surface_profile",
+    "unknown_surface_profile",
+    "known_surface_profile",
+    "as_manifold_profile",
+    "surface_profile_summary",
+]

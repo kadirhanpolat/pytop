@@ -1522,6 +1522,86 @@ __all__ = [
     "quantitative_profile",
     "analyze_quantitative_topology",
     "QuantitativeTopologyError",
+    # surfaces
+    "SurfaceProfileError",
+    "SurfaceProfile",
+    "surface_profile",
+    "sphere_surface_profile",
+    "torus_surface_profile",
+    "double_torus_surface_profile",
+    "disk_surface_profile",
+    "annulus_surface_profile",
+    "mobius_band_surface_profile",
+    "projective_plane_surface_profile",
+    "klein_bottle_surface_profile",
+    "unknown_surface_profile",
+    "known_surface_profile",
+    "as_manifold_profile",
+    "surface_profile_summary",
+    # surface gluing
+    "SurfaceGluingError",
+    "EdgeToken",
+    "EdgePairingDiagnostic",
+    "PolygonGluingProfile",
+    "parse_edge_token",
+    "parse_edge_word",
+    "normalized_edge_word",
+    "edge_label_counts",
+    "validate_edge_pairing",
+    "label_orientation_pattern",
+    "orientability_heuristic",
+    "polygon_gluing_profile",
+    "sphere_gluing_profile",
+    "torus_gluing_profile",
+    "projective_plane_gluing_profile",
+    "klein_bottle_gluing_profile",
+    "mobius_band_gluing_profile",
+    "standard_gluing_profile",
+    "compare_gluing_to_surface_profile",
+    "gluing_profile_summary",
+    # continua
+    "ContinuumProfile",
+    "ContinuumProfileError",
+    "continuum_profile",
+    "certified_continuum_profile",
+    "non_continuum_profile",
+    "interval_continuum_profile",
+    "circle_continuum_profile",
+    "disk_continuum_profile",
+    "hilbert_cube_profile",
+    "cantor_set_noncontinuum_profile",
+    "topologist_sine_curve_profile",
+    "known_continuum_profile",
+    "continuum_condition_report",
+    "continuum_profile_summary",
+    "is_continuum_profile",
+    # retracts
+    "RetractionProfile",
+    "RetractProfileError",
+    "AbsoluteRetractProfile",
+    "ANRProfile",
+    "DeformationRetractionProfile",
+    "retraction_profile",
+    "certified_retraction_profile",
+    "unknown_retraction_profile",
+    "not_certified_retraction_profile",
+    "deformation_retract_profile",
+    "absolute_retract_profile",
+    "anr_profile",
+    "point_ar_profile",
+    "interval_ar_profile",
+    "disk_ar_profile",
+    "finite_polyhedron_anr_profile",
+    "topological_manifold_anr_profile",
+    "circle_anr_profile",
+    "known_absolute_retract_profile",
+    "known_anr_profile",
+    "retraction_summary",
+    "absolute_retract_summary",
+    "anr_summary",
+    "is_certified_retract",
+    "is_certified_absolute_retract",
+    "is_certified_anr",
     # dimension theory
     "ind",
     "Ind",
@@ -1636,236 +1716,87 @@ from .inverse_systems import inverse_system, inverse_limit
 from .function_spaces import is_admissible_topology, is_splitting_topology
 
 
-from .surfaces import *
-
-from .surface_gluing import *
-
-try:
-    __all__.append("SurfaceProfile")
-except NameError:
-    __all__ = ["SurfaceProfile"]
-
-try:
-    __all__.append("SurfaceProfileError")
-except NameError:
-    __all__ = ["SurfaceProfileError"]
-
-try:
-    __all__.append("known_surface_profile")
-except NameError:
-    __all__ = ["known_surface_profile"]
-
-try:
-    __all__.append("surface_profile_summary")
-except NameError:
-    __all__ = ["surface_profile_summary"]
-
-try:
-    __all__.append("as_manifold_profile")
-except NameError:
-    __all__ = ["as_manifold_profile"]
-
-try:
-    __all__.append("SurfaceGluingError")
-except NameError:
-    __all__ = ["SurfaceGluingError"]
-
-try:
-    __all__.append("EdgeToken")
-except NameError:
-    __all__ = ["EdgeToken"]
-
-try:
-    __all__.append("EdgePairingDiagnostic")
-except NameError:
-    __all__ = ["EdgePairingDiagnostic"]
-
-try:
-    __all__.append("PolygonGluingProfile")
-except NameError:
-    __all__ = ["PolygonGluingProfile"]
-
-try:
-    __all__.append("standard_gluing_profile")
-except NameError:
-    __all__ = ["standard_gluing_profile"]
-
-try:
-    __all__.append("gluing_profile_summary")
-except NameError:
-    __all__ = ["gluing_profile_summary"]
-
-try:
-    __all__.append("orientability_heuristic")
-except NameError:
-    __all__ = ["orientability_heuristic"]
-
-try:
-    __all__.append("validate_edge_pairing")
-except NameError:
-    __all__ = ["validate_edge_pairing"]
-
-try:
-    __all__.append("parse_edge_token")
-except NameError:
-    __all__ = ["parse_edge_token"]
-
-try:
-    __all__.append("normalized_edge_word")
-except NameError:
-    __all__ = ["normalized_edge_word"]
-
-try:
-    __all__.append("compare_gluing_to_surface_profile")
-except NameError:
-    __all__ = ["compare_gluing_to_surface_profile"]
-
-try:
-    __all__.append("polygon_gluing_profile")
-except NameError:
-    __all__ = ["polygon_gluing_profile"]
-
-from .continua import *
-
-try:
-    __all__.append("ContinuumProfile")
-except NameError:
-    __all__ = ["ContinuumProfile"]
-
-try:
-    __all__.append("ContinuumProfileError")
-except NameError:
-    __all__ = ["ContinuumProfileError"]
-
-try:
-    __all__.append("known_continuum_profile")
-except NameError:
-    __all__ = ["known_continuum_profile"]
-
-try:
-    __all__.append("continuum_profile_summary")
-except NameError:
-    __all__ = ["continuum_profile_summary"]
-
-try:
-    __all__.append("continuum_condition_report")
-except NameError:
-    __all__ = ["continuum_condition_report"]
-
-try:
-    __all__.append("hilbert_cube_profile")
-except NameError:
-    __all__ = ["hilbert_cube_profile"]
-
-try:
-    __all__.append("cantor_set_noncontinuum_profile")
-except NameError:
-    __all__ = ["cantor_set_noncontinuum_profile"]
-
-try:
-    __all__.append("topologist_sine_curve_profile")
-except NameError:
-    __all__ = ["topologist_sine_curve_profile"]
-
-try:
-    __all__.append("is_continuum_profile")
-except NameError:
-    __all__ = ["is_continuum_profile"]
-
-from .retracts import *
-
-
-try:
-    __all__.append("RetractionProfile")
-except NameError:
-    __all__ = ["RetractionProfile"]
-
-try:
-    __all__.append("RetractProfileError")
-except NameError:
-    __all__ = ["RetractProfileError"]
-
-try:
-    __all__.append("AbsoluteRetractProfile")
-except NameError:
-    __all__ = ["AbsoluteRetractProfile"]
-
-try:
-    __all__.append("ANRProfile")
-except NameError:
-    __all__ = ["ANRProfile"]
-
-try:
-    __all__.append("retraction_profile")
-except NameError:
-    __all__ = ["retraction_profile"]
-
-try:
-    __all__.append("certified_retraction_profile")
-except NameError:
-    __all__ = ["certified_retraction_profile"]
-
-try:
-    __all__.append("unknown_retraction_profile")
-except NameError:
-    __all__ = ["unknown_retraction_profile"]
-
-try:
-    __all__.append("not_certified_retraction_profile")
-except NameError:
-    __all__ = ["not_certified_retraction_profile"]
-
-try:
-    __all__.append("deformation_retract_profile")
-except NameError:
-    __all__ = ["deformation_retract_profile"]
-
-try:
-    __all__.append("absolute_retract_profile")
-except NameError:
-    __all__ = ["absolute_retract_profile"]
-
-try:
-    __all__.append("anr_profile")
-except NameError:
-    __all__ = ["anr_profile"]
-
-try:
-    __all__.append("known_absolute_retract_profile")
-except NameError:
-    __all__ = ["known_absolute_retract_profile"]
-
-try:
-    __all__.append("known_anr_profile")
-except NameError:
-    __all__ = ["known_anr_profile"]
-
-try:
-    __all__.append("retraction_summary")
-except NameError:
-    __all__ = ["retraction_summary"]
-
-try:
-    __all__.append("absolute_retract_summary")
-except NameError:
-    __all__ = ["absolute_retract_summary"]
-
-try:
-    __all__.append("anr_summary")
-except NameError:
-    __all__ = ["anr_summary"]
-
-try:
-    __all__.append("is_certified_retract")
-except NameError:
-    __all__ = ["is_certified_retract"]
-
-try:
-    __all__.append("is_certified_absolute_retract")
-except NameError:
-    __all__ = ["is_certified_absolute_retract"]
-
-try:
-    __all__.append("is_certified_anr")
-except NameError:
-    __all__ = ["is_certified_anr"]
+from .surfaces import (
+    SurfaceProfileError,
+    SurfaceProfile,
+    surface_profile,
+    sphere_surface_profile,
+    torus_surface_profile,
+    double_torus_surface_profile,
+    disk_surface_profile,
+    annulus_surface_profile,
+    mobius_band_surface_profile,
+    projective_plane_surface_profile,
+    klein_bottle_surface_profile,
+    unknown_surface_profile,
+    known_surface_profile,
+    as_manifold_profile,
+    surface_profile_summary,
+)
+from .surface_gluing import (
+    SurfaceGluingError,
+    EdgeToken,
+    EdgePairingDiagnostic,
+    PolygonGluingProfile,
+    parse_edge_token,
+    parse_edge_word,
+    normalized_edge_word,
+    edge_label_counts,
+    validate_edge_pairing,
+    label_orientation_pattern,
+    orientability_heuristic,
+    polygon_gluing_profile,
+    sphere_gluing_profile,
+    torus_gluing_profile,
+    projective_plane_gluing_profile,
+    klein_bottle_gluing_profile,
+    mobius_band_gluing_profile,
+    standard_gluing_profile,
+    compare_gluing_to_surface_profile,
+    gluing_profile_summary,
+)
+from .continua import (
+    ContinuumProfile,
+    ContinuumProfileError,
+    continuum_profile,
+    certified_continuum_profile,
+    non_continuum_profile,
+    interval_continuum_profile,
+    circle_continuum_profile,
+    disk_continuum_profile,
+    hilbert_cube_profile,
+    cantor_set_noncontinuum_profile,
+    topologist_sine_curve_profile,
+    known_continuum_profile,
+    continuum_condition_report,
+    continuum_profile_summary,
+    is_continuum_profile,
+)
+from .retracts import (
+    RetractionProfile,
+    RetractProfileError,
+    AbsoluteRetractProfile,
+    ANRProfile,
+    DeformationRetractionProfile,
+    retraction_profile,
+    certified_retraction_profile,
+    unknown_retraction_profile,
+    not_certified_retraction_profile,
+    deformation_retract_profile,
+    absolute_retract_profile,
+    anr_profile,
+    point_ar_profile,
+    interval_ar_profile,
+    disk_ar_profile,
+    finite_polyhedron_anr_profile,
+    topological_manifold_anr_profile,
+    circle_anr_profile,
+    known_absolute_retract_profile,
+    known_anr_profile,
+    retraction_summary,
+    absolute_retract_summary,
+    anr_summary,
+    is_certified_retract,
+    is_certified_absolute_retract,
+    is_certified_anr,
+)
