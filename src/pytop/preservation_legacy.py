@@ -7,6 +7,7 @@ The functions here deliberately return ``Result`` objects.
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 
 from .result import Result
@@ -120,12 +121,22 @@ def _result_for_value(value: Any, *, property_name: str, construction: str) -> R
 
 
 def preservation_table_lookup(property_name: str, construction: str) -> Result:
+    warnings.warn(
+        "preservation_table_lookup is deprecated; use preservation_tables.preservation_table() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     prop = _normalize_property(property_name)
     cons = _normalize_construction(construction)
     return _result_for_value(_TABLE[prop][cons], property_name=prop, construction=cons)
 
 
 def preservation_table_row(property_name: str) -> Result:
+    warnings.warn(
+        "preservation_table_row is deprecated; use preservation_tables.preservation_table() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     prop = _normalize_property(property_name)
     return Result.true(
         mode="exact",
@@ -136,6 +147,11 @@ def preservation_table_row(property_name: str) -> Result:
 
 
 def preservation_table_column(construction: str) -> Result:
+    warnings.warn(
+        "preservation_table_column is deprecated; use preservation_tables.preservation_table() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     cons = _normalize_construction(construction)
     return Result.true(
         mode="exact",
@@ -146,6 +162,11 @@ def preservation_table_column(construction: str) -> Result:
 
 
 def analyze_preservation_table(property_name: str | None = None, construction: str | None = None) -> Result:
+    warnings.warn(
+        "analyze_preservation_table is deprecated; use preservation_tables.preservation_table() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     if property_name is not None and construction is not None:
         return preservation_table_lookup(property_name, construction)
     if property_name is not None:
