@@ -172,3 +172,13 @@ def _mode_from_support(support: str) -> str:
         "mixed": "mixed",
         "none": "symbolic",
     }[support]
+
+
+__all__ = [
+    "ConnectednessError",
+    "normalize_connectedness_property",
+    "analyze_connectedness",
+    "is_connected",
+    "is_path_connected",
+    "is_locally_connected",
+]

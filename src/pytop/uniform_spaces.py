@@ -179,3 +179,12 @@ def is_uniformly_complete(uniform_space):
     if metadata.get("space_type") == "Discrete Uniformity":
         return True
     return False
+
+
+__all__ = [
+    "is_uniform_space",
+    "entourage_system",
+    "is_uniformly_continuous",
+    "is_cauchy_filter",
+    "is_uniformly_complete",
+]

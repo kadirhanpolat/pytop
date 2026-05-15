@@ -380,3 +380,13 @@ def analyze_local_compactness(space: Any) -> Result:
         justification=lc.justification,
         metadata=metadata,
     )
+
+
+__all__ = [
+    "LocalCompactnessError",
+    "is_locally_compact",
+    "one_point_compactification",
+    "alexandroff_point_check",
+    "local_compactness_profile",
+    "analyze_local_compactness",
+]

@@ -458,3 +458,14 @@ def analyze_compactness_variants(space: Any) -> Result:
             "carrier_size": n,
         },
     )
+
+
+__all__ = [
+    "CompactnessVariantError",
+    "is_countably_compact",
+    "is_sequentially_compact",
+    "is_pseudocompact",
+    "is_lindelof",
+    "compactness_variant_profile",
+    "analyze_compactness_variants",
+]

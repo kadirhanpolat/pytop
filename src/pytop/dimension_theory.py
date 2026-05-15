@@ -197,3 +197,13 @@ def is_totally_disconnected(space):
     if isinstance(explicit, bool):
         return explicit
     return False
+
+
+__all__ = [
+    "ind",
+    "Ind",
+    "dim",
+    "has_clopen_base",
+    "is_zero_dimensional",
+    "is_totally_disconnected",
+]

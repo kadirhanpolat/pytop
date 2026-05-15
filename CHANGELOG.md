@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.2] - 2026-05-15
+
+### Fixed
+- Removed 112 broken `__all__` entries from `__init__.py` that referenced
+  `_internal/` audit tools not present in the public namespace
+
+### Changed
+- Added explicit `__all__` to 9 core modules: `connectedness`, `countability`,
+  `local_compactness`, `compactness_variants`, `dimension_theory`, `invariants`,
+  `uniform_spaces`, `inverse_systems`
+
+### Tests
+- 204 new tests: `preservation_legacy` (100%), `metric_contracts` (91%),
+  `finite_witness_diagnostics` (96%), `metrization_profiles` (98%),
+  `uniform_spaces` (98%), `inverse_systems`
+- Total: 1929 tests, 92% coverage
+
 ## [0.4.1] - 2026-05-15
 
 ### Changed
