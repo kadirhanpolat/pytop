@@ -1522,6 +1522,29 @@ __all__ = [
     "quantitative_profile",
     "analyze_quantitative_topology",
     "QuantitativeTopologyError",
+    # dimension theory
+    "ind",
+    "Ind",
+    "dim",
+    "is_zero_dimensional",
+    "has_clopen_base",
+    "is_totally_disconnected",
+    # uniform spaces
+    "is_uniform_space",
+    "entourage_system",
+    "is_uniformly_continuous",
+    "is_cauchy_filter",
+    "is_uniformly_complete",
+    # proximity spaces
+    "is_proximity_space",
+    "is_close",
+    "smirnov_compactification",
+    # inverse systems
+    "inverse_system",
+    "inverse_limit",
+    # function spaces
+    "is_admissible_topology",
+    "is_splitting_topology",
 ]
 
 
