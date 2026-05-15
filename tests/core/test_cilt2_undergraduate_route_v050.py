@@ -7,7 +7,7 @@ Result metadata, and integration with v0.1.47-v0.1.49 corridor modules.
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../src'))
 
-from pytop.cilt2_route_summary import cilt2_route_summary, cilt2_corridor_lookup
+from pytop._internal.cilt2_route_summary import cilt2_route_summary, cilt2_corridor_lookup
 import pytop
 
 
@@ -160,12 +160,6 @@ class TestCilt2CorridorLookup:
 # ---------------------------------------------------------------------------
 
 class TestPytopPublicApi:
-    def test_cilt2_route_summary_exported(self):
-        assert hasattr(pytop, "cilt2_route_summary")
-
-    def test_cilt2_corridor_lookup_exported(self):
-        assert hasattr(pytop, "cilt2_corridor_lookup")
-
     def test_all_v047_exports(self):
         for name in ["is_complete", "is_totally_bounded",
                      "metric_compactness_check", "analyze_metric_completeness"]:
@@ -183,6 +177,3 @@ class TestPytopPublicApi:
                      "analyze_counterexample_atlas", "ATLAS_IDS"]:
             assert hasattr(pytop, name), f"Missing: {name}"
 
-    def test_route_summary_via_pytop(self):
-        r = pytop.cilt2_route_summary()
-        assert r.is_true and r.metadata["cilt_ii_close_out"] is True

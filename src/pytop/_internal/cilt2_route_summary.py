@@ -11,10 +11,10 @@ Roadmap reference:
 
 from __future__ import annotations
 
-from .result import Result
-from .metric_completeness import analyze_metric_completeness
-from .preservation_tables import analyze_preservation_table
-from .counterexample_atlas import analyze_counterexample_atlas
+from pytop.result import Result
+from pytop.metric_completeness import analyze_metric_completeness
+from pytop.preservation_tables import analyze_preservation_table
+from pytop.counterexample_atlas import analyze_counterexample_atlas
 
 
 # ---------------------------------------------------------------------------

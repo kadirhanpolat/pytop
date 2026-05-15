@@ -10,7 +10,24 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [{name = "Kadirhan Polat", email = "kadirhanpolat@gmail.com"}]
+keywords = ["topology", "mathematics", "knot-theory", "manifolds", "graph-topology", "degree-theory", "point-set-topology"]
 dependencies = []
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Repository = "https://github.com/kadirhanpolat/pytop"
+"Bug Tracker" = "https://github.com/kadirhanpolat/pytop/issues"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -21,10 +38,10 @@ include = ["pytop*"]
 
 [tool.coverage.run]
 source = ["pytop"]
-omit = ["*/tests/*", "*/__pycache__/*"]
+omit = ["*/tests/*", "*/__pycache__/*", "*/pytop/_internal/*"]
 
 [tool.coverage.report]
 show_missing = true
 skip_covered = false
-fail_under = 0
+fail_under = 60
 exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]

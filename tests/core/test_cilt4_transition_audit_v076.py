@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import pytop
-from pytop.cilt4_transition_audit import (
+from pytop._internal.cilt4_transition_audit import (
     cilt4_transition_audit,
     cilt4_transition_criteria,
     cilt4_transition_milestone_lookup,
@@ -67,8 +67,3 @@ def test_v076_transition_audit_report_is_human_readable():
     assert "v0.1.77: Tightness and network invariants entry split" in report
 
 
-def test_v076_transition_helpers_are_exported_from_package_root():
-    assert hasattr(pytop, "cilt4_transition_audit")
-    assert hasattr(pytop, "cilt4_transition_criteria")
-    assert hasattr(pytop, "cilt4_transition_milestone_lookup")
-    assert hasattr(pytop, "render_cilt4_transition_audit_report")

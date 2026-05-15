@@ -14,11 +14,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from .cardinal_function_examples import (
+from pytop.cardinal_function_examples import (
     cardinal_function_comparison_exercises,
     cardinal_function_notebook_route_alignment,
 )
-from .result import Result
+from pytop.result import Result
 
 __all__ = [
     "cilt4_transition_audit",

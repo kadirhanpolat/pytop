@@ -1,5 +1,7 @@
 """Core mathematical topology package."""
 
+__version__ = "0.4.0"
+
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
 from .degree_theory import (
@@ -306,13 +308,6 @@ from .counterexample_atlas import (
     counterexample_atlas_by_construction,
     analyze_counterexample_atlas,
     ATLAS_IDS,
-)
-from .cilt2_route_summary import cilt2_route_summary, cilt2_corridor_lookup
-from .cilt4_transition_audit import (
-    cilt4_transition_audit,
-    cilt4_transition_criteria,
-    cilt4_transition_milestone_lookup,
-    render_cilt4_transition_audit_report,
 )
 from .neighborhood_systems import (
     neighborhood_system_axioms,
@@ -643,144 +638,6 @@ from .result_rendering import (
     explain_result,
     render_result,
     render_result_collection,
-)
-from .api_consistency import (
-    APIConsistencyReport,
-    CORE_STRENGTHENING_API_SURFACE,
-    api_consistency_report,
-    api_consistency_summary,
-)
-from .core_strengthening_checkpoint import (
-    CoreStrengtheningSurface,
-    ForwardIntegrationGap,
-    CoreStrengtheningCheckpointReport,
-    CORE_STRENGTHENING_PHASE_SURFACES,
-    FORWARD_INTEGRATION_GAPS,
-    core_strengthening_checkpoint_report,
-    core_strengthening_summary,
-)
-from .questionbank_bridge import (
-    QuestionbankBridgeItem,
-    QuestionbankBridgeReport,
-    QUESTIONBANK_BRIDGE_ITEMS,
-    bridge_contract_tags,
-    bridge_items_by_chapter,
-    missing_core_references,
-    questionbank_bridge_report,
-    questionbank_bridge_summary,
-)
-from .manuscript_integration import (
-    ManuscriptIntegrationItem,
-    ManuscriptIntegrationReport,
-    manuscript_integration_items,
-    missing_manuscript_integration_paths,
-    manuscript_integration_report,
-    manuscript_integration_summary,
-)
-from .notebook_smoke_examples import (
-    NotebookSmokeExample,
-    NotebookSmokeReport,
-    NOTEBOOK_SMOKE_EXAMPLES,
-    NOTEBOOK_SMOKE_NOTEBOOK,
-    notebook_smoke_examples,
-    missing_notebook_smoke_paths,
-    notebook_smoke_report,
-    run_notebook_smoke_examples,
-    render_notebook_smoke_examples,
-    notebook_smoke_summary,
-)
-from .integration_quality_gate import (
-    EXPECTED_INTEGRATION_CHAPTERS,
-    IntegrationQualitySection,
-    IntegrationQualityGateReport,
-    integration_quality_gate_report,
-    integration_quality_gate_summary,
-)
-from .integration_phase_checkpoint import (
-    IntegrationPhaseCheckpointSurface,
-    IntegrationPhaseCheckpointReport,
-    INTEGRATION_PHASE_SURFACE_SPECS,
-    integration_phase_checkpoint_report,
-    integration_phase_checkpoint_summary,
-)
-from .manifest_checker import (
-    ManifestSurfaceSpec,
-    ManifestSurfaceStatus,
-    ManifestCheckReport,
-    default_manifest_surface_specs,
-    check_manifest_surfaces,
-    render_manifest_check_report,
-    manifest_checker_summary,
-)
-from .archive_bundle_checker import (
-    ArchiveBundleCheckReport,
-    verify_archive_bundle,
-    render_archive_bundle_check_report,
-    archive_bundle_checker_summary,
-)
-from .packaging_checkpoint import (
-    PackagingCheckpointReport,
-    run_packaging_checkpoint,
-    render_packaging_checkpoint_report,
-    packaging_checkpoint_summary,
-)
-from .chapter_07_15_coverage_audit import (
-    ChapterCoverageSpec,
-    SurfaceCoverage,
-    ChapterCoverageRow,
-    ChapterCoverageAuditReport,
-    default_chapter_07_15_coverage_specs,
-    audit_chapter_07_15_coverage,
-    render_chapter_07_15_coverage_audit,
-    chapter_07_15_coverage_audit_summary,
-)
-from .chapter_07_15_api_matrix import (
-    API_MATRIX_VERSION,
-    ChapterApiNeed,
-    ChapterApiMatrixSpec,
-    ChapterApiMatrixRow,
-    ChapterApiMatrixReport,
-    default_chapter_07_15_api_matrix_specs,
-    build_chapter_07_15_api_matrix,
-    render_chapter_07_15_api_matrix,
-    chapter_07_15_api_matrix_summary,
-)
-from .chapter_07_15_questionbank_contract_alignment import (
-    CONTRACT_ALIGNMENT_VERSION,
-    ChapterQuestionbankContractRow,
-    ChapterQuestionbankContractAlignmentReport,
-    build_chapter_07_15_questionbank_contract_alignment,
-    render_chapter_07_15_questionbank_contract_alignment,
-    chapter_07_15_questionbank_contract_alignment_summary,
-)
-from .chapter_07_15_manuscript_target_map import (
-    MANUSCRIPT_TARGET_MAP_VERSION,
-    ChapterManuscriptTargetSpec,
-    ChapterManuscriptTargetRow,
-    ChapterManuscriptTargetMapReport,
-    default_chapter_07_15_manuscript_target_specs,
-    build_chapter_07_15_manuscript_target_map,
-    render_chapter_07_15_manuscript_target_map,
-    chapter_07_15_manuscript_target_map_summary,
-)
-from .package_verifier import (
-    ArchiveBundleVerificationReport,
-    PackageVerificationReport,
-    default_required_paths,
-    expected_root_for_version,
-    package_verifier_summary,
-    sha256_file,
-    verify_full_package_zip,
-    version_to_tag,
-)
-from .release_report_standard import (
-    ChecklistItem,
-    ReleaseReportResult,
-    build_delivery_checklist,
-    generate_release_report_markdown,
-    generate_release_report_summary,
-    release_report_standard_summary,
-    run_release_report_standard,
 )
 from .sets import equal_sets, is_subset, is_proper_subset, power_set, set_union, set_intersection, set_difference, complement, cartesian_product, indexed_union, indexed_intersection
 from .families import normalize_family, is_disjoint_family, is_pairwise_disjoint_family, is_cover, is_subcover, is_refinement, is_partition
@@ -1396,7 +1253,6 @@ __all__ = [
     "upper_limit_line_like",
     "sorgenfrey_line_like",
     "basis_defined_second_countable",
-
     "SymbolicMap",
     "ContinuousMap",
     "EmbeddingMap",
@@ -1442,11 +1298,6 @@ __all__ = [
     "generic_quotient_space_from_map",
     "generic_make_quotient_map",
     "generic_analyze_quotient_map",
-    "analyze_predicate",
-    "is_open_subset",
-    "is_closed_subset",
-    "is_clopen_subset",
-    "is_dense_subset",
     "analyze_preservation",
     "compact_under_continuous_image",
     "connected_under_continuous_image",
@@ -1471,17 +1322,11 @@ __all__ = [
     "principal_upset",
     "principal_downset",
     "upper_sets",
-    "RelationError",
     "validate_relation_on",
     "validate_relation_between",
     "identity_relation",
-    "relation_domain",
-    "relation_range",
-    "inverse_relation",
-    "compose_relations",
     "is_reflexive",
     "is_irreflexive",
-    "is_symmetric",
     "is_transitive",
     "is_antisymmetric",
     "is_preorder",
@@ -1489,10 +1334,6 @@ __all__ = [
     "is_linear_order",
     "is_total_order",
     "relation_profile",
-    "is_equivalence_relation",
-    "equivalence_class",
-    "partition_from_equivalence",
-    "equivalence_from_partition",
     "alexandroff_report",
     "FinitePreorderSpace",
     "FinitePosetSpace",
@@ -1778,12 +1619,6 @@ from .inverse_systems import inverse_system, inverse_limit
 
 from .function_spaces import is_admissible_topology, is_splitting_topology
 
-from .volume6_audit import (
-    audit_volume_6_completeness,
-    volume6_audit_report,
-    volume6_incomplete_milestones,
-    render_volume6_audit_report,
-)
 
 from .surfaces import *
 
