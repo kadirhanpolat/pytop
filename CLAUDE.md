@@ -83,6 +83,29 @@ feature/<topic> ← feature branches, merge to master via PR
 
 ---
 
+## Cilt / Corridor Terminology
+
+Test files and `_internal/` modules use terminology from the original textbook
+development context. This glossary decodes the key terms:
+
+| Term | Meaning |
+|------|---------|
+| **Cilt** | Turkish for "volume". Cilt I–IV map to volumes of the source textbook. |
+| **Cilt I** | Point-set topology foundations (sets, spaces, maps, compactness, connectedness, separation) |
+| **Cilt II** | Metric spaces, completeness, counterexample atlas, preservation tables |
+| **Cilt III** | Local compactness, metrization, neighborhood systems, function spaces, compactness variants |
+| **Cilt IV** | Cardinal functions, cardinal numbers, ordinals, quantitative topology |
+| **Corridor** | A development milestone version (e.g., `v0.1.47`) that added a specific feature set |
+| **Route** | A sequence of corridors forming a complete coverage of a topic |
+| **Close-out** | The final corridor that completes a cilt's coverage |
+| **Route summary** | An `_internal` function that documents which corridors cover a given topic |
+| **v0.X.YZ** | Internal milestone versions — not the same as the public package version (v0.4.0+) |
+
+These terms appear in `_internal/` module names and test files (e.g.,
+`test_cilt2_undergraduate_route_v050.py`). They are internal metadata only.
+
+---
+
 ## Version Bump Checklist
 
 1. Update `version` in `pyproject.toml`
