@@ -8,7 +8,7 @@ version = "0.4.1"
 description = "Mathematical topology library: degree theory, embeddings, graphs, knots, surfaces, 3-manifolds, cosmology."
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "MIT"}
+license = "MIT"
 authors = [{name = "Kadirhan Polat", email = "kadirhanpolat@gmail.com"}]
 keywords = ["topology", "mathematics", "knot-theory", "manifolds", "graph-topology", "degree-theory", "point-set-topology"]
 dependencies = []
@@ -17,7 +17,6 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "Intended Audience :: Education",
-    "License :: OSI Approved :: MIT License",
     "Topic :: Scientific/Engineering :: Mathematics",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
