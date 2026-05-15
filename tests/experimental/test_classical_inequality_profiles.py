@@ -1,4 +1,4 @@
-from pytop_experimental.classical_inequality_profiles import (
+from pytop.experimental.classical_inequality_profiles import (
     get_named_classical_inequality_profiles,
 )
 

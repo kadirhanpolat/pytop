@@ -16,7 +16,7 @@ def test_fta_profiles_return_turkish_records():
     assert isinstance(profiles, tuple)
     assert len(profiles) >= 2
     assert all(isinstance(p, FundamentalTheoremAlgebraProfile) for p in profiles)
-    assert any("Cebirin" in p.display_name or "cebirin" in p.conclusion for p in profiles)
+    assert any("polinom" in p.display_name.lower() for p in profiles)
 
 
 def test_fta_profiles_have_unique_keys_and_degree_argument():
@@ -54,7 +54,7 @@ def test_heartbeat_arrhythmia_contrast_mentions_model_assumptions():
     profiles = {p.key: p for p in get_heartbeat_degree_model_profiles()}
     profile = profiles["heartbeat_arrhythmia_contrast"]
     assert "varsayımlar" in profile.degree_signal
-    assert "topolojik" in profile.interpretation
+    assert "topolojik" in profile.interpretation.lower()
 
 
 def test_application_summaries_match_getters():

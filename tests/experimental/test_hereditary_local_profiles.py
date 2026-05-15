@@ -1,5 +1,5 @@
 from pytop.hereditary_local_profiles import get_named_hereditary_local_profiles
-from pytop_experimental.hereditary_local_profiles import (
+from pytop.experimental.hereditary_local_profiles import (
     get_named_hereditary_local_profiles as get_wrapper_profiles,
     hereditary_local_chapter32_entry_bridge,
     hereditary_local_lane_summary,

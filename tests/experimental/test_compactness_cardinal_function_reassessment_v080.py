@@ -2,7 +2,7 @@ from pytop.compactness_strengthened_profiles import (
     compactness_strengthened_lane_summary,
     get_named_compactness_strengthened_profiles,
 )
-from pytop_experimental.compactness_strengthened_profiles import (
+from pytop.experimental.compactness_strengthened_profiles import (
     compactness_strengthened_entry_profiles,
     compactness_strengthened_prerequisite_bridge,
     compactness_strengthened_selected_profiles,

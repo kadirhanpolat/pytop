@@ -1,5 +1,5 @@
 from pytop.metrization_profiles import get_named_metrization_profiles
-from pytop_experimental.advanced_metrization import (
+from pytop.experimental.advanced_metrization import (
     get_named_metrization_profiles as get_wrapper_profiles,
     metrization_chapter_index,
     metrization_layer_summary,

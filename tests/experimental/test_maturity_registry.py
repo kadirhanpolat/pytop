@@ -1,4 +1,4 @@
-from pytop_experimental.maturity_registry import (
+from pytop.experimental.maturity_registry import (
     chapter_primary_maturity_summary,
     experimental_maturity_summary,
     get_experimental_maturity_profiles,

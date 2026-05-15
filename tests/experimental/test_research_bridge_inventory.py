@@ -1,4 +1,4 @@
-from pytop_experimental.research_bridge_inventory import (
+from pytop.experimental.research_bridge_inventory import (
     build_research_bridge_inventory,
     inventory_layer_summary,
 )

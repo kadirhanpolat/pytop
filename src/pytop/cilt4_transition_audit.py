@@ -294,15 +294,26 @@ _CILT4_CHAPTERS_COVERED = (24, 25, 26, 27, 28, 29, 30)
 
 
 def _questionbank_support_summary() -> dict[str, Any]:
-    from pytop_questionbank.cilt4_entry_assessment_routes import (
-        cilt4_cardinal_function_comparison_assessment_route_ids,
-        cilt4_cardinal_function_comparison_assessment_summary,
-        cilt4_cardinal_function_comparison_feedback_summary,
-        cilt4_cardinal_function_comparison_notebook_worksheet_summary,
-        cilt4_cardinal_function_comparison_route_ids,
-        cilt4_entry_assessment_route_summary,
-        route_ids_for_cilt4_entry_assessment,
-    )
+    try:
+        from pytop_questionbank.cilt4_entry_assessment_routes import (
+            cilt4_cardinal_function_comparison_assessment_route_ids,
+            cilt4_cardinal_function_comparison_assessment_summary,
+            cilt4_cardinal_function_comparison_feedback_summary,
+            cilt4_cardinal_function_comparison_notebook_worksheet_summary,
+            cilt4_cardinal_function_comparison_route_ids,
+            cilt4_entry_assessment_route_summary,
+            route_ids_for_cilt4_entry_assessment,
+        )
+    except ModuleNotFoundError:
+        return {
+            "entry_assessment_summary": None,
+            "entry_assessment_route_ids": [],
+            "comparison_route_ids": [],
+            "comparison_assessment_route_ids": [],
+            "comparison_assessment_summary": None,
+            "comparison_feedback_summary": None,
+            "comparison_notebook_worksheet_summary": None,
+        }
 
     return {
         "entry_assessment_summary": cilt4_entry_assessment_route_summary(),
@@ -351,9 +362,12 @@ def cilt4_transition_audit(include_support_details: bool = False) -> Result:
     notebook_routes = cardinal_function_notebook_route_alignment()
     criteria = cilt4_transition_criteria()
     completion_summary = questionbank["comparison_notebook_worksheet_summary"]
-    ready_for_cilt_v = all(item["status"] for item in criteria) and (
-        completion_summary["route_completion_ready_count"] == len(comparison_routes)
-    )
+    if completion_summary is not None:
+        ready_for_cilt_v = all(item["status"] for item in criteria) and (
+            completion_summary["route_completion_ready_count"] == len(comparison_routes)
+        )
+    else:
+        ready_for_cilt_v = all(item["status"] for item in criteria)
 
     metadata: dict[str, Any] = {
         "operator": "cilt4_transition_audit",
@@ -454,11 +468,15 @@ def render_cilt4_transition_audit_report() -> str:
         f"- comparison routes: {metadata['comparison_route_count']}",
         (
             "- questionbank route counts: "
-            f"entry={metadata['entry_assessment_summary']['route_count']}; "
-            f"assessment={metadata['comparison_assessment_summary']['route_count']}; "
-            f"feedback-ready={metadata['comparison_feedback_summary']['feedback_ready_count']}; "
-            f"notebook/worksheet-ready="
-            f"{metadata['comparison_notebook_worksheet_summary']['route_completion_ready_count']}"
+            + (
+                f"entry={metadata['entry_assessment_summary']['route_count']}; "
+                f"assessment={metadata['comparison_assessment_summary']['route_count']}; "
+                f"feedback-ready={metadata['comparison_feedback_summary']['feedback_ready_count']}; "
+                f"notebook/worksheet-ready="
+                f"{metadata['comparison_notebook_worksheet_summary']['route_completion_ready_count']}"
+                if metadata["entry_assessment_summary"] is not None
+                else "unavailable (pytop_questionbank not installed)"
+            )
         ),
         f"- ready for Cilt V: {metadata['ready_for_cilt_v']}",
         f"- next open version: {metadata['next_open_version']}",

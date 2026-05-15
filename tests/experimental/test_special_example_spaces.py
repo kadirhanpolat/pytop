@@ -1,4 +1,4 @@
-from pytop_experimental.special_example_spaces import (
+from pytop.experimental.special_example_spaces import (
     get_named_special_example_profiles,
     special_example_chapter_index,
     special_example_role_summary,

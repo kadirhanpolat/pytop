@@ -1,4 +1,4 @@
-from pytop_experimental.chapter_experimental_registry import (
+from pytop.experimental.chapter_experimental_registry import (
     build_chapter_experimental_registry,
     chapter_registry_summary,
     chapter_route_summary,

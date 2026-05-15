@@ -1,4 +1,4 @@
-from pytop_experimental.research_path_registry import (
+from pytop.experimental.research_path_registry import (
     get_named_research_path_profiles,
     research_path_chapter_index,
     research_path_layer_summary,

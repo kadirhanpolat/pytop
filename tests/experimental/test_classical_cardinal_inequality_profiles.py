@@ -1,5 +1,5 @@
 from pytop.classical_inequality_profiles import get_named_classical_inequality_profiles
-from pytop_experimental.classical_inequality_profiles import (
+from pytop.experimental.classical_inequality_profiles import (
     classical_inequality_entry_profiles,
     classical_inequality_lane_summary,
     classical_inequality_layer_summary,

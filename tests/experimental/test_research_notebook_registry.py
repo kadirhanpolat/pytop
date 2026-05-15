@@ -1,4 +1,4 @@
-from pytop_experimental.research_notebook_registry import (
+from pytop.experimental.research_notebook_registry import (
     get_research_notebook_profiles,
     notebook_profile_summary,
 )

@@ -1,4 +1,4 @@
-from pytop_experimental.experimental_inference import (
+from pytop.experimental.experimental_inference import (
     get_promoted_theorem_profile_alignments,
     theorem_profile_alignment_summary,
     theorem_profile_feature_index,

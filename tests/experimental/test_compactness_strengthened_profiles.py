@@ -1,5 +1,5 @@
 from pytop.compactness_strengthened_profiles import get_named_compactness_strengthened_profiles
-from pytop_experimental.compactness_strengthened_profiles import (
+from pytop.experimental.compactness_strengthened_profiles import (
     compactness_strengthened_layer_summary,
     get_named_compactness_strengthened_profiles as get_wrapper_profiles,
 )

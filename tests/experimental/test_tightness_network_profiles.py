@@ -1,5 +1,5 @@
 from pytop.tightness_network_profiles import get_named_tightness_network_profiles
-from pytop_experimental.tightness_network_profiles import (
+from pytop.experimental.tightness_network_profiles import (
     get_named_tightness_network_profiles as get_wrapper_profiles,
     render_tightness_network_lane_report,
     tightness_network_entry_advanced_split,

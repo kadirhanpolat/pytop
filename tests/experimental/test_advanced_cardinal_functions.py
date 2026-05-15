@@ -1,5 +1,5 @@
 from pytop.cardinal_function_profiles import get_named_cardinal_function_profiles
-from pytop_experimental.advanced_cardinal_functions import (
+from pytop.experimental.advanced_cardinal_functions import (
     get_named_inequality_profiles,
     inequality_profile_layer_summary,
 )

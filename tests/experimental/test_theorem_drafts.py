@@ -1,4 +1,4 @@
-from pytop_experimental.theorem_drafts import (
+from pytop.experimental.theorem_drafts import (
     benchmark_class_summary,
     chapter_draft_summary,
     get_named_theorem_draft_profiles,

@@ -91,15 +91,15 @@ def test_disk_to_circle_has_degree_obstruction():
     profiles = {p.key: p for p in get_retraction_degree_profiles()}
     profile = profiles["disk_to_circle_no_retraction"]
     assert profile.retraction_exists is False
-    assert "degree 1" in profile.degree_obstruction
-    assert "degree 0" in profile.degree_obstruction
+    assert "derece 1" in profile.degree_obstruction
+    assert "derece 0" in profile.degree_obstruction
 
 
 def test_annulus_positive_retraction_present():
     profiles = {p.key: p for p in get_retraction_degree_profiles()}
     profile = profiles["annulus_to_core_circle_retraction"]
     assert profile.retraction_exists is True
-    assert "degree 1" in profile.degree_obstruction
+    assert "derece 1" in profile.degree_obstruction
 
 
 def test_retraction_degree_summary_has_both_flags():

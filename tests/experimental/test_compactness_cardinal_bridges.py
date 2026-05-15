@@ -1,5 +1,5 @@
 from pytop.compactness_bridges import get_named_compactness_bridge_profiles as get_core_profiles
-from pytop_experimental.compactness_cardinal_bridges import (
+from pytop.experimental.compactness_cardinal_bridges import (
     compactness_bridge_layer_summary,
     get_named_compactness_bridge_profiles,
 )
