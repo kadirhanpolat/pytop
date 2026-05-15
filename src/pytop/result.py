@@ -263,3 +263,9 @@ def _normalize_lines(lines: Iterable[str]) -> list[str]:
         if text and text not in normalized:
             normalized.append(text)
     return normalized
+
+
+__all__ = [
+    "Result",
+    "merge_results",
+]

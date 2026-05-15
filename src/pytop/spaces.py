@@ -57,3 +57,8 @@ class TopologicalSpace:
             metadata={"description": description, "representation": representation, "tags": list(tags)},
             tags=set(tags),
         )
+
+
+__all__ = [
+    "TopologicalSpace",
+]

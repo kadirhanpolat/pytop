@@ -464,3 +464,22 @@ def _mode_from_support(support: str) -> str:
         "mixed": "mixed",
         "none": "symbolic",
     }[support]
+
+
+__all__ = [
+    "SeparationError",
+    "normalize_separation_property",
+    "analyze_separation",
+    "separation_profile",
+    "advanced_separation_report",
+    "is_t0",
+    "is_t1",
+    "is_hausdorff",
+    "is_t2",
+    "is_regular",
+    "is_t3",
+    "is_completely_regular",
+    "is_tychonoff",
+    "is_normal",
+    "is_t4",
+]

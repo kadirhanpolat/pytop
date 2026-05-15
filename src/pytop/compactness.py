@@ -177,3 +177,15 @@ def _mode_from_support(support: str) -> str:
         "mixed": "mixed",
         "none": "symbolic",
     }[support]
+
+
+__all__ = [
+    "CompactnessError",
+    "normalize_compactness_property",
+    "analyze_compactness",
+    "is_compact",
+    "is_countably_compact",
+    "is_sequentially_compact",
+    "is_limit_point_compact",
+    "is_lindelof",
+]
