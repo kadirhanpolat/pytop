@@ -1,0 +1,2020 @@
+"""Core mathematical topology package."""
+
+from .capabilities import DEFAULT_REGISTRY, explain_capability
+
+from .degree_theory import (
+    CircleDegreeProfile,
+    RetractionDegreeProfile,
+    get_circle_degree_profiles,
+    get_retraction_degree_profiles,
+    circle_degree_by_value,
+    circle_degree_summary,
+    retraction_degree_summary,
+    degree_theory_profile_registry,
+)
+from .degree_theory_applications import (
+    FundamentalTheoremAlgebraProfile,
+    HeartbeatDegreeModelProfile,
+    get_fundamental_theorem_algebra_profiles,
+    get_heartbeat_degree_model_profiles,
+    fta_profile_summary,
+    heartbeat_degree_summary,
+    degree_theory_applications_registry,
+)
+from .embeddings import (
+    AlexanderHornedSphereProfile,
+    EmbeddingProfile,
+    JordanCurveProfile,
+    embedding_profile_registry,
+    embedding_status_summary,
+    get_alexander_horned_sphere_profiles,
+    get_embedding_profiles,
+    get_jordan_curve_profiles,
+)
+from .digital_image_topology import (
+    DigitalAdjacencyProfile,
+    DigitalCurveProfile,
+    DigitalImageSegmentationProfile,
+    digital_image_topology_registry,
+    get_digital_adjacency_profiles,
+    get_digital_curve_profiles,
+    get_digital_image_segmentation_profiles,
+)
+from .graph_topology import (
+    ChemicalGraphProfile,
+    GraphCrossingThicknessProfile,
+    GraphEmbeddingProfile,
+    GraphPlanarityProfile,
+    TopologicalGraphProfile,
+    chemical_graph_molecule_summary,
+    get_chemical_graph_profiles,
+    get_graph_crossing_thickness_profiles,
+    get_graph_embedding_profiles,
+    get_graph_planarity_profiles,
+    get_topological_graph_profiles,
+    graph_embedding_ambient_summary,
+    graph_euler_characteristic_summary,
+    graph_planarity_summary,
+    graph_topology_profile_registry,
+)
+from .surface_classification import (
+    CompactSurfaceClassificationProfile,
+    compact_surface_classification_registry,
+    get_compact_surface_classification_profiles,
+    surface_euler_characteristic_summary,
+    surface_orientability_summary,
+)
+from .three_manifolds import (
+    ThreeManifoldInvariantProfile,
+    ThreeManifoldProfile,
+    get_three_manifold_invariant_profiles,
+    get_three_manifold_profiles,
+    three_manifold_family_summary,
+    three_manifold_invariant_kind_summary,
+    three_manifold_profile_registry,
+)
+from .cosmology_topology import (
+    CosmicTopologyObservationProfile,
+    UniverseGeometryProfile,
+    cosmic_observation_method_summary,
+    cosmology_topology_profile_registry,
+    get_cosmic_topology_observation_profiles,
+    get_universe_geometry_profiles,
+    universe_geometry_summary,
+)
+from .knots import (
+    KnotProfile,
+    LinkProfile,
+    KnotInvariantProfile,
+    KnotApplicationProfile,
+    ReidemeisterMoveProfile,
+    get_knot_application_profiles,
+    get_knot_invariant_profiles,
+    get_knot_profiles,
+    get_link_profiles,
+    get_reidemeister_move_profiles,
+    knot_application_domain_summary,
+    knot_invariant_kind_summary,
+    knot_crossing_summary,
+    knot_theory_profile_registry,
+)
+from .game_theory_profiles import (
+    KakutaniProfile,
+    NashEquilibriumProfile,
+    EconomicEquilibriumProfile,
+    get_kakutani_profiles,
+    get_nash_profiles,
+    get_economic_equilibrium_profiles,
+    kakutani_fixed_point_summary,
+    nash_equilibrium_type_summary,
+    game_theory_profile_registry,
+)
+from .fixed_point_profiles import (
+    NoRetractionProfile,
+    BrouwerFPTProfile,
+    RetractionProfile,
+    get_no_retraction_profiles,
+    get_brouwer_fpt_profiles,
+    get_retraction_profiles,
+    no_retraction_by_dimension,
+    brouwer_fpt_by_dimension,
+    fixed_point_theorem_registry,
+)
+from .chaos_profiles import (
+    ChaosProperty,
+    ChaosProfile,
+    ChaoticMapProfile,
+    SymbolicDynamicsProfile,
+    get_devaney_chaos_properties,
+    get_chaos_profiles,
+    get_chaotic_map_profiles,
+    get_symbolic_dynamics_profiles,
+    chaos_status_summary,
+    chaos_profile_registry,
+)
+from .dynamical_systems import (
+    OrbitProfile,
+    FixedPointProfile,
+    TopologicalConjugacyProfile,
+    get_orbit_profiles,
+    get_fixed_point_profiles,
+    get_conjugacy_profiles,
+    orbit_type_summary,
+    fixed_point_stability_summary,
+    conjugacy_exists_summary,
+    dynamical_systems_profile_registry,
+)
+from .compactness import (
+    analyze_compactness,
+    is_compact,
+    is_countably_compact as basic_is_countably_compact,
+    is_lindelof as basic_is_lindelof,
+    is_limit_point_compact,
+    is_sequentially_compact as basic_is_sequentially_compact,
+)
+from .connectedness import (
+    analyze_connectedness,
+    is_connected,
+    is_locally_connected,
+    is_path_connected,
+)
+from .countability import (
+    analyze_countability,
+    countability_report,
+    render_countability_report,
+    is_first_countable,
+    is_lindelof as is_lindelof_countability,
+    is_second_countable,
+    is_separable,
+)
+from .examples import (
+    basis_defined_second_countable,
+    closed_unit_interval_metric,
+    empty_space,
+    examples_catalog,
+    finite_chain_space,
+    finite_examples_catalog,
+    integers_discrete,
+    naturals_cofinite,
+    naturals_discrete,
+    partition_space,
+    rationals_metric,
+    real_line_metric,
+    real_line_order_topology,
+    real_plane_metric,
+    lower_limit_line_like,
+    upper_limit_line_like,
+    reals_cocountable,
+    reals_indiscrete,
+    sierpinski_space,
+    singleton_space,
+    sorgenfrey_line_like,
+    two_point_discrete_space,
+    two_point_indiscrete_space,
+)
+from .finite_spaces import FiniteTopologicalSpace
+from .finite_operator_engine import (
+    FiniteOperatorEngineError,
+    TopologyValidation,
+    FiniteOperatorTable,
+    validate_topology_candidate,
+    is_topology,
+    closed_sets_from_topology,
+    closure,
+    interior,
+    exterior,
+    boundary,
+    derived_set,
+    neighborhood_system,
+    relative_topology,
+    kuratowski_closure_check,
+    operator_table,
+)
+from .finite_basis_engine import (
+    FiniteBasisEngineError,
+    BasisAnalysis,
+    SubbasisAnalysis,
+    BasisComparison,
+    analyze_basis,
+    generated_topology_from_basis,
+    basis_from_subbasis,
+    analyze_subbasis,
+    compare_generated_topologies_from_bases,
+    relative_basis as finite_relative_basis,
+    local_base_report,
+    continuity_via_basis_preimage,
+    finite_basis_engine_capabilities,
+)
+from .finite_map_engine import (
+    FiniteMapEngineError,
+    FiniteMapData,
+    FiniteMapAnalysis,
+    normalize_finite_map_data,
+    image_of_subset_finite,
+    preimage_of_subset_finite,
+    finite_map_table,
+    is_injective_finite_map,
+    is_surjective_finite_map,
+    is_bijective_finite_map,
+    continuity_checks_by_opens,
+    is_continuous_finite_map,
+    continuity_via_codomain_basis_finite,
+    analyze_finite_map,
+    finite_map_engine_capabilities,
+)
+from .subbases import (
+    BasisConstructionError,
+    finite_intersection_basis,
+    generate_topology_from_basis,
+    generate_topology_from_subbasis,
+    is_basis_for_some_topology,
+    is_basis_for_topology,
+    is_local_base_at,
+)
+from .maps import FiniteMap, analyze_map_property, map_report, preimage_of_subset, image_of_subset, is_continuous_at_point, is_sequentially_continuous_at_point, continuity_via_codomain_basis, continuity_via_codomain_subbasis, satisfies_closure_image_inclusion, initial_topology_from_maps, map_taxonomy_profile, render_map_taxonomy_report
+from .products import product, binary_product
+from .quotients import quotient_space as generic_quotient_space, quotient_space_from_map as generic_quotient_space_from_map, make_quotient_map as generic_make_quotient_map, analyze_quotient_map as generic_analyze_quotient_map
+from .subspaces import subspace as generic_subspace, finite_subspace
+from .nets import (
+    NetError,
+    is_directed_set,
+    is_eventually_in,
+    is_frequently_in,
+    net_converges_to,
+    net_cluster_points,
+    analyze_net,
+)
+from .filters import (
+    FilterError,
+    is_filter_base,
+    generated_filter,
+    is_filter,
+    neighborhood_filter_base,
+    filter_converges_to,
+    is_finer_filter,
+    filter_clusters_at,
+    filter_cluster_points,
+    analyze_filter,
+)
+from .sequences import SequenceError, sequence_converges_to, sequence_cluster_point, sequential_closure, analyze_sequences
+from .convergence_comparison import (
+    ConvergenceComparisonRow,
+    convergence_comparison_table,
+    convergence_comparison_row,
+    render_convergence_comparison_table,
+)
+from .metric_completeness import MetricCompletenessError, is_complete, is_totally_bounded, metric_compactness_check, analyze_metric_completeness
+from .preservation_legacy import (
+    preservation_table_lookup,
+    preservation_table_row,
+    preservation_table_column,
+    analyze_preservation_table,
+)
+from .preservation_tables import (
+    preservation_table,
+    invariance_profile,
+    analyze_preservation as analyze_preservation_invariance,
+    preservation_table as preservation_table_v064,
+    invariance_profile as invariance_profile_v064,
+    analyze_preservation as analyze_preservation_v064,
+    PreservationError,
+)
+from .counterexample_atlas import (
+    counterexample_lookup,
+    counterexample_atlas_by_layer,
+    counterexample_atlas_by_property,
+    counterexample_atlas_by_construction,
+    analyze_counterexample_atlas,
+    ATLAS_IDS,
+)
+from .cilt2_route_summary import cilt2_route_summary, cilt2_corridor_lookup
+from .cilt4_transition_audit import (
+    cilt4_transition_audit,
+    cilt4_transition_criteria,
+    cilt4_transition_milestone_lookup,
+    render_cilt4_transition_audit_report,
+)
+from .neighborhood_systems import (
+    neighborhood_system_axioms,
+    neighborhood_system,
+    local_base_check,
+    character_at_point,
+    topology_from_neighborhood_system,
+    analyze_neighborhood_system,
+)
+from .subset_operators import (
+    boundary_of_subset,
+    closure_of_subset,
+    derived_set_of_subset,
+    exterior_of_subset,
+    interior_of_subset,
+    is_neighborhood_of_point,
+    neighborhood_system_of_point,
+)
+from .predicates import analyze_predicate, is_clopen_subset, is_closed_subset, is_dense_subset, is_nowhere_dense_subset, is_open_subset
+from .preservation import analyze_preservation, compact_closed_subspace, compact_under_continuous_image, connected_under_continuous_image, separation_inherited_by_subspace, homeomorphic_invariant_transfer, closure_image_behavior
+from .comparison import compare_invariants, compare_spaces, finite_homeomorphism_result, invariant_profile
+from .enumeration import count_topologies_on_n_points, enumerate_hausdorff_topologies, enumerate_t0_topologies, enumerate_t1_topologies, enumerate_topologies, enumerate_topologies_on_n_points
+from .infinite_compactness import analyze_infinite_compactness, infinite_compactness_report
+from .local_compactness import (
+    is_locally_compact,
+    one_point_compactification,
+    alexandroff_point_check,
+    local_compactness_profile,
+    analyze_local_compactness,
+    LocalCompactnessError,
+)
+from .infinite_connectedness import analyze_infinite_connectedness, infinite_connectedness_report
+from .infinite_countability import (
+    analyze_infinite_countability,
+    infinite_countability_report,
+    render_infinite_countability_report,
+)
+from .infinite_examples import infinite_examples_catalog
+
+from .infinite_constructions import disjoint_sum, product as infinite_product, subspace as infinite_subspace
+from .infinite_image_preimage import (
+    SymbolicSubset,
+    compact_image_result,
+    connected_image_result,
+    image_space,
+    image_subset,
+    preimage_subset,
+)
+from .infinite_maps import (
+    ConstantMap,
+    ContinuousMap,
+    EmbeddingMap,
+    HomeomorphismMap,
+    QuotientMap,
+    SymbolicMap,
+    analyze_infinite_map_property,
+    compose_maps,
+    identity_map,
+    infinite_map_report,
+    homeomorphism_criterion_result,
+    initial_topology_descriptor,
+    is_bijective_map,
+    is_closed_map,
+    is_continuous_map,
+    is_embedding_map,
+    is_homeomorphism_map,
+    is_injective_map,
+    is_open_map,
+    is_quotient_map,
+    is_surjective_map,
+    homeomorphism_criterion_result,
+    initial_topology_descriptor,
+)
+from .infinite_quotients import analyze_quotient_map, make_quotient_map, quotient_space, quotient_space_from_map
+from .infinite_separation import (
+    analyze_infinite_separation,
+    infinite_separation_report,
+    is_regular_infinite,
+    is_t3_infinite,
+    is_completely_regular_infinite,
+    is_tychonoff_infinite,
+    is_normal_infinite,
+    is_t4_infinite,
+)
+from .infinite_spaces import (
+    BasisDefinedSpace,
+    CocountableSpace,
+    CofiniteSpace,
+    DiscreteInfiniteSpace,
+    IndiscreteInfiniteSpace,
+    InfiniteTopologicalSpace,
+    MetricLikeSpace,
+    SorgenfreyLikeSpace,
+)
+from .result import Result, merge_results
+from .separation import (
+    analyze_separation,
+    separation_profile,
+    advanced_separation_report,
+    is_hausdorff,
+    is_t0,
+    is_t1,
+    is_t2,
+    is_regular,
+    is_t3,
+    is_completely_regular,
+    is_tychonoff,
+    is_normal,
+    is_t4,
+)
+from .spaces import TopologicalSpace
+from .theorem_engine import DEFAULT_THEOREM_ENGINE, infer_feature
+from .theorem_profile_alignment import (
+    TheoremProfileAlignment,
+    get_promoted_theorem_profile_alignments,
+    theorem_profile_alignment_summary,
+    theorem_profile_family_summary,
+    theorem_profile_feature_index,
+    theorem_profile_index_by_profile_key,
+)
+from .invariants import analyze_invariant, weight, density, character, lindelof_number, cellularity, invariants_summary
+from .alexandroff import (
+    alexandroff_space_from_preorder,
+    alexandroff_report,
+    analyze_alexandroff,
+    is_alexandroff_space,
+    minimal_open_neighborhood,
+    preorder_from_space,
+    preorder_kernel_relation,
+    preorder_t0_reduction_data,
+    principal_downset,
+    principal_upset,
+    specialization_preorder,
+    t0_reduction_profile,
+    upper_sets,
+)
+from .order_spaces import (
+    FinitePosetSpace,
+    FinitePreorderSpace,
+    analyze_order_space,
+    lower_space_from_order,
+    neighborhood_profile,
+    order_space_report,
+    poset_space,
+    preorder_reduction_report,
+    preorder_space,
+    preorder_t0_reduction,
+    specialization_poset,
+    upper_space_from_order,
+)
+from .order_lattice import (
+    covering_pairs,
+    hasse_edges,
+    hasse_profile,
+    is_lattice,
+    join,
+    leq,
+    linear_extension,
+    lower_bounds,
+    meet,
+    upper_bounds,
+)
+from .metric_spaces import (
+    MetricSpace,
+    FiniteMetricSpace,
+    SymbolicMetricSpace,
+    open_ball,
+    closed_ball,
+    distance_to_subset,
+    distance_between_subsets,
+    diameter_of_subset,
+    is_bounded_subset,
+    capped_metric,
+    normalized_metric,
+    finite_product_metric_space,
+    validate_metric,
+    induced_topological_space,
+)
+from .metric_map_taxonomy import (
+    MetricMapProfile,
+    classify_finite_metric_map,
+    metric_map_profile,
+    render_metric_map_taxonomy,
+)
+from .simplices import (
+    Simplex,
+    SimplexError,
+    simplex,
+    validate_simplex,
+    simplex_boundary_vertices,
+    simplex_summary,
+)
+from .simplicial_complexes import (
+    SimplicialComplex,
+    SimplicialComplexDiagnostic,
+    SimplicialComplexError,
+    simplicial_complex,
+    generated_subcomplex,
+    face_closure_diagnostic,
+    simplicial_complex_summary,
+)
+from .cell_complexes import (
+    Cell,
+    CellComplexProfile,
+    CellComplexError,
+    cell,
+    cell_complex_profile,
+    validate_finite_cell_profile,
+    cell_complex_summary,
+    simplex_as_cell_profile,
+)
+from .paths import (
+    PathProfile,
+    PathProfileError,
+    PathConnectednessDiagnostic,
+    path_profile,
+    is_loop_path,
+    reverse_path_profile,
+    concatenate_path_profiles,
+    path_connectedness_diagnostic,
+    path_profile_summary,
+)
+from .homotopy import (
+    ContractibleProfile,
+    DeformationRetractionProfile,
+    HOMOTOPY_STATUSES,
+    HomotopyProfile,
+    HomotopyProfileError,
+    KNOWN_CONTRACTIBLE_EXAMPLES,
+    contractible_profile,
+    contractible_summary,
+    deformation_retraction_profile,
+    deformation_retraction_summary,
+    homotopic,
+    homotopy_profile,
+    homotopy_summary,
+    known_contractible_profile,
+    not_certified_homotopy,
+    unknown_homotopy,
+)
+from .fundamental_group import (
+    FundamentalGroupProfile,
+    FundamentalGroupProfileError,
+    GROUP_KINDS,
+    GROUP_PROFILE_STATUSES,
+    KNOWN_FUNDAMENTAL_GROUP_MODELS,
+    free_group_profile,
+    fundamental_group_profile,
+    fundamental_group_summary,
+    infinite_cyclic_group_profile,
+    known_fundamental_group_profile,
+    trivial_group_profile,
+    unknown_fundamental_group_profile,
+)
+from .covering_spaces import (
+    COVERING_PROFILE_STATUSES,
+    CoveringMapProfile,
+    CoveringSpaceProfileError,
+    KNOWN_COVERING_MODELS,
+    assumed_covering_map_profile,
+    circle_degree_covering_profile,
+    covering_map_profile,
+    covering_profile_summary,
+    known_covering_profile,
+    unknown_covering_map_profile,
+)
+from .euclidean_topology import (
+    EUCLIDEAN_PROFILE_KINDS,
+    EUCLIDEAN_PROFILE_STATUSES,
+    EuclideanTopologyProfile,
+    EuclideanTopologyProfileError,
+    KNOWN_EUCLIDEAN_PROFILES,
+    closed_disk_profile,
+    euclidean_profile_summary,
+    euclidean_topology_profile,
+    known_euclidean_profile,
+    open_ball_profile,
+    projective_preview_profile,
+    punctured_sphere_profile,
+    sphere_profile,
+    stereographic_projection_profile,
+)
+from .manifolds import (
+    MANIFOLD_ORIENTABILITY_VALUES,
+    MANIFOLD_PROFILE_STATUSES,
+    KNOWN_MANIFOLD_PROFILES,
+    ManifoldProfile,
+    ManifoldProfileError,
+    circle_manifold_profile,
+    disk_with_boundary_profile,
+    known_manifold_profile,
+    manifold_profile,
+    manifold_profile_summary,
+    projective_plane_manifold_profile,
+    real_line_manifold_profile,
+    sphere_manifold_profile,
+    torus_manifold_profile,
+    unknown_manifold_profile,
+)
+from .construction_contracts import (
+    FiniteConstructionContract,
+    finite_product_contract,
+    finite_product_summary,
+    finite_partition_contract,
+    finite_quotient_contract,
+    finite_quotient_summary,
+)
+from .predicate_contracts import (
+    SubsetPredicateContract,
+    finite_subset_predicate_contract,
+    symbolic_subset_predicate_contract,
+    subset_predicate_contract,
+    subset_predicate_summary,
+)
+from .metric_contracts import (
+    MetricContract,
+    finite_metric_contract,
+    bounded_metric_transform_contract,
+    finite_product_metric_contract,
+    equivalent_metric_contract,
+    metric_contract_summary,
+)
+from .result_rendering import (
+    ResultExplanation,
+    normalize_result_source,
+    result_status_label,
+    result_mode_label,
+    explain_result,
+    render_result,
+    render_result_collection,
+)
+from .api_consistency import (
+    APIConsistencyReport,
+    CORE_STRENGTHENING_API_SURFACE,
+    api_consistency_report,
+    api_consistency_summary,
+)
+from .core_strengthening_checkpoint import (
+    CoreStrengtheningSurface,
+    ForwardIntegrationGap,
+    CoreStrengtheningCheckpointReport,
+    CORE_STRENGTHENING_PHASE_SURFACES,
+    FORWARD_INTEGRATION_GAPS,
+    core_strengthening_checkpoint_report,
+    core_strengthening_summary,
+)
+from .questionbank_bridge import (
+    QuestionbankBridgeItem,
+    QuestionbankBridgeReport,
+    QUESTIONBANK_BRIDGE_ITEMS,
+    bridge_contract_tags,
+    bridge_items_by_chapter,
+    missing_core_references,
+    questionbank_bridge_report,
+    questionbank_bridge_summary,
+)
+from .manuscript_integration import (
+    ManuscriptIntegrationItem,
+    ManuscriptIntegrationReport,
+    manuscript_integration_items,
+    missing_manuscript_integration_paths,
+    manuscript_integration_report,
+    manuscript_integration_summary,
+)
+from .notebook_smoke_examples import (
+    NotebookSmokeExample,
+    NotebookSmokeReport,
+    NOTEBOOK_SMOKE_EXAMPLES,
+    NOTEBOOK_SMOKE_NOTEBOOK,
+    notebook_smoke_examples,
+    missing_notebook_smoke_paths,
+    notebook_smoke_report,
+    run_notebook_smoke_examples,
+    render_notebook_smoke_examples,
+    notebook_smoke_summary,
+)
+from .integration_quality_gate import (
+    EXPECTED_INTEGRATION_CHAPTERS,
+    IntegrationQualitySection,
+    IntegrationQualityGateReport,
+    integration_quality_gate_report,
+    integration_quality_gate_summary,
+)
+from .integration_phase_checkpoint import (
+    IntegrationPhaseCheckpointSurface,
+    IntegrationPhaseCheckpointReport,
+    INTEGRATION_PHASE_SURFACE_SPECS,
+    integration_phase_checkpoint_report,
+    integration_phase_checkpoint_summary,
+)
+from .manifest_checker import (
+    ManifestSurfaceSpec,
+    ManifestSurfaceStatus,
+    ManifestCheckReport,
+    default_manifest_surface_specs,
+    check_manifest_surfaces,
+    render_manifest_check_report,
+    manifest_checker_summary,
+)
+from .archive_bundle_checker import (
+    ArchiveBundleCheckReport,
+    verify_archive_bundle,
+    render_archive_bundle_check_report,
+    archive_bundle_checker_summary,
+)
+from .packaging_checkpoint import (
+    PackagingCheckpointReport,
+    run_packaging_checkpoint,
+    render_packaging_checkpoint_report,
+    packaging_checkpoint_summary,
+)
+from .chapter_07_15_coverage_audit import (
+    ChapterCoverageSpec,
+    SurfaceCoverage,
+    ChapterCoverageRow,
+    ChapterCoverageAuditReport,
+    default_chapter_07_15_coverage_specs,
+    audit_chapter_07_15_coverage,
+    render_chapter_07_15_coverage_audit,
+    chapter_07_15_coverage_audit_summary,
+)
+from .chapter_07_15_api_matrix import (
+    API_MATRIX_VERSION,
+    ChapterApiNeed,
+    ChapterApiMatrixSpec,
+    ChapterApiMatrixRow,
+    ChapterApiMatrixReport,
+    default_chapter_07_15_api_matrix_specs,
+    build_chapter_07_15_api_matrix,
+    render_chapter_07_15_api_matrix,
+    chapter_07_15_api_matrix_summary,
+)
+from .chapter_07_15_questionbank_contract_alignment import (
+    CONTRACT_ALIGNMENT_VERSION,
+    ChapterQuestionbankContractRow,
+    ChapterQuestionbankContractAlignmentReport,
+    build_chapter_07_15_questionbank_contract_alignment,
+    render_chapter_07_15_questionbank_contract_alignment,
+    chapter_07_15_questionbank_contract_alignment_summary,
+)
+from .chapter_07_15_manuscript_target_map import (
+    MANUSCRIPT_TARGET_MAP_VERSION,
+    ChapterManuscriptTargetSpec,
+    ChapterManuscriptTargetRow,
+    ChapterManuscriptTargetMapReport,
+    default_chapter_07_15_manuscript_target_specs,
+    build_chapter_07_15_manuscript_target_map,
+    render_chapter_07_15_manuscript_target_map,
+    chapter_07_15_manuscript_target_map_summary,
+)
+from .package_verifier import (
+    ArchiveBundleVerificationReport,
+    PackageVerificationReport,
+    default_required_paths,
+    expected_root_for_version,
+    package_verifier_summary,
+    sha256_file,
+    verify_full_package_zip,
+    version_to_tag,
+)
+from .release_report_standard import (
+    ChecklistItem,
+    ReleaseReportResult,
+    build_delivery_checklist,
+    generate_release_report_markdown,
+    generate_release_report_summary,
+    release_report_standard_summary,
+    run_release_report_standard,
+)
+from .sets import equal_sets, is_subset, is_proper_subset, power_set, set_union, set_intersection, set_difference, complement, cartesian_product, indexed_union, indexed_intersection
+from .families import normalize_family, is_disjoint_family, is_pairwise_disjoint_family, is_cover, is_subcover, is_refinement, is_partition
+from .relations import (
+    RelationError,
+    compose_relations,
+    equivalence_class,
+    equivalence_from_partition,
+    identity_relation,
+    inverse_relation,
+    is_antisymmetric,
+    is_equivalence_relation,
+    is_irreflexive,
+    is_linear_order,
+    is_partial_order,
+    is_preorder,
+    is_reflexive,
+    is_symmetric,
+    is_total_order,
+    is_transitive,
+    partition_from_equivalence,
+    quotient_set,
+    canonical_projection_from_equivalence,
+    relation_domain,
+    relation_profile,
+    relation_range,
+    validate_relation_between,
+    validate_relation_on,
+)
+from .cardinal_function_profiles import (
+    CardinalFunctionProfile,
+    cardinal_function_chapter_index,
+    cardinal_function_layer_summary,
+    get_named_cardinal_function_profiles,
+)
+from .compactness_bridges import (
+    CompactnessBridgeProfile,
+    compactness_bridge_chapter_index,
+    compactness_bridge_layer_summary,
+    get_named_compactness_bridge_profiles,
+)
+from .compactness_strengthened_profiles import (
+    CompactnessStrengthenedProfile,
+    compactness_strengthened_chapter_index,
+    compactness_strengthened_entry_profiles,
+    compactness_strengthened_layer_summary,
+    compactness_strengthened_lane_summary,
+    compactness_strengthened_prerequisite_bridge,
+    compactness_strengthened_selected_profiles,
+    compactness_strengthened_warning_profiles,
+    get_named_compactness_strengthened_profiles,
+    render_compactness_strengthened_report,
+)
+from .tightness_network_profiles import (
+    TightnessNetworkProfile,
+    get_named_tightness_network_profiles,
+    render_tightness_network_lane_report,
+    tightness_network_advanced_profiles,
+    tightness_network_chapter_index,
+    tightness_network_entry_advanced_split,
+    tightness_network_entry_profiles,
+    tightness_network_lane_summary,
+    tightness_network_layer_summary,
+)
+from .hereditary_local_profiles import (
+    HereditaryLocalProfile,
+    get_named_hereditary_local_profiles,
+    hereditary_local_chapter32_entry_bridge,
+    hereditary_local_chapter_index,
+    hereditary_local_entry_profiles,
+    hereditary_local_lane_summary,
+    hereditary_local_quantifier_summary,
+    hereditary_local_warning_profiles,
+    render_hereditary_local_strengthening_report,
+)
+from .classical_inequality_profiles import (
+    ClassicalInequalityProfile,
+    classical_inequality_chapter_index,
+    classical_inequality_entry_profiles,
+    classical_inequality_lane_summary,
+    classical_inequality_layer_summary,
+    classical_inequality_prerequisite_bridge,
+    classical_inequality_selected_profiles,
+    classical_inequality_warning_profiles,
+    get_named_classical_inequality_profiles,
+    render_classical_inequality_strengthening_report,
+)
+from .metrization_profiles import (
+    MetrizationProfile,
+    get_named_metrization_profiles,
+    metrization_layer_summary,
+    metrization_chapter_index,
+)
+from .metrization_api import (
+    is_metrizable,
+    metrization_profile,
+    analyze_metrization,
+    MetrizationError,
+)
+from .refinements import (
+    is_locally_finite_cover,
+    refinement_profile,
+    analyze_cover_refinement,
+    RefinementError,
+)
+from .paracompactness import (
+    is_paracompact,
+    paracompact_profile,
+    analyze_paracompactness,
+    ParacompactnessError,
+)
+from .compactness_variants import (
+    is_countably_compact,
+    is_sequentially_compact,
+    is_pseudocompact,
+    is_lindelof,
+    compactness_variant_profile,
+    analyze_compactness_variants,
+    CompactnessVariantError,
+)
+from .function_spaces import (
+    pointwise_topology_profile,
+    uniform_topology_profile,
+    compact_open_topology_profile,
+    function_space_topology_families,
+    function_space_topology_selector,
+    render_function_space_topology_report,
+    compact_open_basis_elements,
+    compact_open_homotopy_profile,
+    compare_function_space_topologies,
+    function_space_profile,
+    analyze_function_space,
+    FunctionSpaceError,
+)
+from .research_bridge_profiles import (
+    ResearchBridgeProfile,
+    get_named_research_bridge_profiles,
+    research_bridge_layer_summary,
+    research_bridge_chapter_index,
+)
+
+from .research_path_profiles import (
+    ResearchPathProfile,
+    get_named_research_path_profiles,
+    research_path_chapter_index,
+    research_path_layer_summary,
+    research_path_route_index,
+)
+
+from .special_example_profiles import (
+    SpecialExampleProfile,
+    get_named_special_example_profiles,
+    special_example_role_summary,
+    special_example_chapter_index,
+    special_example_route_index,
+)
+
+__all__ = [
+    "Result",
+    "merge_results",
+    "DEFAULT_REGISTRY",
+    "explain_capability",
+    "CircleDegreeProfile",
+    "RetractionDegreeProfile",
+    "get_circle_degree_profiles",
+    "get_retraction_degree_profiles",
+    "circle_degree_by_value",
+    "circle_degree_summary",
+    "retraction_degree_summary",
+    "degree_theory_profile_registry",
+    "FundamentalTheoremAlgebraProfile",
+    "HeartbeatDegreeModelProfile",
+    "get_fundamental_theorem_algebra_profiles",
+    "get_heartbeat_degree_model_profiles",
+    "fta_profile_summary",
+    "heartbeat_degree_summary",
+    "degree_theory_applications_registry",
+    "AlexanderHornedSphereProfile",
+    "EmbeddingProfile",
+    "JordanCurveProfile",
+    "embedding_profile_registry",
+    "embedding_status_summary",
+    "get_alexander_horned_sphere_profiles",
+    "get_embedding_profiles",
+    "get_jordan_curve_profiles",
+    "DigitalAdjacencyProfile",
+    "DigitalCurveProfile",
+    "DigitalImageSegmentationProfile",
+    "digital_image_topology_registry",
+    "get_digital_adjacency_profiles",
+    "get_digital_curve_profiles",
+    "get_digital_image_segmentation_profiles",
+    "ChemicalGraphProfile",
+    "GraphCrossingThicknessProfile",
+    "GraphEmbeddingProfile",
+    "GraphPlanarityProfile",
+    "TopologicalGraphProfile",
+    "chemical_graph_molecule_summary",
+    "get_chemical_graph_profiles",
+    "get_graph_crossing_thickness_profiles",
+    "get_graph_embedding_profiles",
+    "get_graph_planarity_profiles",
+    "get_topological_graph_profiles",
+    "graph_embedding_ambient_summary",
+    "graph_euler_characteristic_summary",
+    "graph_planarity_summary",
+    "graph_topology_profile_registry",
+    "CompactSurfaceClassificationProfile",
+    "compact_surface_classification_registry",
+    "get_compact_surface_classification_profiles",
+    "surface_euler_characteristic_summary",
+    "surface_orientability_summary",
+    "ThreeManifoldInvariantProfile",
+    "ThreeManifoldProfile",
+    "get_three_manifold_invariant_profiles",
+    "get_three_manifold_profiles",
+    "three_manifold_family_summary",
+    "three_manifold_invariant_kind_summary",
+    "three_manifold_profile_registry",
+    "CosmicTopologyObservationProfile",
+    "UniverseGeometryProfile",
+    "cosmic_observation_method_summary",
+    "cosmology_topology_profile_registry",
+    "get_cosmic_topology_observation_profiles",
+    "get_universe_geometry_profiles",
+    "universe_geometry_summary",
+    "KnotProfile",
+    "LinkProfile",
+    "KnotInvariantProfile",
+    "KnotApplicationProfile",
+    "ReidemeisterMoveProfile",
+    "get_knot_application_profiles",
+    "get_knot_invariant_profiles",
+    "get_knot_profiles",
+    "get_link_profiles",
+    "get_reidemeister_move_profiles",
+    "knot_application_domain_summary",
+    "knot_invariant_kind_summary",
+    "knot_crossing_summary",
+    "knot_theory_profile_registry",
+    "TopologicalSpace",
+    "FiniteTopologicalSpace",
+    "closure_of_subset",
+    "interior_of_subset",
+    "boundary_of_subset",
+    "derived_set_of_subset",
+    "exterior_of_subset",
+    "neighborhood_system_of_point",
+    "InfiniteTopologicalSpace",
+    "MetricLikeSpace",
+    "BasisDefinedSpace",
+    "DiscreteInfiniteSpace",
+    "IndiscreteInfiniteSpace",
+    "CofiniteSpace",
+    "CocountableSpace",
+    "SorgenfreyLikeSpace",
+    "DEFAULT_THEOREM_ENGINE",
+    "infer_feature",
+    "TheoremProfileAlignment",
+    "get_promoted_theorem_profile_alignments",
+    "theorem_profile_alignment_summary",
+    "theorem_profile_family_summary",
+    "theorem_profile_feature_index",
+    "theorem_profile_index_by_profile_key",
+    "analyze_predicate",
+    "is_open_subset",
+    "is_closed_subset",
+    "is_clopen_subset",
+    "is_dense_subset",
+    "is_nowhere_dense_subset",
+    "analyze_compactness",
+    "is_compact",
+    "is_locally_finite_cover",
+    "refinement_profile",
+    "analyze_cover_refinement",
+    "RefinementError",
+    "is_paracompact",
+    "paracompact_profile",
+    "analyze_paracompactness",
+    "ParacompactnessError",
+    "basic_is_countably_compact",
+    "basic_is_sequentially_compact",
+    "is_limit_point_compact",
+    "basic_is_lindelof",
+    "analyze_connectedness",
+    "is_connected",
+    "is_path_connected",
+    "is_locally_connected",
+    "analyze_separation",
+    "is_t0",
+    "is_t1",
+    "is_hausdorff",
+    "analyze_countability",
+    "is_first_countable",
+    "is_second_countable",
+    "is_separable",
+    "is_lindelof_countability",
+    "analyze_infinite_compactness",
+    "analyze_infinite_connectedness",
+    "analyze_infinite_countability",
+    "analyze_infinite_separation",
+    "infinite_compactness_report",
+    "is_locally_compact",
+    "one_point_compactification",
+    "alexandroff_point_check",
+    "local_compactness_profile",
+    "analyze_local_compactness",
+    "LocalCompactnessError",
+    "infinite_connectedness_report",
+    "infinite_countability_report",
+    "infinite_separation_report",
+    "analyze_invariant",
+    "weight",
+    "density",
+    "character",
+    "lindelof_number",
+    "cellularity",
+    "invariants_summary",
+    "MetricSpace",
+    "FiniteMetricSpace",
+    "SymbolicMetricSpace",
+    "open_ball",
+    "closed_ball",
+    "distance_to_subset",
+    "distance_between_subsets",
+    "diameter_of_subset",
+    "is_bounded_subset",
+    "capped_metric",
+    "normalized_metric",
+    "finite_product_metric_space",
+    "validate_metric",
+    "induced_topological_space",
+    "MetricMapProfile",
+    "classify_finite_metric_map",
+    "metric_map_profile",
+    "render_metric_map_taxonomy",
+    "Simplex",
+    "SimplexError",
+    "simplex",
+    "validate_simplex",
+    "simplex_boundary_vertices",
+    "simplex_summary",
+    "SimplicialComplex",
+    "SimplicialComplexDiagnostic",
+    "SimplicialComplexError",
+    "simplicial_complex",
+    "generated_subcomplex",
+    "face_closure_diagnostic",
+    "simplicial_complex_summary",
+    "Cell",
+    "CellComplexProfile",
+    "CellComplexError",
+    "cell",
+    "cell_complex_profile",
+    "validate_finite_cell_profile",
+    "cell_complex_summary",
+    "simplex_as_cell_profile",
+    "PathProfile",
+    "PathProfileError",
+    "PathConnectednessDiagnostic",
+    "path_profile",
+    "is_loop_path",
+    "reverse_path_profile",
+    "concatenate_path_profiles",
+    "path_connectedness_diagnostic",
+    "path_profile_summary",
+    "ContractibleProfile",
+    "DeformationRetractionProfile",
+    "HOMOTOPY_STATUSES",
+    "HomotopyProfile",
+    "HomotopyProfileError",
+    "KNOWN_CONTRACTIBLE_EXAMPLES",
+    "contractible_profile",
+    "contractible_summary",
+    "deformation_retraction_profile",
+    "deformation_retraction_summary",
+    "homotopic",
+    "homotopy_profile",
+    "homotopy_summary",
+    "known_contractible_profile",
+    "not_certified_homotopy",
+    "unknown_homotopy",
+    "FundamentalGroupProfile",
+    "FundamentalGroupProfileError",
+    "GROUP_KINDS",
+    "GROUP_PROFILE_STATUSES",
+    "KNOWN_FUNDAMENTAL_GROUP_MODELS",
+    "free_group_profile",
+    "fundamental_group_profile",
+    "fundamental_group_summary",
+    "infinite_cyclic_group_profile",
+    "known_fundamental_group_profile",
+    "trivial_group_profile",
+    "unknown_fundamental_group_profile",
+    "COVERING_PROFILE_STATUSES",
+    "CoveringMapProfile",
+    "CoveringSpaceProfileError",
+    "KNOWN_COVERING_MODELS",
+    "assumed_covering_map_profile",
+    "circle_degree_covering_profile",
+    "covering_map_profile",
+    "covering_profile_summary",
+    "known_covering_profile",
+    "unknown_covering_map_profile",
+    "EUCLIDEAN_PROFILE_KINDS",
+    "EUCLIDEAN_PROFILE_STATUSES",
+    "EuclideanTopologyProfile",
+    "EuclideanTopologyProfileError",
+    "KNOWN_EUCLIDEAN_PROFILES",
+    "closed_disk_profile",
+    "euclidean_profile_summary",
+    "euclidean_topology_profile",
+    "known_euclidean_profile",
+    "open_ball_profile",
+    "projective_preview_profile",
+    "punctured_sphere_profile",
+    "sphere_profile",
+    "stereographic_projection_profile",
+    "MANIFOLD_ORIENTABILITY_VALUES",
+    "MANIFOLD_PROFILE_STATUSES",
+    "KNOWN_MANIFOLD_PROFILES",
+    "ManifoldProfile",
+    "ManifoldProfileError",
+    "circle_manifold_profile",
+    "disk_with_boundary_profile",
+    "known_manifold_profile",
+    "manifold_profile",
+    "manifold_profile_summary",
+    "projective_plane_manifold_profile",
+    "real_line_manifold_profile",
+    "sphere_manifold_profile",
+    "torus_manifold_profile",
+    "unknown_manifold_profile",
+    "FiniteConstructionContract",
+    "finite_product_contract",
+    "finite_product_summary",
+    "finite_partition_contract",
+    "finite_quotient_contract",
+    "finite_quotient_summary",
+    "SubsetPredicateContract",
+    "finite_subset_predicate_contract",
+    "symbolic_subset_predicate_contract",
+    "subset_predicate_contract",
+    "subset_predicate_summary",
+    "MetricContract",
+    "finite_metric_contract",
+    "bounded_metric_transform_contract",
+    "finite_product_metric_contract",
+    "equivalent_metric_contract",
+    "metric_contract_summary",
+    "ResultExplanation",
+    "normalize_result_source",
+    "result_status_label",
+    "result_mode_label",
+    "explain_result",
+    "render_result",
+    "render_result_collection",
+    "APIConsistencyReport",
+    "CORE_STRENGTHENING_API_SURFACE",
+    "api_consistency_report",
+    "api_consistency_summary",
+    "CoreStrengtheningSurface",
+    "ForwardIntegrationGap",
+    "CoreStrengtheningCheckpointReport",
+    "CORE_STRENGTHENING_PHASE_SURFACES",
+    "FORWARD_INTEGRATION_GAPS",
+    "core_strengthening_checkpoint_report",
+    "core_strengthening_summary",
+    "QuestionbankBridgeItem",
+    "QuestionbankBridgeReport",
+    "QUESTIONBANK_BRIDGE_ITEMS",
+    "bridge_contract_tags",
+    "bridge_items_by_chapter",
+    "missing_core_references",
+    "questionbank_bridge_report",
+    "questionbank_bridge_summary",
+    "ManuscriptIntegrationItem",
+    "ManuscriptIntegrationReport",
+    "manuscript_integration_items",
+    "missing_manuscript_integration_paths",
+    "manuscript_integration_report",
+    "manuscript_integration_summary",
+    "NotebookSmokeExample",
+    "NotebookSmokeReport",
+    "NOTEBOOK_SMOKE_EXAMPLES",
+    "NOTEBOOK_SMOKE_NOTEBOOK",
+    "notebook_smoke_examples",
+    "missing_notebook_smoke_paths",
+    "notebook_smoke_report",
+    "run_notebook_smoke_examples",
+    "render_notebook_smoke_examples",
+    "notebook_smoke_summary",
+    "EXPECTED_INTEGRATION_CHAPTERS",
+    "IntegrationQualitySection",
+    "IntegrationQualityGateReport",
+    "integration_quality_gate_report",
+    "integration_quality_gate_summary",
+    "IntegrationPhaseCheckpointSurface",
+    "IntegrationPhaseCheckpointReport",
+    "INTEGRATION_PHASE_SURFACE_SPECS",
+    "integration_phase_checkpoint_report",
+    "integration_phase_checkpoint_summary",
+    "ManifestSurfaceSpec",
+    "ManifestSurfaceStatus",
+    "ManifestCheckReport",
+    "default_manifest_surface_specs",
+    "check_manifest_surfaces",
+    "render_manifest_check_report",
+    "manifest_checker_summary",
+    "ArchiveBundleCheckReport",
+    "verify_archive_bundle",
+    "render_archive_bundle_check_report",
+    "archive_bundle_checker_summary",
+    "packaging_checkpoint_summary",
+    "render_packaging_checkpoint_report",
+    "run_packaging_checkpoint",
+    "PackagingCheckpointReport",
+    "ChapterCoverageSpec",
+    "SurfaceCoverage",
+    "ChapterCoverageRow",
+    "ChapterCoverageAuditReport",
+    "default_chapter_07_15_coverage_specs",
+    "audit_chapter_07_15_coverage",
+    "render_chapter_07_15_coverage_audit",
+    "chapter_07_15_coverage_audit_summary",
+    "API_MATRIX_VERSION",
+    "ChapterApiNeed",
+    "ChapterApiMatrixSpec",
+    "ChapterApiMatrixRow",
+    "ChapterApiMatrixReport",
+    "default_chapter_07_15_api_matrix_specs",
+    "build_chapter_07_15_api_matrix",
+    "render_chapter_07_15_api_matrix",
+    "chapter_07_15_api_matrix_summary",
+    "CONTRACT_ALIGNMENT_VERSION",
+    "ChapterQuestionbankContractRow",
+    "ChapterQuestionbankContractAlignmentReport",
+    "build_chapter_07_15_questionbank_contract_alignment",
+    "render_chapter_07_15_questionbank_contract_alignment",
+    "chapter_07_15_questionbank_contract_alignment_summary",
+    "MANUSCRIPT_TARGET_MAP_VERSION",
+    "ChapterManuscriptTargetSpec",
+    "ChapterManuscriptTargetRow",
+    "ChapterManuscriptTargetMapReport",
+    "default_chapter_07_15_manuscript_target_specs",
+    "build_chapter_07_15_manuscript_target_map",
+    "render_chapter_07_15_manuscript_target_map",
+    "chapter_07_15_manuscript_target_map_summary",
+    "ArchiveBundleVerificationReport",
+    "PackageVerificationReport",
+    "default_required_paths",
+    "expected_root_for_version",
+    "package_verifier_summary",
+    "sha256_file",
+    "verify_full_package_zip",
+    "version_to_tag",
+    "ChecklistItem",
+    "ReleaseReportResult",
+    "build_delivery_checklist",
+    "generate_release_report_markdown",
+    "generate_release_report_summary",
+    "release_report_standard_summary",
+    "run_release_report_standard",
+    "equal_sets",
+    "is_subset",
+    "is_proper_subset",
+    "power_set",
+    "set_union",
+    "set_intersection",
+    "set_difference",
+    "complement",
+    "cartesian_product",
+    "indexed_union",
+    "indexed_intersection",
+    "normalize_family",
+    "is_disjoint_family",
+    "is_pairwise_disjoint_family",
+    "is_cover",
+    "is_subcover",
+    "is_refinement",
+    "is_partition",
+    "RelationError",
+    "relation_domain",
+    "relation_range",
+    "inverse_relation",
+    "compose_relations",
+    "is_symmetric",
+    "is_equivalence_relation",
+    "equivalence_class",
+    "partition_from_equivalence",
+    "equivalence_from_partition",
+    "empty_space",
+    "singleton_space",
+    "two_point_discrete_space",
+    "two_point_indiscrete_space",
+    "sierpinski_space",
+    "finite_chain_space",
+    "partition_space",
+    "finite_examples_catalog",
+    "examples_catalog",
+    "infinite_examples_catalog",
+    "naturals_discrete",
+    "integers_discrete",
+    "naturals_cofinite",
+    "reals_indiscrete",
+    "reals_cocountable",
+    "real_line_metric",
+    "real_line_order_topology",
+    "rationals_metric",
+    "closed_unit_interval_metric",
+    "real_plane_metric",
+    "lower_limit_line_like",
+    "upper_limit_line_like",
+    "sorgenfrey_line_like",
+    "basis_defined_second_countable",
+
+    "SymbolicMap",
+    "ContinuousMap",
+    "EmbeddingMap",
+    "QuotientMap",
+    "HomeomorphismMap",
+    "ConstantMap",
+    "analyze_infinite_map_property",
+    "is_continuous_map",
+    "is_open_map",
+    "is_closed_map",
+    "is_injective_map",
+    "is_surjective_map",
+    "is_bijective_map",
+    "is_embedding_map",
+    "is_quotient_map",
+    "is_homeomorphism_map",
+    "infinite_map_report",
+    "identity_map",
+    "compose_maps",
+    "infinite_subspace",
+    "infinite_product",
+    "disjoint_sum",
+    "quotient_space",
+    "quotient_space_from_map",
+    "make_quotient_map",
+    "analyze_quotient_map",
+    "SymbolicSubset",
+    "image_space",
+    "preimage_subset",
+    "image_subset",
+    "compact_image_result",
+    "connected_image_result",
+    "FiniteMap",
+    "analyze_map_property",
+    "map_report",
+    "preimage_of_subset",
+    "image_of_subset",
+    "product",
+    "binary_product",
+    "generic_subspace",
+    "finite_subspace",
+    "generic_quotient_space",
+    "generic_quotient_space_from_map",
+    "generic_make_quotient_map",
+    "generic_analyze_quotient_map",
+    "analyze_predicate",
+    "is_open_subset",
+    "is_closed_subset",
+    "is_clopen_subset",
+    "is_dense_subset",
+    "analyze_preservation",
+    "compact_under_continuous_image",
+    "connected_under_continuous_image",
+    "compact_closed_subspace",
+    "separation_inherited_by_subspace",
+    "compare_spaces",
+    "compare_invariants",
+    "invariant_profile",
+    "finite_homeomorphism_result",
+    "enumerate_topologies",
+    "enumerate_topologies_on_n_points",
+    "enumerate_t0_topologies",
+    "enumerate_t1_topologies",
+    "enumerate_hausdorff_topologies",
+    "count_topologies_on_n_points",
+    "analyze_alexandroff",
+    "is_alexandroff_space",
+    "alexandroff_space_from_preorder",
+    "preorder_from_space",
+    "specialization_preorder",
+    "minimal_open_neighborhood",
+    "principal_upset",
+    "principal_downset",
+    "upper_sets",
+    "RelationError",
+    "validate_relation_on",
+    "validate_relation_between",
+    "identity_relation",
+    "relation_domain",
+    "relation_range",
+    "inverse_relation",
+    "compose_relations",
+    "is_reflexive",
+    "is_irreflexive",
+    "is_symmetric",
+    "is_transitive",
+    "is_antisymmetric",
+    "is_preorder",
+    "is_partial_order",
+    "is_linear_order",
+    "is_total_order",
+    "relation_profile",
+    "is_equivalence_relation",
+    "equivalence_class",
+    "partition_from_equivalence",
+    "equivalence_from_partition",
+    "alexandroff_report",
+    "FinitePreorderSpace",
+    "FinitePosetSpace",
+    "preorder_space",
+    "poset_space",
+    "upper_space_from_order",
+    "lower_space_from_order",
+    "neighborhood_profile",
+    "analyze_order_space",
+    "order_space_report",
+    "leq",
+    "lower_bounds",
+    "upper_bounds",
+    "meet",
+    "join",
+    "is_lattice",
+    "covering_pairs",
+    "hasse_edges",
+    "linear_extension",
+    "CardinalFunctionProfile",
+    "get_named_cardinal_function_profiles",
+    "cardinal_function_layer_summary",
+    "cardinal_function_chapter_index",
+    "CompactnessBridgeProfile",
+    "get_named_compactness_bridge_profiles",
+    "CompactnessStrengthenedProfile",
+    "get_named_compactness_strengthened_profiles",
+    "compactness_strengthened_layer_summary",
+    "compactness_strengthened_chapter_index",
+    "compactness_strengthened_lane_summary",
+    "compactness_strengthened_entry_profiles",
+    "compactness_strengthened_selected_profiles",
+    "compactness_strengthened_warning_profiles",
+    "compactness_strengthened_prerequisite_bridge",
+    "render_compactness_strengthened_report",
+    "compactness_bridge_layer_summary",
+    "compactness_bridge_chapter_index",
+    "TightnessNetworkProfile",
+    "get_named_tightness_network_profiles",
+    "render_tightness_network_lane_report",
+    "tightness_network_advanced_profiles",
+    "tightness_network_chapter_index",
+    "tightness_network_entry_advanced_split",
+    "tightness_network_entry_profiles",
+    "tightness_network_lane_summary",
+    "tightness_network_layer_summary",
+    "HereditaryLocalProfile",
+    "get_named_hereditary_local_profiles",
+    "hereditary_local_chapter32_entry_bridge",
+    "hereditary_local_chapter_index",
+    "hereditary_local_entry_profiles",
+    "hereditary_local_lane_summary",
+    "hereditary_local_quantifier_summary",
+    "hereditary_local_warning_profiles",
+    "render_hereditary_local_strengthening_report",
+    "ClassicalInequalityProfile",
+    "get_named_classical_inequality_profiles",
+    "classical_inequality_chapter_index",
+    "classical_inequality_entry_profiles",
+    "classical_inequality_lane_summary",
+    "classical_inequality_layer_summary",
+    "classical_inequality_prerequisite_bridge",
+    "classical_inequality_selected_profiles",
+    "classical_inequality_warning_profiles",
+    "render_classical_inequality_strengthening_report",
+    "MetrizationProfile",
+    "get_named_metrization_profiles",
+    "is_metrizable",
+    "metrization_profile",
+    "analyze_metrization",
+    "MetrizationError",
+    "pointwise_topology_profile",
+    "uniform_topology_profile",
+    "compact_open_topology_profile",
+    "function_space_topology_families",
+    "function_space_topology_selector",
+    "render_function_space_topology_report",
+    "function_space_profile",
+    "analyze_function_space",
+    "FunctionSpaceError",
+    "compact_open_basis_elements",
+    "compact_open_homotopy_profile",
+    "compare_function_space_topologies",
+    "is_countably_compact",
+    "is_sequentially_compact",
+    "is_pseudocompact",
+    "is_lindelof",
+    "compactness_variant_profile",
+    "analyze_compactness_variants",
+    "CompactnessVariantError",
+    "metrization_layer_summary",
+    "metrization_chapter_index",
+    "ResearchBridgeProfile",
+    "ResearchPathProfile",
+    "get_named_research_bridge_profiles",
+    "get_named_research_path_profiles",
+    "research_bridge_layer_summary",
+    "research_path_layer_summary",
+    "research_path_route_index",
+    "research_bridge_chapter_index",
+    "research_path_chapter_index",
+    "SpecialExampleProfile",
+    "get_named_special_example_profiles",
+    "special_example_role_summary",
+    "special_example_chapter_index",
+    "special_example_route_index",
+    "NetError",
+    "is_directed_set",
+    "is_eventually_in",
+    "is_frequently_in",
+    "net_converges_to",
+    "net_cluster_points",
+    "analyze_net",
+    "FilterError",
+    "is_filter_base",
+    "generated_filter",
+    "is_filter",
+    "neighborhood_filter_base",
+    "filter_converges_to",
+    "ConvergenceComparisonRow",
+    "convergence_comparison_table",
+    "convergence_comparison_row",
+    "render_convergence_comparison_table",
+    "SequenceError",
+    "sequence_converges_to",
+    "sequence_cluster_point",
+    "sequential_closure",
+    "analyze_sequences",
+    "MetricCompletenessError",
+    "preservation_table_lookup",
+    "preservation_table",
+    "invariance_profile",
+    "analyze_preservation_invariance",
+    "preservation_table_v064",
+    "invariance_profile_v064",
+    "analyze_preservation_v064",
+    "PreservationError",
+    "preservation_table_row",
+    "preservation_table_column",
+    "analyze_preservation_table",
+    "counterexample_lookup",
+    "counterexample_atlas_by_layer",
+    "counterexample_atlas_by_property",
+    "counterexample_atlas_by_construction",
+    "analyze_counterexample_atlas",
+    "ATLAS_IDS",
+    "cilt2_route_summary",
+    "cilt2_corridor_lookup",
+    "cilt4_transition_audit",
+    "cilt4_transition_criteria",
+    "cilt4_transition_milestone_lookup",
+    "render_cilt4_transition_audit_report",
+    "neighborhood_system_axioms",
+    "neighborhood_system",
+    "local_base_check",
+    "character_at_point",
+    "topology_from_neighborhood_system",
+    "analyze_neighborhood_system",
+    "is_complete",
+    "is_totally_bounded",
+    "metric_compactness_check",
+    "analyze_metric_completeness",
+    "cardinality_class",
+    "cardinal_number_profile",
+    "analyze_cardinal_numbers",
+    "CardinalNumberError",
+    "ordinal_class",
+    "ordinal_profile",
+    "analyze_ordinal_numbers",
+    "OrdinalNumberError",
+    "cofinality_class",
+    "cofinality_profile",
+    "analyze_cofinality",
+    "CofinAlityError",
+    "CardinalFunctionExampleError",
+    "CardinalFunctionExample",
+    "CardinalFunctionComparisonRoute",
+    "cardinal_function_examples_catalog",
+    "cardinal_function_example",
+    "cardinal_function_examples_by_layer",
+    "cardinal_function_workbook_tasks",
+    "cardinal_function_comparison_exercises",
+    "cardinal_function_notebook_route_alignment",
+    "analyze_cardinal_function_examples",
+    "CardinalFunctionFrameworkError",
+    "cardinal_function_definition",
+    "cardinal_function_comparison",
+    "cardinal_functions_framework_profile",
+    "analyze_cardinal_functions_framework",
+    "BasicInvariantError",
+    "topological_invariants_profile",
+    "analyze_topological_invariants",
+    "quantitative_profile",
+    "analyze_quantitative_topology",
+    "QuantitativeTopologyError",
+]
+
+
+
+
+# v0.1.69 — basic_invariants: Cilt IV temel topolojik değişmezler koridoru
+# v0.1.70 — cardinal_functions_framework: 3-katmanlı çerçeve (tanım/karşılaştırma/örnek)
+from .cardinal_functions_framework import (
+    CardinalFunctionFrameworkError,
+    cardinal_function_definition,
+    cardinal_function_comparison,
+    cardinal_functions_framework_profile,
+    analyze_cardinal_functions_framework,
+)
+
+
+# v0.1.72 — cardinal_function_examples: example catalog plus comparison/notebook routes
+from .cardinal_function_examples import (
+    CardinalFunctionExampleError,
+    CardinalFunctionExample,
+    CardinalFunctionComparisonRoute,
+    cardinal_function_examples_catalog,
+    cardinal_function_example,
+    cardinal_function_examples_by_layer,
+    cardinal_function_workbook_tasks,
+    cardinal_function_comparison_exercises,
+    cardinal_function_notebook_route_alignment,
+    analyze_cardinal_function_examples,
+)
+
+from .basic_invariants import (
+    BasicInvariantError,
+    topological_invariants_profile,
+    analyze_topological_invariants,
+)
+
+from .quantitative_topology import (
+    quantitative_profile,
+    analyze_quantitative_topology,
+    QuantitativeTopologyError,
+)
+from .cofinality import (
+    cofinality_class,
+    cofinality_profile,
+    analyze_cofinality,
+    CofinAlityError,
+)
+from .ordinal_numbers import (
+    ordinal_class,
+    ordinal_profile,
+    analyze_ordinal_numbers,
+    OrdinalNumberError,
+)
+from .cardinal_numbers import (
+    cardinality_class,
+    cardinal_number_profile,
+    analyze_cardinal_numbers,
+    CardinalNumberError,
+)
+from .finite_witness_diagnostics import (
+    NegativeWitnessCase,
+    NegativeWitnessReport,
+    build_negative_witness_cases,
+    negative_witness_case_summary,
+    run_negative_witness_case,
+    run_all_negative_witness_cases,
+    validate_negative_witness_diagnostics,
+    render_negative_witness_diagnostics_report,
+)
+
+from .advanced_compactifications import is_cech_complete, is_realcompact, is_perfect_map, advanced_compactness_profile
+
+from .paracompactness import is_locally_finite_refinement, is_star_refinement, partition_of_unity_warning
+
+from .dimension_theory import ind, Ind, dim
+
+from .dimension_theory import is_zero_dimensional, has_clopen_base, is_totally_disconnected
+
+from .uniform_spaces import is_uniform_space, entourage_system
+
+from .uniform_spaces import is_uniformly_continuous, is_cauchy_filter, is_uniformly_complete
+
+from .proximity_spaces import is_proximity_space, is_close
+
+from .proximity_spaces import smirnov_compactification
+
+from .inverse_systems import inverse_system, inverse_limit
+
+from .function_spaces import is_admissible_topology, is_splitting_topology
+
+from .volume6_audit import (
+    audit_volume_6_completeness,
+    volume6_audit_report,
+    volume6_incomplete_milestones,
+    render_volume6_audit_report,
+)
+
+from .surfaces import *
+
+from .surface_gluing import *
+
+try:
+    __all__.append("SurfaceProfile")
+except NameError:
+    __all__ = ["SurfaceProfile"]
+
+try:
+    __all__.append("SurfaceProfileError")
+except NameError:
+    __all__ = ["SurfaceProfileError"]
+
+try:
+    __all__.append("known_surface_profile")
+except NameError:
+    __all__ = ["known_surface_profile"]
+
+try:
+    __all__.append("surface_profile_summary")
+except NameError:
+    __all__ = ["surface_profile_summary"]
+
+try:
+    __all__.append("as_manifold_profile")
+except NameError:
+    __all__ = ["as_manifold_profile"]
+
+try:
+    __all__.append("SurfaceGluingError")
+except NameError:
+    __all__ = ["SurfaceGluingError"]
+
+try:
+    __all__.append("EdgeToken")
+except NameError:
+    __all__ = ["EdgeToken"]
+
+try:
+    __all__.append("EdgePairingDiagnostic")
+except NameError:
+    __all__ = ["EdgePairingDiagnostic"]
+
+try:
+    __all__.append("PolygonGluingProfile")
+except NameError:
+    __all__ = ["PolygonGluingProfile"]
+
+try:
+    __all__.append("standard_gluing_profile")
+except NameError:
+    __all__ = ["standard_gluing_profile"]
+
+try:
+    __all__.append("gluing_profile_summary")
+except NameError:
+    __all__ = ["gluing_profile_summary"]
+
+try:
+    __all__.append("orientability_heuristic")
+except NameError:
+    __all__ = ["orientability_heuristic"]
+
+try:
+    __all__.append("validate_edge_pairing")
+except NameError:
+    __all__ = ["validate_edge_pairing"]
+
+try:
+    __all__.append("parse_edge_token")
+except NameError:
+    __all__ = ["parse_edge_token"]
+
+try:
+    __all__.append("normalized_edge_word")
+except NameError:
+    __all__ = ["normalized_edge_word"]
+
+try:
+    __all__.append("compare_gluing_to_surface_profile")
+except NameError:
+    __all__ = ["compare_gluing_to_surface_profile"]
+
+try:
+    __all__.append("polygon_gluing_profile")
+except NameError:
+    __all__ = ["polygon_gluing_profile"]
+
+from .continua import *
+
+try:
+    __all__.append("ContinuumProfile")
+except NameError:
+    __all__ = ["ContinuumProfile"]
+
+try:
+    __all__.append("ContinuumProfileError")
+except NameError:
+    __all__ = ["ContinuumProfileError"]
+
+try:
+    __all__.append("known_continuum_profile")
+except NameError:
+    __all__ = ["known_continuum_profile"]
+
+try:
+    __all__.append("continuum_profile_summary")
+except NameError:
+    __all__ = ["continuum_profile_summary"]
+
+try:
+    __all__.append("continuum_condition_report")
+except NameError:
+    __all__ = ["continuum_condition_report"]
+
+try:
+    __all__.append("hilbert_cube_profile")
+except NameError:
+    __all__ = ["hilbert_cube_profile"]
+
+try:
+    __all__.append("cantor_set_noncontinuum_profile")
+except NameError:
+    __all__ = ["cantor_set_noncontinuum_profile"]
+
+try:
+    __all__.append("topologist_sine_curve_profile")
+except NameError:
+    __all__ = ["topologist_sine_curve_profile"]
+
+try:
+    __all__.append("is_continuum_profile")
+except NameError:
+    __all__ = ["is_continuum_profile"]
+
+from .retracts import *
+
+
+try:
+    __all__.append("RetractionProfile")
+except NameError:
+    __all__ = ["RetractionProfile"]
+
+try:
+    __all__.append("RetractProfileError")
+except NameError:
+    __all__ = ["RetractProfileError"]
+
+try:
+    __all__.append("AbsoluteRetractProfile")
+except NameError:
+    __all__ = ["AbsoluteRetractProfile"]
+
+try:
+    __all__.append("ANRProfile")
+except NameError:
+    __all__ = ["ANRProfile"]
+
+try:
+    __all__.append("retraction_profile")
+except NameError:
+    __all__ = ["retraction_profile"]
+
+try:
+    __all__.append("certified_retraction_profile")
+except NameError:
+    __all__ = ["certified_retraction_profile"]
+
+try:
+    __all__.append("unknown_retraction_profile")
+except NameError:
+    __all__ = ["unknown_retraction_profile"]
+
+try:
+    __all__.append("not_certified_retraction_profile")
+except NameError:
+    __all__ = ["not_certified_retraction_profile"]
+
+try:
+    __all__.append("deformation_retract_profile")
+except NameError:
+    __all__ = ["deformation_retract_profile"]
+
+try:
+    __all__.append("absolute_retract_profile")
+except NameError:
+    __all__ = ["absolute_retract_profile"]
+
+try:
+    __all__.append("anr_profile")
+except NameError:
+    __all__ = ["anr_profile"]
+
+try:
+    __all__.append("known_absolute_retract_profile")
+except NameError:
+    __all__ = ["known_absolute_retract_profile"]
+
+try:
+    __all__.append("known_anr_profile")
+except NameError:
+    __all__ = ["known_anr_profile"]
+
+try:
+    __all__.append("retraction_summary")
+except NameError:
+    __all__ = ["retraction_summary"]
+
+try:
+    __all__.append("absolute_retract_summary")
+except NameError:
+    __all__ = ["absolute_retract_summary"]
+
+try:
+    __all__.append("anr_summary")
+except NameError:
+    __all__ = ["anr_summary"]
+
+try:
+    __all__.append("is_certified_retract")
+except NameError:
+    __all__ = ["is_certified_retract"]
+
+try:
+    __all__.append("is_certified_absolute_retract")
+except NameError:
+    __all__ = ["is_certified_absolute_retract"]
+
+try:
+    __all__.append("is_certified_anr")
+except NameError:
+    __all__ = ["is_certified_anr"]

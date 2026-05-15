@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+build/
+dist/
+*.egg-info/
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+.DS_Store
+
+# Virtual environment
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+.env
+
+# Zip archives
+*.zip
