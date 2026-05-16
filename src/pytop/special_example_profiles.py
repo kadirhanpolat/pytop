@@ -110,3 +110,12 @@ def special_example_route_index() -> dict[str, tuple[str, ...]]:
         for route in profile.bridge_route_keys + profile.research_path_keys:
             route_map.setdefault(route, []).append(profile.key)
     return {route: tuple(keys) for route, keys in sorted(route_map.items())}
+
+
+__all__ = [
+    "SpecialExampleProfile",
+    "get_named_special_example_profiles",
+    "special_example_role_summary",
+    "special_example_chapter_index",
+    "special_example_route_index",
+]

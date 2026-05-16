@@ -7,12 +7,12 @@ API honest about combinatorial growth.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from itertools import combinations
-from typing import Any, Iterable
+from typing import Any
 
 from .finite_spaces import FiniteTopologicalSpace
 from .separation import is_hausdorff, is_t0, is_t1
-
 
 
 def enumerate_topologies(carrier: Iterable[Any]) -> list[FiniteTopologicalSpace]:

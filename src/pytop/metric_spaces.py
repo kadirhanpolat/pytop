@@ -6,10 +6,12 @@ with the structured `Result` model used elsewhere in `pytop`.
 
 from __future__ import annotations
 
+from collections.abc import Callable, Iterable, Sequence
 from dataclasses import dataclass, field
-from itertools import combinations, product as cartesian_product
+from itertools import combinations
+from itertools import product as cartesian_product
 from math import isclose, sqrt
-from typing import Any, Callable, Iterable, Sequence
+from typing import Any
 
 from .finite_spaces import FiniteTopologicalSpace
 from .infinite_spaces import MetricLikeSpace
@@ -423,3 +425,22 @@ def _power_set(points: Sequence[Any]) -> list[set[Any]]:
         subset = {items[i] for i in range(len(items)) if mask & (1 << i)}
         out.append(subset)
     return out
+
+
+__all__ = [
+    "DistanceLike",
+    "MetricSpace",
+    "FiniteMetricSpace",
+    "SymbolicMetricSpace",
+    "open_ball",
+    "closed_ball",
+    "distance_to_subset",
+    "distance_between_subsets",
+    "diameter_of_subset",
+    "is_bounded_subset",
+    "capped_metric",
+    "normalized_metric",
+    "finite_product_metric_space",
+    "validate_metric",
+    "induced_topological_space",
+]

@@ -98,3 +98,11 @@ def research_bridge_chapter_index() -> dict[str, tuple[str, ...]]:
         for chapter in profile.chapter_targets:
             chapter_map.setdefault(chapter, []).append(profile.key)
     return {chapter: tuple(keys) for chapter, keys in sorted(chapter_map.items())}
+
+
+__all__ = [
+    "ResearchBridgeProfile",
+    "get_named_research_bridge_profiles",
+    "research_bridge_layer_summary",
+    "research_bridge_chapter_index",
+]

@@ -22,7 +22,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 # ---------------------------------------------------------------------------
 # ChaosProfile — Devaney's three-ingredient definition
 # ---------------------------------------------------------------------------
@@ -438,3 +437,17 @@ def chaos_profile_registry() -> dict[str, int]:
         "chaotic_map_profiles": len(get_chaotic_map_profiles()),
         "symbolic_dynamics_profiles": len(get_symbolic_dynamics_profiles()),
     }
+
+
+__all__ = [
+    "ChaosProperty",
+    "get_devaney_chaos_properties",
+    "ChaosProfile",
+    "get_chaos_profiles",
+    "chaos_status_summary",
+    "ChaoticMapProfile",
+    "get_chaotic_map_profiles",
+    "SymbolicDynamicsProfile",
+    "get_symbolic_dynamics_profiles",
+    "chaos_profile_registry",
+]

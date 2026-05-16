@@ -7,8 +7,8 @@ representation class and feature name.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Iterable
 
 SUPPORT_LEVELS = {"exact", "theorem", "symbolic", "mixed", "none"}
 
@@ -321,3 +321,14 @@ def normalize_feature_name(feature: str) -> str:
 
 def explain_capability(representation: str, feature: str) -> str:
     return DEFAULT_REGISTRY.explain(representation, feature)
+
+
+__all__ = [
+    "SUPPORT_LEVELS",
+    "FeatureCapability",
+    "CapabilityProfile",
+    "CapabilityRegistry",
+    "DEFAULT_REGISTRY",
+    "normalize_feature_name",
+    "explain_capability",
+]

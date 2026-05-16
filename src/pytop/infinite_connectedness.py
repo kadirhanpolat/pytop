@@ -5,9 +5,14 @@ from __future__ import annotations
 from typing import Any
 
 from .connectedness import analyze_connectedness
-from .infinite_spaces import CocountableSpace, CofiniteSpace, DiscreteInfiniteSpace, IndiscreteInfiniteSpace, InfiniteTopologicalSpace
+from .infinite_spaces import (
+    CocountableSpace,
+    CofiniteSpace,
+    DiscreteInfiniteSpace,
+    IndiscreteInfiniteSpace,
+    InfiniteTopologicalSpace,
+)
 from .result import Result
-
 
 KNOWN_TRUE = {
     DiscreteInfiniteSpace: set(),
@@ -57,3 +62,13 @@ def infinite_connectedness_report(space: Any) -> dict[str, Result]:
         'connected': is_connected_infinite(space),
         'path_connected': is_path_connected_infinite(space),
     }
+
+
+__all__ = [
+    "KNOWN_TRUE",
+    "KNOWN_FALSE",
+    "analyze_infinite_connectedness",
+    "is_connected_infinite",
+    "is_path_connected_infinite",
+    "infinite_connectedness_report",
+]

@@ -166,3 +166,17 @@ def render_compactness_strengthened_report() -> str:
     lines.append("")
     lines.append("Questionbank alignment should reuse these lane labels for Chapter 35 direct routes.")
     return "\n".join(lines)
+
+
+__all__ = [
+    "CompactnessStrengthenedProfile",
+    "get_named_compactness_strengthened_profiles",
+    "compactness_strengthened_layer_summary",
+    "compactness_strengthened_lane_summary",
+    "compactness_strengthened_entry_profiles",
+    "compactness_strengthened_selected_profiles",
+    "compactness_strengthened_warning_profiles",
+    "compactness_strengthened_chapter_index",
+    "compactness_strengthened_prerequisite_bridge",
+    "render_compactness_strengthened_report",
+]

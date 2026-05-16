@@ -6,15 +6,16 @@ useful for notebooks, classroom experiments, and quick internal tests.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from itertools import combinations
-from typing import Any, Iterable
+from typing import Any
 
 from .finite_spaces import FiniteTopologicalSpace
 from .infinite_examples import (
     basis_defined_second_countable,
+    closed_unit_interval_metric,
     infinite_examples_catalog,
     integers_discrete,
-    closed_unit_interval_metric,
     lower_limit_line_like,
     naturals_cofinite,
     naturals_discrete,
@@ -22,10 +23,10 @@ from .infinite_examples import (
     real_line_metric,
     real_line_order_topology,
     real_plane_metric,
-    upper_limit_line_like,
     reals_cocountable,
     reals_indiscrete,
     sorgenfrey_line_like,
+    upper_limit_line_like,
 )
 
 

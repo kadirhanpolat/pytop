@@ -29,7 +29,8 @@ The reference book (Engelking) is treated solely as a scope checklist.
 """
 
 from __future__ import annotations
-from typing import Any, Dict, List, Optional
+
+from typing import Any, Optional
 
 from .result import Result
 
@@ -157,7 +158,7 @@ def cofinality_class(space: Any) -> str:
 # cofinality_profile
 # ---------------------------------------------------------------------------
 
-def cofinality_profile(space: Any) -> Dict[str, Any]:
+def cofinality_profile(space: Any) -> dict[str, Any]:
     """
     Return a comprehensive cofinality profile for *space*.
 
@@ -176,7 +177,7 @@ def cofinality_profile(space: Any) -> Dict[str, Any]:
     representation          : str
     """
     rep = _representation_of(space)
-    tags = _tags_of(space)
+    tags = _tags_of(space)  # noqa: F841
     n = _carrier_size(space)
     cf_class = cofinality_class(space)
 
@@ -213,8 +214,8 @@ def cofinality_profile(space: Any) -> Dict[str, Any]:
     if cf_class == _CF_FINITE:
         n_str = str(n) if n is not None else "n"
         cofinal_note = (
-            "For a finite ordinal n, the singleton {{n-1}} is already cofinal (n-1 >= all beta < n). "
-            "Hence cf(n) = 1 for n > 0. Here n = {}.".format(n_str)
+            "For a finite ordinal n, the singleton {n-1} is already cofinal (n-1 >= all beta < n). "
+            f"Hence cf(n) = 1 for n > 0. Here n = {n_str}."
         )
     elif cf_class == _CF_OMEGA_REGULAR:
         cofinal_note = (
@@ -314,7 +315,7 @@ def cofinality_profile(space: Any) -> Dict[str, Any]:
     )
 
     # --- Key theorems ---
-    key_theorems: List[str] = [
+    key_theorems: list[str] = [
         "cf(alpha) is always a regular cardinal (the cofinality of any ordinal is regular).",
         "cf(cf(alpha)) = cf(alpha): cofinality is idempotent.",
         "Every successor cardinal kappa^+ is regular: cf(kappa^+) = kappa^+.",
@@ -328,7 +329,7 @@ def cofinality_profile(space: Any) -> Dict[str, Any]:
     ]
 
     # --- Key examples ---
-    key_examples: List[str] = [
+    key_examples: list[str] = [
         "cf(0) = 0 (convention); cf(1) = 1; cf(n) = 1 for finite n > 0.",
         "cf(omega) = omega: omega is the first infinite regular cardinal.",
         "cf(omega+1) = 1: {omega} is cofinal in omega+1.",
@@ -387,15 +388,15 @@ def analyze_cofinality(space: Any) -> Result:
     else:
         mode = "symbolic"
 
-    justification: List[str] = [
-        "Representation: {}.".format(rep),
-        "Cofinality class: {} -- label: {}.".format(cf_class, label),
-        "Regularity status: {}.".format(reg),
+    justification: list[str] = [
+        f"Representation: {rep}.",
+        f"Cofinality class: {cf_class} -- label: {label}.",
+        f"Regularity status: {reg}.",
         "Cofinal subset: {}".format(profile["cofinal_subset_note"][:90]),
         "Topological bridge: {}...".format(profile["topological_bridge"][:90]),
     ]
     if rep == "finite" and n is not None:
-        justification.insert(1, "Finite ordinal n={}: cf(n)=1 for n>0 (exact).".format(n))
+        justification.insert(1, f"Finite ordinal n={n}: cf(n)=1 for n>0 (exact).")
 
     return Result.true(
         mode=mode,
@@ -410,3 +411,11 @@ def analyze_cofinality(space: Any) -> Result:
             "regularity_status": reg,
         },
     )
+
+
+__all__ = [
+    "CofinAlityError",
+    "cofinality_class",
+    "cofinality_profile",
+    "analyze_cofinality",
+]

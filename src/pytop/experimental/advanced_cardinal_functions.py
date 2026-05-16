@@ -9,9 +9,13 @@ from __future__ import annotations
 
 from pytop.cardinal_function_profiles import (
     CardinalFunctionProfile as InequalityProfile,
+)
+from pytop.cardinal_function_profiles import (
     cardinal_function_chapter_index,
-    cardinal_function_layer_summary as inequality_profile_layer_summary,
     get_named_cardinal_function_profiles,
+)
+from pytop.cardinal_function_profiles import (
+    cardinal_function_layer_summary as inequality_profile_layer_summary,
 )
 
 

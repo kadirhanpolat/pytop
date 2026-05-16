@@ -16,7 +16,6 @@ from __future__ import annotations
 
 from typing import Any
 
-
 VERSION = "0.1.104"
 
 UNIFORM_TRUE_TAGS = {

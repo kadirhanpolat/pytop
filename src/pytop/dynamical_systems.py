@@ -14,7 +14,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 # ---------------------------------------------------------------------------
 # OrbitProfile
 # ---------------------------------------------------------------------------
@@ -364,3 +363,17 @@ def dynamical_systems_profile_registry() -> dict[str, int]:
         "fixed_point_profiles": len(get_fixed_point_profiles()),
         "conjugacy_profiles": len(get_conjugacy_profiles()),
     }
+
+
+__all__ = [
+    "OrbitProfile",
+    "get_orbit_profiles",
+    "orbit_type_summary",
+    "FixedPointProfile",
+    "get_fixed_point_profiles",
+    "fixed_point_stability_summary",
+    "TopologicalConjugacyProfile",
+    "get_conjugacy_profiles",
+    "conjugacy_exists_summary",
+    "dynamical_systems_profile_registry",
+]

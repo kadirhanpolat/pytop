@@ -7,8 +7,9 @@ inspection. Instead, it provides a small symbolic map layer that integrates with
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any, Iterable
+from typing import Any
 
 from .capabilities import normalize_feature_name
 from .result import Result

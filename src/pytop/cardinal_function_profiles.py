@@ -84,3 +84,11 @@ def cardinal_function_chapter_index() -> dict[str, tuple[str, ...]]:
         for chapter in profile.chapter_targets:
             chapter_map.setdefault(chapter, []).append(profile.key)
     return {chapter: tuple(keys) for chapter, keys in sorted(chapter_map.items())}
+
+
+__all__ = [
+    "CardinalFunctionProfile",
+    "get_named_cardinal_function_profiles",
+    "cardinal_function_layer_summary",
+    "cardinal_function_chapter_index",
+]

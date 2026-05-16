@@ -374,3 +374,13 @@ def theorem_profile_index_by_profile_key() -> dict[str, tuple[str, ...]]:
         for profile_key in alignment.profile_keys:
             profile_map.setdefault(profile_key, []).append(alignment.key)
     return {profile_key: tuple(keys) for profile_key, keys in sorted(profile_map.items())}
+
+
+__all__ = [
+    "TheoremProfileAlignment",
+    "get_promoted_theorem_profile_alignments",
+    "theorem_profile_alignment_summary",
+    "theorem_profile_family_summary",
+    "theorem_profile_feature_index",
+    "theorem_profile_index_by_profile_key",
+]

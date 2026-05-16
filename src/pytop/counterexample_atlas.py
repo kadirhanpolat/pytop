@@ -32,7 +32,6 @@ from typing import Any
 
 from .result import Result
 
-
 # ---------------------------------------------------------------------------
 # Atlas data
 # ---------------------------------------------------------------------------
@@ -352,3 +351,13 @@ def analyze_counterexample_atlas(
 
 
 ATLAS_IDS = tuple(sorted(_ATLAS.keys()))
+
+
+__all__ = [
+    "counterexample_lookup",
+    "counterexample_atlas_by_layer",
+    "counterexample_atlas_by_property",
+    "counterexample_atlas_by_construction",
+    "analyze_counterexample_atlas",
+    "ATLAS_IDS",
+]

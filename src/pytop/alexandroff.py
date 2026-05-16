@@ -8,8 +8,9 @@ upper sets.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from itertools import combinations
-from typing import Any, Iterable
+from typing import Any
 
 from .finite_spaces import FiniteTopologicalSpace
 from .relations import canonical_projection_from_equivalence, quotient_set

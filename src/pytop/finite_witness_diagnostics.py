@@ -11,7 +11,7 @@ No external exercise text or solution is copied here.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any
 
 from .finite_basis_engine import analyze_basis
 from .finite_map_engine import FiniteMapEngineError, analyze_finite_map, normalize_finite_map_data

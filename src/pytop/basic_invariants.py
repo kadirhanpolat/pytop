@@ -21,7 +21,7 @@ Her değişmez için:
 
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any
 
 from .result import Result
 
@@ -223,7 +223,7 @@ _CARDINAL_FUNCTION_BRIDGE = (
 
 # ─────────────── ana API ───────────────
 
-def topological_invariants_profile(space: Any) -> Dict:
+def topological_invariants_profile(space: Any) -> dict:
     """8 kardinal değişmezin pedagojik profilini döndür.
 
     Anahtarlar:

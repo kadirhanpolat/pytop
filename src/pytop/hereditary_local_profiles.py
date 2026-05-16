@@ -162,3 +162,16 @@ def render_hereditary_local_strengthening_report() -> str:
     lines.append("Chapter 33 now reads second-countable safety before hereditary/local warning lines")
     lines.append("Chapter 34 should use these lane labels when selecting classical inequality examples")
     return "\n".join(lines)
+
+
+__all__ = [
+    "HereditaryLocalProfile",
+    "get_named_hereditary_local_profiles",
+    "hereditary_local_quantifier_summary",
+    "hereditary_local_chapter_index",
+    "hereditary_local_lane_summary",
+    "hereditary_local_entry_profiles",
+    "hereditary_local_warning_profiles",
+    "hereditary_local_chapter32_entry_bridge",
+    "render_hereditary_local_strengthening_report",
+]

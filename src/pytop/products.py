@@ -6,8 +6,9 @@ delegated to the symbolic construction layer.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from itertools import product as cartesian_product
-from typing import Any, Iterable
+from typing import Any
 
 from .finite_spaces import FiniteTopologicalSpace
 from .infinite_constructions import product as infinite_product

@@ -8,8 +8,9 @@ how it was obtained.
 
 from __future__ import annotations
 
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
-from typing import Any, Callable, Iterable
+from typing import Any
 
 from .infinite_maps import (
     ConstantMap,
@@ -20,6 +21,8 @@ from .infinite_maps import (
     SymbolicMap,
     analyze_infinite_map_property,
     compose_maps,
+)
+from .infinite_maps import (
     identity_map as symbolic_identity_map,
 )
 from .result import Result

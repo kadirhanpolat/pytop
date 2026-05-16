@@ -9,8 +9,9 @@ representations the module uses theorem-backed or metadata-backed answers.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from itertools import combinations
-from typing import Any, Iterable
+from typing import Any
 
 from .capabilities import DEFAULT_REGISTRY, normalize_feature_name
 from .result import Result
@@ -189,7 +190,7 @@ def _finite_cellularity(opens: list[set[Any]]) -> int:
 
 def _is_basis(points: tuple[Any, ...], opens: list[set[Any]], family: Iterable[set[Any]]) -> bool:
     basis = [set(U) for U in family]
-    for O in opens:
+    for O in opens:  # noqa: E741
         if not O:
             continue
         for x in O:

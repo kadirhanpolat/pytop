@@ -8,8 +8,9 @@ universe, and elementary Cartesian products.
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping
 from itertools import chain, combinations
-from typing import Any, Iterable, Mapping
+from typing import Any
 
 
 class SetOperationError(ValueError):

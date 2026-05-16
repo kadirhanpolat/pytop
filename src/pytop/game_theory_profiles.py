@@ -22,7 +22,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 # ---------------------------------------------------------------------------
 # KakutaniProfile
 # ---------------------------------------------------------------------------
@@ -440,3 +439,16 @@ def game_theory_profile_registry() -> dict[str, int]:
         "nash_profiles": len(get_nash_profiles()),
         "economic_equilibrium_profiles": len(get_economic_equilibrium_profiles()),
     }
+
+
+__all__ = [
+    "KakutaniProfile",
+    "get_kakutani_profiles",
+    "kakutani_fixed_point_summary",
+    "NashEquilibriumProfile",
+    "get_nash_profiles",
+    "nash_equilibrium_type_summary",
+    "EconomicEquilibriumProfile",
+    "get_economic_equilibrium_profiles",
+    "game_theory_profile_registry",
+]

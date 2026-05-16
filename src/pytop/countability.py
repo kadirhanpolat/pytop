@@ -7,7 +7,6 @@ from typing import Any
 from .capabilities import DEFAULT_REGISTRY
 from .result import Result
 
-
 TRUE_TAGS = {
     "first_countable": ["first_countable"],
     "second_countable": ["second_countable"],

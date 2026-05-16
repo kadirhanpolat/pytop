@@ -7,9 +7,13 @@ gluings or arbitrary input spaces.
 """
 
 from __future__ import annotations
+
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
-from typing import Any, Iterable, Mapping
+from typing import Any
+
 from .manifolds import ManifoldProfile, manifold_profile
+
 
 class SurfaceProfileError(ValueError):
     """Raised when surface profile data is malformed."""

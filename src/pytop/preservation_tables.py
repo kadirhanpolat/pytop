@@ -293,3 +293,17 @@ def get_preservation_by_products(property_name):
     For instance, 'compactness' -> True (Tychonoff), 'first_countability' -> False.
     """
     return _verdict_to_bool(property_name, "arbitrary_product")
+
+
+__all__ = [
+    "PreservationError",
+    "preservation_table",
+    "preservation_table_lookup",
+    "preservation_table_row",
+    "preservation_table_column",
+    "analyze_preservation_table",
+    "invariance_profile",
+    "analyze_preservation",
+    "get_preservation_by_continuous_maps",
+    "get_preservation_by_products",
+]

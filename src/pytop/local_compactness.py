@@ -40,7 +40,6 @@ from .finite_spaces import FiniteTopologicalSpace
 from .result import Result
 from .separation import analyze_separation
 
-
 # ---------------------------------------------------------------------------
 # Tags
 # ---------------------------------------------------------------------------

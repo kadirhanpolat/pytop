@@ -5,13 +5,12 @@ Kept separate from metrization_profiles.py to avoid circular imports.
 """
 
 from __future__ import annotations
+
 from typing import Any
 
-from .capabilities import DEFAULT_REGISTRY
 from .finite_spaces import FiniteTopologicalSpace
 from .metrization_profiles import get_named_metrization_profiles
 from .result import Result
-
 
 TRUE_METRIZABLE_TAGS: set[str] = {
     "metrizable", "metric", "second_countable_regular",
@@ -177,3 +176,13 @@ def analyze_metrization(space: Any) -> Result:
         justification=r.justification,
         metadata=metadata,
     )
+
+
+__all__ = [
+    "TRUE_METRIZABLE_TAGS",
+    "FALSE_METRIZABLE_TAGS",
+    "MetrizationError",
+    "is_metrizable",
+    "metrization_profile",
+    "analyze_metrization",
+]

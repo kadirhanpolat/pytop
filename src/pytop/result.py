@@ -11,8 +11,9 @@ The aim is to keep the result contract explicit:
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any, Iterable
+from typing import Any
 
 VALID_STATUS = {"true", "false", "unknown", "conditional"}
 VALID_MODE = {"exact", "theorem", "symbolic", "mixed"}
@@ -111,7 +112,7 @@ class Result:
         }
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "Result":
+    def from_dict(cls, data: dict[str, Any]) -> Result:
         return cls(
             status=data["status"],
             mode=data["mode"],
@@ -132,7 +133,7 @@ class Result:
         justification: Iterable[str] = (),
         proof_outline: Iterable[str] = (),
         metadata: dict[str, Any] | None = None,
-    ) -> "Result":
+    ) -> Result:
         return cls(
             status="true",
             mode=mode,
@@ -153,7 +154,7 @@ class Result:
         justification: Iterable[str] = (),
         proof_outline: Iterable[str] = (),
         metadata: dict[str, Any] | None = None,
-    ) -> "Result":
+    ) -> Result:
         return cls(
             status="false",
             mode=mode,
@@ -174,7 +175,7 @@ class Result:
         justification: Iterable[str] = (),
         proof_outline: Iterable[str] = (),
         metadata: dict[str, Any] | None = None,
-    ) -> "Result":
+    ) -> Result:
         return cls(
             status="unknown",
             mode=mode,
@@ -195,7 +196,7 @@ class Result:
         justification: Iterable[str] = (),
         proof_outline: Iterable[str] = (),
         metadata: dict[str, Any] | None = None,
-    ) -> "Result":
+    ) -> Result:
         return cls(
             status="conditional",
             mode=mode,

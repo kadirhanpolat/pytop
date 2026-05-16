@@ -19,3 +19,8 @@ class FiniteTopologicalSpace(TopologicalSpace):
 
     def is_finite(self) -> bool:
         return True
+
+
+__all__ = [
+    "FiniteTopologicalSpace",
+]

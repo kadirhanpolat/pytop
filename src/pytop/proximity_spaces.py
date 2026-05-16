@@ -12,7 +12,6 @@ from __future__ import annotations
 
 from typing import Any
 
-
 VERSION = "0.1.105"
 
 PROXIMITY_TRUE_TAGS = {
@@ -118,3 +117,12 @@ def smirnov_compactification(proximity_space):
         "closeness_principle": "A and B are close iff their closures intersect in the compactification.",
         "version": VERSION,
     }
+
+
+__all__ = [
+    "VERSION",
+    "PROXIMITY_TRUE_TAGS",
+    "is_proximity_space",
+    "is_close",
+    "smirnov_compactification",
+]

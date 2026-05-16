@@ -12,11 +12,12 @@ statements are copied here.
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
-from typing import Any, Iterable, Mapping
+from typing import Any
 
-from .finite_operator_engine import is_topology
 from .finite_basis_engine import continuity_via_basis_preimage
+from .finite_operator_engine import is_topology
 
 
 class FiniteMapEngineError(ValueError):

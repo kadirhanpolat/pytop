@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any, Iterable
+from typing import Any
 
 
 @dataclass
@@ -50,7 +51,7 @@ class TopologicalSpace:
         description: str,
         representation: str = "symbolic_general",
         tags: Iterable[str] = (),
-    ) -> "TopologicalSpace":
+    ) -> TopologicalSpace:
         return cls(
             carrier=None,
             topology=None,

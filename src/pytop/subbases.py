@@ -7,10 +7,10 @@ validation around basis criteria, subbasis generation, and local-base checks.
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping
 from itertools import combinations
-from typing import Any, Iterable, Mapping
+from typing import Any
 
-from .families import normalize_family
 from .finite_spaces import FiniteTopologicalSpace
 from .spaces import TopologicalSpace
 

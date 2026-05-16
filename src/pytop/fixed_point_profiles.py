@@ -20,7 +20,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 # ---------------------------------------------------------------------------
 # NoRetractionProfile
 # ---------------------------------------------------------------------------
@@ -376,3 +375,16 @@ def fixed_point_theorem_registry() -> dict[str, int]:
         "brouwer_fpt_profiles": len(get_brouwer_fpt_profiles()),
         "retraction_profiles": len(get_retraction_profiles()),
     }
+
+
+__all__ = [
+    "NoRetractionProfile",
+    "get_no_retraction_profiles",
+    "no_retraction_by_dimension",
+    "BrouwerFPTProfile",
+    "get_brouwer_fpt_profiles",
+    "brouwer_fpt_by_dimension",
+    "RetractionProfile",
+    "get_retraction_profiles",
+    "fixed_point_theorem_registry",
+]

@@ -18,7 +18,6 @@ from .result import Result
 from .separation import is_hausdorff, is_t0, is_t1
 
 
-
 def compare_spaces(left: Any, right: Any) -> dict[str, Any]:
     return {
         "same_representation": _representation_of(left) == _representation_of(right),

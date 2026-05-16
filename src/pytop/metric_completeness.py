@@ -19,8 +19,7 @@ The pedagogical constraint enforced here is the one stated in
 
 from __future__ import annotations
 
-from itertools import combinations
-from typing import Any, Iterable
+from typing import Any
 
 from .result import Result
 
@@ -214,7 +213,7 @@ def analyze_metric_completeness(
     compactness = metric_compactness_check(space)
 
     all_exact = complete.is_exact and totally_bounded.is_exact and compactness.is_exact
-    all_true = complete.is_true and totally_bounded.is_true and compactness.is_true
+    all_true = complete.is_true and totally_bounded.is_true and compactness.is_true  # noqa: F841
 
     return Result.true(
         mode="exact" if all_exact else "mixed",
@@ -270,3 +269,12 @@ def _finite_metric_data(space: Any) -> dict[str, Any]:
         "carrier": frozenset(points),
         "distance": distance,
     }
+
+
+__all__ = [
+    "MetricCompletenessError",
+    "is_complete",
+    "is_totally_bounded",
+    "metric_compactness_check",
+    "analyze_metric_completeness",
+]

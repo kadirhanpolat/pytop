@@ -16,7 +16,8 @@ Sağlanan API:
 """
 
 from __future__ import annotations
-from typing import Any, Dict, Optional
+
+from typing import Any, Optional
 
 from .result import Result
 
@@ -39,7 +40,7 @@ class CardinalFunctionFrameworkError(ValueError):
 # TANIM KATMANI
 # ═══════════════════════════════════════════════════════════════
 
-_DEFINITIONS: Dict[str, Dict] = {
+_DEFINITIONS: dict[str, dict] = {
     "weight": {
         "symbol": "w(X)",
         "definition": (
@@ -157,7 +158,7 @@ _FUNCTION_NAMES = list(_DEFINITIONS.keys())
 # KARŞILAŞTIRMA KATMANI
 # ═══════════════════════════════════════════════════════════════
 
-_COMPARISONS: Dict[frozenset, Dict] = {
+_COMPARISONS: dict[frozenset, dict] = {
     frozenset({"weight", "density"}): {
         "inequality": "d(X) <= w(X)",
         "direction": "density <= weight",
@@ -307,7 +308,7 @@ def _carrier_size(space: Any) -> Optional[int]:
 # ANA API — TANIM
 # ═══════════════════════════════════════════════════════════════
 
-def cardinal_function_definition(name: str) -> Dict:
+def cardinal_function_definition(name: str) -> dict:
     """Verilen kardinal fonksiyonun tanım kaydını döndür.
 
     Args:
@@ -340,7 +341,7 @@ def cardinal_function_definition(name: str) -> Dict:
 # ANA API — KARŞILAŞTIRMA
 # ═══════════════════════════════════════════════════════════════
 
-def cardinal_function_comparison(name1: str, name2: str) -> Dict:
+def cardinal_function_comparison(name1: str, name2: str) -> dict:
     """İki kardinal fonksiyon arasındaki karşılaştırma kaydını döndür.
 
     Returns:
@@ -375,7 +376,7 @@ def cardinal_function_comparison(name1: str, name2: str) -> Dict:
 # ANA API — ÇERÇEVE PROFİLİ
 # ═══════════════════════════════════════════════════════════════
 
-def cardinal_functions_framework_profile(space: Any) -> Dict:
+def cardinal_functions_framework_profile(space: Any) -> dict:
     """3 katmanlı kardinal fonksiyon çerçeve profilini döndür.
 
     Anahtarlar:

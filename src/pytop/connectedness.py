@@ -8,7 +8,6 @@ from .capabilities import DEFAULT_REGISTRY, normalize_feature_name
 from .result import Result
 from .theorem_engine import infer_feature
 
-
 TRUE_TAGS = {
     "connected": ["connected", "marked_connected"],
     "path_connected": ["path_connected"],

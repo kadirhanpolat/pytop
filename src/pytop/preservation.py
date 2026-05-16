@@ -15,12 +15,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from .result import Result
-from .theorem_engine import infer_feature
-from .maps import analyze_map_property, satisfies_closure_image_inclusion
 from .compactness import is_compact
 from .connectedness import is_connected
-
+from .maps import analyze_map_property, satisfies_closure_image_inclusion
+from .result import Result
+from .theorem_engine import infer_feature
 
 
 def compact_under_continuous_image(map_obj: Any) -> Result:

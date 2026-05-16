@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pytop"
-version = "0.4.2"
+version = "0.4.3"
 description = "Mathematical topology library: degree theory, embeddings, graphs, knots, surfaces, 3-manifolds, cosmology."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -12,7 +12,6 @@ license = "MIT"
 authors = [{name = "Kadirhan Polat", email = "kadirhanpolat@gmail.com"}]
 keywords = ["topology", "mathematics", "knot-theory", "manifolds", "graph-topology", "degree-theory", "point-set-topology"]
 dependencies = []
-
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
@@ -23,6 +22,9 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-cov>=5.0", "ruff>=0.4", "mypy>=1.10"]
 
 [project.urls]
 Repository = "https://github.com/kadirhanpolat/pytop"
@@ -35,6 +37,34 @@ package-dir = {"" = "src"}
 where = ["src"]
 include = ["pytop*"]
 
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = ["src/pytop/_internal", "examples_bank"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP"]
+ignore = [
+    "E501",   # line too long — formatter handles this
+    "E701",   # multiple statements on one line (colon) — common in math helpers
+    "E702",   # multiple statements on one line (semicolon) — common in math helpers
+    "UP007",  # X | Y union — keep explicit Optional for docstring clarity
+    "UP045",  # Optional[X] → X | None — consistent with UP007 exception
+]
+
+[tool.ruff.lint.per-file-ignores]
+"src/pytop/__init__.py" = ["F401", "I001"]  # re-exports are intentional
+"src/pytop/experimental/*.py" = ["F401"]    # re-exports are intentional
+"tests/*" = ["F811"]  # fixture redefinition is fine
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_return_any = false
+exclude = ["src/pytop/_internal", "examples_bank", "tests"]
+
 [tool.coverage.run]
 source = ["pytop"]
 omit = ["*/tests/*", "*/__pycache__/*", "*/pytop/_internal/*"]
@@ -42,5 +72,5 @@ omit = ["*/tests/*", "*/__pycache__/*", "*/pytop/_internal/*"]
 [tool.coverage.report]
 show_missing = true
 skip_covered = false
-fail_under = 60
+fail_under = 90
 exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]

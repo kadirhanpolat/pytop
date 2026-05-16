@@ -20,7 +20,8 @@ RefinementError                    → exception class
 """
 
 from __future__ import annotations
-from typing import Any, Dict, List
+
+from typing import Any
 
 from .result import Result
 
@@ -179,7 +180,7 @@ def is_locally_finite_cover(space: Any) -> Result:
 # refinement_profile
 # ---------------------------------------------------------------------------
 
-def refinement_profile(space: Any) -> Dict[str, Any]:
+def refinement_profile(space: Any) -> dict[str, Any]:
     """
     Full refinement language profile for *space*.
 
@@ -350,3 +351,11 @@ def analyze_cover_refinement(space: Any) -> Result:
             "locally_finite_criterion": lf.metadata.get("criterion"),
         },
     )
+
+
+__all__ = [
+    "RefinementError",
+    "is_locally_finite_cover",
+    "refinement_profile",
+    "analyze_cover_refinement",
+]

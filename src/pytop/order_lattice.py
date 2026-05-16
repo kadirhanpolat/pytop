@@ -7,7 +7,8 @@ for finite posets, especially those that arise from Alexandroff/order examples.
 from __future__ import annotations
 
 from collections import defaultdict, deque
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from .alexandroff import is_partial_order, normalize_carrier, reflexive_transitive_closure
 from .result import Result

@@ -9,8 +9,9 @@ explicitly unknown, and registered examples carry their certification notes.
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
-from typing import Any, Iterable, Mapping
+from typing import Any
 
 from .homotopy import DeformationRetractionProfile, deformation_retraction_profile
 

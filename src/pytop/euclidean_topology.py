@@ -7,8 +7,9 @@ heavy theorems such as invariance of domain.
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
-from typing import Any, Iterable, Mapping
+from typing import Any
 
 
 class EuclideanTopologyProfileError(ValueError):

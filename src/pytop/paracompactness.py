@@ -21,7 +21,8 @@ ParacompactnessError          → exception class
 """
 
 from __future__ import annotations
-from typing import Any, Dict
+
+from typing import Any
 
 from .result import Result
 
@@ -184,7 +185,7 @@ def is_paracompact(space: Any) -> Result:
 # paracompact_profile
 # ---------------------------------------------------------------------------
 
-def paracompact_profile(space: Any) -> Dict[str, Any]:
+def paracompact_profile(space: Any) -> dict[str, Any]:
     """
     Return a comprehensive paracompactness profile for *space*.
 
@@ -343,3 +344,14 @@ def partition_of_unity_warning():
     Paracompactness guarantees the existence of a partition of unity subordinate to any open cover.
     """
     return "Paracompact spaces admit partitions of unity subordinate to any open cover."
+
+
+__all__ = [
+    "ParacompactnessError",
+    "is_paracompact",
+    "paracompact_profile",
+    "analyze_paracompactness",
+    "is_locally_finite_refinement",
+    "is_star_refinement",
+    "partition_of_unity_warning",
+]

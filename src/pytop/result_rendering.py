@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
-from typing import Any, Iterable, Mapping, Protocol, runtime_checkable
+from typing import Any, Protocol, runtime_checkable
 
 from .result import Result
 
@@ -125,3 +126,15 @@ def _extend_markdown_section(lines: list[str], title: str, values: Iterable[str]
     items=[str(v).strip() for v in values if str(v).strip()]
     if items:
         lines.extend(["", f"**{title}**"]); lines.extend(f"- {item}" for item in items)
+
+
+__all__ = [
+    "SupportsResult",
+    "normalize_result_source",
+    "result_status_label",
+    "result_mode_label",
+    "ResultExplanation",
+    "explain_result",
+    "render_result",
+    "render_result_collection",
+]

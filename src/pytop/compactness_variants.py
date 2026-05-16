@@ -23,7 +23,8 @@ CompactnessVariantError            → exception class
 """
 
 from __future__ import annotations
-from typing import Any, Dict
+
+from typing import Any
 
 from .result import Result
 
@@ -395,7 +396,7 @@ def is_lindelof(space: Any) -> Result:
 # Combined profile
 # ---------------------------------------------------------------------------
 
-def compactness_variant_profile(space: Any) -> Dict[str, Any]:
+def compactness_variant_profile(space: Any) -> dict[str, Any]:
     """
     Return all four variant results for *space* as a single dict.
 

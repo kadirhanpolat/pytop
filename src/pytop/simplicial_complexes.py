@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any, Iterable
+from typing import Any
 
 from .simplices import Simplex
 
@@ -66,7 +67,7 @@ class SimplicialComplex:
             if not any(candidate.vertices < other.vertices for other in self.simplexes)
         }
 
-    def skeleton(self, dimension: int) -> "SimplicialComplex":
+    def skeleton(self, dimension: int) -> SimplicialComplex:
         """Return the subcomplex of simplexes of dimension at most ``dimension``."""
 
         if dimension < 0:

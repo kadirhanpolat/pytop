@@ -6,7 +6,8 @@ Infinite and symbolic quotients use the symbolic quotient layer.
 
 from __future__ import annotations
 
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from .finite_spaces import FiniteTopologicalSpace
 from .infinite_quotients import analyze_quotient_map as analyze_symbolic_quotient_map

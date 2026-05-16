@@ -179,3 +179,11 @@ def analyze_preservation_table(property_name: str | None = None, construction: s
         justification=["Full v0.1.48 basic preservation table."],
         metadata={"v0_1_48_corridor_record": True},
     )
+
+
+__all__ = [
+    "preservation_table_lookup",
+    "preservation_table_row",
+    "preservation_table_column",
+    "analyze_preservation_table",
+]

@@ -138,3 +138,16 @@ def render_tightness_network_lane_report() -> str:
     lines.append("first reading keeps definitions, safe bounds, and discrete/metric benchmarks together")
     lines.append("advanced reading delays sequential warning-lines until the reader has the entry comparison table")
     return "\n".join(lines)
+
+
+__all__ = [
+    "TightnessNetworkProfile",
+    "get_named_tightness_network_profiles",
+    "tightness_network_layer_summary",
+    "tightness_network_chapter_index",
+    "tightness_network_lane_summary",
+    "tightness_network_entry_profiles",
+    "tightness_network_advanced_profiles",
+    "tightness_network_entry_advanced_split",
+    "render_tightness_network_lane_report",
+]

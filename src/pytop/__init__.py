@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.4.2"
+__version__ = "0.4.3"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -114,7 +114,7 @@ from .game_theory_profiles import (
 from .fixed_point_profiles import (
     NoRetractionProfile,
     BrouwerFPTProfile,
-    RetractionProfile,
+    RetractionProfile,  # noqa: F811 — retracts.RetractionProfile shadows this below
     get_no_retraction_profiles,
     get_brouwer_fpt_profiles,
     get_retraction_profiles,
@@ -207,7 +207,6 @@ from .finite_operator_engine import (
     exterior,
     boundary,
     derived_set,
-    neighborhood_system,
     relative_topology,
     kuratowski_closure_check,
     operator_table,
@@ -374,8 +373,6 @@ from .infinite_maps import (
     is_open_map,
     is_quotient_map,
     is_surjective_map,
-    homeomorphism_criterion_result,
-    initial_topology_descriptor,
 )
 from .infinite_quotients import analyze_quotient_map, make_quotient_map, quotient_space, quotient_space_from_map
 from .infinite_separation import (
@@ -528,7 +525,7 @@ from .paths import (
 )
 from .homotopy import (
     ContractibleProfile,
-    DeformationRetractionProfile,
+    DeformationRetractionProfile,  # noqa: F811 — retracts.DeformationRetractionProfile shadows below
     HOMOTOPY_STATUSES,
     HomotopyProfile,
     HomotopyProfileError,
@@ -1661,11 +1658,11 @@ from .continua import (
     is_continuum_profile,
 )
 from .retracts import (
-    RetractionProfile,
+    RetractionProfile,  # noqa: F811
     RetractProfileError,
     AbsoluteRetractProfile,
     ANRProfile,
-    DeformationRetractionProfile,
+    DeformationRetractionProfile,  # noqa: F811
     retraction_profile,
     certified_retraction_profile,
     unknown_retraction_profile,

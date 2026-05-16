@@ -8,8 +8,9 @@ operator without additional structure, it returns a structured unknown result.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from itertools import combinations
-from typing import Any, Iterable
+from typing import Any
 
 from .result import Result
 

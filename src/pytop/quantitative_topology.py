@@ -30,7 +30,8 @@ The reference book (Engelking) is treated solely as a scope checklist.
 """
 
 from __future__ import annotations
-from typing import Any, Dict, List, Optional
+
+from typing import Any, Optional
 
 from .result import Result
 
@@ -101,7 +102,7 @@ def _weight_estimate(space: Any, rep: str, tags: frozenset, n: Optional[int]) ->
         if n is not None and n == 0:
             return "0 (empty space)"
         if n is not None:
-            return "finite (at most {})".format(n)
+            return f"finite (at most {n})"
         return "finite"
 
     if any(t in tags for t in ("second_countable", "separable_metrizable",
@@ -124,7 +125,7 @@ def _density_estimate(space: Any, rep: str, tags: frozenset, n: Optional[int]) -
         if n is not None and n == 0:
             return "0"
         if n is not None:
-            return "finite (at most {})".format(n)
+            return f"finite (at most {n})"
         return "finite"
 
     if any(t in tags for t in ("separable", "second_countable",
@@ -172,7 +173,7 @@ def _lindelof_estimate(space: Any, rep: str, tags: frozenset, n: Optional[int]) 
 # quantitative_profile
 # ---------------------------------------------------------------------------
 
-def quantitative_profile(space: Any) -> Dict[str, Any]:
+def quantitative_profile(space: Any) -> dict[str, Any]:
     """
     Return a comprehensive quantitative topology profile for *space*.
 
@@ -240,7 +241,7 @@ def quantitative_profile(space: Any) -> Dict[str, Any]:
     )
 
     # key inequalities
-    key_ineqs: List[str] = [
+    key_ineqs: list[str] = [
         "d(X) <= w(X): every base contains a dense subset (pick one point per base element).",
         "chi(X) <= w(X): a base for X restricts to a local base at each point.",
         "L(X) <= w(X): second-countable implies Lindelof.",
@@ -252,7 +253,7 @@ def quantitative_profile(space: Any) -> Dict[str, Any]:
     ]
 
     # key examples
-    key_examples: List[str] = [
+    key_examples: list[str] = [
         "R (real line, Euclidean): w=d=chi=L = aleph_0 — all four coincide at the threshold.",
         "R^n (n >= 1, Euclidean): same as R; second-countable.",
         "Discrete space on N: w=d=chi=L = aleph_0.",
@@ -308,8 +309,8 @@ def analyze_quantitative_topology(space: Any) -> Result:
     else:
         mode = "symbolic"
 
-    justification: List[str] = [
-        "Representation: {}.".format(rep),
+    justification: list[str] = [
+        f"Representation: {rep}.",
         "Weight w(X): {}.".format(profile["weight"]),
         "Density d(X): {}.".format(profile["density"]),
         "Character chi(X): {}.".format(profile["character"]),
@@ -317,7 +318,7 @@ def analyze_quantitative_topology(space: Any) -> Result:
         "Pedagogical note: {}".format(profile["pedagogical_positioning"][:80]),
     ]
     if rep == "finite" and n is not None:
-        justification.insert(1, "|X| = {} (finite space: all cardinal functions are finite).".format(n))
+        justification.insert(1, f"|X| = {n} (finite space: all cardinal functions are finite).")
 
     return Result.true(
         mode=mode,
@@ -333,3 +334,10 @@ def analyze_quantitative_topology(space: Any) -> Result:
             "lindelof_number": profile["lindelof_number"],
         },
     )
+
+
+__all__ = [
+    "QuantitativeTopologyError",
+    "quantitative_profile",
+    "analyze_quantitative_topology",
+]

@@ -28,7 +28,8 @@ The reference book (Engelking) is treated solely as a scope checklist.
 """
 
 from __future__ import annotations
-from typing import Any, Dict, List, Optional
+
+from typing import Any, Optional
 
 from .result import Result
 
@@ -136,7 +137,7 @@ def cardinality_class(space: Any) -> str:
 # cardinal_number_profile
 # ---------------------------------------------------------------------------
 
-def cardinal_number_profile(space: Any) -> Dict[str, Any]:
+def cardinal_number_profile(space: Any) -> dict[str, Any]:
     """
     Return a comprehensive cardinal-number profile for *space*.
 
@@ -155,7 +156,7 @@ def cardinal_number_profile(space: Any) -> Dict[str, Any]:
     representation           : str
     """
     rep = _representation_of(space)
-    tags = _tags_of(space)
+    tags = _tags_of(space)  # noqa: F841
     n = _carrier_size(space)
     tier = cardinality_class(space)
 
@@ -217,8 +218,8 @@ def cardinal_number_profile(space: Any) -> Dict[str, Any]:
     if tier == _TIER_FINITE:
         n_label = str(n) if n is not None else "n"
         ps_note = (
-            "P(X) has 2^{} elements (Cantor: |P(A)| > |A| for all A). "
-            "For finite X this is exponential growth.".format(n_label)
+            f"P(X) has 2^{n_label} elements (Cantor: |P(A)| > |A| for all A). "
+            "For finite X this is exponential growth."
         )
     elif tier == _TIER_COUNTABLE:
         ps_note = (
@@ -299,7 +300,7 @@ def cardinal_number_profile(space: Any) -> Dict[str, Any]:
         )
 
     # key theorems
-    key_theorems: List[str] = [
+    key_theorems: list[str] = [
         "Equinumerosity is an equivalence relation: reflexive (id_A), "
         "symmetric (f^{-1}), transitive (g o f).",
         "Every infinite set contains a countably infinite subset "
@@ -320,7 +321,7 @@ def cardinal_number_profile(space: Any) -> Dict[str, Any]:
     ]
 
     # key examples
-    key_examples: List[str] = [
+    key_examples: list[str] = [
         "N ~ 2N (even naturals): f(n) = 2n — proper subset equinumerous with the whole.",
         "Z is countably infinite: 0, 1, -1, 2, -2, ... enumerates all integers.",
         "NxN is countable: diagonal sweep (m,n) ordered by m+n.",
@@ -373,14 +374,14 @@ def analyze_cardinal_numbers(space: Any) -> Result:
     else:
         mode = "symbolic"
 
-    justification: List[str] = [
-        "Representation: {}.".format(rep),
-        "Cardinality tier: {} -- label: {}.".format(tier, label),
+    justification: list[str] = [
+        f"Representation: {rep}.",
+        f"Cardinality tier: {tier} -- label: {label}.",
         "Countability threshold: {}".format(profile["countability_threshold"]),
         "Topological bridge: {}...".format(profile["topological_bridge"][:100]),
     ]
     if rep == "finite" and n is not None:
-        justification.insert(1, "|X| = {} (exact finite cardinal).".format(n))
+        justification.insert(1, f"|X| = {n} (exact finite cardinal).")
 
     return Result.true(
         mode=mode,
@@ -394,3 +395,11 @@ def analyze_cardinal_numbers(space: Any) -> Result:
             "cardinality_label": label,
         },
     )
+
+
+__all__ = [
+    "CardinalNumberError",
+    "cardinality_class",
+    "cardinal_number_profile",
+    "analyze_cardinal_numbers",
+]

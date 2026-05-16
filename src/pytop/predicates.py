@@ -16,10 +16,12 @@ present and otherwise returns a structured unknown result.
 
 from __future__ import annotations
 
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from .result import Result
-from .subset_operators import closure_of_subset, is_nowhere_dense_subset as _is_nowhere_dense_operator
+from .subset_operators import closure_of_subset
+from .subset_operators import is_nowhere_dense_subset as _is_nowhere_dense_operator
 
 VALID_PREDICATES = {"open", "closed", "clopen", "dense", "nowhere_dense"}
 

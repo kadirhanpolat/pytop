@@ -174,3 +174,17 @@ def render_classical_inequality_strengthening_report() -> str:
     lines.append("Chapter 34 now keeps entry benchmarks separate from selected blocks and the hereditary/local warning line")
     lines.append("Questionbank alignment should reuse these lane labels when selecting direct Chapter 34 routes")
     return "\n".join(lines)
+
+
+__all__ = [
+    "ClassicalInequalityProfile",
+    "get_named_classical_inequality_profiles",
+    "classical_inequality_layer_summary",
+    "classical_inequality_lane_summary",
+    "classical_inequality_chapter_index",
+    "classical_inequality_entry_profiles",
+    "classical_inequality_selected_profiles",
+    "classical_inequality_warning_profiles",
+    "classical_inequality_prerequisite_bridge",
+    "render_classical_inequality_strengthening_report",
+]

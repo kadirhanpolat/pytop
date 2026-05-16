@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any, Iterable
+from typing import Any
 
 
 class PathProfileError(ValueError):
@@ -43,7 +44,7 @@ class PathProfile:
     def is_loop(self) -> bool:
         return self.start == self.end
 
-    def reverse(self, *, name: str | None = None) -> "PathProfile":
+    def reverse(self, *, name: str | None = None) -> PathProfile:
         return PathProfile(
             name=name or f"{self.name}_reverse",
             start=self.end,
@@ -53,7 +54,7 @@ class PathProfile:
             metadata={**self.metadata, "operation": "reverse"},
         )
 
-    def concatenate(self, other: "PathProfile", *, name: str | None = None) -> "PathProfile":
+    def concatenate(self, other: PathProfile, *, name: str | None = None) -> PathProfile:
         if self.end != other.start:
             raise PathProfileError("Paths can be concatenated only when the first end equals the second start.")
         if self.points and other.points:

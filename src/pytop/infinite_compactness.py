@@ -5,9 +5,14 @@ from __future__ import annotations
 from typing import Any
 
 from .compactness import analyze_compactness
-from .infinite_spaces import CocountableSpace, CofiniteSpace, DiscreteInfiniteSpace, IndiscreteInfiniteSpace, InfiniteTopologicalSpace
+from .infinite_spaces import (
+    CocountableSpace,
+    CofiniteSpace,
+    DiscreteInfiniteSpace,
+    IndiscreteInfiniteSpace,
+    InfiniteTopologicalSpace,
+)
 from .result import Result
-
 
 KNOWN_TRUE = {
     IndiscreteInfiniteSpace: {'compact', 'lindelof'},
@@ -57,3 +62,13 @@ def infinite_compactness_report(space: Any) -> dict[str, Result]:
         'compact': is_compact_infinite(space),
         'lindelof': is_lindelof_infinite(space),
     }
+
+
+__all__ = [
+    "KNOWN_TRUE",
+    "KNOWN_FALSE",
+    "analyze_infinite_compactness",
+    "is_compact_infinite",
+    "is_lindelof_infinite",
+    "infinite_compactness_report",
+]

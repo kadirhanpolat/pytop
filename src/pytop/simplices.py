@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from itertools import combinations
-from typing import Any, Iterable
+from typing import Any
 
 
 class SimplexError(ValueError):
@@ -39,7 +40,7 @@ class Simplex:
     def vertex_count(self) -> int:
         return len(self.vertices)
 
-    def faces(self, *, include_empty: bool = False) -> set["Simplex"]:
+    def faces(self, *, include_empty: bool = False) -> set[Simplex]:
         """Return all nonempty faces, optionally including no empty face.
 
         The empty face is not materialized as a ``Simplex`` because this module
@@ -55,12 +56,12 @@ class Simplex:
             for face in combinations(_ordered_vertices(self.vertices), size)
         }
 
-    def proper_faces(self) -> set["Simplex"]:
+    def proper_faces(self) -> set[Simplex]:
         """Return all nonempty faces other than the simplex itself."""
 
         return {face for face in self.faces() if face.vertices != self.vertices}
 
-    def boundary_faces(self) -> set["Simplex"]:
+    def boundary_faces(self) -> set[Simplex]:
         """Return codimension-one faces.
 
         A 0-simplex has no nonempty boundary face in this representation.
@@ -71,7 +72,7 @@ class Simplex:
         size = len(self.vertices) - 1
         return {Simplex(face) for face in combinations(_ordered_vertices(self.vertices), size)}
 
-    def contains_face(self, candidate: "Simplex | Iterable[Any]") -> bool:
+    def contains_face(self, candidate: Simplex | Iterable[Any]) -> bool:
         face = candidate.vertices if isinstance(candidate, Simplex) else frozenset(candidate)
         return bool(face) and face.issubset(self.vertices)
 

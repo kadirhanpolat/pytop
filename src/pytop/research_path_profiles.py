@@ -130,3 +130,12 @@ def research_path_route_index() -> dict[str, tuple[str, ...]]:
         for route in profile.bridge_route_keys + profile.special_example_keys:
             route_map.setdefault(route, []).append(profile.key)
     return {route: tuple(keys) for route, keys in sorted(route_map.items())}
+
+
+__all__ = [
+    "ResearchPathProfile",
+    "get_named_research_path_profiles",
+    "research_path_layer_summary",
+    "research_path_chapter_index",
+    "research_path_route_index",
+]

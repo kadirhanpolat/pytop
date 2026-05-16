@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
 from itertools import product as cartesian_product
-from typing import Any, Iterable, Mapping
+from typing import Any
 
 from .result import Result
 
@@ -87,3 +88,13 @@ def finite_quotient_contract(carrier: Iterable[Any], partition: Iterable[Iterabl
 def finite_quotient_summary(carrier: Iterable[Any], partition: Iterable[Iterable[Any]]) -> str:
     c=finite_quotient_contract(carrier, partition)
     return f"{c.kind}: status={c.status}, carrier={c.carrier_size}, blocks={c.block_count}"
+
+
+__all__ = [
+    "FiniteConstructionContract",
+    "finite_product_contract",
+    "finite_product_summary",
+    "finite_partition_contract",
+    "finite_quotient_contract",
+    "finite_quotient_summary",
+]

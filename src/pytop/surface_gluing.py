@@ -7,9 +7,13 @@ but it does not classify arbitrary quotient spaces.
 """
 
 from __future__ import annotations
+
+from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass, field
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any
+
 from .surfaces import SurfaceProfile, known_surface_profile, surface_profile_summary
+
 
 class SurfaceGluingError(ValueError):
     """Raised when a polygon gluing word or profile is malformed."""
@@ -28,7 +32,7 @@ class EdgeToken:
         if orient not in {-1, 1}: raise SurfaceGluingError("Edge-token orientation must be +1 or -1.")
         object.__setattr__(self, "label", label); object.__setattr__(self, "orientation", orient)
     @property
-    def inverse(self) -> "EdgeToken": return EdgeToken(self.label, -self.orientation)
+    def inverse(self) -> EdgeToken: return EdgeToken(self.label, -self.orientation)
     def normalized_text(self) -> str: return self.label if self.orientation == 1 else f"{self.label}^-1"
 
 @dataclass(frozen=True)

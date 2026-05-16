@@ -15,7 +15,7 @@ FunctionSpaceError                     → exception class
 
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any
 
 from .result import Result
 
@@ -128,7 +128,7 @@ def _family_warning(key: str, rep: str, tags: frozenset) -> str:
 # Pointwise convergence topology  C(X,Y)_pt
 # ---------------------------------------------------------------------------
 
-def pointwise_topology_profile(space: Any) -> Dict[str, Any]:
+def pointwise_topology_profile(space: Any) -> dict[str, Any]:
     """
     Describe the pointwise convergence topology on C(X, Y).
 
@@ -197,7 +197,7 @@ def pointwise_topology_profile(space: Any) -> Dict[str, Any]:
 # Uniform convergence topology  C(X,Y)_u
 # ---------------------------------------------------------------------------
 
-def uniform_topology_profile(space: Any) -> Dict[str, Any]:
+def uniform_topology_profile(space: Any) -> dict[str, Any]:
     """
     Describe the uniform (sup-metric) topology on C(X, Y).
 
@@ -255,7 +255,7 @@ def uniform_topology_profile(space: Any) -> Dict[str, Any]:
 # Compact-open topology  C(X,Y)_co
 # ---------------------------------------------------------------------------
 
-def compact_open_topology_profile(space: Any) -> Dict[str, Any]:
+def compact_open_topology_profile(space: Any) -> dict[str, Any]:
     """
     Describe the compact-open topology on C(X, Y).
 
@@ -330,7 +330,7 @@ def compact_open_topology_profile(space: Any) -> Dict[str, Any]:
     }
 
 
-def function_space_topology_families(space: Any) -> list[Dict[str, Any]]:
+def function_space_topology_families(space: Any) -> list[dict[str, Any]]:
     """
     Return a pedagogically ordered family list for pointwise / compact-open /
     uniform topologies on C(X, R).
@@ -387,7 +387,7 @@ def function_space_topology_families(space: Any) -> list[Dict[str, Any]]:
     ]
 
 
-def function_space_topology_selector(space: Any, family_key: str) -> Dict[str, Any]:
+def function_space_topology_selector(space: Any, family_key: str) -> dict[str, Any]:
     """Return exactly one family record by stable key."""
     normalized = str(family_key).strip().lower()
     for record in function_space_topology_families(space):
@@ -424,7 +424,7 @@ def render_function_space_topology_report(space: Any) -> str:
 # Combined profile
 # ---------------------------------------------------------------------------
 
-def function_space_profile(space: Any) -> Dict[str, Any]:
+def function_space_profile(space: Any) -> dict[str, Any]:
     """
     Return all three function-space topology profiles for *space* as domain X.
 
@@ -506,7 +506,7 @@ def analyze_function_space(space: Any) -> Result:
 # v0.1.59 extensions — compact-open topology subsection
 # ---------------------------------------------------------------------------
 
-def compact_open_basis_elements(space: Any) -> Dict[str, Any]:
+def compact_open_basis_elements(space: Any) -> dict[str, Any]:
     """
     Describe the sub-basic and basic open sets of the compact-open topology
     on C(X, Y) in detail, with examples for concrete space representations.
@@ -572,7 +572,7 @@ def compact_open_basis_elements(space: Any) -> Dict[str, Any]:
         "(compact-uniform convergence)"
     )
 
-    result: Dict[str, Any] = {
+    result: dict[str, Any] = {
         "topology_name": "compact-open topology — basis elements",
         "subbasis_description": subbasis,
         "basis_description": basis,
@@ -591,7 +591,7 @@ def compact_open_basis_elements(space: Any) -> Dict[str, Any]:
     return result
 
 
-def compact_open_homotopy_profile(space: Any) -> Dict[str, Any]:
+def compact_open_homotopy_profile(space: Any) -> dict[str, Any]:
     """
     Describe the role of the compact-open topology in homotopy theory.
 
@@ -691,7 +691,7 @@ def compact_open_homotopy_profile(space: Any) -> Dict[str, Any]:
 # v0.1.60 — compare the three function-space topologies
 # ---------------------------------------------------------------------------
 
-def compare_function_space_topologies(space: Any) -> Dict[str, Any]:
+def compare_function_space_topologies(space: Any) -> dict[str, Any]:
     """
     Compare the pointwise, uniform, and compact-open topologies on C(X, ℝ).
 
@@ -741,7 +741,7 @@ def compare_function_space_topologies(space: Any) -> Dict[str, Any]:
     # ------------------------------------------------------------------
     # Coincidence conditions
     # ------------------------------------------------------------------
-    coincidence: Dict[str, str] = {}
+    coincidence: dict[str, str] = {}
 
     if rep == "finite":
         coincidence["pt_eq_co"] = "yes — X finite"
@@ -869,14 +869,32 @@ def compare_function_space_topologies(space: Any) -> Dict[str, Any]:
 # Added in v0.1.98: Advanced Function Spaces
 def is_admissible_topology(topology, function_space, domain, codomain):
     """
-    Check if a topology on a function space is admissible 
+    Check if a topology on a function space is admissible
     (makes the evaluation map continuous).
     """
     return False
 
 def is_splitting_topology(topology, function_space, domain, codomain):
     """
-    Check if a topology on a function space is splitting 
+    Check if a topology on a function space is splitting
     (the property dual to admissibility).
     """
     return False
+
+
+__all__ = [
+    "FunctionSpaceError",
+    "pointwise_topology_profile",
+    "uniform_topology_profile",
+    "compact_open_topology_profile",
+    "function_space_topology_families",
+    "function_space_topology_selector",
+    "render_function_space_topology_report",
+    "function_space_profile",
+    "analyze_function_space",
+    "compact_open_basis_elements",
+    "compact_open_homotopy_profile",
+    "compare_function_space_topologies",
+    "is_admissible_topology",
+    "is_splitting_topology",
+]

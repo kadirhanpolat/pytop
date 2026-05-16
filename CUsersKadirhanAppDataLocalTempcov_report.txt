@@ -1,0 +1,178 @@
+........................................................................ [  3%]
+........................................................................ [  6%]
+........................................................................ [ 10%]
+........................................................................ [ 13%]
+........................................................................ [ 16%]
+........................................................................ [ 20%]
+........................................................................ [ 23%]
+........................................................................ [ 27%]
+........................................................................ [ 30%]
+........................................................................ [ 33%]
+........................................................................ [ 37%]
+........................................................................ [ 40%]
+........................................................................ [ 44%]
+........................................................................ [ 47%]
+........................................................................ [ 50%]
+........................................................................ [ 54%]
+........................................................................ [ 57%]
+........................................................................ [ 61%]
+........................................................................ [ 64%]
+........................................................................ [ 67%]
+........................................................................ [ 71%]
+........................................................................ [ 74%]
+........................................................................ [ 77%]
+........................................................................ [ 81%]
+........................................................................ [ 84%]
+........................................................................ [ 88%]
+........................................................................ [ 91%]
+........................................................................ [ 94%]
+........................................................................ [ 98%]
+....................................                                     [100%]
+============================== warnings summary ===============================
+tests/core/test_preservation_legacy_deprecated.py::TestPreservationTableLookup::test_unknown_property_raises
+  C:\users\kadirhan\python\pytop\tests\core\test_preservation_legacy_deprecated.py:59: DeprecationWarning: preservation_table_lookup is deprecated; use preservation_tables.preservation_table() instead.
+    preservation_table_lookup("not_a_property", "subspace")
+
+tests/core/test_preservation_legacy_deprecated.py::TestPreservationTableLookup::test_unknown_construction_raises
+  C:\users\kadirhan\python\pytop\tests\core\test_preservation_legacy_deprecated.py:65: DeprecationWarning: preservation_table_lookup is deprecated; use preservation_tables.preservation_table() instead.
+    preservation_table_lookup("compact", "not_a_construction")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.4-final-0 _______________
+
+Name                                                          Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------------------------------
+src\pytop\__init__.py                                           118      0   100%
+src\pytop\advanced_compactifications.py                         118     21    82%   112-115, 126-129, 141, 144, 169, 177, 209, 248-270, 293, 301, 347
+src\pytop\alexandroff.py                                        179     23    87%   26, 36, 39, 62, 64-65, 103, 108-112, 119, 135, 164, 166, 169, 180, 191, 229, 256-263
+src\pytop\basic_invariants.py                                   140     14    90%   50, 69-70, 79-81, 106, 117, 129, 131, 133, 144, 155, 176
+src\pytop\capabilities.py                                        53      6    89%   24, 38, 64, 69-70, 79
+src\pytop\cardinal_function_examples.py                         110      2    98%   504, 545
+src\pytop\cardinal_function_profiles.py                          21      0   100%
+src\pytop\cardinal_functions_framework.py                        74      8    89%   243, 282, 301-302, 364-367
+src\pytop\cardinal_numbers.py                                   127      7    94%   58, 62, 78-81, 115
+src\pytop\cell_complexes.py                                      68      6    91%   24, 48, 51, 111-112, 138
+src\pytop\chaos_profiles.py                                      62      0   100%
+src\pytop\classical_inequality_profiles.py                       59      0   100%
+src\pytop\cofinality.py                                         133      8    94%   59, 63, 79-82, 119, 188
+src\pytop\compactness.py                                         65      3    95%   50, 119, 127
+src\pytop\compactness_bridges.py                                 22      0   100%
+src\pytop\compactness_strengthened_profiles.py                   45      1    98%   33
+src\pytop\compactness_variants.py                               109      9    92%   53, 57, 73-76, 108, 143-144
+src\pytop\comparison.py                                          72      8    89%   56, 66, 133-134, 141, 144-145, 153
+src\pytop\connectedness.py                                       76      2    97%   39, 125
+src\pytop\construction_contracts.py                              68      2    97%   45-46
+src\pytop\continua.py                                            96      5    95%   44, 76, 81, 84, 299
+src\pytop\convergence_comparison.py                              39      1    97%   122
+src\pytop\cosmology_topology.py                                  38      0   100%
+src\pytop\countability.py                                       112      3    97%   42, 275, 284
+src\pytop\counterexample_atlas.py                                41      0   100%
+src\pytop\covering_spaces.py                                     62      1    98%   41
+src\pytop\degree_theory.py                                       44      0   100%
+src\pytop\degree_theory_applications.py                          33      0   100%
+src\pytop\digital_image_topology.py                              40      0   100%
+src\pytop\dimension_theory.py                                   136     27    80%   67-75, 80, 94, 113, 126, 153, 157, 161, 164, 177, 187, 192-199
+src\pytop\dynamical_systems.py                                   58      0   100%
+src\pytop\embeddings.py                                          47      0   100%
+src\pytop\enumeration.py                                         47      5    89%   46, 57, 83, 87, 89
+src\pytop\euclidean_topology.py                                  87      6    93%   53, 57, 59, 61, 170, 188
+src\pytop\examples.py                                            52      0   100%
+src\pytop\experimental\__init__.py                               14      0   100%
+src\pytop\experimental\advanced_cardinal_functions.py             4      0   100%
+src\pytop\experimental\advanced_metrization.py                    2      0   100%
+src\pytop\experimental\chapter_experimental_registry.py          25      0   100%
+src\pytop\experimental\classical_inequality_profiles.py           2      0   100%
+src\pytop\experimental\compactness_cardinal_bridges.py            2      0   100%
+src\pytop\experimental\compactness_strengthened_profiles.py       2      0   100%
+src\pytop\experimental\experimental_inference.py                  2      0   100%
+src\pytop\experimental\hereditary_local_profiles.py               2      0   100%
+src\pytop\experimental\maturity_registry.py                      40      1    98%   185
+src\pytop\experimental\research_bridge_inventory.py              24      0   100%
+src\pytop\experimental\research_bridge_profiles.py                2      0   100%
+src\pytop\experimental\research_notebook_registry.py             22      0   100%
+src\pytop\experimental\research_path_registry.py                  2      0   100%
+src\pytop\experimental\special_example_spaces.py                  2      0   100%
+src\pytop\experimental\theorem_drafts.py                         23      0   100%
+src\pytop\experimental\tightness_network_profiles.py              2      0   100%
+src\pytop\families.py                                            29      0   100%
+src\pytop\filters.py                                            186     29    84%   79, 87, 96-97, 109, 114, 149, 200, 209, 231, 245, 277-278, 290, 302, 345-346, 358, 432, 442, 461, 464, 479, 513, 524, 553, 567, 599-600
+src\pytop\finite_basis_engine.py                                144     10    93%   125, 199-200, 227, 230, 270-271, 283-284, 286
+src\pytop\finite_map_engine.py                                  116      8    93%   145, 212, 215-216, 222-223, 235, 240
+src\pytop\finite_operator_engine.py                             164     13    92%   96, 125, 250-251, 261, 265-266, 270-271, 273, 281-282, 284
+src\pytop\finite_spaces.py                                       12      0   100%
+src\pytop\finite_witness_diagnostics.py                          82      3    96%   183, 197, 266
+src\pytop\fixed_point_profiles.py                                55      1    98%   117
+src\pytop\function_spaces.py                                    245      9    96%   49, 53, 71-74, 86, 97, 124
+src\pytop\fundamental_group.py                                   74      5    93%   40, 42, 45, 47, 49
+src\pytop\game_theory_profiles.py                                58      0   100%
+src\pytop\graph_topology.py                                      79      0   100%
+src\pytop\hereditary_local_profiles.py                           52      0   100%
+src\pytop\homotopy.py                                            98      4    96%   45, 77, 79, 100
+src\pytop\infinite_compactness.py                                25      2    92%   26, 56
+src\pytop\infinite_connectedness.py                              25      3    88%   26, 38, 56
+src\pytop\infinite_constructions.py                              82      8    90%   22, 24, 45, 67, 78, 86, 105, 107
+src\pytop\infinite_countability.py                               54      3    94%   26, 36-37
+src\pytop\infinite_examples.py                                   38      4    89%   27, 91, 248, 252
+src\pytop\infinite_image_preimage.py                             90     13    86%   27-31, 55, 70, 84, 86, 104-105, 119-120
+src\pytop\infinite_maps.py                                      146     23    84%   74-76, 101-103, 117, 166, 170, 174, 178, 182, 194, 227-228, 244, 247, 258, 265, 272, 280, 288, 305
+src\pytop\infinite_quotients.py                                  28      0   100%
+src\pytop\infinite_separation.py                                 41      2    95%   60, 130
+src\pytop\infinite_spaces.py                                     97      2    98%   29, 165
+src\pytop\invariants.py                                         171      9    95%   40, 112, 121, 135, 144, 153, 164, 213, 218
+src\pytop\inverse_systems.py                                     20      1    95%   44
+src\pytop\knots.py                                               73      0   100%
+src\pytop\local_compactness.py                                  114     19    83%   87, 91, 122-137, 142
+src\pytop\manifolds.py                                           88      2    98%   52, 60
+src\pytop\maps.py                                               272      1    99%   437
+src\pytop\metric_completeness.py                                 54      4    93%   255-256, 259, 266
+src\pytop\metric_contracts.py                                    67      6    91%   40-41, 49, 66-67, 78
+src\pytop\metric_map_taxonomy.py                                115     12    90%   153, 163, 175-176, 178, 185, 187, 196, 200, 203, 255, 261
+src\pytop\metric_spaces.py                                      194     20    90%   77, 79, 93, 147, 193, 240-241, 284-285, 326, 361, 381, 384-385, 392, 396, 400, 402, 413-414
+src\pytop\metrization_api.py                                     61      2    97%   44, 48
+src\pytop\metrization_profiles.py                                82      2    98%   115, 118
+src\pytop\neighborhood_systems.py                                97      9    91%   32, 39-44, 76, 86, 229
+src\pytop\nets.py                                               242     39    84%   47, 68, 92, 99, 106, 147, 160-162, 218, 231-233, 291, 305-306, 315, 324-326, 338, 410, 424-425, 435-437, 449, 520, 551-553, 596-601, 609, 687
+src\pytop\order_lattice.py                                       97      9    91%   30, 34-37, 67, 81, 139, 156
+src\pytop\order_spaces.py                                        76      6    92%   57, 122, 157-164, 171
+src\pytop\ordinal_numbers.py                                    155      7    95%   58, 62, 78-81, 123
+src\pytop\paracompactness.py                                     90      9    90%   51, 55, 71-74, 221, 332, 338
+src\pytop\paths.py                                               86      6    93%   30, 36, 62, 132, 136, 182
+src\pytop\predicate_contracts.py                                 38      0   100%
+src\pytop\predicates.py                                         129      7    95%   208, 268-273
+src\pytop\preservation.py                                       105      6    94%   191-193, 208, 222, 230
+src\pytop\preservation_legacy.py                                 47      0   100%
+src\pytop\preservation_tables.py                                 57      1    98%   181
+src\pytop\products.py                                            52      6    88%   20, 42, 44, 73, 80-81
+src\pytop\proximity_spaces.py                                    69      5    93%   58, 77, 95-97
+src\pytop\quantitative_topology.py                              119     17    86%   60, 64, 80-83, 89-91, 102, 105, 115, 117, 125, 128, 138, 153
+src\pytop\quotients.py                                           59      8    86%   23, 30, 37, 41-43, 106-107
+src\pytop\refinements.py                                         89      8    91%   50, 54, 70-73, 217, 267
+src\pytop\relations.py                                          130      1    99%   142
+src\pytop\research_bridge_profiles.py                            24      0   100%
+src\pytop\research_path_profiles.py                              35      0   100%
+src\pytop\result.py                                             101      7    93%   54, 58, 96, 218, 224, 226, 228
+src\pytop\result_rendering.py                                    86      0   100%
+src\pytop\retracts.py                                           166      1    99%   415
+src\pytop\separation.py                                         227     19    92%   91, 131, 172, 231, 234, 251, 254, 311, 332, 361, 369, 377, 385, 406, 426, 428, 430, 432, 434
+src\pytop\sequences.py                                          109      1    99%   328
+src\pytop\sets.py                                                61      3    95%   31, 73, 85
+src\pytop\simplices.py                                           54      6    89%   51, 70, 90, 97, 100-101
+src\pytop\simplicial_complexes.py                                93      5    95%   43, 73, 76, 106, 137
+src\pytop\spaces.py                                              38      6    84%   27-31, 44
+src\pytop\special_example_profiles.py                            32      0   100%
+src\pytop\subbases.py                                           128      9    93%   65, 173, 176, 196, 204-205, 218, 235, 239
+src\pytop\subset_operators.py                                   173     21    88%   94-109, 166, 270-271, 278-281, 283, 290, 355-357
+src\pytop\subspaces.py                                           29      6    79%   34, 36, 38, 46, 53-54
+src\pytop\surface_classification.py                              24      0   100%
+src\pytop\surface_gluing.py                                     113      2    98%   110, 126
+src\pytop\surfaces.py                                            86      2    98%   68-69
+src\pytop\theorem_engine.py                                     119     11    91%   86-89, 120-135, 297, 337-338, 351, 374
+src\pytop\theorem_profile_alignment.py                           36      0   100%
+src\pytop\three_manifolds.py                                     39      0   100%
+src\pytop\tightness_network_profiles.py                          47      0   100%
+src\pytop\uniform_spaces.py                                     128      2    98%   70, 79
+-------------------------------------------------------------------------------------------
+TOTAL                                                          9839    634    94%
+Required test coverage of 60.0% reached. Total coverage: 93.56%
+2124 passed, 2 warnings in 4.72s

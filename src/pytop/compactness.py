@@ -13,7 +13,6 @@ from .capabilities import DEFAULT_REGISTRY, normalize_feature_name
 from .result import Result
 from .theorem_engine import infer_feature
 
-
 TRUE_TAGS = {
     "compact": ["compact", "marked_compact"],
     "countably_compact": ["countably_compact"],

@@ -7,7 +7,8 @@ equivalence classes, and the equivalence/partition correspondence.
 
 from __future__ import annotations
 
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from .families import is_partition, normalize_family
 
@@ -223,7 +224,7 @@ def quotient_set(carrier: Iterable[Any], relation: Iterable[tuple[Any, Any]]) ->
     """
 
     blocks = partition_from_equivalence(carrier, relation)
-    return tuple(sorted(blocks, key=lambda block: (len(block), tuple(sorted((repr(x) for x in block))))))
+    return tuple(sorted(blocks, key=lambda block: (len(block), tuple(sorted(repr(x) for x in block)))))
 
 
 def canonical_projection_from_equivalence(

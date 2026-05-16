@@ -19,7 +19,6 @@ from typing import Any
 
 from .result import Result
 
-
 VERSION = "0.1.102"
 
 CECH_TRUE_TAGS = {
@@ -372,3 +371,21 @@ def advanced_compactness_profile(space: Any) -> dict[str, Any]:
             "shares_positive_corridor": cech.status == "true" and realcompact.status == "true",
         },
     }
+
+
+__all__ = [
+    "VERSION",
+    "CECH_TRUE_TAGS",
+    "CECH_FALSE_TAGS",
+    "REALCOMPACT_TRUE_TAGS",
+    "REALCOMPACT_FALSE_TAGS",
+    "PERFECT_TRUE_TAGS",
+    "PERFECT_FALSE_TAGS",
+    "TYCHONOFF_TAGS",
+    "HAUSDORFF_TAGS",
+    "METRIC_LIKE_TAGS",
+    "is_cech_complete",
+    "is_realcompact",
+    "is_perfect_map",
+    "advanced_compactness_profile",
+]

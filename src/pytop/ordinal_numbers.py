@@ -28,7 +28,8 @@ The reference book (Engelking) is treated solely as a scope checklist.
 """
 
 from __future__ import annotations
-from typing import Any, Dict, List, Optional
+
+from typing import Any, Optional
 
 from .result import Result
 
@@ -157,7 +158,7 @@ def ordinal_class(space: Any) -> str:
 # ordinal_profile
 # ---------------------------------------------------------------------------
 
-def ordinal_profile(space: Any) -> Dict[str, Any]:
+def ordinal_profile(space: Any) -> dict[str, Any]:
     """
     Return a comprehensive ordinal-number profile for *space*.
 
@@ -177,7 +178,7 @@ def ordinal_profile(space: Any) -> Dict[str, Any]:
     representation         : str
     """
     rep = _representation_of(space)
-    tags = _tags_of(space)
+    tags = _tags_of(space)  # noqa: F841
     n = _carrier_size(space)
     otype = ordinal_class(space)
 
@@ -389,7 +390,7 @@ def ordinal_profile(space: Any) -> Dict[str, Any]:
         )
 
     # --- Key theorems ---
-    key_theorems: List[str] = [
+    key_theorems: list[str] = [
         "Every well-ordered set has a unique ordinal type "
         "(two well-ordered sets are isomorphic iff they have the same order type).",
         "Trichotomy: every ordinal is either 0, a successor ordinal, or a limit ordinal.",
@@ -407,7 +408,7 @@ def ordinal_profile(space: Any) -> Dict[str, Any]:
     ]
 
     # --- Key examples ---
-    key_examples: List[str] = [
+    key_examples: list[str] = [
         "0 = empty set; 1 = {0}; 2 = {0,1}; n = {0,...,n-1} (von Neumann).",
         "omega = {0,1,2,...}: first infinite ordinal, order type of N.",
         "omega+1: append one point after all naturals; has a maximum element.",
@@ -464,15 +465,15 @@ def analyze_ordinal_numbers(space: Any) -> Result:
     else:
         mode = "symbolic"
 
-    justification: List[str] = [
-        "Representation: {}.".format(rep),
-        "Ordinal type: {} -- label: {}.".format(otype, label),
-        "Successor/limit class: {}.".format(sl),
+    justification: list[str] = [
+        f"Representation: {rep}.",
+        f"Ordinal type: {otype} -- label: {label}.",
+        f"Successor/limit class: {sl}.",
         "Cardinal vs ordinal: {}".format(profile["cardinal_vs_ordinal"][:90]),
         "Topological bridge: {}...".format(profile["topological_bridge"][:90]),
     ]
     if rep == "finite" and n is not None:
-        justification.insert(1, "Order type = {} (exact finite ordinal).".format(n))
+        justification.insert(1, f"Order type = {n} (exact finite ordinal).")
 
     return Result.true(
         mode=mode,
@@ -487,3 +488,11 @@ def analyze_ordinal_numbers(space: Any) -> Result:
             "successor_limit_class": sl,
         },
     )
+
+
+__all__ = [
+    "OrdinalNumberError",
+    "ordinal_class",
+    "ordinal_profile",
+    "analyze_ordinal_numbers",
+]

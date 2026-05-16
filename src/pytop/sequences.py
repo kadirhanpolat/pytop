@@ -8,8 +8,8 @@ is checked with the textbook open-neighborhood tail criterion.
 
 from __future__ import annotations
 
-from itertools import combinations
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from .result import Result
 
@@ -345,3 +345,12 @@ def _sort_points(points: Iterable[Any]) -> tuple[Any, ...]:
 
 def _sort_frozensets(sets: Iterable[frozenset[Any]]) -> tuple[frozenset[Any], ...]:
     return tuple(sorted(sets, key=lambda s: (len(s), tuple(repr(x) for x in _sort_points(s)))))
+
+
+__all__ = [
+    "SequenceError",
+    "sequence_converges_to",
+    "sequence_cluster_point",
+    "sequential_closure",
+    "analyze_sequences",
+]

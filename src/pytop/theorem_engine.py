@@ -7,8 +7,9 @@ can yield exact-looking mathematical conclusions in well-described settings.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any, Iterable
+from typing import Any
 
 from .capabilities import DEFAULT_REGISTRY, normalize_feature_name
 from .result import Result
@@ -372,3 +373,15 @@ def _merged_rule_value(rules: Iterable[TheoremRule], default: Any) -> Any:
     if all(value == first for value in values):
         return first
     return values
+
+
+__all__ = [
+    "TheoremRule",
+    "TheoremEngine",
+    "DEFAULT_THEOREM_ENGINE",
+    "theorem_result",
+    "infer_feature",
+    "extract_tags",
+    "extract_representation",
+    "unique_in_order",
+]

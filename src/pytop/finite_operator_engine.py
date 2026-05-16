@@ -11,9 +11,10 @@ exercises, or wording from any external chapter package.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
 from itertools import combinations
-from typing import Any, Iterable
+from typing import Any
 
 
 class FiniteOperatorEngineError(ValueError):

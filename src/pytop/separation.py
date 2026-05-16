@@ -14,7 +14,6 @@ from typing import Any
 from .capabilities import DEFAULT_REGISTRY
 from .result import Result
 
-
 BASIC_PROPERTIES = {"t0", "t1", "hausdorff"}
 ADVANCED_PROPERTIES = {
     "regular",

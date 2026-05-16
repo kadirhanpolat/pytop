@@ -74,11 +74,10 @@ def metrization_chapter_index() -> dict[str, tuple[str, ...]]:
 # v0.1.57 durable API — is_metrizable, metrization_profile, analyze_metrization
 # ---------------------------------------------------------------------------
 
-from typing import Any
-from .result import Result
-from .capabilities import DEFAULT_REGISTRY
-from .finite_spaces import FiniteTopologicalSpace
+from typing import Any  # noqa: E402
 
+from .finite_spaces import FiniteTopologicalSpace  # noqa: E402
+from .result import Result  # noqa: E402
 
 TRUE_METRIZABLE_TAGS: set[str] = {
     "metrizable", "metric", "second_countable_regular",
@@ -263,3 +262,17 @@ def analyze_metrization(space: Any) -> Result:
         justification=r.justification,
         metadata=metadata,
     )
+
+
+__all__ = [
+    "MetrizationProfile",
+    "get_named_metrization_profiles",
+    "metrization_layer_summary",
+    "metrization_chapter_index",
+    "TRUE_METRIZABLE_TAGS",
+    "FALSE_METRIZABLE_TAGS",
+    "MetrizationError",
+    "is_metrizable",
+    "metrization_profile",
+    "analyze_metrization",
+]

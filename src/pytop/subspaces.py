@@ -7,7 +7,8 @@ construction layer while preserving stable tags and metadata.
 
 from __future__ import annotations
 
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from .finite_spaces import FiniteTopologicalSpace
 from .infinite_constructions import subspace as infinite_subspace
