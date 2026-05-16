@@ -1,6 +1,9 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
+![Version](https://img.shields.io/badge/version-0.5.1-blue)
+![Coverage](https://img.shields.io/badge/coverage-99.68%25-brightgreen)
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, and more.
 
@@ -52,6 +55,14 @@ from pytop.experimental import maturity_registry
 | Cardinal functions | `cardinal_functions_framework`, `cardinal_numbers` |
 | Cosmology | `cosmology_topology` |
 | Experimental | `pytop.experimental` |
+
+## What's New in v0.5.1
+
+- **99.68% test coverage** — 644 new targeted tests added across 50+ modules
+- **CI lint clean** — all ruff errors resolved across `src/` and `tests/`
+- Bug fixes: removed duplicate `is_totally_disconnected` export, unused variable in `unified_property.py`, bare f-string in `inverse_systems.py`
+
+See [CHANGELOG.md](CHANGELOG.md) for full details.
 
 ## Contributing
 
