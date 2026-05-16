@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.5] - 2026-05-17
+
+### Added
+
+- **`baire_category.py`** — new module for Baire category theory:
+  - `BaireCategoryProfile` frozen dataclass with `is_baire`, `category_type`, `presentation_layer`, `chapter_targets` fields
+  - 5 named examples: real line (complete metric), [0,1] (compact Hausdorff), Cantor set, ω^ω (Polish/irrationals), ℚ (NOT Baire)
+  - `is_baire_space(space)` — 7-layer theorem check (negative tags, complete metric BCT, locally compact Hausdorff BCT, open dense subspace, countable T1 no isolated points, direct tags, unknown)
+  - `is_meager_space(space)` — 3-layer check (direct tags, countable T1 no isolated points, Baire contradiction)
+  - `baire_category_theorem_check(space)` — explicit BCT form identification (metric / topological / Polish)
+  - `classify_baire_category(space)` — classifies into `complete_metric`, `locally_compact_hausdorff`, `polish`, `baire`, `not_baire`, `unknown`
+  - `baire_category_profile(space)` — full profile facade combining classification and named examples
+  - `baire_layer_summary()`, `baire_chapter_index()`, `baire_type_index()` registry helpers
+  - Tag constants: `BAIRE_POSITIVE_TAGS`, `BAIRE_NEGATIVE_TAGS`, `BAIRE_COMPLETE_METRIC_TAGS`, `LCH_TAGS`, `POLISH_TAGS`, `MEAGER_SPACE_TAGS`, `COMEAGER_TAGS`, `OPEN_DENSE_TAGS`
+  - 108 tests in `tests/core/test_baire_category_v055.py`
+
+### Fixed
+
+- `tests/experimental/test_advanced_metrization.py` — updated `metrization_layer_summary` assertion from `advanced_note: 1` to `advanced_note: 3` to match the two new profiles added in v0.5.4
+
+### Changed
+
+- Coverage patches (20 tests in `tests/core/test_coverage_patches_v055.py`):
+  - `topological_groups.py` lines 71, 74 (`_representation_of` metadata and attribute paths) and 418 (`compact` group type)
+  - `stone_cech.py` lines 85, 88 (`_representation_of` paths)
+  - `cell_complexes.py` lines 112–113 (`validate_finite_cell_profile` CellComplexError path)
+  - `cardinal_functions_framework.py` line 344 (`_comparison_key`)
+  - `maps.py` line 440 (`_analyze_finite_map_property` unknown-property `None` return)
+
 ## [0.5.4] - 2026-05-16
 
 ### Added

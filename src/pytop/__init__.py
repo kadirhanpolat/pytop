@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.4"
+__version__ = "0.5.5"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -1771,6 +1771,25 @@ __all__ = [
     "topological_group_separation",
     "classify_topological_group",
     "topological_group_profile",
+    # baire category
+    "BaireCategoryProfile",
+    "BAIRE_POSITIVE_TAGS",
+    "BAIRE_NEGATIVE_TAGS",
+    "BAIRE_COMPLETE_METRIC_TAGS",
+    "LCH_TAGS",
+    "POLISH_TAGS",
+    "MEAGER_SPACE_TAGS",
+    "COMEAGER_TAGS",
+    "OPEN_DENSE_TAGS",
+    "get_named_baire_examples",
+    "baire_layer_summary",
+    "baire_chapter_index",
+    "baire_type_index",
+    "is_baire_space",
+    "is_meager_space",
+    "baire_category_theorem_check",
+    "classify_baire_category",
+    "baire_category_profile",
 ]
 
 
@@ -1930,6 +1949,27 @@ from .topological_groups import (
     topological_group_separation,
     classify_topological_group,
     topological_group_profile,
+)
+
+from .baire_category import (
+    BaireCategoryProfile,
+    BAIRE_POSITIVE_TAGS,
+    BAIRE_NEGATIVE_TAGS,
+    COMPLETE_METRIC_TAGS as BAIRE_COMPLETE_METRIC_TAGS,
+    LCH_TAGS,
+    POLISH_TAGS,
+    MEAGER_SPACE_TAGS,
+    COMEAGER_TAGS,
+    OPEN_DENSE_TAGS,
+    get_named_baire_examples,
+    baire_layer_summary,
+    baire_chapter_index,
+    baire_type_index,
+    is_baire_space,
+    is_meager_space,
+    baire_category_theorem_check,
+    classify_baire_category,
+    baire_category_profile,
 )
 
 from .surfaces import (
