@@ -19,7 +19,7 @@ Key theorems implemented:
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 VERSION = "0.2.0"
@@ -406,7 +406,7 @@ def p_adic_integers_example(p: int = 2) -> dict[str, Any]:
             f"ℤ_{p} = lim_{{←}} ℤ/p^n ℤ: "
             f"inverse limit of cyclic groups Z/{p}^n Z with canonical projections."
         ),
-        "component_spaces": f"ℤ/p^n ℤ (n=1,2,3,...) with discrete topology",
+        "component_spaces": "ℤ/p^n ℤ (n=1,2,3,...) with discrete topology",
         "bonding_maps": "canonical reduction mod p^n",
         "inferred_tags": sorted(props["tags"]),
         "ultrametric": True,
