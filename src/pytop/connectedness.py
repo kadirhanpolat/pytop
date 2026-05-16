@@ -12,12 +12,18 @@ TRUE_TAGS = {
     "connected": ["connected", "marked_connected"],
     "path_connected": ["path_connected"],
     "locally_connected": ["locally_connected"],
+    "arc_connected": ["arc_connected", "arcwise_connected"],
+    "totally_disconnected": ["totally_disconnected", "zero_dimensional_t1"],
+    "scattered": ["scattered"],
 }
 
 FALSE_TAGS = {
     "connected": ["disconnected", "not_connected"],
     "path_connected": ["not_path_connected"],
     "locally_connected": ["not_locally_connected"],
+    "arc_connected": ["not_arc_connected"],
+    "totally_disconnected": ["not_totally_disconnected"],
+    "scattered": ["not_scattered"],
 }
 
 
@@ -31,6 +37,9 @@ def normalize_connectedness_property(name: str) -> str:
         "connectedness": "connected",
         "pathconnected": "path_connected",
         "local_connectedness": "locally_connected",
+        "arcwise_connected": "arc_connected",
+        "arc_wise_connected": "arc_connected",
+        "zero_dim": "totally_disconnected",
     }
     normalized = aliases.get(normalized, normalized)
     valid = set(TRUE_TAGS)
@@ -64,23 +73,103 @@ def analyze_connectedness(space: Any, property_name: str = "connected") -> Resul
             theorem_result.metadata.setdefault("property", property_name)
             return theorem_result
 
-    if representation == "finite" and property_name == "connected" and hasattr(space, "topology"):
-        exact = _finite_connected_from_topology(space)
-        if exact is not None:
-            return Result.true(
+    if representation == "finite" and hasattr(space, "topology"):
+        opens = [set(u) for u in getattr(space, "topology", [])]
+        points = list(getattr(space, "carrier", []))
+        meta = {"representation": representation, "property": property_name, "tags": sorted(tags)}
+
+        if property_name == "connected":
+            exact = _finite_connected_from_topology(space)
+            if exact is not None:
+                return (
+                    Result.true(
+                        mode="exact",
+                        value=property_name,
+                        justification=["The finite topology admits no nontrivial clopen partition."],
+                        proof_outline=[
+                            "Enumerate clopen subsets from the explicit topology.",
+                            "Check whether a nontrivial clopen subset exists.",
+                        ],
+                        metadata=meta,
+                    )
+                    if exact
+                    else Result.false(
+                        mode="exact",
+                        value=property_name,
+                        justification=["A nontrivial clopen subset exists in the explicit finite topology."],
+                        metadata=meta,
+                    )
+                )
+
+        if property_name == "arc_connected":
+            n = len(points)
+            if n <= 1:
+                return Result.true(
+                    mode="exact",
+                    value=property_name,
+                    justification=["Singleton (or empty) space is trivially arc-connected."],
+                    metadata=meta,
+                )
+            # A non-trivial finite space is arc-connected only if indiscrete (path via constant arcs).
+            carrier_set = set(points)
+            topology_sets = {frozenset(u) for u in opens}
+            indiscrete = topology_sets == {frozenset(), frozenset(carrier_set)}
+            if indiscrete:
+                return Result.true(
+                    mode="exact",
+                    value=property_name,
+                    justification=["Indiscrete finite space: any constant arc is continuous."],
+                    metadata=meta,
+                )
+            return Result.false(
                 mode="exact",
                 value=property_name,
-                justification=["The finite topology admits no nontrivial clopen partition."],
-                proof_outline=[
-                    "Enumerate clopen subsets from the explicit topology.",
-                    "Check whether a nontrivial clopen subset exists.",
+                justification=[
+                    "Non-trivial finite space with non-indiscrete topology: "
+                    "no arc [0,1] → X can be non-constant and continuous (preimage of open set "
+                    "would be neither open nor closed in [0,1])."
                 ],
-                metadata={"representation": representation, "property": property_name, "tags": sorted(tags)},
-            ) if exact else Result.false(
+                metadata=meta,
+            )
+
+        if property_name == "totally_disconnected":
+            # Finite totally disconnected ↔ T1 ↔ discrete.
+            is_t1 = _finite_t1_check(opens, points)
+            if is_t1:
+                return Result.true(
+                    mode="exact",
+                    value=property_name,
+                    justification=["Finite T1 space is discrete; each singleton is clopen."],
+                    metadata=meta,
+                )
+            return Result.false(
                 mode="exact",
                 value=property_name,
-                justification=["A nontrivial clopen subset exists in the explicit finite topology."],
-                metadata={"representation": representation, "property": property_name, "tags": sorted(tags)},
+                justification=["Finite non-T1 space has non-singleton connected components."],
+                metadata=meta,
+            )
+
+        if property_name == "scattered":
+            # Every finite T0 space is scattered; non-T0 spaces may not be.
+            is_t0 = _finite_t0_check(opens, points)
+            if is_t0:
+                return Result.true(
+                    mode="exact",
+                    value=property_name,
+                    justification=[
+                        "Finite T0 space: every nonempty subspace has a point with a "
+                        "minimal open neighborhood (isolated in the subspace topology)."
+                    ],
+                    metadata=meta,
+                )
+            return Result.false(
+                mode="exact",
+                value=property_name,
+                justification=[
+                    "Non-T0 space: distinct points sharing all open neighborhoods "
+                    "form a subspace with no isolated point."
+                ],
+                metadata=meta,
             )
 
     if _matches_any(tags, TRUE_TAGS[property_name]):
@@ -116,6 +205,17 @@ def is_locally_connected(space: Any) -> Result:
     return analyze_connectedness(space, "locally_connected")
 
 
+def is_arc_connected(space: Any) -> Result:
+    return analyze_connectedness(space, "arc_connected")
+
+
+def is_totally_disconnected(space: Any) -> Result:
+    return analyze_connectedness(space, "totally_disconnected")
+
+
+def is_scattered(space: Any) -> Result:
+    return analyze_connectedness(space, "scattered")
+
 
 def _finite_connected_from_topology(space: Any) -> bool | None:
     topology = getattr(space, "topology", None)
@@ -136,6 +236,24 @@ def _finite_connected_from_topology(space: Any) -> bool | None:
 
 def _as_frozenset(obj: Any) -> frozenset[Any]:
     return frozenset(obj)
+
+
+def _finite_t1_check(opens: list[set[Any]], points: list[Any]) -> bool:
+    for i, x in enumerate(points):
+        for y in points[i + 1:]:
+            has_x_not_y = any(x in U and y not in U for U in opens)
+            has_y_not_x = any(y in U and x not in U for U in opens)
+            if not (has_x_not_y and has_y_not_x):
+                return False
+    return True
+
+
+def _finite_t0_check(opens: list[set[Any]], points: list[Any]) -> bool:
+    for i, x in enumerate(points):
+        for y in points[i + 1:]:
+            if not any((x in U) ^ (y in U) for U in opens):
+                return False
+    return True
 
 
 
@@ -180,4 +298,7 @@ __all__ = [
     "is_connected",
     "is_path_connected",
     "is_locally_connected",
+    "is_arc_connected",
+    "is_totally_disconnected",
+    "is_scattered",
 ]

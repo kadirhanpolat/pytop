@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.4.3"
+__version__ = "0.4.4"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -159,6 +159,9 @@ from .connectedness import (
     is_connected,
     is_locally_connected,
     is_path_connected,
+    is_arc_connected,
+    is_totally_disconnected,
+    is_scattered,
 )
 from .countability import (
     analyze_countability,
@@ -224,6 +227,8 @@ from .finite_basis_engine import (
     relative_basis as finite_relative_basis,
     local_base_report,
     continuity_via_basis_preimage,
+    minimal_basis,
+    minimal_basis_report,
     finite_basis_engine_capabilities,
 )
 from .finite_map_engine import (
@@ -404,12 +409,15 @@ from .separation import (
     is_t0,
     is_t1,
     is_t2,
+    is_urysohn,
+    is_t2_5,
     is_regular,
     is_t3,
     is_completely_regular,
     is_tychonoff,
     is_normal,
     is_t4,
+    is_perfectly_normal,
 )
 from .spaces import TopologicalSpace
 from .theorem_engine import DEFAULT_THEOREM_ENGINE, infer_feature
@@ -436,6 +444,9 @@ from .alexandroff import (
     specialization_preorder,
     t0_reduction_profile,
     upper_sets,
+    poset_mobius,
+    poset_mobius_report,
+    poset_isomorphic,
 )
 from .order_spaces import (
     FinitePosetSpace,
@@ -746,6 +757,10 @@ from .compactness_variants import (
     is_countably_compact,
     is_sequentially_compact,
     is_pseudocompact,
+    is_feebly_compact,
+    is_metacompact,
+    is_relatively_compact,
+    is_sigma_compact,
     is_lindelof,
     compactness_variant_profile,
     analyze_compactness_variants,
@@ -919,6 +934,9 @@ __all__ = [
     "is_connected",
     "is_path_connected",
     "is_locally_connected",
+    "is_arc_connected",
+    "is_totally_disconnected",
+    "is_scattered",
     "analyze_separation",
     "is_t0",
     "is_t1",
@@ -1523,6 +1541,7 @@ from .cardinal_functions_framework import (
     cardinal_function_comparison,
     cardinal_functions_framework_profile,
     analyze_cardinal_functions_framework,
+    arhangelskii_bound,
 )
 
 

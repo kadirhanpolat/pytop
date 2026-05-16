@@ -22,41 +22,49 @@ ADVANCED_PROPERTIES = {
     "t4",
     "completely_regular",
     "tychonoff",
+    "urysohn",
+    "perfectly_normal",
 }
 SUPPORTED_PROPERTIES = BASIC_PROPERTIES | ADVANCED_PROPERTIES
 DEFAULT_PROFILE_PROPERTIES = (
     "t0",
     "t1",
     "hausdorff",
+    "urysohn",
     "regular",
     "t3",
     "completely_regular",
     "tychonoff",
     "normal",
     "t4",
+    "perfectly_normal",
 )
 
 TRUE_TAGS = {
     "t0": ["t0", "kolmogorov"],
     "t1": ["t1"],
     "hausdorff": ["hausdorff", "t2"],
+    "urysohn": ["urysohn", "t2_5", "t2½"],
     "regular": ["regular"],
     "t3": ["t3", "regular_t1"],
     "completely_regular": ["completely_regular", "functionally_regular"],
     "tychonoff": ["tychonoff", "t3_5", "t3½"],
     "normal": ["normal"],
     "t4": ["t4", "normal_t1"],
+    "perfectly_normal": ["perfectly_normal", "t6"],
 }
 FALSE_TAGS = {
     "t0": ["not_t0"],
     "t1": ["not_t1"],
     "hausdorff": ["not_hausdorff", "not_t2"],
+    "urysohn": ["not_urysohn", "not_t2_5"],
     "regular": ["not_regular"],
     "t3": ["not_t3", "not_regular_t1"],
     "completely_regular": ["not_completely_regular", "not_functionally_regular"],
     "tychonoff": ["not_tychonoff", "not_t3_5"],
     "normal": ["not_normal"],
     "t4": ["not_t4", "not_normal_t1"],
+    "perfectly_normal": ["not_perfectly_normal"],
 }
 
 
@@ -74,6 +82,9 @@ def normalize_separation_property(name: str) -> str:
         "kolmogorov": "t0",
         "t_0": "t0",
         "t_1": "t1",
+        "t2_5": "urysohn",
+        "t2½": "urysohn",
+        "t_2_5": "urysohn",
         "regular_t1": "t3",
         "t_3": "t3",
         "normal_t1": "t4",
@@ -84,12 +95,13 @@ def normalize_separation_property(name: str) -> str:
         "t3_5": "tychonoff",
         "t3½": "tychonoff",
         "t_3_5": "tychonoff",
+        "t6": "perfectly_normal",
     }
     normalized = aliases.get(normalized, normalized)
     if normalized not in SUPPORTED_PROPERTIES:
         raise SeparationError(
-            "Expected one of 't0', 't1', 'hausdorff', 'regular', 't3', "
-            "'completely_regular', 'tychonoff', 'normal', or 't4'."
+            "Expected one of 't0', 't1', 'hausdorff', 'urysohn', 'regular', 't3', "
+            "'completely_regular', 'tychonoff', 'normal', 't4', or 'perfectly_normal'."
         )
     return normalized
 
@@ -195,6 +207,18 @@ def is_t4(space: Any) -> Result:
     return analyze_separation(space, "t4")
 
 
+def is_urysohn(space: Any) -> Result:
+    return analyze_separation(space, "urysohn")
+
+
+def is_t2_5(space: Any) -> Result:
+    return analyze_separation(space, "urysohn")
+
+
+def is_perfectly_normal(space: Any) -> Result:
+    return analyze_separation(space, "perfectly_normal")
+
+
 def _finite_result(exact: bool, representation: str, property_name: str, tags: set[str]) -> Result:
     metadata = {"representation": representation, "property": property_name, "tags": sorted(tags)}
     if exact:
@@ -234,6 +258,9 @@ def _finite_separation(space: Any, property_name: str) -> bool | None:
 
     if property_name in {"t0", "t1", "hausdorff"}:
         return _finite_basic_separation(opens, points, property_name)
+    if property_name == "urysohn":
+        # Finite Hausdorff ⟹ T1 ⟹ discrete ⟹ Urysohn (distance functions exist trivially).
+        return _finite_basic_separation(opens, points, "hausdorff")
     if property_name == "regular":
         return _finite_regular(opens, points)
     if property_name == "t3":
@@ -241,6 +268,9 @@ def _finite_separation(space: Any, property_name: str) -> bool | None:
     if property_name == "normal":
         return _finite_normal(opens, points)
     if property_name == "t4":
+        return _finite_basic_separation(opens, points, "t1") and _finite_normal(opens, points)
+    if property_name == "perfectly_normal":
+        # Finite T4 space is discrete; every closed set is open = G_delta.
         return _finite_basic_separation(opens, points, "t1") and _finite_normal(opens, points)
     if property_name == "completely_regular":
         # For finite T1 spaces, the topology is discrete, hence completely regular.
@@ -340,12 +370,14 @@ def _theorem_level_separation(space: Any, property_name: str, tags: set[str], re
             "t0",
             "t1",
             "hausdorff",
+            "urysohn",
             "regular",
             "t3",
             "completely_regular",
             "tychonoff",
             "normal",
             "t4",
+            "perfectly_normal",
         }
         if property_name in metric_properties:
             return Result.true(
@@ -394,6 +426,8 @@ def _theorem_level_separation(space: Any, property_name: str, tags: set[str], re
 def _metric_justification(property_name: str) -> str:
     if property_name == "hausdorff":
         return "Every metric space is Hausdorff."
+    if property_name == "urysohn":
+        return "Every metric space is Hausdorff, hence Urysohn (T2.5)."
     if property_name == "t1":
         return "Every metric space is Hausdorff, hence T1."
     if property_name == "t0":
@@ -402,33 +436,41 @@ def _metric_justification(property_name: str) -> str:
         return "Distance-to-a-closed-set functions make every metric space completely regular, hence regular."
     if property_name in {"normal", "t4"}:
         return "Every metric space is normal; with T1 this gives the T4 separation level."
+    if property_name == "perfectly_normal":
+        return "Every metric space is perfectly normal: closed sets are G_delta via distance functions."
     return "Metric structure supplies the requested separation property."
 
 
 def _positive_tag_implies(tags: set[str], property_name: str) -> bool:
     stronger_tags = {
-        "t0": {"t1", "hausdorff", "t2", "t3", "tychonoff", "t3_5", "t4"},
-        "t1": {"hausdorff", "t2", "t3", "tychonoff", "t3_5", "t4"},
-        "hausdorff": {"t3", "tychonoff", "t3_5", "t4"},
-        "regular": {"t3", "t4"},
-        "t3": {"t3", "t4"},
-        "completely_regular": {"tychonoff", "t3_5", "t4"},
-        "tychonoff": {"tychonoff", "t3_5", "t4"},
-        "normal": {"t4"},
-        "t4": {"t4"},
+        "t0": {"t1", "hausdorff", "t2", "urysohn", "t2_5", "t3", "tychonoff", "t3_5", "t4", "perfectly_normal"},
+        "t1": {"hausdorff", "t2", "urysohn", "t2_5", "t3", "tychonoff", "t3_5", "t4", "perfectly_normal"},
+        "hausdorff": {"urysohn", "t2_5", "t3", "tychonoff", "t3_5", "t4", "perfectly_normal"},
+        "urysohn": {"t3", "tychonoff", "t3_5", "t4", "perfectly_normal"},
+        "regular": {"t3", "t4", "perfectly_normal"},
+        "t3": {"t3", "t4", "perfectly_normal"},
+        "completely_regular": {"tychonoff", "t3_5", "t4", "perfectly_normal"},
+        "tychonoff": {"tychonoff", "t3_5", "t4", "perfectly_normal"},
+        "normal": {"t4", "perfectly_normal"},
+        "t4": {"t4", "perfectly_normal"},
+        "perfectly_normal": {"perfectly_normal"},
     }
     return bool(tags & stronger_tags.get(property_name, set()))
 
 
 def _negative_tag_implication(tags: set[str], property_name: str) -> str:
-    if property_name in {"t3", "tychonoff", "t4"} and "not_t1" in tags:
+    if property_name in {"t3", "tychonoff", "t4", "perfectly_normal"} and "not_t1" in tags:
         return f"The property {property_name} includes T1, but the space is tagged not_t1."
+    if property_name == "urysohn" and "not_hausdorff" in tags:
+        return "Urysohn (T2.5) implies Hausdorff, but the space is tagged not_hausdorff."
     if property_name in {"regular", "normal"} and {"t1", "not_hausdorff"} <= tags:
         return f"A T1 {property_name} space would be Hausdorff; the tags record T1 and not_hausdorff."
     if property_name == "t3" and "not_regular" in tags:
         return "T3 requires regularity, but the space is tagged not_regular."
     if property_name == "t4" and "not_normal" in tags:
         return "T4 requires normality, but the space is tagged not_normal."
+    if property_name == "perfectly_normal" and "not_normal" in tags:
+        return "Perfectly normal requires normality, but the space is tagged not_normal."
     if property_name == "tychonoff" and "not_completely_regular" in tags:
         return "Tychonoff requires complete regularity, but the space is tagged not_completely_regular."
     return ""
@@ -475,10 +517,13 @@ __all__ = [
     "is_t1",
     "is_hausdorff",
     "is_t2",
+    "is_urysohn",
+    "is_t2_5",
     "is_regular",
     "is_t3",
     "is_completely_regular",
     "is_tychonoff",
     "is_normal",
     "is_t4",
+    "is_perfectly_normal",
 ]

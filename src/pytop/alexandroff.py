@@ -286,6 +286,136 @@ def alexandroff_report(space: Any) -> dict[str, Any]:
     return report
 
 
+def poset_mobius(
+    carrier: Iterable[Any],
+    relation: Iterable[tuple[Any, Any]],
+) -> dict[tuple[Any, Any], int]:
+    """Compute the Möbius function μ(x, y) on a finite poset.
+
+    The Möbius function is defined recursively:
+      μ(x, x) = 1
+      μ(x, y) = -∑_{x ≤ z < y} μ(x, z)  for x < y
+      μ(x, y) = 0                         if x ≰ y
+
+    Parameters
+    ----------
+    carrier:
+        Elements of the poset.
+    relation:
+        Comparable pairs (x, y) meaning x ≤ y.  Need not be transitively
+        closed — the function closes it internally.
+
+    Returns
+    -------
+    dict mapping (x, y) pairs to integer Möbius values.
+    """
+    carrier_tuple = normalize_carrier(carrier)
+    order = reflexive_transitive_closure(carrier_tuple, relation)
+    if not is_partial_order(carrier_tuple, order):
+        raise AlexandroffError("Relation is not a partial order (after reflexive-transitive closure check antisymmetry).")
+
+    mu: dict[tuple[Any, Any], int] = {}
+
+    for x in carrier_tuple:
+        for y in carrier_tuple:
+            if (x, y) not in order:
+                mu[(x, y)] = 0
+            elif x == y:
+                mu[(x, y)] = 1
+            else:
+                # μ(x,y) = -∑_{x ≤ z < y} μ(x,z)
+                total = 0
+                for z in carrier_tuple:
+                    if (x, z) in order and (z, y) in order and z != y:
+                        total += mu.get((x, z), 0)
+                mu[(x, y)] = -total
+
+    return mu
+
+
+def poset_mobius_report(
+    carrier: Iterable[Any],
+    relation: Iterable[tuple[Any, Any]],
+) -> dict[str, Any]:
+    """Return a summary report of the Möbius function on a finite poset."""
+    carrier_tuple = normalize_carrier(carrier)
+    mu = poset_mobius(carrier_tuple, relation)
+    nonzero = {pair: val for pair, val in mu.items() if val != 0}
+    return {
+        "carrier": carrier_tuple,
+        "carrier_size": len(carrier_tuple),
+        "mobius_function": mu,
+        "nonzero_entries": nonzero,
+        "nonzero_count": len(nonzero),
+        "zeta_inverse_check": "μ is the inverse of the zeta function on the incidence algebra.",
+    }
+
+
+def poset_isomorphic(
+    carrier1: Iterable[Any],
+    relation1: Iterable[tuple[Any, Any]],
+    carrier2: Iterable[Any],
+    relation2: Iterable[tuple[Any, Any]],
+) -> bool:
+    """Determine whether two finite posets are order-isomorphic.
+
+    Checks whether there exists an order-preserving bijection f: P → Q
+    such that x ≤ y ↔ f(x) ≤ f(y).
+
+    Uses a backtracking search with degree-sequence pruning.  Feasible for
+    posets of size ≤ ~10; avoid for large carriers.
+
+    Returns
+    -------
+    True if the posets are isomorphic, False otherwise.
+    """
+    c1 = normalize_carrier(carrier1)
+    c2 = normalize_carrier(carrier2)
+    if len(c1) != len(c2):
+        return False
+
+    o1 = reflexive_transitive_closure(c1, relation1)
+    o2 = reflexive_transitive_closure(c2, relation2)
+
+    def _up_degree(x: Any, carrier: tuple, order: set) -> int:
+        return sum(1 for y in carrier if (x, y) in order and x != y)
+
+    def _down_degree(x: Any, carrier: tuple, order: set) -> int:
+        return sum(1 for y in carrier if (y, x) in order and x != y)
+
+    # Quick invariant: sorted (up-degree, down-degree) sequences must match
+    sig1 = sorted((_up_degree(x, c1, o1), _down_degree(x, c1, o1)) for x in c1)
+    sig2 = sorted((_up_degree(x, c2, o2), _down_degree(x, c2, o2)) for x in c2)
+    if sig1 != sig2:
+        return False
+
+    # Backtracking isomorphism search
+    def _backtrack(mapping: dict[Any, Any], remaining1: list, remaining2: set) -> bool:
+        if not remaining1:
+            return True
+        x = remaining1[0]
+        for y in list(remaining2):
+            # Check consistency: for all a already mapped, x≤a ↔ y≤f(a) and a≤x ↔ f(a)≤y
+            ok = True
+            for a, fa in mapping.items():
+                if ((x, a) in o1) != ((y, fa) in o2):
+                    ok = False
+                    break
+                if ((a, x) in o1) != ((fa, y) in o2):
+                    ok = False
+                    break
+            if ok:
+                mapping[x] = y
+                remaining2.remove(y)
+                if _backtrack(mapping, remaining1[1:], remaining2):
+                    return True
+                del mapping[x]
+                remaining2.add(y)
+        return False
+
+    return _backtrack({}, list(c1), set(c2))
+
+
 def _normalize_topology(topology: Iterable[Iterable[Any]]) -> list[set[Any]]:
     normalized: list[set[Any]] = []
     seen: set[frozenset[Any]] = set()
@@ -323,4 +453,7 @@ __all__ = [
     "analyze_alexandroff",
     "is_alexandroff_space",
     "alexandroff_report",
+    "poset_mobius",
+    "poset_mobius_report",
+    "poset_isomorphic",
 ]

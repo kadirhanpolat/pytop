@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.4] - 2026-05-16
+
+### Added — Separation Axioms (`separation.py`)
+- `is_urysohn` / `is_t2_5`: T2.5 (Urysohn) separation; exact for finite spaces (Hausdorff ⟹ Urysohn), theorem for metric spaces
+- `is_perfectly_normal`: perfectly normal (T6) spaces; exact for finite T4, theorem for metric spaces
+- Updated implication chains: T3 ⟹ T2.5 ⟹ T2, perfectly_normal ⟹ T4
+- `separation_profile` now includes `urysohn` and `perfectly_normal` by default
+
+### Added — Compactness Variants (`compactness_variants.py`)
+- `is_feebly_compact`: every locally finite open cover is finite; exact for finite spaces
+- `is_metacompact`: every open cover has a point-finite refinement; metrizable ⟹ metacompact
+- `is_relatively_compact`: closure is compact; exact for finite, tag-based for infinite
+- `is_sigma_compact`: countable union of compact sets; locally compact + second-countable ⟹ σ-compact
+- `compactness_variant_profile` updated to include all 4 new variants
+
+### Added — Connectedness (`connectedness.py`)
+- `is_arc_connected`: exact for finite (only indiscrete or singleton); tag-based for infinite
+- `is_totally_disconnected`: exact for finite (T1 ↔ discrete ↔ totally disconnected)
+- `is_scattered`: exact for finite (T0 ↔ scattered for finite spaces)
+
+### Added — Cardinal Functions Framework (`cardinal_functions_framework.py`)
+- `arhangelskii_bound`: Arhangelskii's theorem |X| ≤ 2^{χ(X)·L(X)} with corollaries
+- `_HEREDITARY_DEFINITIONS`: hd(X), hl(X), hc(X), hs(X) with full definitions
+- `cardinal_functions_framework_profile` now includes `hereditary_layer`
+- Arhangelskii inequality + hd/hl mutual bound added to `_COMPARISONS`
+
+### Added — Finite Basis Engine (`finite_basis_engine.py`)
+- `minimal_basis`: computes the unique minimal basis of a finite topological space (minimal open neighborhoods)
+- `minimal_basis_report`: dict with topology_size, minimal_basis_size, reduction_ratio
+
+### Added — Alexandroff / Poset Tools (`alexandroff.py`)
+- `poset_mobius`: Möbius function μ(x,y) on a finite poset (recursive definition, full matrix)
+- `poset_mobius_report`: summary dict with nonzero entries and count
+- `poset_isomorphic`: backtracking order-isomorphism checker with degree-sequence pruning
+
 ## [0.4.3] - 2026-05-16
 
 

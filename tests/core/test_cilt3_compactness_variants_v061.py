@@ -182,7 +182,11 @@ def test_lf_metadata_version():
 # ---- compactness_variant_profile ----
 def test_profile_keys():
     prof = compactness_variant_profile(make_finite(3))
-    assert set(prof.keys()) == {"representation","countably_compact","sequentially_compact","pseudocompact","lindelof"}
+    assert set(prof.keys()) == {
+        "representation", "countably_compact", "sequentially_compact",
+        "pseudocompact", "feebly_compact", "metacompact",
+        "relatively_compact", "sigma_compact", "lindelof",
+    }
 
 def test_profile_finite_representation():
     assert compactness_variant_profile(make_finite(2))["representation"] == "finite"

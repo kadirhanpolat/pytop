@@ -393,6 +393,275 @@ def is_lindelof(space: Any) -> Result:
 
 
 # ---------------------------------------------------------------------------
+# Feebly compact
+# ---------------------------------------------------------------------------
+
+def is_feebly_compact(space: Any) -> Result:
+    """
+    Determine whether *space* is feebly compact.
+
+    A space X is feebly compact if every locally finite open cover is finite
+    (equivalently: every sequence of nonempty open sets has an accumulation
+    point).  Every pseudocompact Tychonoff space is feebly compact; for
+    non-Tychonoff spaces feebly compact is strictly weaker than pseudocompact.
+    """
+    rep = _representation_of(space)
+    tags = _tags_of(space)
+
+    if "not_feebly_compact" in tags:
+        return Result.false(
+            mode="theorem",
+            value="not_feebly_compact",
+            justification=["Space tagged not_feebly_compact."],
+            metadata={"criterion": "tag"},
+        )
+
+    if rep == "finite":
+        n = _carrier_size(space)
+        return Result.true(
+            mode="exact",
+            value="feebly_compact",
+            justification=[
+                f"Finite space (|X|={n}): every locally finite cover is finite."
+            ],
+            metadata={"carrier_size": n, "criterion": "finite"},
+        )
+
+    if any(t in tags for t in ("compact", "countably_compact", "pseudocompact", "feebly_compact")):
+        witness = next(
+            t for t in ("compact", "countably_compact", "pseudocompact", "feebly_compact")
+            if t in tags
+        )
+        return Result.true(
+            mode="theorem",
+            value="feebly_compact",
+            justification=[
+                f"Space tagged '{witness}'; compact/countably-compact/pseudocompact ⟹ feebly compact."
+            ],
+            metadata={"criterion": witness},
+        )
+
+    if ("metrizable" in tags or "metric" in tags) and "compact" not in tags:
+        return Result.false(
+            mode="theorem",
+            value="not_feebly_compact",
+            justification=[
+                "Non-compact metrizable spaces are not feebly compact "
+                "(e.g. ℝ: the cover {(n-1,n+1)} is locally finite but infinite)."
+            ],
+            metadata={"criterion": "metrizable_noncompact"},
+        )
+
+    return Result.unknown(
+        mode="symbolic",
+        value="feebly_compact_unknown",
+        justification=["Insufficient tags to determine feebly compactness."],
+        metadata={},
+    )
+
+
+# ---------------------------------------------------------------------------
+# Metacompact
+# ---------------------------------------------------------------------------
+
+def is_metacompact(space: Any) -> Result:
+    """
+    Determine whether *space* is metacompact.
+
+    A space X is metacompact if every open cover has a point-finite open
+    refinement (one in which each point belongs to only finitely many members).
+    Compact ⟹ metacompact; paracompact ⟹ metacompact; metrizable ⟹ metacompact.
+    """
+    rep = _representation_of(space)
+    tags = _tags_of(space)
+
+    if "not_metacompact" in tags:
+        return Result.false(
+            mode="theorem",
+            value="not_metacompact",
+            justification=["Space tagged not_metacompact."],
+            metadata={"criterion": "tag"},
+        )
+
+    if rep == "finite":
+        n = _carrier_size(space)
+        return Result.true(
+            mode="exact",
+            value="metacompact",
+            justification=[
+                f"Finite space (|X|={n}): every open cover is finite, hence point-finite."
+            ],
+            metadata={"carrier_size": n, "criterion": "finite"},
+        )
+
+    if any(t in tags for t in ("compact", "paracompact", "metacompact")):
+        witness = next(
+            t for t in ("compact", "paracompact", "metacompact") if t in tags
+        )
+        return Result.true(
+            mode="theorem",
+            value="metacompact",
+            justification=[f"Space tagged '{witness}'; compact/paracompact ⟹ metacompact."],
+            metadata={"criterion": witness},
+        )
+
+    if "metrizable" in tags or "metric" in tags:
+        return Result.true(
+            mode="theorem",
+            value="metacompact",
+            justification=[
+                "Every metrizable space is paracompact (Stone's theorem), hence metacompact."
+            ],
+            metadata={"criterion": "metrizable"},
+        )
+
+    return Result.unknown(
+        mode="symbolic",
+        value="metacompact_unknown",
+        justification=["Insufficient tags to determine metacompactness."],
+        metadata={},
+    )
+
+
+# ---------------------------------------------------------------------------
+# Relatively compact
+# ---------------------------------------------------------------------------
+
+def is_relatively_compact(space: Any) -> Result:
+    """
+    Determine whether *space* has compact closure (is relatively compact in
+    some ambient space).
+
+    For a finite space every subspace is relatively compact. For infinite
+    spaces a tag of 'relatively_compact' or 'compact' is decisive. A
+    bounded subset of a metric space is relatively compact iff it is
+    totally bounded.
+    """
+    rep = _representation_of(space)
+    tags = _tags_of(space)
+
+    if "not_relatively_compact" in tags:
+        return Result.false(
+            mode="theorem",
+            value="not_relatively_compact",
+            justification=["Space tagged not_relatively_compact."],
+            metadata={"criterion": "tag"},
+        )
+
+    if rep == "finite":
+        n = _carrier_size(space)
+        return Result.true(
+            mode="exact",
+            value="relatively_compact",
+            justification=[
+                f"Finite space (|X|={n}): closure is finite, hence compact."
+            ],
+            metadata={"carrier_size": n, "criterion": "finite"},
+        )
+
+    if any(t in tags for t in ("compact", "relatively_compact")):
+        witness = next(t for t in ("compact", "relatively_compact") if t in tags)
+        return Result.true(
+            mode="theorem",
+            value="relatively_compact",
+            justification=[f"Space tagged '{witness}'."],
+            metadata={"criterion": witness},
+        )
+
+    if ("metrizable" in tags or "metric" in tags) and "totally_bounded" in tags:
+        return Result.true(
+            mode="theorem",
+            value="relatively_compact",
+            justification=[
+                "Totally bounded metrizable space has compact closure "
+                "(by completeness + Heine–Borel)."
+            ],
+            metadata={"criterion": "totally_bounded_metrizable"},
+        )
+
+    return Result.unknown(
+        mode="symbolic",
+        value="relatively_compact_unknown",
+        justification=["Insufficient tags to determine relative compactness."],
+        metadata={},
+    )
+
+
+# ---------------------------------------------------------------------------
+# σ-compact
+# ---------------------------------------------------------------------------
+
+def is_sigma_compact(space: Any) -> Result:
+    """
+    Determine whether *space* is σ-compact.
+
+    A space X is σ-compact if it can be written as a countable union of
+    compact subsets.  Compact ⟹ σ-compact; locally compact + second-countable
+    ⟹ σ-compact; σ-compact ⟹ Lindelöf for locally compact Hausdorff spaces.
+    """
+    rep = _representation_of(space)
+    tags = _tags_of(space)
+
+    if "not_sigma_compact" in tags:
+        return Result.false(
+            mode="theorem",
+            value="not_sigma_compact",
+            justification=["Space tagged not_sigma_compact."],
+            metadata={"criterion": "tag"},
+        )
+
+    if rep == "finite":
+        n = _carrier_size(space)
+        return Result.true(
+            mode="exact",
+            value="sigma_compact",
+            justification=[
+                f"Finite space (|X|={n}): it is itself compact, hence σ-compact."
+            ],
+            metadata={"carrier_size": n, "criterion": "finite"},
+        )
+
+    if any(t in tags for t in ("compact", "sigma_compact")):
+        witness = next(t for t in ("compact", "sigma_compact") if t in tags)
+        return Result.true(
+            mode="theorem",
+            value="sigma_compact",
+            justification=[f"Space tagged '{witness}'; compact ⟹ σ-compact."],
+            metadata={"criterion": witness},
+        )
+
+    if ("locally_compact" in tags) and (
+        "second_countable" in tags or "separable_metrizable" in tags
+    ):
+        return Result.true(
+            mode="theorem",
+            value="sigma_compact",
+            justification=[
+                "Locally compact + second-countable ⟹ σ-compact "
+                "(exhaust by compact neighborhoods via a countable base)."
+            ],
+            metadata={"criterion": "locally_compact_second_countable"},
+        )
+
+    if ("metrizable" in tags or "metric" in tags) and "locally_compact" in tags and "lindelof" in tags:
+        return Result.true(
+            mode="theorem",
+            value="sigma_compact",
+            justification=[
+                "Locally compact metrizable Lindelöf ⟹ σ-compact."
+            ],
+            metadata={"criterion": "lc_metrizable_lindelof"},
+        )
+
+    return Result.unknown(
+        mode="symbolic",
+        value="sigma_compact_unknown",
+        justification=["Insufficient tags to determine σ-compactness."],
+        metadata={},
+    )
+
+
+# ---------------------------------------------------------------------------
 # Combined profile
 # ---------------------------------------------------------------------------
 
@@ -412,6 +681,10 @@ def compactness_variant_profile(space: Any) -> dict[str, Any]:
         "countably_compact": is_countably_compact(space),
         "sequentially_compact": is_sequentially_compact(space),
         "pseudocompact": is_pseudocompact(space),
+        "feebly_compact": is_feebly_compact(space),
+        "metacompact": is_metacompact(space),
+        "relatively_compact": is_relatively_compact(space),
+        "sigma_compact": is_sigma_compact(space),
         "lindelof": is_lindelof(space),
     }
 
@@ -441,6 +714,10 @@ def analyze_compactness_variants(space: Any) -> Result:
         f"Countably compact: {_verdict(profile['countably_compact'])}",
         f"Sequentially compact: {_verdict(profile['sequentially_compact'])}",
         f"Pseudocompact: {_verdict(profile['pseudocompact'])}",
+        f"Feebly compact: {_verdict(profile['feebly_compact'])}",
+        f"Metacompact: {_verdict(profile['metacompact'])}",
+        f"Relatively compact: {_verdict(profile['relatively_compact'])}",
+        f"σ-compact: {_verdict(profile['sigma_compact'])}",
         f"Lindelöf: {_verdict(profile['lindelof'])}",
     ]
     if rep == "finite" and n is not None:
@@ -466,6 +743,10 @@ __all__ = [
     "is_countably_compact",
     "is_sequentially_compact",
     "is_pseudocompact",
+    "is_feebly_compact",
+    "is_metacompact",
+    "is_relatively_compact",
+    "is_sigma_compact",
     "is_lindelof",
     "compactness_variant_profile",
     "analyze_compactness_variants",

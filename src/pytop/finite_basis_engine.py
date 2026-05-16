@@ -239,6 +239,60 @@ def continuity_via_basis_preimage(
     }
 
 
+def minimal_basis(space: FiniteTopologicalSpace) -> tuple[frozenset[Any], ...]:
+    """Return the unique minimal basis of a finite topological space.
+
+    The minimal basis consists of the minimal open neighborhood of each point:
+    for each x, intersect all open sets containing x.  These intersections are
+    automatically open (finite topology is closed under finite intersections)
+    and form the coarsest possible basis.
+
+    Parameters
+    ----------
+    space:
+        A FiniteTopologicalSpace instance.
+
+    Returns
+    -------
+    Sorted tuple of distinct basis elements (frozensets).
+    """
+    carrier_set: frozenset[Any] = frozenset(space.carrier)
+    opens = [frozenset(u) for u in space.topology]
+    empty = frozenset()
+
+    basis_elements: set[frozenset[Any]] = set()
+    for x in carrier_set:
+        neighborhoods = [u for u in opens if x in u]
+        if not neighborhoods:
+            # isolated point with no open neighborhood — degenerate topology
+            continue
+        min_nbhd: frozenset[Any] = neighborhoods[0]
+        for u in neighborhoods[1:]:
+            min_nbhd = min_nbhd & u
+        if min_nbhd != empty:
+            basis_elements.add(min_nbhd)
+
+    return _sort_family(basis_elements)
+
+
+def minimal_basis_report(space: FiniteTopologicalSpace) -> dict[str, Any]:
+    """Return a report dict for the minimal basis of *space*.
+
+    Keys: carrier, topology_size, minimal_basis, minimal_basis_size,
+    reduction_ratio (topology_size / minimal_basis_size).
+    """
+    basis = minimal_basis(space)
+    topo_size = len(list(space.topology))
+    basis_size = len(basis)
+    return {
+        "carrier": frozenset(space.carrier),
+        "topology_size": topo_size,
+        "minimal_basis": basis,
+        "minimal_basis_size": basis_size,
+        "reduction_ratio": round(topo_size / basis_size, 3) if basis_size else None,
+    }
+
+
 def finite_basis_engine_capabilities() -> dict[str, int]:
     return {
         "basis_analysis": 1,
@@ -247,6 +301,8 @@ def finite_basis_engine_capabilities() -> dict[str, int]:
         "relative_basis": 1,
         "local_base_report": 1,
         "continuity_via_basis_preimage": 1,
+        "minimal_basis": 1,
+        "minimal_basis_report": 1,
     }
 
 
@@ -306,5 +362,7 @@ __all__ = [
     "relative_basis",
     "local_base_report",
     "continuity_via_basis_preimage",
+    "minimal_basis",
+    "minimal_basis_report",
     "finite_basis_engine_capabilities",
 ]

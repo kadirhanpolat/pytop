@@ -27,6 +27,7 @@ __all__ = [
     "cardinal_function_comparison",
     "cardinal_functions_framework_profile",
     "analyze_cardinal_functions_framework",
+    "arhangelskii_bound",
 ]
 
 VERSION = "0.1.70"
@@ -153,6 +154,64 @@ _DEFINITIONS: dict[str, dict] = {
 
 _FUNCTION_NAMES = list(_DEFINITIONS.keys())
 
+_HEREDITARY_DEFINITIONS: dict[str, dict] = {
+    "hereditary_density": {
+        "symbol": "hd(X)",
+        "definition": (
+            "hd(X) = sup{d(Y) : Y ⊆ X} (hereditary density). "
+            "hd(X) = aleph_0 iff X is hereditarily separable (every subspace is separable). "
+            "hd(X) <= 2^{chi(X)}. For compact Hausdorff X: hd(X) = d(X) iff X is metrizable."
+        ),
+        "type": "global (hereditary supremum)",
+        "introduced_by": "Hodel (1984)",
+        "key_threshold": "aleph_0: hereditarily separable",
+        "computation": "Supremum of d(Y) over all subspaces Y of X.",
+        "finite_case": "hd(X) = |carrier| for finite X (worst case: discrete subspace).",
+    },
+    "hereditary_lindelof": {
+        "symbol": "hl(X)",
+        "definition": (
+            "hl(X) = sup{L(Y) : Y ⊆ X} (hereditary Lindelöf number). "
+            "hl(X) = aleph_0 iff X is hereditarily Lindelöf (every subspace is Lindelöf). "
+            "Second-countable => hl(X) = aleph_0. hl(X) <= 2^{chi(X)}."
+        ),
+        "type": "global (hereditary supremum)",
+        "introduced_by": "Hodel (1984)",
+        "key_threshold": "aleph_0: hereditarily Lindelöf",
+        "computation": "Supremum of L(Y) over all subspaces Y.",
+        "finite_case": "hl(X) = aleph_0 trivially (every finite subspace is compact, hence Lindelöf).",
+    },
+    "hereditary_cellularity": {
+        "symbol": "hc(X)",
+        "definition": (
+            "hc(X) = sup{c(Y) : Y ⊆ X} (hereditary cellularity). "
+            "hc(X) = aleph_0 iff every subspace satisfies the countable chain condition. "
+            "hd(X) <= hc(X) * 2^{chi(X)}. Hereditarily separable => hc(X) = aleph_0."
+        ),
+        "type": "global (hereditary supremum)",
+        "introduced_by": "Hodel (1984)",
+        "key_threshold": "aleph_0: every subspace is ccc",
+        "computation": "Supremum of c(Y) over all subspaces Y.",
+        "finite_case": "hc(X) <= |topology| for finite X.",
+    },
+    "hereditary_spread": {
+        "symbol": "hs(X)",
+        "definition": (
+            "hs(X) = sup{s(Y) : Y ⊆ X} = s(X) (hereditary spread equals spread). "
+            "This holds because every discrete subspace of any subspace Y ⊆ X is also "
+            "a discrete subspace of X. "
+            "hs(X) = aleph_0 iff X has countable spread (hereditarily)."
+        ),
+        "type": "global (hereditary supremum = spread)",
+        "introduced_by": "Hodel (1984); coincides with spread",
+        "key_threshold": "aleph_0: countable (hereditary) spread",
+        "computation": "Same as s(X): find supremum of discrete subspace sizes.",
+        "finite_case": "hs(X) = s(X) <= |carrier| for finite X.",
+    },
+}
+
+_HEREDITARY_FUNCTION_NAMES = list(_HEREDITARY_DEFINITIONS.keys())
+
 
 # ═══════════════════════════════════════════════════════════════
 # KARŞILAŞTIRMA KATMANI
@@ -236,6 +295,47 @@ _COMPARISONS: dict[frozenset, dict] = {
         ),
         "equality_condition": "In compact spaces w(X) = 2^{d(X)} is common.",
         "examples": ["[0,1]: d=aleph_0, w=aleph_0, 2^d=2^aleph_0 (bound not tight)"],
+    },
+    frozenset({"arhangelskii_cardinality", "character", "lindelof_number"}): {
+        "inequality": "|X| <= 2^{chi(X) * L(X)}",
+        "direction": "Arhangelskii cardinality bound",
+        "proof_idea": (
+            "Arhangelskii's theorem (1969): For any Hausdorff space X, "
+            "|X| <= 2^{chi(X) * L(X)}. "
+            "Proof uses transfinite induction: well-order X by a Lindelöf-number-many "
+            "local-base enumeration and build an injective map into 2^{chi * L}."
+        ),
+        "equality_condition": (
+            "Equality |X| = 2^{chi(X)} holds for many spaces with L(X) = aleph_0 "
+            "(e.g. compact Hausdorff first-countable spaces of cardinality 2^aleph_0). "
+            "The bound is sharp: there exist compact Hausdorff spaces with chi=L=aleph_0 "
+            "and |X| = 2^aleph_0."
+        ),
+        "examples": [
+            "Compact metrizable X: chi=L=aleph_0, |X| <= 2^aleph_0 (tight for [0,1]^omega)",
+            "First-countable Lindelöf Hausdorff X: |X| <= 2^aleph_0",
+            "Countably compact first-countable X: L <= 2^chi, so |X| <= 2^{2^chi}",
+        ],
+        "corollaries": [
+            "First-countable + Lindelöf + Hausdorff => |X| <= 2^aleph_0",
+            "Compact + first-countable + Hausdorff => |X| <= 2^aleph_0",
+            "Compact + Hausdorff: |X| <= 2^{chi(X)}",
+        ],
+    },
+    frozenset({"hereditary_density", "hereditary_lindelof"}): {
+        "inequality": "hl(X) <= 2^{hd(X)}, hd(X) <= 2^{hl(X)}",
+        "direction": "hd and hl are mutually bounded via 2^{...}",
+        "proof_idea": (
+            "Under CH: hd(X) = hl(X) for compact X. "
+            "In general: hd(X) <= 2^{hl(X)} and hl(X) <= 2^{hd(X)} (Juhász). "
+            "These follow from the general bounds on density and Lindelöf number."
+        ),
+        "equality_condition": "hd(X) = hl(X) for all compact X under MA + not-CH (Juhász, 1977).",
+        "examples": [
+            "R: hd=hl=aleph_0 (hereditarily separable and hereditarily Lindelöf)",
+            "Sorgenfrey line: hd=hl=aleph_0 (first-countable separable)",
+            "Niemytzki plane: hd=aleph_1 (not hereditarily separable), hl=aleph_0",
+        ],
     },
 }
 
@@ -329,12 +429,14 @@ def cardinal_function_definition(name: str) -> dict:
         "t": "tightness",
     }
     key = aliases.get(key, key)
-    if key not in _DEFINITIONS:
-        raise CardinalFunctionFrameworkError(
-            f"Unknown cardinal function {name!r}. "
-            f"Supported: {sorted(_DEFINITIONS.keys())}"
-        )
-    return dict(_DEFINITIONS[key])
+    if key in _DEFINITIONS:
+        return dict(_DEFINITIONS[key])
+    if key in _HEREDITARY_DEFINITIONS:
+        return dict(_HEREDITARY_DEFINITIONS[key])
+    raise CardinalFunctionFrameworkError(
+        f"Unknown cardinal function {name!r}. "
+        f"Supported: {sorted(_DEFINITIONS.keys()) + sorted(_HEREDITARY_DEFINITIONS.keys())}"
+    )
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -394,6 +496,7 @@ def cardinal_functions_framework_profile(space: Any) -> dict:
         "definition_layer": {
             name: _DEFINITIONS[name] for name in _FUNCTION_NAMES
         },
+        "hereditary_layer": dict(_HEREDITARY_DEFINITIONS),
         "comparison_layer": {
             rec["inequality"]: rec
             for rec in _COMPARISONS.values()
@@ -452,3 +555,51 @@ def analyze_cardinal_functions_framework(space: Any) -> Result:
             "examples_count": len(_FRAMEWORK_EXAMPLES),
         },
     )
+
+
+def arhangelskii_bound(space: Any) -> dict:
+    """Return the Arhangelskii cardinality bound record for *space*.
+
+    Arhangelskii's theorem (1969): For every Hausdorff space X,
+    |X| <= 2^{chi(X) * L(X)}.
+
+    Returns a dict with keys:
+        theorem, bound_formula, hausdorff_required,
+        finite_case, symbolic_case, corollaries, proof_sketch
+    """
+    rep = _representation_of(space)
+    tags = _tags_of(space)
+    n = _carrier_size(space)
+
+    is_hausdorff = any(t in tags for t in ("hausdorff", "t2", "t3", "t4", "metrizable", "metric"))
+    is_first_countable = any(t in tags for t in ("first_countable", "second_countable", "metrizable", "metric"))
+    is_lindelof = any(t in tags for t in ("lindelof", "second_countable", "compact", "sigma_compact"))
+
+    if rep == "finite" and n is not None:
+        case = f"Finite: |X| = {n}, chi(X) and L(X) are finite, bound is trivially satisfied."
+    elif is_first_countable and is_lindelof and is_hausdorff:
+        case = "|X| <= 2^{aleph_0 * aleph_0} = 2^aleph_0 (continuum bound)."
+    elif is_hausdorff:
+        case = "|X| <= 2^{chi(X) * L(X)} (bound applies; need chi and L values for sharpness)."
+    else:
+        case = "Arhangelskii's theorem requires Hausdorff; non-Hausdorff spaces may have larger cardinality."
+
+    return {
+        "theorem": "Arhangelskii (1969): For every Hausdorff space X, |X| <= 2^{chi(X) * L(X)}.",
+        "bound_formula": "|X| <= 2^{chi(X) * L(X)}",
+        "hausdorff_required": True,
+        "finite_case": f"Trivially satisfied for finite spaces (|X|={n})." if n else "N/A",
+        "symbolic_case": case,
+        "corollaries": [
+            "First-countable + Lindelöf + Hausdorff => |X| <= 2^aleph_0",
+            "Compact + first-countable + Hausdorff => |X| <= 2^aleph_0",
+            "Compact + Hausdorff: |X| <= 2^{chi(X)} (since compact => L=aleph_0)",
+        ],
+        "proof_sketch": (
+            "Well-order a local base B_x of size chi(X) at each x. "
+            "Define f: X -> 2^{chi*L} by transfinite induction using the Lindelöf property "
+            "to ensure injectivity. The map is injective on Hausdorff spaces."
+        ),
+        "representation": rep,
+        "space_tags": sorted(tags),
+    }
