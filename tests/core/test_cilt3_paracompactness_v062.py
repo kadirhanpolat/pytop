@@ -3,8 +3,11 @@ test_cilt3_paracompactness_v062.py
 ====================================
 Test suite for src/pytop/paracompactness.py (v0.1.62)
 """
-import importlib.util, sys, os
+import importlib.util
+import os
+import sys
 from itertools import combinations
+
 import pytest
 
 _BASE = os.path.join(os.path.dirname(__file__), "..", "..", "src", "pytop")
@@ -16,7 +19,6 @@ def _load(name, rel):
     spec.loader.exec_module(mod); return mod
 
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-import pytop as _pytop_pkg
 
 _pm = _load("pytop.paracompactness", "paracompactness.py")
 FiniteTopologicalSpace  = sys.modules["pytop.finite_spaces"].FiniteTopologicalSpace
@@ -61,7 +63,7 @@ def test_finite_carrier_size():
     assert is_paracompact(make_finite(4)).metadata["carrier_size"] == 4
 
 def test_finite_version():
-    assert is_paracompact(make_finite(3)).metadata["version"] == "0.1.62"
+    assert is_paracompact(make_finite(3)).metadata["version"] == "0.5.3"
 
 
 # ---- is_paracompact — Stone's theorem ----
@@ -126,7 +128,7 @@ def test_lindelof_alone_unknown():
 # ---- paracompact_profile ----
 def test_profile_required_keys():
     prof = paracompact_profile(make_finite(3))
-    for k in ["is_paracompact_result","full_normality","partition_of_unity",
+    for k in ["is_paracompact_result","is_fully_normal_result","partition_of_unity",
               "locally_finite_covers","key_theorems","counterexamples","representation"]:
         assert k in prof
 
@@ -138,7 +140,7 @@ def test_profile_symbolic_representation():
 
 def test_profile_finite_full_normality():
     prof = paracompact_profile(make_finite(3))
-    assert "yes" in prof["full_normality"].lower()
+    assert prof["is_fully_normal_result"].is_true
 
 def test_profile_finite_partition_of_unity():
     prof = paracompact_profile(make_finite(3))
@@ -183,7 +185,7 @@ def test_analyze_mode_theorem_metrizable():
     assert r.mode == "theorem"
 
 def test_analyze_version():
-    assert analyze_paracompactness(make_finite(3)).metadata["version"] == "0.1.62"
+    assert analyze_paracompactness(make_finite(3)).metadata["version"] == "0.5.3"
 
 def test_analyze_carrier_size():
     assert analyze_paracompactness(make_finite(5)).metadata["carrier_size"] == 5
