@@ -8,9 +8,15 @@ there as the canonical implementation. The copies in this package are
 existing code using the experimental import path continues to work without
 modification:
 
+- ``advanced_cardinal_functions``        → :mod:`pytop.cardinal_function_profiles`
+- ``advanced_metrization``              → :mod:`pytop.metrization_profiles`
+- ``compactness_cardinal_bridges``      → :mod:`pytop.compactness_bridges`
 - ``compactness_strengthened_profiles`` → :mod:`pytop.compactness_strengthened_profiles`
+- ``experimental_inference``            → :mod:`pytop.theorem_profile_alignment`
 - ``hereditary_local_profiles``         → :mod:`pytop.hereditary_local_profiles`
 - ``research_bridge_profiles``          → :mod:`pytop.research_bridge_profiles`
+- ``research_path_registry``            → :mod:`pytop.research_path_profiles`
+- ``special_example_spaces``            → :mod:`pytop.special_example_profiles`
 - ``tightness_network_profiles``        → :mod:`pytop.tightness_network_profiles`
 
 New code should import from :mod:`pytop` directly.

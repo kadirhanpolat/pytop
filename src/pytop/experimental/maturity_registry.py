@@ -36,7 +36,7 @@ def get_experimental_maturity_profiles() -> tuple[ExperimentalMaturityProfile, .
             maturity_tier="core_candidate",
             preferred_home="pytop",
             rationale="Its abstractions now behave like reusable invariant machinery rather than chapter-only note support, and a first core-facing registry now exists under pytop.",
-            next_action="core_facade_available",
+            next_action="promoted_wrapper_complete",
             primary_chapters=("32", "34"),
         ),
         ExperimentalMaturityProfile(
@@ -44,7 +44,7 @@ def get_experimental_maturity_profiles() -> tuple[ExperimentalMaturityProfile, .
             maturity_tier="core_candidate",
             preferred_home="pytop",
             rationale="Its metrization-criterion families now behave like reusable core-facing route vocabulary rather than a placeholder-only experimental note.",
-            next_action="core_facade_available",
+            next_action="promoted_wrapper_complete",
             primary_chapters=("15", "23"),
         ),
         ExperimentalMaturityProfile(
@@ -52,7 +52,7 @@ def get_experimental_maturity_profiles() -> tuple[ExperimentalMaturityProfile, .
             maturity_tier="core_candidate",
             preferred_home="pytop",
             rationale="This module already behaves like a named bridge family that can support future core compactness workflows, and a first core-facing bridge registry now exists under pytop.",
-            next_action="core_facade_available",
+            next_action="promoted_wrapper_complete",
             primary_chapters=("35",),
         ),
         ExperimentalMaturityProfile(
@@ -60,7 +60,7 @@ def get_experimental_maturity_profiles() -> tuple[ExperimentalMaturityProfile, .
             maturity_tier="core_candidate",
             preferred_home="pytop",
             rationale="A stable theorem-profile alignment surface now exists under pytop, so the old experimental import path mainly remains as a compatibility facade.",
-            next_action="core_facade_available",
+            next_action="promoted_wrapper_complete",
             primary_chapters=("32", "33", "34", "35", "36"),
         ),
         ExperimentalMaturityProfile(
@@ -84,7 +84,7 @@ def get_experimental_maturity_profiles() -> tuple[ExperimentalMaturityProfile, .
             maturity_tier="core_candidate",
             preferred_home="pytop",
             rationale="Its comparison families now behave like reusable compactness vocabulary rather than chapter-only benchmark scaffolding, and a first core-facing registry now exists under pytop.",
-            next_action="core_facade_available",
+            next_action="promoted_wrapper_complete",
             primary_chapters=("35",),
         ),
         ExperimentalMaturityProfile(
@@ -92,7 +92,7 @@ def get_experimental_maturity_profiles() -> tuple[ExperimentalMaturityProfile, .
             maturity_tier="core_candidate",
             preferred_home="pytop",
             rationale="Its warning families now behave like reusable invariant-planning vocabulary rather than chapter-only note support, and a first core-facing registry now exists under pytop.",
-            next_action="core_facade_available",
+            next_action="promoted_wrapper_complete",
             primary_chapters=("33",),
         ),
         ExperimentalMaturityProfile(
@@ -108,7 +108,7 @@ def get_experimental_maturity_profiles() -> tuple[ExperimentalMaturityProfile, .
             maturity_tier="core_candidate",
             preferred_home="pytop",
             rationale="Its curated bridge routes now behave like reusable core-facing route vocabulary rather than purely experimental curation, and a first core-facing registry now exists under pytop.",
-            next_action="core_facade_available",
+            next_action="promoted_wrapper_complete",
             primary_chapters=("34", "35", "36"),
         ),
         ExperimentalMaturityProfile(
@@ -124,7 +124,7 @@ def get_experimental_maturity_profiles() -> tuple[ExperimentalMaturityProfile, .
             maturity_tier="core_candidate",
             preferred_home="pytop",
             rationale="Its profile families now behave like reusable fine-cardinal vocabulary rather than chapter-only scaffolding, and a first core-facing registry now exists under pytop.",
-            next_action="core_facade_available",
+            next_action="promoted_wrapper_complete",
             primary_chapters=("32",),
         ),
         ExperimentalMaturityProfile(
@@ -140,7 +140,7 @@ def get_experimental_maturity_profiles() -> tuple[ExperimentalMaturityProfile, .
             maturity_tier="core_candidate",
             preferred_home="pytop",
             rationale="Its named path families now behave like reusable route vocabulary that can connect bridge, special-example, theorem, and report surfaces through a stable core-facing registry under pytop.",
-            next_action="core_facade_available",
+            next_action="promoted_wrapper_complete",
             primary_chapters=("35", "36"),
         ),
         ExperimentalMaturityProfile(
@@ -148,7 +148,7 @@ def get_experimental_maturity_profiles() -> tuple[ExperimentalMaturityProfile, .
             maturity_tier="core_candidate",
             preferred_home="pytop",
             rationale="Its named special-example surfaces now behave like reusable core-facing example vocabulary rather than an empty draft placeholder, and a first core-facing registry now exists under pytop.",
-            next_action="core_facade_available",
+            next_action="promoted_wrapper_complete",
             primary_chapters=("33", "35", "36"),
         ),
         ExperimentalMaturityProfile(
@@ -200,7 +200,7 @@ def promoted_core_facade_modules() -> tuple[str, ...]:
     return tuple(
         profile.module_name
         for profile in get_experimental_maturity_profiles()
-        if profile.next_action == "core_facade_available"
+        if profile.next_action == "promoted_wrapper_complete"
     )
 
 
