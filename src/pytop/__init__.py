@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.5"
+__version__ = "0.5.6"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -1771,6 +1771,24 @@ __all__ = [
     "topological_group_separation",
     "classify_topological_group",
     "topological_group_profile",
+    # normal spaces
+    "NormalSpaceProfile",
+    "NORMAL_POSITIVE_TAGS",
+    "NORMAL_NEGATIVE_TAGS",
+    "PERFECTLY_NORMAL_TAGS",
+    "METRIZABLE_NORMAL_TAGS",
+    "NORMAL_COMPACT_HAUSDORFF_TAGS",
+    "PARACOMPACT_HAUSDORFF_TAGS",
+    "URYSOHN_CONFIRMING_TAGS",
+    "TIETZE_CONFIRMING_TAGS",
+    "get_named_normal_space_profiles",
+    "normal_layer_summary",
+    "normal_chapter_index",
+    "normal_type_index",
+    "urysohn_function_exists",
+    "tietze_extension_applicable",
+    "classify_normality",
+    "normal_space_profile",
     # baire category
     "BaireCategoryProfile",
     "BAIRE_POSITIVE_TAGS",
@@ -1970,6 +1988,26 @@ from .baire_category import (
     baire_category_theorem_check,
     classify_baire_category,
     baire_category_profile,
+)
+
+from .normal_spaces import (
+    NormalSpaceProfile,
+    NORMAL_POSITIVE_TAGS,
+    NORMAL_NEGATIVE_TAGS,
+    PERFECTLY_NORMAL_TAGS,
+    METRIZABLE_NORMAL_TAGS,
+    COMPACT_HAUSDORFF_TAGS as NORMAL_COMPACT_HAUSDORFF_TAGS,
+    PARACOMPACT_HAUSDORFF_TAGS,
+    URYSOHN_CONFIRMING_TAGS,
+    TIETZE_CONFIRMING_TAGS,
+    get_named_normal_space_profiles,
+    normal_layer_summary,
+    normal_chapter_index,
+    normal_type_index,
+    urysohn_function_exists,
+    tietze_extension_applicable,
+    classify_normality,
+    normal_space_profile,
 )
 
 from .surfaces import (

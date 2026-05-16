@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.6] - 2026-05-17
+
+### Added
+
+- **`normal_spaces.py`** — new module for normality analysis and theorems:
+  - `NormalSpaceProfile` frozen dataclass with `normality_type`, `presentation_layer`, `chapter_targets` fields
+  - 5 named profiles: metrizable (perfectly normal), compact Hausdorff, CW-complex, Niemytzki plane (normal, not perfectly normal), Sorgenfrey plane (not normal)
+  - `urysohn_function_exists(space)` — 7-layer check (negative tags, metrizable, compact Hausdorff, paracompact Hausdorff, perfectly normal, normal tag, unknown); Urysohn's Lemma: X normal ↔ continuous separation functions exist
+  - `tietze_extension_applicable(space)` — 6-layer check; Tietze Extension Theorem: X is T4 ↔ every f: C → R on closed C extends to X
+  - `classify_normality(space)` — classifies into `perfectly_normal`, `normal`, `not_normal`, `unknown`
+  - `normal_space_profile(space)` — full profile facade
+  - `normal_layer_summary()`, `normal_chapter_index()`, `normal_type_index()` registry helpers
+  - Tag constants: `NORMAL_POSITIVE_TAGS`, `NORMAL_NEGATIVE_TAGS`, `PERFECTLY_NORMAL_TAGS`, `METRIZABLE_NORMAL_TAGS`, `COMPACT_HAUSDORFF_TAGS`, `PARACOMPACT_HAUSDORFF_TAGS`, `URYSOHN_CONFIRMING_TAGS`, `TIETZE_CONFIRMING_TAGS`
+  - 115 tests in `tests/core/test_normal_spaces_v056.py`
+
 ## [0.5.5] - 2026-05-17
 
 ### Added
