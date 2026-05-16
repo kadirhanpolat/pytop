@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-05-16
+
+### Changed
+- Coverage tour: added 644 targeted tests across 50+ modules, raising overall coverage from 93% to 99.68%
+
+### Fixed
+- Resolved all 321 ruff lint errors across `src/pytop/` and `tests/` (import sorting, unused imports, bare f-strings, ambiguous variable names)
+- Removed duplicate `is_totally_disconnected` export from `__init__.py`
+- Removed unused `meta` variable in `unified_property.py`
+- Removed unused `field` import and bare f-string in `inverse_systems.py`
+
 ## [0.5.0] - 2026-05-16
 
 ### Added — Inverse Systems (`inverse_systems.py`)
