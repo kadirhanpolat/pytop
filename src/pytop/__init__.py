@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.7"
+__version__ = "0.5.8"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -1808,6 +1808,27 @@ __all__ = [
     "baire_category_theorem_check",
     "classify_baire_category",
     "baire_category_profile",
+    # hyperspaces
+    "HyperspaceProfile",
+    "COMPACT_METRIZABLE_TAGS",
+    "POLISH_BASE_TAGS",
+    "LOCALLY_COMPACT_METRIZABLE_TAGS",
+    "METRIZABLE_BASE_TAGS",
+    "CONNECTED_BASE_TAGS",
+    "HAUSDORFF_METRIC_TAGS",
+    "NOT_HYPERSPACE_COMPACT_TAGS",
+    "VIETORIS_COMPACT_TAGS",
+    "get_named_hyperspace_profiles",
+    "hyperspace_layer_summary",
+    "hyperspace_chapter_index",
+    "hyperspace_type_index",
+    "hausdorff_metric_applicable",
+    "hyperspace_is_compact",
+    "hyperspace_is_polish",
+    "vietoris_topology_hausdorff",
+    "hyperspace_is_connected",
+    "classify_hyperspace",
+    "hyperspace_profile",
     # topological vector spaces
     "TVSProfile",
     "TVS_POSITIVE_TAGS",
@@ -2052,6 +2073,29 @@ from .normal_spaces import (
     tietze_extension_applicable,
     classify_normality,
     normal_space_profile,
+)
+
+from .hyperspaces import (
+    HyperspaceProfile,
+    COMPACT_METRIZABLE_TAGS,
+    POLISH_BASE_TAGS,
+    LOCALLY_COMPACT_METRIZABLE_TAGS,
+    METRIZABLE_BASE_TAGS,
+    CONNECTED_BASE_TAGS,
+    HAUSDORFF_METRIC_TAGS,
+    NOT_HYPERSPACE_COMPACT_TAGS,
+    VIETORIS_COMPACT_TAGS,
+    get_named_hyperspace_profiles,
+    hyperspace_layer_summary,
+    hyperspace_chapter_index,
+    hyperspace_type_index,
+    hausdorff_metric_applicable,
+    hyperspace_is_compact,
+    hyperspace_is_polish,
+    vietoris_topology_hausdorff,
+    hyperspace_is_connected,
+    classify_hyperspace,
+    hyperspace_profile,
 )
 
 from .topological_vector_spaces import (

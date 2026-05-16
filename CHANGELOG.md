@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.8] - 2026-05-17
+
+### Added
+
+- **`hyperspaces.py`** — new module for hyperspace topology:
+  - `HyperspaceProfile` frozen dataclass with `hyperspace_type`, `base_space_class`, `is_compact`, `is_polish`, `presentation_layer`, `chapter_targets` fields
+  - 5 named profiles: K([0,1]) (compact Polish, ≅ Hilbert cube), K(Cantor) (compact Polish, ≅ Cantor set), K(R) (Polish not compact), 2^X Vietoris (compact X), K(Polish X) (Polish)
+  - `hausdorff_metric_applicable(space)` — 4-layer check (Polish, compact metrizable, locally compact metrizable, metrizable)
+  - `hyperspace_is_compact(space)` — 6-layer check; Blaschke selection theorem: K(X) compact ↔ X compact metrizable
+  - `hyperspace_is_polish(space)` — 4-layer check; K(X) Polish theorem: X Polish → K(X) Polish
+  - `vietoris_topology_hausdorff(space)` — 3-layer check; 2^X Hausdorff ↔ X Hausdorff
+  - `hyperspace_is_connected(space)` — 3-layer check; K(X) connected ↔ X connected
+  - `classify_hyperspace(space)` — classifies into `compact_polish`/`polish`/`compact`/`metrizable`/`unknown`
+  - `hyperspace_profile(space)` — full profile facade
+  - `hyperspace_layer_summary()`, `hyperspace_chapter_index()`, `hyperspace_type_index()` registry helpers
+  - Tag constants: `COMPACT_METRIZABLE_TAGS`, `POLISH_BASE_TAGS`, `LOCALLY_COMPACT_METRIZABLE_TAGS`, `METRIZABLE_BASE_TAGS`, `CONNECTED_BASE_TAGS`, `HAUSDORFF_METRIC_TAGS`, `NOT_HYPERSPACE_COMPACT_TAGS`, `VIETORIS_COMPACT_TAGS`
+  - Key theorems: Blaschke selection, K(X) Polish theorem, Curtis-Schori-West (K([0,1])≅[0,1]^ω), K(Cantor)≅Cantor
+  - 113 tests in `tests/core/test_hyperspaces_v058.py`
+
 ## [0.5.7] - 2026-05-17
 
 ### Added
