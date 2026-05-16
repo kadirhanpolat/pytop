@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-05-16
+
+### Added — Inverse Systems (`inverse_systems.py`)
+- `InverseSystemDescriptor`: structured dataclass for finite/symbolic inverse systems (spaces, bonding maps, index type)
+- `compute_limit_properties`: applies inverse-limit theorems — T_n inheritance, compact Hausdorff, connectedness (surjective), totally disconnected / profinite, metrizable + second-countable
+- `pro_finite_completion`: descriptor for the profinite completion of a space/group (compact, Hausdorff, totally disconnected)
+- `solenoid_example`: dyadic solenoid descriptor (compact, connected, not path-connected)
+- `p_adic_integers_example`: p-adic integers ℤ_p as inverse limit (compact, Hausdorff, totally disconnected, ultrametric)
+- Backward-compatible `inverse_system` / `inverse_limit` now include `inferred_tags`, `justifications`, `warnings`
+
+### Added — Uniform Spaces (`uniform_spaces.py`)
+- `uniform_equivalence`: decisive check (bool|None) when spaces share an explicit type tag
+- `uniform_completion_descriptor`: completion tags; totally-bounded → compact; metric → unique metric completion
+- `smirnov_metrization_oracle`: applies Urysohn (second_countable + regular) and Smirnov (paracompact + locally_metrizable) metrization; reports missing conditions
+- `uniform_topology_tags`: infers topological tags from uniform structure (completely_regular, separation chain, completeness)
+
+### Added — Symbolic Convergence (`symbolic_convergence.py`) — new module
+- `SymbolicNetDescriptor`: net on an infinite space via tags (index_type: chain/uncountable/directed)
+- `SymbolicFilterDescriptor`: filter on an infinite space via tags (filter_type: neighborhood/ultrafilter/cofinite/principal/general)
+- `net_converges_symbolically`: convergent tag → indiscrete → compact Hausdorff cluster → sequentially compact → first-countable → unknown
+- `filter_converges_symbolically`: neighborhood → convergent tag → indiscrete → ultrafilter in compact → cofinite in compact T1 → compact cluster point → unknown
+- `ultrafilter_theorem_descriptor`: full descriptor of the ultrafilter theorem (logical strength, Tychonoff connection, Stone-Čech connection)
+- `convergence_equivalence_profile`: nets ↔ filters equivalence; sequential sufficiency for first-countable spaces
+- `analyze_symbolic_convergence`: combined facade
+
+### Added — Unified Property Dispatch (`unified_property.py`) — new module
+- `analyze_property(space, property_name)`: single entry point; auto-detects finite vs infinite space; dispatches to correct analyzer
+- `analyze_space(space, properties=None)`: run all or selected properties for any space
+- `unified_compactness_report`, `unified_connectedness_report`, `unified_separation_report`: convenience wrappers
+- `property_registry()`: returns the full property → (finite_fn, infinite_fn) dispatch map
+- `is_finite_space`, `is_infinite_space`: space type detectors
+- Dict inputs with `'tags'` key are automatically converted to `TopologicalSpace.symbolic()`
+
 ## [0.4.4] - 2026-05-16
 
 ### Added — Separation Axioms (`separation.py`)

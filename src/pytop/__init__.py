@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.4.4"
+__version__ = "0.5.0"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -1522,9 +1522,36 @@ __all__ = [
     "is_proximity_space",
     "is_close",
     "smirnov_compactification",
+    # uniform spaces (extended)
+    "uniform_equivalence",
+    "uniform_completion_descriptor",
+    "smirnov_metrization_oracle",
+    "uniform_topology_tags",
     # inverse systems
     "inverse_system",
     "inverse_limit",
+    "InverseSystemDescriptor",
+    "compute_limit_properties",
+    "pro_finite_completion",
+    "solenoid_example",
+    "p_adic_integers_example",
+    # symbolic convergence
+    "SymbolicNetDescriptor",
+    "SymbolicFilterDescriptor",
+    "net_converges_symbolically",
+    "filter_converges_symbolically",
+    "ultrafilter_theorem_descriptor",
+    "convergence_equivalence_profile",
+    "analyze_symbolic_convergence",
+    # unified property dispatch
+    "analyze_property",
+    "analyze_space",
+    "unified_compactness_report",
+    "unified_connectedness_report",
+    "unified_separation_report",
+    "property_registry",
+    "is_finite_space",
+    "is_infinite_space",
     # function spaces
     "is_admissible_topology",
     "is_splitting_topology",
@@ -1615,7 +1642,43 @@ from .proximity_spaces import is_proximity_space, is_close
 
 from .proximity_spaces import smirnov_compactification
 
-from .inverse_systems import inverse_system, inverse_limit
+from .inverse_systems import (
+    inverse_system,
+    inverse_limit,
+    InverseSystemDescriptor,
+    compute_limit_properties,
+    pro_finite_completion,
+    solenoid_example,
+    p_adic_integers_example,
+)
+
+from .uniform_spaces import (
+    uniform_equivalence,
+    uniform_completion_descriptor,
+    smirnov_metrization_oracle,
+    uniform_topology_tags,
+)
+
+from .symbolic_convergence import (
+    SymbolicNetDescriptor,
+    SymbolicFilterDescriptor,
+    net_converges_symbolically,
+    filter_converges_symbolically,
+    ultrafilter_theorem_descriptor,
+    convergence_equivalence_profile,
+    analyze_symbolic_convergence,
+)
+
+from .unified_property import (
+    analyze_property,
+    analyze_space,
+    unified_compactness_report,
+    unified_connectedness_report,
+    unified_separation_report,
+    property_registry,
+    is_finite_space,
+    is_infinite_space,
+)
 
 from .function_spaces import is_admissible_topology, is_splitting_topology
 
