@@ -238,3 +238,16 @@ def test_analyze_quantitative_topology_symbolic():
     obj = _Obj(tags=["metrizable"])
     r = analyze_quantitative_topology(obj)
     assert r.is_true
+
+
+# ---------------------------------------------------------------------------
+# _weight_estimate / _density_estimate — line 106, 129 (finite rep, n is None)
+# ---------------------------------------------------------------------------
+
+def test_quantitative_profile_finite_rep_no_carrier():
+    # metadata["representation"]="finite" but no carrier -> n=None -> lines 106, 129 fire
+    obj = _Obj()
+    obj.metadata = {"representation": "finite"}
+    p = quantitative_profile(obj)
+    assert p["weight"] == "finite"
+    assert p["density"] == "finite"
