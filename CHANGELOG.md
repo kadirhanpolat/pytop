@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.7] - 2026-05-17
+
+### Added
+
+- **`topological_vector_spaces.py`** — new module for TVS analysis:
+  - `TVSProfile` frozen dataclass with `tvs_type`, `is_locally_convex`, `is_complete`, `presentation_layer`, `chapter_targets` fields
+  - 5 named profiles: L²[0,1] (Hilbert), L^p/1≤p<∞ (Banach), C^∞(R) (Fréchet), D'(R) distributions (locally convex, not metrizable), L^p/0<p<1 (TVS, NOT locally convex)
+  - `is_locally_convex(space)` — 6-layer check with full TVS hierarchy (Hilbert→Banach→Fréchet→locally convex)
+  - `is_frechet_space(space)` — 5-layer check; Fréchet = completely metrizable locally convex TVS
+  - `is_banach_space(space)` — 5-layer check; Banach = complete normed (Fréchet with one norm)
+  - `hahn_banach_applicable(space)` — 4-layer check; requires local convexity; fails for L^p (0<p<1)
+  - `open_mapping_theorem_holds(space)` — 4-layer check; requires Fréchet (BCT-based proof)
+  - `classify_tvs(space)` — classifies into `hilbert`/`banach`/`frechet`/`locally_convex`/`tvs`/`unknown`
+  - `tvs_profile(space)` — full profile facade
+  - `tvs_layer_summary()`, `tvs_chapter_index()`, `tvs_type_index()` registry helpers
+  - Tag constants: `TVS_POSITIVE_TAGS`, `TVS_NEGATIVE_TAGS`, `LOCALLY_CONVEX_TAGS`, `NOT_LOCALLY_CONVEX_TAGS`, `FRECHET_TAGS`, `BANACH_TAGS`, `HILBERT_TAGS`, `HAHN_BANACH_TAGS`, `OPEN_MAPPING_TAGS`
+  - Tag hierarchy enforced: HILBERT_TAGS ⊆ BANACH_TAGS ⊆ FRECHET_TAGS ⊆ LOCALLY_CONVEX_TAGS
+  - 130 tests in `tests/core/test_topological_vector_spaces_v057.py`
+
+### Changed
+
+- Coverage patches (9 tests in `tests/core/test_coverage_patches_v057.py`):
+  - `descriptive_set_theory.py:104` — `_extract_tags` fallback for tagless objects
+  - `normal_spaces.py:97` — `_representation_of` attribute path
+  - `baire_category.py:97` — `_representation_of` attribute path
+  - `topological_vector_spaces.py:121` — `_extract_tags` fallback (new module, patched immediately)
+- Coverage: 99.68% → 99.70% (35 remaining missed lines are unreachable dead code)
+
 ## [0.5.6] - 2026-05-17
 
 ### Added

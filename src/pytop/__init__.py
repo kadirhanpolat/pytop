@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.6"
+__version__ = "0.5.7"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -1808,6 +1808,28 @@ __all__ = [
     "baire_category_theorem_check",
     "classify_baire_category",
     "baire_category_profile",
+    # topological vector spaces
+    "TVSProfile",
+    "TVS_POSITIVE_TAGS",
+    "TVS_NEGATIVE_TAGS",
+    "LOCALLY_CONVEX_TAGS",
+    "NOT_LOCALLY_CONVEX_TAGS",
+    "FRECHET_TAGS",
+    "BANACH_TAGS",
+    "HILBERT_TAGS",
+    "HAHN_BANACH_TAGS",
+    "OPEN_MAPPING_TAGS",
+    "get_named_tvs_profiles",
+    "tvs_layer_summary",
+    "tvs_chapter_index",
+    "tvs_type_index",
+    "is_locally_convex",
+    "is_frechet_space",
+    "is_banach_space",
+    "hahn_banach_applicable",
+    "open_mapping_theorem_holds",
+    "classify_tvs",
+    "tvs_profile",
     # descriptive set theory
     "DescriptiveSetProfile",
     "G_DELTA_TAGS",
@@ -2030,6 +2052,30 @@ from .normal_spaces import (
     tietze_extension_applicable,
     classify_normality,
     normal_space_profile,
+)
+
+from .topological_vector_spaces import (
+    TVSProfile,
+    TVS_POSITIVE_TAGS,
+    TVS_NEGATIVE_TAGS,
+    LOCALLY_CONVEX_TAGS,
+    NOT_LOCALLY_CONVEX_TAGS,
+    FRECHET_TAGS,
+    BANACH_TAGS,
+    HILBERT_TAGS,
+    HAHN_BANACH_TAGS,
+    OPEN_MAPPING_TAGS,
+    get_named_tvs_profiles,
+    tvs_layer_summary,
+    tvs_chapter_index,
+    tvs_type_index,
+    is_locally_convex,
+    is_frechet_space,
+    is_banach_space,
+    hahn_banach_applicable,
+    open_mapping_theorem_holds,
+    classify_tvs,
+    tvs_profile,
 )
 
 from .descriptive_set_theory import (
