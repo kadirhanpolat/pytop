@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`descriptive_set_theory.py`** — new module for descriptive set theory:
+  - `DescriptiveSetProfile` frozen dataclass with `borel_class`, `has_baire_property`, `is_perfect`, `presentation_layer`, `chapter_targets` fields
+  - 5 named profiles: irrationals (G_delta, perfect, Polish), rationals Q (F_sigma, meager, NOT G_delta), Cantor set (perfect, compact), open interval (G_delta and F_sigma), countable successor ordinal (scattered)
+  - `is_g_delta(space)` — 6-layer check; includes Alexandrov's theorem (completely metrizable ↔ G_delta in metric completion) and BCT proof that Q is not G_delta
+  - `is_f_sigma(space)` — 5-layer check (closed, open in metrizable, sigma-compact, countable T1)
+  - `is_perfect_set(space)` — 7-layer check with Cantor-Bendixson decomposition context
+  - `has_baire_property(space)` — 5-layer check (Bernstein/Vitali negative, open/closed, G_delta/F_sigma, Borel/analytic, metrizable)
+  - `cantor_bendixson_analysis(space)` — 4-layer Cantor-Bendixson theorem application
+  - `classify_descriptive_complexity(space)` — classifies into `open`, `closed`, `g_delta`, `f_sigma`, `borel`, `unknown` with full `key_properties` list
+  - `descriptive_set_profile(space)` — full profile facade
+  - `descriptive_layer_summary()`, `descriptive_chapter_index()`, `descriptive_type_index()` registry helpers
+  - Tag constants: `G_DELTA_TAGS`, `F_SIGMA_TAGS`, `PERFECT_SET_TAGS`, `SCATTERED_TAGS`, `BAIRE_PROPERTY_TAGS`, `BOREL_NEGATIVE_TAGS`, `G_DELTA_NEGATIVE_TAGS`, `CLOSED_IN_METRIZABLE_TAGS`, `OPEN_IN_METRIZABLE_TAGS`
+  - 128 tests in `tests/core/test_descriptive_set_theory_v056.py`
+
 - **`normal_spaces.py`** — new module for normality analysis and theorems:
   - `NormalSpaceProfile` frozen dataclass with `normality_type`, `presentation_layer`, `chapter_targets` fields
   - 5 named profiles: metrizable (perfectly normal), compact Hausdorff, CW-complex, Niemytzki plane (normal, not perfectly normal), Sorgenfrey plane (not normal)

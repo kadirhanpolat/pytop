@@ -1808,6 +1808,28 @@ __all__ = [
     "baire_category_theorem_check",
     "classify_baire_category",
     "baire_category_profile",
+    # descriptive set theory
+    "DescriptiveSetProfile",
+    "G_DELTA_TAGS",
+    "F_SIGMA_TAGS",
+    "PERFECT_SET_TAGS",
+    "SCATTERED_TAGS",
+    "BAIRE_PROPERTY_TAGS",
+    "BOREL_NEGATIVE_TAGS",
+    "G_DELTA_NEGATIVE_TAGS",
+    "CLOSED_IN_METRIZABLE_TAGS",
+    "OPEN_IN_METRIZABLE_TAGS",
+    "get_named_descriptive_profiles",
+    "descriptive_layer_summary",
+    "descriptive_chapter_index",
+    "descriptive_type_index",
+    "is_g_delta",
+    "is_f_sigma",
+    "is_perfect_set",
+    "has_baire_property",
+    "cantor_bendixson_analysis",
+    "classify_descriptive_complexity",
+    "descriptive_set_profile",
 ]
 
 
@@ -2008,6 +2030,30 @@ from .normal_spaces import (
     tietze_extension_applicable,
     classify_normality,
     normal_space_profile,
+)
+
+from .descriptive_set_theory import (
+    DescriptiveSetProfile,
+    G_DELTA_TAGS,
+    F_SIGMA_TAGS,
+    PERFECT_SET_TAGS,
+    SCATTERED_TAGS,
+    BAIRE_PROPERTY_TAGS,
+    BOREL_NEGATIVE_TAGS,
+    G_DELTA_NEGATIVE_TAGS,
+    CLOSED_IN_METRIZABLE_TAGS,
+    OPEN_IN_METRIZABLE_TAGS,
+    get_named_descriptive_profiles,
+    descriptive_layer_summary,
+    descriptive_chapter_index,
+    descriptive_type_index,
+    is_g_delta,
+    is_f_sigma,
+    is_perfect_set,
+    has_baire_property,
+    cantor_bendixson_analysis,
+    classify_descriptive_complexity,
+    descriptive_set_profile,
 )
 
 from .surfaces import (
