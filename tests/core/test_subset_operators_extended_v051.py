@@ -1,25 +1,25 @@
 """Coverage-targeted tests for subset_operators.py (v0.5.1)."""
 import pytest
+
+from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.subset_operators import (
     SubsetOperatorError,
-    UnknownFiniteSubsetError,
     UnknownFinitePointError,
-    closure_of_subset,
-    interior_of_subset,
+    UnknownFiniteSubsetError,
+    _as_finite_point,
+    _as_finite_subset,
+    _exact_subset_operator_result,
+    _representation_of,
+    _space_is_finite,
     boundary_of_subset,
+    closure_of_subset,
     derived_set_of_subset,
     exterior_of_subset,
-    neighborhood_system_of_point,
+    interior_of_subset,
     is_neighborhood_of_point,
     is_nowhere_dense_subset,
-    _space_is_finite,
-    _as_finite_subset,
-    _as_finite_point,
-    _representation_of,
-    _exact_subset_operator_result,
+    neighborhood_system_of_point,
 )
-from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -168,7 +168,6 @@ def test_finite_space_bad_point_falls_to_unknown():
 # ---------------------------------------------------------------------------
 
 def test_exact_subset_operator_unsupported():
-    space = _discrete2()
     finite_data = {
         "carrier": {1, 2},
         "points": (1, 2),

@@ -3,9 +3,10 @@ test_cilt3_function_spaces_v060.py
 ====================================
 Test suite for v0.1.60 — compare_function_space_topologies
 """
-import importlib.util, sys, os
+import importlib.util
+import os
+import sys
 from itertools import combinations
-import pytest
 
 _BASE = os.path.join(os.path.dirname(__file__), "..", "..", "src", "pytop")
 def _load(name, rel):
@@ -16,7 +17,6 @@ def _load(name, rel):
     spec.loader.exec_module(mod); return mod
 
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-import pytop as _pytop_pkg
 
 _fs_mod = _load("pytop.function_spaces", "function_spaces.py")
 FiniteTopologicalSpace          = sys.modules["pytop.finite_spaces"].FiniteTopologicalSpace
@@ -137,7 +137,6 @@ def test_generic_coincidence_co_u_not_always():
 # ---- table finer relation ----
 def test_table_pt_le_co_row():
     r = compare_function_space_topologies(_Tagged())
-    rows = {row["topology_1"]: row for row in r["comparison_table"]}
     pt_co = next((row for row in r["comparison_table"] if "pointwise" in row["topology_1"] and "compact-open" in row["topology_2"]), None)
     assert pt_co is not None
     assert "pt ≤ co" in pt_co["finer"]

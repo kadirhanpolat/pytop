@@ -11,8 +11,8 @@ Covers:
 - Public API accessible from pytop package
 """
 import importlib.util
-import sys
 import os
+import sys
 from itertools import combinations
 
 import pytest
@@ -36,7 +36,7 @@ def _load(name, rel):
 sys.path.insert(
     0, os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 )
-import pytop as _pytop_pkg
+import pytop as _pytop_pkg  # noqa: E402
 
 _cm = _load("pytop.cardinal_numbers", "cardinal_numbers.py")
 

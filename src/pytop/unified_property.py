@@ -40,7 +40,6 @@ def _to_space(space: Any) -> Any:
             tags = list(raw_tags)
         else:
             tags = []
-        meta = dict(space)
         description = space.get("description", "symbolic space")
         return TopologicalSpace.symbolic(description=description, tags=tags)
     except Exception:
@@ -81,10 +80,10 @@ def _build_registry() -> dict[str, tuple[Any, Any]]:
     # Lazy imports inside function to avoid circular deps at module load time.
     from .compactness import analyze_compactness
     from .connectedness import analyze_connectedness
-    from .separation import analyze_separation
     from .infinite_compactness import analyze_infinite_compactness
     from .infinite_connectedness import analyze_infinite_connectedness
     from .infinite_separation import analyze_infinite_separation
+    from .separation import analyze_separation
 
     def _finite_compact(s):       return analyze_compactness(s, "compact")
     def _finite_cc(s):            return analyze_compactness(s, "countably_compact")

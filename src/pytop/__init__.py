@@ -1632,7 +1632,7 @@ from .paracompactness import is_locally_finite_refinement, is_star_refinement, p
 
 from .dimension_theory import ind, Ind, dim
 
-from .dimension_theory import is_zero_dimensional, has_clopen_base, is_totally_disconnected
+from .dimension_theory import is_zero_dimensional, has_clopen_base
 
 from .uniform_spaces import is_uniform_space, entourage_system
 

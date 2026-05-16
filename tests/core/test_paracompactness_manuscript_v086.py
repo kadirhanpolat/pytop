@@ -18,6 +18,6 @@ def test_paracompactness_manuscript_contains_terms_v086():
 def test_paracompactness_api_v086():
     # Attempt to import if the module exists as per the roadmap
     try:
-        from pytop.paracompactness import is_paracompact
+        from pytop.paracompactness import is_paracompact  # noqa: F401
     except ImportError:
         pass

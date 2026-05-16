@@ -1,20 +1,19 @@
 """Coverage-targeted tests for connectedness.py (v0.5.1)."""
 import pytest
+
 from pytop.connectedness import (
     ConnectednessError,
-    normalize_connectedness_property,
-    analyze_connectedness,
-    is_connected,
-    is_path_connected,
-    is_locally_connected,
-    is_arc_connected,
-    is_totally_disconnected,
-    is_scattered,
-    _finite_t1_check,
+    _finite_connected_from_topology,
     _finite_t0_check,
+    _finite_t1_check,
+    analyze_connectedness,
+    is_arc_connected,
+    is_locally_connected,
+    is_scattered,
+    is_totally_disconnected,
+    normalize_connectedness_property,
 )
 from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -247,8 +246,6 @@ def test_analyze_connectedness_scattered_tag():
 # ---------------------------------------------------------------------------
 # _finite_connected_from_topology — line 224 (None topology or None carrier)
 # ---------------------------------------------------------------------------
-
-from pytop.connectedness import _finite_connected_from_topology
 
 
 class _NullTopoSpace:

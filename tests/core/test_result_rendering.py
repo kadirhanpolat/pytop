@@ -1,10 +1,9 @@
 """Tests for result_rendering.py."""
 
 import pytest
+
 from pytop.result import Result
 from pytop.result_rendering import (
-    ResultExplanation,
-    SupportsResult,
     explain_result,
     normalize_result_source,
     render_result,
@@ -140,29 +139,29 @@ class TestResultExplanation:
     def test_plain_lines_include_badge(self):
         e = explain_result(_true_result())
         lines = e.plain_lines()
-        assert any("[TRUE" in l for l in lines)
+        assert any("[TRUE" in line for line in lines)
 
     def test_plain_lines_include_justification(self):
         e = explain_result(_true_result())
         lines = e.plain_lines()
-        assert any("It holds." in l for l in lines)
+        assert any("It holds." in line for line in lines)
 
     def test_markdown_lines_include_heading(self):
         e = explain_result(_true_result(), label="MyLabel")
         lines = e.markdown_lines()
-        assert any("###" in l for l in lines)
+        assert any("###" in line for line in lines)
 
     def test_plain_lines_with_metadata(self):
         r = Result.true(mode="exact", value="v", metadata={"k": 1})
         e = explain_result(r, include_metadata=True)
         lines = e.plain_lines(include_metadata=True)
-        assert any("metadata" in l for l in lines)
+        assert any("metadata" in line for line in lines)
 
     def test_markdown_lines_with_metadata(self):
         r = Result.true(mode="exact", value="v", metadata={"k": 1})
         e = explain_result(r, include_metadata=True)
         lines = e.markdown_lines(include_metadata=True)
-        assert any("Metadata" in l for l in lines)
+        assert any("Metadata" in line for line in lines)
 
 
 # ---------------------------------------------------------------------------

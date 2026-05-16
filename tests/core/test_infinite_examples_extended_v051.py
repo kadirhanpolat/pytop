@@ -1,31 +1,29 @@
 """Coverage-targeted tests for infinite_examples.py (v0.5.1)."""
-import pytest
 from pytop.infinite_examples import (
-    naturals_discrete,
-    integers_discrete,
-    naturals_cofinite,
-    reals_indiscrete,
-    reals_cocountable,
-    real_line_metric,
-    rationals_metric,
-    closed_unit_interval_metric,
-    real_plane_metric,
-    real_line_order_topology,
-    lower_limit_line_like,
-    upper_limit_line_like,
-    sorgenfrey_line_like,
     basis_defined_second_countable,
+    closed_unit_interval_metric,
+    integers_discrete,
+    lower_limit_line_like,
+    naturals_cofinite,
+    naturals_discrete,
+    rationals_metric,
+    real_line_metric,
+    real_line_order_topology,
+    real_plane_metric,
+    reals_cocountable,
+    reals_indiscrete,
+    sorgenfrey_line_like,
+    upper_limit_line_like,
 )
 from pytop.infinite_spaces import (
+    BasisDefinedSpace,
+    CocountableSpace,
+    CofiniteSpace,
     DiscreteInfiniteSpace,
     IndiscreteInfiniteSpace,
-    CofiniteSpace,
-    CocountableSpace,
     SorgenfreyLikeSpace,
-    BasisDefinedSpace,
 )
 from pytop.metric_spaces import SymbolicMetricSpace
-
 
 # ---------------------------------------------------------------------------
 # integers_discrete  (line 27)
@@ -77,7 +75,7 @@ def test_sorgenfrey_line_like_type():
 def test_sorgenfrey_line_like_same_as_lower_limit():
     s1 = sorgenfrey_line_like()
     s2 = lower_limit_line_like()
-    assert type(s1) == type(s2)
+    assert type(s1) is type(s2)
     assert s1.carrier == s2.carrier
 
 

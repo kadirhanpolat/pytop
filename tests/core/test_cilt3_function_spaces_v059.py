@@ -9,9 +9,8 @@ Covers:
 """
 
 import importlib.util
-import sys
 import os
-import pytest
+import sys
 
 # ---------------------------------------------------------------------------
 # Load from source
@@ -29,7 +28,6 @@ def _load(name, rel):
     return mod
 
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-import pytop as _pytop_pkg  # noqa: E402  — warms up all sub-modules
 
 _fs_mod = _load("pytop.function_spaces", "function_spaces.py")
 
@@ -42,7 +40,8 @@ compact_open_homotopy_profile   = _fs_mod.compact_open_homotopy_profile
 # Helpers
 # ---------------------------------------------------------------------------
 
-from itertools import combinations
+from itertools import combinations  # noqa: E402
+
 
 def make_finite(n):
     c = list(range(n))

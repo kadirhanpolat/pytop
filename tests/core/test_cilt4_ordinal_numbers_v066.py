@@ -11,9 +11,10 @@ Covers:
 - Public API accessible from pytop package
 """
 import importlib.util
-import sys
 import os
+import sys
 from itertools import combinations
+
 import pytest
 
 _BASE = os.path.join(os.path.dirname(__file__), "..", "..", "src", "pytop")
@@ -28,7 +29,7 @@ def _load(name, rel):
     return mod
 
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-import pytop as _pytop_pkg
+import pytop as _pytop_pkg  # noqa: E402
 
 _om = _load("pytop.ordinal_numbers", "ordinal_numbers.py")
 FiniteTopologicalSpace = sys.modules["pytop.finite_spaces"].FiniteTopologicalSpace

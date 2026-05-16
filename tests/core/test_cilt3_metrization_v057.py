@@ -7,10 +7,13 @@ Covers metrization_profiles.py v0.1.57 additions:
   - analyze_metrization: single-call facade
 """
 
-import sys, os
+import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../src'))
 
-import importlib.util, types
+import importlib.util
+
 
 # Load metrization_profiles from source to bypass stale .pyc
 def _load_fresh(name, path):
@@ -25,7 +28,8 @@ BASE = os.path.join(os.path.dirname(__file__), '../../src')
 _mp = _load_fresh('pytop.metrization_api',
     os.path.join(BASE, 'pytop/metrization_api.py'))
 
-from pytop.finite_spaces import FiniteTopologicalSpace
+from pytop.finite_spaces import FiniteTopologicalSpace  # noqa: E402
+
 is_metrizable = _mp.is_metrizable
 metrization_profile = _mp.metrization_profile
 analyze_metrization = _mp.analyze_metrization

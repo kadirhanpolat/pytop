@@ -3,8 +3,11 @@ test_cilt4_quantitative_topology_v068.py
 ==========================================
 Test suite for src/pytop/quantitative_topology.py (v0.1.68)
 """
-import importlib.util, sys, os
+import importlib.util
+import os
+import sys
 from itertools import combinations
+
 import pytest
 
 _BASE = os.path.join(os.path.dirname(__file__), "..", "..", "src", "pytop")
@@ -16,7 +19,7 @@ def _load(name, rel):
     sys.modules[name] = mod; spec.loader.exec_module(mod); return mod
 
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-import pytop as _pytop_pkg
+import pytop as _pytop_pkg  # noqa: E402
 
 _qm = _load("pytop.quantitative_topology", "quantitative_topology.py")
 FiniteTopologicalSpace = sys.modules["pytop.finite_spaces"].FiniteTopologicalSpace
