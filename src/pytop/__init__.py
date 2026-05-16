@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.3"
+__version__ = "0.5.4"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -418,6 +418,11 @@ from .separation import (
     is_normal,
     is_t4,
     is_perfectly_normal,
+    TYCHONOFF_POSITIVE_TAGS,
+    SEPARATION_CHAIN_ORDER,
+    check_tychonoff,
+    tychonoff_characterization,
+    separation_chain,
 )
 from .spaces import TopologicalSpace
 from .theorem_engine import DEFAULT_THEOREM_ENGINE, infer_feature
@@ -734,6 +739,12 @@ from .metrization_profiles import (
     get_named_metrization_profiles,
     metrization_layer_summary,
     metrization_chapter_index,
+    REGULAR_TAGS,
+    NAGATA_SMIRNOV_TAGS,
+    BING_TAGS,
+    check_nagata_smirnov,
+    check_bing_metrization,
+    metrization_theorem_check,
 )
 from .metrization_api import (
     is_metrizable,
@@ -749,7 +760,10 @@ from .refinements import (
 )
 from .paracompactness import (
     is_paracompact,
+    is_fully_normal,
+    is_metacompact,
     paracompact_profile,
+    paracompactness_inheritance_profile,
     analyze_paracompactness,
     ParacompactnessError,
 )
@@ -1015,7 +1029,10 @@ __all__ = [
     "is_star_refinement",
     "partition_of_unity_warning",
     "is_paracompact",
+    "is_fully_normal",
+    "is_metacompact",
     "paracompact_profile",
+    "paracompactness_inheritance_profile",
     "analyze_paracompactness",
     "ParacompactnessError",
     "basic_is_countably_compact",
@@ -1045,6 +1062,11 @@ __all__ = [
     "is_normal",
     "is_t4",
     "is_perfectly_normal",
+    "TYCHONOFF_POSITIVE_TAGS",
+    "SEPARATION_CHAIN_ORDER",
+    "check_tychonoff",
+    "tychonoff_characterization",
+    "separation_chain",
     "analyze_countability",
     "is_first_countable",
     "is_second_countable",
@@ -1476,6 +1498,12 @@ __all__ = [
     "CompactnessVariantError",
     "metrization_layer_summary",
     "metrization_chapter_index",
+    "REGULAR_TAGS",
+    "NAGATA_SMIRNOV_TAGS",
+    "BING_TAGS",
+    "check_nagata_smirnov",
+    "check_bing_metrization",
+    "metrization_theorem_check",
     "ResearchBridgeProfile",
     "ResearchPathProfile",
     "get_named_research_bridge_profiles",
@@ -1713,6 +1741,36 @@ __all__ = [
     # function spaces
     "is_admissible_topology",
     "is_splitting_topology",
+    # stone-cech
+    "StoneCechDescriptor",
+    "STONE_CECH_TYCHONOFF_TAGS",
+    "COMPACT_HAUSDORFF_TAGS",
+    "STONE_CECH_BLOCKING_TAGS",
+    "get_named_stone_cech_examples",
+    "is_stone_cech_compactifiable",
+    "stone_cech_embedding",
+    "stone_cech_extension",
+    "classify_stone_cech",
+    "stone_cech_profile",
+    # topological groups
+    "TopologicalGroupProfile",
+    "GROUP_POSITIVE_TAGS",
+    "GROUP_NEGATIVE_TAGS",
+    "CONTINUOUS_OP_TAGS",
+    "LIE_GROUP_TAGS",
+    "PROFINITE_TAGS",
+    "COMPACT_GROUP_TAGS",
+    "LC_GROUP_TAGS",
+    "LOCALLY_COMPACT_TAGS",
+    "ABELIAN_TAGS",
+    "DISCRETE_GROUP_TAGS",
+    "get_named_topological_group_profiles",
+    "topological_group_layer_summary",
+    "topological_group_type_index",
+    "is_topological_group",
+    "topological_group_separation",
+    "classify_topological_group",
+    "topological_group_profile",
 ]
 
 
@@ -1840,6 +1898,39 @@ from .unified_property import (
 
 from .function_spaces import is_admissible_topology, is_splitting_topology
 
+from .stone_cech import (
+    StoneCechDescriptor,
+    STONE_CECH_TYCHONOFF_TAGS,
+    COMPACT_HAUSDORFF_TAGS,
+    STONE_CECH_BLOCKING_TAGS,
+    get_named_stone_cech_examples,
+    is_stone_cech_compactifiable,
+    stone_cech_embedding,
+    stone_cech_extension,
+    classify_stone_cech,
+    stone_cech_profile,
+)
+
+from .topological_groups import (
+    TopologicalGroupProfile,
+    GROUP_POSITIVE_TAGS,
+    GROUP_NEGATIVE_TAGS,
+    CONTINUOUS_OP_TAGS,
+    LIE_GROUP_TAGS,
+    PROFINITE_TAGS,
+    COMPACT_GROUP_TAGS,
+    LC_GROUP_TAGS,
+    LOCALLY_COMPACT_TAGS,
+    ABELIAN_TAGS,
+    DISCRETE_GROUP_TAGS,
+    get_named_topological_group_profiles,
+    topological_group_layer_summary,
+    topological_group_type_index,
+    is_topological_group,
+    topological_group_separation,
+    classify_topological_group,
+    topological_group_profile,
+)
 
 from .surfaces import (
     SurfaceProfileError,

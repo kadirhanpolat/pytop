@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.4] - 2026-05-16
+
+### Added
+
+- **`metrization_profiles.py`** — Nagata-Smirnov and Bing metrization criteria:
+  - `REGULAR_TAGS`, `NAGATA_SMIRNOV_TAGS`, `BING_TAGS` tag constants
+  - `check_nagata_smirnov(space)` — T3 + σ-locally finite base → Tychonoff (criterion: `nagata_smirnov`)
+  - `check_bing_metrization(space)` — T3 + σ-discrete base → metrizable (criterion: `bing_metrization`)
+  - `metrization_theorem_check(space)` — runs Urysohn + Nagata-Smirnov + Bing and returns combined verdict
+  - `is_metrizable` extended with Layer 5 (Nagata-Smirnov) and Layer 6 (Bing)
+  - Registry now contains 5 named profiles (added `nagata_smirnov_sigma_lf_base_route` and `bing_sigma_discrete_base_route`)
+
+- **`separation.py`** — T3.5 / Tychonoff characterization:
+  - `TYCHONOFF_POSITIVE_TAGS`, `SEPARATION_CHAIN_ORDER` constants
+  - `check_tychonoff(space)` — 7-layer multi-criterion check (metric, direct_tag, cr_t1, normal_t1, perfectly_normal)
+  - `tychonoff_characterization(space)` — structured report: `{is_tychonoff, criterion, is_completely_regular, is_t1, note}`
+  - `separation_chain(space)` — full T0 → T6 hierarchy as an ordered dict of `Result` values
+
+- **`topological_groups.py`** — new module for topological group analysis:
+  - `TopologicalGroupProfile` frozen dataclass with `separation_level` field
+  - 5 named profiles: real Lie group, compact Lie group, profinite group, LCA group, discrete group
+  - `is_topological_group(space)` — 7-layer check (Lie, profinite, compact/LC, direct tag, axioms via T0+ops)
+  - `topological_group_separation(space)` — T0-group-is-Tychonoff theorem with special cases for Lie, profinite, compact, discrete
+  - `classify_topological_group(space)` — classifies into lie/compact_lie/profinite/compact_abelian/LCA/discrete/general
+  - `topological_group_profile(space)` — full profile facade
+
+- **`stone_cech.py`** — new module for Stone-Čech compactification analysis:
+  - `StoneCechDescriptor` frozen dataclass
+  - 5 named examples: βN, βR, βX (compact Hausdorff), βQ, βX (discrete)
+  - `is_stone_cech_compactifiable(space)` — 7-layer check (compact_hausdorff, tychonoff, T4, metric, Lie/profinite)
+  - `stone_cech_embedding(space)` — embedding type: `homeomorphism` (X = βX) or `proper_dense`
+  - `stone_cech_extension(space)` — universal property: bounded continuous functions extend to βX
+  - `classify_stone_cech(space)` — relationship: homeomorphism / proper_compactification / non_existent / unknown
+  - `stone_cech_profile(space)` — full profile facade
+
 ## [0.5.3] - 2026-05-16
 
 ### Fixed
