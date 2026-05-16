@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-05-16
+
+### Fixed
+- Added 34 missing symbols to `__all__` (separation axioms T2–T4, infinite separation predicates, compactness variants, refinement helpers, countability renders, advanced compactification predicates, `arhangelskii_bound`, `is_neighborhood_of_point`)
+
+### Changed
+- `experimental/__init__.py`: promoted modules list updated from 4 to 10 entries
+- `maturity_registry.py`: `next_action` updated to `promoted_wrapper_complete` for all 10 promoted modules
+
+### Added
+- `examples_bank/promoted_profile_modules_examples.py`: working Python examples for all 11 promoted profile modules
+
 ## [0.5.1] - 2026-05-16
 
 ### Changed

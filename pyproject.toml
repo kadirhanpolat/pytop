@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pytop"
-version = "0.5.1"
+version = "0.5.2"
 description = "Mathematical topology library: degree theory, embeddings, graphs, knots, surfaces, 3-manifolds, cosmology."
 readme = "README.md"
 requires-python = ">=3.11"
