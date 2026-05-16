@@ -772,7 +772,7 @@ from .compactness_variants import (
     is_sequentially_compact,
     is_pseudocompact,
     is_feebly_compact,
-    is_metacompact,
+    is_metacompact,  # noqa: F811
     is_relatively_compact,
     is_sigma_compact,
     is_lindelof,
@@ -2235,19 +2235,19 @@ from .zero_dimensionality import (
     ZeroDimensionalProfile,
     ZERO_DIMENSIONAL_TAGS,
     TOTALLY_DISCONNECTED_TAGS,
-    PROFINITE_TAGS,
+    PROFINITE_TAGS,  # noqa: F811
     COMPACT_ZD_TAGS,
-    SCATTERED_TAGS,
+    SCATTERED_TAGS,  # noqa: F811
     NOT_ZERO_DIMENSIONAL_TAGS,
-    COMPACT_HAUSDORFF_TAGS,
+    COMPACT_HAUSDORFF_TAGS,  # noqa: F811
     STONE_DUALITY_TAGS,
     EMBEDS_IN_CANTOR_TAGS,
     get_named_zero_dimensional_profiles,
     zero_dimensional_layer_summary,
     zero_dimensional_chapter_index,
     zero_dimensional_type_index,
-    has_clopen_base,
-    is_zero_dimensional,
+    has_clopen_base,  # noqa: F811
+    is_zero_dimensional,  # noqa: F811
     is_profinite,
     stone_duality_applicable,
     cantor_universality,
