@@ -41,6 +41,18 @@ def test_representation_of_symbolic():
     assert rep == "symbolic_general"
 
 
+def test_representation_of_carrier_topology_no_metadata_rep():
+    # hasattr(carrier) and hasattr(topology) but no metadata["representation"] → line 383
+    class _BareSpace:
+        carrier = frozenset({1, 2})
+        topology = frozenset([frozenset(), frozenset({1, 2})])
+        metadata = {}
+        tags = set()
+
+    rep = _representation_of(_BareSpace())
+    assert rep == "finite"
+
+
 # ---------------------------------------------------------------------------
 # _carrier_size TypeError  (lines 402-403)
 # ---------------------------------------------------------------------------
@@ -122,6 +134,13 @@ def test_cardinal_function_comparison_reversed_order():
     d1 = cardinal_function_comparison("weight", "character")
     d2 = cardinal_function_comparison("character", "weight")
     assert d1["inequality"] == d2["inequality"]
+
+
+def test_cardinal_function_comparison_density_power_fallback():
+    # "weight" + unknown key → k not in _COMPARISONS, alt_k={weight,density_power} IS → line 469
+    d = cardinal_function_comparison("weight", "nonexistent_function")
+    assert "inequality" in d
+    assert "density" in d["inequality"].lower() or "w(X)" in d["inequality"]
 
 
 # ---------------------------------------------------------------------------

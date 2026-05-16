@@ -319,3 +319,25 @@ def test_poset_isomorphic_diamond():
     c2 = ["a", "b", "c", "d"]
     r2 = [("a", "b"), ("a", "c"), ("b", "d"), ("c", "d")]
     assert poset_isomorphic(c1, r1, c2, r2) is True
+
+
+# ---------------------------------------------------------------------------
+# is_upper_set — line 120 (subset not ⊆ carrier → return False)
+# ---------------------------------------------------------------------------
+
+def test_is_upper_set_subset_outside_carrier():
+    result = is_upper_set([1, 2, 3], [], [4])
+    assert result is False
+
+
+# ---------------------------------------------------------------------------
+# minimal_open_neighborhood — line 170 (point in carrier but not in any open set)
+# ---------------------------------------------------------------------------
+
+def test_minimal_open_neighborhood_point_not_in_any_open_set_raises():
+    class _MockSpace:
+        carrier = frozenset({1, 2, 99})
+        topology = frozenset([frozenset(), frozenset({1}), frozenset({1, 2})])
+
+    with pytest.raises(AlexandroffError, match="not contained in any open set"):
+        minimal_open_neighborhood(_MockSpace(), 99)

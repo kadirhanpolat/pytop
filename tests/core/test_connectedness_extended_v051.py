@@ -242,3 +242,30 @@ def test_analyze_connectedness_scattered_tag():
     space = TopologicalSpace.symbolic(description="test", tags=["scattered"])
     r = analyze_connectedness(space, "scattered")
     assert r.is_true
+
+
+# ---------------------------------------------------------------------------
+# _finite_connected_from_topology — line 224 (None topology or None carrier)
+# ---------------------------------------------------------------------------
+
+from pytop.connectedness import _finite_connected_from_topology
+
+
+class _NullTopoSpace:
+    carrier = frozenset({1, 2})
+    topology = None
+
+
+class _NullCarrierSpace:
+    carrier = None
+    topology = frozenset([frozenset(), frozenset({1, 2})])
+
+
+def test_finite_connected_from_topology_none_topology():
+    result = _finite_connected_from_topology(_NullTopoSpace())
+    assert result is None
+
+
+def test_finite_connected_from_topology_none_carrier():
+    result = _finite_connected_from_topology(_NullCarrierSpace())
+    assert result is None

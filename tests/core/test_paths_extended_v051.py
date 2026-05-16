@@ -72,3 +72,16 @@ def test_combined_certification_different_returns_composite():
 def test_combined_certification_same_returns_same():
     result = _combined_certification("certified", "certified")
     assert result == "certified"
+
+
+# ---------------------------------------------------------------------------
+# PathProfile.concatenate — line 63 (one path has no points → points = ())
+# ---------------------------------------------------------------------------
+
+def test_concatenate_no_points_returns_empty_tuple():
+    p1 = PathProfile(name="p1", start=0, end=1)   # points=() by default
+    p2 = PathProfile(name="p2", start=1, end=2)   # points=() by default
+    result = p1.concatenate(p2)
+    assert result.points == ()
+    assert result.start == 0
+    assert result.end == 2
