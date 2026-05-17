@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.16] - 2026-05-17
+
+### Added
+
+- **`topos_theory.py`** — new module for Grothendieck toposes, sheaves, and classifying toposes:
+  - `ToposProfile` frozen dataclass with `topos_type`, `is_grothendieck`, `is_elementary`, `is_boolean`, `is_localic`, `has_natural_number_object`, `has_enough_points`, `presentation_layer`, `chapter_targets` fields
+  - 6 named profiles: Set (terminal topos, Boolean), Sh(X) (sheaves on a space, localic, intuitionistic), [C^op, Set] (presheaf topos, Boolean), BG (classifying topos for G-torsors), Sh(X_et) (etale topos, not Boolean, etale cohomology), Eff (effective/realizability topos, elementary but NOT Grothendieck)
+  - `is_grothendieck_topos(space)` — 4-layer check; Giraud's theorem; sheaves on a site; effective topos fails
+  - `is_boolean_topos(space)` — 5-layer check; classical internal logic; presheaf/Set/BG Boolean; etale/effective not Boolean
+  - `is_localic_topos(space)` — 4-layer check; Sh(L); Joyal-Tierney theorem; presheaf/BG not localic
+  - `has_enough_points_topos(space)` — 4-layer check; Barr's theorem; effective topos lacks points
+  - `classify_topos(space)` — classifies into `set`/`boolean_grothendieck`/`localic`/`grothendieck`/`elementary`/`unknown`
+  - `topos_profile(space)` — full profile facade
+  - `topos_layer_summary()`, `topos_chapter_index()`, `topos_type_index()` registry helpers
+  - Tag constants: `GROTHENDIECK_TOPOS_TAGS`, `ELEMENTARY_TOPOS_TAGS`, `BOOLEAN_TOPOS_TAGS`, `LOCALIC_TOPOS_TAGS`, `ENOUGH_POINTS_TAGS`, `NOT_BOOLEAN_TOPOS_TAGS`, `NOT_GROTHENDIECK_TAGS`, `GEOMETRIC_MORPHISM_TAGS`
+  - Key theorems: Giraud's theorem (Grothendieck ↔ sheaves on site), Boolean ↔ classical logic, Joyal-Tierney (every topos covered by localic), Hyland's effective topos (elementary ≠ Grothendieck), Weil conjectures via etale cohomology, classifying toposes for geometric theories
+  - 170 tests in `tests/core/test_topos_theory_v0516.py`
+
 ## [0.5.15] - 2026-05-17
 
 ### Added

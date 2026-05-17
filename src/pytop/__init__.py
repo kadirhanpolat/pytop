@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.15"
+__version__ = "0.5.16"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2414,4 +2414,25 @@ from .locale_theory import (
     is_localic_group,
     classify_locale,
     locale_profile,
+)
+from .topos_theory import (
+    ToposProfile,
+    GROTHENDIECK_TOPOS_TAGS,
+    ELEMENTARY_TOPOS_TAGS,
+    BOOLEAN_TOPOS_TAGS,
+    LOCALIC_TOPOS_TAGS,
+    ENOUGH_POINTS_TAGS,
+    NOT_BOOLEAN_TOPOS_TAGS,
+    NOT_GROTHENDIECK_TAGS,
+    GEOMETRIC_MORPHISM_TAGS,
+    get_named_topos_profiles,
+    topos_layer_summary,
+    topos_chapter_index,
+    topos_type_index,
+    is_grothendieck_topos,
+    is_boolean_topos,
+    is_localic_topos,
+    has_enough_points_topos,
+    classify_topos,
+    topos_profile,
 )
