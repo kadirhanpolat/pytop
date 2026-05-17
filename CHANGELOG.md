@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.23] - 2026-05-17
+
+### Added
+- `derived_categories.py` — derived categories: triangulated structure (TR1-TR4), t-structures
+  (BBD 1982, perverse sheaves, heart), semiorthogonal decompositions (Beilinson's exceptional
+  collection on P^n, Bondal-Orlov, Fourier-Mukai transforms), dg-enhancements (Lunts-Orlov
+  uniqueness), and D^b(Coh(X)) geometry.
+  7 named examples, 4 predicates: `is_triangulated`, `has_t_structure`,
+  `has_semiorthogonal_decomposition`, `is_dg_enhanced`. Facades: `classify_derived_category`,
+  `derived_category_profile`.
+- 207 new tests
+
+### Tests
+- Total: 7258 tests, all passing
+
 ## [0.5.22] - 2026-05-17
 
 ### Added

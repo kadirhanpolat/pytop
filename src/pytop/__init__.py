@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.22"
+__version__ = "0.5.23"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2566,4 +2566,25 @@ from .foliations import (
     has_trivial_holonomy,
     classify_foliation,
     foliation_profile,
+)
+from .derived_categories import (
+    DerivedCategoryProfile,
+    DERIVED_CATEGORY_TAGS,
+    TRIANGULATED_STRUCTURE_TAGS,
+    T_STRUCTURE_TAGS,
+    DERIVED_FUNCTOR_TAGS,
+    SEMIORTHOGONAL_TAGS,
+    DG_ENHANCEMENT_TAGS,
+    BONDAL_ORLOV_TAGS,
+    PERVERSE_SHEAF_TAGS,
+    get_named_derived_category_profiles,
+    derived_category_layer_summary,
+    derived_category_chapter_index,
+    derived_category_type_index,
+    is_triangulated,
+    has_t_structure,
+    has_semiorthogonal_decomposition,
+    is_dg_enhanced,
+    classify_derived_category,
+    derived_category_profile,
 )
