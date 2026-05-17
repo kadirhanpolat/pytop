@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.16"
+__version__ = "0.5.17"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2435,4 +2435,26 @@ from .topos_theory import (
     has_enough_points_topos,
     classify_topos,
     topos_profile,
+)
+from .combinatorial_topology import (
+    CombinatorialProfile,
+    SIMPLICIAL_COMPLEX_TAGS,
+    CW_COMPLEX_TAGS,
+    CONTRACTIBLE_TAGS,
+    ACYCLIC_TAGS,
+    TORSION_TAGS,
+    EULER_CHARACTERISTIC_TAGS,
+    NERVE_THEOREM_TAGS,
+    COLLAPSIBLE_TAGS,
+    NOT_COLLAPSIBLE_TAGS,
+    get_named_combinatorial_profiles,
+    combinatorial_layer_summary,
+    combinatorial_chapter_index,
+    combinatorial_type_index,
+    is_contractible_complex,
+    is_acyclic_complex,
+    has_torsion_homology,
+    is_collapsible_complex,
+    classify_combinatorial,
+    combinatorial_profile,
 )

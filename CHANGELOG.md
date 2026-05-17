@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.17] - 2026-05-17
+
+### Added
+
+- **`combinatorial_topology.py`** — new module for simplicial complexes, CW complexes, Euler characteristic, simplicial homology, nerve theorem, and collapsibility:
+  - `CombinatorialProfile` frozen dataclass with `complex_type`, `euler_characteristic`, `is_contractible`, `is_acyclic`, `has_torsion_in_homology`, `is_collapsible`, `betti_numbers`, `presentation_layer`, `chapter_targets` fields
+  - 7 named profiles: Δ^n (standard simplex, contractible+collapsible), S^n (sphere, chi=2, Betti=[1,0,1]), T² (torus, chi=0, Betti=[1,2,1]), RP² (projective plane, Z/2Z torsion), dunce hat (contractible but NOT collapsible, Zeeman 1963), nerve of good cover (nerve theorem), Klein bottle (Z⊕Z/2Z torsion)
+  - `is_contractible_complex(space)` — contractibility via homotopy equivalence to a point
+  - `is_acyclic_complex(space)` — acyclicity (trivial reduced homology); contractible implies acyclic
+  - `has_torsion_homology(space)` — torsion in H_k(X;Z); non-orientable surfaces carry Z/2Z torsion
+  - `is_collapsible_complex(space)` — collapsibility via elementary collapses; collapsible ⊊ contractible
+  - `classify_combinatorial(space)` + `combinatorial_profile(space)` facade
+  - 9 tag constant sets: SIMPLICIAL_COMPLEX_TAGS, CW_COMPLEX_TAGS, CONTRACTIBLE_TAGS, ACYCLIC_TAGS, TORSION_TAGS, EULER_CHARACTERISTIC_TAGS, NERVE_THEOREM_TAGS, COLLAPSIBLE_TAGS, NOT_COLLAPSIBLE_TAGS
+  - 172 tests, all passing; total test count: 6113
+
 ## [0.5.16] - 2026-05-17
 
 ### Added
