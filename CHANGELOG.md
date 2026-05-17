@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.26] - 2026-05-18
+
+### Added
+- `random_relations.py` — structured random relation generators:
+  - `random_reflexive_relation` — diagonal forced, Bernoulli off-diagonal.
+  - `random_symmetric_relation` — pair-mirroring via upper-triangle Bernoulli.
+  - `random_transitive_relation` — Bernoulli start + Warshall transitive closure.
+  - `random_partial_order` — DAG construction (random permutation + forward-edge Bernoulli)
+    + transitive closure + diagonal; always produces a valid partial order.
+  - `random_total_order` — random permutation → reflexive linear order; n(n+1)/2 pairs.
+  - `random_equivalence_relation` — random partition into k classes; always satisfies
+    reflexivity, symmetry, transitivity.
+- `random_functions.py` — structured random function generators:
+  - `random_injective_function` — `rng.sample` guarantees distinct values.
+  - `random_surjective_function` — coverage-guaranteed construction.
+  - `random_bijection` — permutation via `rng.sample`.
+  - `random_continuous_function` — rejection sampling with basis preimage criterion;
+    supports `FiniteTopologicalSpace` and `LazyTopology`.
+  - `random_open_map` — rejection sampling with basis image criterion.
+  - `random_closed_map` — rejection sampling with closed-set image criterion.
+  - `random_homeomorphism` — random bijections checked for continuous + open.
+- `random_generators.py` re-exports all 13 new names; `__init__.py` updated.
+- 79 new tests in `test_random_relations.py` and `test_random_functions.py`.
+
 ## [0.5.25] - 2026-05-18
 
 ### Added

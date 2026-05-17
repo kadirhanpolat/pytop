@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.25"
+__version__ = "0.5.26"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2618,4 +2618,17 @@ from .random_generators import (
     random_topology,
     random_relation,
     random_function,
+    random_reflexive_relation,
+    random_symmetric_relation,
+    random_transitive_relation,
+    random_partial_order,
+    random_total_order,
+    random_equivalence_relation,
+    random_injective_function,
+    random_surjective_function,
+    random_bijection,
+    random_continuous_function,
+    random_open_map,
+    random_closed_map,
+    random_homeomorphism,
 )

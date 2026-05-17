@@ -436,6 +436,24 @@ def random_function(
     return {x: rng.choice(codomain_list) for x in domain_list}
 
 
+from .random_functions import (  # noqa: E402
+    random_bijection,
+    random_closed_map,
+    random_continuous_function,
+    random_homeomorphism,
+    random_injective_function,
+    random_open_map,
+    random_surjective_function,
+)
+from .random_relations import (  # noqa: E402
+    random_equivalence_relation,
+    random_partial_order,
+    random_reflexive_relation,
+    random_symmetric_relation,
+    random_total_order,
+    random_transitive_relation,
+)
+
 __all__ = [
     "RandomGeneratorError",
     "random_set",
@@ -443,4 +461,19 @@ __all__ = [
     "random_topology",
     "random_relation",
     "random_function",
+    # structured relations
+    "random_reflexive_relation",
+    "random_symmetric_relation",
+    "random_transitive_relation",
+    "random_partial_order",
+    "random_total_order",
+    "random_equivalence_relation",
+    # structured functions
+    "random_injective_function",
+    "random_surjective_function",
+    "random_bijection",
+    "random_continuous_function",
+    "random_open_map",
+    "random_closed_map",
+    "random_homeomorphism",
 ]
