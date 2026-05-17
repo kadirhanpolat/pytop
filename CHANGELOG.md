@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.18] - 2026-05-17
+
+### Added
+
+- **`noncommutative_topology.py`** — new module for C*-algebras, Gelfand duality, K-theory, spectral triples, and Connes' noncommutative geometry:
+  - `NoncommutativeProfile` frozen dataclass with `algebra_type`, `is_commutative`, `is_nuclear`, `is_simple`, `has_classical_gelfand_dual`, `has_spectral_triple`, `k0_group`, `k1_group`, `presentation_layer`, `chapter_targets` fields
+  - 7 named profiles: C(X) (Gelfand dual, commutative), M_n(C) (matrix algebra, simple nuclear), A_θ (noncommutative torus, K₀=K₁=Z²), O_n (Cuntz algebra, K₀=Z/(n-1)Z), C*(G) (group C*-algebra, nuclear iff amenable), K(H) (compact operators, simple nuclear), AF-algebra (Elliott classification, K₁=0)
+  - `is_commutative_cstar(space)` — Gelfand duality; commutative ↔ C_0(X)
+  - `is_nuclear_cstar(space)` — nuclearity; commutative/AF/Cuntz/amenable-group nuclear; B(H) not nuclear
+  - `is_simple_cstar(space)` — simplicity; irrational rotation / Cuntz / K(H) simple; AF/C(X) not simple
+  - `has_gelfand_dual(space)` — classical Gelfand dual exists iff commutative
+  - `has_spectral_triple(space)` — Connes spectral triple; matrix/NC torus/spin^c manifold yes; Cuntz/AF no
+  - `classify_noncommutative(space)` + `noncommutative_profile(space)` facade
+  - 10 tag constant sets: COMMUTATIVE_CSTAR_TAGS, NONCOMMUTATIVE_CSTAR_TAGS, NUCLEAR_CSTAR_TAGS, SIMPLE_CSTAR_TAGS, SPECTRAL_TRIPLE_TAGS, GELFAND_DUAL_TAGS, NOT_GELFAND_TAGS, MORITA_EQUIVALENCE_TAGS, KTHEORY_TAGS
+  - 200 tests, all passing; total test count: 6313
+
 ## [0.5.17] - 2026-05-17
 
 ### Added

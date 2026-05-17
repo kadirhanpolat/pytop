@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.17"
+__version__ = "0.5.18"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2457,4 +2457,27 @@ from .combinatorial_topology import (
     is_collapsible_complex,
     classify_combinatorial,
     combinatorial_profile,
+)
+from .noncommutative_topology import (
+    NoncommutativeProfile,
+    COMMUTATIVE_CSTAR_TAGS,
+    NONCOMMUTATIVE_CSTAR_TAGS,
+    NUCLEAR_CSTAR_TAGS,
+    SIMPLE_CSTAR_TAGS,
+    SPECTRAL_TRIPLE_TAGS,
+    GELFAND_DUAL_TAGS,
+    NOT_GELFAND_TAGS,
+    MORITA_EQUIVALENCE_TAGS,
+    KTHEORY_TAGS,
+    get_named_noncommutative_profiles,
+    noncommutative_layer_summary,
+    noncommutative_chapter_index,
+    noncommutative_type_index,
+    is_commutative_cstar,
+    is_nuclear_cstar,
+    is_simple_cstar,
+    has_gelfand_dual,
+    has_spectral_triple,
+    classify_noncommutative,
+    noncommutative_profile,
 )
