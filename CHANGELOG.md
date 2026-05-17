@@ -7,6 +7,131 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.15] - 2026-05-17
+
+### Added
+
+- **`locale_theory.py`** — new module for frames, locales, and pointfree topology:
+  - `LocaleProfile` frozen dataclass with `locale_type`, `is_spatial`, `is_compact`, `is_regular`, `is_completely_regular`, `is_zero_dimensional`, `is_localic_group`, `presentation_layer`, `chapter_targets` fields
+  - 6 named profiles: Omega(R) (localic real line, spatial, regular, localic group), B(R)/N (measure algebra locale, NOT spatial, compact, Stone), profinite Stone locale, [0,1] (compact regular spatial), Sierpinski locale (T0 not regular), T^2 (localic torus, localic group)
+  - `is_spatial_locale(space)` — 6-layer check; T2 => sober => spatial; Isbell: localic groups are spatial; measure algebra is NOT spatial
+  - `is_compact_locale(space)` — 5-layer check; Stone/profinite => compact; complete Boolean algebra => compact locale
+  - `is_regular_locale(space)` — 5-layer check; well-inside relation; compact Hausdorff => regular; Boolean algebra => regular; Sierpinski fails
+  - `is_stone_locale(space)` — 5-layer check; Stone Loc ≃ Bool^op; measure algebra gives non-spatial Stone locale
+  - `is_localic_group(space)` — 3-layer check; Isbell's density theorem: all localic groups are spatial
+  - `classify_locale(space)` — classifies into `non_spatial`/`stone`/`localic_group`/`compact_regular`/`spatial`/`unknown`
+  - `locale_profile(space)` — full profile facade
+  - `locale_layer_summary()`, `locale_chapter_index()`, `locale_type_index()` registry helpers
+  - Tag constants: `SPATIAL_LOCALE_TAGS`, `COMPACT_LOCALE_TAGS`, `REGULAR_LOCALE_TAGS`, `COMPLETELY_REGULAR_LOCALE_TAGS`, `ZERO_DIMENSIONAL_LOCALE_TAGS`, `NON_SPATIAL_LOCALE_TAGS`, `LOCALIC_GROUP_TAGS`, `NOT_REGULAR_LOCALE_TAGS`
+  - Key theorems: Isbell adjunction (Omega ⊣ pt), spatial ↔ sober duality, Isbell's density theorem (localic groups are spatial), Stone locale duality (Stone Loc ≃ Bool^op), measure algebra as paradigmatic non-spatial locale, well-inside relation and regularity
+  - 197 tests in `tests/core/test_locale_theory_v0515.py`
+
+## [0.5.14] - 2026-05-17
+
+### Added
+
+- **`coarse_geometry.py`** — new module for large-scale (coarse) geometry:
+  - `CoarseGeometryProfile` frozen dataclass with `geometry_type`, `asymptotic_dimension`, `number_of_ends`, `has_property_a`, `is_gromov_hyperbolic`, `is_quasi_isometric_to_euclidean`, `presentation_layer`, `chapter_targets` fields
+  - 6 named profiles: Z (integer line, QI to R, 2 ends), Z^n (euclidean lattice, QI to R^n, 1 end), F_2 (free group, hyperbolic, infinite ends), H^2 (hyperbolic plane, delta-hyperbolic), H_3(Z) (Heisenberg group, nilpotent, NOT QI to R^4), expander families (no Property A)
+  - `has_finite_asymptotic_dimension(space)` — 5-layer check; Bell-Dranishnikov theorem for hyperbolic groups; asdim(Z^n) = n; expanders fail
+  - `has_property_a(space)` — 5-layer check; amenable => Property A; hyperbolic => Property A (Yu 2000); linear groups (Guentner-Higson-Weinberger); expanders fail
+  - `is_gromov_hyperbolic(space)` — 5-layer check; delta-slim triangles; trees (delta=0); CAT(-1); euclidean/nilpotent fail
+  - `is_quasi_isometric_to_euclidean(space)` — 5-layer check; virtually abelian <=> QI to R^n; Heisenberg NOT QI to R^4 (Carnot cone)
+  - `coarsely_embeds_in_hilbert(space)` — 4-layer check; Property A => coarse embedding; expanders do not embed (Gromov)
+  - `classify_coarse_geometry(space)` — classifies into `euclidean`/`hyperbolic`/`nilpotent`/`expander`/`unknown`
+  - `coarse_geometry_profile(space)` — full profile facade
+  - `coarse_geometry_layer_summary()`, `coarse_geometry_chapter_index()`, `coarse_geometry_type_index()` registry helpers
+  - Tag constants: `FINITE_ASYMPTOTIC_DIM_TAGS`, `PROPERTY_A_TAGS`, `HYPERBOLIC_TAGS`, `POLYNOMIAL_GROWTH_TAGS`, `EXPONENTIAL_GROWTH_TAGS`, `TWO_ENDS_TAGS`, `INFINITE_ENDS_TAGS`, `ONE_END_TAGS`, `NOT_PROPERTY_A_TAGS`
+  - Key theorems: Gromov's polynomial growth theorem (poly growth <=> virtually nilpotent), Stallings' theorem (ends and group splittings), Yu's Property A theorem (hyperbolic => Property A), Bell-Dranishnikov (hyperbolic => finite asdim), Milnor-Svarc lemma (geometric actions => QI)
+  - 212 tests in `tests/core/test_coarse_geometry_v0514.py`
+
+## [0.5.13] - 2026-05-17
+
+### Added
+
+- **`spectral_spaces.py`** — new module for spectral spaces, sober spaces, Stone duality, and frame-locale correspondence:
+  - `SpectralSpaceProfile` frozen dataclass with `space_type`, `is_sober`, `is_spectral`, `is_stone_space`, `is_t0`, `is_t1`, `has_generic_point`, `presentation_layer`, `chapter_targets` fields
+  - 6 named profiles: Sierpinski space (sober T0 non-T1), Spec(integral domain) (spectral, generic point), Stone/Boolean space (compact T.D. Hausdorff), Zariski affine line Spec(k[x]), Alexandrov on dcpo (sober), Alexandrov on (N,≤) (T0 NOT sober)
+  - `is_sober(space)` — 6-layer check; T2 ⟹ sober; Hochster: Spec(R) always sober; Alexandrov on dcpo ↔ sober
+  - `is_spectral(space)` — 5-layer check; Hochster's theorem: spectral ↔ homeomorphic to Spec(R)
+  - `is_stone_space(space)` — 5-layer check; Stone duality: Boolean algebras ↔ Stone spaces
+  - `frame_is_spatial(space)` — 4-layer check; O(X) spatial ↔ X sober (frame-locale duality)
+  - `stone_duality_applies(space)` — 5-layer check; Stone duality requires compact T.D. Hausdorff
+  - `classify_spectral_space(space)` — classifies into `stone`/`spectral`/`sober`/`t0_not_sober`/`unknown`
+  - `spectral_space_profile(space)` — full profile facade
+  - `spectral_space_layer_summary()`, `spectral_space_chapter_index()`, `spectral_space_type_index()` registry helpers
+  - Tag constants: `SOBER_POSITIVE_TAGS`, `SPECTRAL_TAGS`, `STONE_SPACE_TAGS`, `SPATIAL_FRAME_TAGS`, `GENERIC_POINT_TAGS`, `NOT_SOBER_TAGS`, `NOT_T1_TAGS`, `NOT_STONE_TAGS`
+  - Key theorems: Hochster's theorem (spectral ↔ Spec(R)), Stone representation (Boolean algebras ↔ Stone spaces), frame-locale duality (O(X) spatial ↔ X sober), Alexandrov sobriety (dcpo condition), Sierpinski space as classifier of open sets
+  - 179 tests in `tests/core/test_spectral_spaces_v0513.py`
+
+## [0.5.12] - 2026-05-17
+
+### Added
+
+- **`fiber_bundles.py`** — new module for fiber bundle theory, vector bundles, principal bundles, and sections:
+  - `FiberBundleProfile` frozen dataclass with `bundle_type`, `is_locally_trivial`, `is_vector_bundle`, `is_principal`, `is_trivial`, `has_nowhere_zero_section`, `is_orientable`, `presentation_layer`, `chapter_targets` fields
+  - 6 named profiles: product bundle (trivial), Möbius band (non-trivial line bundle), tangent bundle of even sphere (hairy ball), Hopf fibration S³→S² (principal U(1)-bundle), GL(n) frame bundle, tautological bundle over Grassmannian
+  - `is_locally_trivial(space)` — 5-layer check; all vector/principal bundles are locally trivial by definition
+  - `is_vector_bundle(space)` — 4-layer check; principal G-bundles (Hopf, frame) are NOT vector bundles
+  - `is_trivial_bundle(space)` — 5-layer check; contractible base → trivial; Adams' theorem: S^n parallelizable only for n=1,3,7
+  - `has_nowhere_zero_section(space)` — 5-layer check; hairy ball theorem: TS^{2n} has no nowhere-zero section (χ(S^{2n})=2≠0)
+  - `is_orientable_bundle(space)` — 5-layer check; complex bundles always orientable; Möbius band: w_1 ≠ 0
+  - `classify_bundle(space)` — classifies into `trivial`/`vector_bundle`/`principal`/`locally_trivial`/`unknown`
+  - `fiber_bundle_profile(space)` — full profile facade
+  - `fiber_bundle_layer_summary()`, `fiber_bundle_chapter_index()`, `fiber_bundle_type_index()` registry helpers
+  - Tag constants: `LOCALLY_TRIVIAL_TAGS`, `VECTOR_BUNDLE_TAGS`, `PRINCIPAL_BUNDLE_TAGS`, `TRIVIAL_BUNDLE_TAGS`, `NOWHERE_ZERO_SECTION_TAGS`, `ORIENTABLE_BUNDLE_TAGS`, `NOT_TRIVIAL_TAGS`, `NOT_NOWHERE_ZERO_SECTION_TAGS`
+  - Key theorems: hairy ball (Poincaré-Hopf for TS^{2n}), Adams' theorem (parallelizable spheres), Hopf fibration π_3(S²)≅Z, structure group reduction to O(n) via Riemannian metric, classification by [X,BG]
+  - 182 tests in `tests/core/test_fiber_bundles_v0512.py`
+
+## [0.5.11] - 2026-05-17
+
+### Added
+
+- **`shape_theory.py`** — new module for shape theory, ANR/FANR classification, and Čech invariants:
+  - `ShapeProfile` frozen dataclass with `shape_type`, `is_anr`, `is_fanr`, `is_movable`, `is_shape_trivial`, `presentation_layer`, `chapter_targets` fields
+  - 6 named profiles: compact polyhedron (ANR), compact AR / closed ball (shape-trivial), compact manifold (ANR), Warsaw circle (not movable), dyadic solenoid (not movable), Hawaiian earring (movable but not FANR/ANR)
+  - `is_anr(space)` — 6-layer check; Borsuk's theorem: compact metrizable X is ANR ↔ locally contractible
+  - `is_fanr(space)` — 5-layer check; FANR = shape dominated by compact ANR; requires finitely generated Čech homology
+  - `is_movable(space)` — 6-layer check; Borsuk's theorem: every Peano continuum is movable; ANR ⊂ FANR ⊂ movable
+  - `has_trivial_shape(space)` — 5-layer check; trivial shape ↔ compact AR ↔ contractible ANR
+  - `cech_cohomology_applicable(space)` — 4-layer check; Čech = singular for compact ANRs; shape invariant for all compact metrizable spaces
+  - `classify_shape(space)` — classifies into `shape_trivial`/`anr`/`fanr`/`movable`/`not_movable`/`unknown`
+  - `shape_profile(space)` — full profile facade
+  - `shape_layer_summary()`, `shape_chapter_index()`, `shape_type_index()` registry helpers
+  - Tag constants: `ANR_POSITIVE_TAGS`, `FANR_POSITIVE_TAGS`, `MOVABLE_POSITIVE_TAGS`, `SHAPE_TRIVIAL_TAGS`, `CECH_COMPUTABLE_TAGS`, `NOT_ANR_TAGS`, `NOT_FANR_TAGS`, `NOT_MOVABLE_TAGS`
+  - Key theorems: Borsuk ANR theorem, ANR ⊂ FANR ⊂ movable chain, Whitehead failure in shape theory (Warsaw circle vs S^1), Peano continuum movability, Dugundji extension theorem for compact ARs
+  - 199 tests in `tests/core/test_shape_theory_v0511.py`
+
+## [0.5.10] - 2026-05-17
+
+### Added
+
+- **`borel_measures.py`** — new module for Borel measures, Radon measures, regularity, and Riesz representation:
+  - `BorelMeasureProfile` frozen dataclass with `measure_type`, `is_radon`, `is_regular`, `is_atomic`, `is_sigma_finite`, `support_type`, `presentation_layer`, `chapter_targets` fields
+  - 7 named profiles: Lebesgue measure (Radon, regular, non-atomic), Dirac measure (Radon, atomic), Haar measure on compact group, Haar measure on locally compact group, counting measure (NOT Radon on uncountable space), Cantor measure (singular continuous, Radon), Gaussian measure (absolutely continuous, Radon)
+  - `is_radon_measure(space)` — 5-layer check; Radon = locally finite + inner regular
+  - `is_regular_measure(space)` — 5-layer check; outer and inner regular; Ulam's theorem for compact metric spaces
+  - `riesz_representation_applies(space)` — 4-layer check; Riesz-Markov-Kakutani theorem for compact/locally compact Hausdorff spaces
+  - `has_haar_measure(space)` — 5-layer check; every locally compact topological group admits Haar measure
+  - `measure_support_is_compact(space)` — 5-layer check; Dirac/compact space → compact support
+  - `classify_borel_measure(space)` — classifies into `radon_regular`/`radon`/`regular`/`finite_borel`/`not_radon`/`unknown`
+  - `borel_measure_profile(space)` — full profile facade
+  - 180 tests in `tests/core/test_borel_measures_v0510.py`
+
+## [0.5.9] - 2026-05-17
+
+### Added
+
+- **`zero_dimensionality.py`** — new module for zero-dimensional spaces and Stone duality:
+  - Zero-dimensional spaces (dim = 0), totally disconnected compact Hausdorff spaces, Boolean spaces
+  - Stone duality: Boolean algebras ↔ Stone spaces (compact totally disconnected Hausdorff)
+  - Cantor set as universal zero-dimensional compact metrizable space
+
+- **`solenoid_profiles.py`** — new module for solenoid topology profiles:
+  - Solenoid as inverse limit of circles, dyadic solenoid construction
+  - Čech cohomology of solenoids: Ȟ^1(Σ_p;Z) ≅ Z[1/p]
+  - Solenoids as compact connected abelian groups without isolated points
+
 ## [0.5.8] - 2026-05-17
 
 ### Added
