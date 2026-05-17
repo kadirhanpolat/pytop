@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.24] - 2026-05-18
+
+### Added
+- `logic.py` — propositional logic foundations: `Proposition`, `negate`, `conjunction`, `disjunction`,
+  `implies`, `iff`, `for_all`, `there_exists`, `unique_exists`.
+- `topology_builders.py` — high-level topology constructors: `make_topology`, `discrete_topology`,
+  `indiscrete_topology`, `cofinite_topology`, `sierpinski_space`, `topology_from_basis`,
+  `topology_from_subbasis`.
+- `sets.py` additions: `make_set`, `empty_set`, `make_family` — ergonomic frozenset constructors.
+- `relations.py` additions: `make_relation`, `total_order_from_list`, `equivalence_from_classes`.
+- `maps.py` additions: `make_function`, `identity_function`, `constant_function`, `MapBuilderError`.
+- `notebooks/spaces_and_predicates.ipynb` updated — frozenset/itertools code replaced with new API.
+- 2 new test files (`test_logic.py`, `test_topology_builders.py`); builder tests added to
+  `test_sets.py`, `test_relations.py`, `test_maps.py`.
+
 ## [0.5.23] - 2026-05-17
 
 ### Added

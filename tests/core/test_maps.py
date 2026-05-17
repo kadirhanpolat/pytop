@@ -69,3 +69,52 @@ def test_initial_topology_from_identity_map_recovers_discrete_topology():
     initial = initial_topology_from_maps(carrier, [id_map])
     topology = {frozenset(member) for member in initial.topology}
     assert topology == {frozenset(), frozenset({'a'}), frozenset({'b'}), frozenset({'a', 'b'})}
+
+
+from pytop.maps import MapBuilderError, constant_function, identity_function, make_function
+
+
+def test_make_function_basic():
+    f = make_function([1, 2, 3], [4, 5, 6], {1: 4, 2: 5, 3: 6})
+    assert f.image_of_point(1) == 4
+    assert f.image_of_point(3) == 6
+
+
+def test_make_function_partial_mapping():
+    f = make_function([1, 2, 3], [0, 1], {1: 0, 2: 1, 3: 0})
+    assert f.image_of_point(2) == 1
+
+
+def test_make_function_invalid_key_raises():
+    import pytest as _pytest
+    with _pytest.raises(MapBuilderError):
+        make_function([1, 2], [10, 20], {1: 10, 99: 20})
+
+
+def test_make_function_invalid_value_raises():
+    import pytest as _pytest
+    with _pytest.raises(MapBuilderError):
+        make_function([1, 2], [10, 20], {1: 10, 2: 99})
+
+
+def test_identity_function_maps_to_self():
+    f = identity_function([1, 2, 3])
+    for x in [1, 2, 3]:
+        assert f.image_of_point(x) == x
+
+
+def test_identity_function_bijective_tag():
+    f = identity_function([1, 2])
+    assert f.has_tag("bijective")
+
+
+def test_constant_function_maps_all_to_value():
+    f = constant_function([1, 2, 3], [0, 1], 0)
+    for x in [1, 2, 3]:
+        assert f.image_of_point(x) == 0
+
+
+def test_constant_function_invalid_value_raises():
+    import pytest as _pytest
+    with _pytest.raises(MapBuilderError):
+        constant_function([1, 2], [0, 1], 99)

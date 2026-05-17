@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.23"
+__version__ = "0.5.24"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -257,7 +257,7 @@ from .subbases import (
     is_basis_for_topology,
     is_local_base_at,
 )
-from .maps import FiniteMap, analyze_map_property, map_report, preimage_of_subset, image_of_subset, is_continuous_at_point, is_sequentially_continuous_at_point, continuity_via_codomain_basis, continuity_via_codomain_subbasis, satisfies_closure_image_inclusion, initial_topology_from_maps, map_taxonomy_profile, render_map_taxonomy_report
+from .maps import FiniteMap, analyze_map_property, map_report, preimage_of_subset, image_of_subset, is_continuous_at_point, is_sequentially_continuous_at_point, continuity_via_codomain_basis, continuity_via_codomain_subbasis, satisfies_closure_image_inclusion, initial_topology_from_maps, map_taxonomy_profile, render_map_taxonomy_report, MapBuilderError, make_function, identity_function, constant_function
 from .products import product, binary_product
 from .quotients import quotient_space as generic_quotient_space, quotient_space_from_map as generic_quotient_space_from_map, make_quotient_map as generic_make_quotient_map, analyze_quotient_map as generic_analyze_quotient_map
 from .subspaces import subspace as generic_subspace, finite_subspace
@@ -648,7 +648,7 @@ from .result_rendering import (
     render_result,
     render_result_collection,
 )
-from .sets import equal_sets, is_subset, is_proper_subset, power_set, set_union, set_intersection, set_difference, complement, cartesian_product, indexed_union, indexed_intersection
+from .sets import equal_sets, is_subset, is_proper_subset, power_set, set_union, set_intersection, set_difference, complement, cartesian_product, indexed_union, indexed_intersection, make_set, empty_set, make_family
 from .families import normalize_family, is_disjoint_family, is_pairwise_disjoint_family, is_cover, is_subcover, is_refinement, is_partition
 from .relations import (
     RelationError,
@@ -675,6 +675,9 @@ from .relations import (
     relation_range,
     validate_relation_between,
     validate_relation_on,
+    make_relation,
+    total_order_from_list,
+    equivalence_from_classes,
 )
 from .cardinal_function_profiles import (
     CardinalFunctionProfile,
@@ -2587,4 +2590,24 @@ from .derived_categories import (
     is_dg_enhanced,
     classify_derived_category,
     derived_category_profile,
+)
+from .logic import (
+    Proposition,
+    negate,
+    conjunction,
+    disjunction,
+    implies,
+    iff,
+    for_all,
+    there_exists,
+    unique_exists,
+)
+from .topology_builders import (
+    make_topology,
+    discrete_topology,
+    indiscrete_topology,
+    cofinite_topology,
+    sierpinski_space,  # noqa: F811
+    topology_from_basis,
+    topology_from_subbasis,
 )

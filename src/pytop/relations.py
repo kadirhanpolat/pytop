@@ -257,6 +257,74 @@ def equivalence_from_partition(
     return relation
 
 
+def make_relation(carrier: Iterable[Any], *pairs: tuple[Any, Any]) -> set[tuple[Any, Any]]:
+    """Build and validate a relation on *carrier* from the given pairs.
+
+    Parameters
+    ----------
+    carrier:
+        Distinct elements of the underlying set.
+    *pairs:
+        Ordered pairs ``(x, y)`` with x, y in *carrier*.
+
+    Examples
+    --------
+    >>> make_relation([1, 2, 3], (1, 2), (2, 3))
+    {(1, 2), (2, 3)}
+    """
+    _, relation_set = validate_relation_on(carrier, pairs)
+    return relation_set
+
+
+def total_order_from_list(*elements: Any) -> set[tuple[Any, Any]]:
+    """Build a total (linear) order relation from an ordered sequence of elements.
+
+    The elements are taken as given: the first element is the least,
+    the last is the greatest.  The result is reflexive.
+
+    Parameters
+    ----------
+    *elements:
+        Elements in ascending order, passed as separate arguments.
+
+    Examples
+    --------
+    >>> total_order_from_list(1, 2, 3)
+    {(1,1), (1,2), (1,3), (2,2), (2,3), (3,3)}
+    """
+    elems = list(elements)
+    relation: set[tuple[Any, Any]] = set()
+    for i, x in enumerate(elems):
+        for y in elems[i:]:
+            relation.add((x, y))
+    return relation
+
+
+def equivalence_from_classes(*blocks: Iterable[Any]) -> set[tuple[Any, Any]]:
+    """Build an equivalence relation from a partition given as blocks.
+
+    Each block is one equivalence class.  The result includes all pairs
+    (x, y) with x and y in the same block (reflexive, symmetric, transitive).
+
+    Parameters
+    ----------
+    *blocks:
+        Iterables of elements; each iterable is one equivalence class.
+
+    Examples
+    --------
+    >>> equivalence_from_classes([1, 2], [3])
+    {(1,1),(2,2),(3,3),(1,2),(2,1)}
+    """
+    relation: set[tuple[Any, Any]] = set()
+    for block in blocks:
+        block_list = list(block)
+        for x in block_list:
+            for y in block_list:
+                relation.add((x, y))
+    return relation
+
+
 __all__ = [
     'RelationError',
     'normalize_carrier',
@@ -284,4 +352,7 @@ __all__ = [
     'quotient_set',
     'canonical_projection_from_equivalence',
     'equivalence_from_partition',
+    'make_relation',
+    'total_order_from_list',
+    'equivalence_from_classes',
 ]

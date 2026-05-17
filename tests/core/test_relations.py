@@ -25,6 +25,9 @@ from pytop.relations import (
     relation_range,
     validate_relation_between,
     validate_relation_on,
+    make_relation,
+    total_order_from_list,
+    equivalence_from_classes,
 )
 
 EQUALITY_MOD_2 = {
@@ -194,3 +197,70 @@ def test_quotient_set_and_canonical_projection_are_stable_for_equivalence_relati
     assert projection[2] == frozenset({0, 2})
     assert projection[1] == frozenset({1, 3})
     assert projection[3] == frozenset({1, 3})
+
+
+def test_make_relation_returns_correct_pairs():
+    r = make_relation([1, 2, 3], (1, 2), (2, 3))
+    assert r == {(1, 2), (2, 3)}
+
+
+def test_make_relation_empty_pairs():
+    r = make_relation([1, 2, 3])
+    assert r == set()
+
+
+def test_make_relation_validates_carrier():
+    import pytest as _pytest
+    from pytop.relations import RelationError
+    with _pytest.raises(RelationError):
+        make_relation([1, 2], (1, 99))  # 99 not in carrier
+
+
+def test_total_order_from_list_reflexive():
+    r = total_order_from_list(1, 2, 3)
+    assert (1, 1) in r
+    assert (2, 2) in r
+    assert (3, 3) in r
+
+
+def test_total_order_from_list_pairs():
+    r = total_order_from_list(1, 2, 3)
+    assert (1, 2) in r
+    assert (1, 3) in r
+    assert (2, 3) in r
+
+
+def test_total_order_from_list_not_reversed():
+    r = total_order_from_list(1, 2, 3)
+    assert (2, 1) not in r
+    assert (3, 2) not in r
+
+
+def test_total_order_from_list_single():
+    r = total_order_from_list(5)
+    assert r == {(5, 5)}
+
+
+def test_equivalence_from_classes_reflexive_symmetric():
+    r = equivalence_from_classes([1, 2], [3])
+    assert (1, 1) in r
+    assert (2, 2) in r
+    assert (3, 3) in r
+    assert (1, 2) in r
+    assert (2, 1) in r
+
+
+def test_equivalence_from_classes_no_cross_block():
+    r = equivalence_from_classes([1, 2], [3])
+    assert (1, 3) not in r
+    assert (3, 1) not in r
+
+
+def test_equivalence_from_classes_single_block():
+    r = equivalence_from_classes([1, 2, 3])
+    assert len(r) == 9  # 3x3
+
+
+def test_equivalence_from_classes_empty():
+    r = equivalence_from_classes()
+    assert r == set()

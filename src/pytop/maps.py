@@ -507,6 +507,90 @@ def _exact_result(map_obj: SymbolicMap, property_name: str, verdict: bool, proof
     )
 
 
+class MapBuilderError(ValueError):
+    """Raised when a map builder receives invalid arguments."""
+
+
+def make_function(
+    domain_elements: Iterable[Any],
+    codomain_elements: Iterable[Any],
+    mapping: dict[Any, Any],
+) -> FiniteMap:
+    """Build a finite function from element sets and a mapping dictionary.
+
+    Parameters
+    ----------
+    domain_elements:
+        Elements of the domain set.
+    codomain_elements:
+        Elements of the codomain set.
+    mapping:
+        A dict ``{x: f(x)}`` where every key is in the domain and every
+        value is in the codomain.
+    """
+    from .spaces import TopologicalSpace
+
+    d = frozenset(domain_elements)
+    c = frozenset(codomain_elements)
+    keys = frozenset(mapping)
+    if not keys.issubset(d):
+        raise MapBuilderError("Mapping keys must be elements of the domain.")
+    if not frozenset(mapping.values()).issubset(c):
+        raise MapBuilderError("Mapping values must be elements of the codomain.")
+    d_space = TopologicalSpace(carrier=d)
+    c_space = TopologicalSpace(carrier=c)
+    return FiniteMap(domain=d_space, codomain=c_space, mapping=dict(mapping))
+
+
+def identity_function(elements: Iterable[Any]) -> FiniteMap:
+    """Build the identity function on the given elements.
+
+    Parameters
+    ----------
+    elements:
+        Elements of the set; the function maps each element to itself.
+    """
+    from .spaces import TopologicalSpace
+
+    x = frozenset(elements)
+    space = TopologicalSpace(carrier=x)
+    mapping = {e: e for e in x}
+    return FiniteMap(
+        domain=space,
+        codomain=space,
+        mapping=mapping,
+        tags={"injective", "surjective", "bijective", "homeomorphism"},
+    )
+
+
+def constant_function(
+    domain_elements: Iterable[Any],
+    codomain_elements: Iterable[Any],
+    value: Any,
+) -> FiniteMap:
+    """Build a constant function that maps every domain element to *value*.
+
+    Parameters
+    ----------
+    domain_elements:
+        Elements of the domain set.
+    codomain_elements:
+        Elements of the codomain set.
+    value:
+        The constant output; must be an element of the codomain.
+    """
+    from .spaces import TopologicalSpace
+
+    d = frozenset(domain_elements)
+    c = frozenset(codomain_elements)
+    if value not in c:
+        raise MapBuilderError("The constant value must be an element of the codomain.")
+    d_space = TopologicalSpace(carrier=d)
+    c_space = TopologicalSpace(carrier=c)
+    mapping = {e: value for e in d}
+    return FiniteMap(domain=d_space, codomain=c_space, mapping=mapping)
+
+
 __all__ = [
     "MAP_PROPERTIES",
     "SymbolicMap",
@@ -540,4 +624,8 @@ __all__ = [
     "initial_topology_from_maps",
     "map_taxonomy_profile",
     "render_map_taxonomy_report",
+    "MapBuilderError",
+    "make_function",
+    "identity_function",
+    "constant_function",
 ]

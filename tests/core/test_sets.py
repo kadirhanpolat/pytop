@@ -5,11 +5,14 @@ from pytop.sets import (
     are_disjoint,
     cartesian_product,
     complement,
+    empty_set,
     equal_sets,
     indexed_intersection,
     indexed_union,
     is_proper_subset,
     is_subset,
+    make_family,
+    make_set,
     power_set,
     set_difference,
     set_intersection,
@@ -100,3 +103,33 @@ def test_indexed_operators_accept_plain_iterables_and_empty_families():
 
 def test_cartesian_product_is_explicit():
     assert cartesian_product({1, 2}, {'x'}) == {(1, 'x'), (2, 'x')}
+
+
+def test_make_set_variadic():
+    assert make_set(1, 2, 3) == frozenset({1, 2, 3})
+
+
+def test_make_set_empty():
+    assert make_set() == frozenset()
+
+
+def test_make_set_deduplicates():
+    assert make_set(1, 1, 2) == frozenset({1, 2})
+
+
+def test_empty_set_returns_frozenset():
+    assert empty_set() == frozenset()
+    assert isinstance(empty_set(), frozenset)
+
+
+def test_make_family_creates_frozenset_of_frozensets():
+    fam = make_family({1, 2}, {3, 4})
+    assert fam == frozenset({frozenset({1, 2}), frozenset({3, 4})})
+
+
+def test_make_family_empty():
+    assert make_family() == frozenset()
+
+
+def test_make_family_single():
+    assert make_family({1}) == frozenset({frozenset({1})})

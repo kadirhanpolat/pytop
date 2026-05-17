@@ -153,6 +153,41 @@ def _family_members(family: Mapping[Any, Iterable[Any]] | Iterable[Iterable[Any]
     return list(family)
 
 
+def make_set(*elements: Any) -> frozenset[Any]:
+    """Return a frozenset of the given elements.
+
+    Preferred over writing ``frozenset({...})`` directly in notebooks and
+    exercises.  ``make_set()`` with no arguments returns the empty set.
+
+    Examples
+    --------
+    >>> make_set(1, 2, 3)
+    frozenset({1, 2, 3})
+    >>> make_set()
+    frozenset()
+    """
+    return frozenset(elements)
+
+
+def empty_set() -> frozenset[Any]:
+    """Return the empty set ∅ as a frozenset."""
+    return frozenset()
+
+
+def make_family(*sets: Iterable[Any]) -> frozenset[frozenset[Any]]:
+    """Return a frozenset of frozensets — a finite family of sets.
+
+    Useful for constructing topology families or covers without writing
+    nested ``frozenset`` literals.
+
+    Examples
+    --------
+    >>> make_family({1, 2}, {3, 4})
+    frozenset({frozenset({1, 2}), frozenset({3, 4})})
+    """
+    return frozenset(frozenset(s) for s in sets)
+
+
 __all__ = [
     'SetOperationError',
     'normalize_set',
@@ -169,4 +204,7 @@ __all__ = [
     'indexed_union',
     'indexed_intersection',
     'are_disjoint',
+    'make_set',
+    'empty_set',
+    'make_family',
 ]
