@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.21] - 2026-05-17
+
+### Added
+- `abstract_homotopy.py` — model categories (Quillen axioms, weak equivalences/fibrations/cofibrations),
+  homotopy pushouts/pullbacks (derived pushout via cofibrant replacement), ∞-categories (quasi-categories,
+  Joyal model structure), stable model categories (spectra), and Bousfield localization.
+  7 named examples: Top (Quillen), sSet (Kan-Quillen), Ch(R) (projective), quasi-categories (Joyal),
+  spectra (Bousfield-Friedlander), homotopy pushout, left Bousfield localization.
+  4 predicates: `is_proper_model_category`, `has_homotopy_limits`, `is_stable_model_category`,
+  `admits_bousfield_localization`. Facades: `classify_abstract_homotopy`, `abstract_homotopy_profile`.
+- 216 new tests
+
+### Tests
+- Total: 6842 tests, all passing
+
 ## [0.5.20] - 2026-05-17
 
 ### Added
