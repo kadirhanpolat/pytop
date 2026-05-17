@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.18"
+__version__ = "0.5.19"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2480,4 +2480,26 @@ from .noncommutative_topology import (
     has_spectral_triple,
     classify_noncommutative,
     noncommutative_profile,
+)
+from .uniform_convergence import (
+    UniformConvergenceProfile,
+    UNIFORM_CONVERGENCE_TAGS,
+    POINTWISE_ONLY_TAGS,
+    EQUICONTINUOUS_TAGS,
+    NOT_EQUICONTINUOUS_TAGS,
+    ARZELA_ASCOLI_TAGS,
+    DINI_THEOREM_TAGS,
+    STONE_WEIERSTRASS_TAGS,
+    COMPACT_OPEN_TAGS,
+    NOT_RELATIVELY_COMPACT_TAGS,
+    get_named_uniform_convergence_profiles,
+    uniform_convergence_layer_summary,
+    uniform_convergence_chapter_index,
+    uniform_convergence_type_index,
+    is_uniformly_convergent,
+    is_equicontinuous,
+    satisfies_arzela_ascoli,
+    satisfies_dini,
+    classify_uniform_convergence,
+    uniform_convergence_profile,
 )

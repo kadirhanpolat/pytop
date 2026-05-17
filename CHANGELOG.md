@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.19] - 2026-05-17
+
+### Added
+
+- **`uniform_convergence.py`** — new module for uniform convergence, equicontinuity, Arzelà-Ascoli, Dini's theorem, and Stone-Weierstrass:
+  - `UniformConvergenceProfile` frozen dataclass with `convergence_type`, `is_uniform`, `is_equicontinuous`, `limit_is_continuous`, `is_relatively_compact`, `satisfies_dini`, `presentation_layer`, `chapter_targets` fields
+  - 7 named profiles: x^n on [0,1] (pointwise≠uniform, discontinuous limit), geometric series on [-r,r] (uniform, equicontinuous, Dini), Dini's theorem (monotone pointwise→uniform), Arzelà-Ascoli (relatively compact ↔ bounded+equicontinuous), Stone-Weierstrass (dense subalgebras in C(X)), compact-open topology, Lipschitz family (uniform modulus)
+  - `is_uniformly_convergent(space)` — uniform convergence; Dini + Arzelà-Ascoli criteria
+  - `is_equicontinuous(space)` — equicontinuity; Lipschitz/Hölder families
+  - `satisfies_arzela_ascoli(space)` — relative compactness in C(X); bounded+equicontinuous
+  - `satisfies_dini(space)` — Dini's theorem applicability check
+  - `classify_uniform_convergence(space)` + `uniform_convergence_profile(space)` facade
+  - 9 tag constant sets: UNIFORM_CONVERGENCE_TAGS, POINTWISE_ONLY_TAGS, EQUICONTINUOUS_TAGS, NOT_EQUICONTINUOUS_TAGS, ARZELA_ASCOLI_TAGS, DINI_THEOREM_TAGS, STONE_WEIERSTRASS_TAGS, COMPACT_OPEN_TAGS, NOT_RELATIVELY_COMPACT_TAGS
+  - 179 tests, all passing; total test count: 6492
+
 ## [0.5.18] - 2026-05-17
 
 ### Added
