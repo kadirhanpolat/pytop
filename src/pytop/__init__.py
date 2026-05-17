@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.24"
+__version__ = "0.5.25"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2610,4 +2610,12 @@ from .topology_builders import (
     sierpinski_space,  # noqa: F811
     topology_from_basis,
     topology_from_subbasis,
+)
+from .random_generators import (
+    RandomGeneratorError,
+    random_set,
+    LazyTopology,
+    random_topology,
+    random_relation,
+    random_function,
 )

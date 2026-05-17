@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.25] - 2026-05-18
+
+### Added
+- `random_generators.py` — random and semi-random structure generators:
+  - `random_set` with `size`/`min_size`/`max_size`, `element_type` (`int`/`char`/`str`/custom pool),
+    `random_order` (shuffle vs sequential), and `seed` for reproducibility.
+  - `LazyTopology` — subbasis-backed topology with bitmask UID; no full open-set enumeration.
+    Supports `is_open`, `contains_open`, `random_open_set`, `sample_open_sets`, `from_uid`.
+  - `random_topology` — returns `FiniteTopologicalSpace` for |carrier| ≤ 5, `LazyTopology` for larger.
+  - `random_relation` — Bernoulli density sampling over carrier × carrier.
+  - `random_function` — uniform random dict from domain to codomain.
+  - `RandomGeneratorError` — validation error for all generators.
+- 57 new tests in `tests/core/test_random_generators.py`.
+
 ## [0.5.24] - 2026-05-18
 
 ### Added
