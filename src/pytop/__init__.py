@@ -2646,7 +2646,7 @@ from .predicate_relations import (
     MathRelation,
     relation_on,
     relation_between,
-    leq, lt, geq, gt, divides,
+    leq, lt, geq, gt, divides,  # noqa: F811
 )
 from .predicate_functions import (
     PredicateFunctionError,
