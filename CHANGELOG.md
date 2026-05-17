@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.22] - 2026-05-17
+
+### Added
+- `foliations.py` — foliation theory: Frobenius integrability, Reeb foliation of S^3
+  (Novikov's theorem), Kronecker foliation of T^2 (non-Hausdorff leaf space), taut foliations
+  (Sullivan-Thurston-Gabai), Riemannian foliations (Molino), Godbillon-Vey invariant,
+  and Haefliger classifying space BΓ_q.
+  7 named examples, 4 predicates: `is_frobenius_integrable`, `has_compact_leaf`,
+  `is_taut_foliation`, `has_trivial_holonomy`. Facades: `classify_foliation`, `foliation_profile`.
+- 209 new tests
+
+### Tests
+- Total: 7051 tests, all passing
+
 ## [0.5.21] - 2026-05-17
 
 ### Added

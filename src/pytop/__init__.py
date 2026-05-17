@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.21"
+__version__ = "0.5.22"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2545,4 +2545,25 @@ from .abstract_homotopy import (
     admits_bousfield_localization,
     classify_abstract_homotopy,
     abstract_homotopy_profile,
+)
+from .foliations import (
+    FoliationProfile,
+    FROBENIUS_THEOREM_TAGS,
+    COMPACT_LEAF_TAGS,
+    REEB_FOLIATION_TAGS,
+    TRANSVERSE_GEOMETRY_TAGS,
+    HOLONOMY_TAGS,
+    TAUT_FOLIATION_TAGS,
+    GODBILLON_VEY_TAGS,
+    LEAF_SPACE_TAGS,
+    get_named_foliation_profiles,
+    foliation_layer_summary,
+    foliation_chapter_index,
+    foliation_type_index,
+    is_frobenius_integrable,
+    has_compact_leaf,
+    is_taut_foliation,
+    has_trivial_holonomy,
+    classify_foliation,
+    foliation_profile,
 )
