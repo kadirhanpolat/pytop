@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.26"
+__version__ = "0.5.27"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2631,4 +2631,26 @@ from .random_generators import (
     random_open_map,
     random_closed_map,
     random_homeomorphism,
+)
+from .predicate_sets import (
+    PredicateSetError,
+    MathSet,
+    set_of,
+    N, Z, Q, R, C, Sigma,
+    N_plus, Z_plus, R_plus,
+    natural_numbers, integers, rationals, reals, complex_numbers, alphabet,
+    positive_naturals, positive_integers, positive_reals,
+)
+from .predicate_relations import (
+    PredicateRelationError,
+    MathRelation,
+    relation_on,
+    relation_between,
+    leq, lt, geq, gt, divides,
+)
+from .predicate_functions import (
+    PredicateFunctionError,
+    MathFunction,
+    function_from,
+    successor, square, double, abs_value, negate_fn,
 )

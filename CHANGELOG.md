@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.27] - 2026-05-18
+
+### Added
+- `predicate_sets.py` — sets defined by membership predicates:
+  - `MathSet` dataclass with `contains`, `where` (comprehension), `intersection`, `union`,
+    `complement_in`, `to_frozenset`, `sample`; `__and__`/`__or__` operator shortcuts.
+  - Base set constants: `N` (ℕ), `Z` (ℤ), `Q` (ℚ), `R` (ℝ), `C` (ℂ), `Sigma` (Σ).
+  - Derived constants: `N_plus` (ℕ⁺), `Z_plus` (ℤ⁺), `R_plus` (ℝ⁺).
+  - Word aliases: `natural_numbers`, `integers`, `rationals`, `reals`, `complex_numbers`,
+    `alphabet`, `positive_naturals`, `positive_integers`, `positive_reals`.
+  - Constructor `set_of(base, predicate, name, description)` (alias for `base.where`).
+- `predicate_relations.py` — binary relations defined by predicates over two `MathSet`s:
+  - `MathRelation` dataclass with `holds`, `restrict_to`, `restrict_between`, `inverse`,
+    `compose`; structural tests: `is_reflexive_on`, `is_symmetric_on`, `is_transitive_on`,
+    `is_antisymmetric_on`, `is_partial_order_on`, `is_total_order_on`, `is_equivalence_on`.
+  - Pre-built constants: `leq` (≤), `lt` (<), `geq` (≥), `gt` (>), `divides` (∣).
+  - Constructors: `relation_on` (homogeneous), `relation_between` (heterogeneous).
+- `predicate_functions.py` — functions defined by rules with domain/codomain validation:
+  - `MathFunction` dataclass with `apply`, `restrict_to`, `compose`; structural tests:
+    `is_injective_on`, `is_surjective_on`, `is_bijective_on`.
+  - Pre-built constants: `successor`, `square`, `double`, `abs_value`, `negate_fn`.
+  - Constructor `function_from(domain, codomain, rule, name, description)`.
+- 146 new tests across `test_predicate_sets.py`, `test_predicate_relations.py`,
+  `test_predicate_functions.py`.
+
 ## [0.5.26] - 2026-05-18
 
 ### Added
