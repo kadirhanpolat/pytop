@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.19"
+__version__ = "0.5.20"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2502,4 +2502,26 @@ from .uniform_convergence import (
     satisfies_dini,
     classify_uniform_convergence,
     uniform_convergence_profile,
+)
+from .persistent_homology import (
+    PersistenceProfile,
+    VIETORIS_RIPS_TAGS,
+    CECH_COMPLEX_TAGS,
+    PERSISTENCE_DIAGRAM_TAGS,
+    STABLE_FILTRATION_TAGS,
+    UNSTABLE_OR_SENSITIVE_TAGS,
+    ESSENTIAL_CLASS_TAGS,
+    SUBLEVEL_SET_TAGS,
+    FIELD_COEFFICIENTS_TAGS,
+    STRUCTURE_THEOREM_TAGS,
+    get_named_persistence_profiles,
+    persistence_layer_summary,
+    persistence_chapter_index,
+    persistence_type_index,
+    has_finite_barcode,
+    is_stable_filtration,
+    has_essential_classes,
+    has_structure_theorem,
+    classify_persistence,
+    persistence_profile,
 )

@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.20] - 2026-05-17
+
+### Added
+
+- **`persistent_homology.py`** — new module for TDA, Vietoris-Rips filtration, Čech complexes, persistence diagrams, barcodes, and the structure theorem:
+  - `PersistenceProfile` frozen dataclass with `complex_type`, `filtration_type`, `has_finite_barcode`, `is_stable`, `has_essential_classes`, `computable_over_field`, `presentation_layer`, `chapter_targets` fields
+  - 7 named profiles: Vietoris-Rips point cloud (finite barcode, Rips-Čech stability), sublevel-set filtration (Morse functions, H_0-barcode), persistence diagram bottleneck (isometry theorem), structure theorem for persistence modules (interval decomposition over fields), Čech/alpha complex (optimal stability), circle point cloud (essential H_1 generator), Mapper algorithm (cover-dependent, not stable)
+  - `has_finite_barcode(space)` — persistence barcode finiteness; Rips/Čech/sublevel criteria
+  - `is_stable_filtration(space)` — stability theorem applicability; bottleneck-stable families
+  - `has_essential_classes(space)` — essential (infinite-persistence) homology classes
+  - `has_structure_theorem(space)` — interval-decomposition over a field; Crawley-Boevey theorem
+  - `classify_persistence(space)` + `persistence_profile(space)` facade
+  - 9 tag constant sets: VIETORIS_RIPS_TAGS, CECH_COMPLEX_TAGS, PERSISTENCE_DIAGRAM_TAGS, STABLE_FILTRATION_TAGS, UNSTABLE_OR_SENSITIVE_TAGS, ESSENTIAL_CLASS_TAGS, SUBLEVEL_SET_TAGS, FIELD_COEFFICIENTS_TAGS, STRUCTURE_THEOREM_TAGS
+  - 184 tests, all passing; total test count: 6676
+
 ## [0.5.19] - 2026-05-17
 
 ### Added
