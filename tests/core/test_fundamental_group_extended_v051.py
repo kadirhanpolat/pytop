@@ -1,11 +1,10 @@
 """Coverage-targeted tests for fundamental_group.py (v0.5.1)."""
 import pytest
+
 from pytop.fundamental_group import (
     FundamentalGroupProfile,
     FundamentalGroupProfileError,
-    fundamental_group_profile,
 )
-
 
 # ---------------------------------------------------------------------------
 # FundamentalGroupProfile.__post_init__ — line 41 (invalid kind)

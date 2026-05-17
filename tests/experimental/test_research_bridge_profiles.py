@@ -1,8 +1,8 @@
-from pytop.research_bridge_profiles import get_named_research_bridge_profiles as get_core_profiles
 from pytop.experimental.research_bridge_profiles import (
     get_named_research_bridge_profiles,
     research_bridge_layer_summary,
 )
+from pytop.research_bridge_profiles import get_named_research_bridge_profiles as get_core_profiles
 
 
 def test_research_bridge_registry_has_expected_routes():

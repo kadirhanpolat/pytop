@@ -1,14 +1,13 @@
 """Coverage-targeted tests for finite_map_engine.py (v0.5.1)."""
 import pytest
+
 from pytop.finite_map_engine import (
     FiniteMapEngineError,
-    normalize_finite_map_data,
-    continuity_checks_by_opens,
     _normalize_carrier,
     _normalize_subset,
     _normalize_topology,
+    continuity_checks_by_opens,
 )
-
 
 _D2 = frozenset({1, 2})
 _INDISCRETE2 = [frozenset(), frozenset({1, 2})]

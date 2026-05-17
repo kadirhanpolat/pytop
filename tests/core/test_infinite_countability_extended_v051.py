@@ -1,11 +1,8 @@
 """Coverage-targeted tests for infinite_countability.py (v0.5.1)."""
-import pytest
 from pytop.infinite_countability import (
     analyze_infinite_countability,
-    infinite_countability_report,
 )
 from pytop.infinite_spaces import DiscreteInfiniteSpace
-
 
 # ---------------------------------------------------------------------------
 # analyze_infinite_countability — line 31 (non-InfiniteTopologicalSpace)

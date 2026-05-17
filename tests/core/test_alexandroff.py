@@ -1,6 +1,6 @@
 from pytop.alexandroff import (
-    alexandroff_space_from_preorder,
     alexandroff_report,
+    alexandroff_space_from_preorder,
     is_alexandroff_space,
     minimal_open_neighborhood,
     preorder_kernel_relation,

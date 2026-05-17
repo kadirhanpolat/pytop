@@ -1,10 +1,10 @@
 """Coverage-targeted tests for covering_spaces.py (v0.5.1)."""
 import pytest
-from pytop.covering_spaces import (
-    CoveringSpaceProfileError,
-    CoveringMapProfile,
-)
 
+from pytop.covering_spaces import (
+    CoveringMapProfile,
+    CoveringSpaceProfileError,
+)
 
 # ---------------------------------------------------------------------------
 # CoveringMapProfile — line 42 (empty name after valid status check)

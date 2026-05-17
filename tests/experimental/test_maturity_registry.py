@@ -1,14 +1,14 @@
 from pytop.experimental.maturity_registry import (
     chapter_primary_maturity_summary,
+    consolidation_bucket_summary,
+    core_counterpart_index,
     experimental_maturity_summary,
     get_experimental_maturity_profiles,
     lookup_experimental_maturity,
     preferred_home_summary,
     promoted_core_facade_modules,
-    core_counterpart_index,
-    retained_supported_experimental_modules,
     retained_research_draft_modules,
-    consolidation_bucket_summary,
+    retained_supported_experimental_modules,
 )
 
 

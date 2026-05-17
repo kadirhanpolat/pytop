@@ -1,8 +1,8 @@
 from pytop import (
     EuclideanTopologyProfileError,
     closed_disk_profile,
-    euclidean_topology_profile,
     euclidean_profile_summary,
+    euclidean_topology_profile,
     known_euclidean_profile,
     open_ball_profile,
     projective_preview_profile,

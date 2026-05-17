@@ -1,4 +1,9 @@
-from pytop import FiniteMap, FiniteTopologicalSpace, map_taxonomy_profile, render_map_taxonomy_report
+from pytop import (
+    FiniteMap,
+    FiniteTopologicalSpace,
+    map_taxonomy_profile,
+    render_map_taxonomy_report,
+)
 
 
 def _space(points, opens):

@@ -1,17 +1,18 @@
 """Coverage-targeted tests for metric_spaces.py (v0.5.1)."""
 import pytest
+
 from pytop.metric_spaces import (
-    MetricSpace,
     FiniteMetricSpace,
-    open_ball,
+    MetricSpace,
+    _has_finite_length,
+    capped_metric,
     closed_ball,
     distance_to_subset,
-    is_bounded_subset,
-    capped_metric,
     finite_product_metric_space,
-    validate_metric,
     induced_topological_space,
-    _has_finite_length,
+    is_bounded_subset,
+    open_ball,
+    validate_metric,
 )
 
 

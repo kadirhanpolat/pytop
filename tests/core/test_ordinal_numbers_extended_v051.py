@@ -1,10 +1,8 @@
 """Coverage-targeted tests for ordinal_numbers.py (v0.5.1)."""
-import pytest
 from pytop.ordinal_numbers import (
-    ordinal_class,
-    ordinal_profile,
-    _representation_of,
     _carrier_size,
+    _representation_of,
+    ordinal_class,
 )
 
 

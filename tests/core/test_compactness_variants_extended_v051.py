@@ -1,20 +1,16 @@
 """Coverage-targeted tests for compactness_variants.py (v0.5.1)."""
-import pytest
 from pytop.compactness_variants import (
+    _carrier_size,
+    _representation_of,
     is_countably_compact,
-    is_sequentially_compact,
-    is_pseudocompact,
-    is_lindelof,
     is_feebly_compact,
     is_metacompact,
+    is_pseudocompact,
     is_relatively_compact,
+    is_sequentially_compact,
     is_sigma_compact,
-    _representation_of,
-    _carrier_size,
-    _tags_of,
 )
 from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

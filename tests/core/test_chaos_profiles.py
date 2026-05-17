@@ -1,18 +1,17 @@
 """Tests for pytop.chaos_profiles — DYN-02 chaos profile module."""
 
 from pytop.chaos_profiles import (
-    ChaosProperty,
     ChaosProfile,
+    ChaosProperty,
     ChaoticMapProfile,
     SymbolicDynamicsProfile,
-    get_devaney_chaos_properties,
+    chaos_profile_registry,
+    chaos_status_summary,
     get_chaos_profiles,
     get_chaotic_map_profiles,
+    get_devaney_chaos_properties,
     get_symbolic_dynamics_profiles,
-    chaos_status_summary,
-    chaos_profile_registry,
 )
-
 
 # ---------------------------------------------------------------------------
 # Devaney chaos properties

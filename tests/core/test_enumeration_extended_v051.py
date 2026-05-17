@@ -1,15 +1,14 @@
 """Coverage-targeted tests for enumeration.py (v0.5.1)."""
 import pytest
+
 from pytop.enumeration import (
-    enumerate_topologies,
-    enumerate_topologies_on_n_points,
+    _is_topology,
+    count_topologies_on_n_points,
+    enumerate_hausdorff_topologies,
     enumerate_t0_topologies,
     enumerate_t1_topologies,
-    enumerate_hausdorff_topologies,
-    count_topologies_on_n_points,
-    _is_topology,
+    enumerate_topologies_on_n_points,
 )
-
 
 # ---------------------------------------------------------------------------
 # enumerate_topologies_on_n_points — n<0 raises ValueError (line 46)

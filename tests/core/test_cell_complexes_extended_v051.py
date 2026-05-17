@@ -1,5 +1,6 @@
 """Coverage-targeted tests for cell_complexes.py (v0.5.1)."""
 import pytest
+
 from pytop.cell_complexes import (
     Cell,
     CellComplexError,
@@ -7,7 +8,6 @@ from pytop.cell_complexes import (
     cell,
     simplex_as_cell_profile,
 )
-
 
 # ---------------------------------------------------------------------------
 # Cell.__post_init__ — line 25 (empty name raises)

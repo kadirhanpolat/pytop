@@ -1,11 +1,13 @@
-from pytop.tightness_network_profiles import get_named_tightness_network_profiles
 from pytop.experimental.tightness_network_profiles import (
     get_named_tightness_network_profiles as get_wrapper_profiles,
+)
+from pytop.experimental.tightness_network_profiles import (
     render_tightness_network_lane_report,
     tightness_network_entry_advanced_split,
     tightness_network_lane_summary,
     tightness_network_layer_summary,
 )
+from pytop.tightness_network_profiles import get_named_tightness_network_profiles
 
 
 def test_tightness_network_registry_has_expected_keys():

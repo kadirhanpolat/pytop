@@ -1,6 +1,5 @@
 """Extended tests for filters.py — covers all remaining branches."""
 
-import pytest
 from pytop import (
     analyze_filter,
     filter_cluster_points,
@@ -12,7 +11,6 @@ from pytop import (
     is_finer_filter,
     neighborhood_filter_base,
 )
-
 
 # ---------------------------------------------------------------------------
 # Fixtures

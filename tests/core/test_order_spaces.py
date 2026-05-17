@@ -1,3 +1,4 @@
+from pytop.examples import two_point_indiscrete_space
 from pytop.order_spaces import (
     FinitePosetSpace,
     analyze_order_space,
@@ -10,9 +11,7 @@ from pytop.order_spaces import (
     specialization_poset,
     upper_space_from_order,
 )
-from pytop.examples import two_point_indiscrete_space
 from pytop.separation import is_t0
-
 
 CHAIN = {(1, 2), (2, 3), (1, 3)}
 

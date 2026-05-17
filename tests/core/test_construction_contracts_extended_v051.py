@@ -1,9 +1,7 @@
 """Coverage-targeted tests for construction_contracts.py (v0.5.1)."""
 from pytop.construction_contracts import (
     finite_product_contract,
-    FiniteConstructionContract,
 )
-
 
 # ---------------------------------------------------------------------------
 # finite_product_contract — lines 46-47 (factor not iterable → status=unknown)

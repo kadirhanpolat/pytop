@@ -1,16 +1,13 @@
 """Coverage-targeted tests for quantitative_topology.py (v0.5.1)."""
-import pytest
+from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.quantitative_topology import (
-    QuantitativeTopologyError,
-    quantitative_profile,
-    analyze_quantitative_topology,
-    _representation_of,
     _carrier_size,
+    _representation_of,
     _tags_of,
     _topology_size,
+    analyze_quantitative_topology,
+    quantitative_profile,
 )
-from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

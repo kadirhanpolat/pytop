@@ -1,12 +1,14 @@
 """Tests for preservation_legacy.py — deprecated facade."""
 
 import warnings
+
 import pytest
+
 from pytop.preservation_legacy import (
+    analyze_preservation_table,
+    preservation_table_column,
     preservation_table_lookup,
     preservation_table_row,
-    preservation_table_column,
-    analyze_preservation_table,
 )
 from pytop.result import Result
 

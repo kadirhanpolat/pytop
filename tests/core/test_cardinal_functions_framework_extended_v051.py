@@ -1,18 +1,17 @@
 """Coverage-targeted tests for cardinal_functions_framework.py (v0.5.1)."""
 import pytest
+
 from pytop.cardinal_functions_framework import (
     CardinalFunctionFrameworkError,
-    cardinal_function_definition,
-    cardinal_function_comparison,
-    cardinal_functions_framework_profile,
+    _carrier_size,
+    _representation_of,
     analyze_cardinal_functions_framework,
     arhangelskii_bound,
-    _representation_of,
-    _tags_of,
-    _carrier_size,
+    cardinal_function_comparison,
+    cardinal_function_definition,
+    cardinal_functions_framework_profile,
 )
 from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

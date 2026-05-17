@@ -1,10 +1,10 @@
 """Coverage-targeted tests for experimental/maturity_registry.py (v0.5.1)."""
 import pytest
-from pytop.experimental.maturity_registry import (
-    lookup_experimental_maturity,
-    get_experimental_maturity_profiles,
-)
 
+from pytop.experimental.maturity_registry import (
+    get_experimental_maturity_profiles,
+    lookup_experimental_maturity,
+)
 
 # ---------------------------------------------------------------------------
 # lookup_experimental_maturity — line 185 (module not found → raises KeyError)

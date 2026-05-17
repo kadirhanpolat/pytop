@@ -1,17 +1,13 @@
 """Coverage-targeted tests for comparison.py (v0.5.1)."""
-import pytest
 from pytop.comparison import (
-    compare_spaces,
-    invariant_profile,
-    finite_homeomorphism_result,
-    compare_invariants,
-    _space_is_finite,
     _carrier_size,
     _representation_of,
-    _extract_tags,
+    _space_is_finite,
+    compare_invariants,
+    compare_spaces,
+    finite_homeomorphism_result,
 )
 from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

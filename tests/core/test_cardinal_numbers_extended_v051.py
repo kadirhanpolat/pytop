@@ -1,9 +1,8 @@
 """Coverage-targeted tests for cardinal_numbers.py (v0.5.1)."""
-import pytest
 from pytop.cardinal_numbers import (
-    cardinality_class,
-    _representation_of,
     _carrier_size,
+    _representation_of,
+    cardinality_class,
 )
 
 

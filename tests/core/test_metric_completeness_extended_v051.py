@@ -1,11 +1,12 @@
 """Coverage-targeted tests for metric_completeness.py (v0.5.1)."""
 import pytest
+
 from pytop.metric_completeness import (
     MetricCompletenessError,
+    _finite_metric_data,
     is_complete,
     is_totally_bounded,
     metric_compactness_check,
-    _finite_metric_data,
 )
 
 

@@ -1,7 +1,6 @@
 """Coverage-targeted tests for sequences.py (v0.5.1)."""
 from pytop.sequences import _minimal_open_neighborhood
 
-
 # ---------------------------------------------------------------------------
 # _minimal_open_neighborhood — line 328 (no neighborhoods → return frozenset())
 # ---------------------------------------------------------------------------

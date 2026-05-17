@@ -4,18 +4,20 @@ Covers neighborhood_systems.py: axiom checks, N(x) computation,
 local base verification, character, topology recovery, and analyze entry-point.
 """
 
-import sys, os
+import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../src'))
 
-from pytop.neighborhood_systems import (
-    neighborhood_system_axioms,
-    neighborhood_system,
-    local_base_check,
-    character_at_point,
-    topology_from_neighborhood_system,
-    analyze_neighborhood_system,
-)
 import pytop
+from pytop.neighborhood_systems import (
+    analyze_neighborhood_system,
+    character_at_point,
+    local_base_check,
+    neighborhood_system,
+    neighborhood_system_axioms,
+    topology_from_neighborhood_system,
+)
 
 # Shared test spaces
 SIERPINSKI_CARRIER = [0, 1]

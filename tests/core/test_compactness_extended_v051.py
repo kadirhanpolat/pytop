@@ -1,5 +1,6 @@
 """Coverage-targeted tests for compactness.py (v0.5.1)."""
 import pytest
+
 from pytop.compactness import (
     CompactnessError,
     analyze_compactness,

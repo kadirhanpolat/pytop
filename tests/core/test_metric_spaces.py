@@ -22,7 +22,6 @@ from pytop.metric_spaces import (
 from pytop.separation import is_hausdorff
 
 
-
 def discrete_metric(x, y):
     return 0.0 if x == y else 1.0
 

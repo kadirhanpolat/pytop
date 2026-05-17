@@ -2,6 +2,7 @@ import pytest
 
 from pytop.relations import (
     RelationError,
+    canonical_projection_from_equivalence,
     compose_relations,
     equivalence_class,
     equivalence_from_partition,
@@ -19,14 +20,12 @@ from pytop.relations import (
     is_transitive,
     partition_from_equivalence,
     quotient_set,
-    canonical_projection_from_equivalence,
     relation_domain,
     relation_profile,
     relation_range,
     validate_relation_between,
     validate_relation_on,
 )
-
 
 EQUALITY_MOD_2 = {
     (0, 0), (0, 2),

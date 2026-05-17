@@ -1,7 +1,6 @@
 """Coverage-targeted tests for relations.py (v0.5.1)."""
 from pytop.relations import is_linear_order
 
-
 # ---------------------------------------------------------------------------
 # is_linear_order — line 143 (not a partial order → return False)
 # ---------------------------------------------------------------------------

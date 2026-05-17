@@ -1,18 +1,18 @@
 """Coverage-targeted tests for local_compactness.py (v0.5.1)."""
 import pytest
+
+from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.local_compactness import (
     LocalCompactnessError,
-    is_locally_compact,
-    one_point_compactification,
-    alexandroff_point_check,
-    local_compactness_profile,
-    analyze_local_compactness,
-    _representation_of,
-    _finite_is_hausdorff,
     _finite_is_compact,
+    _finite_is_hausdorff,
+    _representation_of,
+    alexandroff_point_check,
+    analyze_local_compactness,
+    is_locally_compact,
+    local_compactness_profile,
+    one_point_compactification,
 )
-from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

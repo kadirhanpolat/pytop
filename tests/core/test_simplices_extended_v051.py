@@ -1,14 +1,14 @@
 """Coverage-targeted tests for simplices.py (v0.5.1)."""
 import pytest
+
 from pytop.simplices import (
     Simplex,
     SimplexError,
     simplex,
-    validate_simplex,
     simplex_boundary_vertices,
     simplex_summary,
+    validate_simplex,
 )
-
 
 # ---------------------------------------------------------------------------
 # faces(include_empty=True) → SimplexError  (line 52)

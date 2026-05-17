@@ -1,9 +1,27 @@
 from pytop.examples import real_line_metric, reals_cocountable, reals_indiscrete
 from pytop.infinite_compactness import is_compact_infinite
-from pytop.infinite_connectedness import is_connected_infinite
 from pytop.infinite_constructions import disjoint_sum, product, subspace
-from pytop.infinite_image_preimage import SymbolicSubset, compact_image_result, connected_image_result, image_space, image_subset, preimage_subset
-from pytop.infinite_maps import ContinuousMap, HomeomorphismMap, QuotientMap, SymbolicMap, compose_maps, homeomorphism_criterion_result, initial_topology_descriptor, is_continuous_map, is_homeomorphism_map, is_open_map, is_quotient_map
+from pytop.infinite_image_preimage import (
+    SymbolicSubset,
+    compact_image_result,
+    connected_image_result,
+    image_space,
+    image_subset,
+    preimage_subset,
+)
+from pytop.infinite_maps import (
+    ContinuousMap,
+    HomeomorphismMap,
+    QuotientMap,
+    SymbolicMap,
+    compose_maps,
+    homeomorphism_criterion_result,
+    initial_topology_descriptor,
+    is_continuous_map,
+    is_homeomorphism_map,
+    is_open_map,
+    is_quotient_map,
+)
 from pytop.infinite_quotients import quotient_space_from_map
 
 

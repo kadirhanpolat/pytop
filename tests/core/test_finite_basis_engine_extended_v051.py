@@ -1,17 +1,16 @@
 """Coverage-targeted tests for finite_basis_engine.py (v0.5.1)."""
 import pytest
+
 from pytop.finite_basis_engine import (
     FiniteBasisEngineError,
-    generated_topology_from_basis,
-    local_base_report,
-    continuity_via_basis_preimage,
-    minimal_basis,
-    minimal_basis_report,
     _normalize_carrier,
     _normalize_family,
+    continuity_via_basis_preimage,
+    local_base_report,
+    minimal_basis,
+    minimal_basis_report,
 )
 from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

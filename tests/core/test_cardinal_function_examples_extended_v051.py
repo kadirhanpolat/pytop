@@ -1,12 +1,12 @@
 """Coverage-targeted tests for cardinal_function_examples.py (v0.5.1)."""
 import pytest
-from pytop.cardinal_function_examples import (
-    CardinalFunctionExampleError,
-    CardinalFunctionComparisonRoute,
-    cardinal_function_examples_by_layer,
-    _validate_route_examples,
-)
 
+from pytop.cardinal_function_examples import (
+    CardinalFunctionComparisonRoute,
+    CardinalFunctionExampleError,
+    _validate_route_examples,
+    cardinal_function_examples_by_layer,
+)
 
 # ---------------------------------------------------------------------------
 # cardinal_function_examples_by_layer — line 504 (unknown layer raises)

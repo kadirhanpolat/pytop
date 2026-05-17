@@ -1,11 +1,11 @@
 """Extended tests for predicates.py — branches not covered by existing tests."""
 
 import pytest
+
 from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.infinite_spaces import InfiniteTopologicalSpace
 from pytop.predicates import (
     PredicateError,
-    UnknownSubsetError,
     analyze_predicate,
     is_clopen_subset,
     is_closed_subset,
@@ -14,7 +14,6 @@ from pytop.predicates import (
     is_open_subset,
     normalize_predicate_name,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers

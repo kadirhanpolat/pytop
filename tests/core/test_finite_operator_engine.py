@@ -1,10 +1,10 @@
 """Tests for finite_operator_engine.py."""
 
 import pytest
+
 from pytop.finite_operator_engine import (
     FiniteOperatorEngineError,
     FiniteOperatorTable,
-    TopologyValidation,
     boundary,
     closed_sets_from_topology,
     closure,

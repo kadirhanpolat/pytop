@@ -1,15 +1,13 @@
 """Tests for inverse_systems.py extended API (v0.5.0)."""
-import pytest
 from pytop.inverse_systems import (
     InverseSystemDescriptor,
     compute_limit_properties,
+    inverse_limit,
+    inverse_system,
+    p_adic_integers_example,
     pro_finite_completion,
     solenoid_example,
-    p_adic_integers_example,
-    inverse_system,
-    inverse_limit,
 )
-
 
 # ---------------------------------------------------------------------------
 # InverseSystemDescriptor

@@ -1,18 +1,17 @@
 """Coverage-targeted tests for metric_map_taxonomy.py (v0.5.1)."""
 import pytest
+
 from pytop.metric_map_taxonomy import (
     MetricMapProfile,
-    MetricMapping,
+    _finite_carrier,
+    _finite_similarity_ratio,
+    _normalize_graph,
+    _require_valid_metric,
     classify_finite_metric_map,
     metric_map_profile,
     render_metric_map_taxonomy,
-    _finite_carrier,
-    _require_valid_metric,
-    _normalize_graph,
-    _finite_similarity_ratio,
 )
 from pytop.metric_spaces import FiniteMetricSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers — simple finite metric spaces

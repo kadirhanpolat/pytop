@@ -1,15 +1,11 @@
 """Coverage-targeted tests for unified_property.py (v0.5.1)."""
-import pytest
-from pytop.unified_property import (
-    analyze_property,
-    analyze_space,
-    is_finite_space,
-    is_infinite_space,
-    _to_space,
-)
 from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.infinite_spaces import IndiscreteInfiniteSpace
-
+from pytop.unified_property import (
+    _to_space,
+    analyze_property,
+    analyze_space,
+)
 
 # ---------------------------------------------------------------------------
 # _to_space — line 42 (tags not a list/tuple/set/frozenset → tags = [])

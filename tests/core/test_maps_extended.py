@@ -1,6 +1,7 @@
 """Extended tests for maps.py — branches not covered by test_maps.py."""
 
 import pytest
+
 from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.infinite_maps import ContinuousMap
 from pytop.infinite_spaces import InfiniteTopologicalSpace
@@ -30,7 +31,6 @@ from pytop.maps import (
     render_map_taxonomy_report,
     satisfies_closure_image_inclusion,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers

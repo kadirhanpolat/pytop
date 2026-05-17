@@ -1,11 +1,9 @@
 """Coverage-targeted tests for sets.py (v0.5.1)."""
-import pytest
 from pytop.sets import (
     normalize_universe,
-    set_union,
     set_intersection,
+    set_union,
 )
-
 
 # ---------------------------------------------------------------------------
 # normalize_universe — line 32 (just needs to be called)

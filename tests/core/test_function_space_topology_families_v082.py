@@ -2,7 +2,6 @@ import importlib.util
 import os
 import sys
 
-
 _BASE = os.path.join(os.path.dirname(__file__), "..", "..", "src", "pytop")
 
 
@@ -17,7 +16,6 @@ def _load(name, rel):
 
 
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-import pytop as _pytop_pkg  # noqa: E402
 
 _fs_mod = _load("pytop.function_spaces", "function_spaces.py")
 FiniteTopologicalSpace = sys.modules["pytop.finite_spaces"].FiniteTopologicalSpace

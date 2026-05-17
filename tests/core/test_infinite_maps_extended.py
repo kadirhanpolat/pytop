@@ -1,6 +1,8 @@
 """Extended tests for infinite_maps.py — covers all remaining branches."""
 
 import pytest
+
+from pytop.examples import real_line_metric
 from pytop.infinite_maps import (
     MAP_PROPERTIES,
     ConstantMap,
@@ -21,8 +23,6 @@ from pytop.infinite_maps import (
     is_surjective_map,
     normalize_map_property,
 )
-from pytop.examples import real_line_metric
-
 
 # ===========================================================================
 # EmbeddingMap and ConstantMap constructors

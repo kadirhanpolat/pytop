@@ -1,10 +1,9 @@
 """Coverage-targeted tests for preservation.py (v0.5.1)."""
-import pytest
 from pytop.preservation import (
-    analyze_preservation,
-    closure_image_behavior,
     _extract_tags,
     _representation_of,
+    analyze_preservation,
+    closure_image_behavior,
 )
 
 

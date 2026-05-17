@@ -1,13 +1,12 @@
 """Coverage-targeted tests for euclidean_topology.py (v0.5.1)."""
 import pytest
+
 from pytop.euclidean_topology import (
     EuclideanTopologyProfile,
     EuclideanTopologyProfileError,
-    closed_disk_profile,
     punctured_sphere_profile,
     stereographic_projection_profile,
 )
-
 
 # ---------------------------------------------------------------------------
 # EuclideanTopologyProfile.__post_init__ — line 54 (empty name raises)

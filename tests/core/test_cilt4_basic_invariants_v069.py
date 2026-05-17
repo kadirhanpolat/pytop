@@ -4,16 +4,16 @@ v0.1.69 — Cilt IV temel topolojik değişmezler koridoru
 Bağımsız doğrulama: python3 -c "exec(open(...).read())"
 """
 
-import sys, os
+import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
 from pytop import (
-    BasicInvariantError,
-    topological_invariants_profile,
     analyze_topological_invariants,
+    topological_invariants_profile,
 )
 from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ─── Test 1: Sonlu uzay — exact mod ───────────────────────────────────
 X = FiniteTopologicalSpace(

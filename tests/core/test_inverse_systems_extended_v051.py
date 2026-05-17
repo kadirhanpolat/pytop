@@ -1,7 +1,7 @@
 """Coverage-targeted tests for inverse_systems.py (v0.5.1)."""
 from pytop.inverse_systems import (
-    _tags_of,
     _any_space_has,
+    _tags_of,
     compute_limit_properties,
     inverse_limit,
 )

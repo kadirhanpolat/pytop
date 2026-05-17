@@ -1,6 +1,7 @@
 """Tests for finite_witness_diagnostics.py."""
 
 import pytest
+
 from pytop.finite_witness_diagnostics import (
     NegativeWitnessCase,
     NegativeWitnessReport,

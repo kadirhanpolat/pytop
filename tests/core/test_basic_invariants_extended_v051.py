@@ -1,15 +1,12 @@
 """Coverage-targeted tests for basic_invariants.py (v0.5.1)."""
-import pytest
 from pytop.basic_invariants import (
-    BasicInvariantError,
-    topological_invariants_profile,
-    analyze_topological_invariants,
-    _representation_of,
     _carrier_size,
+    _representation_of,
     _topology_size,
+    analyze_topological_invariants,
+    topological_invariants_profile,
 )
 from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

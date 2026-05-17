@@ -1,18 +1,17 @@
 """Tests for pytop.dynamical_systems — DYN-01 profile module."""
 
 from pytop.dynamical_systems import (
-    OrbitProfile,
     FixedPointProfile,
+    OrbitProfile,
     TopologicalConjugacyProfile,
-    get_orbit_profiles,
-    get_fixed_point_profiles,
-    get_conjugacy_profiles,
-    orbit_type_summary,
-    fixed_point_stability_summary,
     conjugacy_exists_summary,
     dynamical_systems_profile_registry,
+    fixed_point_stability_summary,
+    get_conjugacy_profiles,
+    get_fixed_point_profiles,
+    get_orbit_profiles,
+    orbit_type_summary,
 )
-
 
 # ---------------------------------------------------------------------------
 # OrbitProfile tests

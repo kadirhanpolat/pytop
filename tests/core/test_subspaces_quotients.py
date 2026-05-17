@@ -1,6 +1,7 @@
 """Tests for subspaces.py and quotients.py — unified construction modules."""
 
 import pytest
+
 from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.infinite_maps import ContinuousMap, QuotientMap
 from pytop.infinite_spaces import InfiniteTopologicalSpace
@@ -12,7 +13,6 @@ from pytop.quotients import (
     quotient_space_from_map,
 )
 from pytop.subspaces import finite_subspace, subspace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

@@ -1,15 +1,15 @@
 """Coverage-targeted tests for capabilities.py (v0.5.1)."""
 import pytest
+
 from pytop.capabilities import (
+    DEFAULT_REGISTRY,
     SUPPORT_LEVELS,
-    FeatureCapability,
     CapabilityProfile,
     CapabilityRegistry,
-    DEFAULT_REGISTRY,
-    normalize_feature_name,
+    FeatureCapability,
     explain_capability,
+    normalize_feature_name,
 )
-
 
 # ---------------------------------------------------------------------------
 # FeatureCapability — invalid support raises ValueError  (line 24)

@@ -1,12 +1,12 @@
 """Coverage-targeted tests for homotopy.py (v0.5.1)."""
 import pytest
-from pytop.homotopy import (
-    HomotopyProfileError,
-    HomotopyProfile,
-    DeformationRetractionProfile,
-    ContractibleProfile,
-)
 
+from pytop.homotopy import (
+    ContractibleProfile,
+    DeformationRetractionProfile,
+    HomotopyProfile,
+    HomotopyProfileError,
+)
 
 # ---------------------------------------------------------------------------
 # HomotopyProfile — line 46 (empty name raises)

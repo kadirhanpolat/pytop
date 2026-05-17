@@ -1,6 +1,7 @@
 """Tests for examples.py — finite and infinite space factories."""
 
 import pytest
+
 from pytop.examples import (
     empty_space,
     examples_catalog,

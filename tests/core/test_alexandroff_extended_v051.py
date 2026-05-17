@@ -1,30 +1,26 @@
 """Coverage-targeted tests for alexandroff.py (v0.5.1)."""
 import pytest
+
 from pytop.alexandroff import (
     AlexandroffError,
+    alexandroff_space_from_preorder,
+    analyze_alexandroff,
+    is_upper_set,
+    minimal_open_neighborhood,
     normalize_carrier,
     normalize_relation,
-    transitive_closure,
-    principal_upset,
-    principal_downset,
-    is_upper_set,
-    upper_sets,
-    alexandroff_space_from_preorder,
-    minimal_open_neighborhood,
-    specialization_preorder,
-    preorder_from_space,
-    preorder_kernel_relation,
-    preorder_t0_reduction_data,
-    t0_reduction_profile,
-    analyze_alexandroff,
-    is_alexandroff_space,
-    alexandroff_report,
+    poset_isomorphic,
     poset_mobius,
     poset_mobius_report,
-    poset_isomorphic,
+    preorder_from_space,
+    principal_downset,
+    principal_upset,
+    specialization_preorder,
+    t0_reduction_profile,
+    transitive_closure,
+    upper_sets,
 )
 from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # normalize_carrier errors  (line 27)

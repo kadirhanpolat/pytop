@@ -1,15 +1,13 @@
 """Coverage-targeted tests for neighborhood_systems.py (v0.5.1)."""
-import pytest
 from pytop.neighborhood_systems import (
-    neighborhood_system_axioms,
-    neighborhood_system,
-    local_base_check,
-    _open_sets_of,
-    _neighborhood_system_from_topology,
     _axiom_finite_intersection,
     _axiom_superset_closed,
+    _neighborhood_system_from_topology,
+    _open_sets_of,
+    local_base_check,
+    neighborhood_system,
+    neighborhood_system_axioms,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers

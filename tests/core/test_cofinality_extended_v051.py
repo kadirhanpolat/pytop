@@ -1,10 +1,9 @@
 """Coverage-targeted tests for cofinality.py (v0.5.1)."""
-import pytest
 from pytop.cofinality import (
+    _carrier_size,
+    _representation_of,
     cofinality_class,
     cofinality_profile,
-    _representation_of,
-    _carrier_size,
 )
 
 

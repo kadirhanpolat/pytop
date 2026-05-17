@@ -1,8 +1,6 @@
 """Coverage-targeted tests for products.py (v0.5.1)."""
-import pytest
-from pytop.products import product, binary_product, _space_is_finite, _is_open_from_basis
 from pytop.finite_spaces import FiniteTopologicalSpace
-
+from pytop.products import _is_open_from_basis, _space_is_finite, binary_product, product
 
 # ---------------------------------------------------------------------------
 # Helpers

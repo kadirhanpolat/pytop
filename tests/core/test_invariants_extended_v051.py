@@ -1,12 +1,13 @@
 """Coverage-targeted tests for invariants.py (v0.5.1)."""
 import pytest
+
 from pytop.invariants import (
     InvariantError,
-    normalize_invariant_name,
-    invariants_summary,
     _finite_invariant,
     _finite_lindelof_number,
     _local_character,
+    invariants_summary,
+    normalize_invariant_name,
 )
 
 

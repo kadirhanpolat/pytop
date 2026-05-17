@@ -1,13 +1,13 @@
 """Coverage-targeted tests for result.py and subbases.py (v0.5.1)."""
 import pytest
+
 from pytop.result import Result, merge_results
 from pytop.subbases import (
     BasisConstructionError,
+    _normalize_carrier,
     is_basis_for_topology,
     is_local_base_at,
-    _normalize_carrier,
 )
-
 
 # ===========================================================================
 # result.py

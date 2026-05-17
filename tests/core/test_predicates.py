@@ -1,6 +1,12 @@
 from pytop.examples import finite_chain_space, naturals_cofinite
 from pytop.infinite_image_preimage import SymbolicSubset
-from pytop.predicates import is_clopen_subset, is_closed_subset, is_dense_subset, is_nowhere_dense_subset, is_open_subset
+from pytop.predicates import (
+    is_clopen_subset,
+    is_closed_subset,
+    is_dense_subset,
+    is_nowhere_dense_subset,
+    is_open_subset,
+)
 
 
 def test_finite_open_and_closed_subset_are_detected_exactly():

@@ -1,6 +1,5 @@
 """Extended tests for nets.py — covers all remaining branches."""
 
-import pytest
 from pytop import (
     analyze_net,
     is_directed_set,
@@ -9,7 +8,6 @@ from pytop import (
     net_cluster_points,
     net_converges_to,
 )
-
 
 # ---------------------------------------------------------------------------
 # Fixtures

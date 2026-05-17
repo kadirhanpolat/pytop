@@ -1,8 +1,8 @@
 """Coverage-targeted tests for predicates.py (v0.5.1)."""
 import pytest
-from pytop.predicates import PredicateError, _finite_predicate_result
-from pytop.finite_spaces import FiniteTopologicalSpace
 
+from pytop.finite_spaces import FiniteTopologicalSpace
+from pytop.predicates import PredicateError, _finite_predicate_result
 
 # ---------------------------------------------------------------------------
 # _finite_predicate_result — line 210 (unsupported predicate name raises)

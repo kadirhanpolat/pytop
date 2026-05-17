@@ -1,14 +1,12 @@
 """Coverage-targeted tests for theorem_engine.py (v0.5.1)."""
-import pytest
 from pytop.theorem_engine import (
-    TheoremRule,
     TheoremEngine,
-    theorem_result,
-    extract_tags,
-    extract_representation,
+    TheoremRule,
     _merged_rule_value,
+    extract_representation,
+    extract_tags,
+    theorem_result,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers

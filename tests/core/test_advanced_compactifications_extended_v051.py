@@ -1,15 +1,13 @@
 """Coverage-targeted tests for advanced_compactifications.py (v0.5.1)."""
-import pytest
 from pytop.advanced_compactifications import (
-    is_cech_complete,
-    is_realcompact,
-    is_perfect_map,
-    advanced_compactness_profile,
-    _representation_of,
-    _name_of,
     _bool_field,
+    _name_of,
+    _representation_of,
+    advanced_compactness_profile,
+    is_cech_complete,
+    is_perfect_map,
+    is_realcompact,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers — simple attribute-bearing objects

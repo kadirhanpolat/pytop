@@ -7,8 +7,10 @@ from pytop.experimental.compactness_strengthened_profiles import (
     compactness_strengthened_prerequisite_bridge,
     compactness_strengthened_selected_profiles,
     compactness_strengthened_warning_profiles,
-    get_named_compactness_strengthened_profiles as get_wrapper_profiles,
     render_compactness_strengthened_report,
+)
+from pytop.experimental.compactness_strengthened_profiles import (
+    get_named_compactness_strengthened_profiles as get_wrapper_profiles,
 )
 
 

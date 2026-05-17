@@ -4,8 +4,10 @@ from pytop.experimental.classical_inequality_profiles import (
     classical_inequality_lane_summary,
     classical_inequality_layer_summary,
     classical_inequality_prerequisite_bridge,
-    get_named_classical_inequality_profiles as get_wrapper_profiles,
     render_classical_inequality_strengthening_report,
+)
+from pytop.experimental.classical_inequality_profiles import (
+    get_named_classical_inequality_profiles as get_wrapper_profiles,
 )
 
 

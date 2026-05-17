@@ -1,14 +1,10 @@
 """Tests for uniform_spaces.py extended functions (v0.5.0)."""
-import pytest
 from pytop.uniform_spaces import (
-    uniform_equivalence,
-    uniform_completion_descriptor,
     smirnov_metrization_oracle,
+    uniform_completion_descriptor,
+    uniform_equivalence,
     uniform_topology_tags,
-    is_uniform_space,
-    is_uniformly_complete,
 )
-
 
 # ---------------------------------------------------------------------------
 # uniform_equivalence

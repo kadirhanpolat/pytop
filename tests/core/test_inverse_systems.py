@@ -1,8 +1,6 @@
 """Tests for inverse_systems.py."""
 
-import pytest
 from pytop.inverse_systems import inverse_limit, inverse_system
-
 
 SPACES = ["X_0", "X_1", "X_2"]
 MAPS = ["f_01", "f_12"]

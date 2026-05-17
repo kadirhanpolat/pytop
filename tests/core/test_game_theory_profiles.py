@@ -1,17 +1,16 @@
 """Tests for pytop.game_theory_profiles — FPT-02."""
 
 from pytop.game_theory_profiles import (
+    EconomicEquilibriumProfile,
     KakutaniProfile,
     NashEquilibriumProfile,
-    EconomicEquilibriumProfile,
+    game_theory_profile_registry,
+    get_economic_equilibrium_profiles,
     get_kakutani_profiles,
     get_nash_profiles,
-    get_economic_equilibrium_profiles,
     kakutani_fixed_point_summary,
     nash_equilibrium_type_summary,
-    game_theory_profile_registry,
 )
-
 
 # ---------------------------------------------------------------------------
 # KakutaniProfile tests

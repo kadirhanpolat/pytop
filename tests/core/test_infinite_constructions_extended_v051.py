@@ -1,20 +1,19 @@
 """Coverage-targeted tests for infinite_constructions.py (v0.5.1)."""
 import pytest
+
 from pytop.infinite_constructions import (
-    subspace,
-    product,
-    disjoint_sum,
     _construction_class_for,
+    disjoint_sum,
+    product,
+    subspace,
 )
 from pytop.infinite_spaces import (
     BasisDefinedSpace,
-    CocountableSpace,
     DiscreteInfiniteSpace,
     IndiscreteInfiniteSpace,
     InfiniteTopologicalSpace,
     MetricLikeSpace,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers

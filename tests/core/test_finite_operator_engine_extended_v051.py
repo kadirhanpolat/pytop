@@ -1,13 +1,13 @@
 """Coverage-targeted tests for finite_operator_engine.py (v0.5.1)."""
 import pytest
+
 from pytop.finite_operator_engine import (
     FiniteOperatorEngineError,
-    validate_topology_candidate,
     _normalize_carrier,
     _normalize_family,
     _normalize_subset,
+    validate_topology_candidate,
 )
-
 
 # ---------------------------------------------------------------------------
 # validate_topology_candidate — line 97 (intersection_failures)

@@ -1,14 +1,14 @@
 """Coverage-targeted tests for function_spaces.py (v0.5.1)."""
 import pytest
+
 from pytop.function_spaces import (
     FunctionSpaceError,
-    _representation_of,
     _carrier_size,
-    _family_lane,
     _family_focus,
+    _family_lane,
     _family_warning,
+    _representation_of,
 )
-from pytop.finite_spaces import FiniteTopologicalSpace
 
 
 class _Obj:

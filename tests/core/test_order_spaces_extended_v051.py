@@ -1,16 +1,14 @@
 """Coverage-targeted tests for order_spaces.py (v0.5.1)."""
 import pytest
+
+from pytop.alexandroff import AlexandroffError
 from pytop.order_spaces import (
-    FinitePosetSpace,
-    FinitePreorderSpace,
     analyze_order_space,
     order_space_report,
     poset_space,
     preorder_space,
     specialization_poset,
 )
-from pytop.alexandroff import AlexandroffError
-
 
 # ---------------------------------------------------------------------------
 # FinitePosetSpace.__post_init__ — line 58 (non-antisymmetric relation raises)

@@ -1,6 +1,7 @@
 """Tests for finite_basis_engine.py."""
 
 import pytest
+
 from pytop.finite_basis_engine import (
     BasisAnalysis,
     BasisComparison,

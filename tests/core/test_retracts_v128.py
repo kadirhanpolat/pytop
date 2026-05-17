@@ -1,9 +1,9 @@
 from pytop import (
-    ANRProfile,
     AbsoluteRetractProfile,
+    ANRProfile,
     DeformationRetractionProfile,
-    RetractProfileError,
     RetractionProfile,
+    RetractProfileError,
     absolute_retract_profile,
     absolute_retract_summary,
     anr_profile,

@@ -1,7 +1,5 @@
 """Tests for metric_contracts.py."""
 
-import pytest
-from pytop.metric_spaces import FiniteMetricSpace
 from pytop.metric_contracts import (
     MetricContract,
     bounded_metric_transform_contract,
@@ -10,6 +8,7 @@ from pytop.metric_contracts import (
     finite_product_metric_contract,
     metric_contract_summary,
 )
+from pytop.metric_spaces import FiniteMetricSpace
 
 
 def _discrete_metric(x, y):

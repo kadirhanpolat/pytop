@@ -4,19 +4,19 @@ Covers counterexample_atlas.py: lookup, layer/property/construction queries,
 Result metadata, and ATLAS_IDS.
 """
 
-import pytest
-import sys, os
+import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../src'))
 
 from pytop.counterexample_atlas import (
-    counterexample_lookup,
+    ATLAS_IDS,
+    analyze_counterexample_atlas,
+    counterexample_atlas_by_construction,
     counterexample_atlas_by_layer,
     counterexample_atlas_by_property,
-    counterexample_atlas_by_construction,
-    analyze_counterexample_atlas,
-    ATLAS_IDS,
+    counterexample_lookup,
 )
-
 
 # ---------------------------------------------------------------------------
 # ATLAS_IDS

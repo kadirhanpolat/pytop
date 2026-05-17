@@ -1,4 +1,17 @@
-from pytop import SurfaceGluingError, compare_gluing_to_surface_profile, edge_label_counts, gluing_profile_summary, known_surface_profile, normalized_edge_word, orientability_heuristic, parse_edge_token, polygon_gluing_profile, standard_gluing_profile, validate_edge_pairing
+from pytop import (
+    SurfaceGluingError,
+    compare_gluing_to_surface_profile,
+    edge_label_counts,
+    gluing_profile_summary,
+    known_surface_profile,
+    normalized_edge_word,
+    orientability_heuristic,
+    parse_edge_token,
+    polygon_gluing_profile,
+    standard_gluing_profile,
+    validate_edge_pairing,
+)
+
 
 def _assert_raises(error_type, callback, *args, **kwargs):
     try: callback(*args, **kwargs)

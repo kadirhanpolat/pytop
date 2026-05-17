@@ -1,6 +1,13 @@
-from pytop.order_lattice import covering_pairs, hasse_edges, hasse_profile, is_lattice, join, linear_extension, meet
+from pytop.order_lattice import (
+    covering_pairs,
+    hasse_edges,
+    hasse_profile,
+    is_lattice,
+    join,
+    linear_extension,
+    meet,
+)
 from pytop.order_spaces import poset_space
-
 
 DIAMOND = {
     (0, 1), (0, 2), (0, 3),

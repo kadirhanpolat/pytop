@@ -1,17 +1,16 @@
 """Tests for unified_property.py (v0.5.0)."""
-import pytest
+from pytop.finite_spaces import FiniteTopologicalSpace
+from pytop.infinite_spaces import DiscreteInfiniteSpace, IndiscreteInfiniteSpace
 from pytop.unified_property import (
     analyze_property,
     analyze_space,
+    is_finite_space,
+    is_infinite_space,
+    property_registry,
     unified_compactness_report,
     unified_connectedness_report,
     unified_separation_report,
-    property_registry,
-    is_finite_space,
-    is_infinite_space,
 )
-from pytop.finite_spaces import FiniteTopologicalSpace
-from pytop.infinite_spaces import DiscreteInfiniteSpace, IndiscreteInfiniteSpace
 
 
 def _discrete2():

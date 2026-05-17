@@ -1,7 +1,19 @@
-from pytop.examples import closed_unit_interval_metric, naturals_discrete, naturals_cofinite, real_line_metric, real_plane_metric, reals_cocountable, reals_indiscrete
+from pytop.examples import (
+    closed_unit_interval_metric,
+    naturals_cofinite,
+    naturals_discrete,
+    real_line_metric,
+    real_plane_metric,
+    reals_cocountable,
+    reals_indiscrete,
+)
 from pytop.infinite_compactness import is_compact_infinite, is_lindelof_infinite
 from pytop.infinite_connectedness import is_connected_infinite, is_path_connected_infinite
-from pytop.infinite_countability import is_first_countable_infinite, is_second_countable_infinite, is_separable_infinite
+from pytop.infinite_countability import (
+    is_first_countable_infinite,
+    is_second_countable_infinite,
+    is_separable_infinite,
+)
 from pytop.infinite_separation import is_hausdorff_infinite, is_t1_infinite
 
 

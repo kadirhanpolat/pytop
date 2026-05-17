@@ -1,12 +1,11 @@
 """Coverage-targeted tests for metric_contracts.py (v0.5.1)."""
-import pytest
-from pytop.metric_spaces import FiniteMetricSpace, MetricSpace
 from pytop.metric_contracts import (
     bounded_metric_transform_contract,
     equivalent_metric_contract,
     finite_metric_contract,
     finite_product_metric_contract,
 )
+from pytop.metric_spaces import FiniteMetricSpace
 
 
 def _discrete(x, y):

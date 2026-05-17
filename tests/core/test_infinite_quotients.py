@@ -1,13 +1,12 @@
 """Tests for infinite_quotients.py."""
 
-import pytest
+from pytop.infinite_maps import QuotientMap
 from pytop.infinite_quotients import (
     analyze_quotient_map,
     make_quotient_map,
     quotient_space,
     quotient_space_from_map,
 )
-from pytop.infinite_maps import QuotientMap
 from pytop.infinite_spaces import InfiniteTopologicalSpace
 
 

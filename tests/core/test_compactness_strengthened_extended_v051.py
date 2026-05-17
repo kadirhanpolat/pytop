@@ -4,7 +4,6 @@ from pytop.compactness_strengthened_profiles import (
     get_named_compactness_strengthened_profiles,
 )
 
-
 # ---------------------------------------------------------------------------
 # writing_layer property — line 33 (backward-compatible alias)
 # ---------------------------------------------------------------------------

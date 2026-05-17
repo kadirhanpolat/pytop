@@ -3,8 +3,11 @@ test_cilt3_refinements_v063.py
 ================================
 Test suite for src/pytop/refinements.py (v0.1.63)
 """
-import importlib.util, sys, os
+import importlib.util
+import os
+import sys
 from itertools import combinations
+
 import pytest
 
 _BASE = os.path.join(os.path.dirname(__file__), "..", "..", "src", "pytop")
@@ -16,7 +19,6 @@ def _load(name, rel):
     spec.loader.exec_module(mod); return mod
 
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-import pytop as _pytop_pkg
 
 _rm = _load("pytop.refinements", "refinements.py")
 FiniteTopologicalSpace   = sys.modules["pytop.finite_spaces"].FiniteTopologicalSpace

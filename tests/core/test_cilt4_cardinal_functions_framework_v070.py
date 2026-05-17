@@ -4,18 +4,19 @@ v0.1.70 — Cilt IV kardinal fonksiyon çerçevesi (3 katman: tanım/karşılaş
 Bağımsız doğrulama: python3 tests/core/test_cilt4_cardinal_functions_framework_v070.py
 """
 
-import sys, os
+import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
 from pytop import (
     CardinalFunctionFrameworkError,
-    cardinal_function_definition,
-    cardinal_function_comparison,
-    cardinal_functions_framework_profile,
     analyze_cardinal_functions_framework,
+    cardinal_function_comparison,
+    cardinal_function_definition,
+    cardinal_functions_framework_profile,
 )
 from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ─── Test 1: TANIM katmanı — 8 fonksiyon ──────────────────────────────
 for fname in ["weight", "density", "character", "lindelof_number",
@@ -125,11 +126,6 @@ print("✓ Test 9: framework_principles TANIM/KARŞILAŞTIRMA/EŞİK ilkeleri OK
 
 
 # ─── Test 10: cross-version tüm modüller hâlâ çalışıyor ──────────────
-from pytop import (
-    analyze_cardinal_numbers, analyze_ordinal_numbers,
-    analyze_cofinality, analyze_quantitative_topology,
-    analyze_topological_invariants,
-)
 print("✓ Test 10: v0.1.65–v0.1.70 cross-version imports OK")
 
 

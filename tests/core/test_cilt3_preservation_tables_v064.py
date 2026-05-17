@@ -5,7 +5,10 @@ Test suite for src/pytop/preservation_tables.py v0.1.64 extensions.
 Covers: preservation_table, invariance_profile, analyze_preservation,
         PreservationError, and legacy API compatibility.
 """
-import importlib.util, sys, os
+import importlib.util
+import os
+import sys
+
 import pytest
 
 _BASE = os.path.join(os.path.dirname(__file__), "..", "..", "src", "pytop")
@@ -17,7 +20,6 @@ def _load(name, rel):
     spec.loader.exec_module(mod); return mod
 
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-import pytop as _pytop_pkg
 
 _pt = _load("pytop.preservation_tables", "preservation_tables.py")
 preservation_table      = _pt.preservation_table

@@ -1,6 +1,5 @@
 """Tests for uniform_spaces.py."""
 
-import pytest
 from pytop.uniform_spaces import (
     entourage_system,
     is_cauchy_filter,
@@ -8,7 +7,6 @@ from pytop.uniform_spaces import (
     is_uniformly_complete,
     is_uniformly_continuous,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers: lightweight space/mapping descriptors

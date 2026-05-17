@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import pytop
 from pytop._internal.cilt4_transition_audit import (
     cilt4_transition_audit,
     cilt4_transition_criteria,

@@ -1,17 +1,16 @@
 """Tests for pytop.fixed_point_profiles — FPT-01."""
 
 from pytop.fixed_point_profiles import (
-    NoRetractionProfile,
     BrouwerFPTProfile,
+    NoRetractionProfile,
     RetractionProfile,
-    get_no_retraction_profiles,
-    get_brouwer_fpt_profiles,
-    get_retraction_profiles,
-    no_retraction_by_dimension,
     brouwer_fpt_by_dimension,
     fixed_point_theorem_registry,
+    get_brouwer_fpt_profiles,
+    get_no_retraction_profiles,
+    get_retraction_profiles,
+    no_retraction_by_dimension,
 )
-
 
 # ---------------------------------------------------------------------------
 # NoRetractionProfile tests

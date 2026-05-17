@@ -1,17 +1,17 @@
 """Coverage-targeted tests for order_lattice.py (v0.5.1)."""
 import pytest
+
 from pytop.order_lattice import (
     OrderLatticeError,
-    leq,
-    lower_bounds,
-    upper_bounds,
-    meet,
-    join,
-    is_lattice,
-    linear_extension,
     _carrier_and_relation,
+    is_lattice,
+    join,
+    leq,
+    linear_extension,
+    lower_bounds,
+    meet,
+    upper_bounds,
 )
-
 
 # ---------------------------------------------------------------------------
 # _carrier_and_relation — raises for invalid input (line 31)

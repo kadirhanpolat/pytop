@@ -1,7 +1,6 @@
 """Coverage-targeted tests for surfaces.py (v0.5.1)."""
 from pytop.surfaces import surface_profile
 
-
 # ---------------------------------------------------------------------------
 # SurfaceProfile.classification_label — line 72 (nonorientable + nonorientable_genus)
 # ---------------------------------------------------------------------------

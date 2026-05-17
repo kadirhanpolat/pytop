@@ -4,12 +4,13 @@ Covers cilt2_route_summary.py: cilt2_route_summary, cilt2_corridor_lookup,
 Result metadata, and integration with v0.1.47-v0.1.49 corridor modules.
 """
 
-import sys, os
+import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../src'))
 
-from pytop._internal.cilt2_route_summary import cilt2_route_summary, cilt2_corridor_lookup
 import pytop
-
+from pytop._internal.cilt2_route_summary import cilt2_corridor_lookup, cilt2_route_summary
 
 # ---------------------------------------------------------------------------
 # cilt2_route_summary

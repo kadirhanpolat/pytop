@@ -1,10 +1,10 @@
 """pytop.knots icin KNOT-01/KNOT-02/KNOT-03 testleri."""
 
 from pytop.knots import (
+    KnotApplicationProfile,
+    KnotInvariantProfile,
     KnotProfile,
     LinkProfile,
-    KnotInvariantProfile,
-    KnotApplicationProfile,
     ReidemeisterMoveProfile,
     get_knot_application_profiles,
     get_knot_invariant_profiles,

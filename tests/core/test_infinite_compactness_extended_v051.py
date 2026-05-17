@@ -1,11 +1,9 @@
 """Coverage-targeted tests for infinite_compactness.py (v0.5.1)."""
-import pytest
 from pytop.infinite_compactness import (
     analyze_infinite_compactness,
     infinite_compactness_report,
 )
 from pytop.infinite_spaces import DiscreteInfiniteSpace, IndiscreteInfiniteSpace
-
 
 # ---------------------------------------------------------------------------
 # analyze_infinite_compactness — line 31 (non-InfiniteTopologicalSpace)

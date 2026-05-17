@@ -1,12 +1,9 @@
 """Coverage-targeted tests for proximity_spaces.py (v0.5.1)."""
-import pytest
 from pytop.proximity_spaces import (
-    is_proximity_space,
-    is_close,
-    smirnov_compactification,
     _closeness_map,
+    is_close,
+    is_proximity_space,
 )
-
 
 # ---------------------------------------------------------------------------
 # _closeness_map — line 57 (closeness_map in metadata, not top-level)

@@ -1,4 +1,19 @@
-from pytop import SurfaceProfileError, annulus_surface_profile, as_manifold_profile, disk_surface_profile, double_torus_surface_profile, klein_bottle_surface_profile, known_surface_profile, mobius_band_surface_profile, projective_plane_surface_profile, sphere_surface_profile, surface_profile, surface_profile_summary, torus_surface_profile
+from pytop import (
+    SurfaceProfileError,
+    annulus_surface_profile,
+    as_manifold_profile,
+    disk_surface_profile,
+    double_torus_surface_profile,
+    klein_bottle_surface_profile,
+    known_surface_profile,
+    mobius_band_surface_profile,
+    projective_plane_surface_profile,
+    sphere_surface_profile,
+    surface_profile,
+    surface_profile_summary,
+    torus_surface_profile,
+)
+
 
 def _assert_raises(error_type, callback, *args, **kwargs):
     try: callback(*args, **kwargs)

@@ -1,5 +1,5 @@
 """Coverage-targeted tests for uniform_spaces.py (v0.5.1)."""
-from pytop.uniform_spaces import is_uniform_space, entourage_system, uniform_topology_tags
+from pytop.uniform_spaces import entourage_system, is_uniform_space, uniform_topology_tags
 
 
 class _BoolAttrSpace:

@@ -7,6 +7,7 @@ from examples_bank.proximity_spaces_examples import (
 )
 from pytop.proximity_spaces import is_close, is_proximity_space, smirnov_compactification
 
+
 def test_proximity_examples_are_api_compatible() -> None:
     records = proximity_spaces_example_catalog()
     assert len(records) == 3

@@ -1,11 +1,11 @@
 """Coverage-targeted tests for simplicial_complexes.py (v0.5.1)."""
 import pytest
+
 from pytop.simplicial_complexes import (
     SimplicialComplex,
     SimplicialComplexError,
     simplicial_complex,
 )
-
 
 # ---------------------------------------------------------------------------
 # SimplicialComplex.__init__ — line 44 (empty simplex family raises)

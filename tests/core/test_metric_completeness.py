@@ -1,15 +1,13 @@
 """Tests for metric_completeness.py — is_complete, is_totally_bounded,
 metric_compactness_check, analyze_metric_completeness."""
 
-import pytest
-from pytop.metric_spaces import FiniteMetricSpace
 from pytop.metric_completeness import (
-    MetricCompletenessError,
     analyze_metric_completeness,
     is_complete,
     is_totally_bounded,
     metric_compactness_check,
 )
+from pytop.metric_spaces import FiniteMetricSpace
 
 
 def _discrete(n):

@@ -1,6 +1,12 @@
 from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.infinite_spaces import BasisDefinedSpace, MetricLikeSpace
-from pytop.invariants import analyze_invariant, weight, density, character, lindelof_number, cellularity
+from pytop.invariants import (
+    cellularity,
+    character,
+    density,
+    lindelof_number,
+    weight,
+)
 
 
 def test_finite_invariants_on_sierpinski_space_are_exact():
@@ -68,7 +74,11 @@ def test_unknown_invariant_support_stays_honest():
 
 
 def test_order_and_limit_examples_surface_metadata_backed_invariants():
-    from pytop.examples import lower_limit_line_like, real_line_order_topology, upper_limit_line_like
+    from pytop.examples import (
+        lower_limit_line_like,
+        real_line_order_topology,
+        upper_limit_line_like,
+    )
 
     order_line = real_line_order_topology()
     lower = lower_limit_line_like()

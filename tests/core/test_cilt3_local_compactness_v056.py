@@ -8,20 +8,23 @@ Covers local_compactness.py:
   - analyze_local_compactness: single-call facade metadata
 """
 
-import sys, os
+import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../src'))
 
+import pytest
+
+import pytop
 from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.local_compactness import (
-    is_locally_compact,
-    one_point_compactification,
-    alexandroff_point_check,
-    local_compactness_profile,
-    analyze_local_compactness,
     LocalCompactnessError,
+    alexandroff_point_check,
+    analyze_local_compactness,
+    is_locally_compact,
+    local_compactness_profile,
+    one_point_compactification,
 )
-import pytop
-import pytest
 
 # ---------------------------------------------------------------------------
 # Shared test spaces

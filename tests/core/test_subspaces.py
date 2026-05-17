@@ -1,6 +1,6 @@
+from pytop.compactness import is_compact
 from pytop.examples import finite_chain_space, naturals_cofinite
 from pytop.subspaces import finite_subspace, subspace
-from pytop.compactness import is_compact
 
 
 def test_finite_subspace_topology_is_computed_exactly():

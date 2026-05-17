@@ -1,7 +1,6 @@
 """Coverage-targeted tests for surface_gluing.py (v0.5.1)."""
 from pytop.surface_gluing import compare_gluing_to_surface_profile, torus_gluing_profile
 
-
 # ---------------------------------------------------------------------------
 # compare_gluing_to_surface_profile — line 130 (surface=None → else branch)
 # ---------------------------------------------------------------------------

@@ -1,7 +1,6 @@
 """Coverage-targeted tests for retracts.py (v0.5.1)."""
 from pytop.retracts import known_absolute_retract_profile
 
-
 # ---------------------------------------------------------------------------
 # known_absolute_retract_profile — line 416 (profile found → return profile)
 # ---------------------------------------------------------------------------

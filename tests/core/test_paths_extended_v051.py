@@ -1,15 +1,14 @@
 """Coverage-targeted tests for paths.py (v0.5.1)."""
 import pytest
+
 from pytop.paths import (
     PathProfile,
     PathProfileError,
-    PathConnectednessDiagnostic,
-    path_profile,
+    _combined_certification,
     concatenate_path_profiles,
     path_connectedness_diagnostic,
-    _combined_certification,
+    path_profile,
 )
-
 
 # ---------------------------------------------------------------------------
 # PathProfile.__post_init__ — line 31 (empty name raises)

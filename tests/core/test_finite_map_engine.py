@@ -1,6 +1,7 @@
 """Tests for finite_map_engine.py."""
 
 import pytest
+
 from pytop.finite_map_engine import (
     FiniteMapAnalysis,
     FiniteMapData,

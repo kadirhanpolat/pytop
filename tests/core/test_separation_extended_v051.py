@@ -1,21 +1,21 @@
 """Coverage-targeted tests for separation.py (v0.5.1)."""
 import pytest
+
+from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.separation import (
     SeparationError,
-    normalize_separation_property,
-    analyze_separation,
-    is_t2,
-    is_urysohn,
-    is_t2_5,
-    is_perfectly_normal,
-    _finite_separation,
     _finite_normal,
-    _separate_closed_sets,
+    _finite_separation,
     _metric_justification,
     _negative_tag_implication,
+    _separate_closed_sets,
+    analyze_separation,
+    is_perfectly_normal,
+    is_t2,
+    is_t2_5,
+    is_urysohn,
+    normalize_separation_property,
 )
-from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

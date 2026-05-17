@@ -1,14 +1,14 @@
 """Coverage-targeted tests for countability.py (v0.5.1)."""
 import pytest
+
 from pytop.countability import (
     CountabilityError,
+    _space_name,
+    _status_label,
     normalize_countability_property,
     render_countability_report,
-    _status_label,
-    _space_name,
 )
 from pytop.result import Result
-
 
 # ---------------------------------------------------------------------------
 # normalize_countability_property — line 41 (unsupported raises)

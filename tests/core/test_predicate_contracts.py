@@ -1,6 +1,5 @@
 """Tests for predicate_contracts.py."""
 
-import pytest
 from pytop.predicate_contracts import (
     SubsetPredicateContract,
     finite_subset_predicate_contract,
@@ -8,7 +7,6 @@ from pytop.predicate_contracts import (
     subset_predicate_summary,
     symbolic_subset_predicate_contract,
 )
-from pytop.result import Result
 
 
 def _is_nonempty(carrier, subset):

@@ -15,8 +15,9 @@ Covers:
 """
 
 import importlib.util
-import sys
 import os
+import sys
+
 import pytest
 
 # ---------------------------------------------------------------------------
@@ -38,7 +39,6 @@ def _load(name, rel):
 
 # Warm up the full package first so all sub-dependencies are in sys.modules
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-import pytop as _pytop_pkg  # noqa: E402
 
 _fs_mod = _load("pytop.function_spaces", "function_spaces.py")
 

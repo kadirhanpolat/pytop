@@ -1,6 +1,5 @@
 """Tests for dimension_theory.py."""
 
-import pytest
 from pytop.dimension_theory import (
     Ind,
     dim,
@@ -9,7 +8,6 @@ from pytop.dimension_theory import (
     is_totally_disconnected,
     is_zero_dimensional,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers — simple dict and object space stubs

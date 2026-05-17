@@ -1,11 +1,11 @@
 """Coverage-targeted tests for continua.py (v0.5.1)."""
 import pytest
+
 from pytop.continua import (
     ContinuumProfile,
     ContinuumProfileError,
     continuum_condition_report,
 )
-
 
 # ---------------------------------------------------------------------------
 # ContinuumProfile.__post_init__ — line 45 (empty name raises)

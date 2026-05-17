@@ -1,15 +1,13 @@
 """Tests for symbolic_convergence.py (v0.5.0)."""
-import pytest
 from pytop.symbolic_convergence import (
-    SymbolicNetDescriptor,
     SymbolicFilterDescriptor,
-    net_converges_symbolically,
-    filter_converges_symbolically,
-    ultrafilter_theorem_descriptor,
-    convergence_equivalence_profile,
+    SymbolicNetDescriptor,
     analyze_symbolic_convergence,
+    convergence_equivalence_profile,
+    filter_converges_symbolically,
+    net_converges_symbolically,
+    ultrafilter_theorem_descriptor,
 )
-
 
 # ---------------------------------------------------------------------------
 # SymbolicNetDescriptor

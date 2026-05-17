@@ -1,16 +1,13 @@
 """Extended tests for sequences.py — branches not covered by existing tests."""
 
-import pytest
 from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.infinite_spaces import InfiniteTopologicalSpace
 from pytop.sequences import (
-    SequenceError,
     analyze_sequences,
     sequence_cluster_point,
     sequence_converges_to,
     sequential_closure,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers

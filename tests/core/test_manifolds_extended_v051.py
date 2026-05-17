@@ -1,7 +1,7 @@
 """Coverage-targeted tests for manifolds.py (v0.5.1)."""
 import pytest
-from pytop.manifolds import ManifoldProfile, ManifoldProfileError
 
+from pytop.manifolds import ManifoldProfile, ManifoldProfileError
 
 # ---------------------------------------------------------------------------
 # ManifoldProfile.__post_init__ — line 53 (empty name raises)

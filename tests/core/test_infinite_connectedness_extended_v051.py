@@ -1,21 +1,17 @@
 """Coverage-targeted tests for infinite_connectedness.py (v0.5.1)."""
-import pytest
+from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.infinite_connectedness import (
-    KNOWN_TRUE,
-    KNOWN_FALSE,
     analyze_infinite_connectedness,
+    infinite_connectedness_report,
     is_connected_infinite,
     is_path_connected_infinite,
-    infinite_connectedness_report,
 )
 from pytop.infinite_spaces import (
+    CocountableSpace,
+    CofiniteSpace,
     DiscreteInfiniteSpace,
     IndiscreteInfiniteSpace,
-    CofiniteSpace,
-    CocountableSpace,
 )
-from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

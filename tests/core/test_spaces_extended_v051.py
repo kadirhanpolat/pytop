@@ -1,7 +1,5 @@
 """Coverage-targeted tests for spaces.py (v0.5.1)."""
-import pytest
 from pytop.spaces import TopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # is_finite — try/except path (lines 28-32)

@@ -1,6 +1,5 @@
 """Coverage-targeted tests for infinite_spaces.py (v0.5.1)."""
-from pytop.infinite_spaces import CofiniteSpace, CocountableSpace
-
+from pytop.infinite_spaces import CocountableSpace, CofiniteSpace
 
 # ---------------------------------------------------------------------------
 # _has_standard_countable_subset — line 28 (standard token → return True)

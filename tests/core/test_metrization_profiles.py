@@ -1,10 +1,10 @@
 """Tests for metrization_profiles.py."""
 
 import pytest
+
 from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.metrization_profiles import (
     MetrizationProfile,
-    MetrizationError,
     analyze_metrization,
     get_named_metrization_profiles,
     is_metrizable,

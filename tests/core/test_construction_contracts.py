@@ -1,6 +1,5 @@
 """Tests for construction_contracts.py."""
 
-import pytest
 from pytop.construction_contracts import (
     FiniteConstructionContract,
     finite_partition_contract,
@@ -9,8 +8,6 @@ from pytop.construction_contracts import (
     finite_quotient_contract,
     finite_quotient_summary,
 )
-from pytop.result import Result
-
 
 # ---------------------------------------------------------------------------
 # FiniteConstructionContract.to_result

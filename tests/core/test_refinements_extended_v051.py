@@ -1,14 +1,12 @@
 """Coverage-targeted tests for refinements.py (v0.5.1)."""
-import pytest
+from pytop.finite_spaces import FiniteTopologicalSpace
 from pytop.refinements import (
+    _carrier_size,
+    _representation_of,
+    analyze_cover_refinement,
     is_locally_finite_cover,
     refinement_profile,
-    analyze_cover_refinement,
-    _representation_of,
-    _carrier_size,
 )
-from pytop.finite_spaces import FiniteTopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

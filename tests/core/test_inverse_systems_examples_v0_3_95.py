@@ -6,6 +6,7 @@ from examples_bank.inverse_systems_examples import (
     inverse_systems_example_catalog,
 )
 
+
 def test_inverse_system_examples_are_api_compatible() -> None:
     records = inverse_systems_example_catalog()
     assert len(records) == 3

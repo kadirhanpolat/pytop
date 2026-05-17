@@ -1,6 +1,6 @@
 """Extended tests for infinite_image_preimage.py — covers all remaining branches."""
 
-from pytop.examples import reals_cocountable, reals_indiscrete, real_line_metric
+from pytop.examples import real_line_metric, reals_cocountable, reals_indiscrete
 from pytop.infinite_image_preimage import (
     SymbolicSubset,
     compact_image_result,
@@ -10,7 +10,6 @@ from pytop.infinite_image_preimage import (
     preimage_subset,
 )
 from pytop.infinite_maps import ContinuousMap, QuotientMap, SymbolicMap
-
 
 # ===========================================================================
 # SymbolicSubset.add_tags — lines 27-31
