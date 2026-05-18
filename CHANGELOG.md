@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.28] - 2026-05-19
+
+### Added
+- `symplectic_topology.py` — symplectic manifolds, Darboux theorem, Hamiltonian dynamics,
+  Lagrangian submanifolds, Kahler manifolds, Moser stability, Gromov non-squeezing:
+  - `SymplecticProfile` dataclass with 8 tag frozenset constants
+  - `get_named_symplectic_profiles()` — 8 canonical profiles (R^{2n}, T*M, S^2, CP^n,
+    T^{2n}, coadjoint orbit SU(2), Gromov non-squeezing, Moser stability)
+  - `symplectic_layer_summary()`, `symplectic_chapter_index()`, `symplectic_type_index()`
+  - `is_symplectic_manifold()`, `is_lagrangian_submanifold()`, `has_hamiltonian_structure()`,
+    `admits_kahler_structure()` — `Result`-returning analysis functions
+  - `classify_symplectic()`, `symplectic_profile()` — facade functions
+  - 162 tests in `tests/core/test_symplectic_topology.py`
+
 ## [0.5.27] - 2026-05-18
 
 ### Added

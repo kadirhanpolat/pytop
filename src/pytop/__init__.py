@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.27"
+__version__ = "0.5.28"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2653,4 +2653,25 @@ from .predicate_functions import (
     MathFunction,
     function_from,
     successor, square, double, abs_value, negate_fn,
+)
+from .symplectic_topology import (
+    SymplecticProfile,
+    DARBOUX_THEOREM_TAGS,
+    HAMILTONIAN_TAGS,
+    LAGRANGIAN_TAGS,
+    SYMPLECTOMORPHISM_TAGS,
+    KAHLER_TAGS,
+    MOSER_THEOREM_TAGS,
+    GROMOV_NONSQUEEZING_TAGS,
+    COTANGENT_BUNDLE_TAGS,
+    get_named_symplectic_profiles,
+    symplectic_layer_summary,
+    symplectic_chapter_index,
+    symplectic_type_index,
+    is_symplectic_manifold,
+    is_lagrangian_submanifold,
+    has_hamiltonian_structure,
+    admits_kahler_structure,
+    classify_symplectic,
+    symplectic_profile,
 )
