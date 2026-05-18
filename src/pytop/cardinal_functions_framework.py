@@ -404,6 +404,15 @@ def _carrier_size(space: Any) -> Optional[int]:
     return None
 
 
+_CARDINAL_FUNCTION_ALIASES: dict[str, str] = {
+    "w": "weight", "d": "density", "chi": "character",
+    "l": "lindelof_number", "lindelof": "lindelof_number",
+    "c": "cellularity", "ccc": "cellularity",
+    "s": "spread", "nw": "network_weight",
+    "t": "tightness",
+}
+
+
 # ═══════════════════════════════════════════════════════════════
 # ANA API — TANIM
 # ═══════════════════════════════════════════════════════════════
@@ -420,15 +429,7 @@ def cardinal_function_definition(name: str) -> dict:
         key_threshold, computation, finite_case
     """
     key = name.strip().lower().replace(" ", "_").replace("-", "_")
-    # aliases
-    aliases = {
-        "w": "weight", "d": "density", "chi": "character",
-        "l": "lindelof_number", "lindelof": "lindelof_number",
-        "c": "cellularity", "ccc": "cellularity",
-        "s": "spread", "nw": "network_weight",
-        "t": "tightness",
-    }
-    key = aliases.get(key, key)
+    key = _CARDINAL_FUNCTION_ALIASES.get(key, key)
     if key in _DEFINITIONS:
         return dict(_DEFINITIONS[key])
     if key in _HEREDITARY_DEFINITIONS:
@@ -451,14 +452,7 @@ def cardinal_function_comparison(name1: str, name2: str) -> dict:
         equality_condition, examples
     """
     def _norm(n: str) -> str:
-        n = n.strip().lower().replace(" ", "_")
-        aliases = {
-            "w": "weight", "d": "density", "chi": "character",
-            "l": "lindelof_number", "lindelof": "lindelof_number",
-            "c": "cellularity", "s": "spread",
-            "nw": "network_weight", "t": "tightness",
-        }
-        return aliases.get(n, n)
+        return _CARDINAL_FUNCTION_ALIASES.get(n.strip().lower().replace(" ", "_"), n.strip().lower().replace(" ", "_"))
 
     k = frozenset({_norm(name1), _norm(name2)})
     if k in _COMPARISONS:

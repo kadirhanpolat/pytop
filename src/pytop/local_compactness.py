@@ -44,19 +44,19 @@ from .separation import analyze_separation
 # Tags
 # ---------------------------------------------------------------------------
 
-TRUE_TAGS: set[str] = {
+TRUE_TAGS: frozenset[str] = frozenset({
     "locally_compact",
     "locally_compact_hausdorff",
     "lc_hausdorff",
-}
+})
 
-FALSE_TAGS: set[str] = {
+FALSE_TAGS: frozenset[str] = frozenset({
     "not_locally_compact",
-}
+})
 
-COMPACT_TRUE_TAGS: set[str] = {"compact", "marked_compact"}
-HAUSDORFF_TRUE_TAGS: set[str] = {"hausdorff", "t2", "lc_hausdorff", "locally_compact_hausdorff"}
-HAUSDORFF_FALSE_TAGS: set[str] = {"not_hausdorff", "not_t2"}
+COMPACT_TRUE_TAGS: frozenset[str] = frozenset({"compact", "marked_compact"})
+HAUSDORFF_TRUE_TAGS: frozenset[str] = frozenset({"hausdorff", "t2", "lc_hausdorff", "locally_compact_hausdorff"})
+HAUSDORFF_FALSE_TAGS: frozenset[str] = frozenset({"not_hausdorff", "not_t2"})
 
 
 # ---------------------------------------------------------------------------

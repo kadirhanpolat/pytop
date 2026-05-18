@@ -14,43 +14,24 @@ from .infinite_spaces import (
 from .result import Result
 from .separation import analyze_separation, normalize_separation_property, separation_profile
 
-KNOWN_TRUE = {
-    DiscreteInfiniteSpace: {
-        "t0",
-        "t1",
-        "hausdorff",
-        "regular",
-        "t3",
-        "completely_regular",
-        "tychonoff",
-        "normal",
-        "t4",
-    },
-    IndiscreteInfiniteSpace: {"regular", "normal"},
-    CofiniteSpace: {"t0", "t1"},
-    CocountableSpace: {"t0", "t1"},
+KNOWN_TRUE: dict[type, frozenset[str]] = {
+    DiscreteInfiniteSpace: frozenset({
+        "t0", "t1", "hausdorff", "regular", "t3",
+        "completely_regular", "tychonoff", "normal", "t4",
+    }),
+    IndiscreteInfiniteSpace: frozenset({"regular", "normal"}),
+    CofiniteSpace: frozenset({"t0", "t1"}),
+    CocountableSpace: frozenset({"t0", "t1"}),
 }
 
-KNOWN_FALSE = {
-    IndiscreteInfiniteSpace: {"t0", "t1", "hausdorff", "t3", "tychonoff", "t4"},
-    CofiniteSpace: {
-        "hausdorff",
-        "regular",
-        "t3",
-        "completely_regular",
-        "tychonoff",
-        "normal",
-        "t4",
-    },
-    CocountableSpace: {
-        "hausdorff",
-        "regular",
-        "t3",
-        "completely_regular",
-        "tychonoff",
-        "normal",
-        "t4",
-    },
+KNOWN_FALSE: dict[type, frozenset[str]] = {
+    IndiscreteInfiniteSpace: frozenset({"t0", "t1", "hausdorff", "t3", "tychonoff", "t4"}),
+    CofiniteSpace: frozenset({
+        "hausdorff", "regular", "t3", "completely_regular", "tychonoff", "normal", "t4",
+    }),
+    CocountableSpace: frozenset({
+        "hausdorff", "regular", "t3", "completely_regular", "tychonoff", "normal", "t4",
+    }),
 }
 
 

@@ -28,16 +28,18 @@ class CountabilityError(ValueError):
     pass
 
 
+_COUNTABILITY_ALIASES: dict[str, str] = {
+    "countability": "first_countable",
+    "first": "first_countable",
+    "second": "second_countable",
+    "lindelof_property": "lindelof",
+}
+
+
 def normalize_countability_property(name: str) -> str:
     normalized = str(name).strip().lower().replace("-", "_").replace(" ", "_")
-    aliases = {
-        "countability": "first_countable",
-        "first": "first_countable",
-        "second": "second_countable",
-        "lindelof_property": "lindelof",
-    }
-    normalized = aliases.get(normalized, normalized)
-    if normalized not in set(TRUE_TAGS):
+    normalized = _COUNTABILITY_ALIASES.get(normalized, normalized)
+    if normalized not in TRUE_TAGS:
         raise CountabilityError(
             f"Unsupported countability property {name!r}. Expected one of {sorted(TRUE_TAGS)}."
         )
@@ -262,7 +264,7 @@ def _mode_from_support(support: str) -> str:
         "symbolic": "symbolic",
         "mixed": "mixed",
         "none": "symbolic",
-    }[support]
+    }.get(support, "symbolic")
 
 
 def _status_label(result: Result) -> str:

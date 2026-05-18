@@ -42,7 +42,7 @@ class TVSProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-TVS_POSITIVE_TAGS: set[str] = {
+TVS_POSITIVE_TAGS: frozenset[str] = frozenset({
     "tvs", "topological_vector_space",
     "banach_space", "banach",
     "hilbert_space", "hilbert",
@@ -54,12 +54,12 @@ TVS_POSITIVE_TAGS: set[str] = {
     "distribution_space", "lp_space",
     "lp_space_0_p_1", "lp_quasi_banach",
     "hardy_space_p_less_1",
-}
-TVS_NEGATIVE_TAGS: set[str] = {
+})
+TVS_NEGATIVE_TAGS: frozenset[str] = frozenset({
     "not_tvs", "not_topological_vector_space",
     "topological_group_not_vector",
-}
-LOCALLY_CONVEX_TAGS: set[str] = {
+})
+LOCALLY_CONVEX_TAGS: frozenset[str] = frozenset({
     "locally_convex", "locally_convex_space",
     "banach_space", "banach",
     "hilbert_space", "hilbert",
@@ -68,13 +68,13 @@ LOCALLY_CONVEX_TAGS: set[str] = {
     "nuclear_space", "lf_space",
     "sobolev_space", "schwartz_space",
     "distribution_space",
-}
-NOT_LOCALLY_CONVEX_TAGS: set[str] = {
+})
+NOT_LOCALLY_CONVEX_TAGS: frozenset[str] = frozenset({
     "not_locally_convex", "quasi_normed",
     "lp_space_0_p_1", "lp_quasi_banach",
     "hardy_space_p_less_1",
-}
-FRECHET_TAGS: set[str] = {
+})
+FRECHET_TAGS: frozenset[str] = frozenset({
     "frechet_space", "frechet",
     "banach_space", "banach",
     "hilbert_space", "hilbert",
@@ -83,31 +83,31 @@ FRECHET_TAGS: set[str] = {
     "sobolev_space",
     "smooth_functions_space", "c_infty_space",
     "schwartz_space",
-}
-BANACH_TAGS: set[str] = {
+})
+BANACH_TAGS: frozenset[str] = frozenset({
     "banach_space", "banach",
     "hilbert_space", "hilbert",
     "l2_space", "l2",
     "lp_space", "l_infinity", "c_zero",
     "sobolev_space",
-}
-HILBERT_TAGS: set[str] = {
+})
+HILBERT_TAGS: frozenset[str] = frozenset({
     "hilbert_space", "hilbert",
     "l2_space", "l2",
-}
-HAHN_BANACH_TAGS: set[str] = {
+})
+HAHN_BANACH_TAGS: frozenset[str] = frozenset({
     "locally_convex", "locally_convex_space",
     "banach_space", "banach",
     "hilbert_space", "hilbert",
     "frechet_space", "frechet",
     "normed_space", "seminormed_space",
     "nuclear_space", "sobolev_space",
-}
-OPEN_MAPPING_TAGS: set[str] = {
+})
+OPEN_MAPPING_TAGS: frozenset[str] = frozenset({
     "banach_space", "banach",
     "hilbert_space", "hilbert",
     "frechet_space", "frechet",
-}
+})
 
 
 # ---------------------------------------------------------------------------

@@ -77,7 +77,7 @@ class ToposProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-GROTHENDIECK_TOPOS_TAGS: set[str] = {
+GROTHENDIECK_TOPOS_TAGS: frozenset[str] = frozenset({
     "grothendieck_topos",
     "sheaves_on_site", "sheaves_on_space", "sheaves_on_locale",
     "presheaf_topos",
@@ -87,9 +87,9 @@ GROTHENDIECK_TOPOS_TAGS: set[str] = {
     "petit_topos", "gros_topos",
     "coherent_topos",
     "bounded_topos",
-}
+})
 
-ELEMENTARY_TOPOS_TAGS: set[str] = {
+ELEMENTARY_TOPOS_TAGS: frozenset[str] = frozenset({
     "elementary_topos",
     "cartesian_closed_with_omega",
     "subobject_classifier",
@@ -98,9 +98,9 @@ ELEMENTARY_TOPOS_TAGS: set[str] = {
     "presheaf_topos",
     "realizability_topos",
     "effective_topos",
-}
+})
 
-BOOLEAN_TOPOS_TAGS: set[str] = {
+BOOLEAN_TOPOS_TAGS: frozenset[str] = frozenset({
     "boolean_topos",
     "classical_logic_topos",
     "law_of_excluded_middle_topos",
@@ -110,18 +110,18 @@ BOOLEAN_TOPOS_TAGS: set[str] = {
     "g_sets_topos",
     "discrete_groupoid_topos",
     "atomic_topos",
-}
+})
 
-LOCALIC_TOPOS_TAGS: set[str] = {
+LOCALIC_TOPOS_TAGS: frozenset[str] = frozenset({
     "localic_topos",
     "sheaves_on_locale",
     "sheaves_on_space",
     "localic_geometric_morphism",
     "spatial_topos",
     "open_subtopos",
-}
+})
 
-ENOUGH_POINTS_TAGS: set[str] = {
+ENOUGH_POINTS_TAGS: frozenset[str] = frozenset({
     "enough_points_topos",
     "set_valued_points",
     "presheaf_topos",
@@ -131,9 +131,9 @@ ENOUGH_POINTS_TAGS: set[str] = {
     "atomic_boolean_topos",
     "spatial_topos",
     "localic_spatial",
-}
+})
 
-NOT_BOOLEAN_TOPOS_TAGS: set[str] = {
+NOT_BOOLEAN_TOPOS_TAGS: frozenset[str] = frozenset({
     "not_boolean_topos",
     "intuitionistic_topos",
     "heyting_valued_logic",
@@ -141,22 +141,22 @@ NOT_BOOLEAN_TOPOS_TAGS: set[str] = {
     "zariski_topos",
     "effective_topos",
     "sheaves_non_discrete",
-}
+})
 
-NOT_GROTHENDIECK_TAGS: set[str] = {
+NOT_GROTHENDIECK_TAGS: frozenset[str] = frozenset({
     "not_grothendieck_topos",
     "realizability_topos",
     "effective_topos",
     "no_small_generating_set",
-}
+})
 
-GEOMETRIC_MORPHISM_TAGS: set[str] = {
+GEOMETRIC_MORPHISM_TAGS: frozenset[str] = frozenset({
     "geometric_morphism",
     "inverse_image_left_exact",
     "essential_geometric_morphism",
     "localic_surjection",
     "open_geometric_morphism",
-}
+})
 
 
 # ---------------------------------------------------------------------------

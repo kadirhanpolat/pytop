@@ -8,46 +8,26 @@ theorem-based, or metadata-backed reasoning in other parts of ``pytop``.
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
-from typing import Any
 
+from ._infinite_helpers import (
+    STANDARD_COUNTABLE_CARRIERS,
+    STANDARD_UNCOUNTABLE_CARRIERS,
+    VALID_CARDINALITY_TOKENS,
+    _has_standard_countable_subset,
+    _infer_size_tags,
+    _is_countable_family_size,
+)
 from .spaces import TopologicalSpace
-
-STANDARD_COUNTABLE_CARRIERS = {"n", "naturals", "natural_numbers", "z", "integers", "q", "rationals"}
-STANDARD_UNCOUNTABLE_CARRIERS = {"r", "reals", "real_line", "irrationals"}
-
-
-def _carrier_token(carrier: Any) -> str:
-    return str(carrier).strip().lower() if isinstance(carrier, str) else ""
-
-
-def _has_standard_countable_subset(carrier: Any, metadata: dict[str, Any]) -> bool:
-    token = _carrier_token(carrier)
-    if token in STANDARD_COUNTABLE_CARRIERS | STANDARD_UNCOUNTABLE_CARRIERS:
-        return True
-    return bool(metadata.get("has_countable_subset", False) or metadata.get("countable_dense_subset", False))
-
-
-def _infer_size_tags(carrier: Any, metadata: dict[str, Any]) -> set[str]:
-    token = _carrier_token(carrier)
-    tags: set[str] = set()
-    cardinality = str(metadata.get("cardinality", "")).strip().lower()
-    countability = str(metadata.get("countability", "")).strip().lower()
-    if token in STANDARD_COUNTABLE_CARRIERS or cardinality in {"countable", "aleph_0"} or countability in {"countable", "countably_infinite"}:
-        tags.add("countable")
-    if token in STANDARD_UNCOUNTABLE_CARRIERS or cardinality == "uncountable" or countability == "uncountable":
-        tags.add("uncountable")
-    return tags
-
-
-def _is_countable_family_size(value: Any) -> bool:
-    token = str(value).strip().lower()
-    return token in {"aleph_0", "countable", "finite", "at_most_countable", "countably_infinite"}
 
 
 @dataclass
 class InfiniteTopologicalSpace(TopologicalSpace):
     """Base class for symbolic infinite topological spaces."""
+
+    def is_infinite(self) -> bool:
+        return True
 
     def __post_init__(self) -> None:
         super().__post_init__()
@@ -55,6 +35,20 @@ class InfiniteTopologicalSpace(TopologicalSpace):
         for tag in sorted(_infer_size_tags(self.carrier, self.metadata)):
             self.add_tags(tag)
         self.metadata.setdefault("representation", "symbolic_general")
+        cardinality = str(self.metadata.get("cardinality", "")).strip().lower()
+        if cardinality and cardinality not in VALID_CARDINALITY_TOKENS:
+            warnings.warn(
+                f"Unrecognised cardinality value {cardinality!r}. "
+                f"Expected one of {sorted(VALID_CARDINALITY_TOKENS)}.",
+                UserWarning,
+                stacklevel=3,
+            )
+        if "countable" in self.tags and "uncountable" in self.tags:
+            warnings.warn(
+                "Space carries both 'countable' and 'uncountable' tags simultaneously.",
+                UserWarning,
+                stacklevel=3,
+            )
 
 
 @dataclass
@@ -186,6 +180,7 @@ class SorgenfreyLikeSpace(BasisDefinedSpace):
 __all__ = [
     "STANDARD_COUNTABLE_CARRIERS",
     "STANDARD_UNCOUNTABLE_CARRIERS",
+    "VALID_CARDINALITY_TOKENS",
     "InfiniteTopologicalSpace",
     "MetricLikeSpace",
     "BasisDefinedSpace",

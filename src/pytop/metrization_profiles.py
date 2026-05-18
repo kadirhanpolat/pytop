@@ -95,20 +95,20 @@ from typing import Any  # noqa: E402
 from .finite_spaces import FiniteTopologicalSpace  # noqa: E402
 from .result import Result  # noqa: E402
 
-TRUE_METRIZABLE_TAGS: set[str] = {
+TRUE_METRIZABLE_TAGS: frozenset[str] = frozenset({
     "metrizable", "metric", "second_countable_regular",
     "second_countable_t3", "compact_hausdorff_second_countable",
     "urysohn_metrizable",
-}
+})
 
-FALSE_METRIZABLE_TAGS: set[str] = {
+FALSE_METRIZABLE_TAGS: frozenset[str] = frozenset({
     "not_metrizable", "non_metrizable",
     "not_first_countable", "not_hausdorff", "not_t2",
-}
+})
 
-REGULAR_TAGS: set[str] = {"regular", "t3", "regular_t1", "t3_5", "tychonoff"}
-NAGATA_SMIRNOV_TAGS: set[str] = {"sigma_locally_finite_base", "sigma_lf_base"}
-BING_TAGS: set[str] = {"sigma_discrete_base", "sigma_d_base"}
+REGULAR_TAGS: frozenset[str] = frozenset({"regular", "t3", "regular_t1", "t3_5", "tychonoff"})
+NAGATA_SMIRNOV_TAGS: frozenset[str] = frozenset({"sigma_locally_finite_base", "sigma_lf_base"})
+BING_TAGS: frozenset[str] = frozenset({"sigma_discrete_base", "sigma_d_base"})
 
 _METRIZABLE_IMPLIES_TRUE: dict[str, str] = {
     "second_countable": "second_countable alone does not imply metrizable; need T3 as well.",

@@ -14,7 +14,7 @@ from typing import Any
 from .capabilities import normalize_feature_name
 from .result import Result
 
-MAP_PROPERTIES = {
+MAP_PROPERTIES: frozenset[str] = frozenset({
     'continuous',
     'open',
     'closed',
@@ -24,7 +24,7 @@ MAP_PROPERTIES = {
     'embedding',
     'quotient',
     'homeomorphism',
-}
+})
 
 
 @dataclass
@@ -104,16 +104,18 @@ class ConstantMap(SymbolicMap):
         self.metadata['representation'] = 'constant_map'
 
 
+_MAP_PROPERTY_ALIASES: dict[str, str] = {
+    'one_to_one': 'injective',
+    'onto': 'surjective',
+    'quotient_map': 'quotient',
+    'open_map': 'open',
+    'closed_map': 'closed',
+}
+
+
 def normalize_map_property(name: str) -> str:
     name = normalize_feature_name(name)
-    aliases = {
-        'one_to_one': 'injective',
-        'onto': 'surjective',
-        'quotient_map': 'quotient',
-        'open_map': 'open',
-        'closed_map': 'closed',
-    }
-    name = aliases.get(name, name)
+    name = _MAP_PROPERTY_ALIASES.get(name, name)
     if name not in MAP_PROPERTIES:
         raise ValueError(f'Unsupported map property {name!r}. Expected one of {sorted(MAP_PROPERTIES)}.')
     return name

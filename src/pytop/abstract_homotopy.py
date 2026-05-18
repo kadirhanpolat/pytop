@@ -85,7 +85,7 @@ class AbstractHomotopyProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-MODEL_CATEGORY_TAGS: set[str] = {
+MODEL_CATEGORY_TAGS: frozenset[str] = frozenset({
     "model_category",
     "quillen_model_structure",
     "weak_equivalence",
@@ -93,9 +93,9 @@ MODEL_CATEGORY_TAGS: set[str] = {
     "lifting_property",
     "factorization_axiom",
     "homotopy_category",
-}
+})
 
-QUILLEN_ADJUNCTION_TAGS: set[str] = {
+QUILLEN_ADJUNCTION_TAGS: frozenset[str] = frozenset({
     "quillen_adjunction",
     "quillen_equivalence",
     "derived_functor",
@@ -103,9 +103,9 @@ QUILLEN_ADJUNCTION_TAGS: set[str] = {
     "right_derived",
     "total_derived_functor",
     "quillen_pair",
-}
+})
 
-HOMOTOPY_LIMIT_TAGS: set[str] = {
+HOMOTOPY_LIMIT_TAGS: frozenset[str] = frozenset({
     "homotopy_limit",
     "homotopy_colimit",
     "homotopy_pushout",
@@ -115,9 +115,9 @@ HOMOTOPY_LIMIT_TAGS: set[str] = {
     "mayer_vietoris",
     "homotopy_fiber",
     "homotopy_cofiber",
-}
+})
 
-INFINITY_CATEGORY_TAGS: set[str] = {
+INFINITY_CATEGORY_TAGS: frozenset[str] = frozenset({
     "infinity_category",
     "quasi_category",
     "kan_complex",
@@ -126,9 +126,9 @@ INFINITY_CATEGORY_TAGS: set[str] = {
     "complete_segal_space",
     "segal_category",
     "homotopy_coherent",
-}
+})
 
-STABLE_HOMOTOPY_TAGS: set[str] = {
+STABLE_HOMOTOPY_TAGS: frozenset[str] = frozenset({
     "stable_model_category",
     "spectra",
     "suspension_equivalence",
@@ -137,18 +137,18 @@ STABLE_HOMOTOPY_TAGS: set[str] = {
     "stable_homotopy_category",
     "bousfield_friedlander",
     "symmetric_spectra",
-}
+})
 
-BOUSFIELD_LOCALIZATION_TAGS: set[str] = {
+BOUSFIELD_LOCALIZATION_TAGS: frozenset[str] = frozenset({
     "bousfield_localization",
     "left_bousfield_localization",
     "right_bousfield_localization",
     "local_objects",
     "local_equivalences",
     "nullification",
-}
+})
 
-COFIBRANT_FIBRANT_TAGS: set[str] = {
+COFIBRANT_FIBRANT_TAGS: frozenset[str] = frozenset({
     "cofibrant_replacement",
     "fibrant_replacement",
     "cofibrant_object",
@@ -157,16 +157,16 @@ COFIBRANT_FIBRANT_TAGS: set[str] = {
     "q_cofibrant",
     "q_fibrant",
     "resolution",
-}
+})
 
-PROPER_MODEL_TAGS: set[str] = {
+PROPER_MODEL_TAGS: frozenset[str] = frozenset({
     "left_proper",
     "right_proper",
     "proper_model",
     "gluing_lemma",
     "pushout_weak_equivalence",
     "pullback_weak_equivalence",
-}
+})
 
 
 # ---------------------------------------------------------------------------

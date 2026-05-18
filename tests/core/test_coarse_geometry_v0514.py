@@ -126,7 +126,7 @@ class TestTagConstants:
         for s in [FINITE_ASYMPTOTIC_DIM_TAGS, PROPERTY_A_TAGS, HYPERBOLIC_TAGS,
                   POLYNOMIAL_GROWTH_TAGS, EXPONENTIAL_GROWTH_TAGS, TWO_ENDS_TAGS,
                   INFINITE_ENDS_TAGS, ONE_END_TAGS, NOT_PROPERTY_A_TAGS]:
-            assert isinstance(s, set)
+            assert isinstance(s, frozenset)
 
     def test_not_property_a_and_property_a_disjoint(self):
         # expander_family is in NOT_PROPERTY_A but not in PROPERTY_A

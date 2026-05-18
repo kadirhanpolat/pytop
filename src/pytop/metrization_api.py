@@ -12,16 +12,16 @@ from .finite_spaces import FiniteTopologicalSpace
 from .metrization_profiles import get_named_metrization_profiles
 from .result import Result
 
-TRUE_METRIZABLE_TAGS: set[str] = {
+TRUE_METRIZABLE_TAGS: frozenset[str] = frozenset({
     "metrizable", "metric", "second_countable_regular",
     "second_countable_t3", "compact_hausdorff_second_countable",
     "urysohn_metrizable",
-}
+})
 
-FALSE_METRIZABLE_TAGS: set[str] = {
+FALSE_METRIZABLE_TAGS: frozenset[str] = frozenset({
     "not_metrizable", "non_metrizable",
     "not_first_countable", "not_hausdorff", "not_t2",
-}
+})
 
 
 class MetrizationError(ValueError):

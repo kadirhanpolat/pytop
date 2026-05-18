@@ -19,22 +19,22 @@ from typing import Any
 
 VERSION = "0.1.103"
 
-ZERO_DIMENSION_TAGS = {
+ZERO_DIMENSION_TAGS: frozenset[str] = frozenset({
     "zero_dimensional",
     "zero-dimensional",
     "clopen_base",
     "cantor_set",
     "stone_space",
-}
-TOTALLY_DISCONNECTED_TAGS = {
+})
+TOTALLY_DISCONNECTED_TAGS: frozenset[str] = frozenset({
     "totally_disconnected",
     "totally-disconnected",
     "cantor_set",
-}
-NEGATIVE_ZERO_DIMENSION_TAGS = {
+})
+NEGATIVE_ZERO_DIMENSION_TAGS: frozenset[str] = frozenset({
     "not_zero_dimensional",
     "not_zero-dimensional",
-}
+})
 
 
 def _metadata_of(obj: Any) -> dict[str, Any]:

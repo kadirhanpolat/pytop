@@ -74,7 +74,7 @@ class LocaleProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-SPATIAL_LOCALE_TAGS: set[str] = {
+SPATIAL_LOCALE_TAGS: frozenset[str] = frozenset({
     "spatial_locale", "has_enough_points",
     "sober", "sober_space",
     "hausdorff", "t2", "compact_hausdorff", "metrizable",
@@ -82,18 +82,18 @@ SPATIAL_LOCALE_TAGS: set[str] = {
     "completely_regular", "tychonoff",
     "locally_compact_hausdorff",
     "localic_group",
-}
+})
 
-COMPACT_LOCALE_TAGS: set[str] = {
+COMPACT_LOCALE_TAGS: frozenset[str] = frozenset({
     "compact_locale",
     "compact", "compact_hausdorff",
     "stone_space", "profinite",
     "finite_locale",
     "compact_regular_locale", "compact_regular",
     "stone_locale", "boolean_locale",
-}
+})
 
-REGULAR_LOCALE_TAGS: set[str] = {
+REGULAR_LOCALE_TAGS: frozenset[str] = frozenset({
     "regular_locale",
     "compact_hausdorff", "metrizable",
     "stone_space", "profinite",
@@ -102,9 +102,9 @@ REGULAR_LOCALE_TAGS: set[str] = {
     "compact_regular", "compact_regular_locale",
     "boolean_locale", "stone_locale",
     "complete_boolean_algebra",
-}
+})
 
-COMPLETELY_REGULAR_LOCALE_TAGS: set[str] = {
+COMPLETELY_REGULAR_LOCALE_TAGS: frozenset[str] = frozenset({
     "completely_regular_locale",
     "tychonoff_locale",
     "compact_hausdorff", "metrizable",
@@ -112,41 +112,41 @@ COMPLETELY_REGULAR_LOCALE_TAGS: set[str] = {
     "compact_regular", "compact_regular_locale",
     "boolean_locale", "stone_locale",
     "complete_boolean_algebra",
-}
+})
 
-ZERO_DIMENSIONAL_LOCALE_TAGS: set[str] = {
+ZERO_DIMENSIONAL_LOCALE_TAGS: frozenset[str] = frozenset({
     "zero_dimensional_locale",
     "stone_locale", "boolean_locale",
     "stone_space", "profinite",
     "complete_boolean_algebra",
     "clopen_base_locale",
-}
+})
 
-NON_SPATIAL_LOCALE_TAGS: set[str] = {
+NON_SPATIAL_LOCALE_TAGS: frozenset[str] = frozenset({
     "non_spatial_locale",
     "no_classical_points",
     "measure_algebra_locale",
     "pointfree_only",
     "non_spatial_frame",
     "random_real_locale",
-}
+})
 
-LOCALIC_GROUP_TAGS: set[str] = {
+LOCALIC_GROUP_TAGS: frozenset[str] = frozenset({
     "localic_group",
     "group_object_in_loc",
     "topological_group_sober",
     "localic_abelian_group",
     "localic_compact_group",
-}
+})
 
-NOT_REGULAR_LOCALE_TAGS: set[str] = {
+NOT_REGULAR_LOCALE_TAGS: frozenset[str] = frozenset({
     "not_regular_locale",
     "t0_not_t1",
     "sierpinski_locale",
     "generic_point_locale",
     "not_hausdorff_locale",
     "not_completely_regular",
-}
+})
 
 
 # ---------------------------------------------------------------------------

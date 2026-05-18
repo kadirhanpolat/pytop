@@ -19,8 +19,11 @@ class RelationError(ValueError):
 
 def normalize_carrier(carrier: Iterable[Any]) -> tuple[Any, ...]:
     items = tuple(carrier)
-    if len(set(items)) != len(items):
-        raise RelationError('Carrier elements must be distinct.')
+    try:
+        if len(set(items)) != len(items):
+            raise RelationError('Carrier elements must be distinct.')
+    except TypeError as exc:
+        raise RelationError('Carrier elements must be hashable.') from exc
     return items
 
 
@@ -300,6 +303,35 @@ def total_order_from_list(*elements: Any) -> set[tuple[Any, Any]]:
     return relation
 
 
+def reflexive_closure(carrier: Iterable[Any], relation: Iterable[tuple[Any, Any]]) -> set[tuple[Any, Any]]:
+    """Return R ∪ {(x, x) : x ∈ carrier}."""
+    carrier_tuple, relation_set = validate_relation_on(carrier, relation)
+    return relation_set | {(x, x) for x in carrier_tuple}
+
+
+def symmetric_closure(relation: Iterable[tuple[Any, Any]]) -> set[tuple[Any, Any]]:
+    """Return R ∪ R⁻¹."""
+    relation_set = normalize_relation(relation)
+    return relation_set | {(y, x) for x, y in relation_set}
+
+
+def transitive_closure(carrier: Iterable[Any], relation: Iterable[tuple[Any, Any]]) -> set[tuple[Any, Any]]:
+    """Return the transitive closure of the relation using Warshall's algorithm."""
+    carrier_tuple, relation_set = validate_relation_on(carrier, relation)
+    n = len(carrier_tuple)
+    idx = {x: i for i, x in enumerate(carrier_tuple)}
+    mat = [[False] * n for _ in range(n)]
+    for x, y in relation_set:
+        mat[idx[x]][idx[y]] = True
+    for k in range(n):
+        for i in range(n):
+            if mat[i][k]:
+                for j in range(n):
+                    if mat[k][j]:
+                        mat[i][j] = True
+    return {(carrier_tuple[i], carrier_tuple[j]) for i in range(n) for j in range(n) if mat[i][j]}
+
+
 def equivalence_from_classes(*blocks: Iterable[Any]) -> set[tuple[Any, Any]]:
     """Build an equivalence relation from a partition given as blocks.
 
@@ -355,4 +387,7 @@ __all__ = [
     'make_relation',
     'total_order_from_list',
     'equivalence_from_classes',
+    'reflexive_closure',
+    'symmetric_closure',
+    'transitive_closure',
 ]

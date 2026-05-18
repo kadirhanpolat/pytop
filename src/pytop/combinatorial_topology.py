@@ -73,7 +73,7 @@ class CombinatorialProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-SIMPLICIAL_COMPLEX_TAGS: set[str] = {
+SIMPLICIAL_COMPLEX_TAGS: frozenset[str] = frozenset({
     "simplicial_complex",
     "abstract_simplicial_complex",
     "geometric_simplicial_complex",
@@ -87,18 +87,18 @@ SIMPLICIAL_COMPLEX_TAGS: set[str] = {
     "order_complex",
     "matching_complex",
     "chessboard_complex",
-}
+})
 
-CW_COMPLEX_TAGS: set[str] = {
+CW_COMPLEX_TAGS: frozenset[str] = frozenset({
     "cw_complex",
     "cw_structure",
     "cellular_complex",
     "delta_complex",
     "regular_cw_complex",
     "minimal_cell_structure",
-}
+})
 
-CONTRACTIBLE_TAGS: set[str] = {
+CONTRACTIBLE_TAGS: frozenset[str] = frozenset({
     "contractible",
     "contractible_complex",
     "collapsible",
@@ -108,9 +108,9 @@ CONTRACTIBLE_TAGS: set[str] = {
     "tree_complex",
     "simply_connected_acyclic",
     "npc_complex",
-}
+})
 
-ACYCLIC_TAGS: set[str] = {
+ACYCLIC_TAGS: frozenset[str] = frozenset({
     "acyclic_complex",
     "acyclic_homology",
     "trivial_reduced_homology",
@@ -118,9 +118,9 @@ ACYCLIC_TAGS: set[str] = {
     "contractible_complex",
     "collapsible",
     "homology_sphere_acyclic",
-}
+})
 
-TORSION_TAGS: set[str] = {
+TORSION_TAGS: frozenset[str] = frozenset({
     "torsion_homology",
     "torsion_in_h1",
     "z2_torsion",
@@ -129,9 +129,9 @@ TORSION_TAGS: set[str] = {
     "projective_space_complex",
     "lens_space_complex",
     "klein_bottle_complex",
-}
+})
 
-EULER_CHARACTERISTIC_TAGS: set[str] = {
+EULER_CHARACTERISTIC_TAGS: frozenset[str] = frozenset({
     "euler_characteristic_positive",
     "euler_characteristic_negative",
     "euler_characteristic_zero",
@@ -140,34 +140,34 @@ EULER_CHARACTERISTIC_TAGS: set[str] = {
     "polyhedron",
     "manifold_complex",
     "surface_triangulation",
-}
+})
 
-NERVE_THEOREM_TAGS: set[str] = {
+NERVE_THEOREM_TAGS: frozenset[str] = frozenset({
     "nerve_complex",
     "good_cover",
     "čech_complex",
     "nerve_of_cover",
     "leray_nerve",
     "borsuk_nerve",
-}
+})
 
-COLLAPSIBLE_TAGS: set[str] = {
+COLLAPSIBLE_TAGS: frozenset[str] = frozenset({
     "collapsible",
     "shellable",
     "cone",
     "star",
     "tree_complex",
     "convex_polytope_boundary",
-}
+})
 
-NOT_COLLAPSIBLE_TAGS: set[str] = {
+NOT_COLLAPSIBLE_TAGS: frozenset[str] = frozenset({
     "not_collapsible",
     "contractible_not_collapsible",
     "dunce_hat",
     "non_shellable",
     "bing_house",
     "contractible_non_trivial_whitehead",
-}
+})
 
 
 # ---------------------------------------------------------------------------

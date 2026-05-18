@@ -85,8 +85,12 @@ def there_exists(carrier: Iterable[Any], predicate: Callable[[Any], bool]) -> bo
 
 def unique_exists(carrier: Iterable[Any], predicate: Callable[[Any], bool]) -> bool:
     """Return True iff predicate holds for exactly one element of carrier (∃!)."""
-    elements = list(carrier)
-    count = sum(1 for x in elements if predicate(x))
+    count = 0
+    for x in carrier:
+        if predicate(x):
+            count += 1
+            if count > 1:
+                return False
     return count == 1
 
 

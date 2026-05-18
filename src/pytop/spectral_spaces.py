@@ -66,7 +66,7 @@ class SpectralSpaceProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-SOBER_POSITIVE_TAGS: set[str] = {
+SOBER_POSITIVE_TAGS: frozenset[str] = frozenset({
     "sober", "sober_space",
     "spectral_space", "coherent_space",
     "hausdorff", "compact_hausdorff", "t2",
@@ -75,64 +75,64 @@ SOBER_POSITIVE_TAGS: set[str] = {
     "sierpinski_space",
     "alexandrov_dcpo",
     "spatial_locale",
-}
+})
 
-SPECTRAL_TAGS: set[str] = {
+SPECTRAL_TAGS: frozenset[str] = frozenset({
     "spectral_space", "coherent_space",
     "spec_ring", "zariski_spectrum", "prime_spectrum",
     "stone_space", "boolean_space", "profinite",
     "alexandrov_finite_poset",
     "compact_sober_t0",
-}
+})
 
-STONE_SPACE_TAGS: set[str] = {
+STONE_SPACE_TAGS: frozenset[str] = frozenset({
     "stone_space", "boolean_space", "profinite",
     "compact_totally_disconnected_hausdorff",
     "zero_dimensional_compact_hausdorff",
     "cantor_space", "cantor_set",
     "p_adic_integers",
     "profinite_group",
-}
+})
 
-SPATIAL_FRAME_TAGS: set[str] = {
+SPATIAL_FRAME_TAGS: frozenset[str] = frozenset({
     "spatial_frame", "spatial_locale",
     "frame_of_sober_space",
     "sober", "spectral_space",
     "stone_space",
     "open_set_frame",
-}
+})
 
-GENERIC_POINT_TAGS: set[str] = {
+GENERIC_POINT_TAGS: frozenset[str] = frozenset({
     "generic_point", "has_generic_point",
     "irreducible_space",
     "spec_integral_domain",
     "zariski_spectrum", "prime_spectrum",
     "sierpinski_space",
     "sober_irreducible",
-}
+})
 
-NOT_SOBER_TAGS: set[str] = {
+NOT_SOBER_TAGS: frozenset[str] = frozenset({
     "not_sober", "t0_not_sober",
     "alexandrov_no_maximum",
     "poset_no_directed_suprema",
     "irreducible_no_generic_point",
-}
+})
 
-NOT_T1_TAGS: set[str] = {
+NOT_T1_TAGS: frozenset[str] = frozenset({
     "t0_not_t1", "not_t1",
     "spec_ring", "zariski_spectrum",
     "sierpinski_space",
     "generic_point_not_closed",
     "non_t1_sober",
-}
+})
 
-NOT_STONE_TAGS: set[str] = {
+NOT_STONE_TAGS: frozenset[str] = frozenset({
     "not_hausdorff", "non_hausdorff",
     "not_totally_disconnected",
     "connected_nontrivial",
     "sierpinski_space",
     "spec_ring",
-}
+})
 
 
 # ---------------------------------------------------------------------------

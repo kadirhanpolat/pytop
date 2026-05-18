@@ -10,7 +10,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 
-SUPPORT_LEVELS = {"exact", "theorem", "symbolic", "mixed", "none"}
+SUPPORT_LEVELS: frozenset[str] = frozenset({"exact", "theorem", "symbolic", "mixed", "none"})
 
 
 @dataclass(slots=True)
@@ -116,6 +116,7 @@ DEFAULT_REGISTRY = CapabilityRegistry(
                 "character": FeatureCapability("character", "exact", "Character is exactly computable from an explicit finite topology."),
                 "lindelof_number": FeatureCapability("lindelof_number", "exact", "The Lindelöf number is exactly computable from an explicit finite topology."),
                 "cellularity": FeatureCapability("cellularity", "exact", "Cellularity is exactly computable from an explicit finite topology."),
+                "locally_connected": FeatureCapability("locally_connected", "exact", "Local connectedness is exactly checkable from an explicit finite topology."),
             },
         ),
         CapabilityProfile(
@@ -139,6 +140,7 @@ DEFAULT_REGISTRY = CapabilityRegistry(
                 "second_countable": FeatureCapability("second_countable", "mixed", "Second countability is exact once countability of the carrier is known."),
                 "separable": FeatureCapability("separable", "mixed", "Separability is exact once countability of the carrier is known."),
                 "lindelof": FeatureCapability("lindelof", "mixed", "Lindelöfness is exact once countability of the carrier is known."),
+                "locally_connected": FeatureCapability("locally_connected", "exact", "Discrete spaces are locally connected: each singleton is open and connected."),
             },
         ),
         CapabilityProfile(
@@ -162,6 +164,7 @@ DEFAULT_REGISTRY = CapabilityRegistry(
                 "second_countable": FeatureCapability("second_countable", "exact", "The topology has a finite base."),
                 "separable": FeatureCapability("separable", "exact", "Any nonempty countable subset is dense; in standard examples a singleton already suffices."),
                 "lindelof": FeatureCapability("lindelof", "exact", "Compactness implies Lindelöfness."),
+                "locally_connected": FeatureCapability("locally_connected", "exact", "Indiscrete spaces are locally connected: the whole space is the only open neighbourhood and it is connected."),
             },
         ),
         CapabilityProfile(
@@ -183,6 +186,7 @@ DEFAULT_REGISTRY = CapabilityRegistry(
                 "first_countable": FeatureCapability("first_countable", "mixed", "Exact once countability of the carrier is known."),
                 "second_countable": FeatureCapability("second_countable", "mixed", "Exact once countability of the carrier is known."),
                 "separable": FeatureCapability("separable", "mixed", "Supported exactly for standard carriers with known countable dense subsets."),
+                "locally_connected": FeatureCapability("locally_connected", "exact", "Infinite cofinite spaces are locally connected: every nonempty open set is cofinite and connected."),
             },
         ),
         CapabilityProfile(
@@ -205,6 +209,7 @@ DEFAULT_REGISTRY = CapabilityRegistry(
                 "second_countable": FeatureCapability("second_countable", "exact", "Standard uncountable cocountable spaces are not second countable."),
                 "separable": FeatureCapability("separable", "exact", "Standard uncountable cocountable spaces are not separable."),
                 "lindelof": FeatureCapability("lindelof", "exact", "Standard uncountable cocountable spaces are Lindelöf."),
+                "locally_connected": FeatureCapability("locally_connected", "exact", "Uncountable cocountable spaces are locally connected: every nonempty open set is cocountable and connected."),
             },
         ),
         CapabilityProfile(
@@ -234,6 +239,7 @@ DEFAULT_REGISTRY = CapabilityRegistry(
                 "character": FeatureCapability("character", "theorem", "Every metric space has countable character."),
                 "lindelof_number": FeatureCapability("lindelof_number", "theorem", "The Lindelöf number becomes theorem-backed when second countability is known."),
                 "cellularity": FeatureCapability("cellularity", "symbolic", "Cellularity usually needs additional structure or assumptions in infinite metric settings."),
+                "locally_connected": FeatureCapability("locally_connected", "theorem", "Local connectedness in metric spaces depends on additional structure or hypotheses (e.g. Euclidean spaces are locally connected, Cantor set subspaces are not)."),
             },
         ),
         CapabilityProfile(
@@ -261,6 +267,7 @@ DEFAULT_REGISTRY = CapabilityRegistry(
                 "character": FeatureCapability("character", "mixed", "Character may be read from local-basis metadata."),
                 "lindelof_number": FeatureCapability("lindelof_number", "symbolic", "Lindelöf number usually needs extra structure or metadata."),
                 "cellularity": FeatureCapability("cellularity", "symbolic", "Cellularity usually needs explicit open-set or basis information."),
+                "locally_connected": FeatureCapability("locally_connected", "symbolic", "Local connectedness needs explicit local basis data or hypothesis support."),
             },
         ),
         CapabilityProfile(
@@ -292,31 +299,34 @@ DEFAULT_REGISTRY = CapabilityRegistry(
                 "character": FeatureCapability("character", "symbolic", "Character needs explicit local-base data or theorem support."),
                 "lindelof_number": FeatureCapability("lindelof_number", "symbolic", "Lindelöf number needs explicit data or theorem support."),
                 "cellularity": FeatureCapability("cellularity", "symbolic", "Cellularity needs explicit structural data."),
+                "locally_connected": FeatureCapability("locally_connected", "symbolic", "Local connectedness requires theorem registration or explicit assumptions."),
             },
         ),
     ]
 )
 
 
+_FEATURE_ALIASES: dict[str, str] = {
+    "compactness": "compact",
+    "connectedness": "connected",
+    "pathconnected": "path_connected",
+    "locallyconnected": "locally_connected",
+    "separation_axioms": "hausdorff",
+    "countability_axioms": "first_countable",
+    "cardinal_functions": "invariants",
+    "topological_invariants": "invariants",
+    "w": "weight",
+    "d": "density",
+    "chi": "character",
+    "lindelofnumber": "lindelof_number",
+    "t2": "hausdorff",
+    "kolmogorov": "t0",
+}
+
+
 def normalize_feature_name(feature: str) -> str:
     feature = feature.strip().lower().replace("-", "_").replace(" ", "_")
-    aliases = {
-        "compactness": "compact",
-        "connectedness": "connected",
-        "pathconnected": "path_connected",
-        "locallyconnected": "locally_connected",
-        "separation_axioms": "hausdorff",
-        "countability_axioms": "first_countable",
-        "cardinal_functions": "invariants",
-        "topological_invariants": "invariants",
-        "w": "weight",
-        "d": "density",
-        "chi": "character",
-        "lindelofnumber": "lindelof_number",
-        "t2": "hausdorff",
-        "kolmogorov": "t0",
-    }
-    return aliases.get(feature, feature)
+    return _FEATURE_ALIASES.get(feature, feature)
 
 
 def explain_capability(representation: str, feature: str) -> str:

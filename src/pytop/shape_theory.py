@@ -55,7 +55,7 @@ class ShapeProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-ANR_POSITIVE_TAGS: set[str] = {
+ANR_POSITIVE_TAGS: frozenset[str] = frozenset({
     "anr", "absolute_neighborhood_retract",
     "ar", "absolute_retract",
     "compact_manifold", "compact_manifold_no_boundary",
@@ -64,17 +64,17 @@ ANR_POSITIVE_TAGS: set[str] = {
     "compact_lie_group",
     "sphere", "torus", "projective_space",
     "compact_surface",
-}
+})
 
-FANR_POSITIVE_TAGS: set[str] = {
+FANR_POSITIVE_TAGS: frozenset[str] = frozenset({
     "fanr", "fundamental_absolute_neighborhood_retract",
     "anr", "absolute_neighborhood_retract",
     "ar", "absolute_retract",
     "compact_polyhedron", "finite_cw_complex",
     "compact_manifold", "compact_lie_group",
-}
+})
 
-MOVABLE_POSITIVE_TAGS: set[str] = {
+MOVABLE_POSITIVE_TAGS: frozenset[str] = frozenset({
     "movable", "shape_movable",
     "fanr", "anr", "ar",
     "compact_polyhedron", "finite_cw_complex",
@@ -84,9 +84,9 @@ MOVABLE_POSITIVE_TAGS: set[str] = {
     "locally_path_connected_compact",
     "compact_surface",
     "compact_lie_group",
-}
+})
 
-SHAPE_TRIVIAL_TAGS: set[str] = {
+SHAPE_TRIVIAL_TAGS: frozenset[str] = frozenset({
     "contractible", "shape_trivial",
     "ar", "absolute_retract",
     "single_point", "point",
@@ -94,9 +94,9 @@ SHAPE_TRIVIAL_TAGS: set[str] = {
     "compact_contractible_anr",
     "hilbert_cube",
     "contractible_compact",
-}
+})
 
-CECH_COMPUTABLE_TAGS: set[str] = {
+CECH_COMPUTABLE_TAGS: frozenset[str] = frozenset({
     "compact_metrizable", "compact_metric",
     "compact_hausdorff",
     "compact_polyhedron", "finite_cw_complex",
@@ -104,9 +104,9 @@ CECH_COMPUTABLE_TAGS: set[str] = {
     "paracompact_hausdorff",
     "locally_compact_hausdorff",
     "locally_compact_metrizable",
-}
+})
 
-NOT_ANR_TAGS: set[str] = {
+NOT_ANR_TAGS: frozenset[str] = frozenset({
     "not_anr", "not_locally_contractible",
     "warsaw_circle",
     "solenoid", "dyadic_solenoid",
@@ -114,23 +114,23 @@ NOT_ANR_TAGS: set[str] = {
     "hawaiian_earring",
     "not_locally_contractible_at_limit",
     "totally_path_disconnected_locally",
-}
+})
 
-NOT_FANR_TAGS: set[str] = {
+NOT_FANR_TAGS: frozenset[str] = frozenset({
     "not_fanr",
     "solenoid", "dyadic_solenoid",
     "warsaw_circle",
     "hawaiian_earring",
     "infinite_cech_homology",
     "not_shape_dominated_by_polyhedron",
-}
+})
 
-NOT_MOVABLE_TAGS: set[str] = {
+NOT_MOVABLE_TAGS: frozenset[str] = frozenset({
     "not_movable",
     "warsaw_circle",
     "solenoid", "dyadic_solenoid",
     "pro_homotopy_nontrivial",
-}
+})
 
 
 # ---------------------------------------------------------------------------

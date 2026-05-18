@@ -85,34 +85,34 @@ class PersistenceProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-VIETORIS_RIPS_TAGS: set[str] = {
+VIETORIS_RIPS_TAGS: frozenset[str] = frozenset({
     "vietoris_rips",
     "rips_complex",
     "vr_filtration",
     "rips_filtration",
     "clique_filtration",
     "diameter_filtration",
-}
+})
 
-CECH_COMPLEX_TAGS: set[str] = {
+CECH_COMPLEX_TAGS: frozenset[str] = frozenset({
     "cech_complex",
     "cech_filtration",
     "ball_cover_filtration",
     "nerve_of_balls",
     "alpha_complex",
     "weighted_alpha_complex",
-}
+})
 
-PERSISTENCE_DIAGRAM_TAGS: set[str] = {
+PERSISTENCE_DIAGRAM_TAGS: frozenset[str] = frozenset({
     "persistence_diagram",
     "barcode",
     "persistence_barcode",
     "birth_death_pairs",
     "dgm",
     "persistence_pairs",
-}
+})
 
-STABLE_FILTRATION_TAGS: set[str] = {
+STABLE_FILTRATION_TAGS: frozenset[str] = frozenset({
     "stable_filtration",
     "stability_theorem",
     "bottleneck_stable",
@@ -121,25 +121,25 @@ STABLE_FILTRATION_TAGS: set[str] = {
     "function_filtration",
     "tame_function",
     "height_filtration",
-}
+})
 
-UNSTABLE_OR_SENSITIVE_TAGS: set[str] = {
+UNSTABLE_OR_SENSITIVE_TAGS: frozenset[str] = frozenset({
     "not_stable",
     "sensitive_to_noise",
     "non_tame_function",
     "infinite_persistence",
-}
+})
 
-ESSENTIAL_CLASS_TAGS: set[str] = {
+ESSENTIAL_CLASS_TAGS: frozenset[str] = frozenset({
     "essential_homology",
     "infinite_bar",
     "essential_class",
     "non_contractible_component",
     "essential_cycle",
     "unbounded_persistence",
-}
+})
 
-SUBLEVEL_SET_TAGS: set[str] = {
+SUBLEVEL_SET_TAGS: frozenset[str] = frozenset({
     "sublevel_set_filtration",
     "morse_filtration",
     "function_filtration",
@@ -148,25 +148,25 @@ SUBLEVEL_SET_TAGS: set[str] = {
     "rips_filtration",
     "cech_filtration",
     "vr_filtration",
-}
+})
 
-FIELD_COEFFICIENTS_TAGS: set[str] = {
+FIELD_COEFFICIENTS_TAGS: frozenset[str] = frozenset({
     "field_coefficients",
     "z2_coefficients",
     "f2_coefficients",
     "rational_coefficients",
     "fp_coefficients",
     "persistent_homology_field",
-}
+})
 
-STRUCTURE_THEOREM_TAGS: set[str] = {
+STRUCTURE_THEOREM_TAGS: frozenset[str] = frozenset({
     "structure_theorem",
     "interval_decomposition",
     "persistence_module",
     "pid_decomposition",
     "zomorodian_carlsson",
     "graded_module_pid",
-}
+})
 
 
 # ---------------------------------------------------------------------------

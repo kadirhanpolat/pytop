@@ -138,7 +138,10 @@ class MathFunction:
         """Return True iff f is injective on *elements* (distinct values)."""
         elems = [x for x in elements if self.domain.contains(x)]
         images = [self.rule(x) for x in elems]
-        return len(set(map(repr, images))) == len(images)
+        try:
+            return len(set(images)) == len(images)
+        except TypeError:
+            return len(set(map(repr, images))) == len(images)
 
     def is_surjective_on(
         self,
@@ -146,12 +149,14 @@ class MathFunction:
         codomain_elements: Iterable[Any],
     ) -> bool:
         """Return True iff every element of *codomain_elements* is hit."""
-        images = {
-            repr(self.rule(x))
-            for x in domain_elements
-            if self.domain.contains(x)
-        }
-        return all(repr(y) in images for y in codomain_elements)
+        images = [self.rule(x) for x in domain_elements if self.domain.contains(x)]
+        cod = list(codomain_elements)
+        try:
+            image_set = set(images)
+            return all(y in image_set for y in cod)
+        except TypeError:
+            image_reprs = set(map(repr, images))
+            return all(repr(y) in image_reprs for y in cod)
 
     def is_bijective_on(
         self,

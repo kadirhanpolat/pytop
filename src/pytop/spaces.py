@@ -38,8 +38,18 @@ class TopologicalSpace:
                 self.tags.add(text)
         self.metadata["tags"] = sorted(self.tags)
 
+    def remove_tags(self, *tags: str) -> None:
+        for tag in tags:
+            self.tags.discard(str(tag).strip().lower())
+        self.metadata["tags"] = sorted(self.tags)
+
     def has_tag(self, tag: str) -> bool:
         return str(tag).strip().lower() in self.tags
+
+    def __repr__(self) -> str:
+        carrier_type = type(self.carrier).__name__ if self.carrier is not None else "None"
+        tags_part = f", tags={sorted(self.tags)!r}" if self.tags else ""
+        return f"TopologicalSpace(carrier_type={carrier_type!r}{tags_part})"
 
     def describe(self) -> str:
         return self.metadata.get("description", "topological space")

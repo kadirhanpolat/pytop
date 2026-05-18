@@ -107,7 +107,7 @@ class DerivedCategoryProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-DERIVED_CATEGORY_TAGS: set[str] = {
+DERIVED_CATEGORY_TAGS: frozenset[str] = frozenset({
     "derived_category",
     "homotopy_category",
     "quasi_isomorphism_localization",
@@ -115,9 +115,9 @@ DERIVED_CATEGORY_TAGS: set[str] = {
     "bounded_derived",
     "unbounded_derived",
     "derived_functor_category",
-}
+})
 
-TRIANGULATED_STRUCTURE_TAGS: set[str] = {
+TRIANGULATED_STRUCTURE_TAGS: frozenset[str] = frozenset({
     "triangulated_category",
     "shift_functor",
     "distinguished_triangle",
@@ -125,9 +125,9 @@ TRIANGULATED_STRUCTURE_TAGS: set[str] = {
     "rotation_axiom",
     "triangulated_functor",
     "exact_triangle",
-}
+})
 
-T_STRUCTURE_TAGS: set[str] = {
+T_STRUCTURE_TAGS: frozenset[str] = frozenset({
     "t_structure",
     "heart_of_t_structure",
     "truncation_functor",
@@ -135,9 +135,9 @@ T_STRUCTURE_TAGS: set[str] = {
     "standard_t_structure",
     "cohomological_functor",
     "bbd_t_structure",
-}
+})
 
-DERIVED_FUNCTOR_TAGS: set[str] = {
+DERIVED_FUNCTOR_TAGS: frozenset[str] = frozenset({
     "right_derived_functor",
     "left_derived_functor",
     "derived_tensor_product",
@@ -146,9 +146,9 @@ DERIVED_FUNCTOR_TAGS: set[str] = {
     "tor_derived",
     "direct_image_derived",
     "exceptional_inverse_image",
-}
+})
 
-SEMIORTHOGONAL_TAGS: set[str] = {
+SEMIORTHOGONAL_TAGS: frozenset[str] = frozenset({
     "semiorthogonal_decomposition",
     "exceptional_collection",
     "exceptional_object",
@@ -156,9 +156,9 @@ SEMIORTHOGONAL_TAGS: set[str] = {
     "admissible_subcategory",
     "mutation_exceptional",
     "beilinson_collection",
-}
+})
 
-DG_ENHANCEMENT_TAGS: set[str] = {
+DG_ENHANCEMENT_TAGS: frozenset[str] = frozenset({
     "dg_enhancement",
     "dg_category",
     "a_infinity_category",
@@ -166,9 +166,9 @@ DG_ENHANCEMENT_TAGS: set[str] = {
     "lunts_orlov",
     "dg_algebra",
     "stable_infinity_category",
-}
+})
 
-BONDAL_ORLOV_TAGS: set[str] = {
+BONDAL_ORLOV_TAGS: frozenset[str] = frozenset({
     "bondal_orlov",
     "tilting_generator",
     "tilting_object",
@@ -176,9 +176,9 @@ BONDAL_ORLOV_TAGS: set[str] = {
     "fourier_mukai",
     "fourier_mukai_kernel",
     "orlov_representability",
-}
+})
 
-PERVERSE_SHEAF_TAGS: set[str] = {
+PERVERSE_SHEAF_TAGS: frozenset[str] = frozenset({
     "perverse_sheaves",
     "intersection_cohomology",
     "middle_extension",
@@ -187,7 +187,7 @@ PERVERSE_SHEAF_TAGS: set[str] = {
     "perverse_heart",
     "nearby_cycles",
     "vanishing_cycles",
-}
+})
 
 
 # ---------------------------------------------------------------------------

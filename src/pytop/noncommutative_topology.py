@@ -82,7 +82,7 @@ class NoncommutativeProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-COMMUTATIVE_CSTAR_TAGS: set[str] = {
+COMMUTATIVE_CSTAR_TAGS: frozenset[str] = frozenset({
     "commutative_cstar",
     "function_algebra",
     "c_of_x",
@@ -91,9 +91,9 @@ COMMUTATIVE_CSTAR_TAGS: set[str] = {
     "abelian_cstar",
     "c_of_compact_space",
     "c0_of_lc_space",
-}
+})
 
-NONCOMMUTATIVE_CSTAR_TAGS: set[str] = {
+NONCOMMUTATIVE_CSTAR_TAGS: frozenset[str] = frozenset({
     "noncommutative_cstar",
     "matrix_algebra",
     "noncommutative_torus",
@@ -108,9 +108,9 @@ NONCOMMUTATIVE_CSTAR_TAGS: set[str] = {
     "compact_operators",
     "toeplitz_algebra",
     "crossed_product",
-}
+})
 
-NUCLEAR_CSTAR_TAGS: set[str] = {
+NUCLEAR_CSTAR_TAGS: frozenset[str] = frozenset({
     "nuclear_cstar",
     "commutative_cstar",
     "af_algebra",
@@ -120,18 +120,18 @@ NUCLEAR_CSTAR_TAGS: set[str] = {
     "amenable_group_cstar",
     "inductive_limit",
     "approximately_finite",
-}
+})
 
-SIMPLE_CSTAR_TAGS: set[str] = {
+SIMPLE_CSTAR_TAGS: frozenset[str] = frozenset({
     "simple_cstar",
     "irrational_rotation_algebra",
     "cuntz_algebra",
     "car_algebra",
     "purely_infinite_simple",
     "noncommutative_torus_irrational",
-}
+})
 
-SPECTRAL_TRIPLE_TAGS: set[str] = {
+SPECTRAL_TRIPLE_TAGS: frozenset[str] = frozenset({
     "spectral_triple",
     "dirac_operator",
     "noncommutative_manifold",
@@ -139,18 +139,18 @@ SPECTRAL_TRIPLE_TAGS: set[str] = {
     "connes_spectral_triple",
     "finitely_summable_triple",
     "theta_summable_triple",
-}
+})
 
-GELFAND_DUAL_TAGS: set[str] = {
+GELFAND_DUAL_TAGS: frozenset[str] = frozenset({
     "gelfand_dual",
     "commutative_cstar",
     "c_of_x",
     "character_space",
     "maximal_ideal_space",
     "abelian_cstar",
-}
+})
 
-NOT_GELFAND_TAGS: set[str] = {
+NOT_GELFAND_TAGS: frozenset[str] = frozenset({
     "no_gelfand_dual",
     "noncommutative_cstar",
     "matrix_algebra",
@@ -160,17 +160,17 @@ NOT_GELFAND_TAGS: set[str] = {
     "compact_operators",
     "car_algebra",
     "von_neumann_algebra",
-}
+})
 
-MORITA_EQUIVALENCE_TAGS: set[str] = {
+MORITA_EQUIVALENCE_TAGS: frozenset[str] = frozenset({
     "morita_equivalent",
     "imprimitivity_bimodule",
     "morita_invariant",
     "stabilization",
     "full_hilbert_bimodule",
-}
+})
 
-KTHEORY_TAGS: set[str] = {
+KTHEORY_TAGS: frozenset[str] = frozenset({
     "k0_nontrivial",
     "k1_nontrivial",
     "bott_periodicity",
@@ -178,7 +178,7 @@ KTHEORY_TAGS: set[str] = {
     "pimsner_voiculescu",
     "atiyah_hirzebruch",
     "elliott_invariant",
-}
+})
 
 
 # ---------------------------------------------------------------------------

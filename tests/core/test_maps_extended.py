@@ -224,11 +224,11 @@ class TestSubsetOpsRaiseForSymbolic:
 # ---------------------------------------------------------------------------
 
 class TestContinuousAtPointEdgeCases:
-    def test_point_not_in_domain_returns_false(self):
+    def test_point_not_in_domain_returns_unknown(self):
         X = _sierpinski()
         f = FiniteMap(domain=X, codomain=X, mapping={1: 1, 2: 2}, name="id")
         r = is_continuous_at_point(f, 99)
-        assert r.is_false
+        assert r.status == "unknown"
 
     def test_discontinuous_at_point_returns_false(self):
         ind = _indiscrete(1, 2)

@@ -34,24 +34,24 @@ class TopologicalGroupProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-GROUP_POSITIVE_TAGS: set[str] = {
+GROUP_POSITIVE_TAGS: frozenset[str] = frozenset({
     "topological_group", "group", "lie_group",
     "profinite_group", "profinite", "compact_group",
     "locally_compact_group", "lca_group", "discrete_group", "abelian_group",
-}
-GROUP_NEGATIVE_TAGS: set[str] = {"not_group", "not_topological_group", "semigroup_only"}
-CONTINUOUS_OP_TAGS: set[str] = {
+})
+GROUP_NEGATIVE_TAGS: frozenset[str] = frozenset({"not_group", "not_topological_group", "semigroup_only"})
+CONTINUOUS_OP_TAGS: frozenset[str] = frozenset({
     "continuous_multiplication", "continuous_inversion", "continuous_group_ops",
-}
-LIE_GROUP_TAGS: set[str] = {"lie_group", "lie", "smooth_manifold_group"}
-PROFINITE_TAGS: set[str] = {"profinite", "profinite_group", "profinite_completion"}
-COMPACT_GROUP_TAGS: set[str] = {
+})
+LIE_GROUP_TAGS: frozenset[str] = frozenset({"lie_group", "lie", "smooth_manifold_group"})
+PROFINITE_TAGS: frozenset[str] = frozenset({"profinite", "profinite_group", "profinite_completion"})
+COMPACT_GROUP_TAGS: frozenset[str] = frozenset({
     "compact_group", "compact_hausdorff_group", "compact_lie_group",
-}
-LC_GROUP_TAGS: set[str] = {"locally_compact_group", "lca_group"}
-LOCALLY_COMPACT_TAGS: set[str] = {"locally_compact", "locally_compact_group", "lca_group"}
-ABELIAN_TAGS: set[str] = {"abelian", "abelian_group", "commutative_group", "lca_group"}
-DISCRETE_GROUP_TAGS: set[str] = {"discrete_group", "discrete"}
+})
+LC_GROUP_TAGS: frozenset[str] = frozenset({"locally_compact_group", "lca_group"})
+LOCALLY_COMPACT_TAGS: frozenset[str] = frozenset({"locally_compact", "locally_compact_group", "lca_group"})
+ABELIAN_TAGS: frozenset[str] = frozenset({"abelian", "abelian_group", "commutative_group", "lca_group"})
+DISCRETE_GROUP_TAGS: frozenset[str] = frozenset({"discrete_group", "discrete"})
 
 
 # ---------------------------------------------------------------------------

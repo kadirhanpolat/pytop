@@ -10,6 +10,7 @@ from __future__ import annotations
 from typing import Any
 
 from .capabilities import DEFAULT_REGISTRY, normalize_feature_name
+from .property_utils import _extract_tags, _matches_any, _mode_from_support, _representation_of
 from .result import Result
 from .theorem_engine import infer_feature
 
@@ -34,20 +35,21 @@ class CompactnessError(ValueError):
     """Raised when an invalid compactness property is requested."""
 
 
+_COMPACTNESS_ALIASES: dict[str, str] = {
+    "compactness": "compact",
+    "countablycompact": "countably_compact",
+    "countably_compactness": "countably_compact",
+    "sequentialcompactness": "sequentially_compact",
+    "limit_point_compactness": "limit_point_compact",
+}
+
+
 def normalize_compactness_property(name: str) -> str:
     normalized = normalize_feature_name(name)
-    aliases = {
-        "compactness": "compact",
-        "countablycompact": "countably_compact",
-        "countably_compactness": "countably_compact",
-        "sequentialcompactness": "sequentially_compact",
-        "limit_point_compactness": "limit_point_compact",
-    }
-    normalized = aliases.get(normalized, normalized)
-    valid = set(TRUE_TAGS)
-    if normalized not in valid:
+    normalized = _COMPACTNESS_ALIASES.get(normalized, normalized)
+    if normalized not in TRUE_TAGS:
         raise CompactnessError(
-            f"Unsupported compactness property {name!r}. Expected one of {sorted(valid)}."
+            f"Unsupported compactness property {name!r}. Expected one of {sorted(TRUE_TAGS)}."
         )
     return normalized
 
@@ -130,6 +132,21 @@ def is_lindelof(space: Any) -> Result:
     return analyze_compactness(space, "lindelof")
 
 
+DEFAULT_COMPACTNESS_PROPERTIES: tuple[str, ...] = (
+    "compact",
+    "countably_compact",
+    "sequentially_compact",
+    "limit_point_compact",
+    "lindelof",
+)
+
+
+def compactness_profile(space: Any, properties: tuple[str, ...] | None = None) -> dict[str, Result]:
+    """Return a profile of compactness-style properties for the space."""
+    selected = properties or DEFAULT_COMPACTNESS_PROPERTIES
+    return {normalize_compactness_property(name): analyze_compactness(space, name) for name in selected}
+
+
 def _finite_compactness_result(property_name: str, representation: str, tags: set[str]) -> Result:
     return Result.true(
         mode="exact",
@@ -144,40 +161,6 @@ def _finite_compactness_result(property_name: str, representation: str, tags: se
     )
 
 
-def _representation_of(space: Any) -> str:
-    metadata = getattr(space, "metadata", {}) or {}
-    return str(metadata.get("representation", "symbolic_general")).strip().lower()
-
-
-
-def _extract_tags(space: Any) -> set[str]:
-    tags: set[str] = set()
-    raw_tags = getattr(space, "tags", set())
-    tags.update(str(tag).strip().lower() for tag in raw_tags if str(tag).strip())
-    metadata = getattr(space, "metadata", {}) or {}
-    for tag in metadata.get("tags", []):
-        text = str(tag).strip().lower()
-        if text:
-            tags.add(text)
-    return tags
-
-
-
-def _matches_any(tags: set[str], candidates: list[str]) -> bool:
-    return any(candidate in tags for candidate in candidates)
-
-
-
-def _mode_from_support(support: str) -> str:
-    return {
-        "exact": "exact",
-        "theorem": "theorem",
-        "symbolic": "symbolic",
-        "mixed": "mixed",
-        "none": "symbolic",
-    }[support]
-
-
 __all__ = [
     "CompactnessError",
     "normalize_compactness_property",
@@ -187,4 +170,6 @@ __all__ = [
     "is_sequentially_compact",
     "is_limit_point_compact",
     "is_lindelof",
+    "DEFAULT_COMPACTNESS_PROPERTIES",
+    "compactness_profile",
 ]

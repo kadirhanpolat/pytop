@@ -14,11 +14,11 @@ from typing import Any
 
 VERSION = "0.1.105"
 
-PROXIMITY_TRUE_TAGS = {
+PROXIMITY_TRUE_TAGS: frozenset[str] = frozenset({
     "proximity_space",
     "efremovich_proximity",
     "metric_proximity",
-}
+})
 
 
 def _metadata_of(obj: Any) -> dict[str, Any]:

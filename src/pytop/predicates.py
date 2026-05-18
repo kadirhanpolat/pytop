@@ -23,7 +23,16 @@ from .result import Result
 from .subset_operators import closure_of_subset
 from .subset_operators import is_nowhere_dense_subset as _is_nowhere_dense_operator
 
-VALID_PREDICATES = {"open", "closed", "clopen", "dense", "nowhere_dense"}
+VALID_PREDICATES: frozenset[str] = frozenset({"open", "closed", "clopen", "dense", "nowhere_dense"})
+
+_PREDICATE_ALIASES: dict[str, str] = {
+    "openness": "open",
+    "closedness": "closed",
+    "clopenness": "clopen",
+    "closure_dense": "dense",
+    "nowheredense": "nowhere_dense",
+    "nowhere-dense": "nowhere_dense",
+}
 
 
 class PredicateError(ValueError):
@@ -37,15 +46,7 @@ class UnknownSubsetError(TypeError):
 
 def normalize_predicate_name(name: str) -> str:
     normalized = str(name).strip().lower().replace("-", "_").replace(" ", "_")
-    aliases = {
-        "openness": "open",
-        "closedness": "closed",
-        "clopenness": "clopen",
-        "closure_dense": "dense",
-        "nowheredense": "nowhere_dense",
-        "nowhere-dense": "nowhere_dense",
-    }
-    normalized = aliases.get(normalized, normalized)
+    normalized = _PREDICATE_ALIASES.get(normalized, normalized)
     if normalized not in VALID_PREDICATES:
         raise PredicateError(
             f"Unsupported predicate {name!r}. Expected one of {sorted(VALID_PREDICATES)}."
@@ -266,16 +267,6 @@ def _normalize_topology(topology: Iterable[Iterable[Any]]) -> list[set[Any]]:
 
 
 
-def _closure(subset: set[Any], points: tuple[Any, ...], opens: list[set[Any]]) -> set[Any]:
-    closure: set[Any] = set()
-    for x in points:
-        neighborhoods = [U for U in opens if x in U]
-        if all(U & subset for U in neighborhoods):
-            closure.add(x)
-    return closure
-
-
-
 def _extract_subset_tags(subset: Any) -> set[str]:
     tags: set[str] = set()
     raw = getattr(subset, "tags", None)
@@ -305,4 +296,5 @@ __all__ = [
     "is_closed_subset",
     "is_clopen_subset",
     "is_dense_subset",
+    "is_nowhere_dense_subset",
 ]

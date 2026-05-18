@@ -43,54 +43,54 @@ class HyperspaceProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-COMPACT_METRIZABLE_TAGS: set[str] = {
+COMPACT_METRIZABLE_TAGS: frozenset[str] = frozenset({
     "compact_metrizable", "compact_metric",
     "compact", "compact_hausdorff", "compact_t2",
     "cantor_set", "cantor_space",
     "closed_interval", "closed_ball",
     "finite_space",
-}
-POLISH_BASE_TAGS: set[str] = {
+})
+POLISH_BASE_TAGS: frozenset[str] = frozenset({
     "polish_space", "polish",
     "completely_metrizable", "completely_metrizable_space",
     "compact_metrizable", "compact_metric",
     "cantor_set", "irrationals",
     "banach_space", "hilbert_space", "frechet_space",
-}
-LOCALLY_COMPACT_METRIZABLE_TAGS: set[str] = {
+})
+LOCALLY_COMPACT_METRIZABLE_TAGS: frozenset[str] = frozenset({
     "locally_compact_metrizable", "locally_compact_metric",
     "locally_compact_hausdorff_metrizable",
     "real_line", "reals", "euclidean",
     "locally_compact_polish",
-}
-METRIZABLE_BASE_TAGS: set[str] = {
+})
+METRIZABLE_BASE_TAGS: frozenset[str] = frozenset({
     "metric", "metrizable",
     "completely_metrizable", "polish_space",
     "compact_metrizable", "compact_metric",
-}
-CONNECTED_BASE_TAGS: set[str] = {
+})
+CONNECTED_BASE_TAGS: frozenset[str] = frozenset({
     "connected", "path_connected", "locally_path_connected",
     "continuum", "interval", "disk",
     "closed_interval", "real_line", "reals",
-}
-HAUSDORFF_METRIC_TAGS: set[str] = {
+})
+HAUSDORFF_METRIC_TAGS: frozenset[str] = frozenset({
     "metric", "metrizable",
     "compact_metrizable", "compact_metric",
     "polish_space", "completely_metrizable",
     "locally_compact_metrizable",
     "real_line", "reals", "euclidean",
-}
-NOT_HYPERSPACE_COMPACT_TAGS: set[str] = {
+})
+NOT_HYPERSPACE_COMPACT_TAGS: frozenset[str] = frozenset({
     "non_compact", "not_compact",
     "real_line", "reals", "euclidean",
     "irrationals", "polish_not_compact",
     "locally_compact_not_compact",
-}
-VIETORIS_COMPACT_TAGS: set[str] = {
+})
+VIETORIS_COMPACT_TAGS: frozenset[str] = frozenset({
     "compact", "compact_hausdorff", "compact_t2",
     "compact_metrizable", "compact_metric",
     "cantor_set", "closed_interval",
-}
+})
 
 
 # ---------------------------------------------------------------------------

@@ -27,7 +27,7 @@ class UnknownFinitePointError(TypeError):
     """Raised when an exact finite point computation cannot be performed."""
 
 
-EXACT_FINITE_OPERATORS = {
+EXACT_FINITE_OPERATORS: frozenset[str] = frozenset({
     'closure',
     'interior',
     'boundary',
@@ -36,7 +36,7 @@ EXACT_FINITE_OPERATORS = {
     'neighborhood_system',
     'is_neighborhood',
     'nowhere_dense',
-}
+})
 
 
 def closure_of_subset(space: Any, subset: Any) -> Result:

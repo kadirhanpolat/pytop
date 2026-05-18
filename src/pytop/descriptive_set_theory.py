@@ -42,30 +42,30 @@ class DescriptiveSetProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-G_DELTA_TAGS: set[str] = {
+G_DELTA_TAGS: frozenset[str] = frozenset({
     "g_delta", "open", "g_delta_set",
     "completely_metrizable", "completely_metrizable_space",
     "polish_space", "polish",
     "irrationals", "baire_space_omega",
     "closed_metrizable",
-}
-F_SIGMA_TAGS: set[str] = {
+})
+F_SIGMA_TAGS: frozenset[str] = frozenset({
     "f_sigma", "closed", "f_sigma_set",
     "sigma_compact", "countable_t1",
     "rationals_like", "rationals",
     "open_metrizable",
-}
-PERFECT_SET_TAGS: set[str] = {
+})
+PERFECT_SET_TAGS: frozenset[str] = frozenset({
     "perfect_set", "perfect_space", "perfect",
     "cantor_set", "cantor_space",
     "irrationals", "no_isolated_points_closed",
-}
-SCATTERED_TAGS: set[str] = {
+})
+SCATTERED_TAGS: frozenset[str] = frozenset({
     "scattered", "scattered_space",
     "countable_ordinal", "successor_ordinal_space",
     "well_ordered_discrete",
-}
-BAIRE_PROPERTY_TAGS: set[str] = {
+})
+BAIRE_PROPERTY_TAGS: frozenset[str] = frozenset({
     "open", "closed",
     "g_delta", "f_sigma",
     "g_delta_sigma", "f_sigma_delta",
@@ -73,24 +73,24 @@ BAIRE_PROPERTY_TAGS: set[str] = {
     "meager", "comeager", "residual",
     "complete_metric", "completely_metrizable", "polish_space",
     "metric", "metrizable",
-}
-BOREL_NEGATIVE_TAGS: set[str] = {
+})
+BOREL_NEGATIVE_TAGS: frozenset[str] = frozenset({
     "non_borel", "not_borel", "non_measurable",
     "bernstein_set", "vitali_set",
-}
-G_DELTA_NEGATIVE_TAGS: set[str] = {
+})
+G_DELTA_NEGATIVE_TAGS: frozenset[str] = frozenset({
     "not_g_delta", "rationals_like", "rationals",
     "f_sigma_not_g_delta",
-}
-CLOSED_IN_METRIZABLE_TAGS: set[str] = {
+})
+CLOSED_IN_METRIZABLE_TAGS: frozenset[str] = frozenset({
     "closed_metrizable", "closed_in_polish",
     "compact", "compact_hausdorff", "compact_t2",
     "cantor_set", "perfect_set",
-}
-OPEN_IN_METRIZABLE_TAGS: set[str] = {
+})
+OPEN_IN_METRIZABLE_TAGS: frozenset[str] = frozenset({
     "open_metrizable", "open_in_polish",
     "open", "open_subspace",
-}
+})
 
 
 # ---------------------------------------------------------------------------

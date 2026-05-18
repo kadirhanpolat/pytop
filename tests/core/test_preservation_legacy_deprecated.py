@@ -57,12 +57,14 @@ class TestPreservationTableLookup:
     def test_unknown_property_raises(self):
         with warnings.catch_warnings():
             warnings.simplefilter("always")
+            warnings.filterwarnings("ignore", category=DeprecationWarning)
             with pytest.raises(ValueError):
                 preservation_table_lookup("not_a_property", "subspace")
 
     def test_unknown_construction_raises(self):
         with warnings.catch_warnings():
             warnings.simplefilter("always")
+            warnings.filterwarnings("ignore", category=DeprecationWarning)
             with pytest.raises(ValueError):
                 preservation_table_lookup("compact", "not_a_construction")
 

@@ -87,25 +87,25 @@ class UniformConvergenceProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-UNIFORM_CONVERGENCE_TAGS: set[str] = {
+UNIFORM_CONVERGENCE_TAGS: frozenset[str] = frozenset({
     "uniform_convergence",
     "uniformly_convergent_sequence",
     "uniform_limit",
     "sup_norm_convergence",
     "uniform_cauchy",
     "uniform_approximation",
-}
+})
 
-POINTWISE_ONLY_TAGS: set[str] = {
+POINTWISE_ONLY_TAGS: frozenset[str] = frozenset({
     "pointwise_convergence",
     "pointwise_only",
     "not_uniform",
     "pointwise_not_uniform",
     "discontinuous_pointwise_limit",
     "power_function_sequence",
-}
+})
 
-EQUICONTINUOUS_TAGS: set[str] = {
+EQUICONTINUOUS_TAGS: frozenset[str] = frozenset({
     "equicontinuous",
     "equicontinuous_family",
     "uniformly_equicontinuous",
@@ -113,55 +113,55 @@ EQUICONTINUOUS_TAGS: set[str] = {
     "holder_family",
     "bounded_derivative_family",
     "uniform_modulus_of_continuity",
-}
+})
 
-NOT_EQUICONTINUOUS_TAGS: set[str] = {
+NOT_EQUICONTINUOUS_TAGS: frozenset[str] = frozenset({
     "not_equicontinuous",
     "no_uniform_modulus",
     "pointwise_only",
     "power_function_sequence",
     "unbounded_family",
-}
+})
 
-ARZELA_ASCOLI_TAGS: set[str] = {
+ARZELA_ASCOLI_TAGS: frozenset[str] = frozenset({
     "arzela_ascoli",
     "relatively_compact_function_space",
     "compact_in_c_of_x",
     "uniformly_bounded_equicontinuous",
     "ascoli_condition",
-}
+})
 
-DINI_THEOREM_TAGS: set[str] = {
+DINI_THEOREM_TAGS: frozenset[str] = frozenset({
     "dini_theorem",
     "monotone_convergence_compact",
     "dini_condition",
     "monotone_pointwise_uniform",
-}
+})
 
-STONE_WEIERSTRASS_TAGS: set[str] = {
+STONE_WEIERSTRASS_TAGS: frozenset[str] = frozenset({
     "stone_weierstrass",
     "dense_subalgebra",
     "polynomial_approximation",
     "weierstrass_approximation",
     "separating_algebra",
     "trigonometric_approximation",
-}
+})
 
-COMPACT_OPEN_TAGS: set[str] = {
+COMPACT_OPEN_TAGS: frozenset[str] = frozenset({
     "compact_open_topology",
     "topology_of_uniform_convergence",
     "sup_norm_topology",
     "uniform_topology_on_c_of_x",
     "locally_uniform_convergence",
-}
+})
 
-NOT_RELATIVELY_COMPACT_TAGS: set[str] = {
+NOT_RELATIVELY_COMPACT_TAGS: frozenset[str] = frozenset({
     "not_relatively_compact",
     "no_convergent_subsequence",
     "unbounded_family",
     "not_equicontinuous",
     "non_compact_function_family",
-}
+})
 
 
 # ---------------------------------------------------------------------------

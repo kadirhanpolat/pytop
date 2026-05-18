@@ -14,6 +14,8 @@ from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from typing import Any
 
+from ._finite_utils import _sort_family
+
 from .finite_operator_engine import is_topology
 from .finite_spaces import FiniteTopologicalSpace
 from .subbases import (
@@ -282,7 +284,7 @@ def minimal_basis_report(space: FiniteTopologicalSpace) -> dict[str, Any]:
     reduction_ratio (topology_size / minimal_basis_size).
     """
     basis = minimal_basis(space)
-    topo_size = len(list(space.topology))
+    topo_size = len(tuple(space.topology))
     basis_size = len(basis)
     return {
         "carrier": frozenset(space.carrier),
@@ -345,8 +347,6 @@ def _normalize_family(
     return _sort_family(normalized)
 
 
-def _sort_family(family: Iterable[frozenset[Any]]) -> tuple[frozenset[Any], ...]:
-    return tuple(sorted(set(family), key=lambda block: (len(block), tuple(map(repr, sorted(block, key=repr))))))
 
 
 __all__ = [

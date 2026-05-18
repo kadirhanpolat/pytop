@@ -99,7 +99,7 @@ class FoliationProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-FROBENIUS_THEOREM_TAGS: set[str] = {
+FROBENIUS_THEOREM_TAGS: frozenset[str] = frozenset({
     "frobenius_theorem",
     "involutive_distribution",
     "integrable_distribution",
@@ -107,27 +107,27 @@ FROBENIUS_THEOREM_TAGS: set[str] = {
     "cartan_frobenius",
     "lie_bracket_closed",
     "distribution_integrable",
-}
+})
 
-COMPACT_LEAF_TAGS: set[str] = {
+COMPACT_LEAF_TAGS: frozenset[str] = frozenset({
     "compact_leaf",
     "closed_leaf",
     "novikov_theorem",
     "compact_torus_leaf",
     "closed_surface_leaf",
     "novikov_compact",
-}
+})
 
-REEB_FOLIATION_TAGS: set[str] = {
+REEB_FOLIATION_TAGS: frozenset[str] = frozenset({
     "reeb_foliation",
     "reeb_component",
     "reeb_s3",
     "spiraling_leaves",
     "heegaard_foliation",
     "reeb_torus_leaf",
-}
+})
 
-TRANSVERSE_GEOMETRY_TAGS: set[str] = {
+TRANSVERSE_GEOMETRY_TAGS: frozenset[str] = frozenset({
     "transversely_riemannian",
     "riemannian_foliation",
     "transverse_metric",
@@ -135,9 +135,9 @@ TRANSVERSE_GEOMETRY_TAGS: set[str] = {
     "holonomy_invariant_metric",
     "transversely_flat",
     "transversely_projective",
-}
+})
 
-HOLONOMY_TAGS: set[str] = {
+HOLONOMY_TAGS: frozenset[str] = frozenset({
     "holonomy_group",
     "trivial_holonomy",
     "holonomy_representation",
@@ -145,9 +145,9 @@ HOLONOMY_TAGS: set[str] = {
     "non_trivial_holonomy",
     "holonomy_germ",
     "monodromy_holonomy",
-}
+})
 
-TAUT_FOLIATION_TAGS: set[str] = {
+TAUT_FOLIATION_TAGS: frozenset[str] = frozenset({
     "taut_foliation",
     "closed_transversal",
     "sullivan_taut",
@@ -155,9 +155,9 @@ TAUT_FOLIATION_TAGS: set[str] = {
     "volume_minimizing_leaf",
     "gabai_taut",
     "homologically_nontrivial_leaf",
-}
+})
 
-GODBILLON_VEY_TAGS: set[str] = {
+GODBILLON_VEY_TAGS: frozenset[str] = frozenset({
     "godbillon_vey",
     "secondary_characteristic_class",
     "exotic_class",
@@ -165,9 +165,9 @@ GODBILLON_VEY_TAGS: set[str] = {
     "bott_connection",
     "foliation_cohomology",
     "characteristic_class_foliation",
-}
+})
 
-LEAF_SPACE_TAGS: set[str] = {
+LEAF_SPACE_TAGS: frozenset[str] = frozenset({
     "leaf_space",
     "non_hausdorff_leaf_space",
     "foliation_groupoid",
@@ -175,7 +175,7 @@ LEAF_SPACE_TAGS: set[str] = {
     "connes_c_star",
     "noncommutative_leaf_space",
     "quotient_foliation",
-}
+})
 
 
 # ---------------------------------------------------------------------------

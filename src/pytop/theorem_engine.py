@@ -22,7 +22,7 @@ class TheoremRule:
     feature: str
     conclusion: bool = True
     result_value: Any | None = None
-    requires_all: set[str] = field(default_factory=set)
+    requires_all: frozenset[str] = field(default_factory=frozenset)
     assumptions: list[str] = field(default_factory=list)
     justification: list[str] = field(default_factory=list)
     proof_outline: list[str] = field(default_factory=list)
@@ -158,7 +158,7 @@ def _profile_alignment_rules() -> list[TheoremRule]:
                 name=alignment.theorem_rule_name,
                 feature=alignment.feature,
                 result_value=alignment.result_value,
-                requires_all=set(alignment.required_tags),
+                requires_all=frozenset(alignment.required_tags),
                 assumptions=list(alignment.assumptions),
                 justification=list(alignment.justification),
                 proof_outline=list(alignment.proof_outline),
@@ -175,7 +175,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
         TheoremRule(
             name="finite_spaces_are_compact",
             feature="compact",
-            requires_all={"finite"},
+            requires_all=frozenset({"finite"}),
             justification=["Every finite topological space is compact."],
             proof_outline=[
                 "Take any open cover of the space.",
@@ -185,7 +185,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
         TheoremRule(
             name="path_connected_implies_connected",
             feature="connected",
-            requires_all={"path_connected"},
+            requires_all=frozenset({"path_connected"}),
             justification=["Every path-connected space is connected."],
             proof_outline=[
                 "Assume the space were disconnected.",
@@ -195,7 +195,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
         TheoremRule(
             name="metric_spaces_are_hausdorff",
             feature="separation",
-            requires_all={"metric"},
+            requires_all=frozenset({"metric"}),
             assumptions=["Interpret the queried separation feature at least at the Hausdorff level."],
             justification=["Every metric space is Hausdorff."],
             proof_outline=[
@@ -206,7 +206,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
         TheoremRule(
             name="metric_spaces_are_first_countable",
             feature="countability",
-            requires_all={"metric"},
+            requires_all=frozenset({"metric"}),
             assumptions=["Interpret the queried countability feature at least at the first-countable level."],
             justification=["Every metric space is first countable."],
             proof_outline=[
@@ -216,7 +216,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
         TheoremRule(
             name="second_countable_implies_separable_and_lindelof",
             feature="countability",
-            requires_all={"second_countable"},
+            requires_all=frozenset({"second_countable"}),
             assumptions=[
                 "Interpret the query as asking for a standard countability consequence such as separability or Lindelöfness."
             ],
@@ -229,7 +229,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
         TheoremRule(
             name="closed_subspace_of_compact_is_compact",
             feature="compact",
-            requires_all={"closed_subspace", "ambient_compact"},
+            requires_all=frozenset({"closed_subspace", "ambient_compact"}),
             justification=["A closed subspace of a compact space is compact."],
             proof_outline=[
                 "Lift an open cover of the subspace to an open cover of the ambient compact space.",
@@ -239,7 +239,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
         TheoremRule(
             name="continuous_image_of_compact_is_compact",
             feature="compact",
-            requires_all={"continuous_image", "domain_compact"},
+            requires_all=frozenset({"continuous_image", "domain_compact"}),
             justification=["The continuous image of a compact space is compact."],
             proof_outline=[
                 "Pull back an open cover of the image along the continuous map.",
@@ -250,7 +250,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
             name="metric_spaces_have_countable_character",
             feature="character",
             result_value="aleph_0",
-            requires_all={"metric"},
+            requires_all=frozenset({"metric"}),
             justification=["Every metric space has countable local character at each point."],
             proof_outline=[
                 "For each point x, the balls B(x,1/n) form a countable local base.",
@@ -261,7 +261,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
             name="second_countable_implies_countable_weight",
             feature="weight",
             result_value="aleph_0",
-            requires_all={"second_countable"},
+            requires_all=frozenset({"second_countable"}),
             justification=["A second-countable space has a countable base, so its weight is countable."],
             proof_outline=["Take the given countable base as a witness for the weight bound."],
         ),
@@ -269,7 +269,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
             name="second_countable_implies_countable_density",
             feature="density",
             result_value="aleph_0",
-            requires_all={"second_countable"},
+            requires_all=frozenset({"second_countable"}),
             justification=["Every second-countable space is separable."],
             proof_outline=["Choose one point from each nonempty basis element."],
         ),
@@ -277,7 +277,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
             name="separable_tag_implies_countable_density",
             feature="density",
             result_value="aleph_0",
-            requires_all={"separable"},
+            requires_all=frozenset({"separable"}),
             justification=["A separable space has a countable dense subset."],
             proof_outline=["Interpret the separable tag as providing a countable dense witness."],
         ),
@@ -285,7 +285,7 @@ DEFAULT_THEOREM_ENGINE = TheoremEngine(
             name="second_countable_implies_countable_lindelof_number",
             feature="lindelof_number",
             result_value="aleph_0",
-            requires_all={"second_countable"},
+            requires_all=frozenset({"second_countable"}),
             justification=["Every second-countable space is Lindelöf, so the Lindelöf number is countable."],
             proof_outline=["Use a countable base to reduce each open cover to a countable subcover."],
         ),

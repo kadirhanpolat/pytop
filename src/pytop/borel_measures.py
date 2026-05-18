@@ -52,79 +52,79 @@ class BorelMeasureProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-RADON_MEASURE_TAGS: set[str] = {
+RADON_MEASURE_TAGS: frozenset[str] = frozenset({
     "radon_measure", "radon",
     "dirac_measure", "dirac",
     "haar_measure", "lebesgue_measure",
     "gaussian_measure", "cantor_measure",
     "probability_measure", "finite_measure",
     "locally_finite_inner_regular",
-}
-REGULAR_MEASURE_TAGS: set[str] = {
+})
+REGULAR_MEASURE_TAGS: frozenset[str] = frozenset({
     "regular_measure", "outer_regular", "inner_regular",
     "radon_measure", "radon",
     "lebesgue_measure", "haar_measure",
     "gaussian_measure", "dirac_measure",
     "borel_regular",
-}
-COMPACT_HAUSDORFF_SPACE_TAGS: set[str] = {
+})
+COMPACT_HAUSDORFF_SPACE_TAGS: frozenset[str] = frozenset({
     "compact_hausdorff", "compact_t2",
     "compact_metrizable", "compact_metric",
     "profinite", "cantor_set", "cantor_space",
     "closed_interval", "torus", "sphere",
-}
-LOCALLY_COMPACT_HAUSDORFF_TAGS: set[str] = {
+})
+LOCALLY_COMPACT_HAUSDORFF_TAGS: frozenset[str] = frozenset({
     "locally_compact_hausdorff", "locally_compact_t2",
     "locally_compact_metrizable",
     "real_line", "reals", "euclidean",
     "compact_hausdorff", "compact_t2",
     "locally_compact_group",
-}
-HAAR_MEASURE_TAGS: set[str] = {
+})
+HAAR_MEASURE_TAGS: frozenset[str] = frozenset({
     "locally_compact_group", "topological_group",
     "compact_group", "abelian_group",
     "lie_group", "discrete_group",
     "real_line", "reals",
     "torus", "circle",
     "p_adic_integers",
-}
-ATOMIC_MEASURE_TAGS: set[str] = {
+})
+ATOMIC_MEASURE_TAGS: frozenset[str] = frozenset({
     "atomic_measure", "point_mass",
     "dirac_measure", "dirac",
     "counting_measure",
     "discrete_measure",
-}
-NON_ATOMIC_TAGS: set[str] = {
+})
+NON_ATOMIC_TAGS: frozenset[str] = frozenset({
     "non_atomic", "diffuse",
     "lebesgue_measure", "gaussian_measure",
     "cantor_measure", "haar_measure_continuous",
     "absolute_continuous_lebesgue",
-}
-COMPACT_SUPPORT_TAGS: set[str] = {
+})
+COMPACT_SUPPORT_TAGS: frozenset[str] = frozenset({
     "compact_support", "compactly_supported",
     "dirac_measure", "dirac",
     "finite_measure_compact_space",
     "measure_on_compact",
-}
-NOT_RADON_TAGS: set[str] = {
+})
+NOT_RADON_TAGS: frozenset[str] = frozenset({
     "counting_measure_uncountable",
     "non_locally_finite",
     "not_inner_regular",
     "not_radon",
-}
-NOT_HAAR_TAGS: set[str] = {
+})
+NOT_HAAR_TAGS: frozenset[str] = frozenset({
     "not_locally_compact",
     "infinite_dimensional_banach",
     "hilbert_space_infinite_dim",
     "frechet_space_non_lc",
-}
-SIGMA_FINITE_TAGS: set[str] = {
+})
+SIGMA_FINITE_TAGS: frozenset[str] = frozenset({
     "sigma_finite", "finite_measure",
     "probability_measure",
     "lebesgue_measure", "gaussian_measure",
     "haar_measure", "radon_measure", "radon",
     "dirac_measure",
-}
+})
 
 
 # ---------------------------------------------------------------------------

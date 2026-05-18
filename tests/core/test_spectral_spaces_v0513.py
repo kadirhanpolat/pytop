@@ -113,7 +113,7 @@ class TestTagConstants:
         for s in [SOBER_POSITIVE_TAGS, SPECTRAL_TAGS, STONE_SPACE_TAGS,
                   SPATIAL_FRAME_TAGS, GENERIC_POINT_TAGS,
                   NOT_SOBER_TAGS, NOT_T1_TAGS, NOT_STONE_TAGS]:
-            assert isinstance(s, set)
+            assert isinstance(s, frozenset)
 
     def test_stone_space_not_in_not_sober(self):
         assert "stone_space" not in NOT_SOBER_TAGS

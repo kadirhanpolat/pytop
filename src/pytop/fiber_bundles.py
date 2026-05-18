@@ -58,7 +58,7 @@ class FiberBundleProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-LOCALLY_TRIVIAL_TAGS: set[str] = {
+LOCALLY_TRIVIAL_TAGS: frozenset[str] = frozenset({
     "fiber_bundle", "locally_trivial",
     "vector_bundle", "line_bundle",
     "principal_bundle", "trivial_bundle",
@@ -67,39 +67,39 @@ LOCALLY_TRIVIAL_TAGS: set[str] = {
     "hopf_bundle", "frame_bundle",
     "tautological_bundle", "normal_bundle",
     "rank_n_bundle",
-}
+})
 
-VECTOR_BUNDLE_TAGS: set[str] = {
+VECTOR_BUNDLE_TAGS: frozenset[str] = frozenset({
     "vector_bundle", "real_vector_bundle", "complex_vector_bundle",
     "line_bundle", "rank_n_bundle",
     "tangent_bundle", "cotangent_bundle",
     "normal_bundle", "tautological_bundle",
     "mobius_band",
-}
+})
 
-PRINCIPAL_BUNDLE_TAGS: set[str] = {
+PRINCIPAL_BUNDLE_TAGS: frozenset[str] = frozenset({
     "principal_bundle", "principal_g_bundle",
     "frame_bundle", "hopf_bundle",
     "principal_u1_bundle", "principal_on_bundle",
     "principal_gln_bundle", "principal_spinn_bundle",
     "principal_sun_bundle",
-}
+})
 
-TRIVIAL_BUNDLE_TAGS: set[str] = {
+TRIVIAL_BUNDLE_TAGS: frozenset[str] = frozenset({
     "trivial_bundle", "product_bundle",
     "parallelizable", "trivial_vector_bundle",
     "contractible_base_bundle",
-}
+})
 
-NOWHERE_ZERO_SECTION_TAGS: set[str] = {
+NOWHERE_ZERO_SECTION_TAGS: frozenset[str] = frozenset({
     "parallelizable", "has_nowhere_zero_section",
     "trivial_bundle", "product_bundle",
     "sphere_s1_tangent", "sphere_s3_tangent", "sphere_s7_tangent",
     "odd_sphere_tangent",
     "nonzero_euler_class_zero",
-}
+})
 
-ORIENTABLE_BUNDLE_TAGS: set[str] = {
+ORIENTABLE_BUNDLE_TAGS: frozenset[str] = frozenset({
     "orientable_bundle", "oriented_bundle",
     "complex_vector_bundle",
     "trivial_bundle",
@@ -107,25 +107,25 @@ ORIENTABLE_BUNDLE_TAGS: set[str] = {
     "tangent_bundle_orientable_manifold",
     "sphere_tangent_bundle",
     "real_vector_bundle_orientable",
-}
+})
 
-NOT_TRIVIAL_TAGS: set[str] = {
+NOT_TRIVIAL_TAGS: frozenset[str] = frozenset({
     "nontrivial_bundle", "non_trivial_bundle",
     "mobius_band",
     "hopf_bundle",
     "tautological_bundle",
     "non_parallelizable_tangent",
     "w1_nonzero",
-}
+})
 
-NOT_NOWHERE_ZERO_SECTION_TAGS: set[str] = {
+NOT_NOWHERE_ZERO_SECTION_TAGS: frozenset[str] = frozenset({
     "no_nowhere_zero_section",
     "even_sphere_tangent",
     "sphere_s2_tangent", "sphere_s4_tangent",
     "nonzero_euler_class",
     "mobius_band",
     "w1_nonzero",
-}
+})
 
 
 # ---------------------------------------------------------------------------

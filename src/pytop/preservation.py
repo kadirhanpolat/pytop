@@ -152,7 +152,7 @@ def separation_inherited_by_subspace(subspace_obj: Any, feature: str = "hausdorf
 
 def homeomorphic_invariant_transfer(map_obj: Any, feature: str) -> Result:
     normalized = str(feature).strip().lower().replace('-', '_').replace(' ', '_')
-    supported = {'compact', 'connected', 't0', 't1', 'hausdorff'}
+    supported: frozenset[str] = frozenset({'compact', 'connected', 't0', 't1', 'hausdorff'})
     if normalized not in supported:
         return Result.unknown(
             mode='symbolic',
@@ -231,11 +231,14 @@ def _representation_of(obj: Any) -> str:
 
 
 
+_SEPARATION_ALIASES: dict[str, str] = {"t2": "hausdorff", "kolmogorov": "t0"}
+_INHERITABLE_SEPARATION: frozenset[str] = frozenset({"t0", "t1", "hausdorff"})
+
+
 def _normalize_separation_feature(feature: str) -> str:
     text = str(feature).strip().lower().replace("-", "_").replace(" ", "_")
-    aliases = {"t2": "hausdorff", "kolmogorov": "t0"}
-    text = aliases.get(text, text)
-    if text not in {"t0", "t1", "hausdorff"}:
+    text = _SEPARATION_ALIASES.get(text, text)
+    if text not in _INHERITABLE_SEPARATION:
         raise ValueError("Expected one of 't0', 't1', or 'hausdorff'.")
     return text
 

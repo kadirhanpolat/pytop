@@ -21,19 +21,19 @@ from .result import Result
 
 VERSION = "0.1.102"
 
-CECH_TRUE_TAGS = {
+CECH_TRUE_TAGS: frozenset[str] = frozenset({
     "cech_complete",
     "cech-complete",
     "complete_metric",
     "completely_metrizable",
     "polish",
     "compact_hausdorff",
-}
-CECH_FALSE_TAGS = {
+})
+CECH_FALSE_TAGS: frozenset[str] = frozenset({
     "not_cech_complete",
     "not_cech-complete",
-}
-REALCOMPACT_TRUE_TAGS = {
+})
+REALCOMPACT_TRUE_TAGS: frozenset[str] = frozenset({
     "realcompact",
     "hewitt_realcompact",
     "complete_metric",
@@ -43,17 +43,17 @@ REALCOMPACT_TRUE_TAGS = {
     "discrete",
     "countable_discrete",
     "finite_discrete",
-}
-REALCOMPACT_FALSE_TAGS = {
+})
+REALCOMPACT_FALSE_TAGS: frozenset[str] = frozenset({
     "not_realcompact",
-}
-PERFECT_TRUE_TAGS = {
+})
+PERFECT_TRUE_TAGS: frozenset[str] = frozenset({
     "perfect_map",
-}
-PERFECT_FALSE_TAGS = {
+})
+PERFECT_FALSE_TAGS: frozenset[str] = frozenset({
     "not_perfect_map",
-}
-TYCHONOFF_TAGS = {
+})
+TYCHONOFF_TAGS: frozenset[str] = frozenset({
     "tychonoff",
     "tikhonov",
     "completely_regular_t1",
@@ -61,20 +61,20 @@ TYCHONOFF_TAGS = {
     "polish",
     "realcompact",
     "cech_complete",
-}
-HAUSDORFF_TAGS = {
+})
+HAUSDORFF_TAGS: frozenset[str] = frozenset({
     "hausdorff",
     "t2",
     "compact_hausdorff",
     "finite_hausdorff",
-}
-METRIC_LIKE_TAGS = {
+})
+METRIC_LIKE_TAGS: frozenset[str] = frozenset({
     "metric",
     "metrizable",
     "complete_metric",
     "completely_metrizable",
     "polish",
-}
+})
 
 
 def _metadata_of(obj: Any) -> dict[str, Any]:

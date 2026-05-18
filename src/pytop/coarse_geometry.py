@@ -66,7 +66,7 @@ class CoarseGeometryProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-FINITE_ASYMPTOTIC_DIM_TAGS: set[str] = {
+FINITE_ASYMPTOTIC_DIM_TAGS: frozenset[str] = frozenset({
     "finite_asymptotic_dimension", "asdim_finite",
     "asdim_zero", "asdim_one", "asdim_two",
     "virtually_abelian", "virtually_nilpotent",
@@ -76,9 +76,9 @@ FINITE_ASYMPTOTIC_DIM_TAGS: set[str] = {
     "coxeter_group", "right_angled_artin_group",
     "mapping_class_group",
     "z_lattice", "euclidean_lattice",
-}
+})
 
-PROPERTY_A_TAGS: set[str] = {
+PROPERTY_A_TAGS: frozenset[str] = frozenset({
     "property_a", "coarsely_amenable",
     "amenable_group",
     "virtually_abelian", "virtually_nilpotent",
@@ -88,49 +88,49 @@ PROPERTY_A_TAGS: set[str] = {
     "relatively_hyperbolic",
     "right_angled_artin_group",
     "countable_amenable",
-}
+})
 
-HYPERBOLIC_TAGS: set[str] = {
+HYPERBOLIC_TAGS: frozenset[str] = frozenset({
     "hyperbolic_group", "gromov_hyperbolic", "delta_hyperbolic",
     "hyperbolic_space", "free_group",
     "surface_group_hyperbolic",
     "cocompact_lattice_hyperbolic",
     "cat_negative_curvature",
     "tree_group",
-}
+})
 
-POLYNOMIAL_GROWTH_TAGS: set[str] = {
+POLYNOMIAL_GROWTH_TAGS: frozenset[str] = frozenset({
     "polynomial_growth",
     "virtually_nilpotent", "virtually_abelian",
     "nilpotent_group", "abelian_group",
     "finite_group", "amenable_polynomial",
     "heisenberg_group",
     "z_lattice", "euclidean_lattice",
-}
+})
 
-EXPONENTIAL_GROWTH_TAGS: set[str] = {
+EXPONENTIAL_GROWTH_TAGS: frozenset[str] = frozenset({
     "exponential_growth",
     "free_group", "hyperbolic_group",
     "non_amenable_group",
     "solvable_exponential",
     "linear_group_exponential",
-}
+})
 
-TWO_ENDS_TAGS: set[str] = {
+TWO_ENDS_TAGS: frozenset[str] = frozenset({
     "two_ends", "virtually_z",
     "integer_group", "infinite_cyclic",
     "z_group",
-}
+})
 
-INFINITE_ENDS_TAGS: set[str] = {
+INFINITE_ENDS_TAGS: frozenset[str] = frozenset({
     "infinitely_many_ends",
     "free_group", "free_group_rank_geq_2",
     "amalgam_over_finite",
     "infinite_ends",
     "free_product_nontrivial",
-}
+})
 
-ONE_END_TAGS: set[str] = {
+ONE_END_TAGS: frozenset[str] = frozenset({
     "one_end",
     "surface_group", "hyperbolic_group_one_end",
     "virtually_z_n_n_geq_2",
@@ -138,14 +138,14 @@ ONE_END_TAGS: set[str] = {
     "nilpotent_group",
     "heisenberg_group",
     "z_lattice_n_geq_2",
-}
+})
 
-NOT_PROPERTY_A_TAGS: set[str] = {
+NOT_PROPERTY_A_TAGS: frozenset[str] = frozenset({
     "not_property_a", "no_property_a",
     "expander_graph", "expander_family",
     "no_coarse_embedding_hilbert",
     "gromov_monster",
-}
+})
 
 
 # ---------------------------------------------------------------------------

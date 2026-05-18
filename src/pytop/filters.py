@@ -28,6 +28,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import Any
 
+from ._finite_utils import _powerset
 from .result import Result
 
 
@@ -43,12 +44,14 @@ _Family = tuple[frozenset[Any], ...]
 
 
 def _normalize_family(sets: Iterable[Iterable[Any]]) -> _Family:
-    seen: list[frozenset[Any]] = []
+    seen: set[frozenset[Any]] = set()
+    result: list[frozenset[Any]] = []
     for s in sets:
         fs = frozenset(s)
         if fs not in seen:
-            seen.append(fs)
-    return tuple(seen)
+            seen.add(fs)
+            result.append(fs)
+    return tuple(result)
 
 
 # ---------------------------------------------------------------------------
@@ -101,11 +104,12 @@ def is_filter_base(
             metadata=metadata,
         )
 
+    sorted_base = sorted(base, key=len)  # smallest sets first → earlier exit in any()
     failed_pairs: list[tuple[frozenset[Any], frozenset[Any]]] = []
     for b1 in base:
         for b2 in base:
             intersection = b1 & b2
-            if not any(b3.issubset(intersection) for b3 in base):
+            if not any(b3.issubset(intersection) for b3 in sorted_base):
                 failed_pairs.append((b1, b2))
 
     metadata["failed_intersection_pairs"] = len(failed_pairs)
@@ -223,12 +227,14 @@ def is_filter(
             if inter not in fam_set:
                 failed_f2.append((a, b))
 
-    # (F3) upward closed within carrier
+    # (F3) upward closed within carrier — O(|F|×|carrier|) via singleton extension:
+    # F upward-closed ↔ ∀A ∈ F, ∀e ∈ carrier\A → A∪{e} ∈ F
     failed_f3: list[tuple[frozenset[Any], frozenset[Any]]] = []
     for a in fam:
-        for s in _powerset(carrier_set):
-            if a.issubset(s) and s and s not in fam_set:
-                failed_f3.append((a, s))
+        for e in carrier_set - a:
+            extended = a | frozenset([e])
+            if extended not in fam_set:
+                failed_f3.append((a, extended))
 
     metadata["failed_f2_pairs"] = len(failed_f2)
     metadata["failed_f3_pairs"] = len(failed_f3)
@@ -606,15 +612,6 @@ def _finite_space_data(space: Any, operator: str) -> tuple[frozenset[Any], tuple
     return frozenset(carrier), topology
 
 
-def _powerset(s: frozenset[Any]) -> tuple[frozenset[Any], ...]:
-    """Return all subsets of *s* as frozensets, including the empty set."""
-    elements = list(s)
-    n = len(elements)
-    result: list[frozenset[Any]] = []
-    for mask in range(1 << n):
-        subset = frozenset(elements[i] for i in range(n) if mask & (1 << i))
-        result.append(subset)
-    return tuple(sorted(result, key=lambda x: (len(x), tuple(sorted(map(repr, x))))))
 
 
 __all__ = [

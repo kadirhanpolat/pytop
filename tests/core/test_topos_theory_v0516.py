@@ -109,7 +109,7 @@ class TestTagConstants:
         for s in [GROTHENDIECK_TOPOS_TAGS, ELEMENTARY_TOPOS_TAGS, BOOLEAN_TOPOS_TAGS,
                   LOCALIC_TOPOS_TAGS, ENOUGH_POINTS_TAGS, NOT_BOOLEAN_TOPOS_TAGS,
                   NOT_GROTHENDIECK_TAGS, GEOMETRIC_MORPHISM_TAGS]:
-            assert isinstance(s, set)
+            assert isinstance(s, frozenset)
 
     def test_effective_not_in_grothendieck_positive(self):
         # effective_topos is in elementary but NOT in grothendieck_topos positive tags

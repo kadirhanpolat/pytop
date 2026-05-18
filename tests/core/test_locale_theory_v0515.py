@@ -122,7 +122,7 @@ class TestTagConstants:
         for s in [SPATIAL_LOCALE_TAGS, COMPACT_LOCALE_TAGS, REGULAR_LOCALE_TAGS,
                   COMPLETELY_REGULAR_LOCALE_TAGS, ZERO_DIMENSIONAL_LOCALE_TAGS,
                   NON_SPATIAL_LOCALE_TAGS, LOCALIC_GROUP_TAGS, NOT_REGULAR_LOCALE_TAGS]:
-            assert isinstance(s, set)
+            assert isinstance(s, frozenset)
 
     def test_non_spatial_and_spatial_no_common_key_tag(self):
         # measure_algebra_locale is in NON_SPATIAL but not in SPATIAL

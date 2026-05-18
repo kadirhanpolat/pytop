@@ -57,6 +57,11 @@ ignore = [
 "src/pytop/experimental/*.py" = ["F401"]    # re-exports are intentional
 "tests/*" = ["F811"]  # fixture redefinition is fine
 
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore:preservation_table_lookup is deprecated:DeprecationWarning",
+]
+
 [tool.mypy]
 python_version = "3.11"
 strict = false

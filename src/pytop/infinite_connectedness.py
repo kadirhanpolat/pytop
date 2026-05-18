@@ -14,15 +14,15 @@ from .infinite_spaces import (
 )
 from .result import Result
 
-KNOWN_TRUE = {
-    DiscreteInfiniteSpace: set(),
-    IndiscreteInfiniteSpace: {'connected', 'path_connected'},
-    CofiniteSpace: {'connected'},
-    CocountableSpace: {'connected'},
+KNOWN_TRUE: dict[type, frozenset[str]] = {
+    DiscreteInfiniteSpace: frozenset(),
+    IndiscreteInfiniteSpace: frozenset({'connected', 'path_connected'}),
+    CofiniteSpace: frozenset({'connected'}),
+    CocountableSpace: frozenset({'connected'}),
 }
 
-KNOWN_FALSE = {
-    DiscreteInfiniteSpace: {'connected', 'path_connected'},
+KNOWN_FALSE: dict[type, frozenset[str]] = {
+    DiscreteInfiniteSpace: frozenset({'connected', 'path_connected'}),
 }
 
 

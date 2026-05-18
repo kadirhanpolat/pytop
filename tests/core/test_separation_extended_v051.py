@@ -126,13 +126,13 @@ def test_finite_separation_empty_opens():
 # ---------------------------------------------------------------------------
 
 def test_finite_separation_completely_regular_non_t1():
-    # Sierpinski space: not T1, so completely_regular returns None
+    # Sierpinski space: not T1 → definitely not completely regular → False
     class Sierpinski:
         topology = [frozenset(), frozenset({1}), frozenset({1, 2})]
         carrier = frozenset({1, 2})
 
     result = _finite_separation(Sierpinski(), "completely_regular")
-    assert result is None
+    assert result is False
 
 
 # ---------------------------------------------------------------------------

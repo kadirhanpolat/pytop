@@ -128,7 +128,7 @@ class TestTagConstants:
         for s in [ANR_POSITIVE_TAGS, FANR_POSITIVE_TAGS, MOVABLE_POSITIVE_TAGS,
                   SHAPE_TRIVIAL_TAGS, CECH_COMPUTABLE_TAGS,
                   NOT_ANR_TAGS, NOT_FANR_TAGS, NOT_MOVABLE_TAGS]:
-            assert isinstance(s, set)
+            assert isinstance(s, frozenset)
 
     def test_hawaiian_earring_not_in_anr_positive_tags(self):
         assert "hawaiian_earring" not in ANR_POSITIVE_TAGS

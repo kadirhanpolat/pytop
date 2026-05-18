@@ -37,7 +37,7 @@ class NormalSpaceProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-NORMAL_POSITIVE_TAGS: set[str] = {
+NORMAL_POSITIVE_TAGS: frozenset[str] = frozenset({
     "normal", "t4", "normal_t1",
     "perfectly_normal", "t6",
     "metric", "metrizable", "completely_metrizable",
@@ -45,36 +45,36 @@ NORMAL_POSITIVE_TAGS: set[str] = {
     "paracompact_hausdorff",
     "cw_complex", "manifold", "polish_space",
     "second_countable_t3",
-}
-NORMAL_NEGATIVE_TAGS: set[str] = {
+})
+NORMAL_NEGATIVE_TAGS: frozenset[str] = frozenset({
     "not_normal", "not_t4",
     "sorgenfrey_plane", "moore_plane_full",
-}
-PERFECTLY_NORMAL_TAGS: set[str] = {
+})
+PERFECTLY_NORMAL_TAGS: frozenset[str] = frozenset({
     "perfectly_normal", "t6",
     "metric", "metrizable", "completely_metrizable", "polish_space",
     "second_countable_t3",
-}
-METRIZABLE_NORMAL_TAGS: set[str] = {
+})
+METRIZABLE_NORMAL_TAGS: frozenset[str] = frozenset({
     "metric", "metrizable", "completely_metrizable",
     "polish_space", "banach_space", "hilbert_space",
-}
-COMPACT_HAUSDORFF_TAGS: set[str] = {
+})
+COMPACT_HAUSDORFF_TAGS: frozenset[str] = frozenset({
     "compact_hausdorff", "compact_t2",
     "profinite", "compact_lie_group",
-}
-PARACOMPACT_HAUSDORFF_TAGS: set[str] = {
+})
+PARACOMPACT_HAUSDORFF_TAGS: frozenset[str] = frozenset({
     "paracompact_hausdorff",
     "cw_complex", "manifold", "metrizable",
-}
-URYSOHN_CONFIRMING_TAGS: set[str] = NORMAL_POSITIVE_TAGS
-TIETZE_CONFIRMING_TAGS: set[str] = {
+})
+URYSOHN_CONFIRMING_TAGS: frozenset[str] = NORMAL_POSITIVE_TAGS
+TIETZE_CONFIRMING_TAGS: frozenset[str] = frozenset({
     "normal_t1", "t4",
     "metric", "metrizable", "completely_metrizable",
     "compact_hausdorff", "compact_t2",
     "paracompact_hausdorff", "cw_complex",
     "perfectly_normal", "t6", "polish_space",
-}
+})
 
 
 # ---------------------------------------------------------------------------

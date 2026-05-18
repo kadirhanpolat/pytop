@@ -47,7 +47,7 @@ class ZeroDimensionalProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-ZERO_DIMENSIONAL_TAGS: set[str] = {
+ZERO_DIMENSIONAL_TAGS: frozenset[str] = frozenset({
     "zero_dimensional", "zero_dim", "ind_zero",
     "clopen_base", "clopen_basis",
     "cantor_set", "cantor_space",
@@ -57,65 +57,65 @@ ZERO_DIMENSIONAL_TAGS: set[str] = {
     "scattered", "discrete",
     "rationals", "rational_numbers",
     "stone_space", "boolean_space",
-}
-TOTALLY_DISCONNECTED_TAGS: set[str] = {
+})
+TOTALLY_DISCONNECTED_TAGS: frozenset[str] = frozenset({
     "totally_disconnected", "zero_dimensional", "zero_dim",
     "cantor_set", "cantor_space",
     "profinite", "discrete",
     "p_adic", "p_adic_integers",
     "scattered", "stone_space",
     "rationals", "baire_space",
-}
-PROFINITE_TAGS: set[str] = {
+})
+PROFINITE_TAGS: frozenset[str] = frozenset({
     "profinite", "profinite_space",
     "p_adic_integers",
     "cantor_space", "cantor_set",
     "stone_space", "boolean_space",
     "compact_zero_dimensional", "compact_totally_disconnected",
-}
-COMPACT_ZD_TAGS: set[str] = {
+})
+COMPACT_ZD_TAGS: frozenset[str] = frozenset({
     "cantor_set", "cantor_space",
     "profinite", "profinite_space",
     "p_adic_integers",
     "compact_zero_dimensional", "compact_totally_disconnected",
     "stone_space", "boolean_space",
     "finite_space", "finite_discrete",
-}
-SCATTERED_TAGS: set[str] = {
+})
+SCATTERED_TAGS: frozenset[str] = frozenset({
     "scattered", "discrete",
     "finite_space", "finite_discrete",
     "ordinal_space", "successor_ordinal",
     "countable_ordinal",
-}
-NOT_ZERO_DIMENSIONAL_TAGS: set[str] = {
+})
+NOT_ZERO_DIMENSIONAL_TAGS: frozenset[str] = frozenset({
     "connected", "path_connected", "locally_path_connected",
     "continuum", "interval", "disk",
     "closed_interval", "real_line", "reals",
     "manifold", "topological_manifold",
     "locally_connected_not_zd",
     "positive_dimension",
-}
-COMPACT_HAUSDORFF_TAGS: set[str] = {
+})
+COMPACT_HAUSDORFF_TAGS: frozenset[str] = frozenset({
     "compact_hausdorff", "compact_t2",
     "compact_metrizable", "compact_metric",
     "profinite", "stone_space",
     "cantor_set", "cantor_space",
-}
-STONE_DUALITY_TAGS: set[str] = {
+})
+STONE_DUALITY_TAGS: frozenset[str] = frozenset({
     "compact_hausdorff", "compact_t2",
     "profinite", "stone_space", "boolean_space",
     "compact_metrizable",
     "cantor_set", "cantor_space",
     "p_adic_integers",
-}
-EMBEDS_IN_CANTOR_TAGS: set[str] = {
+})
+EMBEDS_IN_CANTOR_TAGS: frozenset[str] = frozenset({
     "compact_metrizable", "compact_metric",
     "cantor_set", "cantor_space",
     "profinite",
     "p_adic_integers",
     "compact_zero_dimensional", "compact_totally_disconnected",
     "finite_space", "finite_discrete",
-}
+})
 
 
 # ---------------------------------------------------------------------------

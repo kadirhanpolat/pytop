@@ -18,19 +18,19 @@ from typing import Any
 
 VERSION = "0.1.104"
 
-UNIFORM_TRUE_TAGS = {
+UNIFORM_TRUE_TAGS: frozenset[str] = frozenset({
     "uniform_space",
     "metric_uniformity",
     "discrete_uniformity",
     "metric",
     "metrizable",
     "complete_metric",
-}
-UNIFORM_COMPLETE_TRUE_TAGS = {
+})
+UNIFORM_COMPLETE_TRUE_TAGS: frozenset[str] = frozenset({
     "complete_metric",
     "discrete_uniformity",
     "finite_uniform_space",
-}
+})
 
 
 def _metadata_of(obj: Any) -> dict[str, Any]:

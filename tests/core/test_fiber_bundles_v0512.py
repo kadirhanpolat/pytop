@@ -119,7 +119,7 @@ class TestTagConstants:
         for s in [LOCALLY_TRIVIAL_TAGS, VECTOR_BUNDLE_TAGS, PRINCIPAL_BUNDLE_TAGS,
                   TRIVIAL_BUNDLE_TAGS, NOWHERE_ZERO_SECTION_TAGS, ORIENTABLE_BUNDLE_TAGS,
                   NOT_TRIVIAL_TAGS, NOT_NOWHERE_ZERO_SECTION_TAGS]:
-            assert isinstance(s, set)
+            assert isinstance(s, frozenset)
 
     def test_hopf_bundle_not_in_vector_bundle_tags(self):
         assert "hopf_bundle" not in VECTOR_BUNDLE_TAGS

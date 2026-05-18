@@ -16,34 +16,7 @@ from random import Random
 from typing import Any
 
 from .random_generators import RandomGeneratorError
-from .relations import equivalence_from_classes
-
-# ---------------------------------------------------------------------------
-# Internal helper
-# ---------------------------------------------------------------------------
-
-def _transitive_closure(
-    carrier_list: list[Any],
-    relation: set[tuple[Any, Any]],
-) -> set[tuple[Any, Any]]:
-    """Compute the transitive closure via Warshall's algorithm."""
-    n = len(carrier_list)
-    idx: dict[Any, int] = {x: i for i, x in enumerate(carrier_list)}
-    mat: list[list[bool]] = [[False] * n for _ in range(n)]
-    for (x, y) in relation:
-        mat[idx[x]][idx[y]] = True
-    for k in range(n):
-        for i in range(n):
-            if mat[i][k]:
-                for j in range(n):
-                    if mat[k][j]:
-                        mat[i][j] = True
-    result: set[tuple[Any, Any]] = set()
-    for i in range(n):
-        for j in range(n):
-            if mat[i][j]:
-                result.add((carrier_list[i], carrier_list[j]))
-    return result
+from .relations import equivalence_from_classes, transitive_closure as _tc
 
 
 def _validate_density(density: float) -> None:
@@ -149,7 +122,7 @@ def random_transitive_relation(
         for y in carrier_list:
             if rng.random() < density:
                 initial.add((x, y))
-    return _transitive_closure(carrier_list, initial)
+    return _tc(carrier_list, initial)
 
 
 def random_partial_order(
@@ -187,7 +160,7 @@ def random_partial_order(
         for j in range(i + 1, len(perm)):
             if rng.random() < density:
                 dag.add((perm[i], perm[j]))
-    result = _transitive_closure(carrier_list, dag)
+    result = _tc(carrier_list, dag)
     for x in carrier_list:
         result.add((x, x))
     return result

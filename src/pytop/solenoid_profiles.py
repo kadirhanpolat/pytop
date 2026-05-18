@@ -54,62 +54,62 @@ class SolenoidProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-SOLENOID_TAGS: set[str] = {
+SOLENOID_TAGS: frozenset[str] = frozenset({
     "solenoid", "dyadic_solenoid", "p_adic_solenoid",
     "generalized_solenoid", "solenoid_group",
     "inverse_limit_circles",
-}
-INVERSE_LIMIT_TAGS: set[str] = {
+})
+INVERSE_LIMIT_TAGS: frozenset[str] = frozenset({
     "inverse_limit", "projective_limit",
     "solenoid", "dyadic_solenoid", "p_adic_solenoid",
     "generalized_solenoid",
     "profinite", "p_adic_integers",
     "cantor_set", "cantor_space",
     "hilbert_cube",
-}
-INDECOMPOSABLE_TAGS: set[str] = {
+})
+INDECOMPOSABLE_TAGS: frozenset[str] = frozenset({
     "indecomposable", "indecomposable_continuum",
     "solenoid", "dyadic_solenoid", "p_adic_solenoid",
     "generalized_solenoid",
     "pseudo_arc",
-}
-COMPACT_FACTOR_TAGS: set[str] = {
+})
+COMPACT_FACTOR_TAGS: frozenset[str] = frozenset({
     "compact_factors", "compact_metrizable_factors",
     "solenoid", "dyadic_solenoid", "p_adic_solenoid",
     "generalized_solenoid",
     "profinite", "p_adic_integers",
     "cantor_set", "hilbert_cube",
     "compact_inverse_limit",
-}
-CONNECTED_FACTOR_TAGS: set[str] = {
+})
+CONNECTED_FACTOR_TAGS: frozenset[str] = frozenset({
     "connected_factors", "surjective_bonding_maps",
     "solenoid", "dyadic_solenoid", "p_adic_solenoid",
     "generalized_solenoid",
     "hilbert_cube",
     "connected_inverse_limit",
-}
-HOMOGENEOUS_TAGS: set[str] = {
+})
+HOMOGENEOUS_TAGS: frozenset[str] = frozenset({
     "homogeneous", "topological_group", "abelian_group",
     "solenoid", "dyadic_solenoid", "p_adic_solenoid",
     "generalized_solenoid", "solenoid_group",
     "cantor_space", "cantor_set",
     "torus", "circle",
-}
-NOT_SOLENOID_TAGS: set[str] = {
+})
+NOT_SOLENOID_TAGS: frozenset[str] = frozenset({
     "locally_connected", "locally_path_connected",
     "manifold", "topological_manifold",
     "interval", "disk", "sphere",
     "discrete", "scattered", "zero_dimensional",
     "finite_space",
-}
-LOCALLY_DISCONNECTED_TAGS: set[str] = {
+})
+LOCALLY_DISCONNECTED_TAGS: frozenset[str] = frozenset({
     "solenoid", "dyadic_solenoid", "p_adic_solenoid",
     "generalized_solenoid",
     "not_locally_connected", "locally_disconnected",
     "cantor_set", "cantor_space",
     "profinite",
-}
-METRIZABLE_INVERSE_LIMIT_TAGS: set[str] = {
+})
+METRIZABLE_INVERSE_LIMIT_TAGS: frozenset[str] = frozenset({
     "solenoid", "dyadic_solenoid", "p_adic_solenoid",
     "generalized_solenoid",
     "profinite", "p_adic_integers",
@@ -117,7 +117,7 @@ METRIZABLE_INVERSE_LIMIT_TAGS: set[str] = {
     "hilbert_cube",
     "compact_metrizable_factors",
     "countable_inverse_limit",
-}
+})
 
 
 # ---------------------------------------------------------------------------

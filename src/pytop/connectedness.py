@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from .capabilities import DEFAULT_REGISTRY, normalize_feature_name
+from .property_utils import _extract_tags, _matches_any, _mode_from_support, _representation_of
 from .result import Result
 from .theorem_engine import infer_feature
 
@@ -31,21 +32,22 @@ class ConnectednessError(ValueError):
     pass
 
 
+_CONNECTEDNESS_ALIASES: dict[str, str] = {
+    "connectedness": "connected",
+    "pathconnected": "path_connected",
+    "local_connectedness": "locally_connected",
+    "arcwise_connected": "arc_connected",
+    "arc_wise_connected": "arc_connected",
+    "zero_dim": "totally_disconnected",
+}
+
+
 def normalize_connectedness_property(name: str) -> str:
     normalized = normalize_feature_name(name)
-    aliases = {
-        "connectedness": "connected",
-        "pathconnected": "path_connected",
-        "local_connectedness": "locally_connected",
-        "arcwise_connected": "arc_connected",
-        "arc_wise_connected": "arc_connected",
-        "zero_dim": "totally_disconnected",
-    }
-    normalized = aliases.get(normalized, normalized)
-    valid = set(TRUE_TAGS)
-    if normalized not in valid:
+    normalized = _CONNECTEDNESS_ALIASES.get(normalized, normalized)
+    if normalized not in TRUE_TAGS:
         raise ConnectednessError(
-            f"Unsupported connectedness property {name!r}. Expected one of {sorted(valid)}."
+            f"Unsupported connectedness property {name!r}. Expected one of {sorted(TRUE_TAGS)}."
         )
     return normalized
 
@@ -217,6 +219,22 @@ def is_scattered(space: Any) -> Result:
     return analyze_connectedness(space, "scattered")
 
 
+DEFAULT_CONNECTEDNESS_PROPERTIES: tuple[str, ...] = (
+    "connected",
+    "path_connected",
+    "locally_connected",
+    "arc_connected",
+    "totally_disconnected",
+    "scattered",
+)
+
+
+def connectedness_profile(space: Any, properties: tuple[str, ...] | None = None) -> dict[str, Result]:
+    """Return a profile of connectedness-style properties for the space."""
+    selected = properties or DEFAULT_CONNECTEDNESS_PROPERTIES
+    return {normalize_connectedness_property(name): analyze_connectedness(space, name) for name in selected}
+
+
 def _finite_connected_from_topology(space: Any) -> bool | None:
     topology = getattr(space, "topology", None)
     carrier = getattr(space, "carrier", None)
@@ -257,40 +275,6 @@ def _finite_t0_check(opens: list[set[Any]], points: list[Any]) -> bool:
 
 
 
-def _representation_of(space: Any) -> str:
-    metadata = getattr(space, "metadata", {}) or {}
-    return str(metadata.get("representation", "symbolic_general")).strip().lower()
-
-
-
-def _extract_tags(space: Any) -> set[str]:
-    tags: set[str] = set()
-    raw_tags = getattr(space, "tags", set())
-    tags.update(str(tag).strip().lower() for tag in raw_tags if str(tag).strip())
-    metadata = getattr(space, "metadata", {}) or {}
-    for tag in metadata.get("tags", []):
-        text = str(tag).strip().lower()
-        if text:
-            tags.add(text)
-    return tags
-
-
-
-def _matches_any(tags: set[str], candidates: list[str]) -> bool:
-    return any(candidate in tags for candidate in candidates)
-
-
-
-def _mode_from_support(support: str) -> str:
-    return {
-        "exact": "exact",
-        "theorem": "theorem",
-        "symbolic": "symbolic",
-        "mixed": "mixed",
-        "none": "symbolic",
-    }[support]
-
-
 __all__ = [
     "ConnectednessError",
     "normalize_connectedness_property",
@@ -301,4 +285,6 @@ __all__ = [
     "is_arc_connected",
     "is_totally_disconnected",
     "is_scattered",
+    "DEFAULT_CONNECTEDNESS_PROPERTIES",
+    "connectedness_profile",
 ]

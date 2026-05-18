@@ -13,10 +13,10 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Literal, cast
 
-VALID_STATUS = {"true", "false", "unknown", "conditional"}
-VALID_MODE = {"exact", "theorem", "symbolic", "mixed"}
+VALID_STATUS: frozenset[str] = frozenset({"true", "false", "unknown", "conditional"})
+VALID_MODE: frozenset[str] = frozenset({"exact", "theorem", "symbolic", "mixed"})
 
 
 @dataclass(slots=True)
@@ -42,8 +42,8 @@ class Result:
         Extra machine-readable data.
     """
 
-    status: str
-    mode: str
+    status: Literal["true", "false", "unknown", "conditional"]
+    mode: Literal["exact", "theorem", "symbolic", "mixed"]
     value: Any = None
     assumptions: list[str] = field(default_factory=list)
     justification: list[str] = field(default_factory=list)
@@ -91,6 +91,14 @@ class Result:
     def is_symbolic(self) -> bool:
         return self.mode == "symbolic"
 
+    @property
+    def is_mixed(self) -> bool:
+        return self.mode == "mixed"
+
+    @property
+    def is_definitive(self) -> bool:
+        return self.status in ("true", "false")
+
     def summary(self) -> str:
         details = []
         if self.assumptions:
@@ -136,7 +144,7 @@ class Result:
     ) -> Result:
         return cls(
             status="true",
-            mode=mode,
+            mode=cast(Literal["exact", "theorem", "symbolic", "mixed"], mode),
             value=value,
             assumptions=list(assumptions),
             justification=list(justification),
@@ -157,7 +165,7 @@ class Result:
     ) -> Result:
         return cls(
             status="false",
-            mode=mode,
+            mode=cast(Literal["exact", "theorem", "symbolic", "mixed"], mode),
             value=value,
             assumptions=list(assumptions),
             justification=list(justification),
@@ -178,7 +186,7 @@ class Result:
     ) -> Result:
         return cls(
             status="unknown",
-            mode=mode,
+            mode=cast(Literal["exact", "theorem", "symbolic", "mixed"], mode),
             value=value,
             assumptions=list(assumptions),
             justification=list(justification),
@@ -199,7 +207,7 @@ class Result:
     ) -> Result:
         return cls(
             status="conditional",
-            mode=mode,
+            mode=cast(Literal["exact", "theorem", "symbolic", "mixed"], mode),
             value=value,
             assumptions=list(assumptions),
             justification=list(justification),
@@ -238,16 +246,29 @@ def merge_results(*results: Result) -> Result:
     metadata: dict[str, Any] = {"merged": True}
     values: list[Any] = []
 
+    seen_assumptions: set[str] = set()
+    seen_justification: set[str] = set()
+    seen_proof: set[str] = set()
+
     for result in results:
-        assumptions.extend(x for x in result.assumptions if x not in assumptions)
-        justification.extend(x for x in result.justification if x not in justification)
-        proof_outline.extend(x for x in result.proof_outline if x not in proof_outline)
+        for x in result.assumptions:
+            if x not in seen_assumptions:
+                seen_assumptions.add(x)
+                assumptions.append(x)
+        for x in result.justification:
+            if x not in seen_justification:
+                seen_justification.add(x)
+                justification.append(x)
+        for x in result.proof_outline:
+            if x not in seen_proof:
+                seen_proof.add(x)
+                proof_outline.append(x)
         values.append(result.value)
 
     metadata["value_trace"] = values
     return Result(
-        status=status,
-        mode=mode,
+        status=cast(Literal["true", "false", "unknown", "conditional"], status),
+        mode=cast(Literal["exact", "theorem", "symbolic", "mixed"], mode),
         value=values[-1],
         assumptions=assumptions,
         justification=justification,

@@ -36,7 +36,7 @@ class BaireCategoryProfile:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-BAIRE_POSITIVE_TAGS: set[str] = {
+BAIRE_POSITIVE_TAGS: frozenset[str] = frozenset({
     "baire", "baire_space",
     "complete_metric", "completely_metrizable", "completely_metrizable_space",
     "polish_space", "polish",
@@ -45,36 +45,36 @@ BAIRE_POSITIVE_TAGS: set[str] = {
     "banach_space", "hilbert_space", "frechet_space",
     "cantor_set", "cantor_space",
     "baire_space_omega",
-}
-BAIRE_NEGATIVE_TAGS: set[str] = {
+})
+BAIRE_NEGATIVE_TAGS: frozenset[str] = frozenset({
     "not_baire", "meager_space", "first_category_space",
     "countable_no_isolated_points", "rationals_like",
-}
-COMPLETE_METRIC_TAGS: set[str] = {
+})
+COMPLETE_METRIC_TAGS: frozenset[str] = frozenset({
     "complete_metric", "completely_metrizable", "completely_metrizable_space",
     "polish_space", "polish",
     "banach_space", "hilbert_space", "frechet_space",
-}
-LCH_TAGS: set[str] = {
+})
+LCH_TAGS: frozenset[str] = frozenset({
     "locally_compact_hausdorff", "lch",
     "compact_hausdorff", "compact_t2",
     "locally_compact_t2",
-}
-POLISH_TAGS: set[str] = {
+})
+POLISH_TAGS: frozenset[str] = frozenset({
     "polish_space", "polish",
     "completely_metrizable", "completely_metrizable_space",
-}
-MEAGER_SPACE_TAGS: set[str] = {
+})
+MEAGER_SPACE_TAGS: frozenset[str] = frozenset({
     "meager_space", "first_category_space",
     "countable_no_isolated_points", "rationals_like",
-}
-COMEAGER_TAGS: set[str] = {
+})
+COMEAGER_TAGS: frozenset[str] = frozenset({
     "comeager", "residual", "generic_subset",
     "dense_g_delta",
-}
-OPEN_DENSE_TAGS: set[str] = {
+})
+OPEN_DENSE_TAGS: frozenset[str] = frozenset({
     "open_dense_subspace", "open_baire_subspace",
-}
+})
 
 
 # ---------------------------------------------------------------------------

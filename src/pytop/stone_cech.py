@@ -36,7 +36,7 @@ class StoneCechDescriptor:
 # Tag constants
 # ---------------------------------------------------------------------------
 
-STONE_CECH_TYCHONOFF_TAGS: set[str] = {
+STONE_CECH_TYCHONOFF_TAGS: frozenset[str] = frozenset({
     # Direct Tychonoff / T3.5
     "tychonoff", "t3_5", "t3½", "completely_regular_t1",
     # T4 / normal T1 → Tychonoff
@@ -48,15 +48,15 @@ STONE_CECH_TYCHONOFF_TAGS: set[str] = {
     "lie_group", "lie", "profinite", "profinite_group",
     # Compact Hausdorff → T4 → Tychonoff
     "compact_hausdorff", "compact_t2",
-}
+})
 
-COMPACT_HAUSDORFF_TAGS: set[str] = {
+COMPACT_HAUSDORFF_TAGS: frozenset[str] = frozenset({
     "compact_hausdorff", "compact_t2",
-}
+})
 
-STONE_CECH_BLOCKING_TAGS: set[str] = {
+STONE_CECH_BLOCKING_TAGS: frozenset[str] = frozenset({
     "not_tychonoff", "not_t3_5", "not_completely_regular", "not_t1", "not_hausdorff",
-}
+})
 
 # Tags for detecting compact + Hausdorff from separate tags
 _COMPACT_POSITIVE: frozenset[str] = frozenset({

@@ -17,29 +17,30 @@ from .capabilities import DEFAULT_REGISTRY, normalize_feature_name
 from .result import Result
 from .theorem_engine import infer_feature
 
-FINITE_INVARIANTS = {'weight', 'density', 'character', 'lindelof_number', 'cellularity'}
+FINITE_INVARIANTS: frozenset[str] = frozenset({'weight', 'density', 'character', 'lindelof_number', 'cellularity'})
 
 
 class InvariantError(ValueError):
     """Raised when an unsupported invariant is requested."""
 
 
+_INVARIANT_ALIASES: dict[str, str] = {
+    'w': 'weight',
+    'd': 'density',
+    'chi': 'character',
+    'local_character': 'character',
+    'lindelofnumber': 'lindelof_number',
+    'lindelof_no': 'lindelof_number',
+    'cell': 'cellularity',
+}
+
+
 def normalize_invariant_name(name: str) -> str:
     normalized = normalize_feature_name(name)
-    aliases = {
-        'w': 'weight',
-        'd': 'density',
-        'chi': 'character',
-        'local_character': 'character',
-        'lindelofnumber': 'lindelof_number',
-        'lindelof_no': 'lindelof_number',
-        'cell': 'cellularity',
-    }
-    normalized = aliases.get(normalized, normalized)
-    valid = set(FINITE_INVARIANTS)
-    if normalized not in valid:
+    normalized = _INVARIANT_ALIASES.get(normalized, normalized)
+    if normalized not in FINITE_INVARIANTS:
         raise InvariantError(
-            f"Unsupported invariant {name!r}. Expected one of {sorted(valid)}."
+            f"Unsupported invariant {name!r}. Expected one of {sorted(FINITE_INVARIANTS)}."
         )
     return normalized
 
@@ -294,7 +295,7 @@ def _mode_from_support(support: str) -> str:
         'symbolic': 'symbolic',
         'mixed': 'mixed',
         'none': 'symbolic',
-    }[support]
+    }.get(support, 'symbolic')
 
 
 __all__ = [

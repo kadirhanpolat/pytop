@@ -262,7 +262,7 @@ Z: MathSet = MathSet(
 Q: MathSet = MathSet(
     name="ℚ",
     description="Rational numbers",
-    predicate=lambda x: isinstance(x, (Fraction,)) or (isinstance(x, int) and not isinstance(x, bool)),
+    predicate=lambda x: isinstance(x, Fraction) or (isinstance(x, int) and not isinstance(x, bool)),
     _sample_fn=_q_sampler,
 )
 

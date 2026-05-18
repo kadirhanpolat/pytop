@@ -13,8 +13,9 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from dataclasses import dataclass
-from itertools import combinations
 from typing import Any
+
+from ._finite_utils import _sort_family
 
 
 class FiniteOperatorEngineError(ValueError):
@@ -167,12 +168,9 @@ def neighborhood_system(carrier: Iterable[Any], topology: Iterable[Iterable[Any]
     carrier_set, opens = _valid_topology_data(carrier, topology)
     if point not in carrier_set:
         raise FiniteOperatorEngineError(f"point {point!r} is not in the carrier")
-    subsets = _powerset(carrier_set)
-    neighborhoods = []
-    for candidate in subsets:
-        if any(point in open_set and open_set.issubset(candidate) for open_set in opens):
-            neighborhoods.append(candidate)
-    return _sort_family(neighborhoods)
+    # N is a neighbourhood of point iff it contains some open set U with point ∈ U.
+    # Return only the open neighbourhoods — O(|τ|) — which generate the full filter.
+    return _sort_family(u for u in opens if point in u)
 
 
 def relative_topology(
@@ -186,22 +184,33 @@ def relative_topology(
 
 
 def kuratowski_closure_check(carrier: Iterable[Any], topology: Iterable[Iterable[Any]]) -> dict[str, bool]:
-    carrier_set, _ = _valid_topology_data(carrier, topology)
-    all_subsets = _powerset(carrier_set)
+    # Verify the four Kuratowski closure axioms using closed sets only — O(|τ|²).
+    # No need to enumerate all 2^|X| subsets: the axioms are tested on the
+    # closed sets themselves (complements of open sets), which are already
+    # determined by the topology.
+    carrier_set, opens = _valid_topology_data(carrier, topology)
+    closed_sets = [carrier_set - u for u in opens]
 
+    # K1: cl(∅) = ∅
     empty_ok = closure(carrier_set, topology, frozenset()) == frozenset()
-    extensive_ok = all(subset.issubset(closure(carrier_set, topology, subset)) for subset in all_subsets)
+
+    # K2: A ⊆ cl(A) — check for each closed set (which is its own closure)
+    extensive_ok = all(c.issubset(closure(carrier_set, topology, c)) for c in closed_sets)
+
+    # K3: cl(cl(A)) = cl(A) — idempotent on closed sets
     idempotent_ok = all(
-        closure(carrier_set, topology, closure(carrier_set, topology, subset))
-        == closure(carrier_set, topology, subset)
-        for subset in all_subsets
+        closure(carrier_set, topology, closure(carrier_set, topology, c)) == closure(carrier_set, topology, c)
+        for c in closed_sets
     )
+
+    # K4: cl(A ∪ B) = cl(A) ∪ cl(B) — check all pairs of closed sets
     union_ok = all(
         closure(carrier_set, topology, left | right)
         == (closure(carrier_set, topology, left) | closure(carrier_set, topology, right))
-        for left in all_subsets
-        for right in all_subsets
+        for left in closed_sets
+        for right in closed_sets
     )
+
     return {
         "empty": empty_ok,
         "extensive": extensive_ok,
@@ -286,18 +295,6 @@ def _normalize_subset(subset: Iterable[Any], carrier_set: frozenset[Any]) -> fro
     return frozen
 
 
-def _powerset(carrier_set: frozenset[Any]) -> tuple[frozenset[Any], ...]:
-    points = sorted(carrier_set, key=repr)
-    subsets: list[frozenset[Any]] = []
-    for size in range(len(points) + 1):
-        for combo in combinations(points, size):
-            subsets.append(frozenset(combo))
-    return tuple(subsets)
-
-
-def _sort_family(family: Iterable[frozenset[Any]]) -> tuple[frozenset[Any], ...]:
-    unique = set(family)
-    return tuple(sorted(unique, key=lambda block: (len(block), tuple(map(repr, sorted(block, key=repr))))))
 
 
 __all__ = [

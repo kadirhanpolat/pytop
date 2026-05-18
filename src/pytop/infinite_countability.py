@@ -14,15 +14,15 @@ from .infinite_spaces import (
 )
 from .result import Result
 
-KNOWN_TRUE = {
-    DiscreteInfiniteSpace: {'first_countable'},
-    IndiscreteInfiniteSpace: {'first_countable', 'second_countable', 'separable', 'lindelof'},
-    CofiniteSpace: {'separable'},
-    CocountableSpace: {'lindelof'},
+KNOWN_TRUE: dict[type, frozenset[str]] = {
+    DiscreteInfiniteSpace: frozenset({'first_countable'}),
+    IndiscreteInfiniteSpace: frozenset({'first_countable', 'second_countable', 'separable', 'lindelof'}),
+    CofiniteSpace: frozenset({'separable'}),
+    CocountableSpace: frozenset({'lindelof'}),
 }
 
-KNOWN_FALSE = {
-    CocountableSpace: {'first_countable', 'second_countable', 'separable'},
+KNOWN_FALSE: dict[type, frozenset[str]] = {
+    CocountableSpace: frozenset({'first_countable', 'second_countable', 'separable'}),
 }
 
 
