@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.28"
+__version__ = "0.5.29"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2674,4 +2674,25 @@ from .symplectic_topology import (
     admits_kahler_structure,
     classify_symplectic,
     symplectic_profile,
+)
+from .motivic_homotopy import (
+    MotivicHomotopyProfile,
+    A1_HOMOTOPY_TAGS,
+    NISNEVICH_TOPOLOGY_TAGS,
+    MOTIVIC_COHOMOLOGY_TAGS,
+    ALGEBRAIC_K_THEORY_TAGS,
+    MILNOR_K_THEORY_TAGS,
+    STABLE_MOTIVIC_TAGS,
+    VOEVODSKY_TAGS,
+    MOTIVIC_SPHERE_TAGS,
+    get_named_motivic_profiles,
+    motivic_layer_summary,
+    motivic_chapter_index,
+    motivic_type_index,
+    is_a1_invariant,
+    has_nisnevich_descent,
+    is_motivic_cohomology_theory,
+    has_algebraic_k_theory_structure,
+    classify_motivic,
+    motivic_profile,
 )

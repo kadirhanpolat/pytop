@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.29] - 2026-05-19
+
+### Added
+- `motivic_homotopy.py` — A¹-homotopy theory, Nisnevich topology, motivic cohomology,
+  algebraic K-theory, Milnor K-theory, stable motivic homotopy category, Voevodsky theorems:
+  - `MotivicHomotopyProfile` dataclass with 8 tag frozenset constants
+    (`A1_HOMOTOPY_TAGS`, `NISNEVICH_TOPOLOGY_TAGS`, `MOTIVIC_COHOMOLOGY_TAGS`,
+    `ALGEBRAIC_K_THEORY_TAGS`, `MILNOR_K_THEORY_TAGS`, `STABLE_MOTIVIC_TAGS`,
+    `VOEVODSKY_TAGS`, `MOTIVIC_SPHERE_TAGS`)
+  - `get_named_motivic_profiles()` — 7 canonical profiles (A¹-homotopy space, Nisnevich
+    sheaf, motivic cohomology HZ, algebraic K-theory KGL, Milnor K-theory, S^{1,1}
+    motivic sphere, Chow groups, algebraic cobordism MGL)
+  - `motivic_layer_summary()`, `motivic_chapter_index()`, `motivic_type_index()`
+  - `is_a1_invariant()`, `has_nisnevich_descent()`, `is_motivic_cohomology_theory()`,
+    `has_algebraic_k_theory_structure()` — `Result`-returning analysis functions
+  - `classify_motivic()`, `motivic_profile()` — facade functions
+  - 173 tests in `tests/core/test_motivic_homotopy.py`
+
 ## [0.5.28] - 2026-05-19
 
 ### Added
