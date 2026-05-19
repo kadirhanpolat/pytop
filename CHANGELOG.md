@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.31] - 2026-05-19
+
+### Added
+- `spectral_sequences.py` — Serre, Adams, Eilenberg-Moore, Atiyah-Hirzebruch, Leray-Hirsch,
+  Lyndon-Hochschild-Serre, Bockstein, Grothendieck spectral sequences:
+  - `SpectralSequenceProfile` dataclass with 8 tag frozenset constants
+    (`SERRE_SS_TAGS`, `ADAMS_SS_TAGS`, `EILENBERG_MOORE_SS_TAGS`, `ATIYAH_HIRZEBRUCH_SS_TAGS`,
+    `LERAY_SS_TAGS`, `CONVERGENCE_TAGS`, `DIFFERENTIAL_TAGS`, `FILTRATION_TAGS`)
+  - `get_named_spectral_sequence_profiles()` — 8 canonical profiles (Serre fibration SS,
+    Adams SS, Eilenberg-Moore SS, Atiyah-Hirzebruch SS, Leray-Hirsch theorem,
+    LHS group extension SS, Bockstein SS, Grothendieck SS)
+  - `spectral_sequence_layer_summary()`, `spectral_sequence_chapter_index()`,
+    `spectral_sequence_type_index()`
+  - `is_multiplicative_spectral_sequence()`, `converges_strongly()`,
+    `has_collapse_at_e2()`, `is_first_quadrant_spectral_sequence()` — `Result`-returning
+    analysis functions
+  - `classify_spectral_sequence()`, `spectral_sequence_profile()` — facade functions
+  - 170 tests in `tests/core/test_spectral_sequences.py`
+
 ## [0.5.30] - 2026-05-19
 
 ### Added

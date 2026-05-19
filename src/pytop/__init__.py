@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.30"
+__version__ = "0.5.31"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -1876,6 +1876,26 @@ __all__ = [
     "cantor_bendixson_analysis",
     "classify_descriptive_complexity",
     "descriptive_set_profile",
+    # spectral sequences
+    "SpectralSequenceProfile",
+    "SERRE_SS_TAGS",
+    "ADAMS_SS_TAGS",
+    "EILENBERG_MOORE_SS_TAGS",
+    "ATIYAH_HIRZEBRUCH_SS_TAGS",
+    "LERAY_SS_TAGS",
+    "CONVERGENCE_TAGS",
+    "DIFFERENTIAL_TAGS",
+    "FILTRATION_TAGS",
+    "get_named_spectral_sequence_profiles",
+    "spectral_sequence_layer_summary",
+    "spectral_sequence_chapter_index",
+    "spectral_sequence_type_index",
+    "is_multiplicative_spectral_sequence",
+    "converges_strongly",
+    "has_collapse_at_e2",
+    "is_first_quadrant_spectral_sequence",
+    "classify_spectral_sequence",
+    "spectral_sequence_profile",
 ]
 
 
@@ -2716,4 +2736,25 @@ from .operads import (
     is_binary_quadratic_operad,
     classify_operad,
     operad_profile_report,
+)
+from .spectral_sequences import (
+    SpectralSequenceProfile,
+    SERRE_SS_TAGS,
+    ADAMS_SS_TAGS,
+    EILENBERG_MOORE_SS_TAGS,
+    ATIYAH_HIRZEBRUCH_SS_TAGS,
+    LERAY_SS_TAGS,
+    CONVERGENCE_TAGS,
+    DIFFERENTIAL_TAGS,
+    FILTRATION_TAGS,
+    get_named_spectral_sequence_profiles,
+    spectral_sequence_layer_summary,
+    spectral_sequence_chapter_index,
+    spectral_sequence_type_index,
+    is_multiplicative_spectral_sequence,
+    converges_strongly,
+    has_collapse_at_e2,
+    is_first_quadrant_spectral_sequence,
+    classify_spectral_sequence,
+    spectral_sequence_profile,
 )
