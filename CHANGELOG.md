@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.30] - 2026-05-19
+
+### Added
+- `operads.py` — symmetric/non-symmetric operads, Koszul duality, bar-cobar, A_infty/L_infty/E_n:
+  - `OperadProfile` dataclass with 8 tag frozenset constants
+    (`ASSOC_OPERAD_TAGS`, `COMM_OPERAD_TAGS`, `LIE_OPERAD_TAGS`, `KOSZUL_DUALITY_TAGS`,
+    `INFINITY_ALGEBRA_TAGS`, `LITTLE_DISKS_TAGS`, `TREE_COMPOSITION_TAGS`, `BAR_COBAR_TAGS`)
+  - `get_named_operad_profiles()` — 8 canonical profiles (Ass, Com, Lie, A_infty, L_infty,
+    little 2-disks E_2, Koszul duality example, colored operad)
+  - `operad_layer_summary()`, `operad_chapter_index()`, `operad_type_index()`
+  - `is_koszul_operad()`, `has_infinity_algebra_structure()`, `admits_koszul_dual()`,
+    `is_binary_quadratic_operad()` — `Result`-returning analysis functions
+  - `classify_operad()`, `operad_profile_report()` — facade functions
+  - 170 tests in `tests/core/test_operads.py`
+
 ## [0.5.29] - 2026-05-19
 
 ### Added

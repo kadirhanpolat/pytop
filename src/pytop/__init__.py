@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.29"
+__version__ = "0.5.30"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2695,4 +2695,25 @@ from .motivic_homotopy import (
     has_algebraic_k_theory_structure,
     classify_motivic,
     motivic_profile,
+)
+from .operads import (
+    OperadProfile,
+    ASSOC_OPERAD_TAGS,
+    COMM_OPERAD_TAGS,
+    LIE_OPERAD_TAGS,
+    KOSZUL_DUALITY_TAGS,
+    INFINITY_ALGEBRA_TAGS,
+    LITTLE_DISKS_TAGS,
+    TREE_COMPOSITION_TAGS,
+    BAR_COBAR_TAGS,
+    get_named_operad_profiles,
+    operad_layer_summary,
+    operad_chapter_index,
+    operad_type_index,
+    is_koszul_operad,
+    has_infinity_algebra_structure,
+    admits_koszul_dual,
+    is_binary_quadratic_operad,
+    classify_operad,
+    operad_profile_report,
 )
