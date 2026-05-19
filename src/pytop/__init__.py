@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.31"
+__version__ = "0.5.32"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2757,4 +2757,25 @@ from .spectral_sequences import (
     is_first_quadrant_spectral_sequence,
     classify_spectral_sequence,
     spectral_sequence_profile,
+)
+from .higher_categories import (
+    HigherCategoryProfile,
+    QUASI_CATEGORY_TAGS,
+    KAN_COMPLEX_TAGS,
+    SEGAL_SPACE_TAGS,
+    STABLE_INFINITY_TAGS,
+    INFINITY_TOPOS_TAGS,
+    ADJUNCTION_TAGS,
+    MODEL_CATEGORY_TAGS,  # noqa: F811 — higher_categories.MODEL_CATEGORY_TAGS shadows abstract_homotopy
+    ENRICHED_CATEGORY_TAGS,
+    get_named_higher_category_profiles,
+    higher_category_layer_summary,
+    higher_category_chapter_index,
+    higher_category_type_index,
+    is_infinity_categorical,
+    is_stable_infinity_category,
+    has_all_limits_and_colimits,
+    is_presentable_infinity_category,
+    classify_higher_category,
+    higher_category_profile,
 )

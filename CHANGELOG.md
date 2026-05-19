@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.32] - 2026-05-19
+
+### Added
+- `higher_categories.py` — quasi-categories, Kan complexes, complete Segal spaces,
+  stable ∞-categories, ∞-toposes, dg-categories, Quillen model categories:
+  - `HigherCategoryProfile` dataclass with 8 tag frozenset constants
+    (`QUASI_CATEGORY_TAGS`, `KAN_COMPLEX_TAGS`, `SEGAL_SPACE_TAGS`, `STABLE_INFINITY_TAGS`,
+    `INFINITY_TOPOS_TAGS`, `ADJUNCTION_TAGS`, `MODEL_CATEGORY_TAGS`, `ENRICHED_CATEGORY_TAGS`)
+  - `get_named_higher_category_profiles()` — 8 canonical profiles (quasi-category, Kan complex
+    / ∞-groupoid, complete Segal space, stable ∞-category, presentable ∞-category,
+    ∞-topos, dg-category, Quillen model category)
+  - `higher_category_layer_summary()`, `higher_category_chapter_index()`,
+    `higher_category_type_index()`
+  - `is_infinity_categorical()`, `is_stable_infinity_category()`,
+    `has_all_limits_and_colimits()`, `is_presentable_infinity_category()` — `Result`-returning
+    analysis functions
+  - `classify_higher_category()`, `higher_category_profile()` — facade functions
+  - 200 tests in `tests/core/test_higher_categories.py`
+
 ## [0.5.31] - 2026-05-19
 
 ### Added
