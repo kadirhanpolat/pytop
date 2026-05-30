@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.33] - 2026-05-30
+
+### Added
+- `topological_field_theory.py` — Atiyah-Segal TFT axioms, cobordism hypothesis, Frobenius algebras,
+  Chern-Simons theory, Donaldson theory, factorization algebras, topological strings:
+  - `TFTProfile` dataclass with 8 tag frozenset constants
+    (`ATIYAH_SEGAL_TAGS`, `COBORDISM_HYPOTHESIS_TAGS`, `FROBENIUS_ALGEBRA_TAGS`,
+    `EXTENDED_TFT_TAGS`, `CHERN_SIMONS_TAGS`, `FACTORIZATION_ALGEBRA_TAGS`,
+    `DONALDSON_TAGS`, `TOPOLOGICAL_STRING_TAGS`)
+  - `get_named_tft_profiles()` — 8 canonical profiles (Atiyah-Segal TFT, cobordism hypothesis TFT,
+    2D Frobenius TFT, Chern-Simons TFT, once-extended TFT, factorization algebra TFT,
+    Donaldson TFT, topological string TFT)
+  - `tft_summary()`, `tft_type_registry()`, `tft_dimension_registry()`
+  - `is_extended_tft()`, `satisfies_atiyah_segal_axioms()`,
+    `has_frobenius_algebra_structure()`, `admits_higher_categorical_formulation()` — `Result`-returning
+    analysis functions
+  - `classify_tft()`, `tft_profile_report()` — facade functions
+  - 196 tests in `tests/core/test_topological_field_theory.py`
+
+### Fixed
+- `__init__.py`: `higher_categories` symbols added to `__all__` (omitted in v0.5.32)
+
 ## [0.5.32] - 2026-05-19
 
 ### Added

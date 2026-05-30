@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.32"
+__version__ = "0.5.33"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -1896,6 +1896,46 @@ __all__ = [
     "is_first_quadrant_spectral_sequence",
     "classify_spectral_sequence",
     "spectral_sequence_profile",
+    # higher categories
+    "HigherCategoryProfile",
+    "QUASI_CATEGORY_TAGS",
+    "KAN_COMPLEX_TAGS",
+    "SEGAL_SPACE_TAGS",
+    "STABLE_INFINITY_TAGS",
+    "INFINITY_TOPOS_TAGS",
+    "ADJUNCTION_TAGS",
+    "MODEL_CATEGORY_TAGS",
+    "ENRICHED_CATEGORY_TAGS",
+    "get_named_higher_category_profiles",
+    "higher_category_layer_summary",
+    "higher_category_chapter_index",
+    "higher_category_type_index",
+    "is_infinity_categorical",
+    "is_stable_infinity_category",
+    "has_all_limits_and_colimits",
+    "is_presentable_infinity_category",
+    "classify_higher_category",
+    "higher_category_profile",
+    # topological field theory
+    "TFTProfile",
+    "ATIYAH_SEGAL_TAGS",
+    "COBORDISM_HYPOTHESIS_TAGS",
+    "FROBENIUS_ALGEBRA_TAGS",
+    "EXTENDED_TFT_TAGS",
+    "CHERN_SIMONS_TAGS",
+    "FACTORIZATION_ALGEBRA_TAGS",
+    "DONALDSON_TAGS",
+    "TOPOLOGICAL_STRING_TAGS",
+    "get_named_tft_profiles",
+    "tft_summary",
+    "tft_type_registry",
+    "tft_dimension_registry",
+    "is_extended_tft",
+    "satisfies_atiyah_segal_axioms",
+    "has_frobenius_algebra_structure",
+    "admits_higher_categorical_formulation",
+    "classify_tft",
+    "tft_profile_report",
 ]
 
 
@@ -2778,4 +2818,25 @@ from .higher_categories import (
     is_presentable_infinity_category,
     classify_higher_category,
     higher_category_profile,
+)
+from .topological_field_theory import (
+    TFTProfile,
+    ATIYAH_SEGAL_TAGS,
+    COBORDISM_HYPOTHESIS_TAGS,
+    FROBENIUS_ALGEBRA_TAGS,
+    EXTENDED_TFT_TAGS,
+    CHERN_SIMONS_TAGS,
+    FACTORIZATION_ALGEBRA_TAGS,
+    DONALDSON_TAGS,
+    TOPOLOGICAL_STRING_TAGS,
+    get_named_tft_profiles,
+    tft_summary,
+    tft_type_registry,
+    tft_dimension_registry,
+    is_extended_tft,
+    satisfies_atiyah_segal_axioms,
+    has_frobenius_algebra_structure,
+    admits_higher_categorical_formulation,
+    classify_tft,
+    tft_profile_report,
 )
