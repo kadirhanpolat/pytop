@@ -33,6 +33,7 @@ Python 3.11+ gereklidir.
 | # | Bölüm | Konu |
 |---|-------|------|
 | 0 | Küme Teorisi ve Fonksiyon Temelleri | Kümeler, bağıntılar, denklik, fonksiyon türleri, görüntü/ön-görüntü |
+| 0c | Önerme Mantığı | Proposition, bağlaçlar (¬∧∨→↔), tautoloji, ∀/∃/∃! niceleyiciler, T0/T1 uygulaması |
 | 0b | pytop'a Hızlı Giriş | Kurulum, uzay nesneleri, Result tipi, tag sistemi |
 
 ### Kısım I — Nokta-Küme Topolojisi

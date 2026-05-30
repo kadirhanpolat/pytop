@@ -1,0 +1,267 @@
+\chapter{Önerme Mantığı}
+\label{ch:propositional_logic}
+
+Matematiksel önerme (proposition), doğru ya da yanlış olabilen bir ifadedir.
+Bu bölüm \texttt{pytop.logic} modülünün sağladığı \texttt{Proposition},
+bağlaçlar ve sonlu niceleyicileri tanıtır; ardından ayrılma aksiyomlarını
+bu araçlarla nasıl ifade edebileceğimizi gösterir.
+
+% -----------------------------------------------------------------------
+\section{Önerme ve Doğruluk Değeri}
+\label{sec:proposition}
+
+\begin{definition}[Önerme]
+Bir \textbf{önerme} (proposition), kesin bir doğruluk değerine sahip
+(doğru veya yanlış) matematiksel bir ifadedir.
+\end{definition}
+
+\begin{lstlisting}[language=Python, caption={Temel önermeler}]
+from pytop import (
+    Proposition,
+    negate, conjunction, disjunction, implies, iff,
+    for_all, there_exists, unique_exists,
+)
+
+p = Proposition("p", True)
+q = Proposition("q", False)
+
+print(f"p : {p.truth_value}")
+print(f"q : {q.truth_value}")
+\end{lstlisting}
+
+\begin{lstlisting}[style=output]
+p : True
+q : False
+\end{lstlisting}
+
+% -----------------------------------------------------------------------
+\section{Mantıksal Bağlaçlar}
+\label{sec:connectives}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Fonksiyon} & \textbf{Sembol} & \textbf{Anlam} \\
+\midrule
+\texttt{negate(p)}        & $\neg p$       & p değil \\
+\texttt{conjunction(p,q)} & $p \wedge q$   & p ve q \\
+\texttt{disjunction(p,q)} & $p \vee q$     & p veya q \\
+\texttt{implies(p,q)}     & $p \to q$      & p ise q \\
+\texttt{iff(p,q)}         & $p \leftrightarrow q$ & p ancak ve ancak q \\
+\bottomrule
+\end{tabular}
+\caption{pytop.logic bağlaç fonksiyonları}
+\end{table}
+
+\begin{lstlisting}[language=Python]
+print("neg(p)  :", negate(p).truth_value)
+print("p and q :", conjunction(p, q).truth_value)
+print("p or q  :", disjunction(p, q).truth_value)
+print("p -> q  :", implies(p, q).truth_value)
+print("p <-> q :", iff(p, q).truth_value)
+print("p <-> p :", iff(p, p).truth_value)
+\end{lstlisting}
+
+\begin{lstlisting}[style=output]
+neg(p)  : False
+p and q : False
+p or q  : True
+p -> q  : False
+p <-> q : False
+p <-> p : True
+\end{lstlisting}
+
+\texttt{implies(p, q)} yalnızca $p = \text{True},\ q = \text{False}$
+durumunda yanlıştır; diğer üç kombinasyonda boş doğruluk (vacuous truth)
+nedeniyle doğrudur.
+
+% -----------------------------------------------------------------------
+\section{Algoritmalar}
+\label{sec:logic_algorithms}
+
+\subsection{Doğruluk Tablosu Üretimi}
+
+\begin{algorithm}
+\caption{Doğruluk Tablosu (İki Değişkenli)}
+\label{alg:truth_table}
+\begin{algorithmic}[1]
+\Require Bağlaç fonksiyonu $f$
+\Ensure Dört satırlı doğruluk tablosu
+\For{$(t_p, t_q) \in \{(T,T),(T,F),(F,T),(F,F)\}$}
+  \State $p \leftarrow \text{Proposition}("p", t_p)$
+  \State $q \leftarrow \text{Proposition}("q", t_q)$
+  \State Yazdır $(t_p, t_q, f(p, q).\text{truth\_value})$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Tautoloji Denetimi}
+
+Bir $\phi(p_1,\ldots,p_n)$ formülü tautoloji iff tüm $2^n$ atama için
+doğrudur — $O(2^n \cdot |\phi|)$.
+
+% -----------------------------------------------------------------------
+\section{pytop API}
+\label{sec:logic_api}
+
+\begin{lstlisting}[language=Python, caption={logic modülü importu}]
+from pytop import (
+    Proposition,
+    negate, conjunction, disjunction, implies, iff,
+    for_all, there_exists, unique_exists,
+)
+\end{lstlisting}
+
+Niceleyiciler:
+\begin{lstlisting}[language=Python]
+for_all(carrier, predicate)       # tum x: P(x)
+there_exists(carrier, predicate)  # bazi x: P(x)
+unique_exists(carrier, predicate) # tam bir x: P(x)
+\end{lstlisting}
+
+% -----------------------------------------------------------------------
+\section{Örnekler}
+\label{sec:logic_examples}
+
+\subsection{Doğruluk Tablosu}
+
+\begin{lstlisting}[language=Python]
+pairs = [(True, True), (True, False), (False, True), (False, False)]
+print(f"{'p':>5}  {'q':>5}  {'neg_p':>5}  {'p&q':>5}  {'p|q':>5}  {'p->q':>6}  {'p<->q':>6}")
+for tv_p, tv_q in pairs:
+    pp = Proposition("p", tv_p)
+    qq = Proposition("q", tv_q)
+    row = (pp.truth_value, qq.truth_value,
+           negate(pp).truth_value, conjunction(pp, qq).truth_value,
+           disjunction(pp, qq).truth_value,
+           implies(pp, qq).truth_value, iff(pp, qq).truth_value)
+    print("  ".join(f"{str(v):>5}" for v in row))
+\end{lstlisting}
+
+\begin{lstlisting}[style=output]
+    p      q  neg_p    p&q    p|q   p->q  p<->q
+----------------------------------------------------
+ True   True  False   True   True   True   True
+ True  False  False  False   True  False  False
+False   True   True  False   True   True  False
+False  False   True  False  False   True   True
+\end{lstlisting}
+
+\subsection{Tautolojiler — De Morgan ve Karşıt}
+
+\begin{theorem}[De Morgan Yasaları]
+\label{thm:de_morgan}
+\begin{align*}
+\neg(p \wedge q) &\leftrightarrow \neg p \vee \neg q \\
+\neg(p \vee q) &\leftrightarrow \neg p \wedge \neg q
+\end{align*}
+\end{theorem}
+
+\begin{theorem}[Karşıt (Contrapositive)]
+\label{thm:contrapositive}
+$(p \to q) \leftrightarrow (\neg q \to \neg p)$
+\end{theorem}
+
+\begin{lstlisting}[language=Python]
+def check_tautology(name, func):
+    ok = all(func(Proposition("p", tp), Proposition("q", tq)).truth_value
+             for tp, tq in [(True,True),(True,False),(False,True),(False,False)])
+    print(f"{name}: {'tautoloji' if ok else 'DEGIL'}")
+
+check_tautology("neg(p&q) <-> neg_p|neg_q",
+    lambda p, q: iff(negate(conjunction(p, q)), disjunction(negate(p), negate(q))))
+check_tautology("(p->q) <-> (neg_q->neg_p)",
+    lambda p, q: iff(implies(p, q), implies(negate(q), negate(p))))
+\end{lstlisting}
+
+\begin{lstlisting}[style=output]
+neg(p&q) <-> neg_p|neg_q: tautoloji
+(p->q) <-> (neg_q->neg_p): tautoloji
+\end{lstlisting}
+
+\subsection{Niceleyiciler}
+
+\begin{lstlisting}[language=Python]
+X = [1, 2, 3, 4, 5]
+print("for_all(X, x>0)       :", for_all(X, lambda x: x > 0))
+print("for_all(X, x>2)       :", for_all(X, lambda x: x > 2))
+print("there_exists(X, x>4)  :", there_exists(X, lambda x: x > 4))
+print("unique_exists(X, x==3):", unique_exists(X, lambda x: x == 3))
+\end{lstlisting}
+
+\begin{lstlisting}[style=output]
+for_all(X, x>0)       : True
+for_all(X, x>2)       : False
+there_exists(X, x>4)  : True
+unique_exists(X, x==3): True
+\end{lstlisting}
+
+\subsection{Topoloji Uygulaması — T0 ve T1}
+
+\begin{definition}[T0 — Kolmogorov]
+$\forall x \neq y \in X,\ \exists$ açık $U : (x \in U,\ y \notin U)$ veya
+$(y \in U,\ x \notin U)$.
+\end{definition}
+
+\begin{definition}[T1 — Fréchet]
+$\forall x \neq y \in X,\ \exists$ açık $U : x \in U,\ y \notin U$.
+\end{definition}
+
+\begin{lstlisting}[language=Python]
+from pytop import sierpinski_space, discrete_topology, indiscrete_topology
+
+def is_t0_logic(space):
+    pts   = list(space.carrier)
+    opens = list(space.topology)
+    return for_all(
+        [(x, y) for x in pts for y in pts if x != y],
+        lambda pair: there_exists(
+            opens, lambda U: (pair[0] in U) != (pair[1] in U)
+        )
+    )
+
+def is_t1_logic(space):
+    pts   = list(space.carrier)
+    opens = list(space.topology)
+    return for_all(
+        [(x, y) for x in pts for y in pts if x != y],
+        lambda pair: there_exists(
+            opens, lambda U: pair[0] in U and pair[1] not in U
+        )
+    )
+
+for name, sp in [("Sierpinski", sierpinski_space()),
+                 ("Discrete  ", discrete_topology(0, 1)),
+                 ("Indiscrete", indiscrete_topology(0, 1))]:
+    print(f"{name}  T0={is_t0_logic(sp)}  T1={is_t1_logic(sp)}")
+\end{lstlisting}
+
+\begin{lstlisting}[style=output]
+Sierpinski  T0=True   T1=False
+Discrete    T0=True   T1=True
+Indiscrete  T0=False  T1=False
+\end{lstlisting}
+
+% -----------------------------------------------------------------------
+\section{Alıştırmalar}
+\label{sec:logic_exercises}
+
+\begin{enumerate}
+  \item Beş önerme değeriyle tam bir doğruluk tablosu oluşturun; \texttt{implies}
+        kaç \texttt{(p, q)} çiftinde \texttt{False} döner?
+
+  \item \texttt{unique\_exists([0,1,2,3,4], predicate)} değerini \texttt{True}
+        yapan üç farklı koşul yazın.
+
+  \item T2 (Hausdorff) aksiyomunu \texttt{for\_all} ve \texttt{there\_exists}
+        kullanarak kodlayın:
+        $\forall x \neq y,\ \exists$ açık $U,V : x \in U,\ y \in V,\ U \cap V = \emptyset$.
+        Sierpiński, discrete ve indiscrete için test edin.
+
+  \item \textit{(Teori)} \texttt{implies(p, q)} neden yalnızca $p = T, q = F$
+        durumunda yanlıştır? Boş doğruluk (vacuous truth) kavramını açıklayın.
+
+  \item \textit{(Teori)} De Morgan yasalarını önerme mantığı için ispatlayın:
+        $\neg(p \wedge q) \leftrightarrow \neg p \vee \neg q$.
+\end{enumerate}
