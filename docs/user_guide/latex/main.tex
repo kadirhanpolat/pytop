@@ -27,6 +27,7 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \definecolor{codebg}{rgb}{0.97,0.97,0.97}
+\definecolor{outputbg}{rgb}{0.93,0.93,0.93}
 \definecolor{codegreen}{rgb}{0.0,0.5,0.0}
 \definecolor{codepurple}{rgb}{0.5,0.0,0.5}
 \lstset{
@@ -42,6 +43,16 @@
   numbers=left,
   numberstyle=\tiny\color{gray},
   tabsize=4,
+  showstringspaces=false,
+}
+\lstdefinestyle{output}{
+  language={},
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{outputbg},
+  frame=single,
+  framerule=0.4pt,
+  numbers=none,
+  breaklines=true,
   showstringspaces=false,
 }
 
