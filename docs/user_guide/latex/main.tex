@@ -1,9 +1,10 @@
 \documentclass[12pt, a4paper, oneside]{book}
 
-% ── Encoding & language ────────────────────────────────────────────────────────
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[turkish]{babel}
+% ── Encoding & language (xelatex) ─────────────────────────────────────────────
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\usepackage{polyglossia}
+\setmainlanguage{turkish}
 
 % ── Math ───────────────────────────────────────────────────────────────────────
 \usepackage{amsmath, amsthm, amssymb}
