@@ -1,4 +1,4 @@
-# Bölüm 6 — Sayılabilirlik Aksiyomları
+# Bölüm 9 — Sayılabilirlik Aksiyomları
 
 Sayılabilirlik aksiyomları, bir topolojik uzaydaki "bilgi"nin sayılabilir büyüklükte
 yapılarla tanımlanıp tanımlanamayacağını araştırır.

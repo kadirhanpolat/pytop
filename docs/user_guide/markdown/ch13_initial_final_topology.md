@@ -49,7 +49,7 @@ Her `FiniteMap`, kodomen uzayındaki açık kümelerin ön-görüntülerini alt-
 1. Her $f_\alpha$ için $\{f_\alpha^{-1}(U) \mid U \in \tau_\alpha\}$ ön-görüntülerini
    hesapla — $O(|\tau_\alpha| \cdot |X|)$.
 2. Ön-görüntülerin birleşiminden alt-baz $\mathcal{S}$ oluştur.
-3. Alt-bazdan topolojiyi üret (Bölüm 01'deki baz–topoloji inşası) —
+3. Alt-bazdan topolojiyi üret (Bölüm 4'teki baz–topoloji inşası) —
    $O(|\mathcal{S}| \cdot 2^{|X|})$ en kötü.
 
 ---

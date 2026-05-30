@@ -1,6 +1,6 @@
 # %% [markdown]
 """
-# Bölüm 0b — pytop'a Hızlı Giriş
+# Bölüm 1 — pytop'a Hızlı Giriş
 
 pytop kurulumu, temel uzay nesneleri, `Result` tipi ve tag sistemi —
 kılavuzun geri kalanını okumadan önce bu bölümü çalıştırın.
@@ -225,9 +225,9 @@ kaba kuvvet taraması yalnızca küçük n için pratiktir.
 
 Bu bölümden sonra kılavuzu sırayla okuyun:
 
-- **Bölüm 1** — Topolojik uzay aksiyomları, baz, alt-baz
-- **Bölüm 2** — Açık/kapalı/clopen altkümeler, kapanış, iç, sınır
-- **Bölüm 3** — Ayrılma aksiyomları T0–T4
+- **Bölüm 4** — Topolojik uzay aksiyomları, baz, alt-baz
+- **Bölüm 5** — Açık/kapalı/clopen altkümeler, kapanış, iç, sınır
+- **Bölüm 6** — Ayrılma aksiyomları T0–T4
 
 Herhangi bir bölümdeki `from pytop import (...)` satırı
 o bölümde kullanılan tüm fonksiyonları listeler.

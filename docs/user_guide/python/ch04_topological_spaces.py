@@ -1,6 +1,6 @@
 # %% [markdown]
 """
-# Bölüm 1 — Topolojik Uzaylar
+# Bölüm 4 — Topolojik Uzaylar
 
 Topoloji, bir kümedeki noktaların birbirine "yakın" olup olmadığını, aralarındaki
 sürekliliği ve şekilsel özellikleri, mesafe kavramına gerek duymadan inceleyen

@@ -1,6 +1,6 @@
 # %% [markdown]
 """
-# Bölüm 5 — Bağlantılılık
+# Bölüm 8 — Bağlantılılık
 
 Bağlantılılık, bir topolojik uzayın iki ayrı açık parçaya bölünememesi özelliğidir.
 Yol-bağlantılılık daha güçlü bir kavramdır ve sürekli yolların varlığına dayanır.

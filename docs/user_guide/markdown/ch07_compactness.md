@@ -1,4 +1,4 @@
-# Bölüm 4 — Kompaktlık
+# Bölüm 7 — Kompaktlık
 
 Kompaktlık, sonsuz yapılarda "sınırlılık" fikrinin topolojik soyutlamasıdır.
 Açık örtü tanımı temel alınarak incelenmekte; varyantlar ve lokal kompaktlık da ele alınmaktadır.

@@ -1,4 +1,4 @@
-# Bölüm 0 — Küme Teorisi ve Fonksiyon Temelleri
+# Bölüm 3 — Küme Teorisi ve Fonksiyon Temelleri
 
 pytop'un tüm modülleri küme teorisi ve fonksiyon kavramları üzerine kuruludur.
 Bu bölüm, kılavuzun geri kalanında varsayılan ön koşulları pytop API'siyle birlikte pekiştirir.

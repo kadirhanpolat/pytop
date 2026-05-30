@@ -1,6 +1,6 @@
 # %% [markdown]
 """
-# Bölüm 8 — Metrik Tamlık ve Kompaktlık
+# Bölüm 15 — Metrik Tamlık ve Kompaktlık
 
 Metrik tamlık (completeness), bir metrik uzayda Cauchy dizilerinin yakınsayıp
 yakınsamadığını araştıran temel bir kavramdır. Tamamen sınırlılık ise kompaktlık

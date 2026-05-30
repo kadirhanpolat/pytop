@@ -1,6 +1,6 @@
 # %% [markdown]
 """
-# Bölüm 4 — Kompaktlık
+# Bölüm 7 — Kompaktlık
 
 Kompaktlık, sonsuz topolojik uzaylarda "sonluluk" gibi davranan temel bir özelliğin
 soyutlamasıdır. Her açık örtüyü sonlu bir alt-örtüye indirgemek mümkündür.

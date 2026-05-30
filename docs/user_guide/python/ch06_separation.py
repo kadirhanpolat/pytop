@@ -1,6 +1,6 @@
 # %% [markdown]
 """
-# Bölüm 3 — Ayrılma Aksiyomları
+# Bölüm 6 — Ayrılma Aksiyomları
 
 Ayrılma aksiyomları (T0–T4 ve ötesi), bir topolojik uzaydaki noktaların ve kapalı
 kümelerin birbirinden açık kümeler aracılığıyla ne ölçüde "ayrılabildiğini" ölçer.

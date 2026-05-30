@@ -1,6 +1,6 @@
 # %% [markdown]
 """
-# Bölüm 2 — Yüklemler ve Altküme Operatörleri
+# Bölüm 5 — Yüklemler ve Altküme Operatörleri
 
 Bu bölümde bir topolojik uzaydaki altkümeler üzerinde tanımlı temel yüklemler
 (açık, kapalı, clopen, yoğun, hiçbiryerde-yoğun) ve altküme operatörleri

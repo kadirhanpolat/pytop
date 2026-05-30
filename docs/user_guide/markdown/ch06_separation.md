@@ -1,4 +1,4 @@
-# Bölüm 3 — Ayrılma Aksiyomları
+# Bölüm 6 — Ayrılma Aksiyomları
 
 ## 1. Konu
 

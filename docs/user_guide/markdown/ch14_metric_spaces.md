@@ -1,4 +1,4 @@
-# Bölüm 7 — Metrik Uzaylar
+# Bölüm 14 — Metrik Uzaylar
 
 Metrik uzaylar, mesafe fonksiyonuna dayanan topolojik yapılardır. Her metrik uzay
 doğal olarak bir topolojik uzay oluşturur; bu yapı "indüklenen topoloji" olarak adlandırılır.

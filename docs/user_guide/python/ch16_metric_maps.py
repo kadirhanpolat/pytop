@@ -1,6 +1,6 @@
 # %% [markdown]
 """
-# Bölüm 9 — Metrik Fonksiyonlar ve Sözleşmeler
+# Bölüm 16 — Metrik Fonksiyonlar ve Sözleşmeler
 
 Bu bölümde metrik uzaylar arasındaki fonksiyon türleri (izometri, Lipschitz, sürekli)
 ve bunların sınıflandırılması incelenmektedir.

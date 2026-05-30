@@ -1,4 +1,4 @@
-# Bölüm 2 — Yüklemler ve Altküme Operatörleri
+# Bölüm 5 — Yüklemler ve Altküme Operatörleri
 
 ## 1. Konu
 

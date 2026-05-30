@@ -1,4 +1,4 @@
-# Bölüm 0c — Önerme Mantığı
+# Bölüm 2 — Önerme Mantığı
 
 Matematiksel önerme (proposition), doğru ya da yanlış olabilen bir ifadedir.
 Bu bölüm `pytop.logic` modülünün sağladığı `Proposition`, bağlaçlar ve

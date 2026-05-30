@@ -1,4 +1,4 @@
-# Bölüm 0b — pytop'a Hızlı Giriş
+# Bölüm 1 — pytop'a Hızlı Giriş
 
 pytop kurulumu, temel uzay nesneleri, `Result` tipi ve tag sistemi —
 kılavuzun geri kalanını okumadan önce bu bölümü çalıştırın.
@@ -154,6 +154,6 @@ n=4: 355
 
 ## 8. Sıradaki Adım
 
-- **Bölüm 0** — Küme teorisi ve fonksiyon temelleri (matematiksel ön koşullar)
-- **Bölüm 1** — Topolojik uzay aksiyomları, baz, alt-baz
-- **Bölüm 2** — Açık/kapalı altkümeler, kapanış, iç, sınır
+- **Bölüm 3** — Küme teorisi ve fonksiyon temelleri (matematiksel ön koşullar)
+- **Bölüm 4** — Topolojik uzay aksiyomları, baz, alt-baz
+- **Bölüm 5** — Açık/kapalı altkümeler, kapanış, iç, sınır
