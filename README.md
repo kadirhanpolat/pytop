@@ -1,11 +1,11 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-0.5.1-blue)
-![Coverage](https://img.shields.io/badge/coverage-99.68%25-brightgreen)
+![Version](https://img.shields.io/badge/version-0.5.33-blue)
+![Coverage](https://img.shields.io/badge/coverage-98.74%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
-A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, and more.
+A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
 ## Installation
 
@@ -53,14 +53,41 @@ from pytop.experimental import maturity_registry
 | Surfaces & manifolds | `surfaces`, `surface_classification`, `manifolds`, `three_manifolds` |
 | Graph topology | `graph_topology` |
 | Cardinal functions | `cardinal_functions_framework`, `cardinal_numbers` |
+| Higher algebra | `operads`, `spectral_sequences` |
+| Higher categories | `higher_categories`, `topological_field_theory` |
 | Cosmology | `cosmology_topology` |
 | Experimental | `pytop.experimental` |
 
-## What's New in v0.5.1
+## Documentation
 
-- **99.68% test coverage** — 644 new targeted tests added across 50+ modules
-- **CI lint clean** — all ruff errors resolved across `src/` and `tests/`
-- Bug fixes: removed duplicate `is_totally_disconnected` export, unused variable in `unified_property.py`, bare f-string in `inverse_systems.py`
+A comprehensive user guide (`docs/user_guide/`) covering point-set topology and metric spaces
+in **four parallel formats**: Python scripts, Jupyter notebooks, Markdown, and LaTeX (PDF).
+
+| # | Chapter | Topics |
+|---|---------|--------|
+| 1–3 | Prerequisites | Quick start, propositional logic, set theory & functions |
+| 4–13 | Point-set topology | Spaces, predicates, separation, compactness, connectedness, countability, continuous maps, subspace/product, quotient, initial/final topology |
+| 14–16 | Metric spaces | Metric spaces, completeness & compactness, metric maps |
+
+```bash
+# Run any chapter as a script
+python docs/user_guide/python/ch04_topological_spaces.py
+
+# Open a notebook
+jupyter lab docs/user_guide/notebook/ch07_compactness.ipynb
+
+# Compile the PDF (requires xelatex)
+cd docs/user_guide/latex && xelatex main.tex
+```
+
+## What's New in v0.5.33
+
+- **`topological_field_theory`** — Atiyah-Segal axioms, cobordism hypothesis, Frobenius algebras, Chern-Simons, Donaldson, factorization algebras (196 tests)
+- **`higher_categories`** — quasi-categories, Kan complexes, complete Segal spaces, stable ∞-categories, ∞-toposes (200 tests)
+- **`spectral_sequences`** — Serre, Adams, AHSS, Leray-Hirsch, LHS, Grothendieck (170 tests)
+- **`operads`** — Ass/Com/Lie/A∞/L∞/E_n, Koszul duality, bar-cobar (170 tests)
+- **User guide** — 16-chapter guide in 4 formats, 73-page compiled PDF
+- **8 764 tests passing**, 98.74% coverage
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
 

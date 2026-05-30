@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+- `docs/user_guide/` — comprehensive 16-chapter user guide in four parallel formats
+  (Python scripts, Jupyter notebooks, Markdown, LaTeX/PDF):
+  - **Part 0 — Prerequisites (ch01–ch03):** pytop quick start, propositional logic
+    (`pytop.logic`), set theory & function fundamentals
+  - **Part I — Point-set topology (ch04–ch13):** topological spaces, predicates &
+    subset operators, separation axioms (T0–T4), compactness, connectedness,
+    countability, continuous maps & homeomorphisms, subspace & product topology,
+    quotient topology, initial & final topology
+  - **Part II — Metric spaces (ch14–ch16):** metric spaces, metric completeness &
+    compactness, metric maps & contracts
+  - LaTeX source compiles to a 73-page PDF (`xelatex main.tex`); all listings
+    styles (`output`) and chapter cross-references verified
+
 ## [0.5.33] - 2026-05-30
 
 ### Added
