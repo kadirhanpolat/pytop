@@ -1,0 +1,180 @@
+\chapter{Alt Uzay ve Çarpım Topolojisi}
+
+Alt uzay topolojisi bir uzayın alt kümesine miras kalan topolojiyi tanımlar.
+Çarpım topolojisi ise iki uzayı birleştirerek yeni bir uzay kurar.
+
+%-------------------------------------------------------------------
+\section{Konu}
+
+\begin{definition}[Alt Uzay Topolojisi]
+$(X, \tau)$ uzayı ve $A \subseteq X$ verilsin. \textbf{Alt uzay topolojisi:}
+\[
+\tau_A = \{U \cap A : U \in \tau\}.
+\]
+\end{definition}
+
+\begin{definition}[Çarpım Topolojisi]
+$(X, \tau_X)$ ve $(Y, \tau_Y)$ verilsin. Çarpım topolojisi $X \times Y$ üzerinde
+$\{U \times V : U \in \tau_X,\, V \in \tau_Y\}$ bazından üretilir.
+\end{definition}
+
+Projeksiyon $\pi_X: X \times Y \to X$ ve $\pi_Y: X \times Y \to Y$ süreklidir.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Özellik} & \textbf{Alt uzay} & \textbf{Çarpım} \\
+\midrule
+Hausdorff & \checkmark & \checkmark \\
+Kompaktlık & Yalnız kapalı alt uzay & \checkmark (Tychonoff) \\
+Bağlantılılık & Hayır (genel) & \checkmark \\
+T0/T1/T2 & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\caption{Topolojik özelliklerin kalıtımı}
+\end{table}
+
+%-------------------------------------------------------------------
+\section{Teoremler}
+
+\begin{theorem}
+Hausdorff uzayın her alt uzayı Hausdorff'tur.
+\end{theorem}
+
+\begin{theorem}
+Kompakt uzayın kapalı alt uzayı kompakttır.
+\end{theorem}
+
+\begin{theorem}
+$X$ ve $Y$ bağlantılı $\Rightarrow X \times Y$ bağlantılıdır.
+\begin{proof}[Kanıt İskeleti]
+$\{x_0\} \times Y$ ve $X \times \{y_0\}$ bağlantılı dilimler; kesişimleri üzerinden birleşerek tüm çarpımı kapsar.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}[Tychonoff, $n=2$]
+$X$ ve $Y$ kompakt $\Rightarrow X \times Y$ kompakttır.
+\end{theorem}
+
+\begin{theorem}[Evrensel Özellik — Çarpım]
+$f: Z \to X \times Y$ sürekli $\Leftrightarrow \pi_X \circ f$ ve $\pi_Y \circ f$ süreklidir.
+\end{theorem}
+
+%-------------------------------------------------------------------
+\section{Algoritmalar}
+
+\subsection{finite\_subspace — $O(|\tau| \cdot |A|)$}
+
+\begin{algorithm}
+\caption{Subspace$(X, \tau, A)$}
+\begin{algorithmic}[1]
+\State $\tau_A \leftarrow \{\}$
+\For{each $U \in \tau$}
+    \State $\tau_A$.add$(U \cap A)$
+\EndFor
+\State \Return $(A, \tau_A)$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{binary\_product — $O(|\tau_X| \cdot |\tau_Y|)$}
+
+\begin{algorithm}
+\caption{Product$(X, \tau_X, Y, \tau_Y)$}
+\begin{algorithmic}[1]
+\State basis $\leftarrow \{U \times V : U \in \tau_X,\, V \in \tau_Y\}$
+\State \Return topology\_from\_basis$(X \times Y,$ basis$)$
+\end{algorithmic}
+\end{algorithm}
+
+%-------------------------------------------------------------------
+\section{pytop API}
+
+\begin{lstlisting}[language=Python]
+from pytop import (
+    finite_subspace,
+    binary_product,
+    sierpinski_space,
+    discrete_topology,
+    indiscrete_topology,
+    make_topology,
+    is_compact,
+    is_connected,
+    is_t2,
+)
+\end{lstlisting}
+
+\texttt{finite\_subspace(space, subset)} $\to$ \texttt{FiniteTopologicalSpace}
+
+\texttt{binary\_product(left, right)} $\to$ \texttt{FiniteTopologicalSpace} (carrier: çift-demetler)
+
+%-------------------------------------------------------------------
+\section{Örnekler}
+
+\subsection*{Örnek 5.1 — Alt Uzay: Ayrık Topoloji}
+
+\begin{lstlisting}[language=Python]
+d4 = discrete_topology(1, 2, 3, 4)
+sub12 = finite_subspace(d4, [1, 2])
+print("carrier:", sub12.carrier)
+print("topology:", sorted([sorted(list(u)) for u in sub12.topology],
+                          key=lambda x: (len(x), x)))
+\end{lstlisting}
+
+\begin{verbatim}
+carrier: (1, 2)
+topology: [[], [1], [2], [1, 2]]
+\end{verbatim}
+
+\subsection*{Örnek 5.4 — Çarpım: $D(0,1) \times D(0,1)$}
+
+\begin{lstlisting}[language=Python]
+d2 = discrete_topology(0, 1)
+prod_dd = binary_product(d2, d2)
+print("carrier:", sorted(prod_dd.carrier))
+print("topology size:", len(list(prod_dd.topology)))
+print("compact:", is_compact(prod_dd).status)
+print("connected:", is_connected(prod_dd).status)
+\end{lstlisting}
+
+\begin{verbatim}
+carrier: [(0, 0), (0, 1), (1, 0), (1, 1)]
+topology size: 16
+compact: true
+connected: false
+\end{verbatim}
+
+\subsection*{Örnek 5.5 — Çarpım: Sierpiński $\times$ Sierpiński}
+
+\begin{lstlisting}[language=Python]
+ss = binary_product(s, s)
+print("topology size:", len(list(ss.topology)))
+print("compact:", is_compact(ss).status)
+print("connected:", is_connected(ss).status)
+\end{lstlisting}
+
+\begin{verbatim}
+topology size: 6
+compact: true
+connected: true
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item Sierpiński uzayının $\{0\}$ ve $\{1\}$ alt uzaylarını oluşturun ve
+      hangi topolojiyi taşıdığını belirleyin.
+\item 4-noktalı özel bir uzayda $\{2,3\}$ alt uzayını bulun.
+\item \texttt{binary\_product(sierpinski\_space(), discrete\_topology(0,1))}
+      için \texttt{is\_compact} ve \texttt{is\_connected} kontrol edin.
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item Alt uzay topolojisinde dahil etme $i: A \to X$'in sürekli olduğunu ispatlayın.
+\item $X$ ve $Y$ bağlantılı $\Rightarrow X \times Y$ bağlantılı olduğunu ispatlayın.
+\end{enumerate}

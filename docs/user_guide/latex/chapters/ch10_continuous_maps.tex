@@ -1,0 +1,175 @@
+\chapter{Sürekli Fonksiyonlar ve Homeomorfizmalar}
+
+Topolojik uzaylar arasındaki fonksiyonlarda süreklilik, açık kümelerin
+geri çekiminin açık olması koşuluna dayanır.
+
+%-------------------------------------------------------------------
+\section{Konu}
+
+\begin{definition}[Sürekli Fonksiyon]
+$f: (X, \tau_X) \to (Y, \tau_Y)$ fonksiyonu \textbf{sürekli} ise:
+\[
+\forall V \in \tau_Y:\; f^{-1}(V) \in \tau_X.
+\]
+\end{definition}
+
+Eşdeğer koşullar:
+\begin{itemize}
+  \item Her kapalı $F \subseteq Y$ için $f^{-1}(F)$ kapalıdır.
+  \item Her $x \in X$ ve $f(x)$'in her komşuluğu $W$ için $f^{-1}(W)$, $x$'in komşuluğudur.
+\end{itemize}
+
+\begin{definition}[Homeomorfizma]
+$f: X \to Y$ \textbf{homeomorfizma} ise: bijektif, $f$ sürekli, $f^{-1}$ sürekli.
+$(X, \tau_X) \cong (Y, \tau_Y)$ ile gösterilir.
+\end{definition}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Tür} & \textbf{Koşul} \\
+\midrule
+Sabit fonksiyon & $f(x) = c$; her zaman sürekli \\
+Özdeşlik & $f(x) = x$; her zaman sürekli \\
+Bileşke & $f$, $g$ sürekli $\Rightarrow g \circ f$ sürekli \\
+Homeomorfizma & Bijektif; $f$ ve $f^{-1}$ sürekli \\
+\bottomrule
+\end{tabular}
+\caption{Süreklilik hiyerarşisi}
+\end{table}
+
+%-------------------------------------------------------------------
+\section{Teoremler}
+
+\begin{theorem}
+Her sabit fonksiyon süreklidir.
+\begin{proof}[Kanıt İskeleti]
+$f^{-1}(V) = X$ eğer $c \in V$, $\emptyset$ eğer $c \notin V$; her ikisi de açıktır.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+$f: X \to Y$ ve $g: Y \to Z$ sürekli $\Rightarrow g \circ f$ süreklidir.
+\end{theorem}
+
+\begin{theorem}
+$f: X \to Y$ sürekli, $X$ kompakt $\Rightarrow f(X)$ kompakttır.
+\end{theorem}
+
+\begin{theorem}
+$f: X \to Y$ sürekli, $X$ bağlantılı $\Rightarrow f(X)$ bağlantılıdır.
+\end{theorem}
+
+\begin{theorem}
+Kompakt $X$'ten Hausdorff $Y$'ye sürekli bijeksiyon $\Rightarrow$ homeomorfizma.
+\end{theorem}
+
+%-------------------------------------------------------------------
+\section{Algoritmalar}
+
+\subsection{is\_continuous\_finite\_map — $O(|\tau_Y| \cdot |X|)$}
+
+\begin{algorithm}
+\caption{IsContinuous$(X, \tau_X, Y, \tau_Y, f)$}
+\begin{algorithmic}[1]
+\For{each $V \in \tau_Y$}
+    \State preimage $\leftarrow \{x \in X : f(x) \in V\}$
+    \If{preimage $\notin \tau_X$}
+        \State \Return False
+    \EndIf
+\EndFor
+\State \Return True
+\end{algorithmic}
+\end{algorithm}
+
+%-------------------------------------------------------------------
+\section{pytop API}
+
+\begin{lstlisting}[language=Python]
+from pytop import (
+    is_continuous_finite_map,
+    finite_homeomorphism_result,
+    sierpinski_space,
+    discrete_topology,
+    indiscrete_topology,
+)
+\end{lstlisting}
+
+\texttt{is\_continuous\_finite\_map(domain, domain\_topology, codomain, codomain\_topology, mapping)} $\to$ \texttt{bool}
+
+\texttt{finite\_homeomorphism\_result(left, right)} $\to$ \texttt{Result}
+
+%-------------------------------------------------------------------
+\section{Örnekler}
+
+\subsection*{Örnek 5.2 — Ayrık Topoloji: Her Fonksiyon Sürekli}
+
+\begin{lstlisting}[language=Python]
+d = discrete_topology(0, 1)
+d_pts = list(d.carrier)
+d_topo = [set(u) for u in d.topology]
+
+f_id   = {0: 0, 1: 1}
+f_swap = {0: 1, 1: 0}
+print("ozdeslik:", is_continuous_finite_map(d_pts, d_topo, d_pts, d_topo, f_id))
+print("swap:    ", is_continuous_finite_map(d_pts, d_topo, d_pts, d_topo, f_swap))
+\end{lstlisting}
+
+\begin{verbatim}
+ozdeslik continuous: True
+swap     continuous: True
+\end{verbatim}
+
+\subsection*{Örnek 5.3 — Sierpiński $\to$ Ayrık: Sürekli Değil}
+
+\begin{lstlisting}[language=Python]
+s = sierpinski_space()
+s_pts = list(s.carrier)
+s_topo = [set(u) for u in s.topology]
+print("id: S->D:", is_continuous_finite_map(s_pts, s_topo, d_pts, d_topo, f_id))
+print("id: D->S:", is_continuous_finite_map(d_pts, d_topo, s_pts, s_topo, f_id))
+\end{lstlisting}
+
+\begin{verbatim}
+id: Sierpinski -> Disc continuous: False
+id: Disc -> Sierpinski continuous: True
+\end{verbatim}
+
+Sierpiński $\tau = \{\emptyset, \{0,1\}, \{1\}\}$: $f^{-1}(\{0\}) = \{0\}$ Sierpiński'de açık değil.
+
+\subsection*{Örnek 5.5 — Homeomorfizma Kontrolü}
+
+\begin{lstlisting}[language=Python]
+d2a = discrete_topology(1, 2)
+d2b = discrete_topology('a', 'b')
+ind2 = indiscrete_topology(1, 2)
+print("D(1,2) ~ D(a,b):", finite_homeomorphism_result(d2a, d2b).status)
+print("D(1,2) ~ S(0,1):", finite_homeomorphism_result(d2a, s).status)
+print("D(1,2) ~ Ind(1,2):", finite_homeomorphism_result(d2a, ind2).status)
+\end{lstlisting}
+
+\begin{verbatim}
+D(1,2) ~ D(a,b): true
+D(1,2) ~ S(0,1): false
+D(1,2) ~ Ind(1,2): false
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item Özel bir topolojide $f(0)=0, f(1)=0, f(2)=1$ fonksiyonunun sürekli
+      olup olmadığını kontrol edin.
+\item Sierpiński uzayından kendisine giden dört fonksiyonu test edin.
+\item \texttt{finite\_homeomorphism\_result} ile iki ayrık uzayın homeomorf olduğunu doğrulayın.
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item Her sabit fonksiyonun sürekli olduğunu ispatlayın.
+\item $f \circ g$ bileşkesinin sürekli olduğunu ispatlayın.
+\end{enumerate}

@@ -38,6 +38,8 @@ Python 3.11+ gereklidir.
 | 4 | Kompaktlık | Açık örtü, varyantlar, Lindelöf, lokal kompakt, Tychonoff teoremi |
 | 5 | Bağlantılılık | Bağlantılı, yol-bağlantılı, ark-bağlantılı, lokal, tam. bağlantısız |
 | 6 | Sayılabilirlik Aksiyomları | 1st/2nd countable, ayrılabilir, Lindelöf |
+| 10 | Sürekli Fonksiyonlar | Süreklilik tanımı, homeomorfizma, sabit/özdeşlik/bileşke |
+| 11 | Alt Uzay ve Çarpım Topolojisi | Alt uzay (τ_A = U∩A), çarpım topolojisi, özellik kalıtımı |
 
 ### Kısım II — Metrik Uzaylar
 
