@@ -1,0 +1,222 @@
+\chapter{Bölüm Topolojisi}
+
+Bölüm topolojisi, bir topolojik uzayın noktalarını denklik sınıflarına göre
+\emph{yapıştırarak} yeni bir uzay kurar.
+Alt uzay ve çarpım topolojisiyle birlikte temel üç inşaat yönteminden birini oluşturur.
+
+%-------------------------------------------------------------------
+\section{Konu}
+
+\begin{definition}[Bölüm Kümesi]
+$(X, \tau)$ topolojik uzayı ve $X$ üzerinde bir denklik bağıntısı $\sim$ verilsin.
+Denklik sınıfı $[x] = \{y \in X : y \sim x\}$.
+\textbf{Bölüm kümesi:} $X/{\sim} = \{[x] : x \in X\}$.
+\end{definition}
+
+\begin{definition}[Bölüm Topolojisi]
+Bölüm haritası $q: X \to X/{\sim}$,\ $q(x) = [x]$.
+\textbf{Bölüm topolojisi} $\tau_{X/\sim}$ üzerinde:
+\[
+U \subseteq X/{\sim} \text{ açıktır} \iff q^{-1}(U) \in \tau.
+\]
+Bu, $q$'yu sürekli kılan en ince topolojidir.
+\end{definition}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Özellik} & \textbf{Bölüm uzayı için durum} \\
+\midrule
+Kompaktlık & $X$ kompakt $\Rightarrow X/{\sim}$ kompakt \\
+Bağlantılılık & $X$ bağlantılı $\Rightarrow X/{\sim}$ bağlantılı \\
+Hausdorff & Genel olarak korunmaz \\
+T1 & $\sim$ kapalı bağıntı ise korunur \\
+\bottomrule
+\end{tabular}
+\caption{Topolojik özelliklerin bölüm altında korunumu}
+\end{table}
+
+%-------------------------------------------------------------------
+\section{Teoremler}
+
+\begin{theorem}[Bölüm haritası sürekliliği]
+$q: X \to X/{\sim}$ her zaman süreklidir.
+\end{theorem}
+
+\begin{theorem}[Evrensel Özellik]
+$g: X/{\sim} \to Z$ olsun.
+$g$ süreklidir $\Longleftrightarrow g \circ q: X \to Z$ süreklidir.
+\end{theorem}
+
+\begin{theorem}[Kompaktlık Korunumu]
+$X$ kompakt $\Rightarrow X/{\sim}$ kompakttır.
+\begin{proof}[Kanıt İskeleti]
+$q$ sürekli ve surjektif; kompakt kümenin sürekli görüntüsü kompakttır.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}[Bağlantılılık Korunumu]
+$X$ bağlantılı $\Rightarrow X/{\sim}$ bağlantılıdır.
+\end{theorem}
+
+\begin{theorem}[Hausdorff Kriteri]
+$X/{\sim}$ Hausdorff $\Longleftrightarrow$ $\sim$ grafiği $X \times X$'te kapalıdır.
+\end{theorem}
+
+%-------------------------------------------------------------------
+\section{Algoritmalar}
+
+\subsection{quotient\_set — $O(|X|^2 \cdot \alpha(|X|))$}
+
+\begin{algorithm}
+\caption{QuotientSet$(X, \sim)$}
+\begin{algorithmic}[1]
+\State Her $x$ için sınıf $\leftarrow \{x\}$ (union-find başlat)
+\For{each $(x, y) \in {\sim}$}
+    \State \textbf{Union}$(x, y)$
+\EndFor
+\State \Return kök temsilcilere göre sınıfları tuple olarak
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{finite\_quotient\_contract — $O(|X| + |P|)$}
+
+\begin{algorithm}
+\caption{FiniteQuotientContract$(X, P)$}
+\begin{algorithmic}[1]
+\State \textit{// $P$: $X$'in örtüşmeyen bölüntüsü}
+\State Doğrula: $P$ her $x$'i kapsar ve bloklar ayrık
+\State \Return FiniteConstructionContract(status=\texttt{true}, carrier\_size=$|X|$, block\_count=$|P|$)
+\end{algorithmic}
+\end{algorithm}
+
+%-------------------------------------------------------------------
+\section{pytop API}
+
+\begin{lstlisting}[language=Python]
+from pytop import (
+    quotient_set,               # denklik bagintisinden bolum kumesi
+    finite_quotient_contract,   # boluntuden insaat sozlesmesi
+    finite_quotient_summary,    # kisa ozet dizesi
+    make_quotient_map,          # QuotientMap nesnesi
+    is_quotient_map,            # Result: harita bolum haritasi mi?
+)
+\end{lstlisting}
+
+\texttt{quotient\_set(carrier, relation)} $\to$ \texttt{tuple[frozenset, ...]}
+
+\texttt{finite\_quotient\_contract(carrier, partition)} $\to$ \texttt{FiniteConstructionContract}
+
+\texttt{finite\_quotient\_summary(carrier, partition)} $\to$ \texttt{str}
+
+\texttt{make\_quotient\_map(domain, codomain)} $\to$ \texttt{QuotientMap}
+
+\texttt{is\_quotient\_map(map\_obj)} $\to$ \texttt{Result}
+
+%-------------------------------------------------------------------
+\section{Örnekler}
+
+\subsection*{Örnek 5.1 — İki Noktayı Özdeşleştirme}
+
+\begin{lstlisting}[language=Python]
+d4 = discrete_topology(0, 1, 2, 3)
+partition_1 = [[0, 1], [2], [3]]
+qs1 = quotient_set(
+    [0, 1, 2, 3],
+    [(0,0),(1,1),(2,2),(3,3),(0,1),(1,0)]
+)
+print("Bolum kumesi:", qs1)
+contract1 = finite_quotient_contract([0, 1, 2, 3], partition_1)
+print("Blok sayisi:", contract1.block_count)
+print("Durum:", contract1.status)
+\end{lstlisting}
+
+\begin{verbatim}
+Bolum kumesi: (frozenset({2}), frozenset({3}), frozenset({0, 1}))
+Blok sayisi: 3
+Durum: true
+\end{verbatim}
+
+\subsection*{Örnek 5.2 — Tüm Noktaları Tek Noktaya Çökertme}
+
+\begin{lstlisting}[language=Python]
+carrier = [0, 1, 2, 3]
+qs2 = quotient_set(
+    carrier,
+    [(i, j) for i in carrier for j in carrier]
+)
+print("Tek blok:", qs2)
+contract2 = finite_quotient_contract(carrier, [carrier])
+print("Blok sayisi:", contract2.block_count)
+r2 = contract2.to_result()
+print("Metadata:", r2.metadata['block_sizes'])
+\end{lstlisting}
+
+\begin{verbatim}
+Tek blok: (frozenset({0, 1, 2, 3}),)
+Blok sayisi: 1
+Metadata: [4]
+\end{verbatim}
+
+\subsection*{Örnek 5.3 — Özel Topolojide Bölüm Sözleşmesi}
+
+\begin{lstlisting}[language=Python]
+X5 = [1, 2, 3, 4, 5]
+tau5 = [set(), {1,2}, {3,4}, {1,2,3,4}, {1,2,3,4,5}]
+fts5 = make_topology(X5, *tau5)
+partition5 = [[1, 2], [3, 4], [5]]
+contract5 = finite_quotient_contract(X5, partition5)
+r5 = contract5.to_result()
+print("Status:", r5.status)
+print("Bloklar:", r5.metadata['block_count'])
+print("Blok boyutlari:", r5.metadata['block_sizes'])
+\end{lstlisting}
+
+\begin{verbatim}
+Status: true
+Bloklar: 3
+Blok boyutlari: [2, 2, 1]
+\end{verbatim}
+
+\subsection*{Örnek 5.4 — Bölüm Haritası Nesnesi}
+
+\begin{lstlisting}[language=Python]
+d3 = discrete_topology(0, 1, 2)
+d2 = discrete_topology('a', 'b')
+qmap = make_quotient_map(d3, d2)
+print("Etiketler:", sorted(qmap.tags))
+r_qmap = is_quotient_map(qmap)
+print("is_quotient_map status:", r_qmap.status)
+print("Justification:", r_qmap.justification[0])
+\end{lstlisting}
+
+\begin{verbatim}
+Etiketler: ['continuous', 'quotient', 'surjective']
+is_quotient_map status: true
+Justification: Map tag 'quotient' is explicitly present.
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item \texttt{discrete\_topology(0,1,2,3,4)} üzerinde \texttt{[[0,4],[1,3],[2]]}
+      bölüntüsünü kullanarak \texttt{finite\_quotient\_contract} çağırın;
+      blok sayısını ve boyutlarını yazdırın.
+\item \texttt{sierpinski\_space()} üzerinde trivial bölüntü ile
+      \texttt{finite\_quotient\_summary} çağırın ve çıktıyı yorumlayın.
+\item \texttt{make\_topology([1,2,3,4], set(), \{1,2\}, \{3,4\}, \{1,2,3,4\})} üzerinde
+      \texttt{[[1,2],[3,4]]} ve \texttt{[[1],[2],[3],[4]]} bölüntülerini karşılaştırın.
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item $q: X \to X/{\sim}$ bölüm haritasının $\tau_{X/\sim}$ tanımı gereği
+      her zaman sürekli olduğunu ispatlayın.
+\item $X$ bağlantılı $\Rightarrow X/{\sim}$ bağlantılı olduğunu ispatlayın.
+      ($q$ sürekli ve surjektif; bağlantılı kümenin sürekli görüntüsü bağlantılıdır.)
+\end{enumerate}

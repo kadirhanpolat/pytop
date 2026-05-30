@@ -1,0 +1,223 @@
+\chapter{Küme Teorisi ve Fonksiyon Temelleri}
+
+pytop'un tüm modülleri küme teorisi ve fonksiyon kavramları üzerine kuruludur.
+Bu bölüm kılavuzun geri kalanında varsayılan ön koşulları pytop API'siyle pekiştirir.
+
+%-------------------------------------------------------------------
+\section{Konu}
+
+\begin{definition}[Altküme ve Güç Kümesi]
+$A \subseteq B \Longleftrightarrow \forall a \in A,\, a \in B$.
+\textbf{Güç kümesi:} $\mathcal{P}(A) = \{S : S \subseteq A\}$,\quad
+$|\mathcal{P}(A)| = 2^{|A|}$.
+\end{definition}
+
+\begin{definition}[Denklik Bağıntısı]
+$A$ üzerinde $R \subseteq A \times A$ bağıntısı \textbf{denklik bağıntısıdır} iff:
+yansımalı ($\forall a,(a,a)\in R$), simetrik ($(a,b)\in R\Rightarrow(b,a)\in R$),
+geçişli ($(a,b),(b,c)\in R\Rightarrow(a,c)\in R$).
+Denklik sınıfı $[a] = \{b \in A : (a,b) \in R\}$.
+\end{definition}
+
+\begin{definition}[Fonksiyon Türleri]
+$f: A \to B$ için:
+\begin{itemize}
+  \item \textbf{Enjeksiyon:} $f(a_1)=f(a_2) \Rightarrow a_1=a_2$
+  \item \textbf{Sürjeksiyon:} $\forall b\in B,\, \exists a\in A: f(a)=b$
+  \item \textbf{Bijeksiyon:} Enjeksiyon $+$ Sürjeksiyon
+\end{itemize}
+\end{definition}
+
+%-------------------------------------------------------------------
+\section{Teoremler}
+
+\begin{theorem}[De Morgan]
+$(A \cup B)^c = A^c \cap B^c$ ve $(A \cap B)^c = A^c \cup B^c$.
+\end{theorem}
+
+\begin{theorem}[Güç Kümesi Boyutu]
+$|A| = n \Rightarrow |\mathcal{P}(A)| = 2^n$.
+\end{theorem}
+
+\begin{theorem}[Denklik Sınıfları Bölüntü Oluşturur]
+$\sim$ denklik bağıntısı ise $\{[a] : a \in A\}$ $A$'nın bir bölüntüsüdür:
+sınıflar örtüşmez ve birleşimleri $A$'dır.
+\end{theorem}
+
+\begin{theorem}[Ön-Görüntü Özellikleri]
+$f: A \to B$ ve $S_1, S_2 \subseteq B$ için:
+$f^{-1}(S_1 \cup S_2) = f^{-1}(S_1) \cup f^{-1}(S_2)$ ve
+$f^{-1}(S_1 \cap S_2) = f^{-1}(S_1) \cap f^{-1}(S_2)$.
+\end{theorem}
+
+%-------------------------------------------------------------------
+\section{Algoritmalar}
+
+\subsection{Güç Kümesi — $O(2^{|A|})$}
+
+\begin{algorithm}
+\caption{PowerSet$(A)$}
+\begin{algorithmic}[1]
+\State result $\leftarrow \{\emptyset\}$
+\For{each $a \in A$}
+    \State result $\leftarrow$ result $\cup\ \{S \cup \{a\} : S \in \text{result}\}$
+\EndFor
+\State \Return result
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Denklik Bağıntısı Doğrulama — $O(|R| \cdot |A|)$}
+
+\begin{algorithm}
+\caption{IsEquivalence$(A, R)$}
+\begin{algorithmic}[1]
+\For{each $a \in A$}
+    \If{$(a,a) \notin R$} \Return \textbf{False} \EndIf
+\EndFor
+\For{each $(a,b) \in R$}
+    \If{$(b,a) \notin R$} \Return \textbf{False} \EndIf
+\EndFor
+\For{each $(a,b) \in R$, $(b,c) \in R$}
+    \If{$(a,c) \notin R$} \Return \textbf{False} \EndIf
+\EndFor
+\State \Return \textbf{True}
+\end{algorithmic}
+\end{algorithm}
+
+%-------------------------------------------------------------------
+\section{pytop API}
+
+\begin{lstlisting}[language=Python]
+from pytop import (
+    make_set, power_set,
+    set_union, set_intersection, set_difference,
+    is_subset, is_proper_subset, equal_sets,
+    make_relation, is_equivalence_relation,
+    identity_relation, inverse_relation, relation_profile,
+    normalize_finite_map_data,
+    is_injective_finite_map, is_surjective_finite_map,
+    is_bijective_finite_map,
+    image_of_subset_finite, preimage_of_subset_finite,
+)
+\end{lstlisting}
+
+\texttt{make\_set(*elements)} $\to$ \texttt{frozenset}
+
+\texttt{power\_set(values)} $\to$ \texttt{set[frozenset]}
+
+\texttt{make\_relation(carrier, *pairs)} $\to$ \texttt{set[tuple]}
+
+\texttt{relation\_profile(carrier, relation)} $\to$ \texttt{dict}
+
+\texttt{normalize\_finite\_map\_data(domain, codomain, mapping)} $\to$ \texttt{FiniteMapData}
+
+%-------------------------------------------------------------------
+\section{Örnekler}
+
+\subsection*{Örnek 5.1 — Küme İşlemleri}
+
+\begin{lstlisting}[language=Python]
+A = make_set(1, 2, 3)
+B = make_set(2, 3, 4)
+print("A union B:", sorted(set_union(A, B)))
+print("A inter B:", sorted(set_intersection(A, B)))
+print("A diff B:",  sorted(set_difference(A, B)))
+print("{2,3} subset A:", is_subset({2, 3}, A))
+\end{lstlisting}
+
+\begin{verbatim}
+A union B: [1, 2, 3, 4]
+A inter B: [2, 3]
+A diff B: [1]
+{2,3} subset A: True
+\end{verbatim}
+
+\subsection*{Örnek 5.2 — Güç Kümesi}
+
+\begin{lstlisting}[language=Python]
+P = power_set([1, 2, 3])
+print("boyut:", len(P))  # 8 = 2^3
+\end{lstlisting}
+
+\begin{verbatim}
+boyut: 8
+\end{verbatim}
+
+\subsection*{Örnek 5.3 — Denklik Bağıntısı}
+
+\begin{lstlisting}[language=Python]
+carrier = [1, 2, 3, 4]
+rel_eq = make_relation(carrier,
+    (1,1),(2,2),(3,3),(4,4),(1,3),(3,1),(2,4),(4,2))
+print("denklik:", is_equivalence_relation(carrier, rel_eq))
+prof = relation_profile(carrier, rel_eq)
+print("yansimalı:", prof['is_reflexive'])
+print("simetrik:", prof['is_symmetric'])
+print("gecisli:", prof['is_transitive'])
+
+# Gecissiz (1,2),(2,3) var ama (1,3) yok
+rel_bad = make_relation(carrier,
+    (1,1),(2,2),(3,3),(4,4),(1,2),(2,1),(2,3),(3,2))
+print("gecissiz denklik mi:", is_equivalence_relation(carrier, rel_bad))
+\end{lstlisting}
+
+\begin{verbatim}
+denklik: True
+yansimalı: True
+simetrik: True
+gecisli: True
+gecissiz denklik mi: False
+\end{verbatim}
+
+\subsection*{Örnek 5.4 — Fonksiyon Türleri}
+
+\begin{lstlisting}[language=Python]
+f = normalize_finite_map_data(
+    [1,2,3], ['a','b','c'], {1:'a', 2:'b', 3:'c'})
+print("bijeksiyon:", is_bijective_finite_map(f))
+
+g = normalize_finite_map_data(
+    [1,2,3], ['x','y'], {1:'x', 2:'x', 3:'y'})
+print("g enjeksiyon:", is_injective_finite_map(g))
+print("g surjeksiyon:", is_surjective_finite_map(g))
+\end{lstlisting}
+
+\begin{verbatim}
+bijeksiyon: True
+g enjeksiyon: False
+g surjeksiyon: True
+\end{verbatim}
+
+\subsection*{Örnek 5.5 — Görüntü ve Ön-Görüntü}
+
+\begin{lstlisting}[language=Python]
+f = normalize_finite_map_data(
+    [1,2,3,4], ['a','b','c','d'], {1:'a',2:'b',3:'c',4:'d'})
+print("f({1,2}):", sorted(image_of_subset_finite(f, [1, 2])))
+print("f^-1({b,c}):", sorted(preimage_of_subset_finite(f, ['b','c'])))
+\end{lstlisting}
+
+\begin{verbatim}
+f({1,2}): ['a', 'b']
+f^-1({b,c}): [2, 3]
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item $A = \{1,2,3,4,5\}$, $B = \{3,4,5,6,7\}$ için $A\cup B$, $A\cap B$,
+      $A\setminus B$'yi hesaplayın.
+\item $\{1,2,3,4\}$ için güç kümesini üretin; $|\mathcal{P}|=16$ olduğunu doğrulayın.
+\item $R = \{(i,j): 0\le i,j \le 2\}$ (tam çarpım) üzerinde \texttt{relation\_profile}
+      çalıştırın ve denklik olduğunu gösterin.
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item $A \subseteq B \Leftrightarrow A \cap B = A$ olduğunu ispatlayın.
+\item $f: A \to B$ ve $g: B \to C$ enjeksiyon ise $g \circ f$ de enjeksiyondur.
+\end{enumerate}

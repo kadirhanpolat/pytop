@@ -1,0 +1,146 @@
+\chapter{pytop'a Hızlı Giriş}
+
+pytop kurulumu, temel uzay nesneleri, \texttt{Result} tipi ve tag sistemi —
+kılavuzun geri kalanını okumadan önce bu bölümü çalıştırın.
+
+%-------------------------------------------------------------------
+\section{Kurulum ve Import}
+
+\begin{lstlisting}[language=Python]
+pip install -e .   # git kokundan
+\end{lstlisting}
+
+Her bolumde ihtiyac duyulan semboller dogrudan \texttt{pytop}'tan import edilir.
+
+%-------------------------------------------------------------------
+\section{Uzay Nesneleri}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Kurucu} & \textbf{Topoloji} & \textbf{Sonuç} \\
+\midrule
+\texttt{discrete\_topology(*pts)} & Her altküme açık & Ayrık \\
+\texttt{indiscrete\_topology(*pts)} & Yalnız $\emptyset$ ve $X$ açık & İndiscrete \\
+\texttt{sierpinski\_space()} & $\{\emptyset, \{1\}, \{0,1\}\}$ & Sierpiński \\
+\texttt{make\_topology(carrier, *open\_sets)} & Kullanıcı tanımlı & Özel \\
+\bottomrule
+\end{tabular}
+\caption{Temel uzay kurucuları}
+\end{table}
+
+\begin{lstlisting}[language=Python]
+d = discrete_topology(0, 1, 2)
+print("carrier:", sorted(d.carrier))
+print("topoloji boyutu:", len(d.topology))
+print("etiketler:", sorted(d.tags))
+\end{lstlisting}
+
+\begin{verbatim}
+carrier: [0, 1, 2]
+topoloji boyutu: 8
+etiketler: ['discrete', 'finite', 'hausdorff', 'metrizable', 'normal', 'regular']
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Result Tipi}
+
+pytop'un çoğu yüklemi bir \texttt{Result} nesnesi döner.
+
+\begin{lstlisting}[language=Python]
+s = sierpinski_space()
+r = is_t2(s)
+print(".status:", r.status)        # 'true' | 'false' | 'unknown'
+print(".value:", r.value)
+print(".mode:", r.mode)
+print(".justification:", r.justification)
+\end{lstlisting}
+
+\begin{verbatim}
+.status: false
+.value: hausdorff
+.mode: exact
+.justification: ['The explicit finite topology fails hausdorff.']
+\end{verbatim}
+
+\texttt{.status} her zaman \texttt{'true'}, \texttt{'false'} veya \texttt{'unknown'}
+dizesidir --- Python bool'u değil.
+
+%-------------------------------------------------------------------
+\section{Temel Uzaylar Turu}
+
+\begin{lstlisting}[language=Python]
+spaces = {
+    "Ayrik D(0,1,2)":     discrete_topology(0, 1, 2),
+    "Indiscrete I(0,1,2)": indiscrete_topology(0, 1, 2),
+    "Sierpinski S":        sierpinski_space(),
+}
+for name, sp in spaces.items():
+    print(name,
+          is_compact(sp).status,
+          is_connected(sp).status,
+          is_t2(sp).status)
+\end{lstlisting}
+
+\begin{verbatim}
+Ayrik D(0,1,2)      true  false  true
+Indiscrete I(0,1,2) true  true   false
+Sierpinski S        true  true   false
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Özel Topoloji: make\_topology}
+
+\begin{lstlisting}[language=Python]
+X = [1, 2, 3, 4]
+tau = [set(), {1,2}, {3,4}, {1,2,3,4}]
+fts = make_topology(X, *tau)
+print("topoloji boyutu:", len(fts.topology))
+print("kompakt:", is_compact(fts).status)
+print("T2:", is_t2(fts).status)
+\end{lstlisting}
+
+\begin{verbatim}
+topoloji boyutu: 4
+kompakt: true
+T2: false
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Tag Sistemi}
+
+\begin{lstlisting}[language=Python]
+print("Ayrik:    ", sorted(discrete_topology(0,1,2).tags))
+print("Indiscrete:", sorted(indiscrete_topology(0,1,2).tags))
+print("Sierpinski:", sorted(sierpinski_space().tags))
+\end{lstlisting}
+
+\begin{verbatim}
+Ayrik:     ['discrete', 'finite', 'hausdorff', 'metrizable', 'normal', 'regular']
+Indiscrete: ['finite', 'indiscrete']
+Sierpinski: ['finite', 'sierpinski']
+\end{verbatim}
+
+Etiketler yüklem fonksiyonlarının karar mekanizmasını hızlandırır:
+\texttt{is\_t2(d)} açık küme taraması yerine \texttt{'hausdorff' in d.tags}
+kontrolüyle sonuç verir.
+
+%-------------------------------------------------------------------
+\section{n Nokta Üzerindeki Topoloji Sayısı}
+
+\begin{lstlisting}[language=Python]
+for n in range(1, 6):
+    print(f"n={n}: {count_topologies_on_n_points(n)}")
+\end{lstlisting}
+
+\begin{verbatim}
+n=1: 1
+n=2: 4
+n=3: 29
+n=4: 355
+n=5: 6942
+\end{verbatim}
+
+Topoloji sayısı hızla büyür; sonlu uzayların tüm topolojileri üzerinde kaba
+kuvvet taraması yalnızca küçük $n$ için pratiktir.

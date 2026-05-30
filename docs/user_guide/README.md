@@ -28,6 +28,13 @@ Python 3.11+ gereklidir.
 
 ## Bölümler
 
+### Ön Koşullar
+
+| # | Bölüm | Konu |
+|---|-------|------|
+| 0 | Küme Teorisi ve Fonksiyon Temelleri | Kümeler, bağıntılar, denklik, fonksiyon türleri, görüntü/ön-görüntü |
+| 0b | pytop'a Hızlı Giriş | Kurulum, uzay nesneleri, Result tipi, tag sistemi |
+
 ### Kısım I — Nokta-Küme Topolojisi
 
 | # | Bölüm | Konu |
@@ -40,6 +47,7 @@ Python 3.11+ gereklidir.
 | 6 | Sayılabilirlik Aksiyomları | 1st/2nd countable, ayrılabilir, Lindelöf |
 | 10 | Sürekli Fonksiyonlar | Süreklilik tanımı, homeomorfizma, sabit/özdeşlik/bileşke |
 | 11 | Alt Uzay ve Çarpım Topolojisi | Alt uzay (τ_A = U∩A), çarpım topolojisi, özellik kalıtımı |
+| 12 | Bölüm Topolojisi | Denklik bağıntısı, bölüm kümesi, evrensel özellik |
 
 ### Kısım II — Metrik Uzaylar
 
