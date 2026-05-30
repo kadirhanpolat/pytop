@@ -1,0 +1,379 @@
+\chapter{Topolojik Uzaylar}
+\label{ch:topological_spaces}
+
+%% ============================================================
+\section{Konu}
+%% ============================================================
+
+\subsection{Sezgisel Giriş}
+
+Topoloji, bir kümedeki noktaların birbirine ``yakın'' olup olmadığını, aralarındaki
+sürekliliği ve şekilsel özellikleri, mesafe kavramına gerek duymadan inceleyen matematiksel
+bir disiplindir. Bunu mümkün kılan temel araç \emph{açık küme} kavramıdır.
+
+Düşünelim: gerçek doğruda $(a, b)$ aralığı ``açık''tır; her noktasının çevresinde küçük bir
+açık aralık daha bulunur. Bu sezgiyi soyutlayarak \emph{herhangi} bir küme üzerinde topoloji
+tanımlamak mümkündür.
+
+\subsection{Formal Tanım}
+
+\begin{definition}[Topolojik Uzay]
+\label{def:topological_space}
+Bir $X$ kümesi ve $\tau \subseteq \mathcal{P}(X)$ ailesi verilsin.
+$(X, \tau)$ bir \textbf{topolojik uzay}, $\tau$ ise $X$ üzerinde bir \textbf{topoloji}
+olarak adlandırılır, eğer aşağıdaki üç aksiyom sağlanıyorsa:
+\begin{enumerate}
+  \item[(T1)] $\emptyset \in \tau$ ve $X \in \tau$
+  \item[(T2)] $U, V \in \tau \Rightarrow U \cap V \in \tau$
+  \item[(T3)] $\{U_\alpha\}_{\alpha \in I} \subseteq \tau \Rightarrow
+              \displaystyle\bigcup_{\alpha \in I} U_\alpha \in \tau$
+\end{enumerate}
+$\tau$'nun elemanları \textbf{açık küme} olarak adlandırılır.
+\end{definition}
+
+\subsection{Temel Örnekler}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Topoloji} & \textbf{Tanım} & \textbf{Açık kümeler} \\
+\midrule
+Ayrık (discrete) & Her alt küme açık & $\tau = \mathcal{P}(X)$ \\
+İndirgenmiş (indiscrete) & Yalnızca $\emptyset$ ve $X$ açık & $\tau = \{\emptyset, X\}$ \\
+Kosonlu (cofinite) & $U$ açık $\iff$ $U=\emptyset$ veya $X\setminus U$ sonlu & — \\
+Sierpiński & $X=\{0,1\}$, $\tau = \{\emptyset, \{1\}, X\}$ & 3 açık küme \\
+\bottomrule
+\end{tabular}
+\caption{Standart topoloji örnekleri}
+\end{table}
+
+\subsection{Baz ve Alt-Baz}
+
+\begin{definition}[Baz]
+\label{def:basis}
+$\mathcal{B} \subseteq \tau$ ailesi, her $U \in \tau$ ve her $x \in U$ için
+$x \in B \subseteq U$ sağlayan bir $B \in \mathcal{B}$ varsa $\tau$'ya \textbf{baz} denir.
+\end{definition}
+
+\noindent\textbf{Baz Koşulları:}
+\begin{enumerate}
+  \item[(B1)] $\bigcup \mathcal{B} = X$
+  \item[(B2)] $B_1, B_2 \in \mathcal{B}$ ve $x \in B_1 \cap B_2$ ise bir $B_3 \in \mathcal{B}$
+              vardır: $x \in B_3 \subseteq B_1 \cap B_2$
+\end{enumerate}
+
+\begin{definition}[Alt-Baz]
+$\mathcal{S} \subseteq \mathcal{P}(X)$ ailesi; sonlu kesişimleri baz, onların birleşimleri
+ise $\tau$'yu oluşturur.
+\end{definition}
+
+\subsection{Sonlu ve Sonsuz Uzaylar}
+
+\texttt{pytop}'ta iki temel sınıf bulunur:
+\begin{itemize}
+  \item \textbf{\texttt{FiniteTopologicalSpace}:} Taşıyıcı $(X)$ sonlu; topoloji açıkça
+        \texttt{frozenset}'ler koleksiyonu olarak saklanır. Tüm hesaplamalar tam ve kesindir.
+  \item \textbf{Sonsuz türevler:} Taşıyıcı simgesel (\texttt{'R'}, \texttt{'N'});
+        \texttt{topology=None}; etiket tabanlı sembolik çıkarım yapılır.
+\end{itemize}
+
+%% ============================================================
+\section{Teoremler}
+%% ============================================================
+
+\begin{theorem}[Aksiyomların Yeterliliği]
+\label{thm:axiom_sufficiency}
+$(X, \tau)$ bir topolojik uzay olsun. T1--T3 aksiyomları, sonlu herhangi bir açık küme
+ailesinin kesişiminin $\tau$'da yer aldığını garanti eder:
+\[
+  U_1, \ldots, U_n \in \tau \Rightarrow \bigcap_{i=1}^{n} U_i \in \tau.
+\]
+\textit{Not:} Sonsuz kesişim gerekmez. Gerçek doğruda
+$\bigcap_{n=1}^{\infty}\bigl(-\tfrac{1}{n}, \tfrac{1}{n}\bigr) = \{0\}$
+açık değildir.
+\end{theorem}
+
+\begin{theorem}[Baz Teoremi]
+\label{thm:basis}
+$\mathcal{B} \subseteq \mathcal{P}(X)$ ailesi \emph{(B1)--(B2)} koşullarını sağlıyorsa,
+\[
+  \tau_{\mathcal{B}}
+  = \bigl\{U \subseteq X : \forall x \in U,\, \exists B \in \mathcal{B},\,
+    x \in B \subseteq U\bigr\}
+\]
+bir topoloji olur ve $\mathcal{B}$ bu topolojiye baz oluşturur.
+\end{theorem}
+
+\begin{proof}[Kanıt İskeleti]
+(T1): $\emptyset \in \tau_{\mathcal{B}}$ boş koşul nedeniyle; $X \in \tau_{\mathcal{B}}$
+(B1) nedeniyle. (T2): $U, V \in \tau_{\mathcal{B}}$ ve $x \in U \cap V$ için
+$B_U, B_V$ bul; (B2) ile $B_3 \subseteq B_U \cap B_V$. (T3): birleşim noktası için
+doğrudan baz elemanı al. $\square$
+\end{proof}
+
+\begin{theorem}[Karşılaştırma]
+\label{thm:comparison}
+$X$ üzerinde iki topoloji $\tau_1 \subseteq \tau_2$ ise $\tau_1$ \textbf{kaba (coarser)},
+$\tau_2$ \textbf{ince (finer)} topoloji olarak adlandırılır. Ayrık topoloji en ince,
+indirgenmiş topoloji en kaba topolojidir.
+\end{theorem}
+
+%% ============================================================
+\section{Algoritmalar}
+%% ============================================================
+
+\subsection{Bazdan Topoloji Üretimi}
+
+\textbf{Problem:} $X$ ve $\mathcal{B} \subseteq \mathcal{P}(X)$ verilsin;
+$\tau_{\mathcal{B}}$'yi hesapla.
+
+\begin{algorithm}
+\caption{Bazdan Topoloji Üretimi}
+\label{alg:basis_to_topology}
+\begin{algorithmic}[1]
+\Require $X$ (taşıyıcı), $\mathcal{B}$ (baz ailesi)
+\Ensure $\tau$ (kapalı topoloji)
+\State $\tau \leftarrow \{\emptyset, X\}$
+\For{each non-empty $\mathcal{S} \subseteq \mathcal{B}$}
+    \State $\tau.\text{add}\bigl(\bigcup_{B \in \mathcal{S}} B\bigr)$
+\EndFor
+\State \Call{CloseUnderIntersection}{$\tau$}
+\Return $\tau$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Kesişim Altında Kapatma}
+\begin{algorithmic}[1]
+\State $\textit{changed} \leftarrow \textbf{true}$
+\While{$\textit{changed}$}
+    \State $\textit{changed} \leftarrow \textbf{false}$
+    \For{each $U, V \in \tau$}
+        \If{$U \cap V \notin \tau$}
+            \State $\tau.\text{add}(U \cap V)$;\quad $\textit{changed} \leftarrow \textbf{true}$
+        \EndIf
+    \EndFor
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\noindent\textbf{Karmaşıklık:}
+\begin{itemize}
+  \item En kötü durum: $O(|\mathcal{B}| \cdot 2^{|\mathcal{B}|})$
+        (tüm alt-ailelerin birleşimi)
+  \item Pratik (çakışmayan baz elemanları): $O(|\tau| \cdot |\mathcal{B}|)$
+  \item Uzay: $O(|\tau|)$ açık küme saklar
+\end{itemize}
+
+\subsection{Alt-Bazdan Topoloji Üretimi}
+
+$\mathcal{S}$ verilsin; önce $\mathcal{S}$'nin sonlu kesişimlerinden baz oluştur,
+ardından Algoritma~\ref{alg:basis_to_topology}'yi uygula.
+
+\noindent\textbf{Karmaşıklık:} $O(|\mathcal{S}|^k \cdot 2^{|\mathcal{S}|^k})$ —
+$k$: kesişim derinliği.
+
+%% ============================================================
+\section{pytop API}
+%% ============================================================
+
+\subsection{Sınıflar}
+
+\begin{lstlisting}[language=Python, caption={Temel sınıf importları}]
+from pytop import TopologicalSpace, FiniteTopologicalSpace
+\end{lstlisting}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Sınıf} & \textbf{Taşıyıcı} & \textbf{Topoloji} \\
+\midrule
+\texttt{TopologicalSpace} & \texttt{Any} & \texttt{Any} (None olabilir) \\
+\texttt{FiniteTopologicalSpace} & sonlu \texttt{frozenset} & \texttt{frozenset[frozenset]} \\
+\bottomrule
+\end{tabular}
+\caption{Temel uzay sınıfları}
+\end{table}
+
+\noindent\textbf{Alanlar:} \texttt{carrier} (altta yatan küme), \texttt{topology}
+(açık kümeler), \texttt{tags} (özellik etiketleri), \texttt{metadata} (ek bilgiler).
+
+\subsection{Oluşturucular}
+
+\begin{lstlisting}[language=Python, caption={Topoloji oluşturucu importları}]
+from pytop import (
+    make_topology, discrete_topology, indiscrete_topology,
+    cofinite_topology, sierpinski_space,
+    topology_from_basis, topology_from_subbasis,
+)
+\end{lstlisting}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Fonksiyon} & \textbf{İmza} & \textbf{Açıklama} \\
+\midrule
+\texttt{make\_topology} & \texttt{(carrier, *open\_sets)} & Açık küme listesiyle inşa \\
+\texttt{discrete\_topology} & \texttt{(*elements)} & Ayrık topoloji \\
+\texttt{indiscrete\_topology} & \texttt{(*elements)} & İndirgenmiş topoloji \\
+\texttt{cofinite\_topology} & \texttt{(*elements)} & Kosonlu topoloji \\
+\texttt{sierpinski\_space} & \texttt{()} & Sierpiński uzayı \\
+\texttt{topology\_from\_basis} & \texttt{(carrier, basis)} & Bazdan topoloji üret \\
+\texttt{topology\_from\_subbasis} & \texttt{(carrier, subbasis)} & Alt-bazdan topoloji üret \\
+\bottomrule
+\end{tabular}
+\caption{Topoloji oluşturucu fonksiyonlar}
+\end{table}
+
+\subsection{Tag Sistemi}
+
+\texttt{pytop} nesneleri \texttt{tags} kümesi aracılığıyla topolojik özellikler taşır.
+Örnek etiketler: \texttt{"finite"}, \texttt{"discrete"}, \texttt{"t0"}, \texttt{"t1"},
+\texttt{"hausdorff"}, \texttt{"compact"}, \texttt{"connected"}, \texttt{"metric"}.
+
+%% ============================================================
+\section{Örnekler}
+%% ============================================================
+
+\subsection{Örnek 1: Sierpiński Uzayı}
+
+\begin{lstlisting}[language=Python, caption={Sierpiński uzayı}]
+from pytop import sierpinski_space
+
+s = sierpinski_space()
+print("Tasiyici:", s.carrier)
+print("Topoloji:", sorted(str(t) for t in s.topology))
+print("Etiketler:", sorted(s.tags))
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+Tasiyici: frozenset({0, 1})
+Topoloji: ['frozenset()', 'frozenset({0, 1})', 'frozenset({1})']
+Etiketler: ['compact', 'connected', 'finite', 't0']
+\end{lstlisting}
+
+Topoloji tam olarak üç açık küme içerir: $\emptyset$, $\{1\}$, $\{0,1\}$.
+$\{0\}$ açık değildir — bu T0 fakat T1 olmayan özelliğin kaynağıdır.
+
+\subsection{Örnek 2: Ayrık Topoloji}
+
+\begin{lstlisting}[language=Python, caption={Ayrık topoloji}]
+from pytop import discrete_topology
+
+d = discrete_topology(1, 2, 3)
+print("|tau| =", len(d.topology))
+print("Etiketler:", sorted(d.tags))
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+|tau| = 8
+Etiketler: ['discrete', 'finite', 'hausdorff', 'metrizable', 'normal', 'regular']
+\end{lstlisting}
+
+$n=3$ için $|\tau| = 2^3 = 8$. Ayrık topoloji Hausdorff, regüler, normal, metriklenebilirdir.
+
+\subsection{Örnek 3: \texttt{make\_topology} ile Manuel İnşa}
+
+\begin{lstlisting}[language=Python, caption={Manuel topoloji inşası}]
+from pytop import make_topology
+
+sp = make_topology({1, 2, 3}, {1}, {2, 3})
+print("|tau| =", len(sp.topology))
+print("Acik kumeler:", sorted(str(t) for t in sp.topology))
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+|tau| = 4
+Acik kumeler: ['frozenset()', 'frozenset({1, 2, 3})',
+               'frozenset({1})', 'frozenset({2, 3})']
+\end{lstlisting}
+
+$\{1\}$ ve $\{2,3\}$ açık verilince, $\emptyset$ ve $X$ otomatik eklenir.
+
+\subsection{Örnek 4: Alexandrov Zincir Uzayı}
+
+\begin{lstlisting}[language=Python, caption={Zincir uzayı}]
+from pytop import finite_chain_space
+
+c = finite_chain_space(3)
+print("Tasiyici:", c.carrier)
+print("Topoloji:", sorted(str(t) for t in c.topology))
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+Tasiyici: (1, 2, 3)
+Topoloji: ['set()', '{1, 2, 3}', '{1, 2}', '{1}']
+\end{lstlisting}
+
+Her açık küme bir ``önek''tir. Alexandrov topolojisinde noktalar soldan sağa giderek az açık hale gelir.
+
+\subsection{Örnek 5: Bazdan Topoloji Üretimi}
+
+\begin{lstlisting}[language=Python, caption={Bazdan topoloji}]
+from pytop import topology_from_basis
+
+b = [{1}, {2, 3}, {4}]
+ts = topology_from_basis({1, 2, 3, 4}, b)
+print("Baz:", [set(x) for x in b])
+print("|tau| =", len(ts.topology))
+print("Topoloji:", sorted(str(t) for t in ts.topology))
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+Baz: [{1}, {2, 3}, {4}]
+|tau| = 8
+Topoloji: ['set()', '{1, 2, 3, 4}', '{1, 2, 3}', '{1, 4}',
+           '{1}', '{2, 3, 4}', '{2, 3}', '{4}']
+\end{lstlisting}
+
+Baz $\{\{1\}, \{2,3\}, \{4\}\}$ bir bölüntüden oluşur; 8 açık küme tüm birleşim kombinasyonlarından elde edilir.
+
+\subsection{Örnek 6: Gerçek Doğru}
+
+\begin{lstlisting}[language=Python, caption={Gerçek doğru}]
+from pytop import real_line_metric
+
+rl = real_line_metric()
+print("Tasiyici:", rl.carrier)
+print("Etiketler:", sorted(rl.tags))
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+Tasiyici: R
+Etiketler: ['complete', 'connected', 'first_countable', 'hausdorff',
+            'infinite', 'lindelof', 'metric', 'not_compact',
+            'path_connected', 'second_countable', 'separable', 't0', 't1', 'uncountable']
+\end{lstlisting}
+
+Gerçek doğru simgesel temsil edilir; topolojik özellikler etiketlerde kodlanmıştır.
+
+%% ============================================================
+\section{Alıştırmalar}
+%% ============================================================
+
+\subsection*{Kodlama Alıştırmaları}
+
+\begin{enumerate}[label=\textbf{K\arabic*.}]
+  \item $X = \{a, b, c\}$ üzerinde \texttt{make\_topology} kullanarak T1 ama T2 (Hausdorff)
+        olmayan bir topoloji inşa edin. (İpucu: kosonlu topolojiyi düşünün.)
+
+  \item \texttt{topology\_from\_subbasis(\{1,2,3,4\}, [\{1,2\},\{3,4\},\{2,3\}])} çağrısının
+        ürettiği topolojinin kaç açık küme içerdiğini bulun ve açık kümeleri listeleyin.
+
+  \item \texttt{finite\_chain\_space(5)} ile bir Alexandrov-5 zinciri oluşturun; topolojinin
+        kaç açık küme içerdiğini ve hangi elemanların ``en açık'' nokta olduğunu bulun.
+\end{enumerate}
+
+\subsection*{Teori Alıştırmaları}
+
+\begin{enumerate}[label=\textbf{T\arabic*.}]
+  \item $X = \{1, 2, 3\}$ üzerinde kaç farklı topoloji tanımlanabilir? Bu sayıyı T1--T3
+        aksiyomlarını doğrudan kontrol ederek hesaplamak yerine neden baz teoremini kullanmak
+        daha pratiktir?
+
+  \item Ayrık topolojinin her zaman diğer topolojilerden daha ince, indirgenmiş topolojinin
+        ise daha kaba olduğunu kanıtlayın. Kanıt için T1--T3 aksiyomlarından hangisi gereklidir?
+\end{enumerate}

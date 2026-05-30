@@ -1,0 +1,139 @@
+\chapter{Sayılabilirlik Aksiyomları}
+
+Sayılabilirlik aksiyomları, bir topolojik uzaydaki ``bilgi''nin sayılabilir büyüklükte
+yapılarla tanımlanıp tanımlanamayacağını araştırır.
+
+%-------------------------------------------------------------------
+\section{Konu}
+
+\subsection{Sayılabilirlik Aksiyomları}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Aksiyom} & \textbf{Tanım} \\
+\midrule
+Birinci sayılabilir & Her $x \in X$ için sayılabilir yerel baz \\
+İkinci sayılabilir & Tüm topoloji için sayılabilir global baz \\
+Ayrılabilir & Sayılabilir yoğun alt küme: $\overline{D} = X$ \\
+Lindelöf & Her açık örtünün sayılabilir alt-örtüsü \\
+\bottomrule
+\end{tabular}
+\caption{Sayılabilirlik aksiyomları}
+\end{table}
+
+\textbf{Sıralamalar:}
+\begin{itemize}
+  \item $2^{\text{nd}}$ sayılabilir $\Rightarrow$ $1^{\text{st}}$ sayılabilir
+  \item $2^{\text{nd}}$ sayılabilir $\Rightarrow$ ayrılabilir $\wedge$ Lindelöf
+  \item Metrik $\Rightarrow$ $1^{\text{st}}$ sayılabilir
+  \item Ayrılabilir metrik $\Rightarrow$ $2^{\text{nd}}$ sayılabilir
+\end{itemize}
+
+%-------------------------------------------------------------------
+\section{Teoremler}
+
+\begin{theorem}
+$2^{\text{nd}}$ sayılabilir $\Rightarrow$ ayrılabilir $\wedge$ Lindelöf.
+\end{theorem}
+
+\begin{theorem}
+Metrik uzay $\Rightarrow$ $1^{\text{st}}$ sayılabilir.
+\begin{proof}[Kanıt İskeleti]
+Her $x$ için $\{B(x, 1/n) : n \in \mathbb{N}\}$ sayılabilir yerel bazdır.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+Ayrılabilir + metrik $\Rightarrow$ $2^{\text{nd}}$ sayılabilir.
+\begin{proof}[Kanıt İskeleti]
+$D \subseteq X$ yoğun sayılabilir; $\{B(d, 1/n) : d \in D,\, n \in \mathbb{N}\}$ sayılabilir bazdır.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}[Sorgenfrey Karşı Örneği]
+Sorgenfrey doğrusu ayrılabilir ve Lindelöf'tür ama $2^{\text{nd}}$ sayılabilir değildir.
+\end{theorem}
+
+%-------------------------------------------------------------------
+\section{Algoritmalar}
+
+\subsection{Sonlu Uzayda Sayılabilirlik}
+
+Sonlu uzayda her aksiyom trivially sağlanır. $O(1)$.
+
+\subsection{Sonsuz Uzayda: Tag-Tabanlı Çıkarım}
+
+pytop sembolik uzaylarda tag koridorlarından sayılabilirlik çıkarır:
+\begin{itemize}
+  \item \texttt{'second\_countable'} $\in$ tags $\Rightarrow$ tüm aksiyomlar
+  \item \texttt{'metric'} $\wedge$ \texttt{'separable'} $\Rightarrow$ \texttt{'second\_countable'}
+\end{itemize}
+
+%-------------------------------------------------------------------
+\section{pytop API}
+
+\begin{lstlisting}[language=Python]
+from pytop import (
+    is_first_countable,
+    is_second_countable,
+    is_separable,
+    is_lindelof,
+)
+\end{lstlisting}
+
+%-------------------------------------------------------------------
+\section{Örnekler}
+
+\subsection*{Örnek 5.1 — Gerçek Doğru: Tüm 4 Aksiyom}
+
+\begin{lstlisting}[language=Python]
+rl = real_line_metric()
+print("1st countable?", is_first_countable(rl).status)
+print("2nd countable?", is_second_countable(rl).status)
+print("separable?", is_separable(rl).status)
+print("lindelof?", is_lindelof(rl).status)
+\end{lstlisting}
+
+\begin{verbatim}
+1st countable?  true
+2nd countable?  true
+separable?      true
+lindelof?       true
+\end{verbatim}
+
+\subsection*{Örnek 5.5 — Sorgenfrey Doğrusu: 2nd Countable ✗}
+
+\begin{lstlisting}[language=Python]
+from pytop import sorgenfrey_line_like
+sl = sorgenfrey_line_like()
+print("1st countable?", is_first_countable(sl).status)
+print("2nd countable?", is_second_countable(sl).status)
+print("separable?", is_separable(sl).status)
+\end{lstlisting}
+
+\begin{verbatim}
+1st countable?   true
+2nd countable?   false
+separable?       true
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item \texttt{finite\_chain\_space(5)} üzerinde \texttt{is\_first\_countable} ve
+      \texttt{is\_second\_countable} hesaplayın.
+\item İki noktalı ayrık ve indiscrete uzaylar üzerinde \texttt{is\_separable} karşılaştırın.
+\item \texttt{integers\_discrete()} için $2^{\text{nd}}$ sayılabilir mi?
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item $2^{\text{nd}}$ sayılabilir $\Rightarrow$ ayrılabilir olduğunu ispatlayın.
+\item Sorgenfrey doğrusunun $2^{\text{nd}}$ sayılabilir olmadığını gösterin.
+\end{enumerate}

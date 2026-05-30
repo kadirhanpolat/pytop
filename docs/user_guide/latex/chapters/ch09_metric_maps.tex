@@ -1,0 +1,173 @@
+\chapter{Metrik Fonksiyonlar ve Sözleşmeler}
+
+Bu bölümde metrik uzaylar arasındaki fonksiyon türleri (izometri, Lipschitz, sürekli)
+ve bunların sınıflandırılması incelenmektedir.
+
+%-------------------------------------------------------------------
+\section{Konu}
+
+\subsection{Metrik Fonksiyon Sınıfları}
+
+$f: (M_1, d_1) \to (M_2, d_2)$ fonksiyonu:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Sınıf} & \textbf{Koşul} \\
+\midrule
+Genişlemez (non-expansive) & $d_2(f(x),f(y)) \leq d_1(x,y)$ \\
+Lipschitz & $\exists K>0:\; d_2(f(x),f(y)) \leq K \cdot d_1(x,y)$ \\
+Üniform sürekli & $\forall\varepsilon>0\;\exists\delta>0:\; d_1(x,y)<\delta \Rightarrow d_2(f(x),f(y))<\varepsilon$ \\
+Sürekli & Her noktada $\varepsilon$-$\delta$ sürekliliği \\
+İzometri & $d_2(f(x),f(y)) = d_1(x,y)$ \\
+Benzerlik & $\exists c>0:\; d_2(f(x),f(y)) = c \cdot d_1(x,y)$ \\
+Homeomorfizma & Bijektif sürekli; ters de sürekli \\
+\bottomrule
+\end{tabular}
+\caption{Metrik fonksiyon sınıfları}
+\end{table}
+
+\textbf{Sıralama:} İzometri $\Rightarrow$ Genişlemez $\Rightarrow$ Lipschitz
+$\Rightarrow$ Üniform sürekli $\Rightarrow$ Sürekli.
+
+\subsection{Lipschitz Sabiti}
+
+\[
+K = \sup_{x \neq y} \frac{d_2(f(x),f(y))}{d_1(x,y)}.
+\]
+
+İzometri: $K=1$ ve eşitlik; benzerlik: $K=c$ sabit.
+
+%-------------------------------------------------------------------
+\section{Teoremler}
+
+\begin{theorem}
+İzometri $\Rightarrow$ homeomorfizma.
+\end{theorem}
+
+\begin{theorem}
+Benzerlik, $c=1 \Rightarrow$ İzometri.
+\end{theorem}
+
+\begin{theorem}
+Lipschitz $\Rightarrow$ Üniform sürekli $\Rightarrow$ Sürekli.
+\begin{proof}[Kanıt İskeleti]
+$\delta = \varepsilon / K$ seçimi Lipschitz $\Rightarrow$ ünif.\ sürekli gösterir.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+Kompakt metrik uzaydan metrik uzaya her sürekli fonksiyon üniform süreklidir.
+\end{theorem}
+
+%-------------------------------------------------------------------
+\section{Algoritmalar}
+
+\subsection{classify\_finite\_metric\_map — $O(|X|^2)$}
+
+\begin{algorithm}
+\caption{ClassifyMap$(X, d_1, Y, d_2, f)$}
+\begin{algorithmic}[1]
+\State $K \leftarrow 0$; isometry $\leftarrow$ True; similarity\_ratio $\leftarrow$ None
+\For{each pair $(x_1, x_2)$ with $x_1 \neq x_2$}
+    \State ratio $\leftarrow d_2(f(x_1),f(x_2)) / d_1(x_1,x_2)$
+    \State $K \leftarrow \max(K, \text{ratio})$
+    \If{$d_2(f(x_1),f(x_2)) \neq d_1(x_1,x_2)$}
+        \State isometry $\leftarrow$ False
+    \EndIf
+    \If{similarity\_ratio is None}
+        \State similarity\_ratio $\leftarrow$ ratio
+    \ElsIf{ratio $\neq$ similarity\_ratio}
+        \State similarity\_ratio $\leftarrow$ None
+    \EndIf
+\EndFor
+\State \Return MetricMapProfile(lipschitz\_constant=$K$, isometry=isometry, $\ldots$)
+\end{algorithmic}
+\end{algorithm}
+
+Karmaşıklık: $O(|X|^2)$.
+
+%-------------------------------------------------------------------
+\section{pytop API}
+
+\begin{lstlisting}[language=Python]
+from pytop.metric_spaces import FiniteMetricSpace
+from pytop.metric_map_taxonomy import (
+    classify_finite_metric_map,
+    MetricMapProfile,
+)
+\end{lstlisting}
+
+\texttt{classify\_finite\_metric\_map(fms1, fms2, f)} $\to$ \texttt{MetricMapProfile} döner (Result değil).
+
+\texttt{MetricMapProfile} alanları: \texttt{isometry}, \texttt{similarity}, \texttt{similarity\_ratio},
+\texttt{lipschitz\_constant}, \texttt{non\_expansive}, \texttt{bijective}, \texttt{homeomorphism}.
+
+%-------------------------------------------------------------------
+\section{Örnekler}
+
+\subsection*{Örnek 5.1 — Özdeşlik: İzometri}
+
+\begin{lstlisting}[language=Python]
+f_id = {1: 1, 2: 2, 3: 3, 4: 4}
+prof_id = classify_finite_metric_map(fms, fms, f_id)
+print("isometry:", prof_id.isometry)
+print("lipschitz_constant:", prof_id.lipschitz_constant)
+\end{lstlisting}
+
+\begin{verbatim}
+isometry: True
+lipschitz_constant: 1.0
+\end{verbatim}
+
+\subsection*{Örnek 5.2 — 2× Ölçekleme: Benzerlik}
+
+\begin{lstlisting}[language=Python]
+f_scale = {1: 2, 2: 4, 3: 6, 4: 8}
+prof_scale = classify_finite_metric_map(fms_line1, fms_line2, f_scale)
+print("similarity:", prof_scale.similarity)
+print("similarity_ratio:", prof_scale.similarity_ratio)
+print("lipschitz_constant:", prof_scale.lipschitz_constant)
+\end{lstlisting}
+
+\begin{verbatim}
+similarity: True
+similarity_ratio: 2.0
+lipschitz_constant: 2.0
+\end{verbatim}
+
+\subsection*{Örnek 5.3 — Sabit Fonksiyon: K=0}
+
+\begin{lstlisting}[language=Python]
+f_const = {1: 1, 2: 1, 3: 1, 4: 1}
+prof_const = classify_finite_metric_map(fms, fms, f_const)
+print("lipschitz_constant:", prof_const.lipschitz_constant)
+print("bijective:", prof_const.bijective)
+\end{lstlisting}
+
+\begin{verbatim}
+lipschitz_constant: 0.0
+bijective: False
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item $\{1,2,3\}$ üzerinde $f(1)=2, f(2)=3, f(3)=1$ (döngü) fonksiyonunu ayrık
+      metrikte \texttt{classify\_finite\_metric\_map} ile sınıflandırın.
+\item Öklid metrikli $\{0,1,2,3,4\}$ üzerinde $f(x) = x+1$ kaydırma fonksiyonunun
+      Lipschitz sabitini hesaplayın.
+\item Sabit fonksiyon $f(x) = 1$ için $K=0$ olduğunu doğrulayın.
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item İzometri $\Rightarrow$ genişlemez $\Rightarrow$ Lipschitz ($K=1$) zincirini ispatlayın.
+\item Lipschitz $\Rightarrow$ üniform sürekli olduğunu $\delta = \varepsilon/K$ seçimi
+      ile ispatlayın.
+\end{enumerate}

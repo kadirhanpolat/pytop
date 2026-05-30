@@ -1,0 +1,158 @@
+\chapter{Metrik Tamlık ve Kompaktlık}
+
+Metrik tamlık (completeness), bir metrik uzayda Cauchy dizilerinin yakınsayıp
+yakınsamadığını araştıran temel bir kavramdır.
+
+%-------------------------------------------------------------------
+\section{Konu}
+
+\subsection{Cauchy Dizisi ve Tamlık}
+
+\begin{definition}[Cauchy Dizisi]
+$(M, d)$ metrik uzayında $\{x_n\}$ dizisi \textbf{Cauchy} ise:
+\[
+\forall\varepsilon>0,\;\exists N \in \mathbb{N}:\;
+m,n \geq N \Rightarrow d(x_m, x_n) < \varepsilon.
+\]
+\end{definition}
+
+\begin{definition}[Tam Metrik Uzay]
+$(M, d)$ \textbf{tam} ise: Her Cauchy dizisi $M$'de bir limite yakınsır.
+\end{definition}
+
+\subsection{Tamamen Sınırlılık}
+
+$A \subseteq M$ \textbf{tamamen sınırlı} ise: her $\varepsilon>0$ için $A$'nın
+sonlu bir $\varepsilon$-net kümesi vardır.
+\[
+S = \{s_1,\ldots,s_n\} \subseteq M,\quad
+\forall x \in A\;\exists i:\; d(x, s_i) < \varepsilon.
+\]
+
+\subsection{Metrik Kompaktlık Karakterizasyonu}
+
+\[
+(M, d) \text{ tam} \wedge \text{tamamen sınırlı}
+\Longleftrightarrow
+(M, d) \text{ kompakt.}
+\]
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Uzay} & \textbf{Tam?} & \textbf{Tam. sınırlı?} & \textbf{Kompakt?} \\
+\midrule
+$\mathbb{R}$ & \checkmark & $\times$ & $\times$ \\
+$[0,1]$ & \checkmark & \checkmark & \checkmark \\
+$(0,1)$ & $\times$ & \checkmark & $\times$ \\
+$\mathbb{Q}$ & $\times$ & $\times$ & $\times$ \\
+Sonlu metrik & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\caption{Tamlık ve kompaktlık örnekleri}
+\end{table}
+
+%-------------------------------------------------------------------
+\section{Teoremler}
+
+\begin{theorem}[Heine-Borel Metrik Genelleştirmesi]
+Metrik uzayda kompaktlık $\Leftrightarrow$ tamlık $\wedge$ tamamen sınırlılık.
+\end{theorem}
+
+\begin{theorem}[Banach Sabit-Nokta Teoremi]
+$(M, d)$ tam metrik uzay; $T: M \to M$ büzülme ($K < 1$)
+$\Rightarrow$ $T$'nin eşsiz sabit noktası $x^*$ vardır: $T(x^*) = x^*$.
+\end{theorem}
+
+\begin{theorem}[Baire Kategorisi Teoremi]
+Tam metrik uzay 1.\ kategoriden değildir.
+\end{theorem}
+
+%-------------------------------------------------------------------
+\section{Algoritmalar}
+
+\subsection{Sonlu Metrikte is\_complete ve is\_totally\_bounded}
+
+Sonlu metrik uzayda her Cauchy dizisi eninde sonunda sabit: trivially tam.
+Taşıyıcı kendisi $\varepsilon$-net: trivially tamamen sınırlı.
+Her ikisi: $O(1)$.
+
+\subsection{metric\_compactness\_check}
+
+\begin{algorithm}
+\caption{MetricCompactnessCheck$(M, d)$}
+\begin{algorithmic}[1]
+\State complete $\leftarrow$ is\_complete$(M, d)$
+\State totally\_bounded $\leftarrow$ is\_totally\_bounded$(M, d)$
+\State \Return complete $\wedge$ totally\_bounded
+\end{algorithmic}
+\end{algorithm}
+
+%-------------------------------------------------------------------
+\section{pytop API}
+
+\begin{lstlisting}[language=Python]
+from pytop.metric_completeness import (
+    is_complete,
+    is_totally_bounded,
+    metric_compactness_check,
+    analyze_metric_completeness,
+)
+\end{lstlisting}
+
+%-------------------------------------------------------------------
+\section{Örnekler}
+
+\subsection*{Örnek 5.1 — Sonlu Metrik: Tam ve Kompakt}
+
+\begin{lstlisting}[language=Python]
+points = ['A', 'B', 'C', 'D']
+dist = {(a, b): (0 if a == b else 1)
+        for a in points for b in points}
+fms = FiniteMetricSpace(carrier=tuple(points), distance=dist)
+print("is_complete:", is_complete(fms).status)
+print("is_totally_bounded:", is_totally_bounded(fms).status)
+mc = metric_compactness_check(fms)
+print("metric_compactness:", mc.status, mc.value)
+\end{lstlisting}
+
+\begin{verbatim}
+is_complete: true
+is_totally_bounded: true
+metric_compactness: true True
+\end{verbatim}
+
+\subsection*{Örnek 5.4 — analyze\_metric\_completeness}
+
+\begin{lstlisting}[language=Python]
+r = analyze_metric_completeness(fms)
+print("status:", r.status)
+print("value:", r.value)
+\end{lstlisting}
+
+\begin{verbatim}
+status: true
+value: {'is_complete': True, 'is_totally_bounded': True, 'metric_compact': True}
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item Rasyonel sayılar $\mathbb{Q}$ (sembolik) için \texttt{is\_complete} sonucunu
+      kontrol edin.
+\item Kendi 4-noktalı metrik uzayınızı oluşturun ve \texttt{metric\_compactness\_check}
+      uygulayın.
+\item \texttt{analyze\_metric\_completeness} çalıştırın ve \texttt{value} sözlüğünü inceleyin.
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item Banach sabit-nokta teoremini sözlü olarak açıklayın ve bir uygulama verin.
+\item Kapalı $[0,1]$'in tam, açık $(0,1)$'in tam olmadığını gösterin.
+      (Hint: $1/n$ dizisi Cauchy ama $0 \notin (0,1)$.)
+\end{enumerate}

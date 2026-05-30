@@ -1,0 +1,172 @@
+\chapter{Ayrılma Aksiyomları}
+\label{ch:separation}
+
+%% ============================================================
+\section{Konu}
+%% ============================================================
+
+Ayrılma aksiyomları, bir topolojik uzaydaki noktaların ve kapalı kümelerin birbirinden
+açık kümeler aracılığıyla ne ölçüde ``ayrılabildiğini'' ölçer.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Aksiyom} & \textbf{İsim} & \textbf{Koşul} \\
+\midrule
+T0 & Kolmogorov & $\forall x \neq y$: $\exists U \in \tau$ ayıran \\
+T1 & Fréchet & $\forall x \neq y$: iki yönlü ayrım \\
+T2 & Hausdorff & $\forall x \neq y$: disjoint $U \ni x$, $V \ni y$ \\
+T2.5 & Urysohn & disjoint kapanışlı komşuluklar \\
+T3 & Regüler & T1 + nokta/kapalı ayırma \\
+T3.5 & Tychonoff & T1 + sürekli fonksiyon ayırma \\
+T4 & Normal & T1 + disjoint kapalılar ayırma \\
+\bottomrule
+\end{tabular}
+\caption{Ayrılma aksiyomları}
+\end{table}
+
+\noindent\textbf{Sıralama:} T4 $\Rightarrow$ T3.5 $\Rightarrow$ T3 $\Rightarrow$ T2.5
+$\Rightarrow$ T2 $\Rightarrow$ T1 $\Rightarrow$ T0.
+
+%% ============================================================
+\section{Teoremler}
+%% ============================================================
+
+\begin{theorem}[Ayrılma Zinciri]
+T4 $\Rightarrow$ T3.5 $\Rightarrow$ T3 $\Rightarrow$ T2.5 $\Rightarrow$ T2 $\Rightarrow$ T1
+$\Rightarrow$ T0. Tersi genel olarak doğru değildir.
+\end{theorem}
+
+\begin{theorem}[Urysohn Fonksiyon Teoremi]
+$X$ normal ise ve $C, D$ disjoint kapalı kümeler ise, $f: X \to [0,1]$ sürekli vardır:
+$f|_C \equiv 0$, $f|_D \equiv 1$.
+\end{theorem}
+
+\begin{theorem}[Tietze Genişleme]
+$X$ normal ise her kapalı $A \subseteq X$ üzerinde $f: A \to [a,b]$ süreklisi
+tüm $X$'e sürekli genişletilebilir.
+\end{theorem}
+
+\begin{theorem}[Tychonoff Karakterizasyonu]
+$X$, T3.5'tir $\iff$ $X$ bir küp $[0,1]^I$'ya homeomorf gömülebilir.
+\end{theorem}
+
+\begin{theorem}[Sonlu T1 $\iff$ Ayrık]
+Sonlu bir uzayda T1 $\iff$ ayrık topoloji.
+\end{theorem}
+\begin{proof}[İskelet]
+T1 $\Rightarrow$ her tekil küme kapalı $\Rightarrow$ her küme kapalı (sonlu birleşim)
+$\Rightarrow$ her küme açık.
+\end{proof}
+
+%% ============================================================
+\section{Algoritmalar}
+%% ============================================================
+
+\begin{algorithm}
+\caption{Sonlu T0 Karar Prosedürü}
+\begin{algorithmic}[1]
+\For{each pair $(x, y)$ with $x \neq y$}
+    \If{$\nexists U \in \tau$: $(x \in U \wedge y \notin U)$ or $(y \in U \wedge x \notin U)$}
+        \Return \textbf{false}
+    \EndIf
+\EndFor
+\Return \textbf{true}
+\end{algorithmic}
+\end{algorithm}
+
+\noindent\textbf{Karmaşıklık T0:} $O(|X|^2 \cdot |\tau|)$. \quad
+\textbf{Karmaşıklık T2:} $O(|X|^2 \cdot |\tau|^2)$.
+
+%% ============================================================
+\section{pytop API}
+%% ============================================================
+
+\begin{lstlisting}[language=Python, caption={Ayrılma aksiyom importları}]
+from pytop import (
+    is_t0, is_t1, is_t2, is_t2_5, is_t3, is_t4,
+    is_hausdorff, is_regular, is_normal, is_perfectly_normal,
+    separation_chain, analyze_separation,
+)
+\end{lstlisting}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Fonksiyon} & \textbf{İmza} & \textbf{Açıklama} \\
+\midrule
+\texttt{is\_t0} \ldots \texttt{is\_t4} & \texttt{(space)} & Aksiyom kontrolü \\
+\texttt{separation\_chain} & \texttt{(space)} & Tüm zincir: \texttt{dict[str, Result]} \\
+\texttt{analyze\_separation} & \texttt{(space, property='hausdorff')} & Tek aksiyom sorgu \\
+\bottomrule
+\end{tabular}
+\caption{Ayrılma fonksiyonları}
+\end{table}
+
+%% ============================================================
+\section{Örnekler}
+%% ============================================================
+
+\subsection{Örnek 1: Sierpiński — T0 $\checkmark$, T1 $\times$}
+
+\begin{lstlisting}[language=Python]
+from pytop import sierpinski_space, is_t0, is_t1, is_t2
+s = sierpinski_space()
+print("T0:", is_t0(s).status)
+print("T1:", is_t1(s).status)
+print("T2:", is_t2(s).status)
+\end{lstlisting}
+\begin{lstlisting}[caption={Çıktı}]
+T0: true
+T1: false
+T2: false
+\end{lstlisting}
+
+\subsection{Örnek 2: Kosonlu $\mathbb{N}$ — T1 $\checkmark$, T2 $\times$}
+
+\begin{lstlisting}[language=Python]
+from pytop import naturals_cofinite, is_t1, is_t2
+nc = naturals_cofinite()
+print("T1:", is_t1(nc).status)
+print("T2:", is_t2(nc).status)
+\end{lstlisting}
+\begin{lstlisting}[caption={Çıktı}]
+T1: true
+T2: false
+\end{lstlisting}
+
+\subsection{Örnek 3: Ayrılma Zinciri — Ayrık}
+
+\begin{lstlisting}[language=Python]
+from pytop import discrete_topology, separation_chain
+d = discrete_topology(1, 2, 3)
+for prop, result in separation_chain(d).items():
+    print(f"  {prop:20s}: {result.status}")
+\end{lstlisting}
+\begin{lstlisting}[caption={Çıktı (kısa)}]
+  t0                  : true
+  t1                  : true
+  hausdorff           : true
+  t4                  : true
+  perfectly_normal    : true
+\end{lstlisting}
+
+%% ============================================================
+\section{Alıştırmalar}
+%% ============================================================
+
+\subsection*{Kodlama}
+\begin{enumerate}[label=\textbf{K\arabic*.}]
+  \item \texttt{make\_topology(\{1,2,3\},\{1\},\{2\},\{1,2\})} için \texttt{separation\_chain}
+        çalıştırın.
+  \item \texttt{finite\_chain\_space(3)} üzerinde en yüksek sağlanan aksiyomu bulun.
+  \item \texttt{two\_point\_indiscrete\_space()} üzerinde T0, T1, T2 test edin.
+\end{enumerate}
+
+\subsection*{Teori}
+\begin{enumerate}[label=\textbf{T\arabic*.}]
+  \item T2 $\Rightarrow$ T1 $\Rightarrow$ T0 implicasyonlarını kanıtlayın.
+  \item Sonlu uzayda T1 $\iff$ ayrık topoloji olduğunu gösterin.
+\end{enumerate}

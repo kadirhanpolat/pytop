@@ -1,0 +1,187 @@
+\chapter{Metrik Uzaylar}
+
+Metrik uzaylar, mesafe fonksiyonuna dayanan topolojik yapılardır. Her metrik uzay
+doğal olarak bir topolojik uzay oluşturur; bu yapı ``indüklenen topoloji'' olarak adlandırılır.
+
+%-------------------------------------------------------------------
+\section{Konu}
+
+\subsection{Metrik Aksiyomları}
+
+\begin{definition}[Metrik Uzay]
+$M$ kümesi ve $d: M \times M \to [0,\infty)$ verilsin.
+$(M, d)$ bir \textbf{metrik uzay}, $d$ ise \textbf{metrik} ise:
+\begin{enumerate}
+  \item[(M1)] \textbf{Özdeşlik:} $d(x,y) = 0 \Leftrightarrow x = y$
+  \item[(M2)] \textbf{Simetri:} $d(x,y) = d(y,x)$
+  \item[(M3)] \textbf{Üçgen:} $d(x,z) \leq d(x,y) + d(y,z)$
+\end{enumerate}
+\end{definition}
+
+\subsection{Temel Kavramlar}
+
+\begin{itemize}
+  \item \textbf{Açık top:} $B(x, r) = \{y \in M : d(x,y) < r\}$
+  \item \textbf{Kapalı top:} $\bar{B}(x, r) = \{y \in M : d(x,y) \leq r\}$
+  \item \textbf{İndüklenen topoloji:} $\tau_d = \{U : \forall x \in U,\,\exists\varepsilon>0,\,B(x,\varepsilon) \subseteq U\}$
+  \item \textbf{Çap:} $\mathrm{diam}(A) = \sup\{d(x,y) : x,y \in A\}$
+\end{itemize}
+
+\subsection{Standart Metrikler}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Metrik} & \textbf{Tanım} & \textbf{Uzay} \\
+\midrule
+Öklid & $d(x,y) = |x-y|$ & $\mathbb{R}$ \\
+Ayrık & $d(x,y) = 0$ veya $1$ & Herhangi $X$ \\
+$\ell^\infty$ (max) & $\max_i d_i(x_i,y_i)$ & Çarpım uzayı \\
+Sınırlı (capped) & $d'(x,y) = \min(d(x,y),1)$ & Eşdeğer topoloji \\
+\bottomrule
+\end{tabular}
+\caption{Standart metrikler}
+\end{table}
+
+%-------------------------------------------------------------------
+\section{Teoremler}
+
+\begin{theorem}
+Her metrik uzay Hausdorff (T2) ve $1^{\text{st}}$ sayılabilirdir.
+\begin{proof}[Kanıt İskeleti]
+$B(x, d(x,y)/2)$ ve $B(y, d(x,y)/2)$ ayrık komşuluklardır; $\{B(x,1/n)\}$ yerel bazdır.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}[Sınırlı Metrik Eşdeğerliği]
+$d'(x,y) = \min(d(x,y),1)$ ile $d$ aynı topolojiyi indükler.
+\end{theorem}
+
+\begin{theorem}
+$\mathbb{R}^n$ üzerindeki max, sum ve Öklid metrikleri topolojik olarak eşdeğerdir.
+\end{theorem}
+
+%-------------------------------------------------------------------
+\section{Algoritmalar}
+
+\subsection{validate\_metric — $O(|X|^3)$}
+
+\begin{algorithm}
+\caption{ValidateMetric$(X, d)$}
+\begin{algorithmic}[1]
+\For{each $x \in X$}
+    \If{$d(x,x) \neq 0$} \Return False \EndIf
+    \For{each $y \neq x$}
+        \If{$d(x,y) = 0$} \Return False \EndIf
+    \EndFor
+\EndFor
+\For{each $x,y \in X$}
+    \If{$d(x,y) \neq d(y,x)$} \Return False \EndIf
+\EndFor
+\For{each $x,y,z \in X$}
+    \If{$d(x,z) > d(x,y) + d(y,z)$} \Return False \EndIf
+\EndFor
+\State \Return True
+\end{algorithmic}
+\end{algorithm}
+
+Karmaşıklık: $O(|X|^3)$ — üçgen eşitsizliği dominates.
+
+\subsection{open\_ball — $O(|X|)$}
+
+\begin{algorithm}
+\caption{OpenBall$(x, r, X, d)$}
+\begin{algorithmic}[1]
+\State \Return $\{y \in X : d(x,y) < r\}$
+\end{algorithmic}
+\end{algorithm}
+
+%-------------------------------------------------------------------
+\section{pytop API}
+
+\begin{lstlisting}[language=Python]
+from pytop.metric_spaces import (
+    FiniteMetricSpace,
+    SymbolicMetricSpace,
+    validate_metric,
+)
+from pytop import (
+    open_ball,
+    closed_ball,
+    distance_to_subset,
+    diameter_of_subset,
+    is_bounded_subset,
+    capped_metric,
+)
+\end{lstlisting}
+
+\texttt{FiniteMetricSpace(carrier=tuple, distance=dict)} — mesafe sözlüğü \texttt{(a,b): float}.
+
+\texttt{open\_ball(fms, point, radius)} $\to$ \texttt{set} döner (Result değil).
+
+\texttt{capped\_metric(distance\_fn, cap=1.0)} $\to$ \texttt{Callable} döner.
+
+%-------------------------------------------------------------------
+\section{Örnekler}
+
+\subsection*{Örnek 5.1 — Ayrık Metrik Uzay}
+
+\begin{lstlisting}[language=Python]
+points = [1, 2, 3, 4]
+dist_discrete = {(a, b): (0 if a == b else 1)
+                 for a in points for b in points}
+fms = FiniteMetricSpace(carrier=tuple(points), distance=dist_discrete)
+print("carrier:", fms.carrier)
+print("d(1,2):", fms.distance[(1,2)])
+\end{lstlisting}
+
+\begin{verbatim}
+carrier: (1, 2, 3, 4)
+d(1,2): 1
+\end{verbatim}
+
+\subsection*{Örnek 5.3 — open\_ball}
+
+\begin{lstlisting}[language=Python]
+print("B(1, 0.5) =", open_ball(fms, 1, 0.5))
+print("B(1, 1.5) =", open_ball(fms, 1, 1.5))
+\end{lstlisting}
+
+\begin{verbatim}
+B(1, 0.5) = {1}
+B(1, 1.5) = {1, 2, 3, 4}
+\end{verbatim}
+
+\subsection*{Örnek 5.6 — capped\_metric}
+
+\begin{lstlisting}[language=Python]
+cap_fn = capped_metric(fms_line.distance, cap=1.0)
+print("d(0,3) capped:", cap_fn(0, 3))
+print("d(0,1) capped:", cap_fn(0, 1))
+\end{lstlisting}
+
+\begin{verbatim}
+d(0,3) capped: 1.0
+d(0,1) capped: 1.0
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item $\{A,B,C,D\}$ üzerinde bir metrik tanımlayın ve \texttt{validate\_metric} ile
+      doğrulayın. Üçgen eşitsizliğini ihlal eden bir örnek de deneyin.
+\item Öklid metrikli $\{0,\ldots,9\}$ üzerinde $B(5,3.0)$ ve $\bar{B}(5,3.0)$
+      hesaplayın.
+\item \texttt{normalized\_metric} kullanarak bir metriği $[0,1]$'e normalleştirin.
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item Her metrik uzayın Hausdorff olduğunu ispatlayın.
+\item $d' = \min(d,1)$ ve $d$ aynı topolojiyi indüklediğini gösterin.
+\end{enumerate}

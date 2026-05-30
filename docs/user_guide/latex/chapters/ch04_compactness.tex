@@ -1,0 +1,183 @@
+\chapter{Kompaktlık}
+
+Kompaktlık, sonsuz yapılarda ``sınırlılık'' fikrinin topolojik soyutlamasıdır.
+Açık örtü tanımı temel alınarak incelenmekte; varyantlar ve lokal kompaktlık da ele alınmaktadır.
+
+%-------------------------------------------------------------------
+\section{Konu}
+
+\subsection{Kompaktlık Tanımı}
+
+\begin{definition}[Kompakt Uzay]
+$(X, \tau)$ topolojik uzayı \textbf{kompakt} ise:
+Her açık örtü $\{U_\alpha\}$ için sonlu alt-örtü vardır:
+\[
+X \subseteq \bigcup_{\alpha} U_\alpha
+\implies
+\exists \text{ sonlu } I:\; X \subseteq \bigcup_{\alpha \in I} U_\alpha.
+\]
+\end{definition}
+
+\subsection{Kompaktlık Varyantları}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Varyant} & \textbf{Tanım} \\
+\midrule
+Kompakt & Her açık örtünün sonlu alt-örtüsü \\
+Sayılabilir kompakt & Her sayılabilir örtünün sonlu alt-örtüsü \\
+Ardışımlı kompakt & Her dizi yakınsak alt-dizi içerir \\
+Sözde kompakt & Her sürekli $f: X \to \mathbb{R}$ sınırlıdır \\
+Lindelöf & Her açık örtünün sayılabilir alt-örtüsü \\
+$\sigma$-kompakt & Sayılabilir kompakt kümelerin birleşimi \\
+Lokal kompakt & Her noktanın kompakt komşuluğu var \\
+\bottomrule
+\end{tabular}
+\caption{Kompaktlık varyantları}
+\end{table}
+
+\textbf{Sıralama:} Kompakt $\Rightarrow$ Sayılabilir kompakt $\Rightarrow$ Ardışımlı kompakt $\Rightarrow$ Lindelöf.
+
+%-------------------------------------------------------------------
+\section{Teoremler}
+
+\begin{theorem}[Heine-Borel]
+$\mathbb{R}^n$'de kompakt $\Leftrightarrow$ kapalı ve sınırlı.
+\end{theorem}
+
+\begin{theorem}
+Kompakt $+$ Hausdorff $\Rightarrow$ Normal (T4).
+\end{theorem}
+
+\begin{theorem}
+Kompakt uzaydan Hausdorff uzaya sürekli bijeksiyon $\Rightarrow$ homeomorfizma.
+\end{theorem}
+
+\begin{theorem}[Tychonoff]
+Keyfi kompakt uzayların kartezyen çarpımı kompakttır.
+\end{theorem}
+
+\begin{theorem}[Alexandroff Tek-Nokta Kompaktifikasyonu]
+Her lokal kompakt Hausdorff uzay $X$ için $X^* = X \cup \{\infty\}$ kompakt Hausdorff'tur.
+\end{theorem}
+
+%-------------------------------------------------------------------
+\section{Algoritmalar}
+
+\subsection{Sonlu Uzayda Kompaktlık}
+
+Sonlu uzay her zaman kompakttır: her örtü zaten sonlu.
+Algoritma: $O(1)$.
+
+\subsection{analyze\_compactness\_variants — Tag Tabanlı Çıkarım}
+
+\begin{algorithm}
+\caption{AnalyzeVariants$(X, \tau)$}
+\begin{algorithmic}[1]
+\If{$X$ sonlu}
+    \State tüm varyantlar $\leftarrow$ True; \Return VariantProfile(...)
+\EndIf
+\If{\texttt{'compact'} $\in$ tags}
+    \State countably\_compact, sequentially\_compact, lindelof $\leftarrow$ True
+\EndIf
+\If{\texttt{'metric'} $\wedge$ \texttt{'compact'} $\in$ tags}
+    \State sequentially\_compact $\leftarrow$ True
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
+%-------------------------------------------------------------------
+\section{pytop API}
+
+\begin{lstlisting}[language=Python]
+from pytop import (
+    is_compact,
+    is_lindelof,
+    is_locally_compact,
+)
+from pytop.compactness_variants import (
+    is_countably_compact,
+    is_sequentially_compact,
+    analyze_compactness_variants,
+)
+\end{lstlisting}
+
+\texttt{analyze\_compactness\_variants(space)} $\to$ \texttt{Result}; \texttt{.value} bir \texttt{dict} içerir.
+
+%-------------------------------------------------------------------
+\section{Örnekler}
+
+\subsection*{Örnek 5.1 — Sonlu Uzaylar: Otomatik Kompakt}
+
+\begin{lstlisting}[language=Python]
+from pytop import sierpinski_space, discrete_topology, finite_chain_space, is_compact
+
+s = sierpinski_space()
+print("Sierpinski compact?", is_compact(s).status)
+d = discrete_topology(1, 2, 3)
+print("Discrete(3) compact?", is_compact(d).status)
+c = finite_chain_space(3)
+print("Chain(3) compact?", is_compact(c).status)
+\end{lstlisting}
+
+\begin{verbatim}
+Sierpinski compact?      true
+Chain(3) compact?        true
+Discrete(3) compact?     true
+\end{verbatim}
+
+\subsection*{Örnek 5.2 — Gerçek Doğru ℝ: Kompakt Değil}
+
+\begin{lstlisting}[language=Python]
+rl = real_line_metric()
+print("compact?", is_compact(rl).status)
+print("lindelof?", is_lindelof(rl).status)
+print("locally_compact?", is_locally_compact(rl).status)
+\end{lstlisting}
+
+\begin{verbatim}
+compact?          false
+lindelof?         true
+locally_compact?  conditional
+\end{verbatim}
+
+\subsection*{Örnek 5.3 — analyze\_compactness\_variants: Sierpiński}
+
+\begin{lstlisting}[language=Python]
+r = analyze_compactness_variants(s)
+for key, val in r.value.items():
+    if hasattr(val, 'status'):
+        print(f"  {key:<25}: {val.status}")
+\end{lstlisting}
+
+\begin{verbatim}
+  representation           : finite
+  countably_compact        : true
+  sequentially_compact     : true
+  pseudocompact            : true
+  lindelof                 : true
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item \texttt{finite\_chain\_space(5)} ve \texttt{discrete\_topology(1,2,3,4,5)} için
+      \texttt{is\_compact} karşılaştırın.
+\item \texttt{naturals\_cofinite()} için \texttt{is\_compact}, \texttt{is\_lindelof},
+      \texttt{is\_countably\_compact} hesaplayın.
+\item \texttt{closed\_unit\_interval\_metric()} ile \texttt{real\_line\_metric()} için
+      \texttt{analyze\_compactness\_variants} çalıştırıp karşılaştırın.
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item Kompakt + sürekli $\Rightarrow$ görüntü kompakt olduğunu ispatlayın.
+\item Heine-Borel teoreminin neden geçerli olduğunu: $[0,1]$ neden kompakt,
+      $(0,1)$ neden kompakt değil?
+\end{enumerate}

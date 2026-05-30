@@ -1,0 +1,138 @@
+\documentclass[12pt, a4paper, oneside]{book}
+
+% ── Encoding & language ────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[turkish]{babel}
+
+% ── Math ───────────────────────────────────────────────────────────────────────
+\usepackage{amsmath, amsthm, amssymb}
+
+% ── Theorems ───────────────────────────────────────────────────────────────────
+\newtheorem{theorem}{Teorem}[chapter]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{corollary}[theorem]{Sonuç}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Tanım}
+\newtheorem{example}[theorem]{Örnek}
+\theoremstyle{remark}
+\newtheorem*{remark}{Not}
+
+% ── Algorithms ─────────────────────────────────────────────────────────────────
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% ── Code listings ──────────────────────────────────────────────────────────────
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codebg}{rgb}{0.97,0.97,0.97}
+\definecolor{codegreen}{rgb}{0.0,0.5,0.0}
+\definecolor{codepurple}{rgb}{0.5,0.0,0.5}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{codepurple}\bfseries,
+  stringstyle=\color{orange},
+  breaklines=true,
+  frame=single,
+  framerule=0.4pt,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  tabsize=4,
+  showstringspaces=false,
+}
+
+% ── Tables ─────────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{array}
+
+% ── Lists ──────────────────────────────────────────────────────────────────────
+\usepackage{enumitem}
+
+% ── Hyperlinks ─────────────────────────────────────────────────────────────────
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue]{hyperref}
+
+% ── Layout ─────────────────────────────────────────────────────────────────────
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% ── Title page data ────────────────────────────────────────────────────────────
+\title{%
+  \Huge\bfseries pytop Kullanım Kılavuzu\\[0.5em]
+  \Large Nokta-Küme Topolojisi ve Metrik Uzaylar
+}
+\author{Kadirhan Polat}
+\date{2026}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{document}
+
+\maketitle
+
+\frontmatter
+
+\tableofcontents
+
+\chapter*{Ön Söz}
+\addcontentsline{toc}{chapter}{Ön Söz}
+
+Bu kılavuz \texttt{pytop} paketinin nokta-küme topolojisi ve metrik uzaylar
+modüllerini kapsamlı biçimde tanıtmaktadır.
+Her bölüm aynı yapıyı izler:
+\begin{enumerate}
+  \item Teorik giriş ve formal tanımlar
+  \item Temel teoremler (kanıt iskeletleriyle)
+  \item Algoritmalar (sözde kod ve karmaşıklık)
+  \item \texttt{pytop} API
+  \item Çalışan örnekler
+  \item Alıştırmalar
+\end{enumerate}
+
+Örnekler aynı zamanda \texttt{docs/user\_guide/python/} altındaki Python
+script'lerinde ve \texttt{docs/user\_guide/notebook/} altındaki Jupyter
+defterlerinde çalıştırılabilir biçimde mevcuttur.
+
+\mainmatter
+
+% ── Part I: Nokta-Küme Topolojisi ─────────────────────────────────────────────
+\part{Nokta-Küme Topolojisi}
+
+\input{chapters/ch01_topological_spaces}
+\input{chapters/ch02_predicates_and_operators}
+\input{chapters/ch03_separation}
+\input{chapters/ch04_compactness}
+\input{chapters/ch05_connectedness}
+\input{chapters/ch06_countability}
+
+% ── Part II: Metrik Uzaylar ────────────────────────────────────────────────────
+\part{Metrik Uzaylar}
+
+\input{chapters/ch07_metric_spaces}
+\input{chapters/ch08_metric_completeness}
+\input{chapters/ch09_metric_maps}
+
+\backmatter
+
+\chapter*{Dizin}
+\addcontentsline{toc}{chapter}{Dizin}
+
+\begin{description}
+  \item[Açık top] Bkz.\ Bölüm 7.
+  \item[Banach sabit-nokta teoremi] Bkz.\ Bölüm 8.
+  \item[Bağlantılı uzay] Bkz.\ Bölüm 5.
+  \item[Cauchy dizisi] Bkz.\ Bölüm 8.
+  \item[Heine-Borel teoremi] Bkz.\ Bölümler 4, 8.
+  \item[Homeomorfizma] Bkz.\ Bölümler 1, 9.
+  \item[İzometri] Bkz.\ Bölüm 9.
+  \item[Kompaktlık] Bkz.\ Bölüm 4.
+  \item[Lipschitz sabit] Bkz.\ Bölüm 9.
+  \item[Metrik aksiyomları] Bkz.\ Bölüm 7.
+  \item[Sayılabilirlik aksiyomları] Bkz.\ Bölüm 6.
+  \item[Tamlık] Bkz.\ Bölüm 8.
+  \item[Topoloji aksiyomları] Bkz.\ Bölüm 1.
+  \item[Urysohn fonksiyon teoremi] Bkz.\ Bölüm 3.
+\end{description}
+
+\end{document}

@@ -1,0 +1,154 @@
+\chapter{Bağlantılılık}
+
+Bağlantılılık, bir topolojik uzayın iki ayrı açık parçaya bölünememesi özelliğidir.
+Yol-bağlantılılık daha güçlü bir kavramdır ve sürekli yolların varlığına dayanır.
+
+%-------------------------------------------------------------------
+\section{Konu}
+
+\subsection{Bağlantılılık Kavramları}
+
+\begin{definition}[Bağlantılı Uzay]
+$(X, \tau)$ uzayı \textbf{bağlantılı} ise: $X = U \cup V$, $U \cap V = \emptyset$,
+$U,V$ açık $\Rightarrow U = \emptyset$ veya $V = \emptyset$.
+\end{definition}
+
+\begin{definition}[Yol-Bağlantılı]
+$\forall x,y \in X$: $\exists$ sürekli $f:[0,1] \to X$, $f(0) = x$, $f(1) = y$.
+\end{definition}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Kavram} & \textbf{Özellik} \\
+\midrule
+Bağlantılı & Clopen bölme yok \\
+Yol-bağlantılı & Her iki nokta arasında sürekli yol var \\
+Ark-bağlantılı & Yol-bağlantılı; yollar enjektif \\
+Lokal bağlantılı & Her noktanın bağlantılı komşuluğu \\
+Tamamen bağlantısız & Her bağlantılı alt küme tek noktadır \\
+\bottomrule
+\end{tabular}
+\caption{Bağlantılılık hiyerarşisi}
+\end{table}
+
+\textbf{Sıralama:} Ark-bağlantılı $\Rightarrow$ Yol-bağlantılı $\Rightarrow$ Bağlantılı.
+
+\subsection{Clopen Ayrılma}
+
+$X$ bağlantısız $\Leftrightarrow$ boş olmayan trivial olmayan bir clopen $A \subsetneq X$ vardır.
+
+%-------------------------------------------------------------------
+\section{Teoremler}
+
+\begin{theorem}
+Bağlantılı küme süreklilik altında bağlantılıdır:
+$f: X \to Y$ sürekli, $X$ bağlantılı $\Rightarrow f(X)$ bağlantılı.
+\end{theorem}
+
+\begin{theorem}
+Yol-bağlantılı $\Rightarrow$ bağlantılı. Tersi genel olarak yanlış.
+(Karşı örnek: Topolojist sinüs eğrisi.)
+\end{theorem}
+
+\begin{theorem}[Ara Değer Teoremi]
+$f: X \to \mathbb{R}$ sürekli, $X$ bağlantılı $\Rightarrow f(X)$ bir aralıktır.
+\end{theorem}
+
+\begin{theorem}
+Gerçek doğru $\mathbb{R}$'de bağlantılı alt kümeler tam olarak aralıklardır.
+\end{theorem}
+
+%-------------------------------------------------------------------
+\section{Algoritmalar}
+
+\subsection{Sonlu Bağlantılılık — $O(|\tau|^2)$}
+
+\begin{algorithm}
+\caption{BagliMi$(X, \tau)$}
+\begin{algorithmic}[1]
+\For{each non-empty $A \subsetneq X$}
+    \If{$A \in \tau$ \textbf{and} $X \setminus A \in \tau$}
+        \State \Return False \Comment{Clopen bölme bulundu}
+    \EndIf
+\EndFor
+\State \Return True
+\end{algorithmic}
+\end{algorithm}
+
+Karmaşıklık: $O(|\tau|^2)$ — clopen küme taraması.
+
+%-------------------------------------------------------------------
+\section{pytop API}
+
+\begin{lstlisting}[language=Python]
+from pytop import (
+    is_connected,
+    is_path_connected,
+    is_locally_connected,
+    is_totally_disconnected,
+)
+\end{lstlisting}
+
+%-------------------------------------------------------------------
+\section{Örnekler}
+
+\subsection*{Örnek 5.1 — Sierpiński: Bağlantılı}
+
+\begin{lstlisting}[language=Python]
+s = sierpinski_space()
+print("connected?", is_connected(s).status)
+print("path_connected?", is_path_connected(s).status)
+\end{lstlisting}
+
+\begin{verbatim}
+connected?       true
+path_connected?  unknown
+\end{verbatim}
+
+\subsection*{Örnek 5.2 — Ayrık Topoloji: Tamamen Bağlantısız}
+
+\begin{lstlisting}[language=Python]
+d = discrete_topology(1, 2, 3)
+print("connected?", is_connected(d).status)
+print("totally_disconn?", is_totally_disconnected(d).status)
+\end{lstlisting}
+
+\begin{verbatim}
+connected?          false
+totally_disconn?    true
+\end{verbatim}
+
+\subsection*{Örnek 5.3 — Gerçek Doğru ve [0,1]}
+
+\begin{lstlisting}[language=Python]
+rl = real_line_metric()
+ui = closed_unit_interval_metric()
+print("R connected?", is_connected(rl).status)
+print("[0,1] path_connected?", is_path_connected(ui).status)
+\end{lstlisting}
+
+\begin{verbatim}
+R connected?          true
+[0,1] path_connected? true
+\end{verbatim}
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item \texttt{make\_topology(\{1,2,3\},\{1\},\{2,3\})} için \texttt{is\_connected} hesaplayın.
+\item \texttt{finite\_chain\_space(4)} zincirinin bağlantılı olup olmadığını kontrol edin.
+\item İki noktalı ayrık ve indiscrete uzaylar üzerinde \texttt{is\_connected},
+      \texttt{is\_path\_connected} karşılaştırın.
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item Bağlantılı + sürekli $\Rightarrow$ görüntü bağlantılı teoremini ispatlayın.
+\item Yol-bağlantılı $\Rightarrow$ bağlantılı implicasyonunu ispatlayın.
+\end{enumerate}

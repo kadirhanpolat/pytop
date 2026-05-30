@@ -1,0 +1,262 @@
+\chapter{Yüklemler ve Altküme Operatörleri}
+\label{ch:predicates_operators}
+
+%% ============================================================
+\section{Konu}
+%% ============================================================
+
+\subsection{Altküme Yüklemleri}
+
+$(X, \tau)$ bir topolojik uzay ve $A \subseteq X$ olsun.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Yüklem} & \textbf{Tanım} \\
+\midrule
+Açık (open) & $A \in \tau$ \\
+Kapalı (closed) & $X \setminus A \in \tau$ \\
+Clopen & $A \in \tau$ ve $X \setminus A \in \tau$ \\
+Yoğun (dense) & Her boş olmayan $U \in \tau$ için $U \cap A \neq \emptyset$ \\
+Hiçbiryerde-yoğun & $\mathrm{int}(\overline{A}) = \emptyset$ \\
+\bottomrule
+\end{tabular}
+\caption{Altküme yüklemleri}
+\end{table}
+
+\subsection{Altküme Operatörleri}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Operatör} & \textbf{Gösterim} & \textbf{Tanım} \\
+\midrule
+Kapanış & $\overline{A} = \mathrm{cl}(A)$ & $A$'yı içeren en küçük kapalı küme \\
+İç & $A^\circ = \mathrm{int}(A)$ & $A$'ya dahil en büyük açık küme \\
+Sınır & $\partial A = \mathrm{bd}(A)$ & $\overline{A} \setminus A^\circ$ \\
+Türev kümesi & $A' = d(A)$ & $A$'nın birikme noktaları kümesi \\
+\bottomrule
+\end{tabular}
+\caption{Altküme operatörleri}
+\end{table}
+
+\noindent\textbf{Birikme noktası:} $x \in A'$ $\iff$ her $U \ni x$ açık için
+$U \cap (A \setminus \{x\}) \neq \emptyset$.
+
+\subsection{Komşuluk Sistemi}
+
+\begin{definition}[Komşuluk Sistemi]
+$x \in X$ için:
+\[
+  N(x) = \{N \subseteq X : \exists U \in \tau,\, x \in U \subseteq N\}
+\]
+\end{definition}
+
+\noindent\textbf{Komşuluk Aksiyomları (N1--N4):}
+\begin{enumerate}
+  \item[(N1)] $x \in N$, her $N \in N(x)$ için
+  \item[(N2)] $X \in N(x)$
+  \item[(N3)] $N_1, N_2 \in N(x) \Rightarrow N_1 \cap N_2 \in N(x)$
+  \item[(N4)] $N \in N(x)$, $N \subseteq M \Rightarrow M \in N(x)$
+\end{enumerate}
+
+%% ============================================================
+\section{Teoremler}
+%% ============================================================
+
+\begin{theorem}[Kuratowski Kapanış Aksiyomları]
+\label{thm:kuratowski}
+$\mathrm{cl}: \mathcal{P}(X) \to \mathcal{P}(X)$ operatörü şu dört özelliği sağlar:
+\begin{enumerate}
+  \item[(K1)] $\mathrm{cl}(\emptyset) = \emptyset$
+  \item[(K2)] $A \subseteq \mathrm{cl}(A)$
+  \item[(K3)] $\mathrm{cl}(\mathrm{cl}(A)) = \mathrm{cl}(A)$
+  \item[(K4)] $\mathrm{cl}(A \cup B) = \mathrm{cl}(A) \cup \mathrm{cl}(B)$
+\end{enumerate}
+Bu dört özelliği sağlayan her operatör bir topoloji tanımlar.
+\end{theorem}
+
+\begin{theorem}[İç-Kapanış Dualitesi]
+\label{thm:interior_closure_duality}
+Her $A \subseteq X$ için:
+\[
+  A^\circ = X \setminus \mathrm{cl}(X \setminus A), \qquad
+  \mathrm{cl}(A) = X \setminus \mathrm{int}(X \setminus A).
+\]
+\end{theorem}
+
+\begin{theorem}[Komşuluk Sistemi Round-Trip]
+\label{thm:neighborhood_round_trip}
+N1--N4'ü sağlayan her $\{N(x)\}_{x \in X}$ ailesi,
+$\tau = \{U : \forall x \in U, U \in N(x)\}$ şeklinde tek bir topolojiyi geri üretir.
+\end{theorem}
+
+%% ============================================================
+\section{Algoritmalar}
+%% ============================================================
+
+\begin{algorithm}
+\caption{Sonlu Kapanış Hesabı}
+\begin{algorithmic}[1]
+\Require $A \subseteq X$, $\tau$
+\Ensure $\mathrm{cl}(A)$
+\State $\textit{closed} \leftarrow \{X \setminus U : U \in \tau\}$
+\State $\textit{result} \leftarrow X$
+\For{each $C \in \textit{closed}$}
+    \If{$A \subseteq C$ \textbf{and} $|C| < |\textit{result}|$}
+        \State $\textit{result} \leftarrow C$
+    \EndIf
+\EndFor
+\Return $\textit{result}$
+\end{algorithmic}
+\end{algorithm}
+
+\noindent\textbf{Karmaşıklık:} $O(|\tau| \cdot |X|)$.
+
+\begin{algorithm}
+\caption{Türev Kümesi Hesabı}
+\begin{algorithmic}[1]
+\Require $A \subseteq X$, $\tau$
+\Ensure $d(A)$
+\State $\textit{acc} \leftarrow \emptyset$
+\For{each $x \in X$}
+    \If{her açık $U \ni x$ için $U \cap (A \setminus \{x\}) \neq \emptyset$}
+        \State $\textit{acc}.\text{add}(x)$
+    \EndIf
+\EndFor
+\Return $\textit{acc}$
+\end{algorithmic}
+\end{algorithm}
+
+\noindent\textbf{Karmaşıklık:} $O(|X| \cdot |\tau|)$.
+
+%% ============================================================
+\section{pytop API}
+%% ============================================================
+
+\begin{lstlisting}[language=Python, caption={Subset operatörleri importları}]
+from pytop import (
+    analyze_predicate,
+    closure_of_subset, interior_of_subset, boundary_of_subset,
+    derived_set_of_subset,
+    is_open_subset, is_closed_subset, is_dense_subset, is_nowhere_dense_subset,
+    neighborhood_system, character_at_point, analyze_neighborhood_system,
+)
+\end{lstlisting}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Fonksiyon} & \textbf{İmza} & \textbf{Açıklama} \\
+\midrule
+\texttt{analyze\_predicate} & \texttt{(space, predicate, subset)} & Yüklem sorgula \\
+\texttt{closure\_of\_subset} & \texttt{(space, subset)} & Kapanış \\
+\texttt{interior\_of\_subset} & \texttt{(space, subset)} & İç \\
+\texttt{boundary\_of\_subset} & \texttt{(space, subset)} & Sınır \\
+\texttt{derived\_set\_of\_subset} & \texttt{(space, subset)} & Türev kümesi \\
+\texttt{neighborhood\_system} & \texttt{(carrier, topology, point)} & $N(x)$ \\
+\texttt{character\_at\_point} & \texttt{(carrier, topology, point)} & $\chi(x)$ \\
+\texttt{analyze\_neighborhood\_system} & \texttt{(carrier, topology, point=None)} & Tam analiz \\
+\bottomrule
+\end{tabular}
+\caption{Altküme operatör fonksiyonları}
+\end{table}
+
+\noindent\textbf{Not:} \texttt{neighborhood\_system} ve ilgili fonksiyonlar \texttt{carrier} (liste)
+ve \texttt{topology} (liste) alır. Space nesnesi için: \texttt{list(space.carrier)},
+\texttt{list(space.topology)}.
+
+%% ============================================================
+\section{Örnekler}
+%% ============================================================
+
+\subsection{Örnek 1: Kapanış ve İç — Sierpiński Uzayı}
+
+\begin{lstlisting}[language=Python]
+from pytop import sierpinski_space, closure_of_subset, interior_of_subset, boundary_of_subset
+
+s = sierpinski_space()
+print("cl({0})  =", closure_of_subset(s, {0}).value)
+print("cl({1})  =", closure_of_subset(s, {1}).value)
+print("int({0}) =", interior_of_subset(s, {0}).value)
+print("int({1}) =", interior_of_subset(s, {1}).value)
+print("bd({1})  =", boundary_of_subset(s, {1}).value)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+cl({0})  = frozenset({0})
+cl({1})  = frozenset({0, 1})
+int({0}) = frozenset()
+int({1}) = frozenset({1})
+bd({1})  = frozenset({0})
+\end{lstlisting}
+
+$\{0\}$'ın kapanışı kendisidir: $\{0\} = X \setminus \{1\}$ zaten kapalıdır.
+$\{1\}$'in kapanışı $X$'tir: $\{1\}$ kapalı değildir.
+
+\subsection{Örnek 2: Türev Kümesi}
+
+\begin{lstlisting}[language=Python]
+from pytop import sierpinski_space, derived_set_of_subset, is_nowhere_dense_subset
+
+s = sierpinski_space()
+print("d({0}) =", derived_set_of_subset(s, {0}).value)
+print("d({1}) =", derived_set_of_subset(s, {1}).value)
+print("{0} nowhere dense? =", is_nowhere_dense_subset(s, {0}).status)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+d({0}) = frozenset()
+d({1}) = frozenset({0})
+{0} nowhere dense? = true
+\end{lstlisting}
+
+$d(\{1\}) = \{0\}$: $0$'ı içeren her $\{0,1\}$, $\{1\} \setminus \{0\} = \{1\}$ ile kesişir.
+
+\subsection{Örnek 3: Komşuluk Sistemi}
+
+\begin{lstlisting}[language=Python]
+from pytop import sierpinski_space, neighborhood_system, character_at_point
+
+s = sierpinski_space()
+carrier = list(s.carrier)
+topology = list(s.topology)
+print("N(0) =", neighborhood_system(carrier, topology, 0).value)
+print("N(1) =", neighborhood_system(carrier, topology, 1).value)
+print("chi(0) =", character_at_point(carrier, topology, 0).value)
+print("chi(1) =", character_at_point(carrier, topology, 1).value)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+N(0) = [['0', '1']]
+N(1) = [['1'], ['0', '1']]
+chi(0) = 1
+chi(1) = 2
+\end{lstlisting}
+
+$N(0) = \{X\}$: $0$ yalnızca $X$'te açık. $N(1) = \{\{1\}, X\}$: yerel baz büyüklükleri
+$\chi(0)=1$, $\chi(1)=2$.
+
+%% ============================================================
+\section{Alıştırmalar}
+%% ============================================================
+
+\subsection*{Kodlama Alıştırmaları}
+\begin{enumerate}[label=\textbf{K\arabic*.}]
+  \item İndirgenmiş iki-noktalı topolojide her noktanın komşuluk sistemini hesaplayın.
+  \item $X = \{1,2,3,4\}$, $\tau = \{\emptyset, \{1,2\}, \{3,4\}, X\}$ topolojisinde
+        $\mathrm{bd}(\{1,2,3\})$ ve $\mathrm{cl}(\{1,2,3\})$ hesaplayın.
+  \item \texttt{finite\_chain\_space(4)} zincirinde $\{1,2\}$'nin iç, kapanış ve sınır
+        kümelerini bulun.
+\end{enumerate}
+
+\subsection*{Teori Alıştırmaları}
+\begin{enumerate}[label=\textbf{T\arabic*.}]
+  \item $A^\circ = X \setminus \mathrm{cl}(X \setminus A)$ eşitliğini Kuratowski
+        aksiyomlarını kullanarak kanıtlayın.
+  \item $A$'nın yoğun olması için gerek ve yeter koşulun $\mathrm{cl}(A) = X$ olduğunu
+        gösterin.
+\end{enumerate}
