@@ -32,20 +32,20 @@ Python 3.11+ gereklidir.
 
 | # | Bölüm | Konu |
 |---|-------|------|
-| 0 | Küme Teorisi ve Fonksiyon Temelleri | Kümeler, bağıntılar, denklik, fonksiyon türleri, görüntü/ön-görüntü |
-| 0c | Önerme Mantığı | Proposition, bağlaçlar (¬∧∨→↔), tautoloji, ∀/∃/∃! niceleyiciler, T0/T1 uygulaması |
-| 0b | pytop'a Hızlı Giriş | Kurulum, uzay nesneleri, Result tipi, tag sistemi |
+| 1 | pytop'a Hızlı Giriş | Kurulum, uzay nesneleri, Result tipi, tag sistemi |
+| 2 | Önerme Mantığı | Proposition, bağlaçlar (¬∧∨→↔), tautoloji, ∀/∃/∃! niceleyiciler, T0/T1 uygulaması |
+| 3 | Küme Teorisi ve Fonksiyon Temelleri | Kümeler, bağıntılar, denklik, fonksiyon türleri, görüntü/ön-görüntü |
 
 ### Kısım I — Nokta-Küme Topolojisi
 
 | # | Bölüm | Konu |
 |---|-------|------|
-| 1 | Topolojik Uzaylar | Topoloji aksiyomları, baz, alt-baz, temel uzaylar |
-| 2 | Yüklemler ve Altküme Operatörleri | Açık/kapalı/clopen, kapanış, iç, sınır, türev, komşuluk |
-| 3 | Ayrılma Aksiyomları | T0–T4, Urysohn, Tietze, Tychonoff |
-| 4 | Kompaktlık | Açık örtü, varyantlar, Lindelöf, lokal kompakt, Tychonoff teoremi |
-| 5 | Bağlantılılık | Bağlantılı, yol-bağlantılı, ark-bağlantılı, lokal, tam. bağlantısız |
-| 6 | Sayılabilirlik Aksiyomları | 1st/2nd countable, ayrılabilir, Lindelöf |
+| 4 | Topolojik Uzaylar | Topoloji aksiyomları, baz, alt-baz, temel uzaylar |
+| 5 | Yüklemler ve Altküme Operatörleri | Açık/kapalı/clopen, kapanış, iç, sınır, türev, komşuluk |
+| 6 | Ayrılma Aksiyomları | T0–T4, Urysohn, Tietze, Tychonoff |
+| 7 | Kompaktlık | Açık örtü, varyantlar, Lindelöf, lokal kompakt, Tychonoff teoremi |
+| 8 | Bağlantılılık | Bağlantılı, yol-bağlantılı, ark-bağlantılı, lokal, tam. bağlantısız |
+| 9 | Sayılabilirlik Aksiyomları | 1st/2nd countable, ayrılabilir, Lindelöf |
 | 10 | Sürekli Fonksiyonlar | Süreklilik tanımı, homeomorfizma, sabit/özdeşlik/bileşke |
 | 11 | Alt Uzay ve Çarpım Topolojisi | Alt uzay (τ_A = U∩A), çarpım topolojisi, özellik kalıtımı |
 | 12 | Bölüm Topolojisi | Denklik bağıntısı, bölüm kümesi, evrensel özellik |
@@ -55,9 +55,9 @@ Python 3.11+ gereklidir.
 
 | # | Bölüm | Konu |
 |---|-------|------|
-| 7 | Metrik Uzaylar | Metrik aksiyomları, açık/kapalı top, indüklenen topoloji |
-| 8 | Metrik Tamlık | Cauchy dizisi, tam metrik, tamamen sınırlılık, kompaktlık |
-| 9 | Metrik Fonksiyonlar | İzometri, Lipschitz, benzerlik, homeomorfizma, sınıflandırma |
+| 14 | Metrik Uzaylar | Metrik aksiyomları, açık/kapalı top, indüklenen topoloji |
+| 15 | Metrik Tamlık | Cauchy dizisi, tam metrik, tamamen sınırlılık, kompaktlık |
+| 16 | Metrik Fonksiyonlar | İzometri, Lipschitz, benzerlik, homeomorfizma, sınıflandırma |
 
 ---
 
