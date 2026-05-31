@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `named_spaces.py` + `space_catalog.py` — 104 canonical named topological spaces across 8 batches:
+  - **Batch 1 (20):** Sierpiński space, particular/excluded point topologies, cofinite/cocountable
+    topologies, real line, Sorgenfrey line, ℚ, irrationals, Cantor set, Hilbert cube, long line,
+    topologist's sine curve, comb space, Warsaw circle, infinite broom, Moore plane, Arens-Fort, Fort space
+  - **Batch 2 (12):** discrete/indiscrete/countable-discrete spaces, particular/excluded point on ℕ,
+    double origin topology, Michael line, Tychonoff plank, deleted Tychonoff plank, β ℕ,
+    Furstenberg topology, pseudo-arc
+  - **Batch 3 (12):** unit interval, unit circle, closed unit disk, torus, Cantor cube, Baire space,
+    lexicographic square, one-point compactification of ℝ, Cantor fan, Knaster-Kuratowski fan,
+    Hilbert space, p-adic integers
+  - **Batch 4 (12):** half-open interval, open interval, half-open real line, ℝP², Klein bottle,
+    Möbius band, dunce hat, Hawaiian earring, ω₁, ω₁+1, Stone-Čech remainder, one-point
+    compactification of ℚ
+  - **Batch 5 (12):** ℝ², punctured plane, S², S³, S^n, Sierpiński carpet, Menger curve,
+    open cylinder, tube, open topologist's sine curve, Erdős space, complete Erdős space
+  - **Batch 6 (12):** ℝ^n, Sorgenfrey plane, one-point compactification of ℕ, ω+1, rational
+    sequence topology, particular/excluded point on ℝ, divisor topology, uncountable discrete space,
+    double arrow space, annulus, wedge of circles
+  - **Batch 7 (12):** upper half-plane, closed upper half-plane, p-adic numbers, Sierpiński triangle,
+    ℝP^n, cofinite topology on ℤ, long ray, Knaster continuum, ℂP², ℝ^ω, T^n, open unit disk
+  - **Batch 8 (12):** genus-g surface, n-ball, K-topology on ℝ, dyadic solenoid, extended real
+    line, {0,1}^c, S²∨S², suspension of Cantor set, quarter plane, punctured torus,
+    countable disjoint union of circles, lens space L(p,q)
+- `SpaceCatalog` — queryable registry with 99 `SpaceRecord` entries; supports `.get(name)`,
+  `.search(**props)`, `.list_all()`, and case-insensitive alias lookup
+- `catalog` — module-level singleton (`from pytop import catalog`)
+
 ### Documentation
 - `docs/user_guide/` — comprehensive 16-chapter user guide in four parallel formats
   (Python scripts, Jupyter notebooks, Markdown, LaTeX/PDF):

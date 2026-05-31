@@ -23,6 +23,13 @@ import pytop
 # Spaces and maps
 from pytop import TopologicalSpace, continuous_map_profile
 
+# Named spaces + catalog
+from pytop import cantor_set, torus, n_sphere, catalog
+s = cantor_set()
+s.has_tag("totally_disconnected")   # True
+catalog.get("Sorgenfrey line")       # SpaceRecord(...)
+catalog.search(compact=True, metrizable=True)
+
 # Compactness
 from pytop import is_compact, CompactnessProfile
 
@@ -56,6 +63,7 @@ from pytop.experimental import maturity_registry
 | Higher algebra | `operads`, `spectral_sequences` |
 | Higher categories | `higher_categories`, `topological_field_theory` |
 | Cosmology | `cosmology_topology` |
+| Named spaces | `named_spaces`, `space_catalog` |
 | Experimental | `pytop.experimental` |
 
 ## Documentation
@@ -80,6 +88,13 @@ jupyter lab docs/user_guide/notebook/ch07_compactness.ipynb
 cd docs/user_guide/latex && xelatex main.tex
 ```
 
+## What's New (Unreleased)
+
+- **`named_spaces` + `space_catalog`** — 104 canonical named topological spaces (Sierpiński space,
+  Cantor set, Hilbert cube, Sorgenfrey line, p-adic numbers, lens spaces, solenoid, …) with a
+  queryable `SpaceCatalog` registry; `from pytop import catalog` gives instant lookup by name or
+  property
+
 ## What's New in v0.5.33
 
 - **`topological_field_theory`** — Atiyah-Segal axioms, cobordism hypothesis, Frobenius algebras, Chern-Simons, Donaldson, factorization algebras (196 tests)
@@ -87,7 +102,7 @@ cd docs/user_guide/latex && xelatex main.tex
 - **`spectral_sequences`** — Serre, Adams, AHSS, Leray-Hirsch, LHS, Grothendieck (170 tests)
 - **`operads`** — Ass/Com/Lie/A∞/L∞/E_n, Koszul duality, bar-cobar (170 tests)
 - **User guide** — 16-chapter guide in 4 formats, 73-page compiled PDF
-- **8 764 tests passing**, 98.74% coverage
+- **8 914 tests passing**, 98.74% coverage
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
 
