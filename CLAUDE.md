@@ -69,6 +69,15 @@ docs/user_guide/
 - Rasterizes at 300 dpi via `pdftoppm`
 - Writes PNGs to `assets/chNN/`
 
+**Maarif pedagogy blocks** (md + py + ipynb, all 16 chapters):
+Every chapter has 5 blockquote blocks after `## 1. Konu`:
+`> **Neden bu konu?**` / `> 🔍 **Kendin dene:**` / `> ⚠️ **Sık hata:**` /
+`> ↗️ **Bkz.:**` / `> 💭 **Öz-yansıtma:**`
+In Python files: `# %% [markdown]\n"""..."""` cell. In notebooks: markdown cell inserted after `## 1. Konu` cell.
+
+**API style rule** (ch10 onwards): use `make_set(...)` / `empty_set()` instead of raw
+`frozenset({...})` / `set()` in examples.
+
 **Pedagogical tcolorbox environments** (defined in `latex/main.tex`):
 
 | Environment | Color | Purpose |

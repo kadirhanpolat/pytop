@@ -29,10 +29,24 @@ ve `latex/appendix/solutions.tex`.
 
 ---
 
-## Açıklayıcı Pilot — ch04 ve ch06 Zenginleştirmeleri
+## Pedagojik Zenginleştirmeler
 
-`feature/user-guide-explanatory-pilot` kapsamında ch04 (Topolojik Uzaylar) ve ch06
-(Ayrılma Aksiyomları) tüm dört formatta aşağıdaki pedagojik katmanlarla zenginleştirilmiştir:
+`feature/user-guide-explanatory-pilot` kapsamında yapılan iyileştirmeler:
+
+### Tüm Bölümlerde Maarif Pedagojik Blokları (16 × 3 format)
+
+Her bölüm artık **§1. Konu** başlığının hemen ardından 5 pedagojik blok içerir
+(Markdown, Python ve Jupyter Notebook formatlarında):
+
+| Blok | İçerik |
+|------|--------|
+| **Neden bu konu?** | Bölümün neden kritik olduğu, önceki/sonraki bölümlerle bağı |
+| **🔍 Kendin dene:** | Bölüme özgü keşif görevi |
+| **⚠️ Sık hata:** | API veya kavramsal yaygın hata |
+| **↗️ Bkz.:** | Çapraz bölüm referansları |
+| **💭 Öz-yansıtma:** | Derin anlayışı tetikleyen soru |
+
+### ch04 ve ch06 Zenginleştirmeleri (tüm dört format)
 
 - **Yönlendirmeli kanıtlar** — adım adım açıklamalı ispat iskeletleri
 - **İz tabloları** — algoritma adımlarını satır satır gösteren tablolar
@@ -120,8 +134,9 @@ py -3 docs/user_guide/tools/build_figures.py
 
 ## Bölüm Yapısı
 
-Her bölüm aynı altı bölümlü şablonu izler:
+Her bölüm aynı şablonu izler:
 
+0. **Maarif blokları** — Neden/Keşif/Hata/Bkz./Öz-yansıtma (md + py + ipynb)
 1. **Konu** — Sezgisel giriş ve formal tanımlar
 2. **Teoremler** — Kanıt iskeletleriyle temel teoremler
 3. **Algoritmalar** — Sözde kod ve zaman karmaşıklığı

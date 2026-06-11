@@ -105,6 +105,13 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
 - **User guide enrichment pilot (ch04 + ch06)** — guided proofs, "Ne oldu?" example walkthroughs,
   trace tables, 8 TikZ figures (→ PNG), 4 pedagogical tcolorbox environments, exercise hints,
   and a complete solutions appendix across all 4 formats
+- **Maarif pedagogy blocks — all 16 chapters × 3 formats** — every chapter now opens with
+  5 pedagogical blockquotes (Neden/Keşif/Hata/Bkz./Öz-yansıtma) in Markdown, Python, and
+  Jupyter Notebook formats; chapter-specific content guides motivation, common mistakes, and
+  cross-references
+- **User guide API hygiene** — ch10 raw `frozenset()`/`set()` patterns replaced with `make_set`/
+  `empty_set`; ch03 extended with `compose_relations`, `equivalence_class`,
+  `partition_from_equivalence`, and `total_order_from_list` examples across all 3 formats
 
 ## What's New in v0.5.33
 
