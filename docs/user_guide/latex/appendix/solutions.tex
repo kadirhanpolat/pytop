@@ -5,3 +5,188 @@ Bu ek, kılavuz alıştırmalarının tam çözümlerini içerir. Kodlama
 çözümlerindeki tüm çıktılar gerçek çalıştırmadan alınmıştır; teori
 çözümleri tam argüman verir. Pilot kapsamında Bölüm~4 ve Bölüm~6
 çözümleri yer alır; diğer bölümler yaygınlaştırma aşamasında eklenecektir.
+
+\section{Bölüm 4 --- Topolojik Uzaylar}
+
+\subsection*{K1}\label{sol:ch04:K1}
+
+\begin{lstlisting}[language=Python]
+from pytop import cofinite_topology, is_t1, is_t2
+c = cofinite_topology('a', 'b', 'c')
+print("|tau| =", len(c.topology))
+print("Etiketler:", sorted(c.tags))
+print("T1:", is_t1(c).status, "| T2:", is_t2(c).status)
+\end{lstlisting}
+
+\begin{lstlisting}[style=output, caption={Çıktı}]
+|tau| = 8
+Etiketler: ['cofinite', 'compact', 'finite', 't1']
+T1: true | T2: true
+\end{lstlisting}
+
+Üç elemanlı kümede tümleyeni sonlu olan \emph{her} alt küme kosonlu
+koşulunu sağlar; $|\tau|=2^3=8=|\mathcal{P}(X)|$: topoloji ayrıktır.
+Sonlu kümede T1 $\Rightarrow$ tekiller kapalı $\Rightarrow$ her alt
+küme kapalı $\Rightarrow$ her alt küme açık; T1 olan sonlu uzay
+zorunlu olarak ayrık, dolayısıyla Hausdorff'tur. T1 olup T2 olmayan
+örnek için taşıyıcı sonsuz olmalıdır: kosonlu $\mathbb{N}$'de boş
+olmayan iki açık daima kesişir (Bölüm~\ref{ch:separation}, Örnek~2).
+\hfill(\hyperref[ex:ch04:K1]{alıştırmaya dön})
+
+\subsection*{K2}\label{sol:ch04:K2}
+
+\begin{lstlisting}[language=Python]
+from pytop import topology_from_subbasis
+s = topology_from_subbasis({1, 2, 3, 4}, [{1, 2}, {3, 4}, {2, 3}])
+print("|tau| =", len(s.topology))
+print("Acik kumeler:", sorted(sorted(t) for t in s.topology))
+\end{lstlisting}
+
+\begin{lstlisting}[style=output, caption={Çıktı}]
+|tau| = 9
+Acik kumeler: [[], [1, 2], [1, 2, 3], [1, 2, 3, 4], [2], [2, 3], [2, 3, 4], [3], [3, 4]]
+\end{lstlisting}
+
+Alt-baz çiftlerinin kesişimleri $\{2\}$, $\{3\}$, $\emptyset$ yeni baz
+elemanları üretir; birleşimler $\{1,2,3\}$, $\{2,3,4\}$ ve $X$'i
+ekler. Toplam 9 açık küme.
+\hfill(\hyperref[ex:ch04:K2]{alıştırmaya dön})
+
+\subsection*{K3}\label{sol:ch04:K3}
+
+\begin{lstlisting}[language=Python]
+from pytop import finite_chain_space
+c5 = finite_chain_space(5)
+print("|tau| =", len(c5.topology))
+print("Acik kumeler:", sorted(sorted(t) for t in c5.topology))
+\end{lstlisting}
+
+\begin{lstlisting}[style=output, caption={Çıktı}]
+|tau| = 6
+Acik kumeler: [[], [1], [1, 2], [1, 2, 3], [1, 2, 3, 4], [1, 2, 3, 4, 5]]
+\end{lstlisting}
+
+Açıklar 6 önektir. ``En açık'' nokta $1$'dir: tek elemanlı $\{1\}$
+açığında ve dolayısıyla her boş olmayan açıkta yer alır; $5$ yalnız
+$X$'tedir.
+\hfill(\hyperref[ex:ch04:K3]{alıştırmaya dön})
+
+\subsection*{T1}\label{sol:ch04:T1}
+
+$X=\{1,2,3\}$ üzerinde tam olarak \textbf{29} farklı topoloji vardır
+(homeomorfizma sınıfı olarak 9). Doğrudan yöntem
+$\mathcal{P}(\mathcal{P}(X))$'in $2^8=256$ elemanlı aday ailesinin her
+birinde üç aksiyomu denetlemeyi gerektirir. Baz teoremi işi tersine
+çevirir: (B1)--(B2)'yi sağlayan küçük aileler seçilir, her biri
+\emph{otomatik olarak geçerli} bir topoloji üretir; yalnız üretilen
+topolojilerin tekrarları ayıklanır. Aksiyom denetimi aday başına
+yapılmaz --- üretim doğruluğu Baz Teoremi'nce garantilidir.
+\hfill(\hyperref[ex:ch04:T1]{alıştırmaya dön})
+
+\subsection*{T2}\label{sol:ch04:T2}
+
+\emph{Ayrık en incedir:} Herhangi bir $\tau$ topolojisi tanım gereği
+$\tau\subseteq\mathcal{P}(X)=\tau_{\mathrm{disc}}$ sağlar; hiçbir
+aksiyoma gerek yoktur, ``topoloji $X$'in alt kümelerinden oluşur''
+tanımı yeter. \emph{İndirgenmiş en kabadır:} (T1) aksiyomu her
+topolojinin $\emptyset$ ve $X$'i içermesini zorunlu kılar;
+$\tau_{\mathrm{ind}}=\{\emptyset,X\}\subseteq\tau$. Kullanılan tek
+aksiyom (T1)'dir. $\square$
+\hfill(\hyperref[ex:ch04:T2]{alıştırmaya dön})
+
+\section{Bölüm 6 --- Ayrılma Aksiyomları}
+
+\subsection*{K1}\label{sol:ch06:K1}
+
+\begin{lstlisting}[language=Python]
+from pytop import make_topology, separation_chain
+k = make_topology({1, 2, 3}, {1}, {2}, {1, 2})
+print("Acik kumeler:", sorted(sorted(t) for t in k.topology))
+for prop, r in separation_chain(k).items():
+    print(f"  {prop:20s}: {r.status}")
+\end{lstlisting}
+
+\begin{lstlisting}[style=output, caption={Çıktı}]
+Acik kumeler: [[], [1], [1, 2], [1, 2, 3], [2]]
+  t0                  : true
+  t1                  : false
+  hausdorff           : false
+  urysohn             : false
+  t3                  : false
+  tychonoff           : unknown
+  t4                  : false
+  completely_normal   : false
+  perfectly_normal    : false
+\end{lstlisting}
+
+T0 sağlanır: $(1,2)$ çiftini $\{1\}$, $(1,3)$ çiftini $\{1\}$,
+$(2,3)$ çiftini $\{2\}$ ayırır. T1 düşer: $3$'ü içerip $1$'i dışlayan
+açık yoktur ($3$ yalnız $X$'te). \texttt{tychonoff: unknown} ---
+sürekli fonksiyon ayırması açık-küme taramasıyla karara bağlanmaz;
+kütüphane dürüstçe ``bilinmiyor'' der.
+\hfill(\hyperref[ex:ch06:K1]{alıştırmaya dön})
+
+\subsection*{K2}\label{sol:ch06:K2}
+
+\begin{lstlisting}[language=Python]
+from pytop import finite_chain_space, separation_chain
+for prop, r in separation_chain(finite_chain_space(3)).items():
+    print(f"  {prop:20s}: {r.status}")
+\end{lstlisting}
+
+\begin{lstlisting}[style=output, caption={Çıktı}]
+  t0                  : true
+  t1                  : false
+  hausdorff           : false
+  urysohn             : false
+  t3                  : false
+  tychonoff           : unknown
+  t4                  : false
+  completely_normal   : false
+  perfectly_normal    : false
+\end{lstlisting}
+
+En yüksek sağlanan aksiyom \textbf{T0}'dır. Önek yapısı her çifti
+``daha solda olan'' lehine ayırır: $(1,2)$ için $\{1\}$, $(2,3)$ için
+$\{1,2\}$. T1 imkânsızdır: $2$'yi içerip $1$'i dışlayan önek yoktur.
+\hfill(\hyperref[ex:ch06:K2]{alıştırmaya dön})
+
+\subsection*{K3}\label{sol:ch06:K3}
+
+\begin{lstlisting}[language=Python]
+from pytop import two_point_indiscrete_space, is_t0, is_t1, is_t2
+tp = two_point_indiscrete_space()
+print("T0:", is_t0(tp).status, "| T1:", is_t1(tp).status, "| T2:", is_t2(tp).status)
+\end{lstlisting}
+
+\begin{lstlisting}[style=output, caption={Çıktı}]
+T0: false | T1: false | T2: false
+\end{lstlisting}
+
+Boş olmayan tek açık $X$'tir ve her iki noktayı da içerir; hiçbir
+çift hiçbir yönden ayrılamaz. Zincirin tamamı en alt basamakta düşer.
+\hfill(\hyperref[ex:ch06:K3]{alıştırmaya dön})
+
+\subsection*{T1}\label{sol:ch06:T1}
+
+\emph{T2 $\Rightarrow$ T1:} $x\neq y$ verilsin. T2 ile ayrık $U\ni x$,
+$V\ni y$ açıkları vardır. $U\cap V=\emptyset$ olduğundan $y\notin U$
+ve $x\notin V$: hem ``$x$'i içerip $y$'yi dışlayan'' hem ``$y$'yi
+içerip $x$'i dışlayan'' açık bulundu --- T1'in iki yönlü koşulu
+sağlandı. \emph{T1 $\Rightarrow$ T0:} T0 yalnız \emph{en az bir}
+yönlü ayrım ister; T1'in verdiği iki yönlü ayrımın herhangi biri
+yeter. $\square$
+\hfill(\hyperref[ex:ch06:T1]{alıştırmaya dön})
+
+\subsection*{T2}\label{sol:ch06:T2}
+
+\emph{($\Rightarrow$)} $X$ sonlu ve T1 olsun. T1 gereği her $x$ için
+ve her $y\neq x$ için $y\in U_y$, $x\notin U_y$ olan açık $U_y$
+vardır; $X\setminus\{x\}=\bigcup_{y\neq x}U_y$ açıktır, yani $\{x\}$
+kapalıdır. Herhangi $A\subseteq X$, sonlu sayıda tekilin birleşimi
+olarak kapalıdır; o halde tümleyeni $X\setminus A$ açıktır. $A$
+keyfî olduğundan \emph{her} alt küme açıktır: topoloji ayrıktır.
+\emph{($\Leftarrow$)} Ayrık topolojide her $\{x\}$ açıktır; $x\neq y$
+için $\{x\}$ ve $\{y\}$ iki yönlü ayrımı doğrudan verir, T1 (hatta
+T2) sağlanır. $\square$
+\hfill(\hyperref[ex:ch06:T2]{alıştırmaya dön})
