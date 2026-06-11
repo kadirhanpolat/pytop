@@ -42,6 +42,19 @@ A ⊆ M **tamamen sınırlı (totally bounded)** ise: her ε>0 için A'nın sonl
 
 # %% [markdown]
 """
+> **Neden bu konu?** Cauchy dizileri tamlık için gerekli; tam olmayan uzaylarda yakınsama "dışarı kaçar".
+
+> 🔍 **Kendin dene:** `closed_unit_interval_metric()` ve `real_line_metric()` için `is_complete` sonuçlarını karşılaştırın.
+
+> ⚠️ **Sık hata:** Tamlık topolojik özellik değildir; (0,1) ~ ℝ homeomorf ama biri tam diğeri değil.
+
+> ↗️ **Bkz.:** Bölüm 14 (metrik uzay tanımı), Bölüm 7 (kompakt metrik ⟹ tam).
+
+> 💭 **Öz-yansıtma:** Baire kategorisi teoremi neden tam metrik uzaylar için geçerli?
+"""
+
+# %% [markdown]
+"""
 ## 2. Teoremler
 
 **Teorem 2.1 (Heine-Borel Metrik Genelleştirmesi).**

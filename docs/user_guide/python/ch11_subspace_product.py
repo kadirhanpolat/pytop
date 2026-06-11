@@ -39,6 +39,19 @@ Alt uzay topolojisi bir uzayın alt kümesine "miras kalan" topolojiyi tanımlar
 
 # %% [markdown]
 """
+> **Neden bu konu?** Yeni uzay inşa etmenin üç temel yöntemi; çarpım topolojisi Tychonoff teoreminin temelidir.
+
+> 🔍 **Kendin dene:** `subspace_topology` ile `product_topology`'nin boyutunu karşılaştırın.
+
+> ⚠️ **Sık hata:** Çarpım topolojisi ince topolojidir; {U×V} ailesi baz, topoloji değil.
+
+> ↗️ **Bkz.:** Bölüm 7 (Tychonoff), Bölüm 12 (bölüm = eşdeğerlikten gelen topoloji).
+
+> 💭 **Öz-yansıtma:** Alt-uzay topolojisi orijinal topolojiden neden daha az açık küme içerebilir?
+"""
+
+# %% [markdown]
+"""
 ## 2. Teoremler
 
 **Teorem 2.1.** Hausdorff uzayın her alt uzayı Hausdorff'tur.

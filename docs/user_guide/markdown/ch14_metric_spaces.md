@@ -34,6 +34,16 @@ d ise bir **metrik** olarak adlandırılır, eğer:
 | l∞ (max) | max_i d_i(x_i,y_i) | Çarpım uzayı |
 | Sınırlı (capped) | d'(x,y) = min(d(x,y), 1) | Eşdeğer topoloji |
 
+> **Neden bu konu?** Metrik uzaylar topolojik uzayların en somut alt sınıfı; ℝⁿ ve Hilbert uzayları burada yaşar.
+
+> 🔍 **Kendin dene:** `real_line_metric()` için `is_t2` ve `is_metrizable` sonuçlarını kontrol edin.
+
+> ⚠️ **Sık hata:** Her metrik uzay T4 (normal Hausdorff); `is_t2 False` dönerse metrik tanımında hata var demektir.
+
+> ↗️ **Bkz.:** Bölüm 9 (metrik ⟹ 2. sayılabilir iff ayrılabilir).
+
+> 💭 **Öz-yansıtma:** Metrik topoloji ne zaman ayrık topolojiyle çakışır?
+
 ---
 
 ## 2. Teoremler

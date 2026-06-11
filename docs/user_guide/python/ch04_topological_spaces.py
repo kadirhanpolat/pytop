@@ -69,6 +69,19 @@ Aksiyomların her biri ayrı bir iş görür: **(T1)** uzayın tamamının ve bo
 
 # %% [markdown]
 """
+> **Neden bu konu?** Topoloji aksiyomları (T1–T3) her şeyin temeli; `make_topology` bunları otomatik tamamlar.
+
+> 🔍 **Kendin dene:** `make_topology([1,2,3], {1})` ile `make_topology([1,2,3], {1},{2})` arasındaki topoloji boyutunu karşılaştırın.
+
+> ⚠️ **Sık hata:** `make_topology` bir alt-baz alıp kapatır; verilen kümeler değil, kapatma sonucu topoloji oluşur.
+
+> ↗️ **Bkz.:** Bölüm 5 (kapanış/iç), Bölüm 10 (süreklilik).
+
+> 💭 **Öz-yansıtma:** Kaç açık küme gördünüz? Alt-baz boyutu ile topoloji boyutu ne zaman eşit olur?
+"""
+
+# %% [markdown]
+"""
 ## 2. Teoremler
 
 **Teorem 2.1 (Aksiyomların Yeterliliği):** T1–T3, sonlu kesişimlerin ve keyfi

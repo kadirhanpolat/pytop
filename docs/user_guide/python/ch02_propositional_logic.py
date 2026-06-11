@@ -46,6 +46,19 @@ bool(p): True
 
 # %% [markdown]
 """
+> **Neden bu konu?** pytop'un yüklem sistemi (`Result`, `status`) sıfır/bir yerine üçlü (true/false/unknown) mantık kullanır; bu bölüm onu açıklar.
+
+> 🔍 **Kendin dene:** `status == 'unknown'` dönen bir yüklem bulup nedenini araştırın.
+
+> ⚠️ **Sık hata:** `not r.value` yerine `r.status == 'false'` ile karşılaştırın.
+
+> ↗️ **Bkz.:** Bölüm 1 (Result tipi), Bölüm 6 (ayırma aksiyomları).
+
+> 💭 **Öz-yansıtma:** `'unknown'` durumu ne zaman ortaya çıkar?
+"""
+
+# %% [markdown]
+"""
 ## 2. Mantıksal Bağlaçlar
 
 | Fonksiyon | Sembol | Anlam |

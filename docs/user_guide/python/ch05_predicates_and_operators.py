@@ -44,6 +44,19 @@ x ∈ X için komşuluk sistemi:
 
 # %% [markdown]
 """
+> **Neden bu konu?** Kapanış, iç ve sınır işlemleri topolojik analizin temel araçları; pytop bunları sembolik ve sonlu uzaylarda hesaplar.
+
+> 🔍 **Kendin dene:** `cl({0})` ile `cl({1})`'i Sierpiński uzayında hesaplayın; hangisi daha büyük?
+
+> ⚠️ **Sık hata:** `closure_of_subset` bir nokta değil küme alır; `cl(0)` değil `cl({0})`.
+
+> ↗️ **Bkz.:** Bölüm 4 (topoloji tanımı), Bölüm 6 (T1: nokta kapanışları kapalı).
+
+> 💭 **Öz-yansıtma:** İç küme her zaman kapalı olur mu? Sınır boş olabilir mi?
+"""
+
+# %% [markdown]
+"""
 ## 2. Teoremler
 
 **Teorem 2.1 (Kuratowski Kapanış Aksiyomları).**

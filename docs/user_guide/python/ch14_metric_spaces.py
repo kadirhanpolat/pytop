@@ -40,6 +40,19 @@ d ise bir **metrik** olarak adlandırılır, eğer:
 
 # %% [markdown]
 """
+> **Neden bu konu?** Metrik uzaylar topolojik uzayların en somut alt sınıfı; ℝⁿ ve Hilbert uzayları burada yaşar.
+
+> 🔍 **Kendin dene:** `real_line_metric()` için `is_t2` ve `is_metrizable` sonuçlarını kontrol edin.
+
+> ⚠️ **Sık hata:** Her metrik uzay T4 (normal Hausdorff); `is_t2 False` dönerse metrik tanımında hata var demektir.
+
+> ↗️ **Bkz.:** Bölüm 9 (metrik ⟹ 2. sayılabilir iff ayrılabilir).
+
+> 💭 **Öz-yansıtma:** Metrik topoloji ne zaman ayrık topolojiyle çakışır?
+"""
+
+# %% [markdown]
+"""
 ## 2. Teoremler
 
 **Teorem 2.1.** Her metrik uzay Hausdorff (T2) ve 1. sayılabilirdir.

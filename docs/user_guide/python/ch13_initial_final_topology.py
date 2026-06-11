@@ -47,6 +47,19 @@ ancak f_alpha o f her alpha için sürekli olduğunda.
 
 # %% [markdown]
 """
+> **Neden bu konu?** İlk topoloji (en kaba), son topoloji (en ince) — süreklilik koşulunu minimize eden ve maksimize eden ekstremler.
+
+> 🔍 **Kendin dene:** `initial_topology` ile `final_topology`'nin boyutunu karşılaştırın; hangisi daha büyük?
+
+> ⚠️ **Sık hata:** İlk topoloji çekime göre en küçük, son topoloji itmeye göre en büyük topolojidir; karıştırmayın.
+
+> ↗️ **Bkz.:** Bölüm 10 (süreklilik), Bölüm 11 (çarpım = fonksiyon ailesine göre ilk).
+
+> 💭 **Öz-yansıtma:** Çarpım topolojisi neden ilk topolojiye özel bir örnektir?
+"""
+
+# %% [markdown]
+"""
 ## 2. pytop API: initial_topology_from_maps
 
 ```python

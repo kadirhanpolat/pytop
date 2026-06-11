@@ -40,6 +40,19 @@ vardır: U_{α_1} ∪ ... ∪ U_{α_n} = X.
 
 # %% [markdown]
 """
+> **Neden bu konu?** Kompaktlık sonlu uzaylarda otomatik doğru; sonsuz uzaylarda ince bir topik — Heine-Borel ve Tychonoff buradan gelir.
+
+> 🔍 **Kendin dene:** `real_line_metric()` ve `closed_unit_interval_metric()` için `is_compact` çıktısını karşılaştırın.
+
+> ⚠️ **Sık hata:** Sonlu uzay her zaman kompakttır; `finite_chain_space` için `is_compact` her zaman `True` döner.
+
+> ↗️ **Bkz.:** Bölüm 6 (kompakt + Hausdorff → normal), Bölüm 10 (kompakt görüntü kompakttır).
+
+> 💭 **Öz-yansıtma:** ℝ kompakt değil ama [0,1] kompakt — fark nerede?
+"""
+
+# %% [markdown]
+"""
 ## 2. Teoremler
 
 **Teorem 2.1 (Heine-Borel).** ℝⁿ'de bir alt küme kompakttır ⟺ kapalı ve sınırlıdır.

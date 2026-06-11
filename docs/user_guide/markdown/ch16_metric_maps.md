@@ -29,6 +29,16 @@ f: (M₁,d₁) → (M₂,d₂) fonksiyonu:
 
 İzometri: K=1 ve eşitlik; benzerlik: K=c sabit.
 
+> **Neden bu konu?** Büzülme dönüşümleri (contraction) ve Lipschitz koşulları sabit nokta teoremlerinin temelidir.
+
+> 🔍 **Kendin dene:** Banach sabit nokta teoremini küçük tam metrik uzayda verify edin.
+
+> ⚠️ **Sık hata:** Uniform süreklilik süreklilikten güçlüdür; uniform `True` iken `continuous False` olamaz ama tersi mümkün.
+
+> ↗️ **Bkz.:** Bölüm 10 (süreklilik), Bölüm 15 (tamlık — Banach için gerekli).
+
+> 💭 **Öz-yansıtma:** Lipschitz sabiti neden < 1 olmalı Banach için?
+
 ---
 
 ## 2. Teoremler

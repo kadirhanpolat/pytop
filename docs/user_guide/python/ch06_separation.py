@@ -44,6 +44,19 @@ Her aksiyom bir öncekinden daha güçlüdür.
 
 # %% [markdown]
 """
+> **Neden bu konu?** T0–T4 hiyerarşisi Hausdorff gibi güçlü özelliklerin tam anlaşılması için gerekli; kümeler arası ayrışma fikrinden doğar.
+
+> 🔍 **Kendin dene:** Sierpiński'nin T0 ama T1 olmadığını `is_t0`/`is_t1` ile doğrulayın.
+
+> ⚠️ **Sık hata:** `is_t2 True` iken `is_t1 False` olamaz; hiyerarşi sıkı içermedir.
+
+> ↗️ **Bkz.:** Bölüm 4 (topoloji), Bölüm 7 (kompakt Hausdorff → normal).
+
+> 💭 **Öz-yansıtma:** T2 (Hausdorff) neden önemli? Hangi ispatlarda özellikle kullanılır?
+"""
+
+# %% [markdown]
+"""
 ## 2. Teoremler
 
 **Teorem 2.1 (Ayrılma Zinciri).**

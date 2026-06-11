@@ -44,6 +44,16 @@ t3     : false | t4    : false
 
 > **🚫 Karşı-örnek:** Hiçbir ayrılma aksiyomunu sağlamayan uzay: iki noktalı indirgenmiş uzay. Açıklar yalnız $\emptyset$ ve $X$ olduğundan iki noktayı ayıran *hiçbir* açık yoktur — uzay T0 bile değildir.
 
+> **Neden bu konu?** T0–T4 hiyerarşisi Hausdorff gibi güçlü özelliklerin tam anlaşılması için gerekli; kümeler arası ayrışma fikrinden doğar.
+
+> 🔍 **Kendin dene:** Sierpiński'nin T0 ama T1 olmadığını `is_t0`/`is_t1` ile doğrulayın.
+
+> ⚠️ **Sık hata:** `is_t2 True` iken `is_t1 False` olamaz; hiyerarşi sıkı içermedir.
+
+> ↗️ **Bkz.:** Bölüm 4 (topoloji), Bölüm 7 (kompakt Hausdorff → normal).
+
+> 💭 **Öz-yansıtma:** T2 (Hausdorff) neden önemli? Hangi ispatlarda özellikle kullanılır?
+
 ---
 
 ## 2. Teoremler
