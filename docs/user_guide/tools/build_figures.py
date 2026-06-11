@@ -25,6 +25,8 @@ DPI = "300"
 TEMPLATE = """\\documentclass[tikz,border=2pt]{standalone}
 \\usepackage{fontspec}
 \\setmainfont{Latin Modern Roman}
+\\usepackage{amsmath}
+\\usepackage{amssymb}
 \\usetikzlibrary{arrows.meta, positioning, calc, patterns, decorations.pathmorphing}
 \\begin{document}
 <<TIKZ>>

@@ -1,0 +1,16 @@
+\begin{tikzpicture}[font=\small, xscale=2.8]
+  \draw[-{Stealth}] (-1.35,0) -- (1.5,0) node[right] {$\mathbb{R}$};
+  \draw (-1,0.05) -- (-1,-0.05) node[below, font=\scriptsize] {$-1$};
+  \draw (0,0.05) -- (0,-0.05);
+  \draw (1,0.05) -- (1,-0.05) node[below, font=\scriptsize] {$1$};
+  \draw[blue!75, very thick] (-1,0.85) -- (1,0.85);
+  \node[blue!75, font=\scriptsize, right] at (1.04,0.85) {$(-1,1)$};
+  \draw[blue!55, very thick] (-0.5,0.62) -- (0.5,0.62);
+  \node[blue!55, font=\scriptsize, right] at (1.04,0.62) {$(-\tfrac12,\tfrac12)$};
+  \draw[blue!40, very thick] (-0.25,0.39) -- (0.25,0.39);
+  \node[blue!40, font=\scriptsize, right] at (1.04,0.39) {$(-\tfrac14,\tfrac14)$};
+  \node at (0,0.22) {$\vdots$};
+  \fill[red!70!black] (0,0) circle (1.2pt);
+  \node[red!70!black, below=7pt, font=\scriptsize] at (0,-0.02)
+    {$\bigcap_n \bigl(-\tfrac1n,\tfrac1n\bigr)=\{0\}$ --- açık değil};
+\end{tikzpicture}
