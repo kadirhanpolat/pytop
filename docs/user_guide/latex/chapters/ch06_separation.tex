@@ -8,6 +8,16 @@
 Ayrılma aksiyomları, bir topolojik uzaydaki noktaların ve kapalı kümelerin birbirinden
 açık kümeler aracılığıyla ne ölçüde ``ayrılabildiğini'' ölçer.
 
+\begin{sezgi}
+Ayrılma aksiyomlarını bir mikroskobun çözünürlük kademeleri gibi
+düşünün: T0'da iki noktayı \emph{en az bir yönden} ayırt edebilirsiniz;
+T1'de her iki yönden; T2'de noktaları çakışmayan iki ayrı ``görüş
+alanına'' koyabilirsiniz; T3 ve T4'te artık nokta--kapalı küme ve
+kapalı--kapalı çiftleri bile ayrışır. Matematiksel karşılığı: her
+aksiyom, $\tau$'nun ``ayırma gücü'' üzerine gittikçe güçlenen bir
+varsayımdır ve zincir boyunca her adım bir öncekini gerektirir.
+\end{sezgi}
+
 \begin{table}[h]
 \centering
 \begin{tabular}{lll}
@@ -29,6 +39,43 @@ T4 & Normal & T1 + disjoint kapalılar ayırma \\
 \noindent\textbf{Sıralama:} T4 $\Rightarrow$ T3.5 $\Rightarrow$ T3 $\Rightarrow$ T2.5
 $\Rightarrow$ T2 $\Rightarrow$ T1 $\Rightarrow$ T0.
 
+\begin{dikkat}
+T3 ve T4'ün tanımı kaynaktan kaynağa değişir: bazı kitaplar
+``regüler''i T1 olmadan tanımlar. Bu kılavuzda ve \texttt{pytop}'ta
+tablodaki konvansiyon geçerlidir: \textbf{T3 = T1 + regüler,
+T4 = T1 + normal}. Fark gerçektir: iki noktalı indirgenmiş uzay
+regüler \emph{ve} normaldir (ayrılacak uygun çift yoktur), ama T1
+olmadığından T3 de T4 de değildir; Örnekler bölümünde
+\texttt{is\_regular}/\texttt{is\_t3} ile doğrulanır.
+\end{dikkat}
+
+Şekil~\ref{fig:ch06:t2} Hausdorff koşulunu, Şekil~\ref{fig:ch06:t3}
+regülerlik koşulunu resmeder.
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch06_t2_ayirma.tikz}
+  \caption{T2 (Hausdorff): farklı $x,y$ noktaları, kesişmeyen $U\ni x$
+    ve $V\ni y$ açıklarıyla ayrılır.}
+  \label{fig:ch06:t2}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch06_t3_regulerlik.tikz}
+  \caption{Regülerlik: $x$ noktası ile onu içermeyen kapalı $F$ kümesi,
+    ayrık $U$ ve $V$ açıklarına konabilir. T3 bunun üstüne T1 ister.}
+  \label{fig:ch06:t3}
+\end{figure}
+
+\begin{karsiornek}
+Hiçbir ayrılma aksiyomunu sağlamayan uzay: iki noktalı indirgenmiş
+uzay. Açıklar yalnız $\emptyset$ ve $X$ olduğundan iki noktayı ayıran
+\emph{hiçbir} açık yoktur --- uzay T0 bile değildir. Örnekler
+bölümünde \texttt{two\_point\_indiscrete\_space()} ile test edilir;
+zincirin en altının da boş kalabileceğini gösterir.
+\end{karsiornek}
+
 %% ============================================================
 \section{Teoremler}
 %% ============================================================
@@ -38,10 +85,47 @@ T4 $\Rightarrow$ T3.5 $\Rightarrow$ T3 $\Rightarrow$ T2.5 $\Rightarrow$ T2 $\Rig
 $\Rightarrow$ T0. Tersi genel olarak doğru değildir.
 \end{theorem}
 
+\begin{proof}[Rehberli Kanıt --- model halka: T2 $\Rightarrow$ T1]
+$x\neq y$ verilsin. T2 ile ayrık $U\ni x$, $V\ni y$ açıkları vardır.
+$U\cap V=\emptyset$ olduğundan $y\notin U$ ve $x\notin V$: hem
+``$x$'i içerip $y$'yi dışlayan'' hem ``$y$'yi içerip $x$'i dışlayan''
+açık bulundu --- T1'in iki yönlü koşulu sağlandı. Kalan halkalar
+(T1 $\Rightarrow$ T0 dahil) aynı şablonla Alıştırma~T1'de
+kanıtlanır.
+\end{proof}
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch06_implikasyon.tikz}
+  \caption{Ayrılma zinciri: düz oklar implikasyonları gösterir.
+    Kesikli kırmızı oklar terslerin \emph{geçmediği} iki kanonik
+    karşı-örneği işaretler; her ikisi de bu kılavuzun örnekleridir
+    (Örnek~1 ve Örnek~2).}
+  \label{fig:ch06:zincir}
+\end{figure}
+
 \begin{theorem}[Urysohn Fonksiyon Teoremi]
 $X$ normal ise ve $C, D$ disjoint kapalı kümeler ise, $f: X \to [0,1]$ sürekli vardır:
 $f|_C \equiv 0$, $f|_D \equiv 1$.
 \end{theorem}
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch06_urysohn.tikz}
+  \caption{Urysohn fonksiyonu: normal uzayda ayrık kapalı $C$ ve $D$
+    için $f|_C\equiv 0$, $f|_D\equiv 1$ olan sürekli $f:X\to[0,1]$
+    vardır; uzay, iki kapalı küme arasında ``sürekli geçiş'' yapacak
+    kadar zengindir.}
+  \label{fig:ch06:urysohn}
+\end{figure}
+
+\begin{nedenonemli}
+Urysohn teoremi, küme dilindeki bir ayırma özelliğini (normallik)
+\emph{sürekli fonksiyon üretimine} çevirir. Tietze Genişleme bunun
+doğrudan sonucudur ve metrikleştirme teoremlerinin (Bölüm~9 sonrası
+ufuk) temel aracıdır: fonksiyon üretebilen uzay, metrik benzeri
+yapılar kurabilen uzaydır.
+\end{nedenonemli}
 
 \begin{theorem}[Tietze Genişleme]
 $X$ normal ise her kapalı $A \subseteq X$ üzerinde $f: A \to [a,b]$ süreklisi
@@ -55,10 +139,28 @@ $X$, T3.5'tir $\iff$ $X$ bir küp $[0,1]^I$'ya homeomorf gömülebilir.
 \begin{theorem}[Sonlu T1 $\iff$ Ayrık]
 Sonlu bir uzayda T1 $\iff$ ayrık topoloji.
 \end{theorem}
-\begin{proof}[İskelet]
-T1 $\Rightarrow$ her tekil küme kapalı $\Rightarrow$ her küme kapalı (sonlu birleşim)
-$\Rightarrow$ her küme açık.
+\begin{proof}[Rehberli Kanıt]
+\textbf{Strateji:} T1'den tekillerin kapalılığına, oradan sonlu
+birleşimle her alt kümenin kapalılığına yürünür.
+\begin{enumerate}
+  \item ($\Rightarrow$) T1 gereği her $y\neq x$ için $y\in U_y$,
+        $x\notin U_y$ olan açık $U_y$ vardır;
+        $X\setminus\{x\}=\bigcup_{y\neq x}U_y$ açıktır, yani $\{x\}$
+        kapalıdır.
+  \item Herhangi $A\subseteq X$, \emph{sonlu} sayıda tekilin birleşimi
+        olarak kapalıdır (kapalıların sonlu birleşimi kapalıdır).
+  \item Her $A$ kapalı ise her $X\setminus A$ açıktır; $A$ keyfî
+        olduğundan her alt küme açıktır: topoloji ayrıktır.
+  \item ($\Leftarrow$) Ayrık topolojide her $\{x\}$ açıktır; $x\neq y$
+        çifti $\{x\}$ ve $\{y\}$ ile iki yönlü ayrılır: T1 (hatta T2).
+\end{enumerate}
+Sonsuzlukta 2.~adım çöker: sonsuz birleşim kapalılığı korumaz ---
+kosonlu $\mathbb{N}$ tam bu nedenle T1 olup ayrık değildir.
 \end{proof}
+
+\noindent Bu teorem, Bölüm~\ref{ch:topological_spaces} K1
+alıştırmasındaki gözlemin --- üç noktalı kosonlu uzayın ayrık çıkması
+--- genel açıklamasıdır.
 
 %% ============================================================
 \section{Algoritmalar}
@@ -78,6 +180,26 @@ $\Rightarrow$ her küme açık.
 
 \noindent\textbf{Karmaşıklık T0:} $O(|X|^2 \cdot |\tau|)$. \quad
 \textbf{Karmaşıklık T2:} $O(|X|^2 \cdot |\tau|^2)$.
+
+\subsection{İz Sürme: T0 Prosedürü Sierpiński Üzerinde}
+
+$X=\{0,1\}$, $\tau=\{\emptyset,\{1\},X\}$:
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llccl}
+\toprule
+\textbf{Çift} $(x,y)$ & \textbf{Denenen} $U$ &
+$x\in U \wedge y\notin U$ & $y\in U \wedge x\notin U$ & \textbf{Karar} \\
+\midrule
+$(0,1)$ & $\emptyset$ & hayır & hayır & devam \\
+$(0,1)$ & $\{1\}$ & hayır & \textbf{evet} & çift ayrıldı \\
+--- & --- & --- & --- & tüm çiftler bitti $\to$ \textbf{true} \\
+\bottomrule
+\end{tabular}
+\caption{Tek çift tek açıkla ayrılır; genel sınır
+  $O(|X|^2\cdot|\tau|)$'dur.}
+\end{table}
 
 %% ============================================================
 \section{pytop API}
@@ -105,6 +227,17 @@ from pytop import (
 \caption{Ayrılma fonksiyonları}
 \end{table}
 
+\begin{nedenonemli}
+\texttt{is\_*} yüklemleri ham \texttt{bool} değil, \texttt{.status}
+alanı \texttt{true} / \texttt{false} / \texttt{unknown} olabilen bir
+\texttt{Result} döndürür. Üçüncü değer dürüstlüktür: örneğin T3.5
+(Tychonoff) sürekli fonksiyonlarla tanımlanır ve sonlu açık-küme
+taramasıyla karar verilemez; \texttt{separation\_chain} bu durumda
+\texttt{tychonoff: unknown} raporlar. Sembolik uzaylarda da
+bilinmeyen özellikler \texttt{unknown} kalır --- kütüphane bilmediğini
+\emph{bilmediğini söyleyerek} belirtir.
+\end{nedenonemli}
+
 %% ============================================================
 \section{Örnekler}
 %% ============================================================
@@ -124,6 +257,14 @@ T1: false
 T2: false
 \end{lstlisting}
 
+\paragraph{Ne oldu?}
+\texttt{T0: true} --- $(0,1)$ çifti için $\{1\}$ açığı $1$'i içerir,
+$0$'ı dışlar; tek çift bu olduğundan T0 tamam. \texttt{T1: false} ---
+ters yön yok: $0$'ı içerip $1$'i dışlayan açık küme yoktur
+($\{0\}\notin\tau$; bkz.\ Bölüm~\ref{ch:topological_spaces},
+Örnek~1). T1 düşünce T2 de düşer. Sierpiński, zincirin ``T0'da
+takılan'' kanonik örneğidir (Şekil~\ref{fig:ch06:zincir}).
+
 \subsection{Örnek 2: Kosonlu $\mathbb{N}$ — T1 $\checkmark$, T2 $\times$}
 
 \begin{lstlisting}[language=Python]
@@ -137,6 +278,17 @@ T1: true
 T2: false
 \end{lstlisting}
 
+\paragraph{Ne oldu?}
+\texttt{T1: true} --- her $n$ için $\mathbb{N}\setminus\{n\}$
+kosonludur, dolayısıyla açıktır; bu, her noktayı diğerinden iki yönlü
+ayırır. \texttt{T2: false} --- boş olmayan iki kosonlu açık $U,V$
+daima kesişir: $\mathbb{N}\setminus(U\cap V)=
+(\mathbb{N}\setminus U)\cup(\mathbb{N}\setminus V)$ iki sonlu kümenin
+birleşimi olarak sonludur; $\mathbb{N}$ sonsuz olduğundan
+$U\cap V\neq\emptyset$. Bu örnek,
+Bölüm~\ref{ch:topological_spaces}~K1'in ``neden sonsuz taşıyıcı
+gerekir'' sorusunun cevabıdır.
+
 \subsection{Örnek 3: Ayrılma Zinciri — Ayrık}
 
 \begin{lstlisting}[language=Python]
@@ -145,13 +297,50 @@ d = discrete_topology(1, 2, 3)
 for prop, result in separation_chain(d).items():
     print(f"  {prop:20s}: {result.status}")
 \end{lstlisting}
-\begin{lstlisting}[caption={Çıktı (kısa)}]
+\begin{lstlisting}[style=output, caption={Çıktı}]
   t0                  : true
   t1                  : true
   hausdorff           : true
+  urysohn             : true
+  t3                  : true
+  tychonoff           : true
   t4                  : true
+  completely_normal   : true
   perfectly_normal    : true
 \end{lstlisting}
+
+\paragraph{Ne oldu?}
+Ayrık uzayda her tekil açık olduğundan her ayırma görevi tekil
+komşuluklarla çözülür; dokuz yüklemin tümü \texttt{true} döner.
+\texttt{tychonoff} bile \texttt{true}'dur: ayrık uzayda her fonksiyon
+süreklidir, ayırıcı fonksiyon doğrudan yazılır.
+\texttt{separation\_chain}'in anahtar sırası zincirin mantıksal
+sırasıdır --- bir uzayın ``nerede takıldığını'' yukarıdan aşağı
+okuyabilirsiniz (krş.\ Alıştırma~K2).
+
+\subsection{Örnek 4: Regüler Ama T3 Değil --- Konvansiyon Testi}
+
+\begin{lstlisting}[language=Python]
+from pytop import two_point_indiscrete_space, is_regular, is_normal, is_t3, is_t4
+
+tp = two_point_indiscrete_space()
+print("regular:", is_regular(tp).status, "| normal:", is_normal(tp).status)
+print("t3     :", is_t3(tp).status, "| t4    :", is_t4(tp).status)
+\end{lstlisting}
+
+\begin{lstlisting}[style=output, caption={Çıktı}]
+regular: true | normal: true
+t3     : false | t4    : false
+\end{lstlisting}
+
+\paragraph{Ne oldu?}
+İndirgenmiş iki noktalı uzayda kapalı kümeler yalnız $\emptyset$ ve
+$X$'tir; ``nokta--kapalı'' ve ``kapalı--kapalı'' ayırma koşullarının
+öncülü hiç gerçekleşmez, koşullar boş yere sağlanır:
+\texttt{regular} ve \texttt{normal} \texttt{true}. Ama uzay T1
+olmadığından (tekiller kapalı değil) \texttt{t3} ve \texttt{t4}
+\texttt{false} kalır --- ``Dikkat'' kutusundaki konvansiyonun
+davranışsal kanıtı.
 
 %% ============================================================
 \section{Alıştırmalar}
@@ -159,14 +348,39 @@ for prop, result in separation_chain(d).items():
 
 \subsection*{Kodlama}
 \begin{enumerate}[label=\textbf{K\arabic*.}]
-  \item \texttt{make\_topology(\{1,2,3\},\{1\},\{2\},\{1,2\})} için \texttt{separation\_chain}
-        çalıştırın.
-  \item \texttt{finite\_chain\_space(3)} üzerinde en yüksek sağlanan aksiyomu bulun.
-  \item \texttt{two\_point\_indiscrete\_space()} üzerinde T0, T1, T2 test edin.
+  \item \label{ex:ch06:K1} \texttt{make\_topology(\{1,2,3\},\{1\},\{2\},\{1,2\})}
+        için \texttt{separation\_chain} çalıştırın; her sonucu yorumlayın.
+        \ipucu{Önce açıkları listeleyin:
+        $\emptyset,\{1\},\{2\},\{1,2\},X$. Her çifti ayıran açık
+        arayın; $3$'ü içerip $1$'i dışlayan açık var mı?}
+        (\hyperref[sol:ch06:K1]{çözüm})
+
+  \item \label{ex:ch06:K2} \texttt{finite\_chain\_space(3)} üzerinde en
+        yüksek sağlanan aksiyomu bulun.
+        \ipucu{Çıktıda \texttt{true} olan en güçlü anahtarı arayın;
+        \texttt{unknown} değerlerini ``Neden önemli?'' kutusuna göre
+        yorumlayın.}
+        (\hyperref[sol:ch06:K2]{çözüm})
+
+  \item \label{ex:ch06:K3} \texttt{two\_point\_indiscrete\_space()}
+        üzerinde T0, T1, T2 test edin.
+        \ipucu{Tek boş olmayan açık $X$ iken herhangi bir çift nasıl
+        ayrılabilir?}
+        (\hyperref[sol:ch06:K3]{çözüm})
 \end{enumerate}
 
 \subsection*{Teori}
 \begin{enumerate}[label=\textbf{T\arabic*.}]
-  \item T2 $\Rightarrow$ T1 $\Rightarrow$ T0 implicasyonlarını kanıtlayın.
-  \item Sonlu uzayda T1 $\iff$ ayrık topoloji olduğunu gösterin.
+  \item \label{ex:ch06:T1} T2 $\Rightarrow$ T1 $\Rightarrow$ T0
+        implikasyonlarını kanıtlayın.
+        \ipucu{T2 $\Rightarrow$ T1: ayrık $U\ni x$, $V\ni y$
+        verildiğinde $U$, $y$'yi; $V$, $x$'i dışlar --- iki yönlü ayrım
+        hazır. T1 $\Rightarrow$ T0: iki yönlü ayrım tek yönlüyü içerir.}
+        (\hyperref[sol:ch06:T1]{çözüm})
+
+  \item \label{ex:ch06:T2} Sonlu uzayda T1 $\iff$ ayrık topoloji
+        olduğunu gösterin.
+        \ipucu{T1 $\Rightarrow$ tekiller kapalı $\Rightarrow$ (sonlu
+        birleşim) her alt küme kapalı $\Rightarrow$ her alt küme açık.}
+        (\hyperref[sol:ch06:T2]{çözüm})
 \end{enumerate}
