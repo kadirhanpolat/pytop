@@ -1,0 +1,18 @@
+\begin{tikzpicture}[font=\small, node distance=9mm,
+    aks/.style={draw, rounded corners, fill=blue!6, inner sep=5pt}]
+  \node[aks] (t4) {T4};
+  \node[aks, right=of t4] (t35) {T3.5};
+  \node[aks, right=of t35] (t3) {T3};
+  \node[aks, right=of t3] (t25) {T2.5};
+  \node[aks, right=of t25] (t2) {T2};
+  \node[aks, right=of t2] (t1) {T1};
+  \node[aks, right=of t1] (t0) {T0};
+  \foreach \a/\b in {t4/t35, t35/t3, t3/t25, t25/t2, t2/t1, t1/t0}
+    \draw[-{Stealth[length=2.6mm]}, thick] (\a) -- (\b);
+  \draw[red!70!black, -{Stealth[length=2.2mm]}, dashed]
+    (t1.south) to[bend right=40] node[below=14pt, font=\scriptsize, align=center]
+    {geçmez: kosonlu $\mathbb{N}$\\ (T1, T2 değil)} (t2.south);
+  \draw[red!70!black, -{Stealth[length=2.2mm]}, dashed]
+    (t0.south) to[bend right=40] node[below=35pt, font=\scriptsize, align=center]
+    {geçmez: Sierpiński\\ (T0, T1 değil)} (t1.south);
+\end{tikzpicture}
