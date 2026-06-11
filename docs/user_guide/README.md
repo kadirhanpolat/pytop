@@ -19,10 +19,67 @@ Python 3.11+ gereklidir.
 
 | Format | Yol | Kullanım |
 |--------|-----|---------|
-| **Python script** | `python/chXX_*.py` | `python docs/user_guide/python/ch01_topological_spaces.py` |
+| **Python script** | `python/chXX_*.py` | `py -3 docs/user_guide/python/chXX_*.py` |
 | **Jupyter Notebook** | `notebook/chXX_*.ipynb` | Jupyter Lab veya VS Code ile açın |
 | **Markdown** | `markdown/chXX_*.md` | GitHub, VS Code Preview veya herhangi bir Markdown görüntüleyici |
-| **LaTeX** | `latex/main.tex` + `latex/chapters/` | `xelatex main.tex` veya `pdflatex main.tex` |
+| **LaTeX** | `latex/main.tex` + `latex/chapters/` | `xelatex main.tex` (MiKTeX / TeX Live) |
+
+Çözümler tüm formatlarda mevcuttur: `solutions.py`, `solutions.ipynb`, `solutions.md`,
+ve `latex/appendix/solutions.tex`.
+
+---
+
+## Açıklayıcı Pilot — ch04 ve ch06 Zenginleştirmeleri
+
+`feature/user-guide-explanatory-pilot` kapsamında ch04 (Topolojik Uzaylar) ve ch06
+(Ayrılma Aksiyomları) tüm dört formatta aşağıdaki pedagojik katmanlarla zenginleştirilmiştir:
+
+- **Yönlendirmeli kanıtlar** — adım adım açıklamalı ispat iskeletleri
+- **İz tabloları** — algoritma adımlarını satır satır gösteren tablolar
+- **"Ne oldu?" geçişleri** — her önemli adımın sezgisel açıklaması
+- **Alıştırma ipuçları ve çözüm bağlantıları** — K1–K3 (kodlama), T1–T2 (teori)
+- **TikZ figürleri** — 8 PNG diyagram (aşağıya bakınız)
+- **Kutu ortamları** (yalnızca LaTeX) — renk kodlu tcolorbox çerçeveleri
+
+### TikZ Figür Varlıkları
+
+Figürler `assets/` altında önceden oluşturulmuş PNG olarak bulunur; LaTeX ve Markdown
+tarafından doğrudan referans alınır. Yeniden oluşturmak için:
+
+```bash
+py -3 docs/user_guide/tools/build_figures.py
+```
+
+| Dizin | Dosya | İçerik |
+|-------|-------|--------|
+| `assets/ch04/` | `fig_ch04_baz_tanimi.png` | Baz koşulu — U içindeki x'i saran B |
+| `assets/ch04/` | `fig_ch04_kaba_ince.png` | Kaba ve ince topoloji karşılaştırması |
+| `assets/ch04/` | `fig_ch04_sierpinski.png` | Sierpiński uzayının açık kümeleri |
+| `assets/ch04/` | `fig_ch04_sonsuz_kesisim.png` | Sonsuz kesişim — açık olmama örneği |
+| `assets/ch06/` | `fig_ch06_t2_ayirma.png` | Hausdorff: x ve y ayrık açıklarla ayrılır |
+| `assets/ch06/` | `fig_ch06_implikasyon.png` | T4→T0 implikasyon zinciri |
+| `assets/ch06/` | `fig_ch06_t3_regulerlik.png` | Regülerlik: nokta ile kapalı küme ayrımı |
+| `assets/ch06/` | `fig_ch06_urysohn.png` | Urysohn fonksiyonu: C→0, D→1 |
+
+### LaTeX Kutu Ortamları (tcolorbox)
+
+| Ortam | Renk | Kullanım |
+|-------|------|---------|
+| `sezgi` | Mavi | Sezgisel arka plan ve motivasyon |
+| `dikkat` | Turuncu | Yaygın hatalar ve tuzaklar |
+| `nedenonemli` | Yeşil | Teoreminin neden önemli olduğu |
+| `karsiornek` | Kırmızı | Karşı-örnek ile ifadeyi çürütme |
+
+### Çözümler Eki
+
+10 tam çözüm (ch04: K1–K3, T1–T2; ch06: K1–K3, T1–T2) her formatta mevcuttur:
+
+| Format | Dosya |
+|--------|-------|
+| LaTeX | `latex/appendix/solutions.tex` (main.tex'e dahil) |
+| Markdown | `markdown/solutions.md` |
+| Python | `python/solutions.py` |
+| Notebook | `notebook/solutions.ipynb` |
 
 ---
 
