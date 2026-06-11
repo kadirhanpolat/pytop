@@ -63,6 +63,26 @@
 % ── Lists ──────────────────────────────────────────────────────────────────────
 \usepackage{enumitem}
 
+% ── Figures (TikZ) ─────────────────────────────────────────────────────────────
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc, patterns, decorations.pathmorphing}
+
+% ── Pedagogical boxes ──────────────────────────────────────────────────────────
+\usepackage[most]{tcolorbox}
+\tcbset{pytopbox/.style={breakable, enhanced, boxrule=0.6pt, arc=2pt,
+  left=6pt, right=6pt, top=4pt, bottom=4pt, fonttitle=\bfseries}}
+\newtcolorbox{sezgi}{pytopbox, colback=blue!5, colframe=blue!75!black,
+  title={Sezgi}}
+\newtcolorbox{dikkat}{pytopbox, colback=orange!8, colframe=orange!85!black,
+  title={Dikkat -- sık hata}}
+\newtcolorbox{nedenonemli}{pytopbox, colback=green!6, colframe=green!50!black,
+  title={Neden önemli?}}
+\newtcolorbox{karsiornek}{pytopbox, colback=violet!6, colframe=violet!70!black,
+  title={Karşı-örnek}}
+
+% ── İpucu macro ────────────────────────────────────────────────────────────────
+\newcommand{\ipucu}[1]{\par\smallskip\noindent\textit{İpucu: #1}}
+
 % ── Hyperlinks ─────────────────────────────────────────────────────────────────
 \usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue]{hyperref}
 
@@ -135,6 +155,9 @@ defterlerinde çalıştırılabilir biçimde mevcuttur.
 \input{chapters/ch14_metric_spaces}
 \input{chapters/ch15_metric_completeness}
 \input{chapters/ch16_metric_maps}
+
+\appendix
+\input{appendix/solutions}
 
 \backmatter
 
