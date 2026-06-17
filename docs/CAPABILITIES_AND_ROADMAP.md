@@ -5,7 +5,7 @@
 > starting from set-theoretic (point-set) topology.
 >
 > **Status as of 2026-06-18:** Phase 1 (set-theoretic topology) is substantially
-> complete; Phase 2 (algebraic topology) is in progress (3 / 7 items done).
+> complete; Phase 2 (algebraic topology) is in progress (5 / 8 items done).
 
 ---
 
@@ -88,7 +88,7 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
 
 ### ❌ Cannot do (real limits)
 
-- No cohomology rings or cup products; no spectral-sequence computation.
+- No spectral-sequence computation.
 - No general fundamental-group computation (van Kampen → presentation) beyond the
   surface-word genus/Euler case. **Phase 2 target.**
 - Knots: needs a PD/Gauss code you supply; no HOMFLY/Khovanov.
@@ -169,7 +169,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | Relative homology H_*(K,L; Z) | ✅ | Disk mod boundary H₂(D²,∂D²)=Z |
 | Mayer–Vietoris LES | ✅ | `mayer_vietoris`: extended SNF → explicit bases; φ,ψ,δ matrices; exactness verified (S¹,S²,interval) |
 | Cellular homology | ✅ | `cellular_homology`: CWComplex + SNF; standard spaces (S^n, RP^n, CP^n, T², Klein, L(p,q), M(Z/n,k)); cross-validated via `cw_from_simplicial` |
-| Cohomology + cup product | ⬜ | — |
+| Cohomology + cup product | ✅ | `cohomology`: δ^k=(∂_{k+1})^T via extended SNF; UCT verified; Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity; torus H^1⊗H^1→H^2 non-degenerate |
 | van Kampen → group presentations | ⬜ | Major item; GAP bridge candidate |
 | Optimized persistence (clearing/twist) | ⬜ | — |
 | Cubical complexes | ⬜ | — |
@@ -211,4 +211,4 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
 | Phase 1 milestones complete | 5 / 5 |
-| Phase 2 milestones complete | 4 / 8 |
+| Phase 2 milestones complete | 5 / 8 |

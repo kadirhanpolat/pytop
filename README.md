@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v0.6.0+**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology, persistent homology, knot polynomials, winding number, surface classification, graph planarity), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
+As of **v0.6.0+**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product, persistent homology, knot polynomials, winding number, surface classification, graph planarity), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
 
 ## Installation
 
@@ -114,7 +114,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | Knot theory | `knots`, `invariants` |
 | Surfaces & manifolds | `surfaces`, `surface_classification`, `manifolds`, `three_manifolds` |
 | Graph topology | `graph_topology` |
-| **Computational homology** (v0.6.0+) | `homology`, `persistent_homology`, `homology_coefficients`, `mayer_vietoris`, `cellular_homology` |
+| **Computational homology** (v0.6.0+) | `homology`, `persistent_homology`, `homology_coefficients`, `mayer_vietoris`, `cellular_homology`, `cohomology` |
 | **Knot invariants** (v0.6.0) | `knot_invariants` |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
@@ -184,7 +184,12 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   `cw_klein_bottle()`, `cw_lens_space(p)`, `cw_moore_space(n, k)`. `cw_from_simplicial(K)` bridges
   CW and simplicial homology for cross-validation. Chain-complex condition d∘d=0 verified on
   construction. 65 new tests.
-- **9 250 tests passing** across the full suite.
+- **Cohomology + cup product** — `simplicial_cohomology(K, k)` computes H^k(K; Z) via the cochain
+  complex δ^k = (∂_{k+1})^T and extended Smith Normal Form. UCT (H^k torsion = H_{k-1} torsion)
+  verified against homology. `simplicial_cohomology_ring(K)` returns a `CohomologyRing` with the
+  Alexander-Whitney cup product on cohomology generators — torus H^1 ⊗ H^1 → H^2 pairing is
+  non-degenerate and graded-commutative; RP² H^2 = Z/2 from UCT. 53 new tests.
+- **9 303 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

@@ -555,6 +555,16 @@ from .cellular_homology import (
     cw_moore_space,
     cw_from_simplicial,
 )
+from .cohomology import (
+    CohomologyResult,
+    CohomologyRing,
+    coboundary_matrix,
+    simplicial_cohomology,
+    cohomology_groups,
+    cohomology_betti_numbers,
+    cup_product_cochain,
+    simplicial_cohomology_ring,
+)
 from .knot_invariants import (
     Laurent,
     KnotDiagram,
@@ -1340,6 +1350,14 @@ __all__ = [
     "cw_lens_space",
     "cw_moore_space",
     "cw_from_simplicial",
+    "CohomologyResult",
+    "CohomologyRing",
+    "coboundary_matrix",
+    "simplicial_cohomology",
+    "cohomology_groups",
+    "cohomology_betti_numbers",
+    "cup_product_cochain",
+    "simplicial_cohomology_ring",
     "Laurent",
     "KnotDiagram",
     "writhe",

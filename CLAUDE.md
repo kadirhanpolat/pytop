@@ -31,6 +31,8 @@ pytop has two complementary layers — keep this distinction in mind when extend
   bases; φ, ψ, δ as integer matrices; exactness verified at every position),
   `cellular_homology` (CW complex chain complex → SNF; standard spaces S^n, RP^n, CP^n, T², Klein
   bottle, lens spaces, Moore spaces; `cw_from_simplicial` cross-validation bridge),
+  `cohomology` (cochain complex via δ^k=(∂_{k+1})^T; extended SNF → H^k; UCT verified;
+  Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity and torus pairing),
   `persistent_homology` (Vietoris–Rips filtration → Z/2 reduction → barcodes),
   `knot_invariants` (Kauffman→Jones, reduced Burau→Alexander), `winding_number`,
   `surface_word_classification`, `graph_planarity` (rotation-system genus), and
