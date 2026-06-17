@@ -1,11 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-0.5.33-blue)
-![Coverage](https://img.shields.io/badge/coverage-98.74%25-brightgreen)
+![Version](https://img.shields.io/badge/version-0.6.0-blue)
+![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
+
+As of **v0.6.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** that computes invariants from raw input — simplicial homology (Betti numbers + torsion), persistent homology / TDA, knot polynomials (Jones, Alexander), winding number / map degree, surface classification from a gluing word, and exact graph planarity — plus a **pi-Base–backed deductive inference engine** for topological properties.
 
 ## Installation
 
@@ -46,6 +48,45 @@ from pytop import get_retraction_degree_profiles, winding_number_profiles
 from pytop.experimental import maturity_registry
 ```
 
+### Computational core (new in v0.6.0)
+
+```python
+# Simplicial homology — Betti numbers and torsion, computed from a complex
+from pytop import generated_subcomplex, betti_numbers, simplicial_homology
+sphere = generated_subcomplex([{1, 2, 3}, {1, 2, 4}, {1, 3, 4}, {2, 3, 4}])
+betti_numbers(sphere)                       # (1, 0, 1)  -> S^2
+
+# Persistent homology / TDA — Vietoris–Rips barcodes from a point cloud
+import math
+from pytop import persistent_homology
+from pytop.metric_spaces import FiniteMetricSpace
+pts = [(math.cos(2*math.pi*k/12), math.sin(2*math.pi*k/12)) for k in range(12)]
+persistent_homology(FiniteMetricSpace(carrier=tuple(pts), distance=math.dist), max_dimension=2)
+
+# Knot invariants — Jones / Alexander polynomials from a diagram
+from pytop import KnotDiagram, jones_polynomial
+trefoil = KnotDiagram([(1, 4, 2, 5), (3, 6, 4, 1), (5, 2, 6, 3)], signs=(-1, -1, -1))
+jones_polynomial(trefoil)                   # -t^-4 + t^-3 + t^-1
+
+# Surface classification from a polygon gluing word
+from pytop import classify_surface_word
+classify_surface_word("a b a^-1 b^-1").name   # "torus"
+
+# Exact graph planarity / genus (rotation-system search)
+from itertools import combinations
+from pytop import is_planar
+is_planar(list(combinations(range(5), 2)))  # False  -> K5 is non-planar
+
+# Winding number / map degree
+from pytop import winding_number
+winding_number(pts)                          # 1
+
+# pi-Base deductive inference (experimental, CC BY 4.0)
+from pytop.experimental import deduce, find_counterexamples, property_uid
+deduce({property_uid("Compact"): True, property_uid("Hausdorff"): True})  # ... Normal: True
+find_counterexamples(has=["Compact"], lacks=["Hausdorff"])                # compact, non-Hausdorff spaces
+```
+
 ## Module Overview
 
 | Domain | Key modules |
@@ -59,6 +100,13 @@ from pytop.experimental import maturity_registry
 | Knot theory | `knots`, `invariants` |
 | Surfaces & manifolds | `surfaces`, `surface_classification`, `manifolds`, `three_manifolds` |
 | Graph topology | `graph_topology` |
+| **Computational homology** (v0.6.0) | `homology`, `persistent_homology` |
+| **Knot invariants** (v0.6.0) | `knot_invariants` |
+| **Degree / winding** (v0.6.0) | `winding_number` |
+| **Surface classification** (v0.6.0) | `surface_word_classification` |
+| **Graph planarity** (v0.6.0) | `graph_planarity` |
+| **Deductive inference** (v0.6.0) | `experimental.pi_base`, `experimental.pi_base_atlas` |
+| **Convergence spaces** (v0.6.0) | `experimental.convergence_spaces` |
 | Cardinal functions | `cardinal_functions_framework`, `cardinal_numbers` |
 | Higher algebra | `operads`, `spectral_sequences` |
 | Higher categories | `higher_categories`, `topological_field_theory` |
@@ -96,8 +144,20 @@ and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
 
-## What's New (Unreleased)
+## What's New in v0.6.0
 
+- **Constructive computational core** — invariants computed from raw input, not looked up:
+  `homology` (integer boundary matrices → Smith normal form → Betti + torsion; S², T² = ℤ²,
+  ℝP² = ℤ/2 verified), `persistent_homology` (Vietoris–Rips filtration → Z/2 reduction → barcodes),
+  `knot_invariants` (Kauffman → Jones, reduced Burau → Alexander), `winding_number`,
+  `surface_word_classification` (closed-surface type from a gluing word), and exact `graph_planarity`
+  (rotation-system genus)
+- **pi-Base deductive inference** (`pytop.experimental.pi_base` / `pi_base_atlas`) — a real
+  property-inference engine over the pi-Base database (243 properties, 902 implication theorems,
+  222 spaces, 2099 traits; CC BY 4.0, Clontz & Dabbs): `deduce` closes a trait set under the
+  implication graph and detects contradictions, and `find_counterexamples(has=…, lacks=…)` searches
+  the atlas. A cross-validation suite pins pytop's hand-encoded implications against the pi-Base graph
+- **9 032 tests passing**; new modules at ≥ 90% coverage; dependency-free at runtime
 - **`named_spaces` + `space_catalog`** — 104 canonical named topological spaces (Sierpiński space,
   Cantor set, Hilbert cube, Sorgenfrey line, p-adic numbers, lens spaces, solenoid, …) with a
   queryable `SpaceCatalog` registry; `from pytop import catalog` gives instant lookup by name or
