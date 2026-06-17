@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v0.6.0+**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients, persistent homology, knot polynomials, winding number, surface classification, graph planarity), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
+As of **v0.6.0+**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology, persistent homology, knot polynomials, winding number, surface classification, graph planarity), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
 
 ## Installation
 
@@ -114,7 +114,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | Knot theory | `knots`, `invariants` |
 | Surfaces & manifolds | `surfaces`, `surface_classification`, `manifolds`, `three_manifolds` |
 | Graph topology | `graph_topology` |
-| **Computational homology** (v0.6.0+) | `homology`, `persistent_homology`, `homology_coefficients`, `mayer_vietoris` |
+| **Computational homology** (v0.6.0+) | `homology`, `persistent_homology`, `homology_coefficients`, `mayer_vietoris`, `cellular_homology` |
 | **Knot invariants** (v0.6.0) | `knot_invariants` |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
@@ -178,7 +178,13 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   extended Smith Normal Form yields explicit homology bases and cycle representatives;
   inclusion maps and the snake-lemma connecting homomorphism δ are returned as integer matrices;
   exactness verified at every position (S¹, S², interval). 30 new tests.
-- **9 185 tests passing** across the full suite.
+- **Cellular homology** — `cellular_homology(cw, k)` computes H_k(X; Z) from a CW complex specified
+  by cell counts and integer boundary matrices. Convenience constructors cover the standard spaces:
+  `cw_sphere(n)`, `cw_real_projective_space(n)`, `cw_complex_projective_space(n)`, `cw_torus()`,
+  `cw_klein_bottle()`, `cw_lens_space(p)`, `cw_moore_space(n, k)`. `cw_from_simplicial(K)` bridges
+  CW and simplicial homology for cross-validation. Chain-complex condition d∘d=0 verified on
+  construction. 65 new tests.
+- **9 250 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

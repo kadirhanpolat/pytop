@@ -29,6 +29,8 @@ pytop has two complementary layers — keep this distinction in mind when extend
   `homology_coefficients` (field-coefficient / relative homology — Gaussian elimination over Q and Z/p),
   `mayer_vietoris` (Mayer–Vietoris LES: extended SNF with transformation matrices → explicit homology
   bases; φ, ψ, δ as integer matrices; exactness verified at every position),
+  `cellular_homology` (CW complex chain complex → SNF; standard spaces S^n, RP^n, CP^n, T², Klein
+  bottle, lens spaces, Moore spaces; `cw_from_simplicial` cross-validation bridge),
   `persistent_homology` (Vietoris–Rips filtration → Z/2 reduction → barcodes),
   `knot_invariants` (Kauffman→Jones, reduced Burau→Alexander), `winding_number`,
   `surface_word_classification`, `graph_planarity` (rotation-system genus), and

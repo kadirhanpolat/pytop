@@ -168,7 +168,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | Field-coefficient homology (Q, Z/p) | ✅ | `homology_coefficients`: Gaussian elim; RP² katsayı bağımlılığı |
 | Relative homology H_*(K,L; Z) | ✅ | Disk mod boundary H₂(D²,∂D²)=Z |
 | Mayer–Vietoris LES | ✅ | `mayer_vietoris`: extended SNF → explicit bases; φ,ψ,δ matrices; exactness verified (S¹,S²,interval) |
-| Cellular homology | ⬜ | — |
+| Cellular homology | ✅ | `cellular_homology`: CWComplex + SNF; standard spaces (S^n, RP^n, CP^n, T², Klein, L(p,q), M(Z/n,k)); cross-validated via `cw_from_simplicial` |
 | Cohomology + cup product | ⬜ | — |
 | van Kampen → group presentations | ⬜ | Major item; GAP bridge candidate |
 | Optimized persistence (clearing/twist) | ⬜ | — |
@@ -211,4 +211,4 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
 | Phase 1 milestones complete | 5 / 5 |
-| Phase 2 milestones complete | 3 / 8 |
+| Phase 2 milestones complete | 4 / 8 |
