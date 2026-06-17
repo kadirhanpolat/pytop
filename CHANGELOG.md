@@ -52,6 +52,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   normal/T4) from the **Sorgenfrey plane** (regular but famously not Lindelöf and not normal) — by
   preservation plus the pi-Base implication graph, with no enumeration. This completes the core of
   Phase 1 (set-theoretic topology) of the research-grade roadmap.
+- **pi-Base atlas ↔ reasoning bridge (experimental)** — `pytop.experimental.spaces.pi_base_space`
+  wraps any of the 222 famous pi-Base spaces as a protocol `Space` whose property certificates come
+  from pi-Base's deduced trait matrix. The reasoning engine's predicates and `derive` now work on
+  famous spaces (Cantor set, long line, real line, …), and those spaces feed into the construction
+  wrappers — e.g. `ProductSpace([pi_base_space("Cantor set"), pi_base_space("Cantor set")])` is
+  derived compact (Tychonoff). `analyze_pi_base_space(name)` reports all 16 property verdicts.
 
 ## [0.6.0] - 2026-06-17
 

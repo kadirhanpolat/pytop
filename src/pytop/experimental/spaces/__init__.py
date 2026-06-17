@@ -36,6 +36,11 @@ from .core import (
     Space,
     Verdict,
 )
+from .pi_base_bridge import (
+    PiBaseSpace,
+    analyze_pi_base_space,
+    pi_base_space,
+)
 from .predicates import (
     is_compact,
     is_connected,
@@ -109,6 +114,9 @@ __all__ = [
     "derive",
     "explain",
     "synthesize",
+    "PiBaseSpace",
+    "pi_base_space",
+    "analyze_pi_base_space",
     "FiniteSpace",
     "CofiniteSpace",
     "OrderTopologySpace",
