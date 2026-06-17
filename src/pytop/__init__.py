@@ -532,6 +532,13 @@ from .homology_coefficients import (
     relative_homology,
     relative_betti_numbers,
 )
+from .mayer_vietoris import (
+    sc_intersection,
+    sc_union,
+    mayer_vietoris,
+    MayerVietorisSequence,
+    MVDegree,
+)
 from .knot_invariants import (
     Laurent,
     KnotDiagram,
@@ -1298,6 +1305,11 @@ __all__ = [
     "betti_numbers_over",
     "relative_homology",
     "relative_betti_numbers",
+    "sc_intersection",
+    "sc_union",
+    "mayer_vietoris",
+    "MayerVietorisSequence",
+    "MVDegree",
     "Laurent",
     "KnotDiagram",
     "writhe",
