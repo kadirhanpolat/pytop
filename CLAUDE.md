@@ -4,11 +4,48 @@
 
 `pytop` is a standalone mathematical topology library for Python 3.11+.
 It provides point-set topology, knot theory, graph topology, surface classification,
-3-manifolds, degree theory, cardinal functions, and more.
+3-manifolds, degree theory, cardinal functions, and more. As of **v0.6.0** it also ships a
+**constructive computational core** (simplicial homology, persistent homology / TDA, knot
+invariant polynomials, winding/degree, surface-word classification, exact graph planarity)
+and a **pi-Base–backed deductive inference engine** (`pytop.experimental.pi_base`).
 
 - **GitHub:** https://github.com/kadirhanpolat/pytop
 - **License:** MIT
 - **Version:** see `pyproject.toml` and `src/pytop/__init__.py` (`__version__`)
+
+---
+
+## Architecture: two layers
+
+pytop has two complementary layers — keep this distinction in mind when extending it:
+
+- **Descriptive** — `*Profile` dataclasses + `get_*_profiles()` registries that record curated,
+  referenced facts about famous spaces/theorems (most algebraic/advanced modules). They *know*
+  invariants; they do not compute them.
+- **Constructive** — engines that *compute* invariants from raw input. The v0.6.0 computational core:
+  `homology` (integer boundary matrices → Smith normal form → Betti + torsion), `persistent_homology`
+  (Vietoris–Rips filtration → Z/2 reduction → barcodes), `knot_invariants` (Kauffman→Jones,
+  reduced Burau→Alexander), `winding_number`, `surface_word_classification`, and `graph_planarity`
+  (rotation-system genus). New computational work should prefer this constructive style.
+
+## pi-Base data
+
+`pytop.experimental.pi_base` / `pi_base_atlas` load a compact JSON blob derived from the
+[pi-Base](https://topology.pi-base.org) database (CC BY 4.0, Clontz & Dabbs): 243 properties,
+902 implication theorems, 222 spaces, 2099 traits. Regenerate it from a local `pi-base/data`
+checkout with:
+
+```bash
+py -3.14 -m pytop._internal.pi_base_compile --source <path-to-pi-base/data> \
+    --out src/pytop/experimental/_pi_base_data.json
+```
+
+The compiler may use PyYAML (developer-only); the **runtime loads with stdlib `json`** (no new
+dependency). Attribution lives in `PI_BASE_ATTRIBUTION`.
+
+> **Copyright note:** `Topoloji/` holds copyrighted reference textbooks kept for local research
+> only. It is git-ignored and must **never** be committed. Likewise, do not vendor the raw
+> `pi-base/data` repository — only the derived, attributed JSON blob belongs in the package.
 
 ---
 
