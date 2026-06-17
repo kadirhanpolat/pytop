@@ -43,6 +43,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `SorgenfreyLineSpace` (separable, first-countable, Lindelöf, **not** second-countable, normal) and
   `DiscreteCountableSpace`; extended the cofinite/order/metric certificates accordingly (a generic
   metric space is first-countable but its separability stays honestly undecided).
+- **Full separation hierarchy & reasoning extension (Milestone S5, experimental)** — added the
+  predicates `is_tychonoff` (T3.5), `is_t5`, `is_t6` (on finite spaces these collapse to T1 = discrete;
+  on infinite spaces they use certificates). Extended the reasoning engine's property vocabulary and
+  `PRESERVATION` table to all 16 properties with correct construction rules (e.g. Lindelöf and normal
+  are **not** productive; second-countable and Tychonoff are hereditary/productive). The engine now
+  distinguishes the rational plane Q² (second-countable ⟹ Lindelöf and, via Urysohn metrization,
+  normal/T4) from the **Sorgenfrey plane** (regular but famously not Lindelöf and not normal) — by
+  preservation plus the pi-Base implication graph, with no enumeration. This completes the core of
+  Phase 1 (set-theoretic topology) of the research-grade roadmap.
 
 ## [0.6.0] - 2026-06-17
 

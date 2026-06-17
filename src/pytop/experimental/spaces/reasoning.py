@@ -27,24 +27,46 @@ from .core import Space, Verdict
 from .predicates import (
     is_compact,
     is_connected,
+    is_first_countable,
     is_hausdorff,
+    is_lindelof,
     is_normal,
     is_regular,
+    is_second_countable,
+    is_separable,
     is_t0,
     is_t1,
+    is_t3,
+    is_t4,
+    is_t5,
+    is_t6,
+    is_tychonoff,
 )
 from .representations import FiniteSpace, discrete_finite_space
 
-PROPERTY_KEYS = ("T0", "T1", "T2", "regular", "normal", "compact", "connected")
+PROPERTY_KEYS = (
+    "T0", "T1", "T2", "T3", "tychonoff", "T4", "T5", "T6",
+    "regular", "normal", "compact", "connected",
+    "lindelof", "separable", "second_countable", "first_countable",
+)
 
 _PREDICATES = {
     "T0": is_t0,
     "T1": is_t1,
     "T2": is_hausdorff,
+    "T3": is_t3,
+    "tychonoff": is_tychonoff,
+    "T4": is_t4,
+    "T5": is_t5,
+    "T6": is_t6,
     "regular": is_regular,
     "normal": is_normal,
     "compact": is_compact,
     "connected": is_connected,
+    "lindelof": is_lindelof,
+    "separable": is_separable,
+    "second_countable": is_second_countable,
+    "first_countable": is_first_countable,
 }
 
 # Map our property keys to pi-Base property names (for the implication closure).
@@ -52,10 +74,19 @@ _PI_NAME = {
     "T0": "T0",
     "T1": "T1",
     "T2": "Hausdorff",
+    "T3": "T3",
+    "tychonoff": "Tychonoff",
+    "T4": "T_4",
+    "T5": "T_5",
+    "T6": "T_6",
     "regular": "Regular",
     "normal": "Normal",
     "compact": "Compact",
     "connected": "Connected",
+    "lindelof": "Lindelöf",
+    "separable": "Separable",
+    "second_countable": "Second countable",
+    "first_countable": "First countable",
 }
 
 # Properties preserved by each construction (operands have P ⟹ result has P).
@@ -66,10 +97,23 @@ _PI_NAME = {
 # these, this table agrees. pi-Base's meta-properties are sparse (they do not
 # state every true theorem), so they confirm but cannot *drive* the table.
 PRESERVATION: dict[str, frozenset[str]] = {
-    "subspace": frozenset({"T0", "T1", "T2", "regular"}),                 # hereditary
-    "product": frozenset({"T0", "T1", "T2", "regular", "compact", "connected"}),  # productive (Tychonoff)
-    "sum": frozenset({"T0", "T1", "T2", "regular", "normal", "compact"}),  # finite coproduct
-    "quotient": frozenset({"compact", "connected"}),                      # continuous-image stable
+    # hereditary properties
+    "subspace": frozenset({
+        "T0", "T1", "T2", "T3", "tychonoff", "T5", "T6", "regular",
+        "second_countable", "first_countable",
+    }),
+    # productive (finite products); note Lindelöf, normal, T4/T5/T6 are NOT productive
+    "product": frozenset({
+        "T0", "T1", "T2", "T3", "tychonoff", "regular", "compact", "connected",
+        "separable", "second_countable", "first_countable",
+    }),
+    # preserved by finite topological sums (coproducts); connectedness is not (structural)
+    "sum": frozenset({
+        "T0", "T1", "T2", "T3", "T4", "tychonoff", "T5", "T6", "regular", "normal",
+        "compact", "lindelof", "separable", "second_countable", "first_countable",
+    }),
+    # stable under continuous images (quotient maps)
+    "quotient": frozenset({"compact", "connected", "lindelof", "separable"}),
 }
 
 

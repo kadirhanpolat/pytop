@@ -13,18 +13,8 @@ from __future__ import annotations
 import pytest
 
 from pytop.experimental.pi_base import property_meta
+from pytop.experimental.spaces.reasoning import _PI_NAME as PI_NAME
 from pytop.experimental.spaces.reasoning import PRESERVATION, PROPERTY_KEYS
-
-# our property key -> pi-Base property name
-PI_NAME = {
-    "T0": "T0",
-    "T1": "T1",
-    "T2": "Hausdorff",
-    "regular": "Regular",
-    "normal": "Normal",
-    "compact": "Compact",
-    "connected": "Connected",
-}
 
 PRODUCT_FLAGS = {"products_arbitrary", "products_finite", "products_countable"}
 SUM_FLAGS = {"sums_arbitrary", "sums_finite", "sums_countable"}

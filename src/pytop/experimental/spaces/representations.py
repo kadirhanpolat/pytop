@@ -100,6 +100,10 @@ class CofiniteSpace(Space):
                 reason="the cofinite topology on a countable set has a countable topology, "
                 f"hence is {prop}"
             )
+        if prop in {"tychonoff", "T5", "T6"}:
+            return Verdict.false(
+                reason=f"the cofinite topology on an infinite set is not regular, so not {prop}"
+            )
         return None
 
 
@@ -138,6 +142,10 @@ class OrderTopologySpace(Space):
             )
         if prop in {"lindelof", "separable", "second_countable", "first_countable"}:
             return Verdict.true(reason=f"the rationals with the order topology are {prop}")
+        if prop in {"tychonoff", "T5", "T6"}:
+            return Verdict.true(
+                reason=f"the rationals are metrizable, hence {prop}"
+            )
         return None
 
 
@@ -174,6 +182,8 @@ class MetricTopologySpace(Space):
             return Verdict.true(reason=f"every metric space is {prop}")
         if prop == "first_countable":
             return Verdict.true(reason="every metric space is first countable (balls of radius 1/n)")
+        if prop in {"tychonoff", "T5", "T6"}:
+            return Verdict.true(reason=f"every metric space is {prop} (metric ⟹ perfectly normal)")
         return None
 
 
@@ -183,6 +193,7 @@ class SorgenfreyLineSpace(Space):
 
     _CERTIFICATES = {
         "T0": True, "T1": True, "T2": True, "regular": True, "normal": True,
+        "tychonoff": True, "T5": True, "T6": True,
         "compact": False, "connected": False,
         "lindelof": True, "separable": True, "first_countable": True,
         "second_countable": False,
@@ -208,6 +219,7 @@ class DiscreteCountableSpace(Space):
 
     _CERTIFICATES = {
         "T0": True, "T1": True, "T2": True, "regular": True, "normal": True,
+        "tychonoff": True, "T5": True, "T6": True,
         "compact": False, "connected": False,
         "lindelof": True, "separable": True, "first_countable": True,
         "second_countable": True,

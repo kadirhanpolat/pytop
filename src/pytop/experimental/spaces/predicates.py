@@ -223,6 +223,44 @@ def is_t4(space: Space) -> Verdict:
     return _conjunction(is_normal(space), is_t1(space), ("normal", "T1"))
 
 
+def _finite_t1_or_certificate(space: Space, prop: str) -> Verdict:
+    """Decide a high separation axiom that collapses to T1 on finite spaces.
+
+    On a finite space, T1 ⟹ discrete ⟹ every higher axiom (Tychonoff, T5, T6),
+    so the predicate reduces to T1. Infinite spaces defer to a certificate.
+    """
+
+    if space.is_finite():
+        t1 = is_t1(space)
+        if t1.value is True:
+            return Verdict.true(reason=f"a finite T1 space is discrete, hence {prop}")
+        if t1.value is False:
+            return Verdict.false(
+                reason=f"not {prop}: the finite space is not even T1",
+                counterexample=t1.counterexample,
+            )
+        return Verdict(None, Decidability.UNDECIDABLE, reason=f"{prop} undecided")
+    return _via_certificate(space, prop)
+
+
+def is_tychonoff(space: Space) -> Verdict:
+    """Decide the Tychonoff axiom T3.5 (completely regular and T1)."""
+
+    return _finite_t1_or_certificate(space, "tychonoff")
+
+
+def is_t5(space: Space) -> Verdict:
+    """Decide T5 (completely normal and T1)."""
+
+    return _finite_t1_or_certificate(space, "T5")
+
+
+def is_t6(space: Space) -> Verdict:
+    """Decide T6 (perfectly normal and T1)."""
+
+    return _finite_t1_or_certificate(space, "T6")
+
+
 # --------------------------------------------------------------------------
 # Covering and countability properties
 # (every finite space has all of these; infinite spaces use certificates)
@@ -263,6 +301,9 @@ __all__ = [
     "is_t1",
     "is_t3",
     "is_t4",
+    "is_tychonoff",
+    "is_t5",
+    "is_t6",
     "is_regular",
     "is_normal",
     "is_compact",
