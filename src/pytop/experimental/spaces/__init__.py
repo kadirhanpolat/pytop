@@ -16,6 +16,12 @@ is_hausdorff(rational_metric_space()).value   # True  (decided via metric certif
 
 from __future__ import annotations
 
+from .constructions import (
+    binary_product,
+    disjoint_sum,
+    quotient,
+    subspace,
+)
 from .core import (
     CarrierKind,
     Decidability,
@@ -23,7 +29,15 @@ from .core import (
     Space,
     Verdict,
 )
-from .predicates import is_hausdorff
+from .predicates import (
+    is_compact,
+    is_connected,
+    is_hausdorff,
+    is_normal,
+    is_regular,
+    is_t0,
+    is_t1,
+)
 from .representations import (
     CofiniteSpace,
     FiniteSpace,
@@ -41,6 +55,16 @@ __all__ = [
     "Space",
     "Verdict",
     "is_hausdorff",
+    "is_t0",
+    "is_t1",
+    "is_regular",
+    "is_normal",
+    "is_compact",
+    "is_connected",
+    "subspace",
+    "binary_product",
+    "disjoint_sum",
+    "quotient",
     "FiniteSpace",
     "CofiniteSpace",
     "OrderTopologySpace",
