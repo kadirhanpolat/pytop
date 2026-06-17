@@ -95,6 +95,11 @@ class CofiniteSpace(Space):
                 "(disjoint nonempty closed sets cannot be separated by disjoint opens)",
                 counterexample="two disjoint finite closed sets",
             )
+        if prop in {"lindelof", "separable", "second_countable", "first_countable"}:
+            return Verdict.true(
+                reason="the cofinite topology on a countable set has a countable topology, "
+                f"hence is {prop}"
+            )
         return None
 
 
@@ -131,6 +136,8 @@ class OrderTopologySpace(Space):
                 reason="the rationals are totally disconnected",
                 counterexample="a clopen split of Q at an irrational cut",
             )
+        if prop in {"lindelof", "separable", "second_countable", "first_countable"}:
+            return Verdict.true(reason=f"the rationals with the order topology are {prop}")
         return None
 
 
@@ -160,11 +167,65 @@ class MetricTopologySpace(Space):
         )
 
     def certificate(self, prop: str) -> Verdict | None:
-        # Properties true for *every* metric space. Compactness/connectedness
-        # depend on the specific metric, so they are left undecided here (honest).
+        # Properties true for *every* metric space. Compactness/connectedness and
+        # separability/second-countability/Lindelöf depend on the specific metric,
+        # so they are left undecided here (honest).
         if prop in {"T0", "T1", "T2", "regular", "normal"}:
             return Verdict.true(reason=f"every metric space is {prop}")
+        if prop == "first_countable":
+            return Verdict.true(reason="every metric space is first countable (balls of radius 1/n)")
         return None
+
+
+class SorgenfreyLineSpace(Space):
+    """The Sorgenfrey (lower-limit) line — the canonical separable, first-countable,
+    Lindelöf, **not** second-countable, normal, totally disconnected example."""
+
+    _CERTIFICATES = {
+        "T0": True, "T1": True, "T2": True, "regular": True, "normal": True,
+        "compact": False, "connected": False,
+        "lindelof": True, "separable": True, "first_countable": True,
+        "second_countable": False,
+    }
+
+    def __init__(self, name: str = "Sorgenfrey line") -> None:
+        self.name = name
+        self.carrier_kind = CarrierKind.UNCOUNTABLE
+
+    def contains(self, point: Any) -> bool:
+        return isinstance(point, (int, float, Fraction))
+
+    def certificate(self, prop: str) -> Verdict | None:
+        if prop not in self._CERTIFICATES:
+            return None
+        value = self._CERTIFICATES[prop]
+        reason = f"the Sorgenfrey line is {'' if value else 'not '}{prop}"
+        return Verdict.true(reason=reason) if value else Verdict.false(reason=reason)
+
+
+class DiscreteCountableSpace(Space):
+    """The discrete topology on a countably infinite set (metrizable, not compact)."""
+
+    _CERTIFICATES = {
+        "T0": True, "T1": True, "T2": True, "regular": True, "normal": True,
+        "compact": False, "connected": False,
+        "lindelof": True, "separable": True, "first_countable": True,
+        "second_countable": True,
+    }
+
+    def __init__(self, name: str = "discrete(N)") -> None:
+        self.name = name
+        self.carrier_kind = CarrierKind.COUNTABLE
+
+    def contains(self, point: Any) -> bool:
+        return isinstance(point, int) and point >= 0
+
+    def certificate(self, prop: str) -> Verdict | None:
+        if prop not in self._CERTIFICATES:
+            return None
+        value = self._CERTIFICATES[prop]
+        reason = f"the countable discrete space is {'' if value else 'not '}{prop}"
+        return Verdict.true(reason=reason) if value else Verdict.false(reason=reason)
 
 
 class OpaqueInfiniteSpace(Space):
@@ -207,6 +268,8 @@ __all__ = [
     "CofiniteSpace",
     "OrderTopologySpace",
     "MetricTopologySpace",
+    "SorgenfreyLineSpace",
+    "DiscreteCountableSpace",
     "OpaqueInfiniteSpace",
     "rational_metric_space",
     "discrete_finite_space",
