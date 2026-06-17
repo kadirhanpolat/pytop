@@ -50,6 +50,9 @@ from .predicates import (
     is_t1,
     is_t3,
     is_t4,
+    is_t5,
+    is_t6,
+    is_tychonoff,
 )
 from .reasoning import (
     PRESERVATION,
@@ -81,6 +84,9 @@ __all__ = [
     "is_t1",
     "is_t3",
     "is_t4",
+    "is_tychonoff",
+    "is_t5",
+    "is_t6",
     "is_regular",
     "is_normal",
     "is_compact",
