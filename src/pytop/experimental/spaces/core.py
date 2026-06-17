@@ -93,6 +93,9 @@ class Space(ABC):
 
     name: str = "space"
     carrier_kind: CarrierKind = CarrierKind.FINITE
+    # Provenance for constructed spaces (set by construction wrappers); ``None``
+    # for base representations. The reasoning engine uses it for preservation.
+    construction: Any = None
 
     @abstractmethod
     def contains(self, point: Any) -> bool:

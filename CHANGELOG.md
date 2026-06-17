@@ -22,6 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   of a generic metric space). Added finite construction closure — `subspace`, `binary_product`,
   `disjoint_sum`, `quotient` — each returning a `FiniteSpace`, so predicates compose on constructed
   spaces (a product of Hausdorff spaces is computed and verified Hausdorff).
+- **Property-reasoning engine (Milestone S3, experimental)** — `pytop.experimental.spaces.reasoning`:
+  derives properties of *constructed* spaces — including **infinite** ones, without enumeration — by
+  combining construction-preservation theorems (subspace→hereditary, product→productive/Tychonoff,
+  sum→coproduct-stable, quotient→image-stable), the pi-Base implication graph, and computed/certified
+  leaf verdicts. `derive(space, prop)` returns a `Derivation` with a human-readable explanation tree;
+  `explain` renders it; `synthesize(has=…, lacks=…)` searches for a space meeting a property spec.
+  E.g. a product of a cofinite and an order space is derived T1; a subspace of an infinite metric
+  space is derived regular — each with a proof, no points enumerated.
 
 ## [0.6.0] - 2026-06-17
 
