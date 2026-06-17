@@ -9,7 +9,9 @@ It provides point-set topology, knot theory, graph topology, surface classificat
 persistent homology / TDA, knot invariant polynomials, winding/degree, surface-word
 classification, exact graph planarity), a **pi-Base–backed deductive inference engine**
 (`pytop.experimental.pi_base`), and a **research-grade computable-space protocol**
-(`pytop.experimental.spaces`) for point-set topology — Phase 1 complete (S1–S5).
+(`pytop.experimental.spaces`) for point-set topology — Phase 1 complete (S1–S5),
+Phase 2 in progress (5/8: field-coeff homology, relative homology, Mayer–Vietoris LES,
+cellular homology, cohomology + cup product).
 
 - **GitHub:** https://github.com/kadirhanpolat/pytop
 - **License:** MIT
