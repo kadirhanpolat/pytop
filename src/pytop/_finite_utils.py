@@ -12,8 +12,9 @@ Return-type contract
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from itertools import combinations
-from typing import Any, Iterable
+from typing import Any
 
 
 def _sort_family(family: Iterable[frozenset[Any]]) -> tuple[frozenset[Any], ...]:

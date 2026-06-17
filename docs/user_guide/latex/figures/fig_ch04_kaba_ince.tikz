@@ -1,0 +1,9 @@
+\begin{tikzpicture}[font=\small,
+    kutu/.style={draw, rounded corners, align=center, inner sep=8pt}]
+  \node[kutu, fill=orange!6] (kaba) at (0,0)
+    {$\tau_{\mathrm{ind}}$ (kaba)\\[3pt] $\emptyset,\quad \{a,b\}$};
+  \node[kutu, fill=blue!6] (ince) at (6.4,0)
+    {$\tau_{\mathrm{disc}}$ (ince)\\[3pt] $\emptyset,\ \{a\},\ \{b\},\ \{a,b\}$};
+  \draw[-{Stealth[length=3mm]}, thick]
+    (kaba) -- node[above] {$\subseteq$} node[below] {açık küme eklenir} (ince);
+\end{tikzpicture}

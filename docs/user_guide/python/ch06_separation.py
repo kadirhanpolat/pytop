@@ -29,6 +29,34 @@ Her aksiyom bir öncekinden daha güçlüdür.
 
 # %% [markdown]
 """
+> **💡 Sezgi:** Ayrılma aksiyomlarını bir mikroskobun çözünürlük kademeleri gibi düşünün: T0'da iki noktayı *en az bir yönden* ayırt edebilirsiniz; T1'de her iki yönden; T2'de noktaları çakışmayan iki ayrı "görüş alanına" koyabilirsiniz; T3 ve T4'te artık nokta–kapalı küme ve kapalı–kapalı çiftleri bile ayrışır.
+"""
+
+# %% [markdown]
+"""
+> **⚠️ Dikkat — sık hata:** T3 = T1 + regüler, T4 = T1 + normal. İki noktalı indirgenmiş uzay regüler *ve* normaldir ama T1 olmadığından T3 de T4 de değildir — aşağıda doğrulanır.
+
+*(Şekil: assets/ch06/fig_ch06_t2_ayirma.png — PDF kılavuzunda Şekil olarak yer alır)*
+*(Şekil: assets/ch06/fig_ch06_t3_regulerlik.png — PDF kılavuzunda Şekil olarak yer alır)*
+
+> **🚫 Karşı-örnek:** İki noktalı indirgenmiş uzay T0 bile değildir: açıklar yalnız ∅ ve X olduğundan iki noktayı ayıran hiçbir açık yoktur.
+"""
+
+# %% [markdown]
+"""
+> **Neden bu konu?** T0–T4 hiyerarşisi Hausdorff gibi güçlü özelliklerin tam anlaşılması için gerekli; kümeler arası ayrışma fikrinden doğar.
+
+> 🔍 **Kendin dene:** Sierpiński'nin T0 ama T1 olmadığını `is_t0`/`is_t1` ile doğrulayın.
+
+> ⚠️ **Sık hata:** `is_t2 True` iken `is_t1 False` olamaz; hiyerarşi sıkı içermedir.
+
+> ↗️ **Bkz.:** Bölüm 4 (topoloji), Bölüm 7 (kompakt Hausdorff → normal).
+
+> 💭 **Öz-yansıtma:** T2 (Hausdorff) neden önemli? Hangi ispatlarda özellikle kullanılır?
+"""
+
+# %% [markdown]
+"""
 ## 2. Teoremler
 
 **Teorem 2.1 (Ayrılma Zinciri).**
@@ -46,6 +74,29 @@ tüm X'e sürekli olarak genişletilebilir.
 **Teorem 2.4 (Tychonoff Karakterizasyonu).**
 X, T3.5'tir ⟺ X, [0,1]^I ile homeomorf bir alt uzayı olacak biçimde sürekli
 fonksiyonlar X'i ayrıştırır.
+"""
+
+# %% [markdown]
+"""
+**Rehberli Kanıt (T2 ⇒ T1):** x≠y için ayrık U∋x, V∋y al; U∩V=∅ olduğundan y∉U ve x∉V — iki yönlü ayrım hazır. T1 ⇒ T0: iki yönlü ayrım tek yönlüyü içerir. Kalan halkalar Alıştırma T1'de.
+
+*(Şekil: assets/ch06/fig_ch06_implikasyon.png — PDF kılavuzunda Şekil olarak yer alır)*
+"""
+
+# %% [markdown]
+"""
+*(Şekil: assets/ch06/fig_ch06_urysohn.png — PDF kılavuzunda Şekil olarak yer alır)*
+"""
+
+# %% [markdown]
+"""
+**Rehberli Kanıt (Sonlu T1 ⟺ Ayrık):**
+1. (⇒) T1 gereği her y≠x için y∈U_y, x∉U_y olan açık U_y vardır; X∖{x}=⋃_{y≠x}U_y açıktır, yani {x} kapalıdır.
+2. Herhangi A⊆X, *sonlu* sayıda tekilin birleşimi olarak kapalıdır.
+3. Her A kapalı ise X∖A açıktır; topoloji ayrıktır.
+4. (⇐) Ayrık topolojide her {x} açıktır; x≠y çifti {x} ve {y} ile iki yönlü ayrılır.
+
+Sonsuzlukta 2. adım çöker: kosonlu ℕ tam bu nedenle T1 olup ayrık değildir.
 """
 
 # %% [markdown]
@@ -78,6 +129,19 @@ Karmaşıklık: O(|X|·|τ|²)
 
 # %% [markdown]
 """
+**İz Sürme: T0 Prosedürü Sierpiński Üzerinde.** X={0,1}, τ={∅,{1},X}:
+
+| Çift (x,y) | Denenen U | x∈U∧y∉U? | y∈U∧x∉U? | Karar |
+|------------|-----------|-----------|-----------|-------|
+| (0,1) | ∅ | hayır | hayır | devam |
+| (0,1) | {1} | hayır | **evet** | çift ayrıldı |
+| — | — | — | — | tüm çiftler → **true** |
+
+Genel sınır O(|X|²·|τ|)'dur.
+"""
+
+# %% [markdown]
+"""
 ## 4. pytop API
 """
 
@@ -97,6 +161,11 @@ from pytop import (
 
 # %% [markdown]
 """
+> **🎯 Neden önemli?** `is_*` yüklemleri ham `bool` değil, `.status` alanı `true` / `false` / `unknown` olabilen bir `Result` döndürür. `tychonoff: unknown` — sürekli fonksiyon ayırması açık-küme taramasıyla karar verilemez.
+"""
+
+# %% [markdown]
+"""
 ## 5. Örnekler
 
 ### Örnek 5.1 — Sierpiński: T0 ✓, T1 ✗
@@ -110,6 +179,11 @@ print("T1:", is_t1(s).status)
 print("T2:", is_t2(s).status)
 print()
 # Sierpinski: T1 degil cunku {0} acik degildir — 0'i yalnizca X ayirir, sadece 1 degil.
+
+# %% [markdown]
+"""
+**Ne oldu?** T0: true — (0,1) çifti için {1} açığı 1'i içerir, 0'ı dışlar. T1: false — ters yön yok: {0}∉τ. Sierpiński, zincirin "T0'da takılan" kanonik örneğidir.
+"""
 
 # %% [markdown]
 """
@@ -140,6 +214,11 @@ print()
 
 # %% [markdown]
 """
+**Ne oldu?** T1: true — her n için ℕ∖{n} kosonludur (açıktır); iki yönlü ayrım sağlanır. T2: false — boş olmayan iki kosonlu açık daima kesişir (ℕ sonsuz). Bölüm 4 K1'in "neden sonsuz taşıyıcı gerekir" sorusunun cevabı budur.
+"""
+
+# %% [markdown]
+"""
 ### Örnek 5.4 — Ayrık Topoloji: Tüm Aksiyomlar ✓
 """
 
@@ -153,11 +232,33 @@ print()
 
 # %% [markdown]
 """
-### Örnek 5.5 — separation_chain Özet
+**Ne oldu?** Ayrık uzayda her tekil açık → dokuz yüklemin tümü true döner. `tychonoff` bile true: ayrık uzayda her fonksiyon süreklidir. `separation_chain` anahtar sırası zincirin mantıksal sırasıdır — "nerede takıldığını" yukarıdan aşağı okuyun.
+"""
+
+# %% [markdown]
+"""
+### Örnek 5.5 — Regüler Ama T3 Değil: Konvansiyon Testi
 """
 
 # %%
-print("=== Ornek 5.5: separation_chain ozeti ===")
+from pytop import two_point_indiscrete_space
+
+tp = two_point_indiscrete_space()
+print("regular:", is_regular(tp).status, "| normal:", is_normal(tp).status)
+print("t3     :", is_t3(tp).status, "| t4    :", is_t4(tp).status)
+
+# %% [markdown]
+"""
+**Ne oldu?** Indirgenmiş iki noktalı uzayda ayirma kosullarinin onculu hic gerceklesemez; `regular` ve `normal` true. Ama T1 olmadığından `t3` ve `t4` false kalır.
+"""
+
+# %% [markdown]
+"""
+### Örnek 5.6 — separation_chain Özet
+"""
+
+# %%
+print("=== Ornek 5.6: separation_chain ozeti ===")
 print("Sierpinski chain:")
 for prop, result in separation_chain(s).items():
     print(f"  {prop:20s}: {result.status}")
@@ -165,11 +266,11 @@ print()
 
 # %% [markdown]
 """
-### Örnek 5.6 — analyze_separation
+### Örnek 5.7 — analyze_separation
 """
 
 # %%
-print("=== Ornek 5.6: analyze_separation ===")
+print("=== Ornek 5.7: analyze_separation ===")
 rl = real_line_metric()
 # analyze_separation(space) varsayilan olarak 'hausdorff' ozelligini test eder.
 print("Real line Hausdorff mi?:", analyze_separation(rl).status)
@@ -186,21 +287,27 @@ print()
 
 ### Kodlama
 
-K1. make_topology({1,2,3},{1},{2},{1,2}) üzerinde separation_chain hesaplayın.
-    Bu topoloji T0, T1, T2 aksiyomlarından hangilerini sağlıyor?
+**K1.** `make_topology({1,2,3},{1},{2},{1,2})` için `separation_chain` çalıştırın; her sonucu yorumlayın.
+*Ipucu: Once aciklari listeleyin. Her cifti ayiran acik arayin; 3'u icerip 1'i dislayan acik var mi?*
+*(Cozum: solutions.py / solutions.ipynb -> Bolum 6 / K1)*
 
-K2. two_point_indiscrete_space() (examples modülü) üzerinde is_t0, is_t1, is_t2
-    sonuçlarını inceleyin. Beklediğinizle uyuşuyor mu?
+**K2.** `finite_chain_space(3)` üzerinde en yüksek sağlanan aksiyomu bulun.
+*Ipucu: Ciktida true olan en guclu anahtari arayin; unknown degerleri "Neden onemli?" kutusuna gore yorumlayin.*
+*(Cozum: solutions.py / solutions.ipynb -> Bolum 6 / K2)*
 
-K3. finite_chain_space(3) üzerinde ayrılma zincirini çalıştırın; hangi aksiyomların
-    geçtiğini not edin.
+**K3.** `two_point_indiscrete_space()` üzerinde T0, T1, T2 test edin.
+*Ipucu: Tek bos olmayan acik X iken herhangi bir cift nasil ayrilabilir?*
+*(Cozum: solutions.py / solutions.ipynb -> Bolum 6 / K3)*
 
 ### Teori
 
-T1. T2 ⟹ T1 ⟹ T0 implicasyonlarını formal olarak kanıtlayın.
+**T1.** T2 ⇒ T1 ⇒ T0 implikasyonlarını kanıtlayın.
+*Ipucu: T2=>T1: ayrik U∋x, V∋y; y∉U ve x∉V — iki yonlu ayrim. T1=>T0: iki yonlu tek yonluyu icerir.*
+*(Cozum: solutions.py / solutions.ipynb -> Bolum 6 / T1)*
 
-T2. Bir sonlu uzayda T1 ⟺ ayrık topoloji olduğunu gösterin.
-    (İpucu: T1 → her tekil küme kapalı → her küme kapalı → her küme açık.)
+**T2.** Sonlu uzayda T1 ⟺ ayrık topoloji olduğunu gösterin.
+*Ipucu: T1 => tekiller kapali => sonlu birlesim => her alt kume kapali => her alt kume acik.*
+*(Cozum: solutions.py / solutions.ipynb -> Bolum 6 / T2)*
 """
 
 if __name__ == "__main__":

@@ -30,6 +30,19 @@ X bağlantısız ⟺ boş olmayan trivial olmayan bir clopen A ⊆ X vardır.
 
 # %% [markdown]
 """
+> **Neden bu konu?** Bağlantılılık ve yol-bağlantılılık aynı kavram değildir; pytop ikisini ayrı ayrı test eder.
+
+> 🔍 **Kendin dene:** Sierpiński `is_connected` mı? Cevabınızı tahmin edin, sonra test edin.
+
+> ⚠️ **Sık hata:** Yol-bağlantılı ⟹ Bağlantılı, ama tersi yanlış; `is_path_connected True` iken `is_connected False` olamaz.
+
+> ↗️ **Bkz.:** Bölüm 10 (sürekli görüntü bağlantılıdır).
+
+> 💭 **Öz-yansıtma:** Ayrık topoloji neden bağlantısızdır?
+"""
+
+# %% [markdown]
+"""
 ## 2. Teoremler
 
 **Teorem 2.1.** Bağlantılı küme süreklilik altında bağlantılıdır:

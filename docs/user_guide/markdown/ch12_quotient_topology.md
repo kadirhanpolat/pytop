@@ -33,6 +33,16 @@ Bu, q'yu sürekli kılan en ince (en fazla açık küme içeren) topolojidir.
 | Hausdorff     | Genel olarak korunmaz                        |
 | T1            | ~ kapalı bağıntı ise korunur                |
 
+> **Neden bu konu?** Eşdeğerlik bağıntısından yeni uzay üretmek; daire S¹ ve torus bu şekilde inşa edilir.
+
+> 🔍 **Kendin dene:** `quotient_set` ile `equivalence_class` çıktılarını karşılaştırın: hangisi hangi bilgiyi taşır?
+
+> ⚠️ **Sık hata:** `quotient_set` denklik bağıntısı gerektirir; rastgele bağıntı `RelationError` fırlatır.
+
+> ↗️ **Bkz.:** Bölüm 3 (`partition_from_equivalence`), Bölüm 11 (bölüm topolojisi inşası).
+
+> 💭 **Öz-yansıtma:** S¹ = [0,1] / {0~1} yapısını küçük bir taşıyıcı üzerinde modelleyebilir misiniz?
+
 ---
 
 ## 2. Teoremler

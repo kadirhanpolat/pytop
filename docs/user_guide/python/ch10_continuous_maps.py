@@ -40,6 +40,19 @@ Sürekli f: geri-çekim işlemi topoloji yapısını korur.
 
 # %% [markdown]
 """
+> **Neden bu konu?** Süreklilik topolojinin temel kavramı; homeomorfizma yapı-koruma denkliğidir.
+
+> 🔍 **Kendin dene:** Sierpiński → Sierpiński'ye kaç fonksiyon var, kaçı sürekli? `is_continuous_finite_map` ile tek tek test edin.
+
+> ⚠️ **Sık hata:** `s_topo = list(s.topology)` kullanın; `[set(u) for u in s.topology]` gerekmez — `is_continuous_finite_map` `Iterable[Iterable]` kabul eder.
+
+> ↗️ **Bkz.:** Bölüm 7 (kompakt görüntü kompakt), Bölüm 8 (bağlantılı görüntü bağlantılı).
+
+> 💭 **Öz-yansıtma:** Homeomorfizma ile izomorfizma arasındaki fark ne? Hangi yapıyı korur?
+"""
+
+# %% [markdown]
+"""
 ## 2. Teoremler
 
 **Teorem 2.1.** Her sabit fonksiyon süreklidir.
@@ -87,6 +100,8 @@ from pytop import (
     discrete_topology,
     indiscrete_topology,
     make_topology,
+    make_set,
+    empty_set,
     real_line_metric,
     closed_unit_interval_metric,
     is_continuous_finite_map,
@@ -103,7 +118,7 @@ from pytop import (
 # %%
 s = sierpinski_space()
 s_pts = list(s.carrier)
-s_topo = [set(u) for u in s.topology]
+s_topo = list(s.topology)
 
 f_const = {0: 1, 1: 1}   # her seyi 1'e gonder
 result = is_continuous_finite_map(s_pts, s_topo, s_pts, s_topo, f_const)
@@ -121,7 +136,7 @@ print()
 # %%
 d = discrete_topology(0, 1)
 d_pts = list(d.carrier)
-d_topo = [set(u) for u in d.topology]
+d_topo = list(d.topology)
 
 f_id   = {0: 0, 1: 1}
 f_swap = {0: 1, 1: 0}
@@ -160,7 +175,7 @@ print()
 # %%
 ind = indiscrete_topology(0, 1)
 ind_pts = list(ind.carrier)
-ind_topo = [set(u) for u in ind.topology]
+ind_topo = list(ind.topology)
 
 f_const0 = {0: 0, 1: 0}   # sabit 0 fonksiyonu
 print("=== Ornek 5.4: Indiscrete -> Sierpinski ===")
@@ -200,7 +215,7 @@ print()
 # %%
 # {1,2,3} uzayi: tau = {bos, {1}, {2,3}, {1,2,3}}
 X = [1, 2, 3]
-tau_X = [set(), {1}, {2, 3}, {1, 2, 3}]
+tau_X = [empty_set(), make_set(1), make_set(2, 3), make_set(1, 2, 3)]
 # Ayni uzay: f(1)=1, f(2)=3, f(3)=2 -- 2 ve 3'u degistiriyor
 f_23swap = {1: 1, 2: 3, 3: 2}
 

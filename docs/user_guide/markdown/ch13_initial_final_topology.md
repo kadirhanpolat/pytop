@@ -34,6 +34,16 @@ topolojisidir.
 **Teorem 4 (evrensel özellik).** $h: Z \to (X, \tau_{\mathrm{ini}})$ süreklidir ancak
 ve ancak $f_\alpha \circ h$ her $\alpha$ için sürekli olduğunda.
 
+> **Neden bu konu?** İlk topoloji (en kaba), son topoloji (en ince) — süreklilik koşulunu minimize eden ve maksimize eden ekstremler.
+
+> 🔍 **Kendin dene:** `initial_topology` ile `final_topology`'nin boyutunu karşılaştırın; hangisi daha büyük?
+
+> ⚠️ **Sık hata:** İlk topoloji çekime göre en küçük, son topoloji itmeye göre en büyük topolojidir; karıştırmayın.
+
+> ↗️ **Bkz.:** Bölüm 10 (süreklilik), Bölüm 11 (çarpım = fonksiyon ailesine göre ilk).
+
+> 💭 **Öz-yansıtma:** Çarpım topolojisi neden ilk topolojiye özel bir örnektir?
+
 ---
 
 ## 2. pytop API: `initial_topology_from_maps`

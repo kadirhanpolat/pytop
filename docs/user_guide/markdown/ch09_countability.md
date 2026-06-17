@@ -33,6 +33,16 @@ yapılarla tanımlanıp tanımlanamayacağını araştırır.
 | Ayrık örtme | ✓ | sadece sayılabilir X | sadece sayılabilir | sadece sayılabilir |
 | Kosonlu ℕ | ✓ | ✓ | ✓ | ✓ |
 
+> **Neden bu konu?** 1. ve 2. sayılabilirlik aksiyomları analizin temel araçları; metrik uzaylar her ikisini de sağlar.
+
+> 🔍 **Kendin dene:** `discrete_topology(0,1,2)` için `is_first_countable` ve `is_second_countable` sonuçlarını karşılaştırın.
+
+> ⚠️ **Sık hata:** 2. sayılabilirlik ⟹ 1. sayılabilirlik; 1. için `True`, 2. için `False` mümkündür ama tersi mümkün değil.
+
+> ↗️ **Bkz.:** Bölüm 7 (Lindelöf ↔ 2. sayılabilir + T3).
+
+> 💭 **Öz-yansıtma:** Metrik uzay neden her zaman 1. sayılabilirdir?
+
 ---
 
 ## 2. Teoremler

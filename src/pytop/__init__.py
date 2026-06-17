@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.33"
+__version__ = "0.6.0"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -191,7 +191,6 @@ from .examples import (
     upper_limit_line_like,
     reals_cocountable,
     reals_indiscrete,
-    sierpinski_space,
     singleton_space,
     sorgenfrey_line_like,
     two_point_discrete_space,
@@ -518,6 +517,42 @@ from .simplicial_complexes import (
     face_closure_diagnostic,
     simplicial_complex_summary,
 )
+from .homology import (
+    HomologyResult,
+    boundary_matrix,
+    simplicial_homology,
+    homology_groups,
+    betti_numbers,
+    reduced_homology,
+    euler_characteristic_via_homology,
+)
+from .knot_invariants import (
+    Laurent,
+    KnotDiagram,
+    writhe,
+    linking_number,
+    kauffman_bracket,
+    jones_polynomial,
+    reduced_burau,
+    alexander_polynomial_from_braid,
+    is_valid_pd_code,
+)
+from .winding_number import (
+    WindingError,
+    winding_number,
+    circle_map_degree,
+    vector_field_index,
+)
+from .surface_word_classification import (
+    SurfaceClassification,
+    classify_surface_word,
+)
+from .graph_planarity import (
+    GraphPlanarityError,
+    graph_genus,
+    is_planar,
+    satisfies_planar_edge_bound,
+)
 from .cell_complexes import (
     Cell,
     CellComplexProfile,
@@ -820,7 +855,6 @@ from .special_example_profiles import (
     special_example_route_index,
 )
 from .named_spaces import (
-    sierpinski_space,
     particular_point_topology,
     excluded_point_topology,
     cofinite_topology_on_naturals,
@@ -1247,6 +1281,32 @@ __all__ = [
     "generated_subcomplex",
     "face_closure_diagnostic",
     "simplicial_complex_summary",
+    "HomologyResult",
+    "boundary_matrix",
+    "simplicial_homology",
+    "homology_groups",
+    "betti_numbers",
+    "reduced_homology",
+    "euler_characteristic_via_homology",
+    "Laurent",
+    "KnotDiagram",
+    "writhe",
+    "linking_number",
+    "kauffman_bracket",
+    "jones_polynomial",
+    "reduced_burau",
+    "alexander_polynomial_from_braid",
+    "is_valid_pd_code",
+    "WindingError",
+    "winding_number",
+    "circle_map_degree",
+    "vector_field_index",
+    "SurfaceClassification",
+    "classify_surface_word",
+    "GraphPlanarityError",
+    "graph_genus",
+    "is_planar",
+    "satisfies_planar_edge_bound",
     "Cell",
     "CellComplexProfile",
     "CellComplexError",
@@ -2694,6 +2754,14 @@ from .persistent_homology import (
     has_structure_theorem,
     classify_persistence,
     persistence_profile,
+    FilteredComplex,
+    PersistencePair,
+    vietoris_rips_filtration,
+    persistence_pairs,
+    persistent_homology,
+    barcode,
+    persistence_diagram,
+    euler_characteristic_curve,
 )
 from .abstract_homotopy import (
     AbstractHomotopyProfile,
@@ -2774,7 +2842,7 @@ from .topology_builders import (
     discrete_topology,
     indiscrete_topology,
     cofinite_topology,
-    sierpinski_space,  # noqa: F811
+    sierpinski_space,
     topology_from_basis,
     topology_from_subbasis,
 )

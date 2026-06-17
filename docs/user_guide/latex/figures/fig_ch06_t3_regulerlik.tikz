@@ -1,0 +1,12 @@
+\begin{tikzpicture}[font=\small]
+  \fill (0,0) circle (1.8pt) node[below=3pt] {$x$};
+  \draw[blue!70!black, thick] (0,0.05) ellipse [x radius=1.0, y radius=0.72];
+  \node[blue!70!black] at (0,1.05) {$U$};
+  \draw[red!70!black, thick, fill=red!6, pattern=north east lines, pattern color=red!40]
+    plot[smooth cycle, tension=0.9] coordinates
+    {(3.3,-0.3) (4.4,-0.5) (5.0,0.4) (4.0,0.9) (3.2,0.5)};
+  \node[red!70!black] at (4.15,-1.0) {$F$ (kapalı)};
+  \draw[violet!80!black, thick] (4.1,0.15) ellipse [x radius=1.55, y radius=1.2];
+  \node[violet!80!black] at (4.1,1.6) {$V$};
+  \node at (2.05,-1.75) {$x\notin F,\qquad x\in U,\quad F\subseteq V,\quad U\cap V=\emptyset$};
+\end{tikzpicture}

@@ -8,6 +8,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Constructive computational core (v0.6.0)** — genuine invariant computation from
+  raw input, complementing the descriptive profile layer:
+  - `homology.py` — integral simplicial homology of a finite `SimplicialComplex`:
+    oriented `boundary_matrix`, integer Smith normal form, `simplicial_homology` /
+    `homology_groups` / `betti_numbers` (free rank **and** torsion coefficients),
+    `reduced_homology`, and `euler_characteristic_via_homology` (cross-checks the
+    combinatorial Euler characteristic). Verified on S¹, S², T² (H₁ = ℤ²) and
+    ℝP² (H₁ = ℤ/2 torsion).
+  - `persistent_homology.py` — real TDA engine added alongside the existing profiles:
+    `vietoris_rips_filtration` of a finite metric space, `persistence_pairs` via the
+    standard ℤ/2 column reduction, plus `barcode`, `persistence_diagram` and
+    `euler_characteristic_curve`.
+  - `knot_invariants.py` — `kauffman_bracket` and `jones_polynomial` from a planar-diagram
+    code, `alexander_polynomial_from_braid` via the reduced Burau representation, `writhe`,
+    `linking_number`, and `is_valid_pd_code`. Verified: trefoil Jones = −t⁻⁴+t⁻³+t⁻¹,
+    figure-eight Jones = t⁻²−t⁻¹+1−t+t², Alexander(trefoil) = t−1+t⁻¹.
+  - `experimental/convergence_spaces.py` — finite convergence spaces (Dolecki's "royal road"):
+    `ConvergenceSpace` with `is_convergence_space` / `is_pretopology` / `is_pseudotopology` /
+    `is_topological`, the mutually inverse `convergence_from_topology` ↔
+    `topology_from_convergence` bridges, `is_continuous_convergence_map`, and `grill_of_filter`.
+  - **pi-Base deductive inference** (`experimental/pi_base.py` + `pi_base_atlas.py`) — a real
+    deductive property-inference engine over the pi-Base database (243 properties, 902 implication
+    theorems, 222 spaces / 2099 traits; CC BY 4.0, Clontz & Dabbs). `deduce` computes the closure of
+    known traits (forward chaining + contrapositive over compound and/or/not formulas) and detects
+    contradictions; `find_counterexamples(has=…, lacks=…)` searches the atlas (e.g. compact but not
+    Hausdorff); `steen_seebach_index` links to *Counterexamples in Topology* numbers. Data compiled
+    by `_internal/pi_base_compile.py`; loaded with stdlib `json` only (no runtime dependency). A
+    cross-validation test suite pins pytop's hand-encoded implications against the pi-Base graph.
+  - `winding_number.py` — `winding_number`, `circle_map_degree` (degree of S¹→S¹ maps), and
+    `vector_field_index` (index of an isolated planar zero) from sampled geometric data.
+  - `surface_word_classification.py` — `classify_surface_word`: closed-surface classification from a
+    polygon gluing word via corner identification → Euler characteristic, orientability, genus
+    (sphere / torus / ℝP² / Klein bottle / genus-g). Verified incl. genus-2 and ℝP²#ℝP² = Klein.
+  - `graph_planarity.py` — exact `is_planar` / `graph_genus` for small graphs via rotation-system
+    search (K5, K3,3, Petersen non-planar; genus additive over components), plus the Euler edge bound.
 - `named_spaces.py` + `space_catalog.py` — 104 canonical named topological spaces across 8 batches:
   - **Batch 1 (20):** Sierpiński space, particular/excluded point topologies, cofinite/cocountable
     topologies, real line, Sorgenfrey line, ℚ, irrationals, Cantor set, Hilbert cube, long line,

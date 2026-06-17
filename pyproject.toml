@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pytop"
-version = "0.5.33"
+version = "0.6.0"
 description = "Mathematical topology library: degree theory, embeddings, graphs, knots, surfaces, 3-manifolds, cosmology."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -32,6 +32,9 @@ Repository = "https://github.com/kadirhanpolat/pytop"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"pytop.experimental" = ["_pi_base_data.json"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

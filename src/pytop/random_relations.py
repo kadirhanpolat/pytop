@@ -16,7 +16,8 @@ from random import Random
 from typing import Any
 
 from .random_generators import RandomGeneratorError
-from .relations import equivalence_from_classes, transitive_closure as _tc
+from .relations import equivalence_from_classes
+from .relations import transitive_closure as _tc
 
 
 def _validate_density(density: float) -> None:

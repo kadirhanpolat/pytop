@@ -1,0 +1,9 @@
+\begin{tikzpicture}[font=\small]
+  \draw[blue!70!black, thick, fill=blue!8] (0,0) ellipse [x radius=1.25, y radius=0.85];
+  \draw[violet!80!black, thick, fill=violet!10] (3.4,0) ellipse [x radius=1.25, y radius=0.85];
+  \fill (0,0) circle (1.8pt) node[below=2pt] {$x$};
+  \fill (3.4,0) circle (1.8pt) node[below=2pt] {$y$};
+  \node[blue!70!black] at (0,1.15) {$U$};
+  \node[violet!80!black] at (3.4,1.15) {$V$};
+  \node at (1.7,-1.3) {$U \cap V = \emptyset$};
+\end{tikzpicture}

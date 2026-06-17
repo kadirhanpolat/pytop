@@ -33,6 +33,16 @@ Her açık örtü `{U_α}` için sonlu alt-örtü vardır.
 
 x ∈ X noktasında **lokal kompakt:** U komşuluğu kompakt kapanış içerir: `U ⊆ K kompakt`.
 
+> **Neden bu konu?** Kompaktlık sonlu uzaylarda otomatik doğru; sonsuz uzaylarda ince bir topik — Heine-Borel ve Tychonoff buradan gelir.
+
+> 🔍 **Kendin dene:** `real_line_metric()` ve `closed_unit_interval_metric()` için `is_compact` çıktısını karşılaştırın.
+
+> ⚠️ **Sık hata:** Sonlu uzay her zaman kompakttır; `finite_chain_space` için `is_compact` her zaman `True` döner.
+
+> ↗️ **Bkz.:** Bölüm 6 (kompakt + Hausdorff → normal), Bölüm 10 (kompakt görüntü kompakttır).
+
+> 💭 **Öz-yansıtma:** ℝ kompakt değil ama [0,1] kompakt — fark nerede?
+
 ---
 
 ## 2. Teoremler

@@ -57,8 +57,10 @@ Key theorems implemented
 
 from __future__ import annotations
 
+import math
 from collections import Counter
 from dataclasses import dataclass
+from itertools import combinations
 from typing import Any
 
 from .result import Result
@@ -868,6 +870,188 @@ def persistence_profile(space: Any) -> dict[str, Any]:
     }
 
 
+# ===========================================================================
+# Constructive persistent-homology engine
+# ---------------------------------------------------------------------------
+# Everything above is the descriptive/profile layer (preserved for backward
+# compatibility). Below is a genuine, dependency-free computation: a
+# Vietoris-Rips filtration of a finite metric space, the standard column
+# reduction of its boundary matrix over Z/2, and the resulting persistence
+# pairs / barcodes. Coefficients are Z/2 (the field used by the classical
+# persistence algorithm).
+# ===========================================================================
+
+
+@dataclass(frozen=True)
+class FilteredComplex:
+    """A Vietoris-Rips style filtration of simplices in filtration order.
+
+    Simplices are tuples of integer vertex indices (sorted). ``births[i]`` is the
+    scale at which ``simplices[i]`` enters; ``dimensions[i]`` is its dimension.
+    The order satisfies ``births`` nondecreasing with faces before their cofaces.
+    """
+
+    simplices: tuple[tuple[int, ...], ...]
+    births: tuple[float, ...]
+    dimensions: tuple[int, ...]
+
+    def size(self) -> int:
+        return len(self.simplices)
+
+
+@dataclass(frozen=True)
+class PersistencePair:
+    """A single bar of the persistence barcode in a fixed homological degree."""
+
+    dimension: int
+    birth: float
+    death: float  # math.inf for an essential (never-dying) class
+
+    @property
+    def is_essential(self) -> bool:
+        return math.isinf(self.death)
+
+    @property
+    def persistence(self) -> float:
+        return self.death - self.birth
+
+
+def vietoris_rips_filtration(
+    space: Any,
+    max_dimension: int = 1,
+    max_scale: float | None = None,
+) -> FilteredComplex:
+    """Build the Vietoris-Rips filtration of a finite metric ``space``.
+
+    ``space`` is any object exposing ``carrier`` (a finite sequence of points)
+    and ``distance_between(x, y)``. A ``k``-simplex enters at its diameter (the
+    maximum pairwise distance among its vertices). Simplices of dimension above
+    ``max_dimension`` are not generated; those entering after ``max_scale`` (when
+    given) are dropped.
+    """
+
+    if max_dimension < 0:
+        raise ValueError("max_dimension must be nonnegative.")
+    points = list(space.carrier)
+    n = len(points)
+    if n == 0:
+        raise ValueError("Vietoris-Rips filtration requires a nonempty point set.")
+
+    def dist(i: int, j: int) -> float:
+        return float(space.distance_between(points[i], points[j]))
+
+    entries: list[tuple[float, int, tuple[int, ...]]] = [(0.0, 0, (i,)) for i in range(n)]
+    for k in range(1, max_dimension + 1):
+        for combo in combinations(range(n), k + 1):
+            birth = max(dist(a, b) for a, b in combinations(combo, 2))
+            if max_scale is not None and birth > max_scale:
+                continue
+            entries.append((birth, k, combo))
+
+    entries.sort(key=lambda entry: (entry[0], entry[1], entry[2]))
+    return FilteredComplex(
+        simplices=tuple(entry[2] for entry in entries),
+        births=tuple(entry[0] for entry in entries),
+        dimensions=tuple(entry[1] for entry in entries),
+    )
+
+
+def persistence_pairs(
+    filtered: FilteredComplex,
+    *,
+    include_zero_persistence: bool = False,
+) -> tuple[PersistencePair, ...]:
+    """Compute persistence pairs via standard Z/2 boundary-matrix reduction.
+
+    Returns one :class:`PersistencePair` per homology class. Essential classes
+    have ``death = inf``. Zero-persistence pairs (birth equal to death) are
+    omitted unless ``include_zero_persistence`` is set.
+    """
+
+    index_of = {simplex: idx for idx, simplex in enumerate(filtered.simplices)}
+    columns: list[set[int]] = []
+    for simplex, dimension in zip(filtered.simplices, filtered.dimensions):
+        if dimension == 0:
+            columns.append(set())
+        else:
+            faces = combinations(simplex, len(simplex) - 1)
+            columns.append({index_of[face] for face in faces})
+
+    low_inverse: dict[int, int] = {}  # pivot row -> reducing column index
+    for j in range(len(columns)):
+        while columns[j]:
+            pivot = max(columns[j])
+            if pivot in low_inverse:
+                columns[j] ^= columns[low_inverse[pivot]]
+            else:
+                low_inverse[pivot] = j
+                break
+
+    pairs: list[PersistencePair] = []
+    for creator, destroyer in low_inverse.items():
+        birth = filtered.births[creator]
+        death = filtered.births[destroyer]
+        if not include_zero_persistence and death == birth:
+            continue
+        pairs.append(PersistencePair(filtered.dimensions[creator], birth, death))
+
+    paired_creators = set(low_inverse)
+    for i in range(len(columns)):
+        if not columns[i] and i not in paired_creators:
+            pairs.append(PersistencePair(filtered.dimensions[i], filtered.births[i], math.inf))
+
+    return tuple(sorted(pairs, key=lambda pair: (pair.dimension, pair.birth, pair.death)))
+
+
+def persistent_homology(
+    space: Any,
+    max_dimension: int = 1,
+    max_scale: float | None = None,
+    *,
+    include_zero_persistence: bool = False,
+) -> tuple[PersistencePair, ...]:
+    """Convenience: Vietoris-Rips filtration followed by persistence reduction."""
+
+    filtered = vietoris_rips_filtration(space, max_dimension=max_dimension, max_scale=max_scale)
+    return persistence_pairs(filtered, include_zero_persistence=include_zero_persistence)
+
+
+def barcode(
+    pairs: tuple[PersistencePair, ...],
+    dimension: int | None = None,
+) -> tuple[tuple[float, float], ...]:
+    """Return ``(birth, death)`` bars, optionally restricted to one ``dimension``."""
+
+    selected = [p for p in pairs if dimension is None or p.dimension == dimension]
+    return tuple((p.birth, p.death) for p in sorted(selected, key=lambda p: (p.birth, p.death)))
+
+
+def persistence_diagram(pairs: tuple[PersistencePair, ...]) -> dict[int, tuple[tuple[float, float], ...]]:
+    """Group persistence pairs into a per-dimension diagram of ``(birth, death)``."""
+
+    diagram: dict[int, list[tuple[float, float]]] = {}
+    for pair in pairs:
+        diagram.setdefault(pair.dimension, []).append((pair.birth, pair.death))
+    return {dim: tuple(sorted(bars)) for dim, bars in sorted(diagram.items())}
+
+
+def euler_characteristic_curve(
+    filtered: FilteredComplex,
+    scales: tuple[float, ...],
+) -> tuple[tuple[float, int], ...]:
+    """Return ``(scale, chi)`` pairs: the Euler characteristic of each sublevel set."""
+
+    curve: list[tuple[float, int]] = []
+    for scale in scales:
+        chi = sum(
+            (-1) ** filtered.dimensions[i]
+            for i in range(filtered.size())
+            if filtered.births[i] <= scale
+        )
+        curve.append((scale, chi))
+    return tuple(curve)
+
+
 __all__ = [
     "PersistenceProfile",
     "VIETORIS_RIPS_TAGS",
@@ -889,4 +1073,12 @@ __all__ = [
     "has_structure_theorem",
     "classify_persistence",
     "persistence_profile",
+    "FilteredComplex",
+    "PersistencePair",
+    "vietoris_rips_filtration",
+    "persistence_pairs",
+    "persistent_homology",
+    "barcode",
+    "persistence_diagram",
+    "euler_characteristic_curve",
 ]

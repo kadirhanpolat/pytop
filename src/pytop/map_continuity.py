@@ -20,17 +20,17 @@ from typing import Any
 
 from .finite_map_analysis import (
     FiniteMap,
-    image_of_subset,
-    preimage_of_subset,
     _can_do_exact_finite_map_analysis,
     _exact_result,
     _graph_dict,
     _normalize_family,
     _preimage,
+    image_of_subset,
+    preimage_of_subset,
 )
+from .finite_spaces import FiniteTopologicalSpace
 from .infinite_maps import SymbolicMap
 from .result import Result
-from .finite_spaces import FiniteTopologicalSpace
 from .subbases import generate_topology_from_subbasis, is_basis_for_topology
 from .subset_operators import closure_of_subset
 

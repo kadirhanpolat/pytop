@@ -45,6 +45,62 @@ pytest tests/core/ -q
 pytest tests/experimental/ -q
 ```
 
+> **Python interpreter:** Always use `py -3.14` on this machine (not `python` or bare `py`).
+
+---
+
+## User Guide
+
+Located at `docs/user_guide/`. Four parallel formats:
+
+```
+docs/user_guide/
+  latex/              ← XeLaTeX source (main.tex, chapters/, appendix/, figures/)
+  markdown/           ← Markdown files (one per chapter + solutions.md)
+  python/             ← Percent-cell scripts (# %% / # %% [markdown])
+  notebook/           ← Jupyter notebooks (.ipynb)
+  assets/             ← Generated PNGs (ch04/, ch06/, ...)
+  tools/              ← build_figures.py (TikZ→PNG pipeline)
+```
+
+**TikZ→PNG pipeline:** `py -3.14 docs/user_guide/tools/build_figures.py`
+- Reads `.tikz` files from `latex/figures/`
+- Compiles with `xelatex` (standalone.cls)
+- Rasterizes at 300 dpi via `pdftoppm`
+- Writes PNGs to `assets/chNN/`
+
+**Maarif pedagogy blocks** (md + py + ipynb, all 16 chapters):
+Every chapter has 5 blockquote blocks after `## 1. Konu`:
+`> **Neden bu konu?**` / `> 🔍 **Kendin dene:**` / `> ⚠️ **Sık hata:**` /
+`> ↗️ **Bkz.:**` / `> 💭 **Öz-yansıtma:**`
+In Python files: `# %% [markdown]\n"""..."""` cell. In notebooks: markdown cell inserted after `## 1. Konu` cell.
+
+**API style rule** (ch10 onwards): use `make_set(...)` / `empty_set()` instead of raw
+`frozenset({...})` / `set()` in examples.
+
+**Pedagogical tcolorbox environments** (defined in `latex/main.tex`):
+
+| Environment | Color | Purpose |
+|-------------|-------|---------|
+| `sezgi` | blue | Intuition / motivating analogy |
+| `dikkat` | orange | Common mistakes / warnings |
+| `nedenonemli` | green | Why this matters |
+| `karsiornek` | violet | Counter-examples |
+
+**`\ipucu{...}` macro** — renders as italic hint text in exercise lists.
+
+**Solutions appendix:** `latex/appendix/solutions.tex` + `markdown/solutions.md` + `python/solutions.py` + `notebook/solutions.ipynb`
+
+**Compile PDF:**
+```bash
+cd docs/user_guide/latex && xelatex -interaction=nonstopmode main.tex
+```
+
+**Run a chapter script:**
+```bash
+py -3.14 docs/user_guide/python/ch04_topological_spaces.py
+```
+
 ---
 
 ## Branching Strategy

@@ -44,6 +44,16 @@ f: A → B, her a ∈ A için tek bir f(a) ∈ B.
 | Sürjeksiyon | ∀b ∈ B, ∃a: f(a) = b |
 | Bijeksiyon | Enjeksiyon + Sürjeksiyon |
 
+> **Neden bu konu?** Tüm topoloji API'si küme ve bağıntı soyutlamalarına dayanır; bu temeli sağlam kurmadan ilerisi karmaşıklaşır.
+
+> 🔍 **Kendin dene:** `make_set(1,2,3)` ve `frozenset({1,2,3})` arasındaki farkı Python `print()` ile gözlemleyin; tür aynı mı?
+
+> ⚠️ **Sık hata:** `make_relation(carrier, *pairs)`'te `carrier` verilmezse hata alırsınız; her bağıntı tanımında carrier listesini ilk argüman yapın.
+
+> ↗️ **Bkz.:** Bölüm 12 (bölüm topolojisi — `equivalence_class` kullanımı).
+
+> 💭 **Öz-yansıtma:** Bileşim sırasız mı? `compose_relations(R,S)` ile `compose_relations(S,R)` her zaman farklı mı?
+
 ---
 
 ## 2. Teoremler
@@ -98,7 +108,10 @@ from pytop import (
     set_union, set_intersection, set_difference,
     is_subset, is_proper_subset, equal_sets,
     make_relation, is_equivalence_relation,
-    identity_relation, inverse_relation, relation_profile,
+    identity_relation, inverse_relation, compose_relations,
+    relation_profile,
+    equivalence_class, partition_from_equivalence,
+    total_order_from_list, is_partial_order, is_total_order,
     normalize_finite_map_data,
     is_injective_finite_map, is_surjective_finite_map, is_bijective_finite_map,
     image_of_subset_finite, preimage_of_subset_finite,
@@ -112,6 +125,14 @@ from pytop import (
 `make_relation(carrier, *pairs)` → `set[tuple]`
 
 `relation_profile(carrier, relation)` → `dict` (is_reflexive, is_symmetric, is_transitive, ...)
+
+`compose_relations(first, second)` → `set[tuple]` — second ∘ first
+
+`equivalence_class(carrier, relation, point)` → `set` — [point] sınıfı
+
+`partition_from_equivalence(carrier, relation)` → `set[frozenset]` — bölüntü blokları
+
+`total_order_from_list(*elements)` → `set[tuple]` — yansımalı toplam sıra
 
 `normalize_finite_map_data(domain, codomain, mapping)` → `FiniteMapData`
 
@@ -242,6 +263,68 @@ f^(-1)({b,c}) = [2, 3]
 
 ---
 
+### Örnek 5.7 — Bağıntı Bileşimi
+
+```python
+carrier_c = [1, 2, 3, 4]
+R_c = make_relation(carrier_c, (1, 2), (2, 3), (3, 4))
+S_c = make_relation(carrier_c, (2, 4), (3, 1), (4, 2))
+RS = compose_relations(R_c, S_c)   # S ∘ R
+print("R:", sorted(R_c))
+print("S:", sorted(S_c))
+print("S ∘ R:", sorted(RS))
+```
+
+```text
+R: [(1, 2), (2, 3), (3, 4)]
+S: [(2, 4), (3, 1), (4, 2)]
+S ∘ R: [(1, 4), (2, 1), (3, 2)]
+```
+
+### Örnek 5.8 — Denklik Sınıfları ve Bölüntü
+
+```python
+carrier_e = [0, 1, 2, 3, 4, 5]
+rel_mod3 = make_relation(carrier_e,
+    (0,0),(1,1),(2,2),(3,3),(4,4),(5,5),
+    (0,3),(3,0),(1,4),(4,1),(2,5),(5,2))
+
+print("Denklik mi:", is_equivalence_relation(carrier_e, rel_mod3))
+print("[0] =", sorted(equivalence_class(carrier_e, rel_mod3, 0)))
+print("[1] =", sorted(equivalence_class(carrier_e, rel_mod3, 1)))
+print("[2] =", sorted(equivalence_class(carrier_e, rel_mod3, 2)))
+boluntu = partition_from_equivalence(carrier_e, rel_mod3)
+print("Bölüntü:", sorted([sorted(b) for b in boluntu]))
+```
+
+```text
+Denklik mi: True
+[0] = [0, 3]
+[1] = [1, 4]
+[2] = [2, 5]
+Bölüntü: [[0, 3], [1, 4], [2, 5]]
+```
+
+### Örnek 5.9 — Toplam Sıra
+
+```python
+carrier_t = ['a', 'b', 'c', 'd']
+total_ord = total_order_from_list(*carrier_t)
+print("Toplam sıra çiftleri:", sorted(total_ord))
+print("Kısmi sıra mı:", is_partial_order(carrier_t, total_ord))
+print("Toplam sıra mı:", is_total_order(carrier_t, total_ord))
+```
+
+```text
+Toplam sıra çiftleri: [('a','a'),('a','b'),('a','c'),('a','d'),
+                       ('b','b'),('b','c'),('b','d'),
+                       ('c','c'),('c','d'),('d','d')]
+Kısmi sıra mı: True
+Toplam sıra mı: True
+```
+
+---
+
 ## 6. Alıştırmalar
 
 ### Kodlama
@@ -253,8 +336,16 @@ K2. {1,2,3,4} için güç kümesini üretin; |P| = 16 olduğunu doğrulayın.
 K3. R = {(0,0),(1,1),(2,2),(0,1),(1,0),(1,2),(2,1),(0,2),(2,0)} üzerinde
     `relation_profile` çalıştırın; denklik olup olmadığını kontrol edin.
 
+K4. R = {(1,2),(2,3),(3,1)} ve S = {(1,3),(2,1),(3,2)} için S∘R ve R∘S'yi
+    hesaplayın; eşit mi?
+
+K5. {0,1,2,3,4} üzerinde mod-2 denkliğini `make_relation` ile tanımlayın;
+    her denklik sınıfını `equivalence_class` ile yazdırın.
+
 ### Teori
 
 T1. A ⊆ B ⟺ A ∩ B = A olduğunu ispatlayın.
 
 T2. f: A → B ve g: B → C her ikisi de enjeksiyon ise g ∘ f de enjeksiyondur.
+
+T3. (R∘S)⁻¹ = S⁻¹∘R⁻¹ eşitliğini sonlu bir örnek üzerinde doğrulayın.

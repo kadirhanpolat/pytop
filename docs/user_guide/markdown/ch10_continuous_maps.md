@@ -32,6 +32,16 @@ Eşdeğer koşullar:
 - **Görüntü:** f(A) = {f(x) : x ∈ A}
 - **Geri çekim:** f⁻¹(B) = {x ∈ X : f(x) ∈ B}
 
+> **Neden bu konu?** Süreklilik topolojinin temel kavramı; homeomorfizma yapı-koruma denkliğidir.
+
+> 🔍 **Kendin dene:** Sierpiński → Sierpiński'ye kaç fonksiyon var, kaçı sürekli? `is_continuous_finite_map` ile tek tek test edin.
+
+> ⚠️ **Sık hata:** `s_topo = list(s.topology)` kullanın; `[set(u) for u in s.topology]` gerekmez — `is_continuous_finite_map` `Iterable[Iterable]` kabul eder.
+
+> ↗️ **Bkz.:** Bölüm 7 (kompakt görüntü kompakt), Bölüm 8 (bağlantılı görüntü bağlantılı).
+
+> 💭 **Öz-yansıtma:** Homeomorfizma ile izomorfizma arasındaki fark ne? Hangi yapıyı korur?
+
 ---
 
 ## 2. Teoremler
@@ -76,6 +86,8 @@ from pytop import (
     sierpinski_space,
     discrete_topology,
     indiscrete_topology,
+    make_set,
+    empty_set,
 )
 ```
 
@@ -92,7 +104,7 @@ from pytop import (
 ```python
 s = sierpinski_space()
 s_pts = list(s.carrier)
-s_topo = [set(u) for u in s.topology]
+s_topo = list(s.topology)
 
 f_const = {0: 1, 1: 1}
 result = is_continuous_finite_map(s_pts, s_topo, s_pts, s_topo, f_const)
@@ -108,7 +120,7 @@ continuous: True
 ```python
 d = discrete_topology(0, 1)
 d_pts = list(d.carrier)
-d_topo = [set(u) for u in d.topology]
+d_topo = list(d.topology)
 
 f_id   = {0: 0, 1: 1}
 f_swap = {0: 1, 1: 0}
@@ -142,7 +154,7 @@ Sierpiński τ = {∅, {0,1}, {1}}: id: S→D'de f⁻¹({0}) = {0} — Sierpińs
 ```python
 ind = indiscrete_topology(0, 1)
 ind_pts = list(ind.carrier)
-ind_topo = [set(u) for u in ind.topology]
+ind_topo = list(ind.topology)
 
 f_const0 = {0: 0, 1: 0}
 print("id (0->0,1->1)    continuous:", is_continuous_finite_map(ind_pts, ind_topo, s_pts, s_topo, f_id))
@@ -178,7 +190,7 @@ D(1,2) ~ Ind(1,2): false
 
 ```python
 X = [1, 2, 3]
-tau_X = [set(), {1}, {2, 3}, {1, 2, 3}]
+tau_X = [empty_set(), make_set(1), make_set(2, 3), make_set(1, 2, 3)]
 f_23swap = {1: 1, 2: 3, 3: 2}
 print("2-3 swap surekli mi:", is_continuous_finite_map(X, tau_X, X, tau_X, f_23swap))
 ```

@@ -1,0 +1,12 @@
+\begin{tikzpicture}[scale=1.0, font=\small]
+  \draw[blue!70!black, thick, fill=blue!8]
+    plot[smooth cycle, tension=0.8] coordinates
+    {(0,0) (2.2,-0.4) (4.2,0.2) (4.6,2.0) (2.6,3.0) (0.3,2.4)};
+  \node[blue!70!black] at (4.35,2.65) {$U$};
+  \draw[violet!80!black, thick, fill=violet!12]
+    (2.2,1.3) ellipse [x radius=1.15, y radius=0.7];
+  \node[violet!80!black] at (3.05,1.95) {$B$};
+  \fill (2.2,1.25) circle (1.8pt) node[below right=0.5pt] {$x$};
+  \node[align=left, anchor=west] at (5.2,1.5)
+    {Her $x\in U$ için\\ $x\in B\subseteq U$ olan\\ bir $B\in\mathcal{B}$ vardır.};
+\end{tikzpicture}

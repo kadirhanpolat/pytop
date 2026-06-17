@@ -23,6 +23,19 @@ print("pytop sürümü:", pytop.__version__)
 
 # %% [markdown]
 """
+> **Neden bu konu?** pytop'un temel nesnelerini tanımadan diğer bölümler okunamaz.
+
+> 🔍 **Kendin dene:** `discrete_topology(0,1,2)` oluşturduktan sonra `topology` listesini elle inceleyerek tüm alt kümelerin açık olup olmadığını sayın.
+
+> ⚠️ **Sık hata:** `r.status == True` yerine `r.status == 'true'` kullanın (dize karşılaştırması).
+
+> ↗️ **Bkz.:** Bölüm 4 (uzay aksiyomları), Bölüm 5 (kapalı kümeler/kapanış).
+
+> 💭 **Öz-yansıtma:** `make_topology`'nin farkı nedir? Neden `Result` bir `bool` değil?
+"""
+
+# %% [markdown]
+"""
 ## 2. Uzay Nesneleri
 
 pytop dört temel kurucuya sahiptir:

@@ -79,14 +79,22 @@ in **four parallel formats**: Python scripts, Jupyter notebooks, Markdown, and L
 
 ```bash
 # Run any chapter as a script
-python docs/user_guide/python/ch04_topological_spaces.py
+py -3.14 docs/user_guide/python/ch04_topological_spaces.py
 
 # Open a notebook
 jupyter lab docs/user_guide/notebook/ch07_compactness.ipynb
 
 # Compile the PDF (requires xelatex)
 cd docs/user_guide/latex && xelatex main.tex
+
+# Rebuild TikZ figures → PNG
+py -3.14 docs/user_guide/tools/build_figures.py
 ```
+
+Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, TikZ figures,
+and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
+Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
+`docs/user_guide/latex/appendix/solutions.tex`.
 
 ## What's New (Unreleased)
 
@@ -94,6 +102,16 @@ cd docs/user_guide/latex && xelatex main.tex
   Cantor set, Hilbert cube, Sorgenfrey line, p-adic numbers, lens spaces, solenoid, …) with a
   queryable `SpaceCatalog` registry; `from pytop import catalog` gives instant lookup by name or
   property
+- **User guide enrichment pilot (ch04 + ch06)** — guided proofs, "Ne oldu?" example walkthroughs,
+  trace tables, 8 TikZ figures (→ PNG), 4 pedagogical tcolorbox environments, exercise hints,
+  and a complete solutions appendix across all 4 formats
+- **Maarif pedagogy blocks — all 16 chapters × 3 formats** — every chapter now opens with
+  5 pedagogical blockquotes (Neden/Keşif/Hata/Bkz./Öz-yansıtma) in Markdown, Python, and
+  Jupyter Notebook formats; chapter-specific content guides motivation, common mistakes, and
+  cross-references
+- **User guide API hygiene** — ch10 raw `frozenset()`/`set()` patterns replaced with `make_set`/
+  `empty_set`; ch03 extended with `compose_relations`, `equivalence_class`,
+  `partition_from_equivalence`, and `total_order_from_list` examples across all 3 formats
 
 ## What's New in v0.5.33
 
