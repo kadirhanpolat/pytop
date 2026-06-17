@@ -58,6 +58,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   famous spaces (Cantor set, long line, real line, …), and those spaces feed into the construction
   wrappers — e.g. `ProductSpace([pi_base_space("Cantor set"), pi_base_space("Cantor set")])` is
   derived compact (Tychonoff). `analyze_pi_base_space(name)` reports all 16 property verdicts.
+- **Homology with field coefficients & relative homology (Phase 2, algebraic topology)** —
+  `homology_with_coefficients` / `betti_numbers_over` compute ``H_*(K; F)`` over `Q` or `Z/p` by
+  Gaussian elimination over the field, and `relative_homology` / `relative_betti_numbers` compute
+  ``H_*(K, L; Z)`` for a subcomplex `L`. Demonstrates coefficient dependence — the real projective
+  plane has ``H_1(RP^2; Q) = 0`` but ``H_1(RP^2; Z/2) = Z/2`` — and relative homology
+  ``H_2(D^2, ∂D^2) = Z``. First step of Phase 2 of the research-grade roadmap.
 
 ## [0.6.0] - 2026-06-17
 
