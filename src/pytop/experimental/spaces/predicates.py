@@ -194,12 +194,81 @@ def is_connected(space: Space) -> Verdict:
     return _decide(space, "connected", rule)
 
 
+# --------------------------------------------------------------------------
+# Composite separation axioms (T3 = regular + T1, T4 = normal + T1)
+# --------------------------------------------------------------------------
+
+
+def _conjunction(left: Verdict, right: Verdict, names: tuple[str, str]) -> Verdict:
+    """Combine two verdicts: both true ⟹ true; either false ⟹ false; else undecided."""
+
+    if left.value is False:
+        return Verdict.false(reason=f"not {names[0]}: {left.reason}", counterexample=left.counterexample)
+    if right.value is False:
+        return Verdict.false(reason=f"not {names[1]}: {right.reason}", counterexample=right.counterexample)
+    if left.value is True and right.value is True:
+        return Verdict.true(reason=f"{names[0]} and {names[1]}")
+    return Verdict(None, Decidability.UNDECIDABLE, reason=f"needs both {names[0]} and {names[1]}")
+
+
+def is_t3(space: Space) -> Verdict:
+    """Decide T3 (regular and T1)."""
+
+    return _conjunction(is_regular(space), is_t1(space), ("regular", "T1"))
+
+
+def is_t4(space: Space) -> Verdict:
+    """Decide T4 (normal and T1)."""
+
+    return _conjunction(is_normal(space), is_t1(space), ("normal", "T1"))
+
+
+# --------------------------------------------------------------------------
+# Covering and countability properties
+# (every finite space has all of these; infinite spaces use certificates)
+# --------------------------------------------------------------------------
+
+
+def is_lindelof(space: Space) -> Verdict:
+    """Decide the Lindelöf property (every open cover has a countable subcover)."""
+
+    return _decide(space, "lindelof", lambda _: Verdict.true(reason="every finite space is Lindelöf"))
+
+
+def is_separable(space: Space) -> Verdict:
+    """Decide separability (a countable dense subset exists)."""
+
+    return _decide(space, "separable", lambda _: Verdict.true(reason="every finite space is separable"))
+
+
+def is_second_countable(space: Space) -> Verdict:
+    """Decide second countability (a countable base exists)."""
+
+    return _decide(
+        space, "second_countable", lambda _: Verdict.true(reason="every finite space is second countable")
+    )
+
+
+def is_first_countable(space: Space) -> Verdict:
+    """Decide first countability (a countable neighbourhood base at each point)."""
+
+    return _decide(
+        space, "first_countable", lambda _: Verdict.true(reason="every finite space is first countable")
+    )
+
+
 __all__ = [
     "is_hausdorff",
     "is_t0",
     "is_t1",
+    "is_t3",
+    "is_t4",
     "is_regular",
     "is_normal",
     "is_compact",
     "is_connected",
+    "is_lindelof",
+    "is_separable",
+    "is_second_countable",
+    "is_first_countable",
 ]

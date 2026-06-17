@@ -36,6 +36,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `PRESERVATION` table against them in the no-contradiction direction (pi-Base's meta-properties
   are sparse, so they confirm but do not drive the table). Grounds the preservation theorems in
   the referenced database.
+- **Extended axioms & representations (Milestone S4, experimental)** — added composite separation
+  predicates `is_t3` (regular + T1) and `is_t4` (normal + T1), and the countability/covering
+  predicates `is_lindelof`, `is_separable`, `is_second_countable`, `is_first_countable` (trivially
+  true on finite spaces; via certificates on infinite ones). Added two representations:
+  `SorgenfreyLineSpace` (separable, first-countable, Lindelöf, **not** second-countable, normal) and
+  `DiscreteCountableSpace`; extended the cofinite/order/metric certificates accordingly (a generic
+  metric space is first-countable but its separability stays honestly undecided).
 
 ## [0.6.0] - 2026-06-17
 
