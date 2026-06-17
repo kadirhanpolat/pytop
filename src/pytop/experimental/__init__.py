@@ -38,6 +38,17 @@ from .chapter_experimental_registry import (
     chapter_registry_summary,
     chapter_route_summary,
 )
+from .convergence_spaces import (
+    ConvergenceSpace,
+    convergence_from_topology,
+    grill_of_filter,
+    is_continuous_convergence_map,
+    is_convergence_space,
+    is_pretopology,
+    is_pseudotopology,
+    is_topological,
+    topology_from_convergence,
+)
 from .compactness_cardinal_bridges import (
     CompactnessBridgeProfile,
     compactness_bridge_chapter_index,
@@ -157,4 +168,13 @@ __all__ = [
     "compactness_strengthened_chapter_index",
     "compactness_strengthened_layer_summary",
     "get_named_compactness_strengthened_profiles",
+    "ConvergenceSpace",
+    "convergence_from_topology",
+    "grill_of_filter",
+    "is_continuous_convergence_map",
+    "is_convergence_space",
+    "is_pretopology",
+    "is_pseudotopology",
+    "is_topological",
+    "topology_from_convergence",
 ]

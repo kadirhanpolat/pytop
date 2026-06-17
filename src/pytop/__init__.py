@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.5.33"
+__version__ = "0.6.0"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -517,6 +517,26 @@ from .simplicial_complexes import (
     generated_subcomplex,
     face_closure_diagnostic,
     simplicial_complex_summary,
+)
+from .homology import (
+    HomologyResult,
+    boundary_matrix,
+    simplicial_homology,
+    homology_groups,
+    betti_numbers,
+    reduced_homology,
+    euler_characteristic_via_homology,
+)
+from .knot_invariants import (
+    Laurent,
+    KnotDiagram,
+    writhe,
+    linking_number,
+    kauffman_bracket,
+    jones_polynomial,
+    reduced_burau,
+    alexander_polynomial_from_braid,
+    is_valid_pd_code,
 )
 from .cell_complexes import (
     Cell,
@@ -1247,6 +1267,22 @@ __all__ = [
     "generated_subcomplex",
     "face_closure_diagnostic",
     "simplicial_complex_summary",
+    "HomologyResult",
+    "boundary_matrix",
+    "simplicial_homology",
+    "homology_groups",
+    "betti_numbers",
+    "reduced_homology",
+    "euler_characteristic_via_homology",
+    "Laurent",
+    "KnotDiagram",
+    "writhe",
+    "linking_number",
+    "kauffman_bracket",
+    "jones_polynomial",
+    "reduced_burau",
+    "alexander_polynomial_from_braid",
+    "is_valid_pd_code",
     "Cell",
     "CellComplexProfile",
     "CellComplexError",
@@ -2694,6 +2730,14 @@ from .persistent_homology import (
     has_structure_theorem,
     classify_persistence,
     persistence_profile,
+    FilteredComplex,
+    PersistencePair,
+    vietoris_rips_filtration,
+    persistence_pairs,
+    persistent_homology,
+    barcode,
+    persistence_diagram,
+    euler_characteristic_curve,
 )
 from .abstract_homotopy import (
     AbstractHomotopyProfile,

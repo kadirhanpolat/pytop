@@ -8,6 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Constructive computational core (v0.6.0)** — genuine invariant computation from
+  raw input, complementing the descriptive profile layer:
+  - `homology.py` — integral simplicial homology of a finite `SimplicialComplex`:
+    oriented `boundary_matrix`, integer Smith normal form, `simplicial_homology` /
+    `homology_groups` / `betti_numbers` (free rank **and** torsion coefficients),
+    `reduced_homology`, and `euler_characteristic_via_homology` (cross-checks the
+    combinatorial Euler characteristic). Verified on S¹, S², T² (H₁ = ℤ²) and
+    ℝP² (H₁ = ℤ/2 torsion).
+  - `persistent_homology.py` — real TDA engine added alongside the existing profiles:
+    `vietoris_rips_filtration` of a finite metric space, `persistence_pairs` via the
+    standard ℤ/2 column reduction, plus `barcode`, `persistence_diagram` and
+    `euler_characteristic_curve`.
+  - `knot_invariants.py` — `kauffman_bracket` and `jones_polynomial` from a planar-diagram
+    code, `alexander_polynomial_from_braid` via the reduced Burau representation, `writhe`,
+    `linking_number`, and `is_valid_pd_code`. Verified: trefoil Jones = −t⁻⁴+t⁻³+t⁻¹,
+    figure-eight Jones = t⁻²−t⁻¹+1−t+t², Alexander(trefoil) = t−1+t⁻¹.
+  - `experimental/convergence_spaces.py` — finite convergence spaces (Dolecki's "royal road"):
+    `ConvergenceSpace` with `is_convergence_space` / `is_pretopology` / `is_pseudotopology` /
+    `is_topological`, the mutually inverse `convergence_from_topology` ↔
+    `topology_from_convergence` bridges, `is_continuous_convergence_map`, and `grill_of_filter`.
 - `named_spaces.py` + `space_catalog.py` — 104 canonical named topological spaces across 8 batches:
   - **Batch 1 (20):** Sierpiński space, particular/excluded point topologies, cofinite/cocountable
     topologies, real line, Sorgenfrey line, ℚ, irrationals, Cantor set, Hilbert cube, long line,
