@@ -20,8 +20,8 @@ from .result import Result
 from .separation_basic import (
     TRUE_TAGS,
     TYCHONOFF_POSITIVE_TAGS,
-    analyze_separation,
     _positive_tag_implies,
+    analyze_separation,
 )
 
 _TYCHONOFF_BLOCKING_TAGS: frozenset[str] = frozenset({

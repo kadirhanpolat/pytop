@@ -11,6 +11,20 @@ Import from those modules directly for a finer-grained dependency, or continue
 importing from this module for full backward compatibility.
 """
 
+from .separation_advanced import (  # noqa: F401
+    check_tychonoff,
+    is_completely_normal,
+    is_completely_regular,
+    is_normal,
+    is_perfectly_normal,
+    is_regular,
+    is_t3,
+    is_t4,
+    is_t5,
+    is_tychonoff,
+    separation_chain,
+    tychonoff_characterization,
+)
 from .separation_basic import (  # noqa: F401
     ADVANCED_PROPERTIES,
     BASIC_PROPERTIES,
@@ -21,16 +35,6 @@ from .separation_basic import (  # noqa: F401
     TRUE_TAGS,
     TYCHONOFF_POSITIVE_TAGS,
     SeparationError,
-    advanced_separation_report,
-    analyze_separation,
-    is_hausdorff,
-    is_t0,
-    is_t1,
-    is_t2,
-    is_t2_5,
-    is_urysohn,
-    normalize_separation_property,
-    separation_profile,
     # private helpers — re-exported for backward compatibility with existing tests
     _finite_basic_separation,
     _finite_closed_sets,
@@ -46,20 +50,16 @@ from .separation_basic import (  # noqa: F401
     _separate_closed_sets,
     _separate_point_and_closed_set,
     _theorem_level_separation,
-)
-from .separation_advanced import (  # noqa: F401
-    check_tychonoff,
-    is_completely_normal,
-    is_completely_regular,
-    is_normal,
-    is_perfectly_normal,
-    is_regular,
-    is_t3,
-    is_t4,
-    is_t5,
-    is_tychonoff,
-    separation_chain,
-    tychonoff_characterization,
+    advanced_separation_report,
+    analyze_separation,
+    is_hausdorff,
+    is_t0,
+    is_t1,
+    is_t2,
+    is_t2_5,
+    is_urysohn,
+    normalize_separation_property,
+    separation_profile,
 )
 
 __all__ = [

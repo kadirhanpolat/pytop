@@ -15,7 +15,6 @@ from dataclasses import dataclass
 from typing import Any
 
 from ._finite_utils import _sort_family
-
 from .finite_operator_engine import is_topology
 from .finite_spaces import FiniteTopologicalSpace
 from .subbases import (

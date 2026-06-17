@@ -22,13 +22,12 @@ from typing import Any
 from .finite_spaces import FiniteTopologicalSpace
 from .infinite_spaces import (
     BasisDefinedSpace,
-    CofiniteSpace,
     CocountableSpace,
+    CofiniteSpace,
     MetricLikeSpace,
     SorgenfreyLikeSpace,
 )
 from .spaces import TopologicalSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

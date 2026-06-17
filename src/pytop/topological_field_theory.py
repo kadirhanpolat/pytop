@@ -59,7 +59,6 @@ Key constructions and theorems
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 from .result import Result
 
