@@ -59,7 +59,12 @@ _PI_NAME = {
 }
 
 # Properties preserved by each construction (operands have P ⟹ result has P).
-# These are standard preservation theorems for general topology.
+# These are standard preservation theorems for general topology and are the
+# *authoritative* source for the engine. They are cross-validated against
+# pi-Base's meta-properties (tests/experimental/test_preservation_crossvalidation.py):
+# wherever pi-Base states a heredity/productivity/sum meta-property for one of
+# these, this table agrees. pi-Base's meta-properties are sparse (they do not
+# state every true theorem), so they confirm but cannot *drive* the table.
 PRESERVATION: dict[str, frozenset[str]] = {
     "subspace": frozenset({"T0", "T1", "T2", "regular"}),                 # hereditary
     "product": frozenset({"T0", "T1", "T2", "regular", "compact", "connected"}),  # productive (Tychonoff)

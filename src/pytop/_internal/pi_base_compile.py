@@ -50,6 +50,51 @@ def _frontmatter(path: Path) -> dict[str, Any]:
     return data if isinstance(data, dict) else {}
 
 
+_META_PATTERNS: list[tuple[str, str]] = [
+    # check the "with respect to" variants before the plain "hereditary"
+    ("hereditary with respect to closed", "hereditary_closed"),
+    ("hereditary with respect to open", "hereditary_open"),
+    ("hereditary with respect to clopen", "hereditary_clopen"),
+    ("hereditary with respect to dense", "hereditary_dense"),
+    ("preserved by arbitrary products", "products_arbitrary"),
+    ("preserved by finite products", "products_finite"),
+    ("preserved by countable products", "products_countable"),
+    ("preserved by arbitrary disjoint unions", "sums_arbitrary"),
+    ("preserved by finite disjoint unions", "sums_finite"),
+    ("preserved by countable disjoint unions", "sums_countable"),
+    ("preserved in any coarser topology", "coarser"),
+    ("preserved in any finer topology", "finer"),
+    ("preserved by quotient maps", "quotients"),
+    ("preserved by retractions", "retracts"),
+    ("preserved by homotopy equivalences", "homotopy"),
+    ("-products", "sigma_products"),  # matches $\Sigma$-products
+]
+
+
+def _meta_flags(text: str) -> list[str]:
+    """Extract structured preservation/heredity flags from a property's prose.
+
+    Parses the regular "This property is ..." meta-property bullets. Negated
+    statements ("... is not ...") are skipped (silence is not a negative claim).
+    """
+
+    flags: set[str] = set()
+    marker = "This property is "
+    for line in text.splitlines():
+        index = line.find(marker)
+        if index == -1:
+            continue
+        phrase = line[index + len(marker):].strip()
+        if phrase.startswith("not "):
+            continue
+        for needle, flag in _META_PATTERNS:
+            if needle in phrase:
+                flags.add(flag)
+        if phrase.startswith("hereditary") and "with respect to" not in phrase:
+            flags.add("hereditary")
+    return sorted(flags)
+
+
 def _compile_properties(source: Path) -> dict[str, dict[str, Any]]:
     properties: dict[str, dict[str, Any]] = {}
     for path in sorted((source / "properties").glob("P*.md")):
@@ -60,6 +105,7 @@ def _compile_properties(source: Path) -> dict[str, dict[str, Any]]:
         properties[uid] = {
             "name": front.get("name", uid),
             "aliases": [str(a) for a in (front.get("aliases") or [])],
+            "meta": _meta_flags(path.read_text(encoding="utf-8")),
         }
     return properties
 

@@ -101,6 +101,19 @@ def property_name(uid: str) -> str:
         raise UnknownPropertyError(f"Unknown pi-Base property uid: {uid!r}") from exc
 
 
+def property_meta(name_or_uid: str) -> tuple[str, ...]:
+    """Return a property's preservation/heredity meta-flags from pi-Base.
+
+    Flags such as ``"hereditary"``, ``"products_arbitrary"``, ``"products_finite"``,
+    ``"sums_arbitrary"``, ``"sums_finite"``, ``"hereditary_closed"`` etc., parsed
+    from the pi-Base meta-property prose. The set is **sparse** — pi-Base does not
+    state every true preservation theorem — so absence is not a negative claim.
+    """
+
+    uid = property_uid(name_or_uid)
+    return tuple(properties()[uid].get("meta", ()))
+
+
 @lru_cache(maxsize=1)
 def _space_traits() -> dict[str, dict[str, bool]]:
     result: dict[str, dict[str, bool]] = {}
@@ -289,6 +302,7 @@ __all__ = [
     "spaces",
     "property_uid",
     "property_name",
+    "property_meta",
     "asserted_traits",
     "deduce",
     "is_consistent",

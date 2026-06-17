@@ -30,6 +30,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `explain` renders it; `synthesize(has=…, lacks=…)` searches for a space meeting a property spec.
   E.g. a product of a cofinite and an order space is derived T1; a subspace of an infinite metric
   space is derived regular — each with a proof, no points enumerated.
+- **Preservation table cross-validation (experimental)** — the pi-Base ETL now also extracts
+  property **meta-properties** (heredity / productivity / disjoint-union flags), exposed via
+  `pi_base.property_meta`. A test suite cross-validates the reasoning engine's hand-curated
+  `PRESERVATION` table against them in the no-contradiction direction (pi-Base's meta-properties
+  are sparse, so they confirm but do not drive the table). Grounds the preservation theorems in
+  the referenced database.
 
 ## [0.6.0] - 2026-06-17
 
