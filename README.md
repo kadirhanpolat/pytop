@@ -114,7 +114,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | Knot theory | `knots`, `invariants` |
 | Surfaces & manifolds | `surfaces`, `surface_classification`, `manifolds`, `three_manifolds` |
 | Graph topology | `graph_topology` |
-| **Computational homology** (v0.6.0) | `homology`, `persistent_homology`, `homology_coefficients` |
+| **Computational homology** (v0.6.0+) | `homology`, `persistent_homology`, `homology_coefficients`, `mayer_vietoris` |
 | **Knot invariants** (v0.6.0) | `knot_invariants` |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
@@ -174,7 +174,11 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
 - **Field-coefficient & relative homology** — `betti_numbers_over(K, "Q")` / `betti_numbers_over(K, p)`
   and `relative_homology(K, L)` / `relative_betti_numbers(K, L)`. Demonstrates coefficient
   dependence: RP² → H₁(;Q)=0 but H₁(;Z/2)=Z/2 (2-torsion visible over Z/2 only).
-- **9 155 tests passing** across the full suite.
+- **Mayer–Vietoris long exact sequence** — `mayer_vietoris(A, B)` computes the full LES for K = A ∪ B:
+  extended Smith Normal Form yields explicit homology bases and cycle representatives;
+  inclusion maps and the snake-lemma connecting homomorphism δ are returned as integer matrices;
+  exactness verified at every position (S¹, S², interval). 30 new tests.
+- **9 185 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

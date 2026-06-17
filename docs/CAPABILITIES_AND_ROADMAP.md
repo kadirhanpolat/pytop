@@ -5,7 +5,7 @@
 > starting from set-theoretic (point-set) topology.
 >
 > **Status as of 2026-06-18:** Phase 1 (set-theoretic topology) is substantially
-> complete; Phase 2 (algebraic topology) has begun.
+> complete; Phase 2 (algebraic topology) is in progress (3 / 7 items done).
 
 ---
 
@@ -26,6 +26,10 @@ operations; Alexandroff ↔ preorder correspondence; finite map analysis.
 - `homology_coefficients` — field-coefficient homology (Q, Z/p) and relative
   homology H_*(K,L; Z); demonstrates coefficient dependence (RP²: H₁(;Q)=0 vs
   H₁(;Z/2)=Z/2)
+- `mayer_vietoris` — Mayer–Vietoris long exact sequence for K = A ∪ B:
+  extended Smith Normal Form with transformation matrices gives explicit
+  homology bases; chain-level inclusion maps + snake lemma yield
+  φ, ψ, δ as integer matrices; exactness verified at every position
 - `persistent_homology` — Vietoris–Rips barcodes from a finite metric space (Z/2)
 - `knot_invariants` — Jones & Alexander polynomials from a diagram
 - `winding_number` — winding number, map degree, vector-field index
@@ -163,7 +167,8 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 |------|--------|-----------|
 | Field-coefficient homology (Q, Z/p) | ✅ | `homology_coefficients`: Gaussian elim; RP² katsayı bağımlılığı |
 | Relative homology H_*(K,L; Z) | ✅ | Disk mod boundary H₂(D²,∂D²)=Z |
-| Mayer–Vietoris, cellular homology | ⬜ | — |
+| Mayer–Vietoris LES | ✅ | `mayer_vietoris`: extended SNF → explicit bases; φ,ψ,δ matrices; exactness verified (S¹,S²,interval) |
+| Cellular homology | ⬜ | — |
 | Cohomology + cup product | ⬜ | — |
 | van Kampen → group presentations | ⬜ | Major item; GAP bridge candidate |
 | Optimized persistence (clearing/twist) | ⬜ | — |
@@ -195,15 +200,15 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 ---
 
-## Part V — Summary statistics (2026-06-18)
+## Part V — Summary statistics (2026-06-19)
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 155** |
-| New PRs this arc | 13 (PR #1 → #13) |
+| Tests passing | **9 185** |
+| New PRs this arc | 14 (PR #1 → #14) |
 | Representations in `experimental.spaces` | 7 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
 | Phase 1 milestones complete | 5 / 5 |
-| Phase 2 milestones complete | 2 / 7 |
+| Phase 2 milestones complete | 3 / 8 |

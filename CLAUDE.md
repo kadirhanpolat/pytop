@@ -27,6 +27,8 @@ pytop has two complementary layers — keep this distinction in mind when extend
 - **Constructive** — engines that *compute* invariants from raw input. The v0.6.0+ computational core:
   `homology` (integer boundary matrices → Smith normal form → Betti + torsion),
   `homology_coefficients` (field-coefficient / relative homology — Gaussian elimination over Q and Z/p),
+  `mayer_vietoris` (Mayer–Vietoris LES: extended SNF with transformation matrices → explicit homology
+  bases; φ, ψ, δ as integer matrices; exactness verified at every position),
   `persistent_homology` (Vietoris–Rips filtration → Z/2 reduction → barcodes),
   `knot_invariants` (Kauffman→Jones, reduced Burau→Alexander), `winding_number`,
   `surface_word_classification`, `graph_planarity` (rotation-system genus), and
