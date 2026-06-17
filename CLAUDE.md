@@ -4,10 +4,12 @@
 
 `pytop` is a standalone mathematical topology library for Python 3.11+.
 It provides point-set topology, knot theory, graph topology, surface classification,
-3-manifolds, degree theory, cardinal functions, and more. As of **v0.6.0** it also ships a
-**constructive computational core** (simplicial homology, persistent homology / TDA, knot
-invariant polynomials, winding/degree, surface-word classification, exact graph planarity)
-and a **pi-Base–backed deductive inference engine** (`pytop.experimental.pi_base`).
+3-manifolds, degree theory, cardinal functions, and more. As of **v0.6.0+** it also ships a
+**constructive computational core** (simplicial homology with field/relative coefficients,
+persistent homology / TDA, knot invariant polynomials, winding/degree, surface-word
+classification, exact graph planarity), a **pi-Base–backed deductive inference engine**
+(`pytop.experimental.pi_base`), and a **research-grade computable-space protocol**
+(`pytop.experimental.spaces`) for point-set topology — Phase 1 complete (S1–S5).
 
 - **GitHub:** https://github.com/kadirhanpolat/pytop
 - **License:** MIT
@@ -22,11 +24,18 @@ pytop has two complementary layers — keep this distinction in mind when extend
 - **Descriptive** — `*Profile` dataclasses + `get_*_profiles()` registries that record curated,
   referenced facts about famous spaces/theorems (most algebraic/advanced modules). They *know*
   invariants; they do not compute them.
-- **Constructive** — engines that *compute* invariants from raw input. The v0.6.0 computational core:
-  `homology` (integer boundary matrices → Smith normal form → Betti + torsion), `persistent_homology`
-  (Vietoris–Rips filtration → Z/2 reduction → barcodes), `knot_invariants` (Kauffman→Jones,
-  reduced Burau→Alexander), `winding_number`, `surface_word_classification`, and `graph_planarity`
-  (rotation-system genus). New computational work should prefer this constructive style.
+- **Constructive** — engines that *compute* invariants from raw input. The v0.6.0+ computational core:
+  `homology` (integer boundary matrices → Smith normal form → Betti + torsion),
+  `homology_coefficients` (field-coefficient / relative homology — Gaussian elimination over Q and Z/p),
+  `persistent_homology` (Vietoris–Rips filtration → Z/2 reduction → barcodes),
+  `knot_invariants` (Kauffman→Jones, reduced Burau→Alexander), `winding_number`,
+  `surface_word_classification`, `graph_planarity` (rotation-system genus), and
+  `experimental.spaces` (research-grade computable-space protocol — see below).
+  New computational work should prefer this constructive style.
+- **Research-grade point-set layer** (`experimental.spaces`) — a third layer bridging the two above:
+  a `Space` protocol + 16 witness-producing predicates + property-reasoning engine that derives
+  and *explains* properties of constructed infinite spaces (preservation theorems + pi-Base
+  implication graph). See `docs/CAPABILITIES_AND_ROADMAP.md` for Phase 1/2 status.
 
 ## pi-Base data
 
@@ -56,9 +65,12 @@ src/pytop/              ← public math API (import from here)
 src/pytop/_internal/    ← internal tooling (chapter integration, audit tools, release scripts)
                           NOT exported in __init__.py, NOT part of public API
 src/pytop/experimental/ ← research-stage modules (unstable API)
+  spaces/               ← computable-space protocol (Phase 1 complete: Space, predicates,
+                          reasoning engine, pi-Base bridge — see CAPABILITIES_AND_ROADMAP.md)
 tests/core/             ← tests for src/pytop/
 tests/experimental/     ← tests for src/pytop/experimental/
 examples_bank/          ← topic-based Markdown example files (not importable)
+docs/CAPABILITIES_AND_ROADMAP.md  ← honest capabilities assessment + phased roadmap
 ```
 
 ---

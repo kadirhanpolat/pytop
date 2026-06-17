@@ -1,12 +1,15 @@
 # pytop — Capabilities, Limitations & Roadmap to Research Grade
 
-> An honest assessment of what pytop can and cannot do today (v0.6.0), and a
+> An honest assessment of what pytop can and cannot do today (post-v0.6.0), and a
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
+>
+> **Status as of 2026-06-18:** Phase 1 (set-theoretic topology) is substantially
+> complete; Phase 2 (algebraic topology) has begun.
 
 ---
 
-## Part I — What pytop can and cannot do today (v0.6.0)
+## Part I — What pytop can and cannot do today
 
 pytop has **broad topic coverage but uneven depth**. Three honest categories:
 
@@ -20,11 +23,47 @@ operations; Alexandroff ↔ preorder correspondence; finite map analysis.
 
 **v0.6.0 constructive core.**
 - `homology` — Betti numbers **and torsion** from a finite simplicial complex
-- `persistent_homology` — Vietoris–Rips barcodes from a finite metric space (ℤ/2)
+- `homology_coefficients` — field-coefficient homology (Q, Z/p) and relative
+  homology H_*(K,L; Z); demonstrates coefficient dependence (RP²: H₁(;Q)=0 vs
+  H₁(;Z/2)=Z/2)
+- `persistent_homology` — Vietoris–Rips barcodes from a finite metric space (Z/2)
 - `knot_invariants` — Jones & Alexander polynomials from a diagram
 - `winding_number` — winding number, map degree, vector-field index
 - `surface_word_classification` — closed-surface type from a gluing word
 - `graph_planarity` — exact planarity/genus for **small** graphs
+
+**`experimental.spaces` — computable-space protocol (Phase 1, research grade).**
+The research-grade point-set layer: a unified `Space` protocol for finite *and*
+infinite spaces, with 16 witness-producing, decidability-honest predicates and a
+property-reasoning engine. Key components:
+- **16 predicates** (T0, T1, T2/Hausdorff, T3, T3.5/Tychonoff, T4, T5, T6,
+  regular, normal, compact, connected, Lindelöf, separable, first/second-countable)
+  — on finite spaces computed from the topology; on infinite spaces via mathematical
+  certificates; honest `UNDECIDABLE` where no route applies.
+- **7 representations**: `FiniteSpace`, `CofiniteSpace`, `OrderTopologySpace` (ℚ),
+  `MetricTopologySpace`, `SorgenfreyLineSpace`, `DiscreteCountableSpace`,
+  `OpaqueInfiniteSpace`.
+- **Construction closure** — `subspace`, `product`, `sum`, `quotient` for finite
+  spaces; `ProductSpace`, `SubspaceSpace`, `SumSpace`, `QuotientSpace` provenance
+  wrappers for infinite spaces.
+- **Property-reasoning engine** (`reasoning.py`) — derives properties of *constructed*
+  spaces (including infinite ones, without enumeration) by combining construction-
+  preservation theorems (subspace→hereditary, product→productive/Tychonoff,
+  sum→coproduct, quotient→image-stable) with the pi-Base implication graph and
+  computed/certified leaf verdicts. Returns explained `Derivation` trees.
+  Counterexample synthesis via `synthesize(has=…, lacks=…)`.
+- **pi-Base atlas bridge** (`pi_base_bridge.py`) — wraps any of the 222 famous
+  pi-Base spaces as protocol `Space` objects whose certificates come from pi-Base's
+  deduced trait matrix. Famous spaces feed directly into the reasoning engine and
+  construction wrappers.
+- **Cross-validation** — the preservation table is pin-tested against pi-Base
+  meta-properties (hereditary/productive/sum-preserved flags) in the no-contradiction
+  direction.
+
+Headline example: the engine distinguishes ℚ² (second-countable → Lindelöf,
+regular + 2nd-countable → metrizable → T4 via Urysohn) from the Sorgenfrey
+plane (regular but not Lindelöf and not normal) — by preservation + pi-Base
+implication, no enumeration.
 
 **`experimental.pi_base`** — deductive property inference (closure, consistency,
 counterexample search) over the pi-Base graph (243 properties, 902 theorems,
@@ -39,30 +78,28 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
   `spectral_sequences`, `higher_categories`, `operads`, `topological_field_theory`,
   `derived_categories`, `shape_theory`, `coarse_geometry`): **tag-based classifiers**.
   You supply semantic tags; they apply encoded theorems to classify. They do **not**
-  construct or analyze the actual mathematical object (no real K-theory of a C\*-algebra, etc.).
+  construct or analyze the actual mathematical object.
 - `named_spaces`, `space_catalog`, `counterexample_atlas`, preservation tables,
   cardinal-function profiles: curated reference catalogs.
 
 ### ❌ Cannot do (real limits)
 
-- No homology of general/infinite spaces — finite simplicial only; no singular
-  homology, cohomology rings, cup products, or spectral-sequence **computation**.
+- No cohomology rings or cup products; no spectral-sequence computation.
 - No general fundamental-group computation (van Kampen → presentation) beyond the
-  surface-word genus/Euler case.
-- Knots: needs a PD/Gauss code you supply; no HOMFLY/Khovanov; a documented sign
-  convention quirk; no diagram extraction from a 3-D embedding.
-- Planarity is exact but **small-graph only** (exponential rotation-system search,
-  guarded) — not a linear-time test.
-- TDA is ℤ/2 and small clouds only (unoptimized reduction).
-- pi-Base inference is bounded by the vendored snapshot's vocabulary; not a general
-  prover.
-- No coordinate/geometric topology, mesh processing, or general homeomorphism
-  decision (only finite homeomorphism by enumeration).
+  surface-word genus/Euler case. **Phase 2 target.**
+- Knots: needs a PD/Gauss code you supply; no HOMFLY/Khovanov.
+- Planarity is exact but **small-graph only** (exponential rotation-system search).
+- TDA is Z/2 and small clouds only (unoptimized reduction).
+- pi-Base inference is bounded by the vendored snapshot's vocabulary.
+- No coordinate/geometric topology, mesh processing, or general homeomorphism decision.
 - Most engines are finite / brute-force — **does not scale**.
+- `experimental.spaces` predicates are limited to the 7 bundled representations;
+  user-supplied infinite spaces can only be analyzed if they implement `certificate`.
 
 **One-sentence summary.** pytop is a solid finite point-set core + a focused
-v0.6.0 computational layer + pi-Base inference, wrapped in a large educational /
-reference layer. It is **not** (yet) a GUDHI / SageMath / GAP-scale research system.
+v0.6.0+ computational layer + a research-grade point-set reasoning system +
+pi-Base inference, wrapped in a large educational / reference layer. It is
+**not** (yet) a GUDHI / SageMath / GAP-scale research system.
 
 ---
 
@@ -87,57 +124,57 @@ This is a **multi-year arc**, not a sprint. The roadmap below is honest about th
 
 ---
 
-## Part III — Roadmap
+## Part III — Roadmap & status
 
-### Phase 0 — Architectural foundations (prerequisite for everything)
+### Phase 0 — Architectural foundations ✅ COMPLETE
 
-- **`Space` protocol** — a `typing.Protocol` defining the *computable topological
-  space* interface every representation must implement (point membership; open-set
-  / basic-neighborhood membership and enumeration; a declared cardinality/representation
-  kind). This is the keystone: generic algorithms target the protocol, not concrete classes.
-- **Witness-carrying results** — extend `Result` so predicates return
-  `{decided: bool|None, witness|counterexample, decidability: enum}`. Make honesty
-  about (un)decidability a type-level contract.
-- **Construction closure** — `subspace`, `product`, `quotient`, `sum`, `inverse_limit`
-  that consume representable spaces and produce representable spaces.
+- `Space` protocol (ABC) + decidability-aware `Verdict` / `Decidability` enum.
+- Witness-carrying results: `Verdict.true(witness=…)`, `Verdict.false(counterexample=…)`,
+  `Verdict.undecidable(reason=…)`.
+- `Construction` provenance wrappers: `ProductSpace`, `SubspaceSpace`, `SumSpace`,
+  `QuotientSpace`.
 
-### Phase 1 — Set-theoretic topology to research grade  ⟵ **our starting point**
+### Phase 1 — Set-theoretic topology to research grade ✅ SUBSTANTIALLY COMPLETE
 
-1. **Representations beyond finite**: cofinite/cocountable, order topology on a
-   computable linear order, metric topology from an *exact/rational* metric,
-   Alexandroff topology of a finitely-presented poset, subbase-generated spaces —
-   all behind the `Space` protocol, all closed under Phase-0 constructions
-   (Tychonoff product via subbasis is the marquee case).
-2. **Generic witness-producing predicates** over the protocol, unifying today's
-   finite-only and symbolic paths: separation (T0–T6, regular/normal/Tychonoff
-   with Urysohn-function witnesses where decidable), compactness / Lindelöf /
-   local compactness / paracompactness (subcover or refuting-net witness),
-   connectedness / path-connectedness (clopen split or connecting path).
-3. **Computed cardinal invariants** (weight, density, character, cellularity,
-   Lindelöf number) for representable spaces — turn today's profiles into computations.
-4. **Property-reasoning engine** (the bridge that ends the "encyclopedia" era):
-   combine the pi-Base implication graph + **construction-preservation rules**
-   (hereditary / productive / quotient-stable, already in pi-Base meta-properties)
-   + computed witnesses, so the system can *derive and explain* properties of a
-   **constructed** space — e.g. "X = ∏ Xᵢ; each Xᵢ is Tychonoff; Tychonoff is
-   productive ⟹ X is Tychonoff." This unifies the constructive and descriptive layers.
-5. **Counterexample synthesis** — given a target property combination, *construct*
-   a witnessing space by searching the construction space (not just looking it up
-   in the 222-space atlas).
+All five planned milestones delivered:
 
-### Phase 2 — Algebraic topology to research grade
+| Milestone | Status | Delivered |
+|-----------|--------|-----------|
+| S1 — Space protocol + representations | ✅ | `Space` ABC, `Verdict`, 7 representations, `is_hausdorff` with witnesses |
+| S2 — 7 predicates + finite construction closure | ✅ | is_t0/t1/t2/regular/normal/compact/connected; subspace/product/sum/quotient |
+| S3 — Property-reasoning engine | ✅ | `reasoning.py`: preservation + pi-Base closure + `Derivation` + `synthesize` |
+| S4 — Extended axioms + representations | ✅ | is_t3/t4, Lindelöf/separable/1st-2nd-countable; Sorgenfrey + discrete-ℕ |
+| S5 — Full separation hierarchy | ✅ | is_tychonoff/t5/t6; 16-property PRESERVATION table; ℚ² vs Sorgenfrey plane |
 
-- (Co)homology over an arbitrary PID; optimized persistence (clearing/twist,
-  cohomology, Mayer–Vietoris, relative & cellular homology); cubical complexes.
-- Real van Kampen on simplicial/CW 2-complexes → group presentations; Tietze /
-  abelianization; optional GAP bridge for hard group problems.
+Plus: **pi-Base atlas bridge** (222 famous spaces as protocol `Space` objects;
+feed into reasoning engine and construction wrappers) and **cross-validation**
+(PRESERVATION table pin-tested against pi-Base meta-properties).
 
-### Phase 3 — Geometric & low-dimensional topology
+**Remaining Phase 1 work (incremental):**
+- Computed cardinal invariants (weight, density, character, cellularity) for
+  representable spaces — turn today's profiles into computations.
+- More representations (Alexandroff/poset, subbase-generated, exact limit).
+- T3.5 / Urysohn-function witness for infinite spaces where decidable.
+- van Kampen preparation (π₁ of `experimental.spaces` objects).
+
+### Phase 2 — Algebraic topology to research grade 🔄 STARTED
+
+| Item | Status | Delivered |
+|------|--------|-----------|
+| Field-coefficient homology (Q, Z/p) | ✅ | `homology_coefficients`: Gaussian elim; RP² katsayı bağımlılığı |
+| Relative homology H_*(K,L; Z) | ✅ | Disk mod boundary H₂(D²,∂D²)=Z |
+| Mayer–Vietoris, cellular homology | ⬜ | — |
+| Cohomology + cup product | ⬜ | — |
+| van Kampen → group presentations | ⬜ | Major item; GAP bridge candidate |
+| Optimized persistence (clearing/twist) | ⬜ | — |
+| Cubical complexes | ⬜ | — |
+
+### Phase 3 — Geometric & low-dimensional topology ⬜ NOT STARTED
 
 - Full knot/link suite from diagrams (HOMFLY, Khovanov, genus bounds, links);
   3-manifolds / normal surfaces (Regina-scale — very ambitious); SnapPy interop.
 
-### Phase 4 — Performance, correctness, interoperability
+### Phase 4 — Performance, correctness, interoperability ⬜ NOT STARTED
 
 - Complexity discipline; **optional** accelerated extras (numpy/scipy) over a
   pure-Python core; property-based + differential testing against SageMath/GUDHI/GAP;
@@ -147,10 +184,8 @@ This is a **multi-year arc**, not a sprint. The roadmap below is honest about th
 
 ## Part IV — Hard trade-offs to decide early
 
-- **Dependency policy.** "Research grade + scale" eventually needs fast linear
-  algebra / big data structures. Recommendation: keep a **pure-Python correctness
-  core** and add **optional** accelerated backends (`pytop[fast]`), never a hard
-  runtime dependency.
+- **Dependency policy.** Recommendation: keep a **pure-Python correctness core** and
+  add **optional** accelerated backends (`pytop[fast]`), never a hard runtime dependency.
 - **Correctness bar.** Research grade demands witnesses + property-based tests +
   differential testing against established systems — a real, ongoing cost.
 - **Decidability honesty.** Many point-set questions are undecidable for general
@@ -160,14 +195,15 @@ This is a **multi-year arc**, not a sprint. The roadmap below is honest about th
 
 ---
 
-## Part V — Immediate next step (proposed)
+## Part V — Summary statistics (2026-06-18)
 
-**Milestone S1 — the computable-space foundation** (Phase 0 + Phase 1.1–1.2):
-1. `Space` protocol + a `decidability`-aware `Result`.
-2. Re-express the existing finite engine behind the protocol (no behavior change).
-3. Add 2–3 infinite representations (cofinite, order topology, exact-metric).
-4. One generic, witness-producing predicate end-to-end (e.g. Hausdorff) over all
-   representations, with decided/semi-decidable/undecidable honesty.
-
-This is the smallest slice that proves the architecture and immediately makes
-infinite spaces first-class. Everything in Phase 1 then builds on it.
+| Metric | Value |
+|--------|-------|
+| Tests passing | **9 155** |
+| New PRs this arc | 13 (PR #1 → #13) |
+| Representations in `experimental.spaces` | 7 |
+| Predicates (with witnesses) | 16 |
+| pi-Base spaces bridged | 222 |
+| pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
+| Phase 1 milestones complete | 5 / 5 |
+| Phase 2 milestones complete | 2 / 7 |

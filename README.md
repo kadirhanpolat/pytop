@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v0.6.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** that computes invariants from raw input — simplicial homology (Betti numbers + torsion), persistent homology / TDA, knot polynomials (Jones, Alexander), winding number / map degree, surface classification from a gluing word, and exact graph planarity — plus a **pi-Base–backed deductive inference engine** for topological properties.
+As of **v0.6.0+**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients, persistent homology, knot polynomials, winding number, surface classification, graph planarity), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
 
 ## Installation
 
@@ -85,6 +85,20 @@ winding_number(pts)                          # 1
 from pytop.experimental import deduce, find_counterexamples, property_uid
 deduce({property_uid("Compact"): True, property_uid("Hausdorff"): True})  # ... Normal: True
 find_counterexamples(has=["Compact"], lacks=["Hausdorff"])                # compact, non-Hausdorff spaces
+
+# Research-grade computable-space protocol (experimental, Phase 1)
+from pytop.experimental.spaces import (
+    pi_base_space, ProductSpace, derive, SorgenfreyLineSpace, analyze_pi_base_space
+)
+cantor = pi_base_space("Cantor set")
+derive(cantor, "compact").verdict.value           # True  (pi-Base certificate)
+derive(ProductSpace([cantor, cantor]), "compact").verdict.value  # True  (Tychonoff)
+
+sorgenfrey2 = ProductSpace([SorgenfreyLineSpace(), SorgenfreyLineSpace()])
+derive(sorgenfrey2, "T3").verdict.value            # True  (regular is productive)
+derive(sorgenfrey2, "lindelof").verdict.value      # None  (correctly undecided — the plane is not Lindelöf)
+
+analyze_pi_base_space("Long line")                 # 16-property verdict dict
 ```
 
 ## Module Overview
@@ -100,13 +114,14 @@ find_counterexamples(has=["Compact"], lacks=["Hausdorff"])                # comp
 | Knot theory | `knots`, `invariants` |
 | Surfaces & manifolds | `surfaces`, `surface_classification`, `manifolds`, `three_manifolds` |
 | Graph topology | `graph_topology` |
-| **Computational homology** (v0.6.0) | `homology`, `persistent_homology` |
+| **Computational homology** (v0.6.0) | `homology`, `persistent_homology`, `homology_coefficients` |
 | **Knot invariants** (v0.6.0) | `knot_invariants` |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
 | **Graph planarity** (v0.6.0) | `graph_planarity` |
 | **Deductive inference** (v0.6.0) | `experimental.pi_base`, `experimental.pi_base_atlas` |
 | **Convergence spaces** (v0.6.0) | `experimental.convergence_spaces` |
+| **Computable spaces** (experimental) | `experimental.spaces` — protocol, 16 predicates, reasoning engine, pi-Base bridge |
 | Cardinal functions | `cardinal_functions_framework`, `cardinal_numbers` |
 | Higher algebra | `operads`, `spectral_sequences` |
 | Higher categories | `higher_categories`, `topological_field_theory` |
@@ -143,6 +158,23 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New (post-v0.6.0)
+
+- **Research-grade computable-space protocol** (`experimental.spaces`) — Phase 1 complete (S1–S5):
+  unified `Space` ABC with 16 witness-producing, decidability-honest predicates (T0–T6/Tychonoff,
+  regular/normal, compact/connected, Lindelöf/separable, first/second-countable), 7 representations
+  (Finite, Cofinite, Order-ℚ, Metric, Sorgenfrey, Discrete-ℕ, Opaque), finite+infinite construction
+  closure (`ProductSpace`, `SubspaceSpace`, `SumSpace`, `QuotientSpace`), and a property-reasoning
+  engine that derives and *explains* properties of constructed infinite spaces via preservation
+  theorems + the pi-Base implication graph — no enumeration. `synthesize(has=…, lacks=…)` finds
+  example spaces. Preservation table cross-validated against pi-Base meta-properties.
+- **pi-Base atlas bridge** — `pi_base_space("Cantor set")` wraps any of 222 famous spaces as a
+  protocol `Space`; feeds directly into the reasoning engine and construction wrappers.
+- **Field-coefficient & relative homology** — `betti_numbers_over(K, "Q")` / `betti_numbers_over(K, p)`
+  and `relative_homology(K, L)` / `relative_betti_numbers(K, L)`. Demonstrates coefficient
+  dependence: RP² → H₁(;Q)=0 but H₁(;Z/2)=Z/2 (2-torsion visible over Z/2 only).
+- **9 155 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 
