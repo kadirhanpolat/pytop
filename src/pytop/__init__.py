@@ -191,7 +191,6 @@ from .examples import (
     upper_limit_line_like,
     reals_cocountable,
     reals_indiscrete,
-    sierpinski_space,
     singleton_space,
     sorgenfrey_line_like,
     two_point_discrete_space,
@@ -856,7 +855,6 @@ from .special_example_profiles import (
     special_example_route_index,
 )
 from .named_spaces import (
-    sierpinski_space,
     particular_point_topology,
     excluded_point_topology,
     cofinite_topology_on_naturals,
@@ -2844,7 +2842,7 @@ from .topology_builders import (
     discrete_topology,
     indiscrete_topology,
     cofinite_topology,
-    sierpinski_space,  # noqa: F811
+    sierpinski_space,
     topology_from_basis,
     topology_from_subbasis,
 )
