@@ -38,6 +38,18 @@ from .chapter_experimental_registry import (
     chapter_registry_summary,
     chapter_route_summary,
 )
+from .compactness_cardinal_bridges import (
+    CompactnessBridgeProfile,
+    compactness_bridge_chapter_index,
+    compactness_bridge_layer_summary,
+    get_named_compactness_bridge_profiles,
+)
+from .compactness_strengthened_profiles import (
+    CompactnessStrengthenedProfile,
+    compactness_strengthened_chapter_index,
+    compactness_strengthened_layer_summary,
+    get_named_compactness_strengthened_profiles,
+)
 from .convergence_spaces import (
     ConvergenceSpace,
     convergence_from_topology,
@@ -48,6 +60,26 @@ from .convergence_spaces import (
     is_pseudotopology,
     is_topological,
     topology_from_convergence,
+)
+from .experimental_inference import (
+    TheoremProfileAlignment,
+    get_promoted_theorem_profile_alignments,
+    theorem_profile_alignment_summary,
+    theorem_profile_family_summary,
+    theorem_profile_feature_index,
+    theorem_profile_index_by_profile_key,
+)
+from .maturity_registry import (
+    ExperimentalMaturityProfile,
+    chapter_primary_maturity_summary,
+    consolidation_bucket_summary,
+    core_counterpart_index,
+    experimental_maturity_summary,
+    get_experimental_maturity_profiles,
+    lookup_experimental_maturity,
+    preferred_home_summary,
+    retained_research_draft_modules,
+    retained_supported_experimental_modules,
 )
 from .pi_base import (
     PI_BASE_ATTRIBUTION,
@@ -72,38 +104,6 @@ from .pi_base_atlas import (
     space_name,
     space_uid,
     steen_seebach_index,
-)
-from .compactness_cardinal_bridges import (
-    CompactnessBridgeProfile,
-    compactness_bridge_chapter_index,
-    compactness_bridge_layer_summary,
-    get_named_compactness_bridge_profiles,
-)
-from .compactness_strengthened_profiles import (
-    CompactnessStrengthenedProfile,
-    compactness_strengthened_chapter_index,
-    compactness_strengthened_layer_summary,
-    get_named_compactness_strengthened_profiles,
-)
-from .experimental_inference import (
-    TheoremProfileAlignment,
-    get_promoted_theorem_profile_alignments,
-    theorem_profile_alignment_summary,
-    theorem_profile_family_summary,
-    theorem_profile_feature_index,
-    theorem_profile_index_by_profile_key,
-)
-from .maturity_registry import (
-    ExperimentalMaturityProfile,
-    chapter_primary_maturity_summary,
-    consolidation_bucket_summary,
-    core_counterpart_index,
-    experimental_maturity_summary,
-    get_experimental_maturity_profiles,
-    lookup_experimental_maturity,
-    preferred_home_summary,
-    retained_research_draft_modules,
-    retained_supported_experimental_modules,
 )
 from .research_bridge_inventory import build_research_bridge_inventory, inventory_layer_summary
 from .research_bridge_profiles import (
