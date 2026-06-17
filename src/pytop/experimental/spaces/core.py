@@ -85,10 +85,10 @@ class Space(ABC):
 
     Concrete representations implement :meth:`contains` (point membership) and
     :meth:`point_separation` (can two points be separated by disjoint opens?).
-    Finite/enumerable spaces also implement :meth:`points`. Infinite spaces may
-    override :meth:`separation_certificate` to answer a whole-space separation
-    question from a construction-level theorem (e.g. "every metric space is
-    Hausdorff").
+    Finite/enumerable spaces also implement :meth:`points` and :meth:`open_sets`.
+    Infinite spaces may override :meth:`certificate` to answer a whole-space
+    property question from a construction-level theorem (e.g. "every metric space
+    is Hausdorff").
     """
 
     name: str = "space"
@@ -106,6 +106,11 @@ class Space(ABC):
 
         raise NotEnumerableError(f"{self.name!r} does not expose an enumerable carrier.")
 
+    def open_sets(self) -> Iterable[Any]:
+        """Enumerate the topology (open sets). Raises for non-enumerable spaces."""
+
+        raise NotEnumerableError(f"{self.name!r} does not expose an enumerable topology.")
+
     def point_separation(self, x: Any, y: Any) -> Verdict:
         """Can the distinct points ``x`` and ``y`` be separated by disjoint opens?
 
@@ -114,11 +119,15 @@ class Space(ABC):
 
         return Verdict.undecidable(f"{self.name!r} cannot decide point separation.")
 
-    def separation_certificate(self, axiom: str) -> Verdict | None:
-        """Whole-space answer for a separation ``axiom`` from a construction theorem.
+    def certificate(self, prop: str) -> Verdict | None:
+        """Whole-space answer for a property from a construction-level theorem.
 
-        Returns ``None`` when the representation has no such certificate (the
-        generic predicate then falls back to computation or reports undecidable).
+        ``prop`` is a property key such as ``"T0"``, ``"T1"``, ``"T2"``,
+        ``"regular"``, ``"normal"``, ``"compact"`` or ``"connected"``. Returns
+        ``None`` when the representation has no certificate for it (the generic
+        predicate then falls back to computation or reports undecidable). This is
+        how a finitely-presented infinite space answers from the mathematics of
+        its construction (e.g. "every metric space is normal").
         """
 
         return None

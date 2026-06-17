@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `is_hausdorff` that computes on finite spaces, uses construction certificates on infinite
   ones, and honestly reports undecidable otherwise. First step of the research-grade roadmap
   (see `docs/CAPABILITIES_AND_ROADMAP.md`).
+- **Space predicates & construction closure (Milestone S2, experimental)** — generalized the
+  `certificate` interface to any property and added witness-producing predicates `is_t0`, `is_t1`,
+  `is_regular`, `is_normal`, `is_compact`, `is_connected` (finite spaces computed from the topology;
+  infinite spaces via construction certificates; honest `UNDECIDABLE` otherwise — e.g. compactness
+  of a generic metric space). Added finite construction closure — `subspace`, `binary_product`,
+  `disjoint_sum`, `quotient` — each returning a `FiniteSpace`, so predicates compose on constructed
+  spaces (a product of Hausdorff spaces is computed and verified Hausdorff).
 
 ## [0.6.0] - 2026-06-17
 

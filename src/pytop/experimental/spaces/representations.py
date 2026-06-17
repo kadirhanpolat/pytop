@@ -31,7 +31,7 @@ class FiniteSpace(Space):
     def points(self) -> Iterable[Any]:
         return tuple(sorted(self._carrier, key=repr))
 
-    def opens(self) -> frozenset[frozenset[Any]]:
+    def open_sets(self) -> frozenset[frozenset[Any]]:
         return self._opens
 
     def point_separation(self, x: Any, y: Any) -> Verdict:
@@ -73,13 +73,27 @@ class CofiniteSpace(Space):
             counterexample=(x, y),
         )
 
-    def separation_certificate(self, axiom: str) -> Verdict | None:
-        if axiom in {"T0", "T1"}:
+    def certificate(self, prop: str) -> Verdict | None:
+        if prop in {"T0", "T1"}:
             return Verdict.true(reason="cofinite topology is T1 (points are closed)")
-        if axiom == "T2":
+        if prop == "T2":
             return Verdict.false(
                 reason="cofinite topology on an infinite set is not Hausdorff",
                 counterexample="any two distinct points",
+            )
+        if prop == "compact":
+            return Verdict.true(
+                reason="cofinite topology is compact (each nonempty open omits only finitely many points)"
+            )
+        if prop == "connected":
+            return Verdict.true(
+                reason="cofinite topology on an infinite set is hyperconnected, hence connected"
+            )
+        if prop in {"regular", "normal"}:
+            return Verdict.false(
+                reason=f"cofinite topology on an infinite set is not {prop} "
+                "(disjoint nonempty closed sets cannot be separated by disjoint opens)",
+                counterexample="two disjoint finite closed sets",
             )
         return None
 
@@ -102,9 +116,21 @@ class OrderTopologySpace(Space):
             witness=(("ray_below", mid), ("ray_above", mid)),
         )
 
-    def separation_certificate(self, axiom: str) -> Verdict | None:
-        if axiom in {"T0", "T1", "T2"}:
-            return Verdict.true(reason="every order topology is Hausdorff")
+    def certificate(self, prop: str) -> Verdict | None:
+        if prop in {"T0", "T1", "T2", "regular", "normal"}:
+            return Verdict.true(
+                reason=f"order topology on Q is {prop} (linearly ordered spaces are monotonically normal)"
+            )
+        if prop == "compact":
+            return Verdict.false(
+                reason="the rationals are not compact",
+                counterexample="the cover by rays around an irrational cut has no finite subcover",
+            )
+        if prop == "connected":
+            return Verdict.false(
+                reason="the rationals are totally disconnected",
+                counterexample="a clopen split of Q at an irrational cut",
+            )
         return None
 
 
@@ -133,9 +159,11 @@ class MetricTopologySpace(Space):
             witness=((x, radius), (y, radius)),
         )
 
-    def separation_certificate(self, axiom: str) -> Verdict | None:
-        if axiom in {"T0", "T1", "T2"}:
-            return Verdict.true(reason="every metric space is Hausdorff")
+    def certificate(self, prop: str) -> Verdict | None:
+        # Properties true for *every* metric space. Compactness/connectedness
+        # depend on the specific metric, so they are left undecided here (honest).
+        if prop in {"T0", "T1", "T2", "regular", "normal"}:
+            return Verdict.true(reason=f"every metric space is {prop}")
         return None
 
 

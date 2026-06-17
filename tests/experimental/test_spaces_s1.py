@@ -66,9 +66,9 @@ def test_cofinite_infinite_not_hausdorff():
 
 
 def test_cofinite_is_t1_certificate():
-    v = CofiniteSpace().separation_certificate("T1")
+    v = CofiniteSpace().certificate("T1")
     assert v.value is True
-    assert CofiniteSpace().separation_certificate("T2").value is False
+    assert CofiniteSpace().certificate("T2").value is False
 
 
 def test_order_topology_is_hausdorff():
