@@ -16,6 +16,13 @@ is_hausdorff(rational_metric_space()).value   # True  (decided via metric certif
 
 from __future__ import annotations
 
+from .constructed import (
+    Construction,
+    ProductSpace,
+    QuotientSpace,
+    SubspaceSpace,
+    SumSpace,
+)
 from .constructions import (
     binary_product,
     disjoint_sum,
@@ -37,6 +44,13 @@ from .predicates import (
     is_regular,
     is_t0,
     is_t1,
+)
+from .reasoning import (
+    PRESERVATION,
+    Derivation,
+    derive,
+    explain,
+    synthesize,
 )
 from .representations import (
     CofiniteSpace,
@@ -65,6 +79,16 @@ __all__ = [
     "binary_product",
     "disjoint_sum",
     "quotient",
+    "Construction",
+    "ProductSpace",
+    "SumSpace",
+    "SubspaceSpace",
+    "QuotientSpace",
+    "PRESERVATION",
+    "Derivation",
+    "derive",
+    "explain",
+    "synthesize",
     "FiniteSpace",
     "CofiniteSpace",
     "OrderTopologySpace",
