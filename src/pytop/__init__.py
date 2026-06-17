@@ -538,6 +538,22 @@ from .knot_invariants import (
     alexander_polynomial_from_braid,
     is_valid_pd_code,
 )
+from .winding_number import (
+    WindingError,
+    winding_number,
+    circle_map_degree,
+    vector_field_index,
+)
+from .surface_word_classification import (
+    SurfaceClassification,
+    classify_surface_word,
+)
+from .graph_planarity import (
+    GraphPlanarityError,
+    graph_genus,
+    is_planar,
+    satisfies_planar_edge_bound,
+)
 from .cell_complexes import (
     Cell,
     CellComplexProfile,
@@ -1283,6 +1299,16 @@ __all__ = [
     "reduced_burau",
     "alexander_polynomial_from_braid",
     "is_valid_pd_code",
+    "WindingError",
+    "winding_number",
+    "circle_map_degree",
+    "vector_field_index",
+    "SurfaceClassification",
+    "classify_surface_word",
+    "GraphPlanarityError",
+    "graph_genus",
+    "is_planar",
+    "satisfies_planar_edge_bound",
     "Cell",
     "CellComplexProfile",
     "CellComplexError",

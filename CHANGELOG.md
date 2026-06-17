@@ -36,6 +36,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     Hausdorff); `steen_seebach_index` links to *Counterexamples in Topology* numbers. Data compiled
     by `_internal/pi_base_compile.py`; loaded with stdlib `json` only (no runtime dependency). A
     cross-validation test suite pins pytop's hand-encoded implications against the pi-Base graph.
+  - `winding_number.py` — `winding_number`, `circle_map_degree` (degree of S¹→S¹ maps), and
+    `vector_field_index` (index of an isolated planar zero) from sampled geometric data.
+  - `surface_word_classification.py` — `classify_surface_word`: closed-surface classification from a
+    polygon gluing word via corner identification → Euler characteristic, orientability, genus
+    (sphere / torus / ℝP² / Klein bottle / genus-g). Verified incl. genus-2 and ℝP²#ℝP² = Klein.
+  - `graph_planarity.py` — exact `is_planar` / `graph_genus` for small graphs via rotation-system
+    search (K5, K3,3, Petersen non-planar; genus additive over components), plus the Euler edge bound.
 - `named_spaces.py` + `space_catalog.py` — 104 canonical named topological spaces across 8 batches:
   - **Batch 1 (20):** Sierpiński space, particular/excluded point topologies, cofinite/cocountable
     topologies, real line, Sorgenfrey line, ℚ, irrationals, Cantor set, Hilbert cube, long line,
