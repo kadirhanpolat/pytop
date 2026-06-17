@@ -8,7 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- **Constructive computational core (v0.6.0)** — genuine invariant computation from
+- **Computable space protocol (Milestone S1, experimental)** — `pytop.experimental.spaces`:
+  a `Space` representation protocol unifying finite and finitely-presented infinite spaces
+  (cofinite, order topology on ℚ, exact metric, opaque), a decidability-honest `Verdict`
+  (decided / semi-decidable / undecidable, with witness or counterexample), and a generic
+  `is_hausdorff` that computes on finite spaces, uses construction certificates on infinite
+  ones, and honestly reports undecidable otherwise. First step of the research-grade roadmap
+  (see `docs/CAPABILITIES_AND_ROADMAP.md`).
+
+## [0.6.0] - 2026-06-17
+
+### Added
+- **Constructive computational core** — genuine invariant computation from
   raw input, complementing the descriptive profile layer:
   - `homology.py` — integral simplicial homology of a finite `SimplicialComplex`:
     oriented `boundary_matrix`, integer Smith normal form, `simplicial_homology` /
