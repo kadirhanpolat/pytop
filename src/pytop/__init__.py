@@ -526,6 +526,12 @@ from .homology import (
     reduced_homology,
     euler_characteristic_via_homology,
 )
+from .homology_coefficients import (
+    homology_with_coefficients,
+    betti_numbers_over,
+    relative_homology,
+    relative_betti_numbers,
+)
 from .knot_invariants import (
     Laurent,
     KnotDiagram,
@@ -1288,6 +1294,10 @@ __all__ = [
     "betti_numbers",
     "reduced_homology",
     "euler_characteristic_via_homology",
+    "homology_with_coefficients",
+    "betti_numbers_over",
+    "relative_homology",
+    "relative_betti_numbers",
     "Laurent",
     "KnotDiagram",
     "writhe",
