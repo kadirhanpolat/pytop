@@ -591,13 +591,22 @@ from .van_kampen import (
 from .knot_invariants import (
     Laurent,
     KnotDiagram,
+    LinkDiagram,
     writhe,
     linking_number,
+    linking_matrix,
+    multivariable_alexander,
     kauffman_bracket,
     jones_polynomial,
     reduced_burau,
     alexander_polynomial_from_braid,
     is_valid_pd_code,
+)
+from .seifert import (
+    seifert_circles,
+    seifert_genus_bound,
+    seifert_matrix,
+    signature,
 )
 from .winding_number import (
     WindingError,

@@ -251,7 +251,13 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   - `_twist_reduce` bigint bitmask — `list[set[int]]` → `list[int]` Python bigint column
     representation; pivot detection via `col.bit_length()-1` (C-level intrinsic); **~6.6× kernel
     speedup** applied to both `persistent_homology_optimized` and `cubical_homology`.
-- **9 764 tests passing** across the full suite.
+- **Phase 3 P3.1 — Knot/Link suite** (`feat/phase3-knot-suite`, in progress):
+  - `seifert.py`: `seifert_circles`, `seifert_genus_bound`, `seifert_matrix`, `signature`
+    (Sylvester LDLT, no numpy); unknot=0, trefoil=1, figure-8=1 verified.
+  - `knot_invariants.py` extended: `LinkDiagram`, `linking_number`, `linking_matrix`;
+    Hopf link linking number ±1 verified. `multivariable_alexander` stub (n>1 deferred).
+  - HOMFLY-PT (`homfly.py` + `Laurent2`): in progress.
+- **9 834 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

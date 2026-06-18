@@ -8,6 +8,8 @@
 > complete; Phase 2 (algebraic topology) is **complete** (8 / 8 items done).
 > feat/mayer-vietoris merged to **master** via PR #15 (9 764 tests, 20 correctness fixes,
 > ~6.6× Twist+Clearing kernel speedup).
+> **Phase 3 in progress** (`feat/phase3-knot-suite`): Seifert algorithm + LinkDiagram
+> complete; HOMFLY-PT polynomial in progress.
 
 ---
 
@@ -188,10 +190,24 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | Optimized persistence (clearing/twist) | ✅ | `persistent_homology_optimized`: Twist algorithm (Chen–Kerber 2011) + Clearing Lemma; dimension-top-down sweep; `ReductionStats` (n_cleared, clearing_ratio, n_column_additions); cross-validated against standard reduction |
 | Cubical complexes | ✅ | `cubical_homology`: `CubicalComplex` (face-closure, boundary ℤ-matrix, SNF homology); standard spaces S¹/D²/interval; `CubicalFiltration` + `bitmap_to_cubical_filtration` (lower-star from 2-D pixel array); `persistence_pairs_cubical` + `persistent_homology_bitmap` via shared Twist+Clearing kernel |
 
-### Phase 3 — Geometric & low-dimensional topology ⬜ NOT STARTED
+### Phase 3 — Geometric & low-dimensional topology 🔄 IN PROGRESS
 
-- Full knot/link suite from diagrams (HOMFLY, Khovanov, genus bounds, links);
-  3-manifolds / normal surfaces (Regina-scale — very ambitious); SnapPy interop.
+**P3.1 — Knot/Link suite (pure Python):**
+
+| Item | Status | Delivered |
+|------|--------|-----------|
+| Seifert algorithm | ✅ | `seifert.py`: `seifert_circles`, `seifert_genus_bound`, `seifert_matrix`, `signature` (LDLT); unknot=0, trefoil=1, figure-8=1 verified |
+| Link invariants | ✅ | `knot_invariants.py`: `LinkDiagram`, `linking_number`, `linking_matrix`; Hopf link linking_number=±1 verified |
+| HOMFLY-PT polynomial | 🔄 | `homfly.py` + `Laurent2` (2-var Laurent): in progress |
+| Multivariable Alexander | ⬜ | Deferred (n>1 components raises NotImplementedError) |
+
+**P3.2 — 3-manifold basics:**
+- `experimental/snappy_bridge.py` — SnapPy optional bridge: ⬜ not started
+- `dehn_surgery.py` — rational surgery coefficients: ⬜ not started
+
+**P3.3 — Advanced (long-term):**
+- `khovanov.py` — cube-of-resolutions → graded complex → SNF: ⬜ not started
+- Normal surfaces (Regina-scale): out of scope for pure-Python pytop
 
 ### Phase 4 — Performance, correctness, interoperability ⬜ NOT STARTED
 
@@ -218,7 +234,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 764** |
+| Tests passing | **9 834** |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
