@@ -23,6 +23,8 @@ from pytop.persistent_homology import (
 )
 from pytop.persistent_homology_optimized import (
     ReductionStats,
+    persistence_pairs_cohomology,
+    persistence_pairs_cohomology_with_stats,
     persistence_pairs_twist,
     persistence_pairs_twist_with_stats,
     persistent_homology_optimized,
@@ -426,3 +428,80 @@ class TestPersistentHomologyOptimized:
             _two_cluster_space(), max_dimension=1, include_zero_persistence=False
         )
         assert len(pairs_with) >= len(pairs_without)
+
+
+# ---------------------------------------------------------------------------
+# Persistent cohomology (de Silva–Morozov–Vejdemo-Johansson dual algorithm).
+# It must produce IDENTICAL barcodes to the standard reduction, via far fewer
+# column operations.
+# ---------------------------------------------------------------------------
+
+def _cross_validate_cohomology(filtered: FilteredComplex, **kwargs) -> None:
+    expected = persistence_pairs(filtered, **kwargs)
+    got = persistence_pairs_cohomology(filtered, **kwargs)
+    assert got == expected, (
+        f"Cohomology result differs from standard.\n"
+        f"Standard:   {expected}\n"
+        f"Cohomology: {got}"
+    )
+
+
+class TestCohomologyCrossValidation:
+    def test_empty_filtration(self):
+        f = FilteredComplex(simplices=(), births=(), dimensions=())
+        pairs, stats = persistence_pairs_cohomology_with_stats(f)
+        assert pairs == ()
+        assert stats.n_simplices == 0
+        assert stats.n_pairs == 0
+
+    def test_single_vertex_essential(self):
+        f = FilteredComplex(simplices=((0,),), births=(0.0,), dimensions=(0,))
+        pairs = persistence_pairs_cohomology(f)
+        assert len(pairs) == 1 and pairs[0].is_essential and pairs[0].dimension == 0
+
+    def test_single_edge_creates_pair(self):
+        f = FilteredComplex(
+            simplices=((0,), (1,), (0, 1)), births=(0.0, 0.0, 1.0), dimensions=(0, 0, 1)
+        )
+        pairs = persistence_pairs_cohomology(f)
+        finite = [p for p in pairs if not p.is_essential]
+        assert len(finite) == 1
+        assert finite[0].birth == pytest.approx(0.0)
+        assert finite[0].death == pytest.approx(1.0)
+
+    def test_two_clusters_dim1(self):
+        _cross_validate_cohomology(
+            vietoris_rips_filtration(_two_cluster_space(), max_dimension=1)
+        )
+
+    @pytest.mark.parametrize("n", [6, 8, 10, 12, 15, 20])
+    def test_circle_dim2_matches_standard(self, n):
+        f = vietoris_rips_filtration(_metric_space(_circle_points(n)), max_dimension=2)
+        _cross_validate_cohomology(f)
+
+    def test_include_zero_persistence_matches(self):
+        f = vietoris_rips_filtration(_metric_space(_circle_points(10)), max_dimension=2)
+        _cross_validate_cohomology(f, include_zero_persistence=True)
+
+    def test_agrees_with_twist(self):
+        # cohomology == twist == standard, all three engines on the same complex
+        f = vietoris_rips_filtration(_metric_space(_circle_points(12)), max_dimension=2)
+        assert persistence_pairs_cohomology(f) == persistence_pairs_twist(f)
+
+
+class TestCohomologyEfficiency:
+    def test_far_fewer_column_operations_than_twist(self):
+        # On a Vietoris–Rips circle almost all pairs are apparent in cohomology,
+        # so the dual algorithm does orders of magnitude fewer column additions.
+        f = vietoris_rips_filtration(_metric_space(_circle_points(20)), max_dimension=2)
+        _twist, twist_stats = persistence_pairs_twist_with_stats(f)
+        _coh, coh_stats = persistence_pairs_cohomology_with_stats(f)
+        assert coh_stats.n_column_additions < twist_stats.n_column_additions // 10
+
+    def test_stats_fields(self):
+        f = vietoris_rips_filtration(_metric_space(_circle_points(8)), max_dimension=2)
+        pairs, stats = persistence_pairs_cohomology_with_stats(f)
+        assert stats.n_simplices == f.size()
+        assert stats.n_cleared == 0  # clearing is not used in this formulation
+        assert stats.n_pairs == len(pairs)
+        assert stats.n_finite_pairs + stats.n_essential == len(pairs)
