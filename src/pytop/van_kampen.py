@@ -406,7 +406,7 @@ def _identify_group(gens: list[str], rels: list[Word]) -> str:
             list(gens) == [s for i in range(1, g + 1) for s in (f"a{i}", f"b{i}")]
             and rels[0] == tuple(expected_rel)
         ):
-            return "abelian_Z2" if g == 1 else f"surface_group_orientable_genus_{g}"
+            return "free_abelian_rank_2" if g == 1 else f"surface_group_orientable_genus_{g}"
 
     # Non-orientable surface groups: n generators, relator a₁²⋯aₙ²
     if r == 1:
@@ -654,6 +654,12 @@ def cw_complex_pi1(cw: CW1Complex) -> GroupPresentation:
     """
     root = cw._get_basepoint()
     tree = _bfs_spanning_tree(cw.vertices, cw.edges, root)
+    num_vertices = len(cw.vertices)
+    if len(tree) + 1 < num_vertices:
+        raise ValueError(
+            "1-skeleton is disconnected; π₁ via spanning tree requires a "
+            "connected 1-skeleton."
+        )
     gen_names = tuple(e.name for e in cw.edges if e.name not in tree)
     gen_set = set(gen_names)
     relators: list[Word] = []
@@ -809,7 +815,7 @@ def van_kampen_torus() -> VanKampenResult:
         simplified_generators=base.simplified_generators,
         simplified_relators=base.simplified_relators,
         abelianization=base.abelianization,
-        group_type="abelian_Z2",
+        group_type="free_abelian_rank_2",
         notes=("T²: π₁ = ⟨a,b | aba⁻¹b⁻¹⟩ ≅ ℤ².",) + base.notes,
     )
 

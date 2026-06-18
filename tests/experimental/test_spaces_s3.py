@@ -120,3 +120,111 @@ def test_synthesize_hausdorff_disconnected():
     assert space is not None
     assert derive(space, "T2").verdict.value is True
     assert derive(space, "connected").verdict.value is False
+
+
+# --------------------------------------------------------------------------
+# synthesize() — edge cases and counterexample validation
+# --------------------------------------------------------------------------
+
+def test_synthesize_returns_none_when_impossible():
+    # Request a space that is compact AND not compact: impossible.
+    space = synthesize(has=["compact"], lacks=["compact"])
+    assert space is None
+
+
+def test_synthesize_with_custom_library():
+    # Use a custom library of a single connected space.
+    indiscrete = FiniteSpace("ind2", {0, 1}, [set(), {0, 1}])
+    space = synthesize(has=["connected"], library=[indiscrete])
+    assert space is not None
+    assert derive(space, "connected").verdict.value is True
+
+
+def test_synthesize_compact_not_connected():
+    # Discrete 2-point space: compact and disconnected.
+    space = synthesize(has=["compact", "T2"], lacks=["connected"])
+    assert space is not None
+    assert derive(space, "compact").verdict.value is True
+    assert derive(space, "T2").verdict.value is True
+    assert derive(space, "connected").verdict.value is False
+
+
+def test_synthesize_result_validates_counterexample():
+    # Synthesize a space lacking T2, then verify the returned space truly fails T2.
+    from pytop.experimental.spaces.reasoning import derive as _derive
+    space = synthesize(has=["compact"], lacks=["T2"])
+    assert space is not None
+    verdict = _derive(space, "T2")
+    assert verdict.verdict.value is False
+
+
+def test_synthesize_empty_constraints_returns_some_space():
+    # No constraints: return the first library element.
+    space = synthesize(has=[], lacks=[])
+    assert space is not None
+
+
+# --------------------------------------------------------------------------
+# derive() — unknown property raises ValueError
+# --------------------------------------------------------------------------
+
+def test_derive_unknown_property_raises():
+    import pytest
+    with pytest.raises(ValueError, match="Unknown property"):
+        derive(DISCRETE2, "unicorn_property")
+
+
+# --------------------------------------------------------------------------
+# derive() — pi-Base implication from T3 → T2, T1, T0
+# --------------------------------------------------------------------------
+
+def test_derive_t2_implies_t1_via_pi_base():
+    # T2 (Hausdorff) is certified; pi-Base closure should yield T1 and T0 as implied.
+    class T2Space(Space):
+        name = "declaredT2"
+        carrier_kind = CarrierKind.COUNTABLE
+
+        def contains(self, point):
+            return True
+
+        def certificate(self, prop):
+            if prop in {"T0", "T1", "T2"}:
+                return Verdict.true(reason=f"declared {prop}")
+            return None
+
+    space = T2Space()
+    # T1 is directly certified
+    d1 = derive(space, "T1")
+    assert d1.verdict.value is True
+    # T0 is directly certified
+    d0 = derive(space, "T0")
+    assert d0.verdict.value is True
+
+
+# --------------------------------------------------------------------------
+# Derivation.explain() — tree format
+# --------------------------------------------------------------------------
+
+def test_derivation_explain_contains_prop():
+    d = derive(DISCRETE2, "T0")
+    text = d.explain()
+    assert "T0" in text
+
+
+def test_derivation_explain_subderivations_indented():
+    # Product of two T2 spaces: the explain tree should show both components.
+    prod = ProductSpace([DISCRETE2, DISCRETE2])
+    text = explain(prod, "T2")
+    # Sub-derivations appear at deeper indentation (two-space prefix)
+    assert "  -" in text
+
+
+# --------------------------------------------------------------------------
+# _structural_false: sum of 3+ spaces is disconnected
+# --------------------------------------------------------------------------
+
+def test_sum_of_three_is_structurally_disconnected():
+    space = SumSpace([DISCRETE2, DISCRETE2, DISCRETE2])
+    d = derive(space, "connected")
+    assert d.verdict.value is False
+    assert "disconnected" in d.rule

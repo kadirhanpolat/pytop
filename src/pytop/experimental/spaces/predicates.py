@@ -63,7 +63,9 @@ def _decide(space: Space, prop: str, finite_rule: Callable[[FiniteTopology], Ver
 
 def is_hausdorff(space: Space) -> Verdict:
     """Decide whether ``space`` is Hausdorff (T2), with witness or counterexample."""
-
+    cert = space.certificate("T2")
+    if cert is not None:
+        return cert
     if space.is_finite():
         return _decide_finite_hausdorff(space)
     return _via_certificate(space, "T2")

@@ -136,8 +136,10 @@ class Derivation:
         return "\n".join(lines)
 
 
-def _provable_true_props(space: Space) -> dict[str, Derivation]:
+def _provable_true_props(space: Space, _depth: int = 0) -> dict[str, Derivation]:
     """Return the properties the space *provably has*, each with a derivation."""
+    if _depth > 100:
+        return {}
 
     proven: dict[str, Derivation] = {}
     if space.construction is None:
@@ -149,7 +151,7 @@ def _provable_true_props(space: Space) -> dict[str, Derivation]:
 
     kind = space.construction.kind
     operands = space.construction.operands
-    operand_props = [_provable_true_props(op) for op in operands]
+    operand_props = [_provable_true_props(op, _depth + 1) for op in operands]
     for prop in PRESERVATION.get(kind, frozenset()):
         if all(prop in op for op in operand_props):
             subs = tuple(op[prop] for op in operand_props)

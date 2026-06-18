@@ -174,11 +174,9 @@ def _bfs_urysohn(
             level = next((i for i, v in enumerate(chain) if y in v), n)
             values[y] = Fraction(level, n) if n > 0 else Fraction(0)
 
-    # Verify: f(x₀) should be 0 (or 1/n for the first level)
-    # and f(C) ⊆ {1}.
-    if values.get(x0, Fraction(1)) > Fraction(0) and len(chain) > 1:
-        # x₀ not in chain[0]; fallback to simple indicator
-        pass
+    # Guarantee f(x₀) = 0: x₀ ∈ chain[0] by construction (min_open_x0 ∋ x₀),
+    # so level = 0 → Fraction(0, n) = 0.  Force it explicitly as a safeguard.
+    values[x0] = Fraction(0)
 
     return values
 
@@ -222,7 +220,12 @@ def urysohn_function(
     >>> w.evaluate(1)
     Fraction(1, 1)
     """
-    from .representations import MetricTopologySpace, OrderTopologySpace, SorgenfreyLineSpace
+    from .representations import (
+        DiscreteCountableSpace,
+        MetricTopologySpace,
+        OrderTopologySpace,
+        SorgenfreyLineSpace,
+    )
 
     if space.is_finite():
         return _finite_urysohn(space, x0, closed_set)
@@ -236,6 +239,17 @@ def urysohn_function(
     if isinstance(space, OrderTopologySpace):
         return _order_topology_urysohn(space, x0, closed_set)
 
+    if isinstance(space, DiscreteCountableSpace):
+        return _discrete_countable_urysohn(space, x0, closed_set)
+
+    # Not implemented for:
+    #   - CofiniteSpace: infinite cofinite spaces are T1 but NOT Urysohn
+    #     (the only continuous functions to [0,1] are eventually constant),
+    #     so no Urysohn function exists in general.
+    #   - OpaqueInfiniteSpace: topology is externally undecidable; no algorithm
+    #     can construct a witness without knowing the open-set structure.
+    #   - Infinite AlexandroffSpace: specialization topology need not be
+    #     Tychonoff; not implemented for infinite carriers.
     return None
 
 
@@ -362,6 +376,34 @@ def _order_topology_urysohn(
         values=None,
         formula=formula,
         method="order_metric_ratio",
+    )
+
+
+def _discrete_countable_urysohn(
+    space: Any,
+    x0: Any,
+    closed_set: frozenset,
+) -> UrysohnWitness:
+    """Urysohn witness for DiscreteCountableSpace (discrete metric: d(x,y) = 0 iff x=y, else 1).
+
+    DiscreteCountableSpace is metrizable via the discrete metric d(x,y) = 0 if x=y
+    else 1.  The distance from x₀ to any non-empty closed set C not containing x₀
+    is d(x₀, C) = 1 (since no sequence in C converges to x₀ in the discrete topology).
+    The distance-ratio formula f(y) = min(1, d(x₀,y) / d(x₀,C)) = d(x₀,y) then
+    gives f(x₀) = 0 and f(c) = 1 for all c ∈ C.
+    """
+    formula = (
+        f"f(y) = d_discrete({x0!r}, y)  "
+        "where d_discrete(x, y) = 0 if x = y, else 1. "
+        f"f({x0!r}) = 0; f(c) = 1 for c ∈ C (discrete metric: d(x₀, C) = 1). "
+        "DiscreteCountableSpace is metrizable, hence Tychonoff."
+    )
+    return UrysohnWitness(
+        x0=x0,
+        closed_set=closed_set,
+        values=None,
+        formula=formula,
+        method="discrete_metric",
     )
 
 

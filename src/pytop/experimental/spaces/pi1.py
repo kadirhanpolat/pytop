@@ -302,9 +302,23 @@ def pi1_space(space: Space) -> Pi1Result:
     if space.is_finite():
         return _finite_pi1(space)
 
+    # ---------- PiBaseSpace: known spaces from the pi-Base atlas ----------
+    from .pi_base_bridge import PiBaseSpace  # local import to avoid circular deps
+    if isinstance(space, PiBaseSpace):
+        raise NotImplementedError(
+            f"π₁ not implemented for PiBaseSpace {space.name!r}. "
+            "For well-known spaces in the pi-Base atlas, fundamental groups are "
+            "available as curated properties via the pi-Base trait data. "
+            "Use van_kampen directly with a custom CW decomposition, or consult "
+            "the pi-Base atlas for known π₁ information."
+        )
+
     raise NotImplementedError(
         f"π₁ not implemented for infinite space {space.name!r}. "
-        "Only finite spaces and finite constructions are supported."
+        "Only finite spaces and finite constructions (ProductSpace, SumSpace) "
+        "are supported. For PiBaseSpace objects, known fundamental groups are "
+        "available as properties or via the pi-Base atlas. Use van_kampen "
+        "directly for custom decompositions."
     )
 
 
@@ -349,8 +363,20 @@ def _finite_pi1(space: Space) -> Pi1Result:
         f"{len(cw.faces)} 2-cells."
     )
 
-    # π₁ via spanning-tree algorithm
-    pres = cw_complex_pi1(cw)
+    # π₁ via spanning-tree algorithm.
+    # If the 1-skeleton is disconnected (e.g. a discrete space with no
+    # comparable pairs), each connected component is a single vertex and
+    # therefore contractible — π₁ of the basepoint component is trivial.
+    try:
+        pres = cw_complex_pi1(cw)
+    except ValueError as exc:
+        if "disconnected" in str(exc):
+            notes.append(
+                "Order complex 1-skeleton is disconnected; each component is "
+                "contractible (no edges), so π₁ of the basepoint component = trivial."
+            )
+            return _make_result(trivial_group(), "order_complex", space.name, notes)
+        raise
     notes.append(f"CW spanning-tree: {len(pres.generators)} generator(s), "
                  f"{len(pres.relators)} relator(s).")
 
@@ -397,11 +423,7 @@ def _product_pi1(space: ProductSpace) -> Pi1Result:
                     comm_count += 1
     notes.append(f"Added {comm_count} commutativity relator(s) between factors.")
 
-    try:
-        pres = GroupPresentation(generators=tuple(all_gens), relators=tuple(all_rels))
-    except Exception:
-        pres = trivial_group()
-
+    pres = GroupPresentation(generators=tuple(all_gens), relators=tuple(all_rels))
     return _make_result(pres, "product_theorem", space.name, notes)
 
 

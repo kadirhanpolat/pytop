@@ -232,7 +232,20 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   2-D pixel array with f(face) ≤ f(coface) guaranteed); `persistence_pairs_cubical` +
   `persistent_homology_bitmap` via the shared Twist+Clearing kernel — 3×3 annular image
   correctly yields H₁ bar [0, 1). 74 new tests.
-- **9 655 tests passing** across the full suite.
+- **Phase 1/2 correctness fixes** (current):
+  - **5 HIGH fixes**: `is_hausdorff` certificate bypass; `_close_under_unions` deduplication
+    (constructions.py → imports from representations.py); `_provable_true_props` recursion guard
+    (depth limit 100); `_product_pi1` bare `except Exception` removed; Mayer–Vietoris
+    `_check_exact_at_middle` torsion-aware composition (`val % d == 0` for torsion generators).
+  - **15 MEDIUM fixes**: `OrderTopologySpace` midpoint formula (`(lo+hi)/2`); `AlexandroffSpace`
+    union-find refactored to `_order_graph_component_count()`; `SorgenfreyLineSpace` counterexample
+    in certificate; `QuotientSpace.contains` raises `NotImplementedError`; `DiscreteCountableSpace`
+    Urysohn support (discrete metric); `_bfs_urysohn` dead-code path fixed; `homology_coefficients`
+    prime modulus validation; `relative_homology` double boundary matrix computation; `_induced_on_hk`
+    zero-row shape for empty target; `mayer_vietoris` off-by-one boundary (max_dim+2→max_dim+1);
+    `CohomologyRing.verify_graded_commutativity()` added; torus `group_type` corrected to
+    `"free_abelian_rank_2"`; `cw_complex_pi1` disconnected 1-skeleton guard; cubical OOM warnings.
+- **9 764 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

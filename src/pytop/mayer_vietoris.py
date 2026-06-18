@@ -361,7 +361,7 @@ def _induced_on_hk(
     if n_src == 0:
         return [[] for _ in range(n_tgt)]
     if n_tgt == 0:
-        return [[0] * n_src]
+        return []  # semantically correct: 0 rows (no target generators)
 
     result = [[0] * n_src for _ in range(n_tgt)]
     for j in range(n_src):
@@ -538,6 +538,13 @@ def _image_subspace(M: Matrix) -> set[tuple[int, ...]]:
     return cols
 
 
+def _gen_orders(hdata: _HomologyData) -> list[int]:
+    """Order of each homology generator: d > 1 for torsion (order d), 0 for free."""
+    orders = [hdata.D_B_diag[j] for j in hdata.torsion_indices]
+    orders += [0] * len(hdata.free_indices)
+    return orders
+
+
 def _mat_rank(M: Matrix) -> int:
     """Rank of an integer matrix via partial SNF."""
     if not M or not M[0]:
@@ -549,11 +556,24 @@ def _mat_rank(M: Matrix) -> int:
     )
 
 
-def _check_exact_at_middle(left: Matrix, right: Matrix, mid_dim: int) -> bool:
-    """Check im(left) = ker(right) via rank-nullity.
+def _check_exact_at_middle(
+    left: Matrix,
+    right: Matrix,
+    mid_dim: int,
+    tgt_orders: list[int] | None = None,
+) -> bool:
+    """Check im(left) = ker(right) via rank-nullity and torsion-aware composition.
 
-    Equivalent condition: rank(left) + rank(right) = mid_dim AND right∘left = 0.
-    Handles empty / zero matrices correctly.
+    For free abelian middle groups this is exact.  When ``tgt_orders`` is
+    supplied, the composition check reduces ``(right∘left)[i][j]`` modulo the
+    order of the *i*-th target generator, correctly handling groups with torsion
+    (e.g. Z/2 ⊕ Z where integer entry 2 is 0 in the torsion component).
+
+    Parameters
+    ----------
+    tgt_orders:
+        Order of each generator in the codomain of ``right`` (0 = infinite /
+        free).  Pass ``_gen_orders(hdata_target)`` at each call site.
     """
     if mid_dim == 0:
         return True
@@ -561,15 +581,18 @@ def _check_exact_at_middle(left: Matrix, right: Matrix, mid_dim: int) -> bool:
     r_right = _mat_rank(right)
     if r_left + r_right != mid_dim:
         return False
-    # Verify composition vanishes
     if left and left[0] and right and right[0]:
         comp = _mat_mul(right, left)
-        if any(
-            comp[i][j] != 0
-            for i in range(len(comp))
-            for j in range(len(comp[0]) if comp else [])
-        ):
-            return False
+        cols_comp = len(comp[0]) if comp else 0
+        for i in range(len(comp)):
+            d = tgt_orders[i] if (tgt_orders and i < len(tgt_orders)) else 0
+            for j in range(cols_comp):
+                val = comp[i][j]
+                if d:
+                    if val % d != 0:
+                        return False
+                elif val != 0:
+                    return False
     return True
 
 
@@ -600,8 +623,10 @@ def mayer_vietoris(
     max_dim = max(A.dimension, B.dimension)
 
     # Precompute extended homology data for all four complexes.
+    # range(max_dim + 1) suffices: the loop runs n=0..max_dim and accesses
+    # hd_XY[n] and hd_AB[n-1] (i.e. indices 0..max_dim).
     def hdata_all(X: SimplicialComplex) -> list[_HomologyData]:
-        return [_compute_homology_data(X, k) for k in range(max_dim + 2)]
+        return [_compute_homology_data(X, k) for k in range(max_dim + 1)]
 
     hd_AB = hdata_all(AB)
     hd_A = hdata_all(A)
@@ -658,18 +683,20 @@ def mayer_vietoris(
         n_sum = n_a + n_b
 
         # At H_n(A∩B): im(δ_{n+1}) = ker(φ_n)  [checked at next degree]
-        # At H_n(A)⊕H_n(B): im(φ_n) = ker(ψ_n)
-        exact_at_AB2 = _check_exact_at_middle(phi, psi, n_sum)
-        # At H_n(K): im(ψ_n) = ker(δ_n)
-        exact_at_K = _check_exact_at_middle(psi, delta, n_k)
-        # At H_{n-1}(A∩B): im(δ_n) = ker(φ_{n-1}) [check δ_n composed with φ_{n-1}]
+        # At H_n(A)⊕H_n(B): im(φ_n) = ker(ψ_n)  [target of ψ = H_n(K)]
+        exact_at_AB2 = _check_exact_at_middle(phi, psi, n_sum, _gen_orders(k_n))
+        # At H_n(K): im(ψ_n) = ker(δ_n)  [target of δ = H_{n-1}(A∩B)]
+        tgt_orders_delta = _gen_orders(ab_n1) if ab_n1 is not None else []
+        exact_at_K = _check_exact_at_middle(psi, delta, n_k, tgt_orders_delta)
+        # At H_{n-1}(A∩B): im(δ_n) = ker(φ_{n-1}) [target of φ_{n-1} = H_{n-1}(A)⊕H_{n-1}(B)]
         if n >= 1 and ab_n1 is not None:
             a_n1 = hd_A[n - 1]   # H_{n-1}(A)
             b_n1 = hd_B[n - 1]   # H_{n-1}(B)
             phi_prev_i = _induced_on_hk(_inclusion_chain(AB, A, n - 1), ab_n1, a_n1)
             phi_prev_j = _induced_on_hk(_inclusion_chain(AB, B, n - 1), ab_n1, b_n1)
             phi_prev: Matrix = [list(r) for r in phi_prev_i] + [[-x for x in r] for r in phi_prev_j]
-            exact_at_AB = _check_exact_at_middle(delta, phi_prev, n_ab_prev)
+            tgt_orders_phi = _gen_orders(a_n1) + _gen_orders(b_n1)
+            exact_at_AB = _check_exact_at_middle(delta, phi_prev, n_ab_prev, tgt_orders_phi)
         else:
             exact_at_AB = True
 

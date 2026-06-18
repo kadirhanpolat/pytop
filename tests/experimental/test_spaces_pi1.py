@@ -243,3 +243,57 @@ class TestPi1ResultAPI:
         from pytop.experimental.spaces import CofiniteSpace
         with pytest.raises(NotImplementedError):
             pi1_space(CofiniteSpace())
+
+
+# ==========================================================================
+# SubbaseSpace π₁ computation
+# ==========================================================================
+
+class TestSubbasePi1:
+    def test_indiscrete_subbase_is_trivial(self):
+        # Empty subbase → indiscrete → single specialisation class → trivial π₁.
+        s = SubbaseSpace("ind", {0, 1, 2}, [])
+        r = pi1_space(s)
+        assert r.is_trivial()
+
+    def test_discrete_subbase_trivial_pi1(self):
+        # Full discrete subbase on 2 points: each point forms its own connected
+        # component; the component at the basepoint is contractible → trivial π₁.
+        s = SubbaseSpace("D2", {0, 1}, [{0}, {1}])
+        r = pi1_space(s)
+        assert r.is_trivial()
+
+    def test_subbase_single_point_trivial(self):
+        s = SubbaseSpace("pt", {0}, [{0}])
+        r = pi1_space(s)
+        assert r.is_trivial()
+
+    def test_subbase_preserves_space_name(self):
+        s = SubbaseSpace("my_sub", {0, 1}, [{0}])
+        r = pi1_space(s)
+        assert r.space_name == "my_sub"
+
+
+# ==========================================================================
+# InverseLimitSpace π₁ computation
+# ==========================================================================
+
+class TestInverseLimitPi1:
+    def test_inverse_limit_two_points_trivial(self):
+        # lim← of two-point discrete spaces with identity: carrier = {(0,0),(1,1)},
+        # two isolated points → each contractible component → trivial π₁ at basepoint.
+        from pytop.experimental.spaces import discrete_finite_space
+        d2 = discrete_finite_space({0, 1})
+        from pytop.experimental.spaces.representations import InverseLimitSpace
+        lim = InverseLimitSpace("lim←", [d2, d2], [lambda x: x])
+        r = pi1_space(lim)
+        assert r.is_trivial()
+
+    def test_single_space_inverse_limit_trivial(self):
+        # Single-space inverse limit on a contractible space.
+        from pytop.experimental.spaces import AlexandroffSpace
+        from pytop.experimental.spaces.representations import InverseLimitSpace
+        chain = AlexandroffSpace("chain2", {0, 1}, [(0, 1)])
+        lim = InverseLimitSpace("lim←1", [chain], [])
+        r = pi1_space(lim)
+        assert r.is_trivial()

@@ -186,6 +186,15 @@ def cubical_boundary_matrix(cx: CubicalComplex, k: int) -> list[list[int]]:
 
     Rows are indexed by (k−1)-cubes, columns by k-cubes, both in canonical
     order.  Returns an empty matrix when k ≤ 0 or no k-cubes exist.
+
+    .. warning::
+        This function allocates a dense integer matrix of size
+        ``#(k−1)-cubes × #k-cubes``.  For large cubical complexes derived
+        from images (m×n > ~50×50 pixels), this can require hundreds of
+        millions of entries and exhaust available memory.  For large images,
+        consider using ``persistence_pairs_cubical`` (or
+        ``persistent_homology_bitmap``) which avoids the full boundary matrix
+        and runs the Twist+Clearing algorithm on sparse Z/2 columns instead.
     """
     if k <= 0:
         return []
@@ -208,6 +217,15 @@ def cubical_homology(cx: CubicalComplex) -> tuple[HomologyResult, ...]:
     Returns one :class:`~pytop.homology.HomologyResult` per degree from 0 to
     ``cx.dimension``.  The algorithm is identical to simplicial homology: SNF
     of ∂_k and ∂_{k+1} determines rank and torsion of H_k.
+
+    .. warning::
+        Internally calls :func:`cubical_boundary_matrix`, which allocates
+        dense integer matrices.  For cubical complexes built from images larger
+        than approximately 50×50 pixels, memory usage can become prohibitive
+        (on the order of hundreds of millions of entries).  For large images,
+        prefer ``persistence_pairs_cubical`` or ``persistent_homology_bitmap``
+        which use a sparse Twist+Clearing algorithm and avoid the full boundary
+        matrix.
     """
     if cx.dimension < 0:
         return ()

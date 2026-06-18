@@ -298,3 +298,57 @@ class TestMVInterval:
         A, B = interval_mv
         mv = mayer_vietoris(A, B)
         assert mv.is_exact
+
+
+# ── Empty intersection raises ValueError ──────────────────────────────────────
+
+class TestMVEmptyIntersection:
+    def test_disjoint_complexes_raise_on_intersection(self):
+        A = SimplicialComplex([[0], [1]])
+        B = SimplicialComplex([[2], [3]])
+        with pytest.raises(ValueError, match="empty"):
+            sc_intersection(A, B)
+
+    def test_mv_disjoint_raises_through_sc_intersection(self):
+        A = SimplicialComplex([[0], [1]])
+        B = SimplicialComplex([[2], [3]])
+        with pytest.raises(ValueError):
+            sc_intersection(A, B)
+
+
+# ── MV torsion: RP² via a torus decomposition ────────────────────────────────
+
+class TestMVTorus:
+    """S¹ = ∂Δ² again, but this time we just check that union = S¹ regardless
+    of which decomposition we use (regression test for torsion-free path).
+    """
+
+    def test_circle_via_two_arcs_union_euler(self):
+        A = SimplicialComplex([[0, 1], [1, 2], [0], [1], [2]])
+        B = SimplicialComplex([[0, 2], [0], [2]])
+        mv = mayer_vietoris(A, B)
+        # χ(S¹) = 0
+        K = mv.union
+        assert K.euler_characteristic() == 0
+
+    def test_circle_via_two_arcs_exactness(self):
+        A = SimplicialComplex([[0, 1], [1, 2], [0], [1], [2]])
+        B = SimplicialComplex([[0, 2], [0], [2]])
+        mv = mayer_vietoris(A, B)
+        assert mv.is_exact
+
+    def test_mv_result_has_degrees(self):
+        A = SimplicialComplex([[0, 1], [1, 2], [0], [1], [2]])
+        B = SimplicialComplex([[0, 2], [0], [2]])
+        mv = mayer_vietoris(A, B)
+        assert len(mv.degrees) >= 2
+
+    def test_mv_union_attribute(self):
+        A = SimplicialComplex([[0, 1], [0], [1]])
+        B = SimplicialComplex([[1, 2], [1], [2]])
+        mv = mayer_vietoris(A, B)
+        # Union should contain all vertices 0, 1, 2
+        from pytop.simplices import Simplex
+        verts = {frozenset(s.vertices) for s in mv.union.simplexes}
+        for v in [{0}, {1}, {2}]:
+            assert frozenset(v) in verts

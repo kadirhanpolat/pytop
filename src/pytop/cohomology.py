@@ -363,6 +363,57 @@ class CohomologyRing:
                 return False
         return True
 
+    def verify_graded_commutativity(self) -> bool:
+        """Verify the graded-commutativity relation for all cup product pairs.
+
+        Checks that  [α^p] ∪ [β^q] = (-1)^{p·q} [β^q] ∪ [α^p]  holds for
+        every pair (p, q) with p+q ≤ dim.
+
+        Returns
+        -------
+        bool
+            True if graded-commutativity holds for all checked pairs; False
+            if any violation is found (a violation message is printed).
+
+        Raises
+        ------
+        ValueError
+            If a violation is detected (in addition to printing the message).
+        """
+        ok = True
+        for (p, q), M_pq in self.cup_table.items():
+            M_qp = self.cup_table.get((q, p))
+            if M_qp is None:
+                continue  # symmetric pair not computed — skip
+            hp = self.h(p)
+            hq = self.h(q)
+            hpq = self.h(p + q)
+            if not hp or not hq or not hpq:
+                continue
+            n_p = hp.betti + len(hp.torsion)
+            n_q = hq.betti + len(hq.torsion)
+            n_pq = hpq.betti + len(hpq.torsion)
+            sign = (-1) ** (p * q)
+            for i in range(n_p):
+                for j in range(n_q):
+                    col_pq = i * n_q + j  # column in M_pq: α^p_i ∪ β^q_j
+                    col_qp = j * n_p + i  # column in M_qp: β^q_j ∪ α^p_i
+                    for r in range(n_pq):
+                        v_pq = M_pq[r][col_pq] if (M_pq and col_pq < len(M_pq[r])) else 0
+                        v_qp = M_qp[r][col_qp] if (M_qp and col_qp < len(M_qp[r])) else 0
+                        expected = sign * v_qp
+                        if v_pq != expected:
+                            msg = (
+                                f"Graded-commutativity violated at (p={p}, q={q}), "
+                                f"generators (i={i}, j={j}), H^{p+q} coordinate r={r}: "
+                                f"α^{p}_{i} ∪ β^{q}_{j} = {v_pq} but "
+                                f"(-1)^{{{p}·{q}}} · β^{q}_{j} ∪ α^{p}_{i} = {expected}"
+                            )
+                            print(msg)
+                            ok = False
+                            raise ValueError(msg)
+        return ok
+
     def describe(self) -> str:
         lines = ["Cohomology Ring  H*(K; Z)", "═" * 45, ""]
         for g in self.groups:

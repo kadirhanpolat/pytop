@@ -36,7 +36,8 @@ pytop has two complementary layers — keep this distinction in mind when extend
   `cellular_homology` (CW complex chain complex → SNF; standard spaces S^n, RP^n, CP^n, T², Klein
   bottle, lens spaces, Moore spaces; `cw_from_simplicial` cross-validation bridge),
   `cohomology` (cochain complex via δ^k=(∂_{k+1})^T; extended SNF → H^k; UCT verified;
-  Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity and torus pairing),
+  Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity, torus pairing, and
+  `verify_graded_commutativity()` method),
   `persistent_homology` (Vietoris–Rips filtration → Z/2 reduction → barcodes),
   `persistent_homology_optimized` (Twist algorithm, Chen–Kerber 2011: dimension-top-down sweep +
   Clearing Lemma; `ReductionStats` with n_cleared / clearing_ratio / n_column_additions;
@@ -47,8 +48,9 @@ pytop has two complementary layers — keep this distinction in mind when extend
   f(face) ≤ f(coface) guaranteed; `persistent_homology_bitmap` via Twist+Clearing),
   `van_kampen` (Seifert–van Kampen: GroupPresentation + GroupHomomorphism; amalgamated free
   product; Tietze elimination with cyclic reduction + inverse-duplicate deduplication;
-  abelianization via SNF; group identification; CW1Complex route;
-  standard spaces S¹∨⋯∨S¹→Fₙ, S²→1, T²→ℤ², Klein→⟨a,b|abab⁻¹⟩, RP²→ℤ/2),
+  abelianization via SNF; group identification (`"free_abelian_rank_2"` for T²); CW1Complex route
+  with disconnected 1-skeleton guard (raises ValueError); standard spaces S¹∨⋯∨S¹→Fₙ, S²→1,
+  T²→ℤ², Klein→⟨a,b|abab⁻¹⟩, RP²→ℤ/2),
   `knot_invariants` (Kauffman→Jones, reduced Burau→Alexander), `winding_number`,
   `surface_word_classification`, `graph_planarity` (rotation-system genus), and
   `experimental.spaces` (research-grade computable-space protocol — see below).
@@ -69,7 +71,8 @@ pytop has two complementary layers — keep this distinction in mind when extend
   **Urysohn witnesses** (`urysohn.py`): `UrysohnWitness` + `urysohn_function(space, x₀, C)`;
   discrete finite → exact indicator; general finite → BFS chain; `MetricTopologySpace` →
   distance-ratio formula; `SorgenfreyLineSpace` → Euclidean formula (τ_std ⊊ τ_Sorgenfrey);
-  `OrderTopologySpace` → order-metric formula. **π₁ computation** (`pi1.py`): `pi1_space(space)`
+  `OrderTopologySpace` → order-metric formula; `DiscreteCountableSpace` → discrete metric
+  (d(x,y)=0 iff x=y) with `method="discrete_metric"` witness. **π₁ computation** (`pi1.py`): `pi1_space(space)`
   via McCord order complex (specialization order → CW1Complex → spanning-tree algorithm);
   T0 quotient for non-T0 inputs; `ProductSpace` → π₁(A)×π₁(B); `SumSpace` → π₁(first).
   **Tietze improvements** (`van_kampen.py`): `_cyclically_reduce` (prefix/suffix inverse-pair

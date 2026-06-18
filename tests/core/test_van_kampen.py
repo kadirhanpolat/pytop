@@ -208,7 +208,7 @@ class TestVanKampenSpaces:
 
     def test_torus_presentation(self):
         r = van_kampen_torus()
-        assert r.group_type == "abelian_Z2"
+        assert r.group_type == "free_abelian_rank_2"
         assert set(r.simplified_generators) == {"a", "b"}
         assert len(r.simplified_relators) == 1
         # Abelianization: ℤ²
@@ -456,13 +456,111 @@ class TestVanKampenResultStrings:
         assert len(r.notes) >= 4
 
 
+# ── Higher genus surface groups ───────────────────────────────────────────────
+
+class TestHigherGenusSurfaces:
+    def test_genus_2_surface_generators(self):
+        # Σ₂: genus-2 closed orientable surface, π₁ = ⟨a1,b1,a2,b2 | [a1,b1][a2,b2]⟩
+        g = surface_group(2)
+        assert set(g.generators) == {"a1", "b1", "a2", "b2"}
+        assert len(g.relators) == 1
+
+    def test_genus_2_abelianization_is_Z4(self):
+        # H₁(Σ₂) = Z⁴
+        g = surface_group(2)
+        # Abelianize: relator [a1,b1][a2,b2] → 0 in abelian group
+        # abelianization betti = 4 (all generators free after abelianization)
+        from pytop.van_kampen import _abelianize
+        ab = _abelianize(list(g.generators), list(g.relators))
+        assert ab.betti == 4
+        assert ab.torsion == ()
+
+    def test_genus_3_surface_group_rank(self):
+        g = surface_group(3)
+        assert g.rank == 6   # 2*3 generators
+
+    def test_surface_group_nr_genus_2_abelianization(self):
+        # Non-orientable surface of genus 2 (Klein bottle): ⟨a1,a2 | a1²a2²⟩
+        # H₁ = abelianization = Z ⊕ Z/2
+        g = surface_group_nr(2)
+        from pytop.van_kampen import _abelianize
+        ab = _abelianize(list(g.generators), list(g.relators))
+        assert ab.betti == 1
+        assert ab.torsion == (2,)
+
+    def test_surface_group_nr_genus_3_abelianization(self):
+        # Non-orientable genus 3: ⟨a1,a2,a3 | a1²a2²a3²⟩
+        # H₁ = Z² ⊕ Z/2
+        g = surface_group_nr(3)
+        from pytop.van_kampen import _abelianize
+        ab = _abelianize(list(g.generators), list(g.relators))
+        assert ab.betti == 2
+        assert ab.torsion == (2,)
+
+    def test_surface_group_genus_0_is_trivial(self):
+        g = surface_group(0)
+        assert g == trivial_group()
+
+    def test_surface_group_nr_genus_1_is_z2(self):
+        # RP²: ⟨a | a²⟩
+        g = surface_group_nr(1)
+        assert g.generators == ("a1",)
+        assert len(g.relators) == 1
+
+
+# ── Tietze termination edge cases ────────────────────────────────────────────
+
+class TestTietzeTermination:
+    def test_free_product_z2_z2_is_infinite_dihedral(self):
+        # Z/2 * Z/2 = infinite dihedral group — no elimination possible
+        z2a = cyclic_group(2, "a")
+        z2b = cyclic_group(2, "b")
+        trivial = trivial_group()
+        phi_A = group_homomorphism(trivial, z2a, {})
+        phi_B = group_homomorphism(trivial, z2b, {})
+        r = van_kampen(z2a, z2b, trivial, phi_A, phi_B)
+        # 2 generators, 2 relators (a²=1, b²=1), cannot simplify further
+        assert len(r.simplified_generators) == 2
+        assert len(r.simplified_relators) == 2
+
+    def test_wedge_three_circles_rank_3(self):
+        r = van_kampen_wedge_circles(3)
+        assert r.group_type == "free_rank_3"
+        assert r.abelianization.betti == 3
+        assert r.abelianization.torsion == ()
+
+    def test_amalgam_over_z_gives_z(self):
+        # Two copies of Z amalgamated over Z (φ_A = id, φ_B = id) → Z
+        za = infinite_cyclic_group("a")
+        zb = infinite_cyclic_group("b")
+        zc = infinite_cyclic_group("c")
+        phi_A = group_homomorphism(zc, za, {"c": (("a", 1),)})
+        phi_B = group_homomorphism(zc, zb, {"c": (("b", 1),)})
+        r = van_kampen(za, zb, zc, phi_A, phi_B)
+        assert r.group_type == "infinite_cyclic"
+
+    def test_cyclic_group_order_5_presentation(self):
+        g = cyclic_group(5, "x")
+        assert g.rank == 1
+        assert g.relators == ((("x", 5),),)
+
+    def test_free_reduce_multi_cancel(self):
+        # a a⁻¹ b b⁻¹ = identity
+        w = (("a", 1), ("a", -1), ("b", 1), ("b", -1))
+        assert _free_reduce(w) == ()
+
+    def test_invert_three_term_word(self):
+        w = (("a", 1), ("b", 2), ("c", -1))
+        assert _invert(w) == (("c", 1), ("b", -2), ("a", -1))
+
+
 # ── Surface groups ────────────────────────────────────────────────────────────
 
 class TestSurfaceGroups:
-    def test_genus_1_is_abelian_Z2(self):
-        # Torus = surface of genus 1
+    def test_genus_1_is_free_abelian_rank_2(self):
+        # Torus = surface of genus 1 → π₁ = ℤ² (free abelian of rank 2, NOT Z/2)
         r = van_kampen_torus()
-        assert r.group_type == "abelian_Z2"
+        assert r.group_type == "free_abelian_rank_2"
 
     def test_surface_group_genus_2_identified(self):
         # Genus-2 surface: use van_kampen with two punctured tori

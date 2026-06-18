@@ -131,7 +131,7 @@ class OrderTopologySpace(Space):
 
     def point_separation(self, x: Any, y: Any) -> Verdict:
         lo, hi = (x, y) if x < y else (y, x)
-        mid = Fraction(lo + hi, 2)
+        mid = (lo + hi) / 2
         return Verdict.true(
             reason=f"order rays split at {mid}",
             witness=(("ray_below", mid), ("ray_above", mid)),
@@ -251,7 +251,17 @@ class SorgenfreyLineSpace(Space):
             return None
         value = self._CERTIFICATES[prop]
         reason = f"the Sorgenfrey line is {'' if value else 'not '}{prop}"
-        return Verdict.true(reason=reason) if value else Verdict.false(reason=reason)
+        if value:
+            return Verdict.true(reason=reason)
+        _counterexamples: dict[str, Any] = {
+            "compact": "the open cover {[n, n+1) : n ∈ Z} has no finite subcover",
+            "connected": "(-∞, 0) = ∪{[a, 0) : a < 0} and [0, ∞) are disjoint clopen sets",
+            "second_countable": (
+                "the Sorgenfrey plane R_l × R_l is not Lindelöf, "
+                "witnessing that R_l is not second countable"
+            ),
+        }
+        return Verdict.false(reason=reason, counterexample=_counterexamples.get(prop))
 
     def cardinal_certificate(self, invariant: str) -> CardinalValue | None:
         # weight: ℵ₀ (base = {[a,b) : a,b ∈ Q}, a countable family)
@@ -423,11 +433,11 @@ class AlexandroffSpace(Space):
                 return (x, y)
         return None
 
-    def _order_graph_connected(self) -> bool:
-        """True iff the undirected graph of the strict order relation is connected."""
+    def _order_graph_component_count(self) -> int:
+        """Return the number of connected components in the undirected order graph."""
         pts = list(self._carrier)
-        if len(pts) <= 1:
-            return True
+        if not pts:
+            return 0
         parent: dict[Any, Any] = {p: p for p in pts}
 
         def find(p: Any) -> Any:
@@ -442,7 +452,14 @@ class AlexandroffSpace(Space):
                 if rx != ry:
                     parent[rx] = ry
 
-        return len({find(p) for p in pts}) == 1
+        return len({find(p) for p in pts})
+
+    def _order_graph_connected(self) -> bool:
+        """True iff the undirected graph of the strict order relation is connected."""
+        pts = list(self._carrier)
+        if len(pts) <= 1:
+            return True
+        return self._order_graph_component_count() == 1
 
     def certificate(self, prop: str) -> Verdict | None:
         if prop == "T0":
@@ -459,28 +476,14 @@ class AlexandroffSpace(Space):
             )
 
         if prop == "connected":
-            if self._order_graph_connected():
+            n_components = self._order_graph_component_count()
+            if n_components == 1:
                 return Verdict.true(
                     reason="AlexandroffSpace: the order-relation graph is connected",
                 )
-            pts = list(self._carrier)
-            parent: dict[Any, Any] = {p: p for p in pts}
-
-            def find(p: Any) -> Any:
-                while parent[p] != p:
-                    parent[p] = parent[parent[p]]
-                    p = parent[p]
-                return p
-
-            for (x, y) in self._order:
-                if x != y:
-                    rx, ry = find(x), find(y)
-                    if rx != ry:
-                        parent[rx] = ry
-            roots = {find(p) for p in pts}
             return Verdict.false(
-                reason=f"AlexandroffSpace: order graph has {len(roots)} disconnected component(s)",
-                counterexample=f"{len(roots)} components",
+                reason=f"AlexandroffSpace: order graph has {n_components} disconnected component(s)",
+                counterexample=f"{n_components} components",
             )
 
         return None

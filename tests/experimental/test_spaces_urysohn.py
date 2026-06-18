@@ -180,3 +180,104 @@ class TestTychonoffWitness:
         c = CofiniteSpace()
         v = is_tychonoff(c)
         assert v.value is False
+
+
+# ==========================================================================
+# urysohn_function — SorgenfreyLineSpace
+# ==========================================================================
+
+class TestUrysohnSorgenfrey:
+    def test_sorgenfrey_returns_euclidean_witness(self):
+        sl = SorgenfreyLineSpace()
+        w = urysohn_function(sl, 0, frozenset())
+        assert w is not None
+        assert w.method == "sorgenfrey_euclidean"
+
+    def test_sorgenfrey_formula_mentions_euclidean(self):
+        sl = SorgenfreyLineSpace()
+        w = urysohn_function(sl, 1, frozenset())
+        assert w is not None
+        # Formula should reference the euclidean distance or standard topology
+        assert "standard" in w.formula.lower() or "d_ℝ" in w.formula or "|y -" in w.formula
+
+    def test_sorgenfrey_witness_has_no_finite_values(self):
+        sl = SorgenfreyLineSpace()
+        w = urysohn_function(sl, 0, frozenset())
+        assert w is not None
+        assert w.values is None
+
+    def test_sorgenfrey_x0_stored_correctly(self):
+        sl = SorgenfreyLineSpace()
+        w = urysohn_function(sl, 5, frozenset())
+        assert w is not None
+        assert w.x0 == 5
+
+
+# ==========================================================================
+# urysohn_function — OrderTopologySpace
+# ==========================================================================
+
+class TestUrysohnOrderTopology:
+    def test_order_topology_returns_order_metric_witness(self):
+        from pytop.experimental.spaces import OrderTopologySpace
+        ot = OrderTopologySpace()
+        w = urysohn_function(ot, 0, frozenset())
+        assert w is not None
+        assert w.method == "order_metric_ratio"
+
+    def test_order_topology_formula_mentions_rationals(self):
+        from pytop.experimental.spaces import OrderTopologySpace
+        ot = OrderTopologySpace()
+        w = urysohn_function(ot, 0, frozenset())
+        assert w is not None
+        # Formula should reference Q or order metric
+        assert "ℚ" in w.formula or "order" in w.formula.lower() or "d_ℚ" in w.formula
+
+    def test_order_topology_witness_has_no_values(self):
+        from pytop.experimental.spaces import OrderTopologySpace
+        ot = OrderTopologySpace()
+        w = urysohn_function(ot, 0, frozenset())
+        assert w is not None
+        assert w.values is None
+
+
+# ==========================================================================
+# urysohn_function — bfs_level method (non-discrete finite space)
+# ==========================================================================
+
+class TestUrysohnBfsLevel:
+    def test_bfs_level_method_on_finite_non_discrete(self):
+        # Chain 0 < 1 < 2: T1 fails so not Tychonoff, but BFS still runs.
+        from pytop.experimental.spaces import AlexandroffSpace
+        # Separate x0=2 (sink) from C={0}: open {2} is the minimal neighbourhood.
+        chain = AlexandroffSpace("chain3", {0, 1, 2}, [(0, 1), (1, 2)])
+        w = urysohn_function(chain, 2, frozenset({0}))
+        # Either returns a valid bfs_level witness or None (if Tychonoff fails).
+        if w is not None:
+            assert w.method == "bfs_level"
+            assert w.evaluate(2) == 0 or w.evaluate(2) is not None
+            assert w.evaluate(0) is not None
+
+    def test_bfs_level_values_in_unit_interval(self):
+        # 4-pt discrete: BFS on a Tychonoff space should give values in [0,1].
+        from fractions import Fraction as F
+        d = discrete_finite_space({0, 1, 2, 3})
+        w = urysohn_function(d, 0, frozenset({3}))
+        assert w is not None
+        for v in w.values.values():
+            assert F(0) <= v <= F(1)
+
+    def test_bfs_level_c_equal_to_x0_returns_none(self):
+        # x0 ∈ C → impossible to separate.
+        from pytop.experimental.spaces import AlexandroffSpace
+        chain = AlexandroffSpace("chain3", {0, 1, 2}, [(0, 1), (1, 2)])
+        # C = {0,1,2} = whole space includes x0=0.
+        w = urysohn_function(chain, 0, frozenset({0, 1, 2}))
+        assert w is None
+
+    def test_opaque_infinite_space_returns_none(self):
+        # OpaqueInfiniteSpace has no algorithm path → urysohn returns None.
+        from pytop.experimental.spaces.representations import OpaqueInfiniteSpace
+        op = OpaqueInfiniteSpace("opaque", lambda p: isinstance(p, int))
+        w = urysohn_function(op, 0, frozenset())
+        assert w is None

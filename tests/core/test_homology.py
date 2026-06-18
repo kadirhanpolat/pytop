@@ -199,3 +199,50 @@ def test_homology_matches_hardcoded_profiles_where_constructible():
     builders = {"sphere": _sphere, "torus": _torus}
     for name, betti in expected.items():
         assert betti_numbers(builders[name]()) == betti
+
+
+# --------------------------------------------------------------------------
+# Mixed torsion edge cases
+# --------------------------------------------------------------------------
+
+def test_snf_mixed_torsion_z2_z3_gives_z6():
+    # diag(2, 3): 2 does not divide 3, so divisibility correction runs.
+    # SNF of diag(2,3) → invariant factors [1, 6], meaning Z/1 ⊕ Z/6 = Z/6.
+    result = _smith_normal_form([[2, 0], [0, 3]])
+    assert result == [1, 6]
+    # The only torsion factor > 1 is 6: single Z/6
+    torsion = tuple(d for d in result if d > 1)
+    assert torsion == (6,)
+
+
+def test_snf_mixed_torsion_z4_z6():
+    # diag(4, 6): gcd(4,6)=2, lcm=12 → SNF factors 2, 12
+    result = _smith_normal_form([[4, 0], [0, 6]])
+    assert result == [2, 12]
+    torsion = tuple(d for d in result if d > 1)
+    assert torsion == (2, 12)
+
+
+def test_snf_triple_torsion_divisibility():
+    # diag(2, 6, 30): already satisfies 2|6|30 — factors returned as-is
+    result = _smith_normal_form([[2, 0, 0], [0, 6, 0], [0, 0, 30]])
+    torsion = [d for d in result if d > 1]
+    # Verify divisibility chain
+    for k in range(len(torsion) - 1):
+        assert torsion[k + 1] % torsion[k] == 0
+
+
+def test_snf_rank_two_with_torsion():
+    # Matrix whose SNF has both a rank-2 free part and torsion
+    # [[2, 0, 0], [0, 1, 0], [0, 0, 1]] — two units, one 2
+    result = _smith_normal_form([[2, 0, 0], [0, 1, 0], [0, 0, 1]])
+    # rank = 3; torsion part is the factor 2
+    assert 2 in result
+    assert len(result) == 3
+
+
+def test_rp2_torsion_is_z2_not_z6():
+    # Sanity: RP² has H₁ = Z/2, not Z/6 or other mixed group
+    h1 = simplicial_homology(_real_projective_plane(), 1)
+    assert h1.torsion == (2,)
+    assert h1.betti == 0

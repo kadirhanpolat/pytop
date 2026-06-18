@@ -25,7 +25,13 @@ from pytop.cubical_homology import (
     sphere_cubical_1d,
 )
 from pytop.homology import HomologyResult
-from pytop.persistent_homology import PersistencePair
+from pytop.persistent_homology import (
+    FilteredComplex,
+    PersistencePair,
+    vietoris_rips_filtration,
+)
+from pytop.persistent_homology_optimized import persistence_pairs_twist_with_stats
+from pytop.metric_spaces import FiniteMetricSpace
 
 
 # ---------------------------------------------------------------------------
@@ -47,6 +53,17 @@ def _mat_mul(A: list[list[int]], B: list[list[int]]) -> list[list[int]]:
 
 def _is_zero_matrix(M: list[list[int]]) -> bool:
     return all(v == 0 for row in M for v in row)
+
+
+def _metric_space(points):
+    return FiniteMetricSpace(carrier=tuple(points), distance=math.dist)
+
+
+def _circle_points(n):
+    return [
+        (math.cos(2 * math.pi * k / n), math.sin(2 * math.pi * k / n))
+        for k in range(n)
+    ]
 
 
 # ---------------------------------------------------------------------------
@@ -494,3 +511,205 @@ class TestCubicalPersistence:
         pairs = persistent_homology_bitmap(img)
         h1 = [p for p in pairs if p.dimension == 1 and not p.is_essential]
         assert len(h1) >= 1
+
+
+# ---------------------------------------------------------------------------
+# 1D cubical complexes via interval_complex
+# ---------------------------------------------------------------------------
+
+class TestIntervalCubicalComplex:
+    def test_interval_n2_is_path(self):
+        cx = interval_complex(2)
+        # path [0,1,2]: 2 edges + 3 vertices = 5 cubes
+        assert len(cx.cubes) == 5
+        assert cx.dimension == 1
+
+    def test_interval_n2_h0_connected(self):
+        cx = interval_complex(2)
+        groups = cubical_homology(cx)
+        assert groups[0].betti == 1
+
+    def test_interval_n2_h1_zero(self):
+        cx = interval_complex(2)
+        groups = cubical_homology(cx)
+        assert groups[1].betti == 0
+
+    def test_interval_n1_single_edge(self):
+        cx = interval_complex(1)
+        assert cx.dimension == 1
+        groups = cubical_homology(cx)
+        assert groups[0].betti == 1   # connected
+        assert groups[1].betti == 0   # no loop
+
+    def test_interval_euler_characteristic(self):
+        cx = interval_complex(4)
+        chi = cx.euler_characteristic()
+        betti = sum((-1) ** g.degree * g.betti for g in cubical_homology(cx))
+        assert chi == betti == 1   # contractible
+
+    def test_interval_n5_cube_count(self):
+        # n segments → n edges + (n+1) vertices
+        n = 5
+        cx = interval_complex(n)
+        assert len(cx.cubes) == n + (n + 1)
+
+
+# ---------------------------------------------------------------------------
+# 3D cubical complexes
+# ---------------------------------------------------------------------------
+
+class TestCubical3D:
+    def _unit_cube_3d(self) -> CubicalComplex:
+        return make_cubical_complex([((0, 1), (0, 1), (0, 1))])
+
+    def _hollow_cube_3d(self) -> CubicalComplex:
+        """Shell of the unit cube: 6 faces but no interior 3-cell."""
+        faces_3d: list[Cube] = [
+            # six square faces of [0,1]³
+            ((0, 0), (0, 1), (0, 1)),   # x=0 face
+            ((1, 1), (0, 1), (0, 1)),   # x=1 face
+            ((0, 1), (0, 0), (0, 1)),   # y=0 face
+            ((0, 1), (1, 1), (0, 1)),   # y=1 face
+            ((0, 1), (0, 1), (0, 0)),   # z=0 face
+            ((0, 1), (0, 1), (1, 1)),   # z=1 face
+        ]
+        return make_cubical_complex(faces_3d)
+
+    def test_unit_cube_3d_dimension(self):
+        cx = self._unit_cube_3d()
+        assert cx.dimension == 3
+
+    def test_unit_cube_3d_h0_connected(self):
+        groups = cubical_homology(self._unit_cube_3d())
+        assert groups[0].betti == 1
+
+    def test_unit_cube_3d_h1_zero(self):
+        groups = cubical_homology(self._unit_cube_3d())
+        assert groups[1].betti == 0
+
+    def test_unit_cube_3d_h2_zero(self):
+        groups = cubical_homology(self._unit_cube_3d())
+        assert groups[2].betti == 0
+
+    def test_unit_cube_3d_h3_zero(self):
+        # Solid cube is contractible → H_3 = 0
+        groups = cubical_homology(self._unit_cube_3d())
+        assert groups[3].betti == 0
+
+    def test_unit_cube_3d_euler(self):
+        cx = self._unit_cube_3d()
+        chi_cx = cx.euler_characteristic()
+        chi_h = sum((-1) ** g.degree * g.betti for g in cubical_homology(cx))
+        assert chi_cx == chi_h == 1  # contractible
+
+    def test_boundary_sq_zero_3d_cube_k1(self):
+        cx = self._unit_cube_3d()
+        d1 = cubical_boundary_matrix(cx, 1)
+        d2 = cubical_boundary_matrix(cx, 2)
+        if d1 and d1[0] and d2 and d2[0]:
+            product = _mat_mul(d1, d2)
+            assert _is_zero_matrix(product)
+
+    def test_boundary_sq_zero_3d_cube_k2(self):
+        cx = self._unit_cube_3d()
+        d2 = cubical_boundary_matrix(cx, 2)
+        d3 = cubical_boundary_matrix(cx, 3)
+        if d2 and d2[0] and d3 and d3[0]:
+            product = _mat_mul(d2, d3)
+            assert _is_zero_matrix(product)
+
+    def test_hollow_cube_h2_is_z(self):
+        # The surface of the cube ≃ S², so H₂ = Z
+        cx = self._hollow_cube_3d()
+        groups = cubical_homology(cx)
+        assert groups[0].betti == 1   # connected
+        assert groups[1].betti == 0   # no 1-loops
+        assert groups[2].betti == 1   # one 2-sphere
+
+
+# ---------------------------------------------------------------------------
+# bitmap_to_cubical_filtration: 1D degenerate image
+# ---------------------------------------------------------------------------
+
+class TestBitmapFiltration1D:
+    def test_1xn_row_image_cube_count(self):
+        # 1×3 row: trivially 2D but with 1 row
+        img = [[1.0, 2.0, 3.0]]
+        f = bitmap_to_cubical_filtration(img)
+        # m=1, n=3: (1+1)(3+1) + 1(3+1) + (1+1)*3 + 1*3 = 8 + 4 + 6 + 3 = 21
+        expected = (1 + 1) * (3 + 1) + 1 * (3 + 1) + (1 + 1) * 3 + 1 * 3
+        assert f.size() == expected
+
+    def test_nx1_column_image_cube_count(self):
+        img = [[1.0], [2.0], [3.0]]
+        f = bitmap_to_cubical_filtration(img)
+        m, n = 3, 1
+        expected = (m + 1) * (n + 1) + m * (n + 1) + (m + 1) * n + m * n
+        assert f.size() == expected
+
+    def test_monotone_row_no_h1(self):
+        pairs = persistent_homology_bitmap([[0.0, 1.0, 2.0, 3.0]])
+        h1 = [p for p in pairs if p.dimension == 1]
+        assert len(h1) == 0
+
+    def test_monotone_row_one_essential_h0(self):
+        pairs = persistent_homology_bitmap([[0.0, 1.0, 2.0, 3.0]])
+        h0_essential = [p for p in pairs if p.dimension == 0 and p.is_essential]
+        assert len(h0_essential) == 1
+
+
+# ---------------------------------------------------------------------------
+# ReductionStats value-range invariants
+# ---------------------------------------------------------------------------
+
+class TestReductionStatsInvariants:
+    def _stats_for_space(self, points, max_dim=1):
+        filtered = vietoris_rips_filtration(
+            _metric_space(points), max_dimension=max_dim
+        )
+        _, stats = persistence_pairs_twist_with_stats(filtered)
+        return stats, filtered
+
+    def test_n_cleared_le_n_simplices(self):
+        stats, filtered = self._stats_for_space(_circle_points(8), max_dim=2)
+        assert stats.n_cleared <= stats.n_simplices
+
+    def test_n_column_additions_nonneg_circle(self):
+        stats, _ = self._stats_for_space(_circle_points(6), max_dim=2)
+        assert stats.n_column_additions >= 0
+
+    def test_clearing_ratio_in_unit_interval_circle(self):
+        stats, _ = self._stats_for_space(_circle_points(8), max_dim=2)
+        assert 0.0 <= stats.clearing_ratio <= 1.0
+
+    def test_n_pairs_equals_len_output(self):
+        filtered = vietoris_rips_filtration(
+            _metric_space(_circle_points(6)), max_dimension=2
+        )
+        pairs, stats = persistence_pairs_twist_with_stats(filtered)
+        assert stats.n_pairs == len(pairs)
+
+    def test_n_finite_plus_essential_equals_total(self):
+        filtered = vietoris_rips_filtration(
+            _metric_space(_circle_points(6)), max_dimension=2
+        )
+        pairs, stats = persistence_pairs_twist_with_stats(filtered)
+        assert stats.n_finite_pairs + stats.n_essential == stats.n_pairs
+
+    def test_n_simplices_equals_filtered_size(self):
+        filtered = vietoris_rips_filtration(
+            _metric_space(_circle_points(6)), max_dimension=1
+        )
+        _, stats = persistence_pairs_twist_with_stats(filtered)
+        assert stats.n_simplices == filtered.size()
+
+    def test_two_isolated_points_no_clearing(self):
+        # Two points far apart at dim=0 only: no edges → no clearing possible
+        f = FilteredComplex(
+            simplices=((0,), (1,)),
+            births=(0.0, 0.0),
+            dimensions=(0, 0),
+        )
+        _, stats = persistence_pairs_twist_with_stats(f)
+        assert stats.n_cleared == 0
+        assert stats.n_column_additions == 0

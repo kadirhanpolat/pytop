@@ -241,3 +241,145 @@ class TestInverseLimitSpace:
         pts = set(lim.points())
         assert (0,) in pts
         assert (1,) in pts
+
+    def test_inverse_limit_is_t1(self):
+        # Subspace of discrete product is discrete, hence T1.
+        d2 = discrete_finite_space({0, 1})
+        lim = InverseLimitSpace("lim←", [d2, d2], [lambda x: x])
+        assert is_t1(lim).value is True
+
+    def test_inverse_limit_is_t3(self):
+        # Hausdorff + compact finite → T3.
+        d2 = discrete_finite_space({0, 1})
+        lim = InverseLimitSpace("lim←", [d2, d2], [lambda x: x])
+        assert is_t3(lim).value is True
+
+    def test_inverse_limit_is_connected_only_when_single_point(self):
+        # Two isolated points → disconnected.
+        d2 = discrete_finite_space({0, 1})
+        lim = InverseLimitSpace("lim←", [d2, d2], [lambda x: x])
+        assert is_connected(lim).value is False
+
+    def test_inverse_limit_point_separation_via_predicate(self):
+        # is_hausdorff checks open_sets and derives Hausdorff via point_separation
+        # or predicate enumeration; the Hausdorff verdict confirms separation exists.
+        d2 = discrete_finite_space({0, 1})
+        lim = InverseLimitSpace("lim←", [d2, d2], [lambda x: x])
+        # The lim← space is finite, so is_hausdorff enumerates — check it holds.
+        assert is_hausdorff(lim).value is True
+
+    def test_inverse_limit_single_point_space(self):
+        # lim← of two singletons with constant map → one-point space.
+        x0 = FiniteSpace("pt", {0}, [set(), {0}])
+        lim = InverseLimitSpace("lim← pts", [x0, x0], [lambda _: 0])
+        pts = set(lim.points())
+        assert pts == {(0, 0)}
+        assert is_compact(lim).value is True
+        assert is_connected(lim).value is True
+
+
+# ==========================================================================
+# AlexandroffSpace — additional predicate tests
+# ==========================================================================
+
+class TestAlexandroffSpacePredicates:
+
+    def _chain3(self):
+        return AlexandroffSpace("chain3", {0, 1, 2}, [(0, 1), (1, 2)])
+
+    def _diamond(self):
+        # 4-point minimal model of S¹: 0,1 < 2,3.
+        return AlexandroffSpace("S1_4pt", {0, 1, 2, 3},
+                                [(0, 2), (0, 3), (1, 2), (1, 3)])
+
+    def test_chain3_is_connected(self):
+        # Chain is path-connected via the order graph.
+        c = self._chain3()
+        assert is_connected(c).value is True
+
+    def test_chain3_is_compact(self):
+        # All finite spaces are compact.
+        c = self._chain3()
+        assert is_compact(c).value is True
+
+    def test_chain3_not_t3(self):
+        # Chain is T0 but not T1, hence not T3 (T3 requires T1).
+        c = self._chain3()
+        # T3 = regular + T1; chain is not T1 → not T3
+        assert is_t3(c).value is False
+
+    def test_discrete_alexandroff_is_t3(self):
+        # Discrete order → discrete topology → T3.
+        d = AlexandroffSpace("D3", {0, 1, 2}, [])
+        assert is_t3(d).value is True
+
+    def test_diamond_connected(self):
+        # 4-point model of S¹ is connected.
+        assert is_connected(self._diamond()).value is True
+
+    def test_alexandroff_card_certificate_discrete(self):
+        # Discrete AlexandroffSpace: character=1 (singleton base), weight=|X|.
+        from pytop.experimental.spaces.cardinal_invariants import character, weight
+        d = AlexandroffSpace("D2", {0, 1}, [])
+        c = character(d)
+        assert c.finite is not None
+        w = weight(d)
+        assert w.finite is not None
+
+    def test_non_antisymmetric_order_not_t0(self):
+        # 0 ≤ 1 and 1 ≤ 0 with two points: indiscrete → not T0.
+        ind = AlexandroffSpace("I2", {0, 1}, [(0, 1), (1, 0)])
+        assert is_t0(ind).value is False
+
+    def test_single_element_alexandroff(self):
+        # Single-point Alexandroff space is trivially connected, compact, T3.
+        s = AlexandroffSpace("pt", {0}, [])
+        assert is_connected(s).value is True
+        assert is_compact(s).value is True
+        assert is_t3(s).value is True
+
+
+# ==========================================================================
+# SubbaseSpace — additional predicate / edge-case tests
+# ==========================================================================
+
+class TestSubbaseSpacePredicates:
+
+    def test_discrete_subbase_is_t1(self):
+        # Singletons as subbase → discrete → T1.
+        s = SubbaseSpace("D", {0, 1, 2}, [{0}, {1}, {2}])
+        assert is_t1(s).value is True
+
+    def test_discrete_subbase_is_hausdorff(self):
+        s = SubbaseSpace("D", {0, 1, 2}, [{0}, {1}, {2}])
+        assert is_hausdorff(s).value is True
+
+    def test_non_discrete_subbase_not_t1(self):
+        # {{0,1},{1,2}} topology: {0} is not closed, so not T1.
+        s = SubbaseSpace("X", {0, 1, 2}, [{0, 1}, {1, 2}])
+        assert is_t1(s).value is False
+
+    def test_non_discrete_subbase_not_hausdorff(self):
+        s = SubbaseSpace("X", {0, 1, 2}, [{0, 1}, {1, 2}])
+        assert is_hausdorff(s).value is False
+
+    def test_indiscrete_subbase_is_connected(self):
+        # No subbase → indiscrete → connected.
+        s = SubbaseSpace("I", {0, 1, 2}, [])
+        assert is_connected(s).value is True
+
+    def test_discrete_subbase_disconnected_two_points(self):
+        # Discrete two-point space is disconnected.
+        s = SubbaseSpace("D2", {0, 1}, [{0}, {1}])
+        assert is_connected(s).value is False
+
+    def test_subbase_space_t4(self):
+        # Discrete finite → T4.
+        s = SubbaseSpace("D", {0, 1, 2}, [{0}, {1}, {2}])
+        assert is_t4(s).value is True
+
+    def test_subbase_space_contains_boundary(self):
+        # Non-member check with a string carrier.
+        s = SubbaseSpace("S", {"a", "b", "c"}, [{"a", "b"}])
+        assert s.contains("a")
+        assert not s.contains("z")
