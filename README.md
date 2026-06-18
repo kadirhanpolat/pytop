@@ -304,7 +304,12 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
 - **Phase 4 P4.3 — complexity discipline** (`docs/COMPLEXITY.md`): an honest reference of the
   asymptotic cost and *practical input limits* of every computational engine, plus `Complexity`
   notes on the heavy docstrings — stating plainly where exactness costs exponential time.
-- **9 938 tests passing** across the full suite.
+- **Phase 4 P4.4 — differential testing against independent oracles**
+  (`tests/core/test_external_oracles.py`): pins `exact_linalg` against **sympy** (SNF/det/rank),
+  `is_planar` against **networkx** (Boyer–Myrvold), and `signature` against **numpy** eigenvalues —
+  truly independent implementations. Test-only (`pip install -e .[oracles]`); the runtime stays
+  dependency-free and each block skips when its oracle is absent.
+- **9 945 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

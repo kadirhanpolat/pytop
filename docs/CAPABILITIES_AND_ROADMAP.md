@@ -247,10 +247,19 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   Smith normal form/determinant, exact genus/planarity), with `Complexity`
   notes added to the engine docstrings. States plainly where exactness costs
   exponential time so callers are never surprised.
-- **Remaining** (largely external-tool dependent, deferred): **optional**
-  accelerated extras (numpy/scipy) over the pure-Python core; differential
-  testing against SageMath/GUDHI/GAP; formal verification of core routines;
-  interop bridges so pytop orchestrates.
+- **P4.4 — Differential testing against independent oracles** ✅
+  (`tests/core/test_external_oracles.py`): pins `exact_linalg` (Smith normal
+  form / determinant / rank) against **sympy**, `is_planar` against **networkx**
+  (Boyer–Myrvold), and the Sturm/Sylvester `signature` against **numpy**
+  eigenvalues — genuinely independent implementations, so a shared-code bug
+  cannot hide. Test-only (the `oracles` optional extra); the runtime stays
+  dependency-free and each block skips when its oracle is absent.
+- **Remaining** (deferred): an **optional accelerated *exact* backend**
+  (`python-flint`) for the integer / Laurent-polynomial hot paths — note that
+  `numpy`/`scipy` are floating-point and cannot accelerate the exact core, so
+  the speed work needs a fast exact library, not numpy; broader differential
+  oracles (SageMath / GUDHI / GAP) and interop bridges, both pending those
+  tools; and formal verification of the core routines.
 
 ---
 
@@ -271,7 +280,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 938** |
+| Tests passing | **9 945** |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
