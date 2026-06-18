@@ -309,7 +309,13 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   `is_planar` against **networkx** (Boyer–Myrvold), and `signature` against **numpy** eigenvalues —
   truly independent implementations. Test-only (`pip install -e .[oracles]`); the runtime stays
   dependency-free and each block skips when its oracle is absent.
-- **9 945 tests passing** across the full suite.
+- **Phase 4 P4.5 / P4.6 — GUDHI & python-flint**: pytop's Vietoris–Rips persistence is validated
+  against **GUDHI** (the gold-standard TDA library) and `exact_linalg` against **python-flint**; and
+  with the optional `[fast]` extra, the integer Smith normal form — hence every homology / Khovanov /
+  surgery engine built on it — routes large dense matrices to **FLINT** (identical results; a dense
+  30×30 SNF drops from a multi-second coefficient blow-up to ~2 ms). The pure-Python core stays the
+  default and the only hard requirement (`dependencies = []`).
+- **9 950 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

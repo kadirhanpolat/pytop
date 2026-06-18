@@ -254,12 +254,23 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   eigenvalues — genuinely independent implementations, so a shared-code bug
   cannot hide. Test-only (the `oracles` optional extra); the runtime stays
   dependency-free and each block skips when its oracle is absent.
-- **Remaining** (deferred): an **optional accelerated *exact* backend**
-  (`python-flint`) for the integer / Laurent-polynomial hot paths — note that
-  `numpy`/`scipy` are floating-point and cannot accelerate the exact core, so
-  the speed work needs a fast exact library, not numpy; broader differential
-  oracles (SageMath / GUDHI / GAP) and interop bridges, both pending those
-  tools; and formal verification of the core routines.
+- **P4.5 — Persistence & exact oracles (GUDHI, python-flint)** ✅
+  (`tests/core/test_external_oracles.py`): pytop's Vietoris–Rips persistence is
+  validated against **GUDHI** (the gold-standard TDA library) — barcodes agree
+  to floating tolerance — and `exact_linalg` against **python-flint**
+  (`fmpz_mat`) as a second independent exact route, alongside sympy.
+- **P4.6 — Optional accelerated exact backend (python-flint)** ✅: the integer
+  Smith normal form (`homology._smith_normal_form`) — hence every homology /
+  cohomology / cellular / Khovanov / surgery engine built on it — dispatches
+  large dense matrices to FLINT when installed (`pip install -e .[fast]`), with
+  the pure-Python routine as the default fallback. Identical results (pinned by
+  the oracle tests); a dense 30×30 SNF drops from a multi-second coefficient
+  blow-up to ~2 ms. `numpy`/`scipy` are floating-point and cannot accelerate the
+  exact core — only a fast exact library (FLINT) can.
+- **Remaining** (deferred — need tooling unavailable in this environment):
+  broader differential oracles requiring **SageMath** (not pip-installable) and
+  **GAP** (a separate system); **SnapPy** and other orchestration / interop
+  bridges; and formal verification of the core routines.
 
 ---
 
@@ -280,7 +291,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 945** |
+| Tests passing | **9 950** |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |

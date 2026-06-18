@@ -102,7 +102,27 @@ def boundary_matrix(complex_obj: SimplicialComplex, k: int) -> Matrix:
     return matrix
 
 
-def _smith_normal_form(matrix: Matrix) -> list[int]:
+try:
+    import flint as _flint
+except ImportError:  # pragma: no cover
+    _flint = None
+
+# Above this dimension a dense integer SNF is routed to python-flint (when it is
+# installed) to avoid the pure-Python routine's coefficient blow-up. The results
+# are identical (pinned by the differential oracle tests); every matrix in the
+# test suite is below the threshold and stays on the pure-Python path.
+_FLINT_SNF_MIN_DIM = 16
+
+
+def _smith_normal_form_flint(matrix: Matrix) -> list[int]:
+    """Invariant factors via python-flint's exact Smith normal form (fast path)."""
+
+    normal = _flint.fmpz_mat([[int(v) for v in row] for row in matrix]).snf()
+    size = min(normal.nrows(), normal.ncols())
+    return [abs(int(normal[i, i])) for i in range(size) if int(normal[i, i]) != 0]
+
+
+def _smith_normal_form_python(matrix: Matrix) -> list[int]:
     """Return the positive invariant factors of ``matrix`` over the integers.
 
     The returned list ``[d_1, ..., d_r]`` satisfies ``d_1 | d_2 | ... | d_r`` and
@@ -185,6 +205,22 @@ def _smith_normal_form(matrix: Matrix) -> list[int]:
         t += 1
 
     return invariants
+
+
+def _smith_normal_form(matrix: Matrix) -> list[int]:
+    """Return the positive invariant factors of an integer matrix.
+
+    Dispatches large dense matrices to python-flint when it is installed
+    (identical results, far faster — the pure-Python routine suffers integer
+    coefficient blow-up); otherwise uses the pure-Python implementation.
+    """
+
+    if _flint is not None and matrix:
+        rows_n = len(matrix)
+        cols_n = len(matrix[0]) if rows_n else 0
+        if min(rows_n, cols_n) >= _FLINT_SNF_MIN_DIM:
+            return _smith_normal_form_flint(matrix)
+    return _smith_normal_form_python(matrix)
 
 
 def _rank(matrix: Matrix) -> int:

@@ -49,6 +49,13 @@
 - For exact planarity of larger graphs, use the necessary
   `satisfies_planar_edge_bound` filter first; the exponential `is_planar` search
   is only needed when the bound passes.
-- Phase 4's deferred workstream — optional `numpy`/`scipy` accelerated backends
-  over this exact core — would address the constant factors (not the asymptotics)
-  for the linear-algebra-bound engines.
+- **Optional accelerated exact backend (`pip install -e .[fast]`):** when
+  [`python-flint`](https://pypi.org/project/python-flint/) is installed, the
+  integer Smith normal form — and therefore every homology / cohomology /
+  cellular / Khovanov / surgery engine built on it — routes large dense matrices
+  to FLINT. This is the same exact result (pinned by the differential tests) but
+  avoids the pure-Python routine's integer coefficient blow-up; e.g. a dense
+  30×30 SNF drops from a multi-second blow-up to ~2 ms. Small matrices (every
+  case in the test suite) stay on the pure-Python path. `numpy`/`scipy` are
+  floating-point and cannot accelerate the *exact* core — only a fast exact
+  library such as FLINT can.

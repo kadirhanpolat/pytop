@@ -53,6 +53,20 @@ try:
 except ImportError:  # pragma: no cover
     HAVE_NUMPY = False
 
+try:
+    import flint
+
+    HAVE_FLINT = True
+except ImportError:  # pragma: no cover
+    HAVE_FLINT = False
+
+try:
+    import gudhi
+
+    HAVE_GUDHI = True
+except ImportError:  # pragma: no cover
+    HAVE_GUDHI = False
+
 
 def _random_matrix(rng, rows, cols, lo=-5, hi=5):
     return [[rng.randint(lo, hi) for _ in range(cols)] for _ in range(rows)]
@@ -165,3 +179,100 @@ class TestNumpySignature:
                 [matrix[i][j] + matrix[j][i] for j in range(n)] for i in range(n)
             ]
             assert signature(diagram) == self._numpy_signature(symmetric)
+
+
+# ---------------------------------------------------------------------------
+# python-flint — exact linear algebra (a second independent exact oracle)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.skipif(not HAVE_FLINT, reason="python-flint not installed")
+class TestFlintExactLinalg:
+    def test_determinant_and_rank_match_flint(self):
+        rng = random.Random(6)
+        for _ in range(50):
+            n = rng.randint(1, 5)
+            matrix = _random_matrix(rng, n, n)
+            fm = flint.fmpz_mat(matrix)
+            assert integer_determinant(matrix) == int(fm.det())
+            assert integer_rank(matrix) == fm.rank()
+
+    def test_smith_normal_form_matches_flint(self):
+        rng = random.Random(7)
+        for _ in range(40):
+            n = rng.randint(1, 4)
+            matrix = _random_matrix(rng, n, n)
+            normal = flint.fmpz_mat(matrix).snf()
+            factors = [
+                abs(int(normal[i, i])) for i in range(n) if int(normal[i, i]) != 0
+            ]
+            assert smith_normal_form(matrix) == factors
+
+    def test_snf_acceleration_paths_agree(self):
+        # The optional flint-accelerated SNF backend must equal the pure-Python
+        # routine on both square and rectangular matrices (boundary matrices are
+        # rectangular), so the speed path is exact.
+        from pytop.homology import _smith_normal_form_flint, _smith_normal_form_python
+
+        rng = random.Random(11)
+        for _ in range(40):
+            rows, cols = rng.randint(1, 6), rng.randint(1, 6)
+            matrix = _random_matrix(rng, rows, cols)
+            assert _smith_normal_form_python(matrix) == _smith_normal_form_flint(matrix)
+
+
+# ---------------------------------------------------------------------------
+# GUDHI — Vietoris–Rips persistent homology
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.skipif(not HAVE_GUDHI, reason="gudhi not installed")
+class TestGudhiPersistence:
+    @staticmethod
+    def _pytop_finite_bars(points, max_dim, max_scale, tol=1e-6):
+        import math
+
+        from pytop import persistent_homology
+        from pytop.metric_spaces import FiniteMetricSpace
+
+        space = FiniteMetricSpace(carrier=tuple(points), distance=math.dist)
+        pairs = persistent_homology(space, max_dimension=max_dim, max_scale=max_scale)
+        bars: dict[int, list] = {}
+        for p in pairs:
+            if p.death < max_scale - tol and p.death - p.birth > tol:
+                bars.setdefault(p.dimension, []).append((p.birth, p.death))
+        return {d: sorted(v) for d, v in bars.items()}
+
+    @staticmethod
+    def _gudhi_finite_bars(points, max_dim, max_scale, tol=1e-6):
+        rips = gudhi.RipsComplex(points=points, max_edge_length=max_scale)
+        tree = rips.create_simplex_tree(max_dimension=max_dim)
+        tree.compute_persistence()
+        bars: dict[int, list] = {}
+        for dim, (birth, death) in tree.persistence():
+            if death != float("inf") and death < max_scale - tol and death - birth > tol:
+                bars.setdefault(dim, []).append((birth, death))
+        return {d: sorted(v) for d, v in bars.items()}
+
+    def _assert_agree(self, points, max_dim=2, max_scale=1.9):
+        pytop_bars = self._pytop_finite_bars(points, max_dim, max_scale)
+        gudhi_bars = self._gudhi_finite_bars(points, max_dim, max_scale)
+        assert set(pytop_bars) == set(gudhi_bars)
+        for dim in pytop_bars:
+            pytop_d = pytop_bars[dim]
+            gudhi_d = gudhi_bars[dim]
+            assert len(pytop_d) == len(gudhi_d), f"dim {dim}: {len(pytop_d)} vs {len(gudhi_d)}"
+            for (b1, d1), (b2, d2) in zip(pytop_d, gudhi_d):
+                assert abs(b1 - b2) < 1e-6 and abs(d1 - d2) < 1e-6
+
+    def test_circle_h1(self):
+        import math
+
+        points = [(math.cos(2 * math.pi * k / 12), math.sin(2 * math.pi * k / 12)) for k in range(12)]
+        self._assert_agree(points, max_dim=2, max_scale=1.9)
+
+    def test_random_clouds(self):
+        rng = random.Random(8)
+        for _ in range(5):
+            points = [(rng.uniform(0, 2), rng.uniform(0, 2)) for _ in range(9)]
+            self._assert_agree(points, max_dim=2, max_scale=1.2)
