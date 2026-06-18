@@ -312,10 +312,14 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
 - **Phase 4 P4.5 / P4.6 — GUDHI & python-flint**: pytop's Vietoris–Rips persistence is validated
   against **GUDHI** (the gold-standard TDA library) and `exact_linalg` against **python-flint**; and
   with the optional `[fast]` extra, the integer Smith normal form — hence every homology / Khovanov /
-  surgery engine built on it — routes large dense matrices to **FLINT** (identical results; a dense
-  30×30 SNF drops from a multi-second coefficient blow-up to ~2 ms). The pure-Python core stays the
-  default and the only hard requirement (`dependencies = []`).
-- **9 950 tests passing** across the full suite.
+  surgery engine built on it — is routed to **FLINT**, which is **~5–8× faster** even on pytop's
+  *sparse* boundary/Khovanov matrices (identical results). The pure-Python core stays the default and
+  the only hard requirement (`dependencies = []`).
+- **Phase 4 P4.7 — SageMath oracle** (`tests/core/test_sage_oracle.py`, opt-in `PYTOP_SAGE_ORACLE=1`,
+  Docker): one batched `sagemath/sagemath` run validates pytop's Alexander/Jones polynomials against
+  Sage's independent algorithms and its van Kampen abelianisations against **GAP** (Klein ℤ⊕ℤ/2,
+  torus ℤ², ℝP² ℤ/2, wedge ℤ³).
+- **9 950 tests passing** across the full suite (+ 8 opt-in SageMath-oracle tests).
 
 ## What's New in v0.6.0
 

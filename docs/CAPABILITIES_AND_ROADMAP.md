@@ -11,7 +11,10 @@
 > P3.2 `dehn_surgery.py` (surgery → H₁, lens space classification), P3.3
 > `khovanov.py` (Khovanov homology with torsion). The optional SnapPy bridge (P3.2)
 > and Regina-scale normal surfaces (P3.3) remain out of scope / deferred.
-> **Phase 4 in progress:** P4.1 property-based + cross-engine differential testing done.
+> **Phase 4 in progress** (v0.9.0; P4.7 + doc-accuracy fixes pending as v0.9.1):
+> property-based testing, an exact-linalg core, complexity discipline, five
+> external differential oracles (sympy, networkx, numpy, python-flint, GUDHI) plus
+> a Docker-based SageMath/GAP oracle, and an optional flint-accelerated SNF backend.
 
 ---
 
@@ -261,16 +264,23 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   (`fmpz_mat`) as a second independent exact route, alongside sympy.
 - **P4.6 — Optional accelerated exact backend (python-flint)** ✅: the integer
   Smith normal form (`homology._smith_normal_form`) — hence every homology /
-  cohomology / cellular / Khovanov / surgery engine built on it — dispatches
-  large dense matrices to FLINT when installed (`pip install -e .[fast]`), with
-  the pure-Python routine as the default fallback. Identical results (pinned by
-  the oracle tests); a dense 30×30 SNF drops from a multi-second coefficient
-  blow-up to ~2 ms. `numpy`/`scipy` are floating-point and cannot accelerate the
-  exact core — only a fast exact library (FLINT) can.
-- **Remaining** (deferred — need tooling unavailable in this environment):
-  broader differential oracles requiring **SageMath** (not pip-installable) and
-  **GAP** (a separate system); **SnapPy** and other orchestration / interop
-  bridges; and formal verification of the core routines.
+  cohomology / cellular / Khovanov / surgery engine built on it — is routed to
+  FLINT above a small size threshold when installed (`pip install -e .[fast]`),
+  with the pure-Python routine the default fallback and only hard requirement.
+  Identical results (pinned by the oracle tests); even on pytop's *sparse*
+  boundary / Khovanov matrices FLINT's exact SNF is ~5–8× faster (measured on
+  16×20 … 40×50 matrices). `numpy`/`scipy` are floating-point and cannot
+  accelerate the exact core — only a fast exact library (FLINT) can.
+- **P4.7 — SageMath oracle (knot polynomials + GAP group theory)** ✅
+  (`tests/core/test_sage_oracle.py`; opt-in `PYTOP_SAGE_ORACLE=1`, Docker-based):
+  one batched run of the `sagemath/sagemath` image validates pytop's Alexander
+  and Jones polynomials against Sage's independent algorithms, and its van Kampen
+  abelianisations against **GAP** (Klein bottle ℤ⊕ℤ/2, torus ℤ², ℝP² ℤ/2, wedge
+  ℤ³). Sage cannot run natively here, so it is a subprocess oracle; opt-in keeps
+  it out of the default suite.
+- **Remaining** (deferred — tooling unavailable here): **SnapPy** (no wheel for
+  this platform) and other orchestration / interop bridges; and formal
+  verification of the core routines.
 
 ---
 
@@ -291,7 +301,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 950** |
+| Tests passing | **9 950** (+ 8 opt-in SageMath-oracle tests) |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
