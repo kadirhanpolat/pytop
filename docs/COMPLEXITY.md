@@ -52,10 +52,11 @@
 - **Optional accelerated exact backend (`pip install -e .[fast]`):** when
   [`python-flint`](https://pypi.org/project/python-flint/) is installed, the
   integer Smith normal form — and therefore every homology / cohomology /
-  cellular / Khovanov / surgery engine built on it — routes large dense matrices
-  to FLINT. This is the same exact result (pinned by the differential tests) but
-  avoids the pure-Python routine's integer coefficient blow-up; e.g. a dense
-  30×30 SNF drops from a multi-second blow-up to ~2 ms. Small matrices (every
-  case in the test suite) stay on the pure-Python path. `numpy`/`scipy` are
-  floating-point and cannot accelerate the *exact* core — only a fast exact
-  library such as FLINT can.
+  cellular / Khovanov / surgery engine built on it — is routed to FLINT above a
+  small size threshold. Even on pytop's *sparse* boundary / Khovanov matrices
+  (entries in `{−1, 0, 1}`), FLINT's compiled exact SNF is **~5–8× faster** than
+  the pure-Python routine (measured on 16×20 … 40×50 matrices), with identical
+  results (pinned by the differential tests). `numpy`/`scipy` are floating-point
+  and cannot accelerate the *exact* core — only a fast exact library such as
+  FLINT can. (The pure-Python core stays the default and the only hard
+  requirement.)
