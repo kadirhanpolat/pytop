@@ -26,9 +26,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from fractions import Fraction
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from .core import CardinalValue, NotEnumerableError, Space
+
+if TYPE_CHECKING:
+    from .representations import MetricTopologySpace
 
 
 @dataclass(frozen=True)
@@ -307,7 +310,7 @@ def _finite_urysohn(
 
 
 def _metric_urysohn(
-    space: "MetricTopologySpace",
+    space: MetricTopologySpace,
     x0: Any,
     closed_set: frozenset,
 ) -> UrysohnWitness:

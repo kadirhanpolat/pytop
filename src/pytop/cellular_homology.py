@@ -29,8 +29,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .homology import HomologyResult, _smith_normal_form
-from .homology import _simplices_of_dimension, boundary_matrix as _simplicial_bm
+from .homology import HomologyResult, _simplices_of_dimension, _smith_normal_form
+from .homology import boundary_matrix as _simplicial_bm
 from .simplicial_complexes import SimplicialComplex
 
 Matrix = list[list[int]]

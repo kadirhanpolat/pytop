@@ -16,14 +16,6 @@ is_hausdorff(rational_metric_space()).value   # True  (decided via metric certif
 
 from __future__ import annotations
 
-from .pi1 import (
-    Pi1Result,
-    pi1_space,
-)
-from .urysohn import (
-    UrysohnWitness,
-    urysohn_function,
-)
 from .cardinal_invariants import (
     CardinalValue,
     cellularity,
@@ -50,6 +42,10 @@ from .core import (
     NotEnumerableError,
     Space,
     Verdict,
+)
+from .pi1 import (
+    Pi1Result,
+    pi1_space,
 )
 from .pi_base_bridge import (
     PiBaseSpace,
@@ -97,6 +93,10 @@ from .representations import (
     finite_sphere,
     finite_wedge_circles,
     rational_metric_space,
+)
+from .urysohn import (
+    UrysohnWitness,
+    urysohn_function,
 )
 
 __all__ = [

@@ -233,7 +233,7 @@ class LinkDiagram:
             )
 
     @classmethod
-    def from_knot(cls, diagram: KnotDiagram) -> "LinkDiagram":
+    def from_knot(cls, diagram: KnotDiagram) -> LinkDiagram:
         """Convert a single-component :class:`KnotDiagram` to a :class:`LinkDiagram`.
 
         All arcs are assigned to component 0.
@@ -268,10 +268,10 @@ class LinkDiagram:
 
 
 def linking_number(  # type: ignore[misc]
-    link_or_signs: "LinkDiagram | Any",
+    link_or_signs: LinkDiagram | Any,
     i: int | None = None,
     j: int | None = None,
-) -> "int | Fraction":
+) -> int | Fraction:
     """Return the linking number between two link components.
 
     **Two-argument form (legacy):** ``linking_number(inter_component_signs)``
@@ -325,7 +325,7 @@ def linking_number(  # type: ignore[misc]
     return total // 2
 
 
-def linking_matrix(link: "LinkDiagram") -> list[list[int]]:
+def linking_matrix(link: LinkDiagram) -> list[list[int]]:
     """Return the n×n symmetric linking matrix for an n-component link.
 
     ``result[i][j] = linking_number(link, i, j)`` for ``i ≠ j``; diagonal

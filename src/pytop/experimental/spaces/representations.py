@@ -8,7 +8,7 @@ algorithms across the finite / infinite-with-certificate / undecidable cases.
 
 from __future__ import annotations
 
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Iterable, Sequence
 from fractions import Fraction
 from itertools import combinations
 from typing import Any
@@ -586,8 +586,8 @@ class InverseLimitSpace(Space):
     def __init__(
         self,
         name: str,
-        spaces: "Sequence[Space]",
-        bonding_maps: "Sequence[Callable[[Any], Any]]",
+        spaces: Sequence[Space],
+        bonding_maps: Sequence[Callable[[Any], Any]],
     ) -> None:
         if len(bonding_maps) != len(spaces) - 1:
             raise ValueError(
