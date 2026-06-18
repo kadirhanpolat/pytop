@@ -44,9 +44,11 @@ property-reasoning engine. Key components:
   regular, normal, compact, connected, Lindelöf, separable, first/second-countable)
   — on finite spaces computed from the topology; on infinite spaces via mathematical
   certificates; honest `UNDECIDABLE` where no route applies.
-- **7 representations**: `FiniteSpace`, `CofiniteSpace`, `OrderTopologySpace` (ℚ),
+- **10 representations**: `FiniteSpace`, `CofiniteSpace`, `OrderTopologySpace` (ℚ),
   `MetricTopologySpace`, `SorgenfreyLineSpace`, `DiscreteCountableSpace`,
-  `OpaqueInfiniteSpace`.
+  `OpaqueInfiniteSpace`, `AlexandroffSpace` (preorder → upset topology),
+  `SubbaseSpace` (subbase-generated topology), `InverseLimitSpace` (finite
+  inverse system + bonding maps).
 - **Construction closure** — `subspace`, `product`, `sum`, `quotient` for finite
   spaces; `ProductSpace`, `SubspaceSpace`, `SumSpace`, `QuotientSpace` provenance
   wrappers for infinite spaces.
@@ -89,15 +91,14 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
 ### ❌ Cannot do (real limits)
 
 - No spectral-sequence computation.
-- No general fundamental-group computation (van Kampen → presentation) beyond the
-  surface-word genus/Euler case. **Phase 2 target.**
 - Knots: needs a PD/Gauss code you supply; no HOMFLY/Khovanov.
 - Planarity is exact but **small-graph only** (exponential rotation-system search).
-- TDA is Z/2 and small clouds only (unoptimized reduction).
+- TDA is Z/2 and small clouds only (Phase 2 added Twist+Clearing optimisation, but
+  still single-machine, no GPU/distributed scale).
 - pi-Base inference is bounded by the vendored snapshot's vocabulary.
 - No coordinate/geometric topology, mesh processing, or general homeomorphism decision.
 - Most engines are finite / brute-force — **does not scale**.
-- `experimental.spaces` predicates are limited to the 7 bundled representations;
+- `experimental.spaces` predicates are limited to the 10 bundled representations;
   user-supplied infinite spaces can only be analyzed if they implement `certificate`.
 
 **One-sentence summary.** pytop is a solid finite point-set core + a focused
@@ -144,7 +145,7 @@ All five planned milestones delivered:
 
 | Milestone | Status | Delivered |
 |-----------|--------|-----------|
-| S1 — Space protocol + representations | ✅ | `Space` ABC, `Verdict`, 7 representations, `is_hausdorff` with witnesses |
+| S1 — Space protocol + representations | ✅ | `Space` ABC, `Verdict`, 10 representations (7 original + Alexandroff + Subbase + InverseLimit), `is_hausdorff` with witnesses |
 | S2 — 7 predicates + finite construction closure | ✅ | is_t0/t1/t2/regular/normal/compact/connected; subspace/product/sum/quotient |
 | S3 — Property-reasoning engine | ✅ | `reasoning.py`: preservation + pi-Base closure + `Derivation` + `synthesize` |
 | S4 — Extended axioms + representations | ✅ | is_t3/t4, Lindelöf/separable/1st-2nd-countable; Sorgenfrey + discrete-ℕ |
@@ -172,7 +173,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   T0 quotient for non-T0 inputs; `ProductSpace` → π₁(A) × π₁(B);
   `SumSpace` → π₁ of first component. Diamond poset verified = ℤ (minimal model of S¹).
 
-### Phase 2 — Algebraic topology to research grade 🔄 STARTED
+### Phase 2 — Algebraic topology to research grade ✅ COMPLETE
 
 | Item | Status | Delivered |
 |------|--------|-----------|
@@ -215,7 +216,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 580** |
+| Tests passing | **9 655** |
 | New PRs this arc | 14 (PR #1 → #14) |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
