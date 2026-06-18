@@ -289,7 +289,13 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
     of the unknot, trefoil (ℤ/2 at (−2,−7)), figure-8 (ℤ/2 at (−1,−3),(2,3)) and Hopf link;
     and the graded Euler characteristic = unnormalised Jones (cross-checked against
     `jones_polynomial`).
-- **9 908 tests passing** across the full suite.
+- **Phase 4 P4.1 — property-based + cross-engine differential testing**
+  (`tests/core/test_property_invariants.py`): seeded, reproducible checks of mathematical
+  invariants and engine consistency over many random inputs — Euler–Poincaré, rational Betti =
+  integral free rank, `b_i(ℤ/p) ≥ b_i(ℚ)`, HOMFLY-PT Markov(±)/conjugation invariance, HOMFLY-PT
+  `a=1` = Burau Alexander (two independent engines), Dehn-surgery `|H₁| = |det|` (vs an independent
+  Bareiss determinant), and lens-space homeomorphic ⇒ homotopy-equivalent.
+- **9 919 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 
