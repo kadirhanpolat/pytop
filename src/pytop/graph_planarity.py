@@ -18,6 +18,7 @@ profiles: it actually decides planarity and computes genus from an edge list.
 
 from __future__ import annotations
 
+import sys
 from collections.abc import Iterable
 from itertools import permutations
 from math import factorial
@@ -220,17 +221,232 @@ def _violates_planar_edge_bound(component: set[Any], adjacency: dict[Any, set[An
     return edge_count > bound
 
 
-def _component_is_planar(component: set[Any], adjacency: dict[Any, set[Any]]) -> bool:
-    """Decide planarity of one connected component (genus 0).
+# ---------------------------------------------------------------------------
+# Polynomial planarity decision — the left-right algorithm (Brandes 2009)
+# ---------------------------------------------------------------------------
+#
+# is_planar uses an O(V + E) left-right planarity test (de Fraysseix–Rosenstiehl;
+# Brandes, "The Left-Right Planarity Test", 2009) rather than the exponential
+# rotation-system search, so it decides planarity for graphs of *any* size and
+# never raises GraphPlanarityError.  graph_genus keeps the rotation-system search:
+# computing the exact minimum genus (not just whether it is 0) is genuinely harder.
+#
+# This is a decision-only port (no embedding is constructed).  It is validated
+# against networkx's independent planarity test on exhaustive small graphs and
+# random larger graphs (tests/core/test_graph_planarity.py).
 
-    First the cheap Euler edge bound rejects dense graphs with no search; only if
-    that passes do we compute the genus, which early-terminates as soon as a
-    genus-0 embedding is found.
-    """
 
-    if _violates_planar_edge_bound(component, adjacency):
-        return False
-    return _component_min_genus(component, adjacency) == 0
+class _Interval:
+    """An interval of return edges, given by its lowest and highest edge."""
+
+    __slots__ = ("low", "high")
+
+    def __init__(self, low: tuple | None = None, high: tuple | None = None) -> None:
+        self.low = low
+        self.high = high
+
+    def empty(self) -> bool:
+        return self.low is None and self.high is None
+
+    def copy(self) -> _Interval:
+        return _Interval(self.low, self.high)
+
+
+class _ConflictPair:
+    """A pair of (left, right) intervals that must be embedded on opposite sides."""
+
+    __slots__ = ("L", "R")
+
+    def __init__(self, left: _Interval | None = None, right: _Interval | None = None) -> None:
+        self.L = left if left is not None else _Interval()
+        self.R = right if right is not None else _Interval()
+
+    def swap(self) -> None:
+        self.L, self.R = self.R, self.L
+
+
+class _LRPlanarity:
+    """Left-right planarity test (decision only)."""
+
+    def __init__(self, adjacency: dict[Any, set[Any]]) -> None:
+        self.adj: dict[Any, list[Any]] = {v: list(nbrs) for v, nbrs in adjacency.items()}
+        self.height: dict[Any, int | None] = {v: None for v in self.adj}
+        self.lowpt: dict[tuple, int] = {}
+        self.lowpt2: dict[tuple, int] = {}
+        self.nesting_depth: dict[tuple, int] = {}
+        self.parent_edge: dict[Any, tuple | None] = {v: None for v in self.adj}
+        self.oriented_adj: dict[Any, list[tuple]] = {v: [] for v in self.adj}
+        self.oriented: set[tuple] = set()
+        self.ref: dict[tuple, tuple | None] = {}
+        self.side: dict[tuple, int] = {}
+        self.stack: list[_ConflictPair] = []
+        self.stack_bottom: dict[tuple, _ConflictPair | None] = {}
+        self.lowpt_edge: dict[tuple, tuple] = {}
+        self.roots: list[Any] = []
+
+    def is_planar(self) -> bool:
+        n = len(self.adj)
+        if n == 0:
+            return True
+        # Deep DFS trees (e.g. long paths) can exceed the default recursion limit.
+        needed = 4 * n + 100
+        if sys.getrecursionlimit() < needed:
+            sys.setrecursionlimit(needed)
+        # Phase 1 — orientation (DFS forest with lowpoints + nesting depth).
+        for v in self.adj:
+            if self.height[v] is None:
+                self.height[v] = 0
+                self.roots.append(v)
+                self._orient(v)
+        for v in self.adj:
+            self.oriented_adj[v].sort(key=lambda e: self.nesting_depth[e])
+        # Phase 2 — testing.
+        for v in self.roots:
+            if not self._test(v):
+                return False
+        return True
+
+    def _orient(self, v: Any) -> None:
+        e = self.parent_edge[v]
+        hv = self.height[v]
+        assert hv is not None
+        for w in self.adj[v]:
+            if (v, w) in self.oriented or (w, v) in self.oriented:
+                continue
+            vw = (v, w)
+            self.oriented.add(vw)
+            self.oriented_adj[v].append(vw)
+            self.lowpt[vw] = self.lowpt2[vw] = hv
+            if self.height[w] is None:  # tree edge
+                self.parent_edge[w] = vw
+                self.height[w] = hv + 1
+                self._orient(w)
+            else:  # back edge
+                hw = self.height[w]
+                assert hw is not None
+                self.lowpt[vw] = hw
+            self.nesting_depth[vw] = 2 * self.lowpt[vw]
+            if self.lowpt2[vw] < hv:  # chordal — nest deeper
+                self.nesting_depth[vw] += 1
+            if e is not None:  # update lowpoints of the parent edge
+                if self.lowpt[vw] < self.lowpt[e]:
+                    self.lowpt2[e] = min(self.lowpt[e], self.lowpt2[vw])
+                    self.lowpt[e] = self.lowpt[vw]
+                elif self.lowpt[vw] > self.lowpt[e]:
+                    self.lowpt2[e] = min(self.lowpt2[e], self.lowpt[vw])
+                else:
+                    self.lowpt2[e] = min(self.lowpt2[e], self.lowpt2[vw])
+
+    def _top(self) -> _ConflictPair | None:
+        return self.stack[-1] if self.stack else None
+
+    def _lowest(self, pair: _ConflictPair) -> int:
+        if pair.L.empty():
+            return self.lowpt[pair.R.low]  # type: ignore[index]
+        if pair.R.empty():
+            return self.lowpt[pair.L.low]  # type: ignore[index]
+        return min(self.lowpt[pair.L.low], self.lowpt[pair.R.low])  # type: ignore[index]
+
+    def _conflicting(self, interval: _Interval, b: tuple) -> bool:
+        return (not interval.empty()) and self.lowpt[interval.high] > self.lowpt[b]  # type: ignore[index]
+
+    def _test(self, v: Any) -> bool:
+        e = self.parent_edge[v]
+        hv = self.height[v]
+        assert hv is not None
+        for ei in self.oriented_adj[v]:
+            self.stack_bottom[ei] = self._top()
+            if ei == self.parent_edge[ei[1]]:  # tree edge
+                if not self._test(ei[1]):
+                    return False
+            else:  # back edge
+                self.lowpt_edge[ei] = ei
+                self.stack.append(_ConflictPair(right=_Interval(ei, ei)))
+            if self.lowpt[ei] < hv:  # ei has a return edge
+                # a return edge above v implies v is not a DFS root, so e exists
+                assert e is not None
+                if ei == self.oriented_adj[v][0]:
+                    self.lowpt_edge[e] = self.lowpt_edge[ei]
+                elif not self._add_constraints(ei, e):
+                    return False
+        if e is not None:  # integrate back into the parent edge
+            u = e[0]
+            self._trim_back_edges(u)
+            hu = self.height[u]
+            assert hu is not None
+            if self.lowpt[e] < hu:
+                top = self._top()
+                assert top is not None
+                hl, hr = top.L.high, top.R.high
+                if hl is not None and (hr is None or self.lowpt[hl] > self.lowpt[hr]):
+                    self.ref[e] = hl
+                else:
+                    self.ref[e] = hr
+        return True
+
+    def _add_constraints(self, ei: tuple, e: tuple) -> bool:
+        pair = _ConflictPair()
+        # Merge the return edges of ei into pair.R.
+        while True:
+            q = self.stack.pop()
+            if not q.L.empty():
+                q.swap()
+            if not q.L.empty():
+                return False  # left and right both nonempty → not planar
+            if self.lowpt[q.R.low] > self.lowpt[e]:  # type: ignore[index]
+                if pair.R.empty():
+                    pair.R = q.R.copy()
+                else:
+                    self.ref[pair.R.low] = q.R.high  # type: ignore[index]
+                pair.R.low = q.R.low
+            else:
+                self.ref[q.R.low] = self.lowpt_edge[e]  # type: ignore[index]
+            if self._top() is self.stack_bottom[ei]:
+                break
+        # Merge the conflicting return edges of e_1..e_{i-1} into pair.L.
+        while self._conflicting(self._top().L, ei) or self._conflicting(self._top().R, ei):  # type: ignore[union-attr]
+            q = self.stack.pop()
+            if self._conflicting(q.R, ei):
+                q.swap()
+            if self._conflicting(q.R, ei):
+                return False  # not planar
+            self.ref[pair.R.low] = q.R.high  # type: ignore[index]
+            if q.R.low is not None:
+                pair.R.low = q.R.low
+            if pair.L.empty():
+                pair.L = q.L.copy()
+            else:
+                self.ref[pair.L.low] = q.L.high  # type: ignore[index]
+            pair.L.low = q.L.low
+        if not (pair.L.empty() and pair.R.empty()):
+            self.stack.append(pair)
+        return True
+
+    def _trim_back_edges(self, u: Any) -> None:
+        while self.stack and self._lowest(self._top()) == self.height[u]:  # type: ignore[arg-type]
+            popped = self.stack.pop()
+            if popped.L.low is not None:
+                self.side[popped.L.low] = -1
+        if self.stack:
+            pair = self.stack.pop()
+            while pair.L.high is not None and pair.L.high[1] == u:
+                pair.L.high = self.ref.get(pair.L.high)
+            if pair.L.high is None and pair.L.low is not None:
+                self.ref[pair.L.low] = pair.R.low
+                self.side[pair.L.low] = -1
+                pair.L.low = None
+            while pair.R.high is not None and pair.R.high[1] == u:
+                pair.R.high = self.ref.get(pair.R.high)
+            if pair.R.high is None and pair.R.low is not None:
+                self.ref[pair.R.low] = pair.L.low
+                self.side[pair.R.low] = -1
+                pair.R.low = None
+            self.stack.append(pair)
+
+
+def _lr_is_planar(adjacency: dict[Any, set[Any]]) -> bool:
+    """Decide planarity of a whole graph (all components) via the LR test."""
+    return _LRPlanarity(adjacency).is_planar()
 
 
 def graph_genus(edges: Iterable[Edge], vertices: Iterable[Any] = ()) -> int:
@@ -256,22 +472,24 @@ def graph_genus(edges: Iterable[Edge], vertices: Iterable[Any] = ()) -> int:
 def is_planar(edges: Iterable[Edge], vertices: Iterable[Any] = ()) -> bool:
     """Return whether the graph is planar (orientable genus zero).
 
-    A graph is planar iff every connected component is, so this short-circuits on
-    the first non-planar component. Each component is decided by
-    :func:`_component_is_planar`, which rejects dense graphs via the Euler edge
-    bound (no search) and otherwise stops at the first genus-0 embedding -- far
-    cheaper than computing the full genus via :func:`graph_genus`.
+    Uses the linear-time **left-right planarity test** (Brandes 2009), so it
+    decides planarity for graphs of *any* size and **never raises** -- unlike
+    :func:`graph_genus`, which enumerates rotation systems. A cheap Euler edge
+    bound rejects dense graphs up front (and double-checks the LR verdict on
+    them).
 
     Complexity
     ----------
-    Worst case still exponential (a non-planar graph passing the edge bound is
-    searched), but planar graphs and dense non-planar graphs (``K_n``, ``K_{m,n}``)
-    are decided cheaply. See ``docs/COMPLEXITY.md``.
+    ``O(V + E)``. See ``docs/COMPLEXITY.md``.
     """
 
     edge_list = [tuple(e) for e in edges]
     adjacency = _adjacency(vertices, edge_list)
-    return all(_component_is_planar(c, adjacency) for c in _components(adjacency))
+    # Cheap necessary Euler reject per component (also a safety net on the LR test).
+    for component in _components(adjacency):
+        if _violates_planar_edge_bound(component, adjacency):
+            return False
+    return _lr_is_planar(adjacency)
 
 
 def satisfies_planar_edge_bound(vertex_count: int, edge_count: int, *, bipartite: bool = False) -> bool:
