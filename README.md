@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v0.6.0+**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations, persistent homology, knot polynomials, winding number, surface classification, graph planarity — Phase 2: 6/8 complete), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
+As of **v0.6.0+**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence — **Phase 2: 8/8 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
 
 ## Installation
 
@@ -115,6 +115,8 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | Surfaces & manifolds | `surfaces`, `surface_classification`, `manifolds`, `three_manifolds` |
 | Graph topology | `graph_topology` |
 | **Computational homology** (v0.6.0+) | `homology`, `persistent_homology`, `homology_coefficients`, `mayer_vietoris`, `cellular_homology`, `cohomology` |
+| **Optimized persistence** (v0.6.0+) | `persistent_homology_optimized` — Twist+Clearing (Chen–Kerber 2011), `ReductionStats` |
+| **Cubical complexes** (v0.6.0+) | `cubical_homology` — `CubicalComplex`, SNF homology, `bitmap_to_cubical_filtration`, `persistent_homology_bitmap` |
 | **Fundamental group / van Kampen** (v0.6.0+) | `van_kampen` — `GroupPresentation`, `van_kampen()`, `cw_complex_pi1()`, standard spaces |
 | **Knot invariants** (v0.6.0) | `knot_invariants` |
 | **Degree / winding** (v0.6.0) | `winding_number` |
@@ -198,7 +200,20 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   `van_kampen_torus()` → ⟨a,b | aba⁻¹b⁻¹⟩ ≅ ℤ², `van_kampen_klein_bottle()` → ⟨a,b | abab⁻¹⟩
   (H₁ = ℤ⊕ℤ/2), `van_kampen_real_projective_plane()` → ⟨a | a²⟩ ≅ ℤ/2,
   `van_kampen_wedge_circles(n)` → Fₙ. Group type identified automatically. 59 new tests.
-- **9 362 tests passing** across the full suite.
+- **Optimized persistence (Twist+Clearing)** — `persistent_homology_optimized` implements the
+  Chen–Kerber 2011 Twist algorithm: columns processed dimension-top-down; the Clearing Lemma
+  immediately skips every creator whose reduction is guaranteed to be zero. Returns identical
+  results to the standard L→R sweep, typically with significantly fewer column additions.
+  `persistence_pairs_twist_with_stats` exposes `ReductionStats` (n_cleared, clearing_ratio,
+  n_column_additions). Shared `_twist_reduce` kernel reused by the cubical pipeline. 46 new tests.
+- **Cubical complexes** — `cubical_homology` provides a complete cubical TDA stack:
+  `CubicalComplex` (face-closure under ∂, ℤ boundary matrices, SNF-based homology — S¹: H₁=ℤ,
+  D²: contractible, verified); `circle_cubical`, `disk_cubical`, `interval_complex` standard
+  spaces; `CubicalFiltration` + `bitmap_to_cubical_filtration` (lower-star filtration from a
+  2-D pixel array with f(face) ≤ f(coface) guaranteed); `persistence_pairs_cubical` +
+  `persistent_homology_bitmap` via the shared Twist+Clearing kernel — 3×3 annular image
+  correctly yields H₁ bar [0, 1). 74 new tests.
+- **9 482 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

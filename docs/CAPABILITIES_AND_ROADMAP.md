@@ -5,7 +5,7 @@
 > starting from set-theoretic (point-set) topology.
 >
 > **Status as of 2026-06-18:** Phase 1 (set-theoretic topology) is substantially
-> complete; Phase 2 (algebraic topology) is in progress (6 / 8 items done).
+> complete; Phase 2 (algebraic topology) is **complete** (8 / 8 items done).
 
 ---
 
@@ -171,8 +171,8 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | Cellular homology | ✅ | `cellular_homology`: CWComplex + SNF; standard spaces (S^n, RP^n, CP^n, T², Klein, L(p,q), M(Z/n,k)); cross-validated via `cw_from_simplicial` |
 | Cohomology + cup product | ✅ | `cohomology`: δ^k=(∂_{k+1})^T via extended SNF; UCT verified; Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity; torus H^1⊗H^1→H^2 non-degenerate |
 | van Kampen → group presentations | ✅ | `van_kampen`: GroupPresentation + GroupHomomorphism; amalgamated free product; Tietze elimination; abelianization via SNF; group identification; CW1Complex route (spanning tree → π₁); standard spaces (S¹∨⋯∨S¹→Fₙ, S²→1, T²→ℤ², Klein→⟨a,b\|abab⁻¹⟩, RP²→ℤ/2) |
-| Optimized persistence (clearing/twist) | ⬜ | — |
-| Cubical complexes | ⬜ | — |
+| Optimized persistence (clearing/twist) | ✅ | `persistent_homology_optimized`: Twist algorithm (Chen–Kerber 2011) + Clearing Lemma; dimension-top-down sweep; `ReductionStats` (n_cleared, clearing_ratio, n_column_additions); cross-validated against standard reduction |
+| Cubical complexes | ✅ | `cubical_homology`: `CubicalComplex` (face-closure, boundary ℤ-matrix, SNF homology); standard spaces S¹/D²/interval; `CubicalFiltration` + `bitmap_to_cubical_filtration` (lower-star from 2-D pixel array); `persistence_pairs_cubical` + `persistent_homology_bitmap` via shared Twist+Clearing kernel |
 
 ### Phase 3 — Geometric & low-dimensional topology ⬜ NOT STARTED
 
@@ -211,4 +211,4 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
 | Phase 1 milestones complete | 5 / 5 |
-| Phase 2 milestones complete | 6 / 8 |
+| Phase 2 milestones complete | 8 / 8 ✅ |

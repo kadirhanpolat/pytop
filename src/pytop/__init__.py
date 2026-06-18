@@ -2877,6 +2877,29 @@ from .persistent_homology import (
     persistence_diagram,
     euler_characteristic_curve,
 )
+from .persistent_homology_optimized import (
+    ReductionStats,
+    persistence_pairs_twist,
+    persistence_pairs_twist_with_stats,
+    persistent_homology_optimized,
+)
+from .cubical_homology import (
+    CubicalComplex,
+    CubicalFiltration,
+    cube_dim,
+    cube_faces_signed,
+    cube_faces_z2,
+    make_cubical_complex,
+    cubical_boundary_matrix,
+    cubical_homology,
+    interval_complex,
+    circle_cubical,
+    disk_cubical,
+    sphere_cubical_1d,
+    bitmap_to_cubical_filtration,
+    persistence_pairs_cubical,
+    persistent_homology_bitmap,
+)
 from .abstract_homotopy import (
     AbstractHomotopyProfile,
     MODEL_CATEGORY_TAGS,

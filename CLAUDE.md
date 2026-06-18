@@ -6,12 +6,14 @@
 It provides point-set topology, knot theory, graph topology, surface classification,
 3-manifolds, degree theory, cardinal functions, and more. As of **v0.6.0+** it also ships a
 **constructive computational core** (simplicial homology with field/relative coefficients,
-persistent homology / TDA, knot invariant polynomials, winding/degree, surface-word
-classification, exact graph planarity), a **pi-Base–backed deductive inference engine**
+persistent homology / TDA, optimized persistence with Twist+Clearing, cubical complexes +
+bitmap persistence, knot invariant polynomials, winding/degree, surface-word classification,
+exact graph planarity), a **pi-Base–backed deductive inference engine**
 (`pytop.experimental.pi_base`), and a **research-grade computable-space protocol**
 (`pytop.experimental.spaces`) for point-set topology — Phase 1 complete (S1–S5),
-Phase 2 in progress (6/8: field-coeff homology, relative homology, Mayer–Vietoris LES,
-cellular homology, cohomology + cup product, van Kampen → group presentations).
+**Phase 2 complete (8/8)**: field-coeff homology, relative homology, Mayer–Vietoris LES,
+cellular homology, cohomology + cup product, van Kampen → group presentations,
+optimized persistence (Twist+Clearing), cubical complexes.
 
 - **GitHub:** https://github.com/kadirhanpolat/pytop
 - **License:** MIT
@@ -36,6 +38,13 @@ pytop has two complementary layers — keep this distinction in mind when extend
   `cohomology` (cochain complex via δ^k=(∂_{k+1})^T; extended SNF → H^k; UCT verified;
   Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity and torus pairing),
   `persistent_homology` (Vietoris–Rips filtration → Z/2 reduction → barcodes),
+  `persistent_homology_optimized` (Twist algorithm, Chen–Kerber 2011: dimension-top-down sweep +
+  Clearing Lemma; `ReductionStats` with n_cleared / clearing_ratio / n_column_additions;
+  shared `_twist_reduce` kernel used by both simplicial and cubical pipelines),
+  `cubical_homology` (`CubicalComplex` with face-closure + ℤ boundary matrix + SNF homology;
+  `circle_cubical`, `disk_cubical`, `interval_complex`; `CubicalFiltration` +
+  `bitmap_to_cubical_filtration` — lower-star filtration from 2-D pixel arrays with
+  f(face) ≤ f(coface) guaranteed; `persistent_homology_bitmap` via Twist+Clearing),
   `van_kampen` (Seifert–van Kampen: GroupPresentation + GroupHomomorphism; amalgamated free
   product; Tietze elimination; abelianization via SNF; group identification; CW1Complex route;
   standard spaces S¹∨⋯∨S¹→Fₙ, S²→1, T²→ℤ², Klein→⟨a,b|abab⁻¹⟩, RP²→ℤ/2),
