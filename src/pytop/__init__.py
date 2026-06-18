@@ -2600,7 +2600,7 @@ from .continua import (
     continuum_profile_summary,
     is_continuum_profile,
 )
-from .retracts import (
+from .retracts import (  # type: ignore[assignment]
     RetractionProfile,  # noqa: F811
     RetractProfileError,
     AbsoluteRetractProfile,
@@ -3068,7 +3068,7 @@ from .predicate_sets import (
     natural_numbers, integers, rationals, reals, complex_numbers, alphabet,
     positive_naturals, positive_integers, positive_reals,
 )
-from .predicate_relations import (
+from .predicate_relations import (  # type: ignore[assignment]
     PredicateRelationError,
     MathRelation,
     relation_on,

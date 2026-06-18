@@ -95,7 +95,7 @@ def _mode_from_support(support: str) -> str:
     return mapping.get(support, "symbolic")
 
 
-def _matches_any(tags: set[str], candidates: set[str]) -> bool:
+def _matches_any(tags: set[str], candidates: set[str] | frozenset[str]) -> bool:
     return bool(tags & candidates)
 
 

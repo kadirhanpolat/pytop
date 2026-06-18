@@ -471,7 +471,7 @@ class AlexandroffSpace(Space):
             ce = self._antisymmetry_counterexample()
             return Verdict.false(
                 reason=f"AlexandroffSpace: order has x ≤ y and y ≤ x for x ≠ y "
-                       f"({ce[0]!r} and {ce[1]!r}) — not antisymmetric, so not T0",
+                       f"({ce[0]!r} and {ce[1]!r}) — not antisymmetric, so not T0",  # type: ignore[index]
                 counterexample=ce,
             )
 

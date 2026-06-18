@@ -120,7 +120,7 @@ def check_tychonoff(space: Any) -> Result:
 
     # Layer 3: direct positive Tychonoff tags
     all_tych_pos = TYCHONOFF_POSITIVE_TAGS | frozenset(TRUE_TAGS["tychonoff"])
-    if _matches_any(tags, all_tych_pos):
+    if _matches_any(tags, all_tych_pos):  # type: ignore[arg-type]
         return Result.true(
             mode="theorem",
             value="tychonoff",

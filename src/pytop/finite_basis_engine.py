@@ -207,7 +207,7 @@ def local_base_report(
     neighborhoods = ()
     if topology_family is not None and point in carrier_set:
         topology_sets = _normalize_family(topology_family, carrier_set)
-        neighborhoods = tuple(open_set for open_set in topology_sets if point in open_set)
+        neighborhoods = tuple(open_set for open_set in topology_sets if point in open_set)  # type: ignore[assignment]
     return {
         "point": point,
         "candidate_family": candidate,
@@ -259,7 +259,7 @@ def minimal_basis(space: FiniteTopologicalSpace) -> tuple[frozenset[Any], ...]:
     """
     carrier_set: frozenset[Any] = frozenset(space.carrier)
     opens = [frozenset(u) for u in space.topology]
-    empty = frozenset()
+    empty: frozenset[Any] = frozenset()
 
     basis_elements: set[frozenset[Any]] = set()
     for x in carrier_set:

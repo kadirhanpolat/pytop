@@ -217,7 +217,7 @@ def render_countability_report(space: Any) -> str:
     if theorem_lines:
         lines.append("")
         lines.append("Theorem corridor:")
-        for rule in theorem_lines:
+        for rule in theorem_lines:  # type: ignore[assignment]
             lines.append(f"- {rule}")
     negative_properties = [key for key, result in report.items() if result.is_false]
     if negative_properties:
@@ -243,7 +243,7 @@ def _representation_of(space: Any) -> str:
 
 def _extract_tags(space: Any) -> set[str]:
     tags: set[str] = set()
-    raw_tags = getattr(space, "tags", set())
+    raw_tags: set[str] = getattr(space, "tags", set())
     tags.update(str(tag).strip().lower() for tag in raw_tags if str(tag).strip())
     metadata = getattr(space, "metadata", {}) or {}
     for tag in metadata.get("tags", []):

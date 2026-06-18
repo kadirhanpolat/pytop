@@ -186,7 +186,7 @@ def restriction_of_map(map_obj: FiniteMap, domain_subset: Iterable[Any]) -> Fini
     sub = frozenset(domain_subset)
     if not sub.issubset(dom_points):
         raise ValueError("domain_subset must be contained in the domain carrier.")
-    dom_topology = getattr(map_obj.domain, "topology", frozenset())
+    dom_topology: frozenset[Any] = getattr(map_obj.domain, "topology", frozenset())
     subspace_topology = frozenset(frozenset(set(U) & sub) for U in dom_topology)
     sub_space = FiniteTopologicalSpace(carrier=sub, topology=subspace_topology)
     return FiniteMap(domain=sub_space, codomain=map_obj.codomain, mapping={x: graph[x] for x in sub})

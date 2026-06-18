@@ -264,7 +264,7 @@ def _cycle_crossings(
         while parent_edge.get(cur) is not None:
             eidx = parent_edge[cur]  # type: ignore[assignment]
             path_crossing_indices.append(tree_edges[eidx][2])
-            cur = visited[cur]  # type: ignore[arg-type]
+            cur = visited[cur]  # type: ignore[assignment]
 
     return path_crossing_indices, cotree_sign
 
@@ -388,7 +388,7 @@ def seifert_matrix(diagram: KnotDiagram) -> list[list[int]]:
         while parent_tedge.get(cur) is not None:
             eidx = parent_tedge[cur]  # type: ignore[assignment]
             path.append(eidx)
-            cur = visited[cur]  # type: ignore[arg-type]
+            cur = visited[cur]  # type: ignore[assignment]
         return path
 
     # For each co-tree crossing, find its two endpoint circles.
@@ -582,7 +582,7 @@ def _poly_remainder(p: list[float], q: list[float]) -> list[float]:
         factor = work[0] / q[0]
         shift = len(work) - len(q)
         for k in range(len(q)):
-            work[k] -= factor * q[k + (len(work) - len(q) - shift)]  # type: ignore[index]
+            work[k] -= factor * q[k + (len(work) - len(q) - shift)]
         work = strip(work[1:] if len(work) > 1 else work)
 
     return [-v for v in strip(work)]

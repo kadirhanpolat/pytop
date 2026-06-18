@@ -131,7 +131,7 @@ def path_connectedness_diagnostic(
     points = frozenset(carrier)
     if not points:
         raise PathProfileError("Path-connectedness diagnostics require a nonempty carrier.")
-    adjacency = {point: set() for point in points}
+    adjacency: dict[Any, set[Any]] = {point: set() for point in points}
     for path in paths:
         if path.start not in points or path.end not in points:
             raise PathProfileError("Every path endpoint must belong to the carrier.")

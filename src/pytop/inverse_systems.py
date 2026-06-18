@@ -108,7 +108,7 @@ def _tags_of(obj: Any) -> set[str]:
         if isinstance(raw, (list, tuple, set, frozenset)):
             return {str(t).strip().lower() for t in raw}
         return set()
-    tags = getattr(obj, "tags", set())
+    tags: set[str] = getattr(obj, "tags", set())
     if isinstance(tags, (set, frozenset, list, tuple)):
         return {str(t).strip().lower() for t in tags}
     return set()

@@ -192,7 +192,7 @@ def _representation_of(space: Any) -> str:
     return "symbolic_general"
 
 
-def _matches_any(tags: set[str], candidates: set[str]) -> bool:
+def _matches_any(tags: set[str], candidates: set[str] | frozenset[str]) -> bool:
     return bool(tags & candidates)
 
 

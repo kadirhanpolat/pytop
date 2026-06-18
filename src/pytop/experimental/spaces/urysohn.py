@@ -293,7 +293,7 @@ def _finite_urysohn(
         )
 
     # General finite case: BFS chain
-    values = _bfs_urysohn(x0, closed_set, pts, opens, carrier)
+    values = _bfs_urysohn(x0, closed_set, pts, opens, carrier)  # type: ignore[assignment]
     if values is None:
         return None
 

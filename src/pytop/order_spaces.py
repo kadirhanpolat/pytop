@@ -108,7 +108,7 @@ def preorder_t0_reduction(
         'projection': {repr(point): sorted(block, key=repr) for point, block in data['projection'].items()},
         'construction': 'preorder_t0_reduction',
     }
-    reduced = poset_space(data['quotient_blocks'], data['quotient_relation'], description=metadata['description'])
+    reduced = poset_space(data['quotient_blocks'], data['quotient_relation'], description=metadata['description'])  # type: ignore[arg-type]
     reduced.metadata.update(metadata)
     reduced.add_tags('t0_reduction')
     return reduced

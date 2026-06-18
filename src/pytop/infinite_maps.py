@@ -270,7 +270,7 @@ def _has_negative_tag(map_obj: SymbolicMap, property_name: str) -> bool:
 
 
 def _theorem_map_property(map_obj: SymbolicMap, property_name: str) -> Result | None:
-    tags = getattr(map_obj, 'tags', set())
+    tags: set[str] = getattr(map_obj, 'tags', set())
     if 'homeomorphism' in tags and property_name in {'continuous', 'open', 'closed', 'bijective', 'embedding', 'quotient'}:
         return Result.true(
             mode='theorem',

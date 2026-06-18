@@ -105,7 +105,7 @@ def boundary_matrix(complex_obj: SimplicialComplex, k: int) -> Matrix:
 try:
     import flint as _flint
 except ImportError:  # pragma: no cover
-    _flint = None
+    _flint = None  # type: ignore[assignment]
 
 # Above this dimension a dense integer SNF is routed to python-flint (when it is
 # installed) to avoid the pure-Python routine's coefficient blow-up. The results

@@ -105,7 +105,7 @@ class SimplicialComplex:
         vertices = set(self.vertices)
         if not vertices:
             return {"connected": False, "components": ()}
-        adjacency = {vertex: set() for vertex in vertices}
+        adjacency: dict[Any, set[Any]] = {vertex: set() for vertex in vertices}
         for edge in self.one_skeleton_edges():
             left, right = tuple(edge)
             adjacency[left].add(right)

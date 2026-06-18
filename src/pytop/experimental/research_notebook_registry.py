@@ -75,7 +75,7 @@ def get_research_notebook_profiles() -> tuple[ResearchNotebookProfile, ...]:
 
 
 def notebook_profile_summary() -> dict[str, int]:
-    counts = Counter()
+    counts: Counter[str] = Counter()
     for profile in get_research_notebook_profiles():
         for chapter in profile.chapter_targets:
             counts[chapter] += 1
