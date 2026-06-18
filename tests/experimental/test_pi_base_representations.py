@@ -40,7 +40,7 @@ from pytop.experimental.spaces.pi_base_representations import (
 
 def test_list_representable_count():
     reps = list_representable()
-    assert len(reps) == 128
+    assert len(reps) == 147
 
 
 def test_list_representable_structure():
@@ -1473,3 +1473,147 @@ class TestBatch6Properties:
     def test_ultrafilter_not_hausdorff(self):
         sp = best_space("S000145")
         assert is_hausdorff(sp).value is False
+
+
+# ---------------------------------------------------------------------------
+# Batch 7 — type checks, membership, and properties
+# ---------------------------------------------------------------------------
+
+class TestBatch7CertifiedSpaceTypes:
+    @pytest.mark.parametrize("uid", [
+        "S000058",  # indiscrete rational extension
+        "S000059",  # indiscrete irrational extension
+        "S000061",  # pointed irrational extension
+        "S000064",  # rational extension of plane
+        "S000113",  # topologist's sine curve
+        "S000114",  # closed topologist's sine
+        "S000115",  # extended topologist's sine
+        "S000120",  # infinite cage
+        "S000122",  # Gustin's sequence space
+        "S000123",  # Roy's lattice space
+        "S000124",  # Roy's lattice subspace
+        "S000125",  # KK fan
+        "S000126",  # punctured KK fan
+        "S000130",  # Tangora's connected space
+        "S000132",  # Duncan's space
+        "S000161",  # Van Douwen's space
+        "S000167",  # right open-ray ω+1+ω*
+        "S000171",  # Brian's Example
+        "S000183",  # KP Hart's modified
+    ])
+    def test_is_certified_space(self, uid):
+        assert isinstance(best_space(uid), _CertifiedSpace)
+
+
+class TestBatch7Membership:
+    def test_real_member_batch7(self):
+        for uid in ["S000058", "S000059", "S000061", "S000171"]:
+            sp = best_space(uid)
+            assert sp.contains(0)
+            assert sp.contains(Fraction(1, 3))
+            assert not sp.contains("x")
+
+    def test_rat_ext_plane(self):
+        sp = best_space("S000064")
+        assert sp.contains((Fraction(0), Fraction(0)))           # original plane point
+        assert sp.contains((Fraction(1, 2), Fraction(-1, 3)))    # original plane point
+        assert sp.contains((Fraction(1, 2), Fraction(0), 1))     # rational copy
+        assert sp.contains((Fraction(0), Fraction(1), 1))
+        assert not sp.contains((Fraction(1), Fraction(0), 2))    # wrong tag
+        assert not sp.contains("x")
+
+    def test_plane_member_batch7(self):
+        for uid in ["S000113", "S000114", "S000115", "S000120"]:
+            sp = best_space(uid)
+            assert sp.contains((Fraction(0), Fraction(0)))
+            assert sp.contains((Fraction(1, 2), Fraction(1, 3)))
+            assert not sp.contains("xy")
+
+    def test_omega_member_batch7(self):
+        for uid in ["S000122", "S000130", "S000132", "S000183"]:
+            sp = best_space(uid)
+            assert sp.contains(0)
+            assert sp.contains(10)
+            assert not sp.contains(-1)
+            assert not sp.contains("x")
+
+    def test_int_plane_member_batch7(self):
+        for uid in ["S000123", "S000124"]:
+            sp = best_space(uid)
+            assert sp.contains((0, 0))
+            assert sp.contains((-3, 5))
+            assert not sp.contains((Fraction(1, 2), 0))
+            assert not sp.contains(0)
+
+    def test_unit_square_batch7(self):
+        for uid in ["S000125", "S000126"]:
+            sp = best_space(uid)
+            assert sp.contains((Fraction(0), Fraction(0)))
+            assert sp.contains((Fraction(1, 2), Fraction(1, 2)))
+            assert not sp.contains((Fraction(3, 2), Fraction(0)))
+
+    def test_van_douwen_membership(self):
+        sp = best_space("S000161")
+        assert sp.contains((0, 0))
+        assert sp.contains((3, 5))
+        assert sp.contains("∞")
+        assert not sp.contains(0)
+
+    def test_right_open_ray_w1_wstar(self):
+        sp = best_space("S000167")
+        assert sp.contains((0, 0))    # first ω copy
+        assert sp.contains((1, 3))    # reverse ω copy
+        assert sp.contains("∞")       # limit point
+        assert not sp.contains("Ω")
+        assert not sp.contains(0)
+
+    def test_kp_hart_omega(self):
+        sp = best_space("S000183")
+        assert sp.contains(0)
+        assert sp.contains(42)
+        assert not sp.contains(-1)
+
+
+class TestBatch7Properties:
+    def test_indiscrete_rational_ext_hausdorff(self):
+        sp = best_space("S000058")
+        assert is_hausdorff(sp).value is True
+
+    def test_rat_ext_plane_hausdorff_not_connected(self):
+        sp = best_space("S000064")
+        assert is_hausdorff(sp).value is True
+        assert is_connected(sp).value is False
+
+    def test_closed_topologist_sine_compact(self):
+        sp = best_space("S000114")
+        assert is_compact(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_topologist_sine_connected(self):
+        sp = best_space("S000113")
+        assert is_connected(sp).value is True
+        assert is_compact(sp).value is False
+
+    def test_kk_fan_connected_not_compact(self):
+        sp = best_space("S000125")
+        assert is_connected(sp).value is True
+        assert is_compact(sp).value is False
+
+    def test_punctured_kk_fan_not_connected(self):
+        sp = best_space("S000126")
+        assert is_connected(sp).value is False
+
+    def test_gustin_connected_hausdorff(self):
+        sp = best_space("S000122")
+        assert is_connected(sp).value is True
+        assert is_hausdorff(sp).value is True
+
+    def test_right_open_ray_w1_wstar_t1_false(self):
+        sp = best_space("S000167")
+        assert is_t1(sp).value is False
+        assert is_compact(sp).value is True
+
+    def test_van_douwen_not_hausdorff_compact(self):
+        sp = best_space("S000161")
+        assert is_hausdorff(sp).value is False
+        assert is_compact(sp).value is True

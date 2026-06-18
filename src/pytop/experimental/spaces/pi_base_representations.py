@@ -1430,6 +1430,140 @@ def _circle_two_origins() -> _CertifiedSpace:
 
 
 # ===========================================================================
+# Batch 7 — member helpers
+# ===========================================================================
+
+def _RAT_EXT_PLANE_MEMBER(p: Any) -> bool:
+    r"""ℝ² ∪ {(x,y,1): x,y∈Q} — rational extension of the plane."""
+    if isinstance(p, tuple) and len(p) == 3 and isinstance(p[0], (int, Fraction)) and isinstance(p[1], (int, Fraction)) and p[2] == 1:
+        return True
+    return _PLANE_MEMBER(p)
+
+
+def _W_INF_W_STAR_MEMBER(p: Any) -> bool:
+    r"""ω+1+ω* carrier: {(0,n):n∈ω} ∪ {'∞'} ∪ {(1,n):n∈ω}."""
+    return p == "∞" or _ORDINAL_WW_MEMBER(p)
+
+
+# ===========================================================================
+# Batch 7 — certified spaces
+# ===========================================================================
+
+@_reg("S000058")
+def _indiscrete_rational_extension() -> _CertifiedSpace:
+    # Indiscrete rational extension of ℝ: carrier ℝ (rational part only representable).
+    return _CertifiedSpace("S000058", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000059")
+def _indiscrete_irrational_extension() -> _CertifiedSpace:
+    # Indiscrete irrational extension of ℝ: carrier ℝ (rational part only representable).
+    return _CertifiedSpace("S000059", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000061")
+def _pointed_irrational_extension() -> _CertifiedSpace:
+    # Pointed irrational extension of ℝ: carrier ℝ (rational part only representable).
+    return _CertifiedSpace("S000061", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000064")
+def _rational_extension_plane() -> _CertifiedSpace:
+    # Rational extension of the plane: ℝ² ∪ {(x,y,1): x,y∈Q}.
+    return _CertifiedSpace("S000064", _RAT_EXT_PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000113")
+def _topologist_sine_curve() -> _CertifiedSpace:
+    # Topologist's sine curve: subspace of ℝ² (carrier ℝ²).
+    return _CertifiedSpace("S000113", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000114")
+def _closed_topologist_sine() -> _CertifiedSpace:
+    # Closed topologist's sine curve: compact subspace of ℝ².
+    return _CertifiedSpace("S000114", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000115")
+def _extended_topologist_sine() -> _CertifiedSpace:
+    # Extended topologist's sine curve: compact subspace of ℝ².
+    return _CertifiedSpace("S000115", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000120")
+def _infinite_cage() -> _CertifiedSpace:
+    # Infinite cage: connected subspace of ℝ².
+    return _CertifiedSpace("S000120", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000122")
+def _gustin_sequence_space() -> _CertifiedSpace:
+    # Gustin's sequence space: countable connected Hausdorff space (carrier ω).
+    return _CertifiedSpace("S000122", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000123")
+def _roy_lattice_space() -> _CertifiedSpace:
+    # Roy's lattice space: carrier ℤ².
+    return _CertifiedSpace("S000123", _INT_PLANE_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000124")
+def _roy_lattice_subspace() -> _CertifiedSpace:
+    # Roy's lattice subspace: carrier ℤ².
+    return _CertifiedSpace("S000124", _INT_PLANE_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000125")
+def _kk_fan() -> _CertifiedSpace:
+    # Knaster–Kuratowski fan: subspace of [0,1]² (carrier Q²∩[0,1]²).
+    return _CertifiedSpace("S000125", _UNIT_SQUARE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000126")
+def _punctured_kk_fan() -> _CertifiedSpace:
+    # Punctured Knaster–Kuratowski fan: subspace of [0,1]².
+    return _CertifiedSpace("S000126", _UNIT_SQUARE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000130")
+def _tangora_connected_space() -> _CertifiedSpace:
+    # Tangora's connected space: countable connected Hausdorff space (carrier ω).
+    return _CertifiedSpace("S000130", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000132")
+def _duncan_space() -> _CertifiedSpace:
+    # Duncan's space: countable Hausdorff not-connected space (carrier ω).
+    return _CertifiedSpace("S000132", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000161")
+def _van_douwen_space() -> _CertifiedSpace:
+    # Van Douwen's anti-Hausdorff Fréchet space (carrier ω×ω ∪ {∞}).
+    return _CertifiedSpace("S000161", _GRID_OR_INF_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000167")
+def _right_open_ray_w1_wstar() -> _CertifiedSpace:
+    # Right open-ray topology on ω+1+ω*: pairs (0|1,n) ∪ {'∞'}.
+    return _CertifiedSpace("S000167", _W_INF_W_STAR_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000171")
+def _brian_example() -> _CertifiedSpace:
+    # Brian's Example: Hausdorff, not connected, not compact (carrier ℝ).
+    return _CertifiedSpace("S000171", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000183")
+def _kp_hart_modified_cocountable() -> _CertifiedSpace:
+    # KP Hart's non-sequentially discrete modified cocountable topology (carrier ω).
+    return _CertifiedSpace("S000183", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+# ===========================================================================
 # Public API
 # ===========================================================================
 
