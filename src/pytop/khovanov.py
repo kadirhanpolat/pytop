@@ -278,17 +278,26 @@ def khovanov_homology(diagram: KnotDiagram) -> KhovanovHomology:
 
     elements, differentials = _khovanov_complex(diagram)
 
+    # Smith normal form of each differential, computed once and reused. The ranks
+    # and torsion below each reference d^{i}_j up to three times (as the outgoing
+    # rank of C^i_j, the incoming rank of C^{i+1}_j, and the incoming torsion of
+    # C^{i+1}_j), and SNF is the dominant cost — so memoising it per bidegree cuts
+    # the homology step's SNF work ~3x with an identical result.
+    snf_cache: dict[tuple[int, int], list[int]] = {}
+
+    def snf(key: tuple[int, int]) -> list[int]:
+        cached = snf_cache.get(key)
+        if cached is None:
+            matrix = differentials.get(key)
+            cached = _smith_normal_form(matrix) if matrix else []
+            snf_cache[key] = cached
+        return cached
+
     def rank(key: tuple[int, int]) -> int:
-        matrix = differentials.get(key)
-        if not matrix:
-            return 0
-        return len(_smith_normal_form(matrix))
+        return len(snf(key))
 
     def torsion_of(key: tuple[int, int]) -> tuple[int, ...]:
-        matrix = differentials.get(key)
-        if not matrix:
-            return ()
-        return tuple(d for d in _smith_normal_form(matrix) if d > 1)
+        return tuple(d for d in snf(key) if d > 1)
 
     groups: dict[tuple[int, int], tuple[int, tuple[int, ...]]] = {}
     for (i, j), basis in elements.items():

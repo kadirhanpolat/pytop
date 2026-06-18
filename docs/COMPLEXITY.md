@@ -19,7 +19,7 @@
 | HOMFLY-PT (braid skein) | `homfly_polynomial` | `O(2ᵏ)` skein tree in word length `k`, memoised on the word | braids `≲ 12–15` crossings |
 | Multivariable Alexander | `multivariable_alexander` | `O(2ᶜ)` memoised Laplace minor over the `n`-variable Laurent ring, `c` = crossings | links `≲ 10` crossings |
 | Alexander (reduced Burau) | `alexander_polynomial_from_braid` | `O(k · (s−1)²)` matrix products + `O((s−1)!)` cofactor determinant, `s` = strands | strands `≲ 8` |
-| Khovanov homology | `khovanov_homology` | chain dimension `Σ_v 2^{circles(v)}` (worst `~3ⁿ`), then SNF per quantum grading | knots `≲ 8–10` crossings |
+| Khovanov homology | `khovanov_homology` | chain dimension `Σ_v 2^{circles(v)}` (worst `~3ⁿ`), then **one SNF per differential** (memoised — each `d^{i}_j` reduced once, not three times) | knots `≲ 8–10` crossings |
 | Seifert genus/signature | `seifert_genus_bound`, `signature` | `O(c)` smoothing + `O((2g)³)` LDLT, `g` = genus | unrestricted in practice |
 
 ## Homology, surgery & linear algebra
@@ -37,18 +37,40 @@
 
 | Engine | Entry point | Complexity | Practical limit |
 |--------|-------------|-----------|-----------------|
-| Exact genus / planarity | `graph_genus`, `is_planar` | `∏_v (deg(v) − 1)!` rotation systems (super-exponential) | small, low-degree graphs (`≲ 8` vertices) |
+| Exact genus | `graph_genus` | `∏_v (deg(v) − 1)!` rotation systems (super-exponential); **early-terminates at the first genus-0 embedding** | small, low-degree graphs (`≲ 8` vertices) |
+| Planarity decision | `is_planar` | `O(V+E)` Euler edge-bound reject first (handles any dense `Kₙ`/`K_{m,n}` instantly); otherwise the `graph_genus` search with genus-0 early termination | dense graphs: unrestricted; sparse high-degree graphs: as `graph_genus` |
 | Euler edge bound | `satisfies_planar_edge_bound` | `O(1)` | unrestricted (necessary, not sufficient) |
+| Bipartite test | `_is_bipartite` (internal) | `O(V+E)` 2-colouring | unrestricted |
 
 ## Notes
 
 - **"Practical limit"** is a rough guide for an interactive (seconds-scale) run
   on a single machine; it is not a hard cap. Memoisation (HOMFLY, multivariable
-  Alexander) and the Clearing Lemma (persistence) help substantially on
-  structured inputs but do not change the worst case.
-- For exact planarity of larger graphs, use the necessary
-  `satisfies_planar_edge_bound` filter first; the exponential `is_planar` search
-  is only needed when the bound passes.
+  Alexander, **Khovanov SNF**) and the Clearing Lemma (persistence) help
+  substantially on structured inputs but do not change the worst case.
+- **Vietoris–Rips persistence** spends most of its time in the column reduction,
+  not in building the filtration (profiled: at 40 points to dimension 2 the
+  reduction is ~3–4× the filtration). The Twist+Clearing kernel uses Python
+  bigint bitmask columns (native XOR / `bit_length` pivot), which is close to the
+  ceiling for a pure-Python *standard* reduction. The next substantial gain would
+  come from the **dual (persistent cohomology) algorithm** (de Silva–Morozov–
+  Vejdemo-Johansson 2011) used by Ripser/GUDHI, which slashes column additions on
+  Rips filtrations — a separate algorithm, not a micro-optimisation.
+- `is_planar` now applies the Euler edge bound (`E ≤ 3V−6`, or `E ≤ 2V−4` for
+  bipartite graphs, detected by 2-colouring) **internally and per component**, so
+  any sufficiently dense non-planar graph (every `Kₙ`, `n ≥ 5`; dense `K_{m,n}`)
+  is rejected in `O(V+E)` with no rotation-system search — these used to either
+  enumerate or exceed the search cap. The remaining hard case is a **sparse but
+  high-degree planar graph** (e.g. a wheel with a degree-9 hub): it passes the
+  edge bound yet has a rotation-system space over the cap, so it still raises
+  `GraphPlanarityError`. Deciding those in polynomial time needs a dedicated
+  planarity algorithm (Boyer–Myrvold / left–right / DMP); that is the natural
+  next step beyond this rotation-system core.
+- Genus-0 **early termination**: because a connected graph's face count satisfies
+  `F ≤ E−V+2` with equality iff the embedding is planar, both `graph_genus` and
+  `is_planar` stop at the first genus-0 rotation system found. This never changes
+  the result and never does more work than a full enumeration, but the speedup is
+  enumeration-order dependent (large when a planar embedding is found early).
 - **Optional accelerated exact backend (`pip install -e .[fast]`):** when
   [`python-flint`](https://pypi.org/project/python-flint/) is installed, the
   integer Smith normal form — and therefore every homology / cohomology /
