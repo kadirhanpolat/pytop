@@ -319,7 +319,12 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   Docker): one batched `sagemath/sagemath` run validates pytop's Alexander/Jones polynomials against
   Sage's independent algorithms and its van Kampen abelianisations against **GAP** (Klein ℤ⊕ℤ/2,
   torus ℤ², ℝP² ℤ/2, wedge ℤ³).
-- **9 950 tests passing** across the full suite (+ 8 opt-in SageMath-oracle tests).
+- **Phase 4 P4.8 — SnapPy oracle** (`tests/core/test_snappy_oracle.py`, opt-in
+  `PYTOP_SNAPPY_ORACLE=1`, Docker): SnapPy is the gold-standard 3-manifold software and the one
+  independent oracle for `dehn_surgery` — a batched run of a local `pytop-snappy` image validates
+  `first_homology_of_surgery` against SnapPy's Dehn-filling homology (figure-8 knot surgeries → ℤ/p,
+  Whitehead-link surgeries → ℤ/a ⊕ ℤ/b).
+- **9 950 tests passing** across the full suite (+ 16 opt-in SageMath/SnapPy-oracle tests).
 
 ## What's New in v0.6.0
 
