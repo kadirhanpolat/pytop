@@ -5,7 +5,7 @@ Covers:
 - LinkDiagram.from_knot conversion
 - linking_number for Hopf link, unlink, trivial cases
 - linking_matrix for Hopf link, unlink, knot
-- multivariable_alexander (1-component path + NotImplementedError for >1)
+- multivariable_alexander (knot path + multi-component links)
 - components property
 - n_components field
 """
@@ -281,12 +281,12 @@ class TestMultivariableAlexander:
         for key in result:
             assert isinstance(key, tuple)
 
-    def test_link_raises_not_implemented(self) -> None:
+    def test_hopf_link_alexander_is_one(self) -> None:
+        # The multivariable Alexander polynomial of the Hopf link is 1 (up to units).
         ld = hopf_link()
-        with pytest.raises(NotImplementedError, match="multivariable Alexander"):
-            multivariable_alexander(ld)
+        assert multivariable_alexander(ld) == {(0, 0): 1}
 
-    def test_unlink_raises_not_implemented(self) -> None:
+    def test_unlink_alexander_is_zero(self) -> None:
+        # A split link has vanishing Alexander polynomial.
         ld = unlink()
-        with pytest.raises(NotImplementedError):
-            multivariable_alexander(ld)
+        assert multivariable_alexander(ld) == {}

@@ -608,6 +608,10 @@ from .seifert import (
     seifert_matrix,
     signature,
 )
+from .homfly import (
+    Laurent2,
+    homfly_polynomial,
+)
 from .winding_number import (
     WindingError,
     winding_number,
@@ -1413,13 +1417,22 @@ __all__ = [
     "van_kampen_klein_bottle",
     "van_kampen_real_projective_plane",
     "KnotDiagram",
+    "LinkDiagram",
     "writhe",
     "linking_number",
+    "linking_matrix",
+    "multivariable_alexander",
     "kauffman_bracket",
     "jones_polynomial",
     "reduced_burau",
     "alexander_polynomial_from_braid",
     "is_valid_pd_code",
+    "seifert_circles",
+    "seifert_genus_bound",
+    "seifert_matrix",
+    "signature",
+    "Laurent2",
+    "homfly_polynomial",
     "WindingError",
     "winding_number",
     "circle_map_degree",

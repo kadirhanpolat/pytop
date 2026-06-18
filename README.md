@@ -118,7 +118,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Optimized persistence** (v0.6.0+) | `persistent_homology_optimized` — Twist+Clearing (Chen–Kerber 2011), `ReductionStats` |
 | **Cubical complexes** (v0.6.0+) | `cubical_homology` — `CubicalComplex`, SNF homology, `bitmap_to_cubical_filtration`, `persistent_homology_bitmap` |
 | **Fundamental group / van Kampen** (v0.6.0+) | `van_kampen` — `GroupPresentation`, `van_kampen()`, `cw_complex_pi1()`, standard spaces |
-| **Knot invariants** (v0.6.0) | `knot_invariants` |
+| **Knot/link invariants** (v0.6.0+) | `knot_invariants` (Jones, Alexander, linking number/matrix), `seifert` (Seifert circles, genus bound, matrix, signature), `homfly` (HOMFLY-PT `P(a,z)` from braid closures), `multivariable_alexander` (`Δ_L(t₁,…,tₙ)` via Wirtinger + Fox) |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
 | **Graph planarity** (v0.6.0) | `graph_planarity` |
@@ -251,13 +251,26 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   - `_twist_reduce` bigint bitmask — `list[set[int]]` → `list[int]` Python bigint column
     representation; pivot detection via `col.bit_length()-1` (C-level intrinsic); **~6.6× kernel
     speedup** applied to both `persistent_homology_optimized` and `cubical_homology`.
-- **Phase 3 P3.1 — Knot/Link suite** (`feat/phase3-knot-suite`, in progress):
+- **Phase 3 P3.1 — Knot/Link suite** (`feat/phase3-knot-suite`):
   - `seifert.py`: `seifert_circles`, `seifert_genus_bound`, `seifert_matrix`, `signature`
     (Sylvester LDLT, no numpy); unknot=0, trefoil=1, figure-8=1 verified.
   - `knot_invariants.py` extended: `LinkDiagram`, `linking_number`, `linking_matrix`;
-    Hopf link linking number ±1 verified. `multivariable_alexander` stub (n>1 deferred).
-  - HOMFLY-PT (`homfly.py` + `Laurent2`): in progress.
-- **9 834 tests passing** across the full suite.
+    Hopf link linking number ±1 verified.
+  - **HOMFLY-PT** (`homfly.py` + `Laurent2`): `homfly_polynomial(braid_word, n_strands)`
+    computes the 2-variable invariant `P(a, z)` from a braid closure via skein recursion
+    `a·P(L₊) − a⁻¹·P(L₋) = z·P(L₀)`. Termination is guaranteed by a descending-defect
+    measure (under-first crossings → 0 ⇒ unlink). Verified against known values (unknot,
+    unlinks, Hopf, trefoil −a⁻⁴+2a⁻²+a⁻²z², figure-8 a²−1+a⁻²−z²) and certified a genuine
+    invariant via Markov-stabilisation (±) and conjugation invariance. `Laurent2.to_jones()`
+    (a=t⁻¹) and `.to_alexander()` (a=1) reproduce pytop's existing Jones/Alexander exactly.
+  - **Multivariable Alexander** (`multivariable_alexander.py`): `multivariable_alexander(link)`
+    computes `Δ_L(t₁, …, tₙ)` from a `LinkDiagram` via a Wirtinger presentation (arcs +
+    intrinsic orientation by component tracing) and Fox calculus over the n-variable Laurent
+    ring, then the `(c−1)`-minor determinant `÷ (t_γ − 1)` for links. Verified: knots reproduce
+    the braid Alexander (trefoil 1−t+t², figure-8 1−3t+t²); Hopf → 1; `(2,2k)` torus links →
+    `Σ(t₁t₂)ⁱ` satisfying the Torres condition `Δ(t₁,1)=(t₁ᵏ−1)/(t₁−1)` and interchange
+    symmetry; split links → 0.
+- **9 874 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

@@ -11,7 +11,8 @@ knot/link diagram, complementing the descriptive profiles in :mod:`pytop.knots`:
 * a light **Reidemeister move** well-formedness check.
 * :class:`LinkDiagram` — a multi-component link diagram with component labels,
 * :func:`linking_number` and :func:`linking_matrix` — integer linking invariants,
-* :func:`multivariable_alexander` — multi-variable Alexander polynomial (1-component).
+* :func:`multivariable_alexander` — multivariable Alexander polynomial of a link
+  diagram (Wirtinger + Fox calculus; see :mod:`pytop.multivariable_alexander`).
 
 Everything is dependency-free and exact (integer / rational arithmetic). A small
 :class:`Laurent` value type carries the polynomials.
@@ -35,6 +36,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from fractions import Fraction
 from typing import Any
+
+from .multivariable_alexander import multivariable_alexander
 
 Number = int
 
@@ -338,32 +341,9 @@ def linking_matrix(link: "LinkDiagram") -> list[list[int]]:
     return matrix
 
 
-def multivariable_alexander(link: "LinkDiagram") -> dict[tuple[int, ...], int]:
-    """Return the multivariable Alexander polynomial coefficients.
-
-    For a **knot** (single component) this delegates to the Burau-based
-    Alexander computation and is not available from a :class:`LinkDiagram`
-    alone (a braid word is needed).  For multi-component links the full
-    Torres–Fox construction requires coloured Burau matrices and is not yet
-    implemented.
-
-    Returns a coefficient dictionary mapping exponent tuples to integer
-    coefficients.  For the unknot as a 1-component link this returns
-    ``{(0,): 1}`` (Alexander polynomial = 1).
-
-    Raises
-    ------
-    NotImplementedError
-        For links with more than one component, where the coloured Burau
-        implementation is not yet available.
-    """
-    if link.n_components > 1:
-        raise NotImplementedError(
-            "multivariable Alexander for n>1 components: "
-            "use alexander_polynomial_from_braid for knots."
-        )
-    # Single component: return trivial placeholder (requires braid word for full computation)
-    return {(0,): 1}
+# `multivariable_alexander` is implemented in `multivariable_alexander.py`
+# (Wirtinger presentation + Fox calculus over the n-variable Laurent ring) and
+# imported at the top of this module so it stays part of the public knot API.
 
 
 # ---------------------------------------------------------------------------

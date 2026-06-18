@@ -8,8 +8,8 @@
 > complete; Phase 2 (algebraic topology) is **complete** (8 / 8 items done).
 > feat/mayer-vietoris merged to **master** via PR #15 (9 764 tests, 20 correctness fixes,
 > ~6.6× Twist+Clearing kernel speedup).
-> **Phase 3 in progress** (`feat/phase3-knot-suite`): Seifert algorithm + LinkDiagram
-> complete; HOMFLY-PT polynomial in progress.
+> **Phase 3 in progress** (`feat/phase3-knot-suite`): P3.1 knot/link suite complete —
+> Seifert algorithm + LinkDiagram + HOMFLY-PT + multivariable Alexander all done.
 
 ---
 
@@ -95,7 +95,8 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
 ### ❌ Cannot do (real limits)
 
 - No spectral-sequence computation.
-- Knots: needs a PD/Gauss code you supply; no HOMFLY/Khovanov.
+- Knots: needs a PD code (or braid word) you supply; HOMFLY-PT and multivariable
+  Alexander are available, but there is no Khovanov homology.
 - Planarity is exact but **small-graph only** (exponential rotation-system search).
 - TDA is Z/2 and small clouds only (Phase 2 added Twist+Clearing optimisation, but
   still single-machine, no GPU/distributed scale).
@@ -192,14 +193,14 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 ### Phase 3 — Geometric & low-dimensional topology 🔄 IN PROGRESS
 
-**P3.1 — Knot/Link suite (pure Python):**
+**P3.1 — Knot/Link suite (pure Python): ✅ COMPLETE**
 
 | Item | Status | Delivered |
 |------|--------|-----------|
 | Seifert algorithm | ✅ | `seifert.py`: `seifert_circles`, `seifert_genus_bound`, `seifert_matrix`, `signature` (LDLT); unknot=0, trefoil=1, figure-8=1 verified |
 | Link invariants | ✅ | `knot_invariants.py`: `LinkDiagram`, `linking_number`, `linking_matrix`; Hopf link linking_number=±1 verified |
-| HOMFLY-PT polynomial | 🔄 | `homfly.py` + `Laurent2` (2-var Laurent): in progress |
-| Multivariable Alexander | ⬜ | Deferred (n>1 components raises NotImplementedError) |
+| HOMFLY-PT polynomial | ✅ | `homfly.py`: `homfly_polynomial(braid_word, n)` via skein recursion `a·P(L₊)−a⁻¹·P(L₋)=z·P(L₀)`; descending-defect termination; `Laurent2` (2-var Laurent); known values (trefoil −a⁻⁴+2a⁻²+a⁻²z², fig-8 a²−1+a⁻²−z², Hopf, unlinks) + Markov(±)/conjugation invariance + Jones/Alexander specialisation differential |
+| Multivariable Alexander | ✅ | `multivariable_alexander.py`: `multivariable_alexander(link)` from a `LinkDiagram` via Wirtinger presentation (arcs + intrinsic orientation by component tracing) + Fox calculus over the n-variable Laurent ring; `(c−1)`-minor det `÷ (t_γ−1)`. Verified: knots → braid Alexander (trefoil, fig-8); Hopf → 1; `(2,2k)` torus → `Σ(t₁t₂)ⁱ` (Torres condition + interchange symmetry); split → 0 |
 
 **P3.2 — 3-manifold basics:**
 - `experimental/snappy_bridge.py` — SnapPy optional bridge: ⬜ not started
@@ -234,7 +235,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 834** |
+| Tests passing | **9 874** |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
