@@ -298,18 +298,279 @@ def _sorgenfrey_line() -> SorgenfreyLineSpace:
 
 
 # ===========================================================================
+# Internal helpers for batch 2
+# ===========================================================================
+
+class _CertifiedSpace(Space):
+    """Space with computable membership + pi-Base property certificates.
+
+    Better than PiBaseSpace (which has certificates but opaque membership)
+    for spaces whose underlying set has a decidable membership predicate.
+    Does NOT provide computable point_separation.
+    """
+
+    def __init__(
+        self,
+        uid: str,
+        member: Callable[[Any], bool],
+        carrier_kind: CarrierKind,
+    ) -> None:
+        self._uid = uid
+        self.name = space_name(uid)
+        self.carrier_kind = carrier_kind
+        self._member = member
+        self._bridge = PiBaseSpace(uid)
+
+    def contains(self, point: Any) -> bool:
+        return bool(self._member(point))
+
+    def certificate(self, prop: str) -> Any:
+        return self._bridge.certificate(prop)
+
+
+class _MetricWithCerts(MetricTopologySpace):
+    """Metric space whose property certificates come from pi-Base (most specific).
+
+    Combines computable point_separation (from the metric) with the full
+    pi-Base deduced trait matrix (compact, connected, second-countable, …).
+    """
+
+    def __init__(
+        self,
+        uid: str,
+        dist: Callable[[Any, Any], Fraction],
+        member: Callable[[Any], bool],
+        carrier_kind: CarrierKind,
+    ) -> None:
+        super().__init__(space_name(uid), dist, member, carrier_kind)
+        self._bridge = PiBaseSpace(uid)
+
+    def certificate(self, prop: str) -> Any:
+        cert = self._bridge.certificate(prop)
+        return cert if cert is not None else super().certificate(prop)
+
+
+def _euclidean_dist(x: Any, y: Any) -> Fraction:
+    return abs(Fraction(x) - Fraction(y))
+
+
+def _plane_dist(p: Any, q: Any) -> Fraction:
+    dx = Fraction(p[0]) - Fraction(q[0])
+    dy = Fraction(p[1]) - Fraction(q[1])
+    # Exact Pythagorean distance is irrational in general; use max-norm instead
+    # (generates the same topology as Euclidean on ℝ²).
+    return max(abs(dx), abs(dy))
+
+
+# ===========================================================================
+# Batch 2 — metric spaces
+# ===========================================================================
+
+@_reg("S000003")
+def _discrete_reals() -> _MetricWithCerts:
+    # Discrete topology on ℝ: discrete metric d(x,y)=1 for x≠y.
+    def _disc_dist(x: Any, y: Any) -> Fraction:
+        return Fraction(0) if Fraction(x) == Fraction(y) else Fraction(1)
+
+    return _MetricWithCerts(
+        "S000003",
+        dist=_disc_dist,
+        member=lambda p: isinstance(p, (int, Fraction)),
+        carrier_kind=CarrierKind.UNCOUNTABLE,
+    )
+
+
+@_reg("S000133")
+def _post_office_metric() -> _MetricWithCerts:
+    # Post office metric on ℝ: d(x,y) = |x|+|y| for x≠y, 0 for x=y.
+    def _post_dist(x: Any, y: Any) -> Fraction:
+        fx, fy = Fraction(x), Fraction(y)
+        return Fraction(0) if fx == fy else abs(fx) + abs(fy)
+
+    return _MetricWithCerts(
+        "S000133",
+        dist=_post_dist,
+        member=lambda p: isinstance(p, (int, Fraction)),
+        carrier_kind=CarrierKind.UNCOUNTABLE,
+    )
+
+
+@_reg("S000158")
+def _unit_interval() -> _MetricWithCerts:
+    # Unit interval [0,1] with Euclidean metric.
+    return _MetricWithCerts(
+        "S000158",
+        dist=_euclidean_dist,
+        member=lambda p: isinstance(p, (int, Fraction)) and Fraction(0) <= Fraction(p) <= Fraction(1),
+        carrier_kind=CarrierKind.UNCOUNTABLE,
+    )
+
+
+@_reg("S000176")
+def _euclidean_plane() -> _MetricWithCerts:
+    # Euclidean plane ℝ² — points as (Fraction, Fraction) or (int, int) tuples.
+    # Uses max-norm (equivalent topology to Euclidean, exact arithmetic).
+    return _MetricWithCerts(
+        "S000176",
+        dist=_plane_dist,
+        member=lambda p: (
+            isinstance(p, tuple)
+            and len(p) == 2
+            and isinstance(p[0], (int, Fraction))
+            and isinstance(p[1], (int, Fraction))
+        ),
+        carrier_kind=CarrierKind.UNCOUNTABLE,
+    )
+
+
+@_reg("S000210")
+def _half_open_interval() -> _MetricWithCerts:
+    # Half-open interval [0,1) with Euclidean subspace metric.
+    return _MetricWithCerts(
+        "S000210",
+        dist=_euclidean_dist,
+        member=lambda p: isinstance(p, (int, Fraction)) and Fraction(0) <= Fraction(p) < Fraction(1),
+        carrier_kind=CarrierKind.UNCOUNTABLE,
+    )
+
+
+@_reg("S000225")
+def _upper_half_plane() -> _MetricWithCerts:
+    # Closed upper half-plane ℝ²₊ = {(x,y) : y ≥ 0} with Euclidean (max-norm) metric.
+    return _MetricWithCerts(
+        "S000225",
+        dist=_plane_dist,
+        member=lambda p: (
+            isinstance(p, tuple)
+            and len(p) == 2
+            and isinstance(p[0], (int, Fraction))
+            and isinstance(p[1], (int, Fraction))
+            and Fraction(p[1]) >= 0
+        ),
+        carrier_kind=CarrierKind.UNCOUNTABLE,
+    )
+
+
+# ===========================================================================
+# Batch 2 — certified countable/infinite spaces
+# ===========================================================================
+
+def _OMEGA_MEMBER(p: Any) -> bool:
+    return isinstance(p, int) and p >= 0
+
+def _POS_INT_MEMBER(p: Any) -> bool:
+    return isinstance(p, int) and p > 0
+
+def _INT_MEMBER(p: Any) -> bool:
+    return isinstance(p, int)
+
+def _REAL_MEMBER(p: Any) -> bool:
+    return isinstance(p, (int, Fraction))
+
+
+@_reg("S000005")
+def _odd_even() -> _CertifiedSpace:
+    # Odd-Even topology on ℤ+ = {1,2,3,…}.
+    return _CertifiedSpace("S000005", _POS_INT_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000008")
+def _particular_point_omega() -> _CertifiedSpace:
+    # Particular point topology on a countably infinite set (carrier ω).
+    return _CertifiedSpace("S000008", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000009")
+def _particular_point_reals() -> _CertifiedSpace:
+    # Particular point topology on ℝ.
+    return _CertifiedSpace("S000009", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000012")
+def _excluded_point_omega() -> _CertifiedSpace:
+    # Excluded Point Topology on a Countably Infinite Set (carrier ω).
+    return _CertifiedSpace("S000012", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000013")
+def _excluded_point_reals() -> _CertifiedSpace:
+    # Excluded point topology on ℝ.
+    return _CertifiedSpace("S000013", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000016")
+def _cofinite_reals() -> _CertifiedSpace:
+    # Cofinite topology on ℝ — NOT second-countable (pi-Base correctly deduces False).
+    return _CertifiedSpace("S000016", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000017")
+def _cocountable_reals() -> _CertifiedSpace:
+    # Cocountable topology on ℝ.
+    return _CertifiedSpace("S000017", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000049")
+def _divisor_topology() -> _CertifiedSpace:
+    # Divisor topology on ℤ+ = {1,2,3,…}.
+    return _CertifiedSpace("S000049", _POS_INT_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000051")
+def _khalimsky_line() -> _CertifiedSpace:
+    # Khalimsky line on ℤ.
+    return _CertifiedSpace("S000051", _INT_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000052")
+def _relatively_prime_integers() -> _CertifiedSpace:
+    # Relatively prime integer topology on ℤ+.
+    return _CertifiedSpace("S000052", _POS_INT_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000053")
+def _prime_integer_topology() -> _CertifiedSpace:
+    # Prime integer topology on ℤ+.
+    return _CertifiedSpace("S000053", _POS_INT_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000193")
+def _indiscrete_omega() -> _CertifiedSpace:
+    # Indiscrete topology on ω.
+    return _CertifiedSpace("S000193", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000199")
+def _left_ray_omega() -> _CertifiedSpace:
+    # Left ray topology on ω: opens are left rays {0,…,n} and ∅.
+    return _CertifiedSpace("S000199", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000200")
+def _right_ray_omega() -> _CertifiedSpace:
+    # Right ray topology on ω: opens are right rays {n, n+1,…} and ∅.
+    return _CertifiedSpace("S000200", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+# ===========================================================================
 # Public API
 # ===========================================================================
 
 def best_space(name_or_uid: str) -> Space:
     """Return the richest available Space for the given pi-Base space.
 
-    For the 22 spaces with a concrete representation, returns a
-    FiniteSpace / AlexandroffSpace / or specific infinite class whose point
-    set and predicates are fully or partially computable.
+    For representable spaces, returns:
 
-    For all other pi-Base spaces (200 of 222), returns a :class:`PiBaseSpace`
-    whose property certificates come from the pi-Base deductive closure.
+    - **FiniteSpace / AlexandroffSpace** for the 17 finite pi-Base spaces
+    - **_MetricWithCerts** for metric spaces: computable point_separation
+      (metric) *and* full pi-Base property certificates
+    - **_CertifiedSpace** for other infinite spaces: computable membership
+      *and* pi-Base property certificates
+    - **DiscreteCountableSpace / CofiniteSpace / OrderTopologySpace /
+      SorgenfreyLineSpace** for specific named topologies
+
+    For all remaining pi-Base spaces, returns a :class:`PiBaseSpace` whose
+    property certificates come from the pi-Base deductive closure.
     """
     uid = space_uid(name_or_uid)
     factory = _REPRESENTATIONS.get(uid)

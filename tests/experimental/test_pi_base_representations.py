@@ -6,6 +6,8 @@ from fractions import Fraction
 
 import pytest
 
+from fractions import Fraction
+
 from pytop.experimental.spaces import (
     AlexandroffSpace,
     CofiniteSpace,
@@ -21,9 +23,14 @@ from pytop.experimental.spaces import (
     is_connected,
     is_hausdorff,
     is_representable,
+    is_second_countable,
     is_t0,
     is_t1,
     list_representable,
+)
+from pytop.experimental.spaces.pi_base_representations import (
+    _CertifiedSpace,
+    _MetricWithCerts,
 )
 
 
@@ -33,7 +40,7 @@ from pytop.experimental.spaces import (
 
 def test_list_representable_count():
     reps = list_representable()
-    assert len(reps) == 22
+    assert len(reps) == 42
 
 
 def test_list_representable_structure():
@@ -394,3 +401,172 @@ def test_lookup_by_name(name, uid):
     sp = best_space(name)
     assert is_representable(name)
     assert sp.name  # non-empty name
+
+
+# ---------------------------------------------------------------------------
+# Batch 2 — _MetricWithCerts type checks
+# ---------------------------------------------------------------------------
+
+class TestMetricWithCertsTypes:
+    @pytest.mark.parametrize("uid", [
+        "S000003",   # Discrete on ℝ
+        "S000133",   # Post office metric
+        "S000158",   # [0,1]
+        "S000176",   # ℝ²
+        "S000210",   # [0,1)
+        "S000225",   # upper half-plane
+    ])
+    def test_is_metric_with_certs(self, uid):
+        assert isinstance(best_space(uid), _MetricWithCerts)
+
+    def test_post_office_metric_separation(self):
+        sp = best_space("S000133")
+        # d(1/2, 1/3) = |1/2| + |1/3| = 5/6  → radius = 5/12
+        v = sp.point_separation(Fraction(1, 2), Fraction(1, 3))
+        assert v.value is True
+
+    def test_post_office_metric_at_origin(self):
+        # d(0, x) = 0 + |x| = |x|; open ball at 0 contains any |x| < r
+        sp = best_space("S000133")
+        v = sp.point_separation(Fraction(0), Fraction(1, 4))
+        assert v.value is True
+
+    def test_unit_interval_membership(self):
+        sp = best_space("S000158")
+        assert sp.contains(Fraction(0))
+        assert sp.contains(Fraction(1))
+        assert sp.contains(Fraction(1, 2))
+        assert not sp.contains(Fraction(3, 2))
+
+    def test_unit_interval_compact(self):
+        sp = best_space("S000158")
+        assert is_compact(sp).value is True
+
+    def test_half_open_interval_membership(self):
+        sp = best_space("S000210")
+        assert sp.contains(Fraction(0))
+        assert not sp.contains(Fraction(1))
+        assert sp.contains(Fraction(1, 2))
+
+    def test_half_open_interval_not_compact(self):
+        sp = best_space("S000210")
+        assert is_compact(sp).value is False
+
+    def test_euclidean_plane_membership(self):
+        sp = best_space("S000176")
+        assert sp.contains((Fraction(0), Fraction(0)))
+        assert sp.contains((Fraction(1, 2), Fraction(-3, 4)))
+        assert not sp.contains((1, 2, 3))   # not a 2-tuple
+        assert not sp.contains("xy")
+
+    def test_euclidean_plane_separation(self):
+        sp = best_space("S000176")
+        # max-norm: d((0,0),(1,0)) = max(1,0) = 1 → radius 1/2
+        v = sp.point_separation((Fraction(0), Fraction(0)), (Fraction(1), Fraction(0)))
+        assert v.value is True
+
+    def test_upper_half_plane_membership(self):
+        sp = best_space("S000225")
+        assert sp.contains((Fraction(0), Fraction(0)))      # y=0 ok
+        assert sp.contains((Fraction(3), Fraction(1, 2)))   # y>0 ok
+        assert not sp.contains((Fraction(0), Fraction(-1))) # y<0 excluded
+
+    def test_discrete_reals_point_separation(self):
+        # Discrete metric: d(x,y)=1 for x≠y → balls of radius 1/2 are singletons
+        sp = best_space("S000003")
+        v = sp.point_separation(Fraction(1), Fraction(2))
+        assert v.value is True
+
+    # _MetricWithCerts uses pi-Base certs for specific properties
+    def test_metric_with_certs_second_countable_from_pi_base(self):
+        # Post office ℝ is NOT second-countable (pi-Base says False)
+        sp = best_space("S000133")
+        assert is_second_countable(sp).value is False
+
+    def test_unit_interval_second_countable_from_pi_base(self):
+        sp = best_space("S000158")
+        assert is_second_countable(sp).value is True
+
+
+# ---------------------------------------------------------------------------
+# Batch 2 — _CertifiedSpace type checks and properties
+# ---------------------------------------------------------------------------
+
+class TestCertifiedSpaceTypes:
+    @pytest.mark.parametrize("uid", [
+        "S000005",   # Odd-Even
+        "S000008",   # Particular point on ω
+        "S000009",   # Particular point on ℝ
+        "S000012",   # Excluded point on ω
+        "S000013",   # Excluded point on ℝ
+        "S000016",   # Cofinite on ℝ
+        "S000017",   # Cocountable on ℝ
+        "S000049",   # Divisor topology
+        "S000051",   # Khalimsky line
+        "S000052",   # Relatively prime integers
+        "S000053",   # Prime integer topology
+        "S000193",   # Indiscrete ω
+        "S000199",   # Left ray ω
+        "S000200",   # Right ray ω
+    ])
+    def test_is_certified_space(self, uid):
+        assert isinstance(best_space(uid), _CertifiedSpace)
+
+    def test_certified_membership_omega(self):
+        for uid in ["S000008", "S000012", "S000193", "S000199", "S000200"]:
+            sp = best_space(uid)
+            assert sp.contains(0)
+            assert sp.contains(42)
+            assert not sp.contains(-1)
+            assert not sp.contains("x")
+
+    def test_certified_membership_pos_int(self):
+        for uid in ["S000005", "S000049", "S000052", "S000053"]:
+            sp = best_space(uid)
+            assert sp.contains(1)
+            assert sp.contains(100)
+            assert not sp.contains(0)
+            assert not sp.contains(-5)
+
+    def test_certified_membership_integer(self):
+        sp = best_space("S000051")   # Khalimsky on ℤ
+        assert sp.contains(0)
+        assert sp.contains(-3)
+        assert not sp.contains(Fraction(1, 2))
+
+    def test_certified_membership_real(self):
+        for uid in ["S000009", "S000013", "S000016", "S000017"]:
+            sp = best_space(uid)
+            assert sp.contains(Fraction(1, 3))
+            assert sp.contains(0)
+            assert not sp.contains("pi")
+
+    # pi-Base certs flow through _CertifiedSpace
+    def test_cofinite_reals_t1_not_hausdorff(self):
+        sp = best_space("S000016")
+        assert is_t1(sp).value is True
+        assert is_hausdorff(sp).value is False
+
+    def test_cofinite_reals_not_second_countable(self):
+        sp = best_space("S000016")
+        assert is_second_countable(sp).value is False
+
+    def test_cofinite_reals_compact(self):
+        sp = best_space("S000016")
+        assert is_compact(sp).value is True
+
+    def test_particular_point_omega_not_hausdorff(self):
+        sp = best_space("S000008")
+        assert is_hausdorff(sp).value is False
+
+    def test_khalimsky_line_not_hausdorff(self):
+        sp = best_space("S000051")
+        assert is_hausdorff(sp).value is False
+
+    def test_indiscrete_omega_connected(self):
+        sp = best_space("S000193")
+        assert is_connected(sp).value is True
+
+    def test_indiscrete_omega_not_t0(self):
+        sp = best_space("S000193")
+        assert is_t0(sp).value is False
