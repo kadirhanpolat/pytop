@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.6] — 2026-06-18
+
+### Added / Changed
+
+- **Linear-time planarity** (`graph_planarity.py`): `is_planar` now decides
+  planarity via the `O(V+E)` **left-right planarity test** (de Fraysseix–
+  Rosenstiehl; Brandes 2009) instead of the exponential rotation-system genus
+  search. It decides graphs of *any* size and **never raises** — sparse but
+  high-degree planar graphs (e.g. wheels `W9…W40`, large grids) that used to
+  exceed the search cap and raise `GraphPlanarityError` now return `True`
+  instantly. `graph_genus` is unchanged (it still computes the exact minimum
+  genus by rotation-system search). A cheap Euler edge bound pre-rejects dense
+  graphs and double-checks the LR verdict on them. Validated against networkx's
+  independent planarity test on **all** labelled graphs up to 6 vertices
+  (33 867 graphs, 0 disagreements) plus thousands of random larger graphs;
+  the committed differential test is gated on networkx.
+
 ## [0.9.5] — 2026-06-18
 
 ### Performance
