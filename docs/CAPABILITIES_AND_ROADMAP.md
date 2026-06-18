@@ -6,6 +6,8 @@
 >
 > **Status as of 2026-06-18:** Phase 1 (set-theoretic topology) is substantially
 > complete; Phase 2 (algebraic topology) is **complete** (8 / 8 items done).
+> feat/mayer-vietoris merged to **master** via PR #15 (9 764 tests, 20 correctness fixes,
+> ~6.6× Twist+Clearing kernel speedup).
 
 ---
 

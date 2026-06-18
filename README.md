@@ -162,7 +162,7 @@ and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
 
-## What's New (post-v0.6.0)
+## What's New (post-v0.6.0, now on master — PR #15)
 
 - **Phase 1/2 incremental improvements** (latest):
   - **Alexandroff factory functions**: `finite_circle()` (4-pt diamond, π₁=ℤ), `finite_sphere(n)`

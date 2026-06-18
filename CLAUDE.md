@@ -210,6 +210,7 @@ feature/<topic> ← feature branches, merge to master via PR
 
 - Never commit directly to `master`
 - Tag every release: `git tag vX.Y.Z && git push origin vX.Y.Z`
+- **Latest merged:** `feat/mayer-vietoris` → `master` via PR #15 (Phase 1/2 complete, 9 764 tests)
 
 ---
 
