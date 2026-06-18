@@ -162,8 +162,15 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   `AlexandroffSpace` (preorder → Alexandroff topology via upsets),
   `SubbaseSpace` (subbase → finite intersections → topology),
   `InverseLimitSpace` (finite inverse system + bonding maps → explicit limit).
-- T3.5 / Urysohn-function witness for infinite spaces where decidable.
-- van Kampen preparation (π₁ of `experimental.spaces` objects).
+- ~~T3.5 / Urysohn-function witness for infinite spaces where decidable~~ ✅
+  `urysohn.py`: `UrysohnWitness` + `urysohn_function(space, x₀, C)`;
+  discrete finite spaces → exact indicator; MetricTopologySpace → distance-ratio formula;
+  `is_tychonoff` now carries a witness dict for finite T1 and metric spaces.
+- ~~van Kampen preparation (π₁ of `experimental.spaces` objects)~~ ✅
+  `pi1.py`: `pi1_space(space) → Pi1Result` via McCord order complex
+  (specialization order → CW1Complex → spanning-tree algorithm);
+  T0 quotient for non-T0 inputs; `ProductSpace` → π₁(A) × π₁(B);
+  `SumSpace` → π₁ of first component. Diamond poset verified = ℤ (minimal model of S¹).
 
 ### Phase 2 — Algebraic topology to research grade 🔄 STARTED
 
@@ -208,7 +215,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 538** |
+| Tests passing | **9 580** |
 | New PRs this arc | 14 (PR #1 → #14) |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |

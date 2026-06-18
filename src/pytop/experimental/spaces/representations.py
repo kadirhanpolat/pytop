@@ -207,7 +207,16 @@ class MetricTopologySpace(Space):
         if prop == "first_countable":
             return Verdict.true(reason="every metric space is first countable (balls of radius 1/n)")
         if prop in {"tychonoff", "T5", "T6"}:
-            return Verdict.true(reason=f"every metric space is {prop} (metric ⟹ perfectly normal)")
+            return Verdict.true(
+                reason=f"every metric space is {prop} (metric ⟹ perfectly normal)",
+                witness=(
+                    {"method": "distance_ratio",
+                     "formula": "f(y) = min(1, d(x₀, y) / d(x₀, C))  "
+                                "separates x₀ from any closed C not containing x₀"}
+                    if prop == "tychonoff"
+                    else None
+                ),
+            )
         return None
 
     def cardinal_certificate(self, invariant: str) -> CardinalValue | None:

@@ -16,6 +16,14 @@ is_hausdorff(rational_metric_space()).value   # True  (decided via metric certif
 
 from __future__ import annotations
 
+from .pi1 import (
+    Pi1Result,
+    pi1_space,
+)
+from .urysohn import (
+    UrysohnWitness,
+    urysohn_function,
+)
 from .cardinal_invariants import (
     CardinalValue,
     cellularity,
@@ -95,6 +103,12 @@ __all__ = [
     "NotEnumerableError",
     "Space",
     "Verdict",
+    # π₁ computation
+    "Pi1Result",
+    "pi1_space",
+    # Urysohn witnesses
+    "UrysohnWitness",
+    "urysohn_function",
     # Cardinal invariants
     "CardinalValue",
     "weight",

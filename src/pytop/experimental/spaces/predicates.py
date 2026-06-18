@@ -224,12 +224,25 @@ def _finite_t1_or_certificate(space: Space, prop: str) -> Verdict:
 
     On a finite space, T1 ⟹ discrete ⟹ every higher axiom (Tychonoff, T5, T6),
     so the predicate reduces to T1. Infinite spaces defer to a certificate.
+    For Tychonoff the witness includes the Urysohn function construction method.
     """
 
     if space.is_finite():
         t1 = is_t1(space)
         if t1.value is True:
-            return Verdict.true(reason=f"a finite T1 space is discrete, hence {prop}")
+            witness = (
+                {"method": "discrete_indicator",
+                 "description": (
+                     "finite T1 ⟹ discrete; for any x₀ and closed C not containing x₀: "
+                     "f(x₀)=0, f(y)=1 for y∈C (every function is continuous on a discrete space)"
+                 )}
+                if prop == "tychonoff"
+                else None
+            )
+            return Verdict.true(
+                reason=f"a finite T1 space is discrete, hence {prop}",
+                witness=witness,
+            )
         if t1.value is False:
             return Verdict.false(
                 reason=f"not {prop}: the finite space is not even T1",
