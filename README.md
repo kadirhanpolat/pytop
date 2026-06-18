@@ -121,6 +121,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Knot/link invariants** (v0.6.0+) | `knot_invariants` (Jones, Alexander, linking number/matrix), `seifert` (Seifert circles, genus bound, matrix, signature), `homfly` (HOMFLY-PT `P(a,z)` from braid closures), `multivariable_alexander` (`Δ_L(t₁,…,tₙ)` via Wirtinger + Fox) |
 | **3-manifold homology** (v0.7.0+) | `dehn_surgery` — Dehn surgery → `H₁` (SNF cokernel of the framing/linking matrix), lens space homeomorphism/homotopy classification |
 | **Khovanov homology** (v0.7.0+) | `khovanov` — bigraded `Kh^{i,j}` (free rank + torsion) categorifying the Jones polynomial |
+| **Exact linear algebra** (v0.8.0+) | `exact_linalg` — Smith normal form, integer rank, Bareiss `integer_determinant`, `cokernel` → `AbelianGroup` |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
 | **Graph planarity** (v0.6.0) | `graph_planarity` |
@@ -295,7 +296,12 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   integral free rank, `b_i(ℤ/p) ≥ b_i(ℚ)`, HOMFLY-PT Markov(±)/conjugation invariance, HOMFLY-PT
   `a=1` = Burau Alexander (two independent engines), Dehn-surgery `|H₁| = |det|` (vs an independent
   Bareiss determinant), and lens-space homeomorphic ⇒ homotopy-equivalent.
-- **9 919 tests passing** across the full suite.
+- **Phase 4 P4.2 — exact integer linear algebra core** (`exact_linalg.py`): consolidates
+  `smith_normal_form`, `integer_rank`, `integer_determinant` (fraction-free Bareiss), and
+  `cokernel` → `AbelianGroup` behind one public, tested module. The Bareiss determinant and the
+  Smith invariant factors cross-check each other (`det = ±∏ dᵢ` at full rank); `dehn_surgery`
+  shares this core (DRY).
+- **9 938 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

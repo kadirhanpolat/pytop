@@ -211,7 +211,7 @@ feature/<topic> ← feature branches, merge to master via PR
 - Never commit directly to `master`
 - Tag every release: `git tag vX.Y.Z && git push origin vX.Y.Z`
 - **Latest release:** `feat/phase3-knot-suite` → `master` via PR #16, tagged **v0.8.0** — Phase 3 complete (P3.1 Seifert/LinkDiagram/HOMFLY-PT/multivariable Alexander, P3.2 `dehn_surgery`, P3.3 `khovanov`)
-- **In progress:** Phase 4 — P4.1 property-based + cross-engine differential testing done (`tests/core/test_property_invariants.py`); 9 919 tests
+- **In progress:** Phase 4 — P4.1 property-based + cross-engine differential testing (`tests/core/test_property_invariants.py`) + P4.2 exact integer linear algebra core (`exact_linalg.py`: SNF, rank, Bareiss determinant, cokernel) done; 9 938 tests
 
 ---
 

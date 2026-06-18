@@ -235,6 +235,12 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   Alexander (two independent engines); Dehn-surgery `|H₁| = |det|` (cross-checked
   with an independent fraction-free Bareiss determinant); lens-space
   homeomorphic ⇒ homotopy-equivalent.
+- **P4.2 — Exact integer linear algebra core** ✅ (`exact_linalg.py`):
+  consolidates the Smith-normal-form / rank / determinant / cokernel primitives
+  behind one public, tested module — `smith_normal_form`, `integer_rank`,
+  `integer_determinant` (fraction-free **Bareiss**), `cokernel` → `AbelianGroup`.
+  The Bareiss determinant and the SNF invariant factors are cross-checked
+  (``det = ± ∏ dᵢ`` at full rank); `dehn_surgery` shares this core (DRY).
 - **Remaining** (largely external-tool dependent, deferred): complexity
   discipline; **optional** accelerated extras (numpy/scipy) over the pure-Python
   core; differential testing against SageMath/GUDHI/GAP; formal verification of
@@ -259,7 +265,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 919** |
+| Tests passing | **9 938** |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
