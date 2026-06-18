@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] — 2026-06-18
+
+### Added
+- **Phase 3 geometric & low-dimensional topology** (merged via PR #16). Five new pure-Python,
+  dependency-free computational modules:
+  - `seifert` — Seifert algorithm from an oriented PD code: `seifert_circles`,
+    `seifert_genus_bound`, `seifert_matrix`, `signature` (Sylvester LDLT, no numpy).
+  - `LinkDiagram` + `linking_number` / `linking_matrix` (`knot_invariants`) — multi-component
+    link diagrams and integer linking invariants.
+  - `homfly` — HOMFLY-PT `P(a, z)` from a braid closure via skein recursion
+    `a·P(L₊) − a⁻¹·P(L₋) = z·P(L₀)` (descending-defect termination); `Laurent2` two-variable
+    Laurent ring; `to_jones()` / `to_alexander()` specialisations. Certified a genuine invariant
+    via Markov stabilisation (±) and conjugation.
+  - `multivariable_alexander` — `Δ_L(t₁,…,tₙ)` from a `LinkDiagram` via a Wirtinger presentation
+    (arcs + intrinsic orientation by component tracing) and Fox calculus over the n-variable
+    Laurent ring; `(c−1)`-minor determinant `÷ (t_γ−1)` for links. Replaces the prior stub.
+  - `dehn_surgery` — `H₁(M)` of rational/integral Dehn surgery as the SNF cokernel of
+    `A_{ii}=pᵢ, A_{ij}=qᵢ·lk(Lᵢ,Lⱼ)`; `first_homology_of_link_surgery`;
+    `lens_space_first_homology` + lens-space homeomorphism/homotopy classification;
+    `FirstHomology` result type.
+  - `khovanov` — Khovanov homology `Kh^{i,j}` with integral **torsion** (cube of resolutions →
+    Frobenius algebra `ℤ⟨1,X⟩` with `m`/`Δ` → per-quantum-grading SNF); `KhovanovHomology` with
+    graded Euler characteristic.
+
+### Validation
+- Differential tests against existing engines (HOMFLY → Jones/Alexander; multivariable Alexander →
+  braid Alexander; Khovanov graded Euler characteristic → `jones_polynomial`); known 3-manifolds
+  (lens spaces, S¹×S², T³, the Poincaré homology sphere via the E₈ plumbing, L(7,1)≃L(7,2));
+  published integral Khovanov groups (trefoil ℤ/2 at (−2,−7), figure-8, Hopf); and `d²=0`.
+
+### Tests
+- **9 908 tests passing** (+144 since v0.7.0).
+
 ## [0.7.0] — 2026-06-18
 
 ### Added

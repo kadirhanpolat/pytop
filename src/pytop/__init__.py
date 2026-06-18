@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.7.0"
+__version__ = "0.8.0"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
