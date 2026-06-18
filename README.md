@@ -301,6 +301,9 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   `cokernel` → `AbelianGroup` behind one public, tested module. The Bareiss determinant and the
   Smith invariant factors cross-check each other (`det = ±∏ dᵢ` at full rank); `dehn_surgery`
   shares this core (DRY).
+- **Phase 4 P4.3 — complexity discipline** (`docs/COMPLEXITY.md`): an honest reference of the
+  asymptotic cost and *practical input limits* of every computational engine, plus `Complexity`
+  notes on the heavy docstrings — stating plainly where exactness costs exponential time.
 - **9 938 tests passing** across the full suite.
 
 ## What's New in v0.6.0

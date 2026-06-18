@@ -241,10 +241,16 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   `integer_determinant` (fraction-free **Bareiss**), `cokernel` → `AbelianGroup`.
   The Bareiss determinant and the SNF invariant factors are cross-checked
   (``det = ± ∏ dᵢ`` at full rank); `dehn_surgery` shares this core (DRY).
-- **Remaining** (largely external-tool dependent, deferred): complexity
-  discipline; **optional** accelerated extras (numpy/scipy) over the pure-Python
-  core; differential testing against SageMath/GUDHI/GAP; formal verification of
-  core routines; interop bridges so pytop orchestrates.
+- **P4.3 — Complexity discipline** ✅ (`docs/COMPLEXITY.md`): an honest reference
+  of the asymptotic cost and *practical input limits* of every computational
+  engine (Jones/HOMFLY/Khovanov/multivariable Alexander, homology/persistence,
+  Smith normal form/determinant, exact genus/planarity), with `Complexity`
+  notes added to the engine docstrings. States plainly where exactness costs
+  exponential time so callers are never surprised.
+- **Remaining** (largely external-tool dependent, deferred): **optional**
+  accelerated extras (numpy/scipy) over the pure-Python core; differential
+  testing against SageMath/GUDHI/GAP; formal verification of core routines;
+  interop bridges so pytop orchestrates.
 
 ---
 
