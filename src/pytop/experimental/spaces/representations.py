@@ -408,6 +408,97 @@ class AlexandroffSpace(Space):
         """The reflexive-transitive closure of the defining preorder."""
         return self._order
 
+    # -- structural certificates (use order, not open-set enumeration) ------
+
+    def _is_antisymmetric(self) -> bool:
+        """True iff the order relation is antisymmetric (i.e., is a partial order)."""
+        for (x, y) in self._order:
+            if x != y and (y, x) in self._order:
+                return False
+        return True
+
+    def _antisymmetry_counterexample(self) -> tuple[Any, Any] | None:
+        for (x, y) in self._order:
+            if x != y and (y, x) in self._order:
+                return (x, y)
+        return None
+
+    def _order_graph_connected(self) -> bool:
+        """True iff the undirected graph of the strict order relation is connected."""
+        pts = list(self._carrier)
+        if len(pts) <= 1:
+            return True
+        parent: dict[Any, Any] = {p: p for p in pts}
+
+        def find(p: Any) -> Any:
+            while parent[p] != p:
+                parent[p] = parent[parent[p]]
+                p = parent[p]
+            return p
+
+        for (x, y) in self._order:
+            if x != y:
+                rx, ry = find(x), find(y)
+                if rx != ry:
+                    parent[rx] = ry
+
+        return len({find(p) for p in pts}) == 1
+
+    def certificate(self, prop: str) -> Verdict | None:
+        if prop == "T0":
+            if self._is_antisymmetric():
+                return Verdict.true(
+                    reason="AlexandroffSpace: order is antisymmetric (partial order) ⟹ T0",
+                    witness={"pairs_checked": len(self._order)},
+                )
+            ce = self._antisymmetry_counterexample()
+            return Verdict.false(
+                reason=f"AlexandroffSpace: order has x ≤ y and y ≤ x for x ≠ y "
+                       f"({ce[0]!r} and {ce[1]!r}) — not antisymmetric, so not T0",
+                counterexample=ce,
+            )
+
+        if prop == "connected":
+            if self._order_graph_connected():
+                return Verdict.true(
+                    reason="AlexandroffSpace: the order-relation graph is connected",
+                )
+            pts = list(self._carrier)
+            parent: dict[Any, Any] = {p: p for p in pts}
+
+            def find(p: Any) -> Any:
+                while parent[p] != p:
+                    parent[p] = parent[parent[p]]
+                    p = parent[p]
+                return p
+
+            for (x, y) in self._order:
+                if x != y:
+                    rx, ry = find(x), find(y)
+                    if rx != ry:
+                        parent[rx] = ry
+            roots = {find(p) for p in pts}
+            return Verdict.false(
+                reason=f"AlexandroffSpace: order graph has {len(roots)} disconnected component(s)",
+                counterexample=f"{len(roots)} components",
+            )
+
+        return None
+
+    def cardinal_certificate(self, invariant: str) -> CardinalValue | None:
+        n = len(self._carrier)
+        if invariant == "character":
+            # At each x, the principal upset ↑x is the unique minimal open neighbourhood.
+            # A local base of size 1 suffices everywhere → χ(X) = 1.
+            return CardinalValue.of(1)
+        if invariant == "weight":
+            if self._is_antisymmetric():
+                # {↑x : x ∈ X} is a minimal base with |X| elements (all upsets distinct).
+                return CardinalValue.of(n)
+            # Non-T0: equivalent points share upsets; actual weight may be < n.
+            return None  # let the module compute it
+        return None
+
 
 # --------------------------------------------------------------------------
 # SubbaseSpace

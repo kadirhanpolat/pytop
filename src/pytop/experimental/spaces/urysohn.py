@@ -222,13 +222,19 @@ def urysohn_function(
     >>> w.evaluate(1)
     Fraction(1, 1)
     """
-    from .representations import MetricTopologySpace
+    from .representations import MetricTopologySpace, OrderTopologySpace, SorgenfreyLineSpace
 
     if space.is_finite():
         return _finite_urysohn(space, x0, closed_set)
 
     if isinstance(space, MetricTopologySpace):
         return _metric_urysohn(space, x0, closed_set)
+
+    if isinstance(space, SorgenfreyLineSpace):
+        return _sorgenfrey_urysohn(space, x0, closed_set)
+
+    if isinstance(space, OrderTopologySpace):
+        return _order_topology_urysohn(space, x0, closed_set)
 
     return None
 
@@ -303,6 +309,59 @@ def _metric_urysohn(
         values=None,
         formula=formula,
         method="distance_ratio",
+    )
+
+
+def _sorgenfrey_urysohn(
+    space: Any,
+    x0: Any,
+    closed_set: frozenset,
+) -> UrysohnWitness:
+    """Urysohn witness for the Sorgenfrey line (T6 = perfectly normal).
+
+    The Sorgenfrey topology τ_l is strictly finer than the standard Euclidean
+    topology τ_std on ℝ (τ_std ⊊ τ_l).  Any function continuous w.r.t. τ_std
+    is automatically continuous w.r.t. τ_l, so the standard Euclidean
+    distance-ratio formula is valid here too.
+    """
+    formula = (
+        f"f(y) = min(1, |y - {x0!r}| / d_ℝ({x0!r}, C))  "
+        "where d_ℝ(x₀, C) = inf{|x₀ - c| : c ∈ C} > 0. "
+        "Valid in the Sorgenfrey topology because τ_standard ⊊ τ_Sorgenfrey: "
+        "every τ_standard-continuous function is τ_Sorgenfrey-continuous."
+    )
+    return UrysohnWitness(
+        x0=x0,
+        closed_set=closed_set,
+        values=None,
+        formula=formula,
+        method="sorgenfrey_euclidean",
+    )
+
+
+def _order_topology_urysohn(
+    space: Any,
+    x0: Any,
+    closed_set: frozenset,
+) -> UrysohnWitness:
+    """Urysohn witness for the order topology on ℚ.
+
+    The order topology on ℚ coincides with the metric topology from |x-y|
+    (both give the same open sets on a countable dense linear order without
+    endpoints).  The standard distance-ratio Urysohn function therefore applies.
+    """
+    formula = (
+        f"f(y) = min(1, |y - {x0!r}| / d_ℚ({x0!r}, C))  "
+        "where d_ℚ(x₀, C) = inf{|x₀ - c| : c ∈ C} > 0. "
+        "The order topology on ℚ equals the metric topology (|x-y|), "
+        "so the distance-ratio function is continuous."
+    )
+    return UrysohnWitness(
+        x0=x0,
+        closed_set=closed_set,
+        values=None,
+        formula=formula,
+        method="order_metric_ratio",
     )
 
 

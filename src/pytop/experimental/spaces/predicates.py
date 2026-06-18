@@ -39,13 +39,21 @@ def _via_certificate(space: Space, prop: str) -> Verdict:
 
 
 def _decide(space: Space, prop: str, finite_rule: Callable[[FiniteTopology], Verdict]) -> Verdict:
+    # Certificate takes priority — allows structural short-cuts (e.g. AlexandroffSpace)
+    # even for finite spaces, without enumerating all open sets.
+    cert = space.certificate(prop)
+    if cert is not None:
+        return cert
     if space.is_finite():
         try:
             topology = _finite_topology(space)
         except NotEnumerableError:
             return Verdict.undecidable(f"{space.name!r}: topology not enumerable.")
         return finite_rule(topology)
-    return _via_certificate(space, prop)
+    return Verdict.undecidable(
+        f"{space.name!r}: infinite space without a {prop!r} certificate; "
+        "cannot enumerate the topology."
+    )
 
 
 # --------------------------------------------------------------------------
