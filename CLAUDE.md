@@ -10,8 +10,8 @@ persistent homology / TDA, knot invariant polynomials, winding/degree, surface-w
 classification, exact graph planarity), a **pi-Base–backed deductive inference engine**
 (`pytop.experimental.pi_base`), and a **research-grade computable-space protocol**
 (`pytop.experimental.spaces`) for point-set topology — Phase 1 complete (S1–S5),
-Phase 2 in progress (5/8: field-coeff homology, relative homology, Mayer–Vietoris LES,
-cellular homology, cohomology + cup product).
+Phase 2 in progress (6/8: field-coeff homology, relative homology, Mayer–Vietoris LES,
+cellular homology, cohomology + cup product, van Kampen → group presentations).
 
 - **GitHub:** https://github.com/kadirhanpolat/pytop
 - **License:** MIT
@@ -36,6 +36,9 @@ pytop has two complementary layers — keep this distinction in mind when extend
   `cohomology` (cochain complex via δ^k=(∂_{k+1})^T; extended SNF → H^k; UCT verified;
   Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity and torus pairing),
   `persistent_homology` (Vietoris–Rips filtration → Z/2 reduction → barcodes),
+  `van_kampen` (Seifert–van Kampen: GroupPresentation + GroupHomomorphism; amalgamated free
+  product; Tietze elimination; abelianization via SNF; group identification; CW1Complex route;
+  standard spaces S¹∨⋯∨S¹→Fₙ, S²→1, T²→ℤ², Klein→⟨a,b|abab⁻¹⟩, RP²→ℤ/2),
   `knot_invariants` (Kauffman→Jones, reduced Burau→Alexander), `winding_number`,
   `surface_word_classification`, `graph_planarity` (rotation-system genus), and
   `experimental.spaces` (research-grade computable-space protocol — see below).

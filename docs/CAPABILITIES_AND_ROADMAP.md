@@ -5,7 +5,7 @@
 > starting from set-theoretic (point-set) topology.
 >
 > **Status as of 2026-06-18:** Phase 1 (set-theoretic topology) is substantially
-> complete; Phase 2 (algebraic topology) is in progress (5 / 8 items done).
+> complete; Phase 2 (algebraic topology) is in progress (6 / 8 items done).
 
 ---
 
@@ -170,7 +170,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | Mayer–Vietoris LES | ✅ | `mayer_vietoris`: extended SNF → explicit bases; φ,ψ,δ matrices; exactness verified (S¹,S²,interval) |
 | Cellular homology | ✅ | `cellular_homology`: CWComplex + SNF; standard spaces (S^n, RP^n, CP^n, T², Klein, L(p,q), M(Z/n,k)); cross-validated via `cw_from_simplicial` |
 | Cohomology + cup product | ✅ | `cohomology`: δ^k=(∂_{k+1})^T via extended SNF; UCT verified; Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity; torus H^1⊗H^1→H^2 non-degenerate |
-| van Kampen → group presentations | ⬜ | Major item; GAP bridge candidate |
+| van Kampen → group presentations | ✅ | `van_kampen`: GroupPresentation + GroupHomomorphism; amalgamated free product; Tietze elimination; abelianization via SNF; group identification; CW1Complex route (spanning tree → π₁); standard spaces (S¹∨⋯∨S¹→Fₙ, S²→1, T²→ℤ², Klein→⟨a,b\|abab⁻¹⟩, RP²→ℤ/2) |
 | Optimized persistence (clearing/twist) | ⬜ | — |
 | Cubical complexes | ⬜ | — |
 
@@ -204,11 +204,11 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 185** |
+| Tests passing | **9 362** |
 | New PRs this arc | 14 (PR #1 → #14) |
 | Representations in `experimental.spaces` | 7 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
 | Phase 1 milestones complete | 5 / 5 |
-| Phase 2 milestones complete | 5 / 8 |
+| Phase 2 milestones complete | 6 / 8 |
