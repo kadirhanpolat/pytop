@@ -93,6 +93,9 @@ from .representations import (
     SorgenfreyLineSpace,
     SubbaseSpace,
     discrete_finite_space,
+    finite_circle,
+    finite_sphere,
+    finite_wedge_circles,
     rational_metric_space,
 )
 
@@ -166,5 +169,8 @@ __all__ = [
     "SorgenfreyLineSpace",
     "SubbaseSpace",
     "discrete_finite_space",
+    "finite_circle",
+    "finite_sphere",
+    "finite_wedge_circles",
     "rational_metric_space",
 ]

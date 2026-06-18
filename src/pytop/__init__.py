@@ -2874,6 +2874,7 @@ from .persistent_homology import (
     persistence_pairs,
     persistent_homology,
     barcode,
+    persistence_betti_numbers,
     persistence_diagram,
     euler_characteristic_curve,
 )

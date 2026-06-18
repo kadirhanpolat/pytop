@@ -536,6 +536,79 @@ class InverseLimitSpace(Space):
         return self._opens
 
 
+def finite_circle() -> AlexandroffSpace:
+    """4-point minimal T0 model of S¹ (diamond poset).
+
+    The diamond poset {0,1,2,3} with cover relations 0 < 2, 0 < 3, 1 < 2, 1 < 3
+    is the minimal finite T0 space weakly homotopy equivalent to S¹ (McCord).
+    Its order complex is K_{2,2} (the 4-cycle), giving π₁ = ℤ.
+    """
+    return AlexandroffSpace("S^1", {0, 1, 2, 3}, [(0, 2), (0, 3), (1, 2), (1, 3)])
+
+
+def finite_sphere(n: int) -> AlexandroffSpace:
+    """Minimal finite T0 model of S^n via iterated suspension.
+
+    * S^0 — 2 discrete points (empty order).
+    * S^1 — 4-point diamond (``finite_circle()``).
+    * S^n — suspension of S^{n-1}: two new points new_bottom < every old
+             point < new_top are added. Total: 2(n+1) points.
+
+    By the McCord theorem, the geometric realization of the order complex is
+    weakly homotopy equivalent to S^n, so π₁ = trivial for n ≥ 2 and ℤ for n=1.
+    """
+    if n < 0:
+        raise ValueError(f"finite_sphere: n must be ≥ 0, got {n}")
+    if n == 0:
+        return AlexandroffSpace("S^0", {0, 1}, [])
+
+    # S^1 = diamond
+    carrier: set[int] = {0, 1, 2, 3}
+    cover: list[tuple[int, int]] = [(0, 2), (0, 3), (1, 2), (1, 3)]
+
+    for _ in range(2, n + 1):
+        new_bottom = max(carrier) + 1
+        new_top = max(carrier) + 2
+        extended: list[tuple[int, int]] = list(cover)
+        for p in sorted(carrier):
+            extended.append((new_bottom, p))
+            extended.append((p, new_top))
+        carrier = carrier | {new_bottom, new_top}
+        cover = extended
+
+    return AlexandroffSpace(f"S^{n}", carrier, cover)
+
+
+def finite_wedge_circles(k: int, *, name: str | None = None) -> AlexandroffSpace:
+    """Minimal finite T0 model of S¹ ∨ ⋯ ∨ S¹  (k circles joined at a basepoint).
+
+    Uses 1 + 3k points:
+
+    * Basepoint 0 (shared by all circles).
+    * For circle i (1 ≤ i ≤ k): second bottom vertex ``i`` and two top
+      vertices ``k + 2i - 1``, ``k + 2i``.
+    * Cover relations: 0 < top₁, 0 < top₂, bᵢ < top₁, bᵢ < top₂ per circle.
+
+    By the McCord theorem the order complex is k 4-cycles sharing vertex 0,
+    giving π₁ = F_k (free group of rank k).
+    """
+    if k < 0:
+        raise ValueError(f"finite_wedge_circles: k must be ≥ 0, got {k}")
+    if k == 0:
+        return AlexandroffSpace(name or "pt", {0}, [])
+
+    carrier: set[int] = {0}
+    cover: list[tuple[int, int]] = []
+    for i in range(1, k + 1):
+        b = i
+        t1 = k + 2 * i - 1
+        t2 = k + 2 * i
+        carrier |= {b, t1, t2}
+        cover += [(0, t1), (0, t2), (b, t1), (b, t2)]
+
+    return AlexandroffSpace(name or f"S^1_wedge_{k}", carrier, cover)
+
+
 def rational_metric_space(name: str = "metric(Q, |x-y|)") -> MetricTopologySpace:
     """The standard metric topology on the rationals."""
 
@@ -566,6 +639,10 @@ __all__ = [
     "OrderTopologySpace",
     "SorgenfreyLineSpace",
     "SubbaseSpace",
+    # Factory functions
+    "finite_circle",
+    "finite_sphere",
+    "finite_wedge_circles",
     "discrete_finite_space",
     "rational_metric_space",
 ]

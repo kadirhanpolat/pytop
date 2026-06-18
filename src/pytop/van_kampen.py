@@ -281,17 +281,73 @@ def _tietze_eliminate_once(
     return gens, rels, False
 
 
+def _cyclically_reduce(word: Word) -> Word:
+    """Remove prefix/suffix letter pairs that are mutual inverses.
+
+    A relator ``r`` and any cyclic conjugate ``g·r·g⁻¹`` define the same
+    normal subgroup element, so we may freely cyclically reduce.  Repeated
+    until the first and last letters are not mutual inverses.
+    """
+    w = list(word)
+    changed = True
+    while changed and len(w) >= 2:
+        changed = False
+        if w[0][0] == w[-1][0] and w[0][1] + w[-1][1] == 0:
+            w = w[1:-1]
+            changed = True
+    return _free_reduce(tuple(w))
+
+
+def _canonical_relator_key(rel: Word) -> Word:
+    """Canonical key for a relator: min over all cyclic conjugates and their inverses.
+
+    Used to detect duplicate relators up to cyclic conjugation and inversion.
+    """
+    if not rel:
+        return rel
+    n = len(rel)
+    conjugates = [rel[i:] + rel[:i] for i in range(n)]
+    inv = _invert(rel)
+    inv_conj = [inv[i:] + inv[:i] for i in range(n)]
+    return min(conjugates + inv_conj)
+
+
+def _dedup_relators(rels: list[Word]) -> list[Word]:
+    """Remove duplicate relators up to cyclic conjugation and inversion (Tietze I)."""
+    seen: set[Word] = set()
+    result: list[Word] = []
+    for rel in rels:
+        key = _canonical_relator_key(rel)
+        if key not in seen:
+            seen.add(key)
+            result.append(rel)
+    return result
+
+
 def _tietze_simplify(
     gens: list[str],
     rels: list[Word],
     *,
     max_rounds: int = 64,
 ) -> tuple[list[str], list[Word]]:
-    """Iteratively eliminate generators until no more moves apply."""
-    rels = [r for r in rels if r]
+    """Iteratively simplify a group presentation using Tietze moves.
+
+    Steps applied each round:
+    1. Free-reduce and cyclically reduce every relator.
+    2. Remove trivial (empty) relators.
+    3. Deduplicate relators up to cyclic conjugation and inversion.
+    4. Eliminate one generator that appears exactly once in some relator
+       (Tietze II elimination).
+    """
+    def _clean(rs: list[Word]) -> list[Word]:
+        rs = [_cyclically_reduce(r) for r in rs]
+        rs = [r for r in rs if r]
+        return _dedup_relators(rs)
+
+    rels = _clean(rels)
     for _ in range(max_rounds):
         gens, rels, changed = _tietze_eliminate_once(gens, rels)
-        rels = [r for r in rels if r]
+        rels = _clean(rels)
         if not changed:
             break
     return gens, rels
