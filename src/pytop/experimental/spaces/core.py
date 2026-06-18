@@ -45,6 +45,57 @@ class NotEnumerableError(Exception):
 
 
 @dataclass(frozen=True)
+class CardinalValue:
+    """A cardinal number: a finite non-negative integer or a symbolic infinite cardinal.
+
+    Follows the same honesty contract as :class:`Verdict`: the system reports
+    ``unknown`` rather than guessing when a cardinal cannot be determined from
+    the available representation.
+
+    Attributes
+    ----------
+    finite : int or None
+        The integer value when the cardinal is finite.
+    symbol : str or None
+        ``"ℵ₀"``, ``"𝔠"`` (= 2^ℵ₀), or ``"unknown"`` for infinite / undetermined.
+    """
+
+    finite: int | None = None
+    symbol: str | None = None
+
+    def __post_init__(self) -> None:
+        if self.finite is None and self.symbol is None:
+            raise ValueError("CardinalValue requires either finite or symbol.")
+        if self.finite is not None and self.finite < 0:
+            raise ValueError("finite cardinal must be non-negative.")
+
+    @classmethod
+    def of(cls, n: int) -> "CardinalValue":
+        return cls(finite=n)
+
+    @classmethod
+    def aleph_0(cls) -> "CardinalValue":
+        return cls(symbol="ℵ₀")
+
+    @classmethod
+    def continuum(cls) -> "CardinalValue":
+        return cls(symbol="𝔠")
+
+    @classmethod
+    def unknown(cls) -> "CardinalValue":
+        return cls(symbol="unknown")
+
+    def is_finite_cardinal(self) -> bool:
+        return self.finite is not None
+
+    def __repr__(self) -> str:
+        return str(self.finite) if self.finite is not None else (self.symbol or "unknown")
+
+    def __str__(self) -> str:
+        return repr(self)
+
+
+@dataclass(frozen=True)
 class Verdict:
     """The outcome of a topological predicate, with decidability and a witness.
 
@@ -122,6 +173,17 @@ class Space(ABC):
 
         return Verdict.undecidable(f"{self.name!r} cannot decide point separation.")
 
+    def cardinal_certificate(self, invariant: str) -> "CardinalValue | None":
+        """Known cardinal invariant from a construction-level theorem.
+
+        ``invariant`` is one of ``"weight"``, ``"density"``, ``"character"``,
+        ``"cellularity"``. Returns ``None`` when the representation has no
+        certificate (the generic engine then reports ``CardinalValue.unknown()``).
+        Override in concrete infinite-space representations to supply the answer.
+        """
+
+        return None
+
     def certificate(self, prop: str) -> Verdict | None:
         """Whole-space answer for a property from a construction-level theorem.
 
@@ -137,6 +199,7 @@ class Space(ABC):
 
 
 __all__ = [
+    "CardinalValue",
     "Decidability",
     "CarrierKind",
     "NotEnumerableError",

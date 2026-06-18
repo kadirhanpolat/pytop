@@ -155,9 +155,13 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 (PRESERVATION table pin-tested against pi-Base meta-properties).
 
 **Remaining Phase 1 work (incremental):**
-- Computed cardinal invariants (weight, density, character, cellularity) for
-  representable spaces — turn today's profiles into computations.
-- More representations (Alexandroff/poset, subbase-generated, exact limit).
+- ~~Computed cardinal invariants (weight, density, character, cellularity)~~ ✅
+  `cardinal_invariants.py`: exact computation for finite spaces; `cardinal_certificate`
+  hook on each infinite representation; `CardinalValue` type in `core.py`.
+- ~~More representations (Alexandroff/poset, subbase-generated, exact limit)~~ ✅
+  `AlexandroffSpace` (preorder → Alexandroff topology via upsets),
+  `SubbaseSpace` (subbase → finite intersections → topology),
+  `InverseLimitSpace` (finite inverse system + bonding maps → explicit limit).
 - T3.5 / Urysohn-function witness for infinite spaces where decidable.
 - van Kampen preparation (π₁ of `experimental.spaces` objects).
 
@@ -204,9 +208,9 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 362** |
+| Tests passing | **9 538** |
 | New PRs this arc | 14 (PR #1 → #14) |
-| Representations in `experimental.spaces` | 7 |
+| Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |

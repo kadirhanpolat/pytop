@@ -63,22 +63,18 @@ def is_hausdorff(space: Space) -> Verdict:
 
 def _decide_finite_hausdorff(space: Space) -> Verdict:
     try:
-        points = list(space.points())
+        carrier, opens, _ = _finite_topology(space)
     except NotEnumerableError:
         return Verdict.undecidable(f"{space.name!r}: carrier not enumerable.")
+    points = sorted(carrier, key=repr)
     checked = 0
     for x, y in combinations(points, 2):
-        separation = space.point_separation(x, y)
-        if separation.value is False:
+        opens_x = [o for o in opens if x in o]
+        opens_y = [o for o in opens if y in o]
+        if not any(not (u & v) for u in opens_x for v in opens_y):
             return Verdict.false(
-                reason=f"{space.name!r}: {separation.reason}",
-                counterexample=separation.counterexample or (x, y),
-            )
-        if separation.value is None:
-            return Verdict(
-                None,
-                Decidability.UNDECIDABLE,
-                reason=f"{space.name!r}: point separation undecidable for {(x, y)!r}",
+                reason=f"{space.name!r}: {x!r} and {y!r} have no disjoint open neighbourhoods",
+                counterexample=(x, y),
             )
         checked += 1
     return Verdict.true(
