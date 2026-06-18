@@ -19,7 +19,7 @@
 | HOMFLY-PT (braid skein) | `homfly_polynomial` | `O(2ᵏ)` skein tree in word length `k`, memoised on the word | braids `≲ 12–15` crossings |
 | Multivariable Alexander | `multivariable_alexander` | `O(2ᶜ)` memoised Laplace minor over the `n`-variable Laurent ring, `c` = crossings | links `≲ 10` crossings |
 | Alexander (reduced Burau) | `alexander_polynomial_from_braid` | `O(k · (s−1)²)` matrix products + `O((s−1)!)` cofactor determinant, `s` = strands | strands `≲ 8` |
-| Khovanov homology | `khovanov_homology` | chain dimension `Σ_v 2^{circles(v)}` (worst `~3ⁿ`), then SNF per quantum grading | knots `≲ 8–10` crossings |
+| Khovanov homology | `khovanov_homology` | chain dimension `Σ_v 2^{circles(v)}` (worst `~3ⁿ`), then **one SNF per differential** (memoised — each `d^{i}_j` reduced once, not three times) | knots `≲ 8–10` crossings |
 | Seifert genus/signature | `seifert_genus_bound`, `signature` | `O(c)` smoothing + `O((2g)³)` LDLT, `g` = genus | unrestricted in practice |
 
 ## Homology, surgery & linear algebra
@@ -46,8 +46,16 @@
 
 - **"Practical limit"** is a rough guide for an interactive (seconds-scale) run
   on a single machine; it is not a hard cap. Memoisation (HOMFLY, multivariable
-  Alexander) and the Clearing Lemma (persistence) help substantially on
-  structured inputs but do not change the worst case.
+  Alexander, **Khovanov SNF**) and the Clearing Lemma (persistence) help
+  substantially on structured inputs but do not change the worst case.
+- **Vietoris–Rips persistence** spends most of its time in the column reduction,
+  not in building the filtration (profiled: at 40 points to dimension 2 the
+  reduction is ~3–4× the filtration). The Twist+Clearing kernel uses Python
+  bigint bitmask columns (native XOR / `bit_length` pivot), which is close to the
+  ceiling for a pure-Python *standard* reduction. The next substantial gain would
+  come from the **dual (persistent cohomology) algorithm** (de Silva–Morozov–
+  Vejdemo-Johansson 2011) used by Ripser/GUDHI, which slashes column additions on
+  Rips filtrations — a separate algorithm, not a micro-optimisation.
 - `is_planar` now applies the Euler edge bound (`E ≤ 3V−6`, or `E ≤ 2V−4` for
   bipartite graphs, detected by 2-colouring) **internally and per component**, so
   any sufficiently dense non-planar graph (every `Kₙ`, `n ≥ 5`; dense `K_{m,n}`)
