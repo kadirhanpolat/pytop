@@ -9,6 +9,10 @@ knot/link diagram, complementing the descriptive profiles in :mod:`pytop.knots`:
 * the **Alexander polynomial** from a braid word via the reduced Burau
   representation,
 * a light **Reidemeister move** well-formedness check.
+* :class:`LinkDiagram` — a multi-component link diagram with component labels,
+* :func:`linking_number` and :func:`linking_matrix` — integer linking invariants,
+* :func:`multivariable_alexander` — multivariable Alexander polynomial of a link
+  diagram (Wirtinger + Fox calculus; see :mod:`pytop.multivariable_alexander`).
 
 Everything is dependency-free and exact (integer / rational arithmetic). A small
 :class:`Laurent` value type carries the polynomials.
@@ -32,6 +36,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from fractions import Fraction
 from typing import Any
+
+from .multivariable_alexander import multivariable_alexander
 
 Number = int
 
@@ -169,7 +175,7 @@ def writhe(diagram: KnotDiagram) -> int:
     return sum(diagram.signs)
 
 
-def linking_number(inter_component_signs: Any) -> Fraction:
+def _linking_number_from_signs(inter_component_signs: Any) -> Fraction:
     """Return the linking number = half the sum of the inter-component signs.
 
     The argument lists the signs of the crossings *between* the two components
@@ -180,6 +186,164 @@ def linking_number(inter_component_signs: Any) -> Fraction:
     if any(sign not in (1, -1) for sign in signs):
         raise ValueError("Crossing signs must each be +1 or -1.")
     return Fraction(sum(signs), 2)
+
+
+# ---------------------------------------------------------------------------
+# Multi-component link diagram
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class LinkDiagram:
+    """A multi-component link diagram as a PD code with component labels.
+
+    Parameters
+    ----------
+    crossings:
+        PD code — list of 4-tuples ``(a, b, c, d)`` (counterclockwise,
+        understrand ``a -> c``).  Same format as :class:`KnotDiagram`.
+    signs:
+        Per-crossing sign: ``+1`` (positive crossing) or ``-1`` (negative).
+    n_components:
+        Number of link components.
+    component_map:
+        Maps each arc index to a component index (0-based).  The length must
+        equal the number of distinct arc labels that appear in *crossings*.
+        Arc label ``k`` (0-based) belongs to component ``component_map[k]``.
+    """
+
+    crossings: list[tuple[int, int, int, int]]
+    signs: list[int]
+    n_components: int
+    component_map: list[int]
+
+    def __post_init__(self) -> None:
+        for i, crossing in enumerate(self.crossings):
+            if len(crossing) != 4:
+                raise ValueError(
+                    f"Crossing {i} must be a 4-tuple; got length {len(crossing)}."
+                )
+        if len(self.signs) != len(self.crossings):
+            raise ValueError("signs must align one-to-one with crossings.")
+        if any(s not in (1, -1) for s in self.signs):
+            raise ValueError("Each crossing sign must be +1 or -1.")
+        if any(c < 0 or c >= self.n_components for c in self.component_map):
+            raise ValueError(
+                "Every entry of component_map must be in [0, n_components)."
+            )
+
+    @classmethod
+    def from_knot(cls, diagram: KnotDiagram) -> "LinkDiagram":
+        """Convert a single-component :class:`KnotDiagram` to a :class:`LinkDiagram`.
+
+        All arcs are assigned to component 0.
+        """
+        crossings = [tuple(c) for c in diagram.pd]  # type: ignore[misc]
+        signs = list(diagram.signs)
+        # Collect all arc labels in encounter order to build component_map
+        labels: list[Any] = []
+        seen: set[Any] = set()
+        for crossing in diagram.pd:
+            for label in crossing:
+                if label not in seen:
+                    labels.append(label)
+                    seen.add(label)
+        # Build an integer-keyed component_map (arc index → component 0)
+        n_arcs = len(labels)
+        component_map = [0] * n_arcs
+        return cls(
+            crossings=crossings,  # type: ignore[arg-type]
+            signs=signs,
+            n_components=1,
+            component_map=component_map,
+        )
+
+    @property
+    def components(self) -> list[set[int]]:
+        """Return, for each component, the set of arc indices it contains."""
+        result: list[set[int]] = [set() for _ in range(self.n_components)]
+        for arc_idx, comp_idx in enumerate(self.component_map):
+            result[comp_idx].add(arc_idx)
+        return result
+
+
+def linking_number(  # type: ignore[misc]
+    link_or_signs: "LinkDiagram | Any",
+    i: int | None = None,
+    j: int | None = None,
+) -> "int | Fraction":
+    """Return the linking number between two link components.
+
+    **Two-argument form (legacy):** ``linking_number(inter_component_signs)``
+    accepts a sequence of ``+1``/``-1`` crossing signs between two specific
+    components and returns ``Fraction(sum(signs), 2)``.  This form is kept for
+    backward compatibility.
+
+    **Three-argument form:** ``linking_number(link, i, j)`` accepts a
+    :class:`LinkDiagram` and two component indices and returns an ``int``.
+
+    For the negative Hopf link ``linking_number(hopf, 0, 1) == -1``.
+    For the unlink ``linking_number(unlink, 0, 1) == 0``.
+    """
+    # --- legacy / backward-compatible path: first arg is a list of signs ---
+    if not isinstance(link_or_signs, LinkDiagram):
+        return _linking_number_from_signs(link_or_signs)
+
+    # --- new path: LinkDiagram + component indices --------------------------
+    link: LinkDiagram = link_or_signs
+    if i is None or j is None:
+        raise TypeError(
+            "When the first argument is a LinkDiagram, component indices i and j are required."
+        )
+    if i < 0 or i >= link.n_components or j < 0 or j >= link.n_components:
+        raise ValueError(
+            f"Component indices must be in [0, {link.n_components}); got {i}, {j}."
+        )
+    if i == j:
+        return 0
+
+    total = 0
+    for crossing, sign in zip(link.crossings, link.signs):
+        a, b, c, d = crossing
+        # understrand arc labels: a -> c; overstrand arc labels: b -> d
+
+        def comp(label: int) -> int:
+            if 0 <= label < len(link.component_map):
+                return link.component_map[label]
+            return -1  # label not in component_map → ignore
+
+        all_comps = {comp(a), comp(b), comp(c), comp(d)}
+        # Only count crossings that involve BOTH component i and component j
+        if i in all_comps and j in all_comps:
+            total += sign
+
+    # linking number is half the signed count
+    if total % 2 != 0:
+        raise ValueError(
+            "Signed crossing count is odd; the diagram may be malformed."
+        )
+    return total // 2
+
+
+def linking_matrix(link: "LinkDiagram") -> list[list[int]]:
+    """Return the n×n symmetric linking matrix for an n-component link.
+
+    ``result[i][j] = linking_number(link, i, j)`` for ``i ≠ j``; diagonal
+    entries are 0.  For a knot (single component) returns ``[[0]]``.
+    """
+    n = link.n_components
+    matrix: list[list[int]] = [[0] * n for _ in range(n)]
+    for i in range(n):
+        for j in range(i + 1, n):
+            lk = linking_number(link, i, j)
+            matrix[i][j] = lk
+            matrix[j][i] = lk
+    return matrix
+
+
+# `multivariable_alexander` is implemented in `multivariable_alexander.py`
+# (Wirtinger presentation + Fox calculus over the n-variable Laurent ring) and
+# imported at the top of this module so it stays part of the public knot API.
 
 
 # ---------------------------------------------------------------------------
@@ -432,8 +596,11 @@ def is_valid_pd_code(diagram: KnotDiagram) -> bool:
 __all__ = [
     "Laurent",
     "KnotDiagram",
+    "LinkDiagram",
     "writhe",
     "linking_number",
+    "linking_matrix",
+    "multivariable_alexander",
     "kauffman_bracket",
     "jones_polynomial",
     "reduced_burau",

@@ -118,7 +118,9 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Optimized persistence** (v0.6.0+) | `persistent_homology_optimized` — Twist+Clearing (Chen–Kerber 2011), `ReductionStats` |
 | **Cubical complexes** (v0.6.0+) | `cubical_homology` — `CubicalComplex`, SNF homology, `bitmap_to_cubical_filtration`, `persistent_homology_bitmap` |
 | **Fundamental group / van Kampen** (v0.6.0+) | `van_kampen` — `GroupPresentation`, `van_kampen()`, `cw_complex_pi1()`, standard spaces |
-| **Knot invariants** (v0.6.0) | `knot_invariants` |
+| **Knot/link invariants** (v0.6.0+) | `knot_invariants` (Jones, Alexander, linking number/matrix), `seifert` (Seifert circles, genus bound, matrix, signature), `homfly` (HOMFLY-PT `P(a,z)` from braid closures), `multivariable_alexander` (`Δ_L(t₁,…,tₙ)` via Wirtinger + Fox) |
+| **3-manifold homology** (v0.7.0+) | `dehn_surgery` — Dehn surgery → `H₁` (SNF cokernel of the framing/linking matrix), lens space homeomorphism/homotopy classification |
+| **Khovanov homology** (v0.7.0+) | `khovanov` — bigraded `Kh^{i,j}` (free rank + torsion) categorifying the Jones polynomial |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
 | **Graph planarity** (v0.6.0) | `graph_planarity` |
@@ -251,7 +253,43 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   - `_twist_reduce` bigint bitmask — `list[set[int]]` → `list[int]` Python bigint column
     representation; pivot detection via `col.bit_length()-1` (C-level intrinsic); **~6.6× kernel
     speedup** applied to both `persistent_homology_optimized` and `cubical_homology`.
-- **9 764 tests passing** across the full suite.
+- **Phase 3 P3.1 — Knot/Link suite** (`feat/phase3-knot-suite`):
+  - `seifert.py`: `seifert_circles`, `seifert_genus_bound`, `seifert_matrix`, `signature`
+    (Sylvester LDLT, no numpy); unknot=0, trefoil=1, figure-8=1 verified.
+  - `knot_invariants.py` extended: `LinkDiagram`, `linking_number`, `linking_matrix`;
+    Hopf link linking number ±1 verified.
+  - **HOMFLY-PT** (`homfly.py` + `Laurent2`): `homfly_polynomial(braid_word, n_strands)`
+    computes the 2-variable invariant `P(a, z)` from a braid closure via skein recursion
+    `a·P(L₊) − a⁻¹·P(L₋) = z·P(L₀)`. Termination is guaranteed by a descending-defect
+    measure (under-first crossings → 0 ⇒ unlink). Verified against known values (unknot,
+    unlinks, Hopf, trefoil −a⁻⁴+2a⁻²+a⁻²z², figure-8 a²−1+a⁻²−z²) and certified a genuine
+    invariant via Markov-stabilisation (±) and conjugation invariance. `Laurent2.to_jones()`
+    (a=t⁻¹) and `.to_alexander()` (a=1) reproduce pytop's existing Jones/Alexander exactly.
+  - **Multivariable Alexander** (`multivariable_alexander.py`): `multivariable_alexander(link)`
+    computes `Δ_L(t₁, …, tₙ)` from a `LinkDiagram` via a Wirtinger presentation (arcs +
+    intrinsic orientation by component tracing) and Fox calculus over the n-variable Laurent
+    ring, then the `(c−1)`-minor determinant `÷ (t_γ − 1)` for links. Verified: knots reproduce
+    the braid Alexander (trefoil 1−t+t², figure-8 1−3t+t²); Hopf → 1; `(2,2k)` torus links →
+    `Σ(t₁t₂)ⁱ` satisfying the Torres condition `Δ(t₁,1)=(t₁ᵏ−1)/(t₁−1)` and interchange
+    symmetry; split links → 0.
+- **Phase 3 P3.2 — 3-manifold basics** (`feat/phase3-knot-suite`, in progress):
+  - **Dehn surgery → H₁** (`dehn_surgery.py`): `first_homology_of_surgery(coefficients,
+    linking_numbers)` computes `H₁(M)` of rational/integral surgery on a framed link as the
+    cokernel of `A_{ii}=pᵢ, A_{ij}=qᵢ·lk(Lᵢ,Lⱼ)` via Smith normal form;
+    `first_homology_of_link_surgery(link, coefficients)` reads the linking numbers from a
+    `LinkDiagram`. `lens_space_first_homology(p, q)` plus exact lens-space homeomorphism
+    (`q'≡±q^±¹ mod p`) and homotopy-equivalence (`qq'≡±n² mod p`) classification. Verified:
+    lens spaces ℤ/p, S¹×S² (0-surgery), T³ (0-surgery on Borromean rings), the Poincaré
+    homology sphere (E₈ plumbing), and L(7,1)≃L(7,2) (homotopy-equivalent yet not homeomorphic).
+- **Phase 3 P3.3 — Khovanov homology** (`feat/phase3-knot-suite`, in progress):
+  - **Khovanov homology** (`khovanov.py`): `khovanov_homology(diagram)` builds the cube of
+    resolutions from a PD code, the Frobenius algebra `V = ℤ⟨1,X⟩` (with `m`/`Δ` and the
+    Khovanov sign), and reduces each quantum grading over ℤ by Smith normal form to give the
+    bigraded `Kh^{i,j}` with **free ranks and torsion**. Verified: `d²=0`; the integral groups
+    of the unknot, trefoil (ℤ/2 at (−2,−7)), figure-8 (ℤ/2 at (−1,−3),(2,3)) and Hopf link;
+    and the graded Euler characteristic = unnormalised Jones (cross-checked against
+    `jones_polynomial`).
+- **9 908 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

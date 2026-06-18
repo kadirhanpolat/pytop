@@ -8,6 +8,10 @@
 > complete; Phase 2 (algebraic topology) is **complete** (8 / 8 items done).
 > feat/mayer-vietoris merged to **master** via PR #15 (9 764 tests, 20 correctness fixes,
 > ~6.6× Twist+Clearing kernel speedup).
+> **Phase 3 in progress** (`feat/phase3-knot-suite`): P3.1 knot/link suite complete
+> (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander); P3.2 started —
+> `dehn_surgery.py` (surgery → H₁, lens space classification) done; P3.3 —
+> `khovanov.py` (Khovanov homology with torsion) done.
 
 ---
 
@@ -93,7 +97,9 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
 ### ❌ Cannot do (real limits)
 
 - No spectral-sequence computation.
-- Knots: needs a PD/Gauss code you supply; no HOMFLY/Khovanov.
+- Knots: needs a PD code (or braid word) you supply; HOMFLY-PT, multivariable
+  Alexander, and Khovanov homology are available, but everything is small-diagram
+  scale (the Khovanov complex is exponential in the crossing number).
 - Planarity is exact but **small-graph only** (exponential rotation-system search).
 - TDA is Z/2 and small clouds only (Phase 2 added Twist+Clearing optimisation, but
   still single-machine, no GPU/distributed scale).
@@ -188,10 +194,35 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | Optimized persistence (clearing/twist) | ✅ | `persistent_homology_optimized`: Twist algorithm (Chen–Kerber 2011) + Clearing Lemma; dimension-top-down sweep; `ReductionStats` (n_cleared, clearing_ratio, n_column_additions); cross-validated against standard reduction |
 | Cubical complexes | ✅ | `cubical_homology`: `CubicalComplex` (face-closure, boundary ℤ-matrix, SNF homology); standard spaces S¹/D²/interval; `CubicalFiltration` + `bitmap_to_cubical_filtration` (lower-star from 2-D pixel array); `persistence_pairs_cubical` + `persistent_homology_bitmap` via shared Twist+Clearing kernel |
 
-### Phase 3 — Geometric & low-dimensional topology ⬜ NOT STARTED
+### Phase 3 — Geometric & low-dimensional topology 🔄 IN PROGRESS
 
-- Full knot/link suite from diagrams (HOMFLY, Khovanov, genus bounds, links);
-  3-manifolds / normal surfaces (Regina-scale — very ambitious); SnapPy interop.
+**P3.1 — Knot/Link suite (pure Python): ✅ COMPLETE**
+
+| Item | Status | Delivered |
+|------|--------|-----------|
+| Seifert algorithm | ✅ | `seifert.py`: `seifert_circles`, `seifert_genus_bound`, `seifert_matrix`, `signature` (LDLT); unknot=0, trefoil=1, figure-8=1 verified |
+| Link invariants | ✅ | `knot_invariants.py`: `LinkDiagram`, `linking_number`, `linking_matrix`; Hopf link linking_number=±1 verified |
+| HOMFLY-PT polynomial | ✅ | `homfly.py`: `homfly_polynomial(braid_word, n)` via skein recursion `a·P(L₊)−a⁻¹·P(L₋)=z·P(L₀)`; descending-defect termination; `Laurent2` (2-var Laurent); known values (trefoil −a⁻⁴+2a⁻²+a⁻²z², fig-8 a²−1+a⁻²−z², Hopf, unlinks) + Markov(±)/conjugation invariance + Jones/Alexander specialisation differential |
+| Multivariable Alexander | ✅ | `multivariable_alexander.py`: `multivariable_alexander(link)` from a `LinkDiagram` via Wirtinger presentation (arcs + intrinsic orientation by component tracing) + Fox calculus over the n-variable Laurent ring; `(c−1)`-minor det `÷ (t_γ−1)`. Verified: knots → braid Alexander (trefoil, fig-8); Hopf → 1; `(2,2k)` torus → `Σ(t₁t₂)ⁱ` (Torres condition + interchange symmetry); split → 0 |
+
+**P3.2 — 3-manifold basics: 🔄 IN PROGRESS**
+- `dehn_surgery.py` — rational surgery coefficients: ✅ `first_homology_of_surgery`
+  (cokernel of ``A_{ii}=pᵢ, A_{ij}=qᵢ·lk_{ij}`` via Smith normal form);
+  `first_homology_of_link_surgery` (linking numbers from a `LinkDiagram`);
+  `lens_space_first_homology` + lens space homeomorphism/homotopy classification.
+  Verified: lens spaces ℤ/p, S¹×S² (0-surgery), T³ (0-surgery on Borromean rings),
+  Poincaré homology sphere (E₈ plumbing), L(7,1)≃L(7,2) ≇.
+- `experimental/snappy_bridge.py` — SnapPy optional bridge: ⬜ not started
+
+**P3.3 — Advanced (long-term):**
+- `khovanov.py` — cube-of-resolutions → graded complex → SNF: ✅
+  `khovanov_homology(diagram)` builds the Khovanov cochain complex (Frobenius
+  algebra ``V = ℤ⟨1,X⟩`` with ``m``/``Δ``, Khovanov sign) and reduces each
+  quantum grading over ℤ via SNF → free ranks **and torsion**. Verified:
+  ``d²=0``; integral groups for unknot, trefoil (ℤ/2 at ``(−2,−7)``), figure-8
+  (ℤ/2 at ``(−1,−3)``, ``(2,3)``), Hopf link; graded Euler characteristic =
+  unnormalised Jones (cross-checked against `jones_polynomial`).
+- Normal surfaces (Regina-scale): out of scope for pure-Python pytop
 
 ### Phase 4 — Performance, correctness, interoperability ⬜ NOT STARTED
 
@@ -218,7 +249,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 764** |
+| Tests passing | **9 908** |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
