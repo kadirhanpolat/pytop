@@ -4,14 +4,14 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-18:** Phase 1 (set-theoretic topology) is substantially
-> complete; Phase 2 (algebraic topology) is **complete** (8 / 8 items done).
-> feat/mayer-vietoris merged to **master** via PR #15 (9 764 tests, 20 correctness fixes,
-> ~6.6× Twist+Clearing kernel speedup).
-> **Phase 3 in progress** (`feat/phase3-knot-suite`): P3.1 knot/link suite complete
-> (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander); P3.2 started —
-> `dehn_surgery.py` (surgery → H₁, lens space classification) done; P3.3 —
-> `khovanov.py` (Khovanov homology with torsion) done.
+> **Status as of 2026-06-18:** Phase 1 (set-theoretic topology) substantially
+> complete; Phase 2 (algebraic topology) **complete** (8 / 8).
+> **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
+> P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
+> P3.2 `dehn_surgery.py` (surgery → H₁, lens space classification), P3.3
+> `khovanov.py` (Khovanov homology with torsion). The optional SnapPy bridge (P3.2)
+> and Regina-scale normal surfaces (P3.3) remain out of scope / deferred.
+> **Phase 4 in progress:** P4.1 property-based + cross-engine differential testing done.
 
 ---
 
@@ -224,11 +224,53 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   unnormalised Jones (cross-checked against `jones_polynomial`).
 - Normal surfaces (Regina-scale): out of scope for pure-Python pytop
 
-### Phase 4 — Performance, correctness, interoperability ⬜ NOT STARTED
+### Phase 4 — Performance, correctness, interoperability 🔄 IN PROGRESS
 
-- Complexity discipline; **optional** accelerated extras (numpy/scipy) over a
-  pure-Python core; property-based + differential testing against SageMath/GUDHI/GAP;
-  formal verification of core routines; interop bridges so pytop orchestrates.
+- **P4.1 — Property-based + cross-engine differential testing** ✅
+  (`tests/core/test_property_invariants.py`): seeded, reproducible checks of
+  mathematical invariants and engine consistency over many random inputs —
+  Euler–Poincaré (`χ` via homology = `χ` via face counts); rational Betti =
+  integral free rank; `b_i(ℤ/p) ≥ b_i(ℚ)`; HOMFLY-PT Markov (±) and conjugation
+  invariance; braid Alexander palindromy for knots; HOMFLY-PT `a=1` = Burau
+  Alexander (two independent engines); Dehn-surgery `|H₁| = |det|` (cross-checked
+  with an independent fraction-free Bareiss determinant); lens-space
+  homeomorphic ⇒ homotopy-equivalent.
+- **P4.2 — Exact integer linear algebra core** ✅ (`exact_linalg.py`):
+  consolidates the Smith-normal-form / rank / determinant / cokernel primitives
+  behind one public, tested module — `smith_normal_form`, `integer_rank`,
+  `integer_determinant` (fraction-free **Bareiss**), `cokernel` → `AbelianGroup`.
+  The Bareiss determinant and the SNF invariant factors are cross-checked
+  (``det = ± ∏ dᵢ`` at full rank); `dehn_surgery` shares this core (DRY).
+- **P4.3 — Complexity discipline** ✅ (`docs/COMPLEXITY.md`): an honest reference
+  of the asymptotic cost and *practical input limits* of every computational
+  engine (Jones/HOMFLY/Khovanov/multivariable Alexander, homology/persistence,
+  Smith normal form/determinant, exact genus/planarity), with `Complexity`
+  notes added to the engine docstrings. States plainly where exactness costs
+  exponential time so callers are never surprised.
+- **P4.4 — Differential testing against independent oracles** ✅
+  (`tests/core/test_external_oracles.py`): pins `exact_linalg` (Smith normal
+  form / determinant / rank) against **sympy**, `is_planar` against **networkx**
+  (Boyer–Myrvold), and the Sturm/Sylvester `signature` against **numpy**
+  eigenvalues — genuinely independent implementations, so a shared-code bug
+  cannot hide. Test-only (the `oracles` optional extra); the runtime stays
+  dependency-free and each block skips when its oracle is absent.
+- **P4.5 — Persistence & exact oracles (GUDHI, python-flint)** ✅
+  (`tests/core/test_external_oracles.py`): pytop's Vietoris–Rips persistence is
+  validated against **GUDHI** (the gold-standard TDA library) — barcodes agree
+  to floating tolerance — and `exact_linalg` against **python-flint**
+  (`fmpz_mat`) as a second independent exact route, alongside sympy.
+- **P4.6 — Optional accelerated exact backend (python-flint)** ✅: the integer
+  Smith normal form (`homology._smith_normal_form`) — hence every homology /
+  cohomology / cellular / Khovanov / surgery engine built on it — dispatches
+  large dense matrices to FLINT when installed (`pip install -e .[fast]`), with
+  the pure-Python routine as the default fallback. Identical results (pinned by
+  the oracle tests); a dense 30×30 SNF drops from a multi-second coefficient
+  blow-up to ~2 ms. `numpy`/`scipy` are floating-point and cannot accelerate the
+  exact core — only a fast exact library (FLINT) can.
+- **Remaining** (deferred — need tooling unavailable in this environment):
+  broader differential oracles requiring **SageMath** (not pip-installable) and
+  **GAP** (a separate system); **SnapPy** and other orchestration / interop
+  bridges; and formal verification of the core routines.
 
 ---
 
@@ -249,7 +291,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 908** |
+| Tests passing | **9 950** |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |

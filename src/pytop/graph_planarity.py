@@ -140,6 +140,13 @@ def graph_genus(edges: Iterable[Edge], vertices: Iterable[Any] = ()) -> int:
     ``edges`` is an iterable of vertex pairs; extra isolated ``vertices`` may be
     supplied. The genus of a disconnected graph is the sum of its components'
     genera.
+
+    Complexity
+    ----------
+    Exact but **small-graph only**: the minimum is taken over all rotation
+    systems, of which there are ``∏_v (deg(v) − 1)!`` — super-exponential in the
+    vertex degrees. Use :func:`satisfies_planar_edge_bound` as a cheap necessary
+    pre-filter for planarity. See ``docs/COMPLEXITY.md``.
     """
 
     edge_list = [tuple(e) for e in edges]

@@ -36,7 +36,7 @@ from dataclasses import dataclass
 from math import gcd
 from typing import Any
 
-from .homology import _smith_normal_form
+from .exact_linalg import cokernel as _abelian_cokernel
 
 __all__ = [
     "FirstHomology",
@@ -99,15 +99,14 @@ class FirstHomology:
 
 
 def _cokernel(matrix: list[list[int]]) -> FirstHomology:
-    """Return ``coker(matrix) = ℤ^{cols} / (row lattice)`` as a :class:`FirstHomology`."""
+    """Return ``coker(matrix) = ℤ^{cols} / (row lattice)`` as a :class:`FirstHomology`.
 
-    n_cols = len(matrix[0]) if matrix else 0
-    if n_cols == 0:
-        return FirstHomology(free_rank=0, torsion=())
-    invariants = _smith_normal_form(matrix)  # positive invariant factors, len == rank
-    free_rank = n_cols - len(invariants)
-    torsion = tuple(d for d in invariants if d > 1)
-    return FirstHomology(free_rank=free_rank, torsion=torsion)
+    Delegates the exact computation to :func:`pytop.exact_linalg.cokernel` and
+    wraps the resulting abelian group in the surgery-specific result type.
+    """
+
+    group = _abelian_cokernel(matrix)
+    return FirstHomology(free_rank=group.free_rank, torsion=group.torsion)
 
 
 # ---------------------------------------------------------------------------

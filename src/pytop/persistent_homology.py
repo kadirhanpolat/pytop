@@ -1010,7 +1010,15 @@ def persistent_homology(
     *,
     include_zero_persistence: bool = False,
 ) -> tuple[PersistencePair, ...]:
-    """Convenience: Vietoris-Rips filtration followed by persistence reduction."""
+    """Convenience: Vietoris-Rips filtration followed by persistence reduction.
+
+    Complexity
+    ----------
+    The Vietoris-Rips complex on ``n`` points to dimension ``d`` has
+    ``O(n^{d+2})`` simplices, and the Z/2 reduction is ``O(m³)`` in the number of
+    simplices ``m`` — so this is for **small point clouds** (``n`` of order a few
+    dozen for small ``d``). See ``docs/COMPLEXITY.md``.
+    """
 
     filtered = vietoris_rips_filtration(space, max_dimension=max_dimension, max_scale=max_scale)
     return persistence_pairs(filtered, include_zero_persistence=include_zero_persistence)

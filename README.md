@@ -121,6 +121,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Knot/link invariants** (v0.6.0+) | `knot_invariants` (Jones, Alexander, linking number/matrix), `seifert` (Seifert circles, genus bound, matrix, signature), `homfly` (HOMFLY-PT `P(a,z)` from braid closures), `multivariable_alexander` (`Δ_L(t₁,…,tₙ)` via Wirtinger + Fox) |
 | **3-manifold homology** (v0.7.0+) | `dehn_surgery` — Dehn surgery → `H₁` (SNF cokernel of the framing/linking matrix), lens space homeomorphism/homotopy classification |
 | **Khovanov homology** (v0.7.0+) | `khovanov` — bigraded `Kh^{i,j}` (free rank + torsion) categorifying the Jones polynomial |
+| **Exact linear algebra** (v0.8.0+) | `exact_linalg` — Smith normal form, integer rank, Bareiss `integer_determinant`, `cokernel` → `AbelianGroup` |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
 | **Graph planarity** (v0.6.0) | `graph_planarity` |
@@ -289,7 +290,32 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
     of the unknot, trefoil (ℤ/2 at (−2,−7)), figure-8 (ℤ/2 at (−1,−3),(2,3)) and Hopf link;
     and the graded Euler characteristic = unnormalised Jones (cross-checked against
     `jones_polynomial`).
-- **9 908 tests passing** across the full suite.
+- **Phase 4 P4.1 — property-based + cross-engine differential testing**
+  (`tests/core/test_property_invariants.py`): seeded, reproducible checks of mathematical
+  invariants and engine consistency over many random inputs — Euler–Poincaré, rational Betti =
+  integral free rank, `b_i(ℤ/p) ≥ b_i(ℚ)`, HOMFLY-PT Markov(±)/conjugation invariance, HOMFLY-PT
+  `a=1` = Burau Alexander (two independent engines), Dehn-surgery `|H₁| = |det|` (vs an independent
+  Bareiss determinant), and lens-space homeomorphic ⇒ homotopy-equivalent.
+- **Phase 4 P4.2 — exact integer linear algebra core** (`exact_linalg.py`): consolidates
+  `smith_normal_form`, `integer_rank`, `integer_determinant` (fraction-free Bareiss), and
+  `cokernel` → `AbelianGroup` behind one public, tested module. The Bareiss determinant and the
+  Smith invariant factors cross-check each other (`det = ±∏ dᵢ` at full rank); `dehn_surgery`
+  shares this core (DRY).
+- **Phase 4 P4.3 — complexity discipline** (`docs/COMPLEXITY.md`): an honest reference of the
+  asymptotic cost and *practical input limits* of every computational engine, plus `Complexity`
+  notes on the heavy docstrings — stating plainly where exactness costs exponential time.
+- **Phase 4 P4.4 — differential testing against independent oracles**
+  (`tests/core/test_external_oracles.py`): pins `exact_linalg` against **sympy** (SNF/det/rank),
+  `is_planar` against **networkx** (Boyer–Myrvold), and `signature` against **numpy** eigenvalues —
+  truly independent implementations. Test-only (`pip install -e .[oracles]`); the runtime stays
+  dependency-free and each block skips when its oracle is absent.
+- **Phase 4 P4.5 / P4.6 — GUDHI & python-flint**: pytop's Vietoris–Rips persistence is validated
+  against **GUDHI** (the gold-standard TDA library) and `exact_linalg` against **python-flint**; and
+  with the optional `[fast]` extra, the integer Smith normal form — hence every homology / Khovanov /
+  surgery engine built on it — routes large dense matrices to **FLINT** (identical results; a dense
+  30×30 SNF drops from a multi-second coefficient blow-up to ~2 ms). The pure-Python core stays the
+  default and the only hard requirement (`dependencies = []`).
+- **9 950 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

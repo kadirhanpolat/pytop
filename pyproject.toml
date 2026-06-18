@@ -25,6 +25,14 @@ classifiers = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "pytest-cov>=5.0", "ruff>=0.4", "mypy>=1.10"]
+# Independent oracles for the differential test suite (tests/core/test_external_oracles.py).
+# Test-only — pytop's runtime stays dependency-free; the tests skip when these are absent.
+oracles = ["numpy>=1.26", "sympy>=1.12", "networkx>=3.0", "gudhi>=3.9", "python-flint>=0.6"]
+# Optional accelerated EXACT backend: when python-flint is installed, the integer Smith
+# normal form (and every homology / Khovanov / surgery engine built on it) routes large
+# dense matrices to FLINT — identical results, far faster (the pure-Python core stays the
+# default and the only hard requirement).
+fast = ["python-flint>=0.6"]
 
 [project.urls]
 Repository = "https://github.com/kadirhanpolat/pytop"

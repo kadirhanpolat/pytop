@@ -624,6 +624,13 @@ from .khovanov import (
     KhovanovHomology,
     khovanov_homology,
 )
+from .exact_linalg import (
+    AbelianGroup,
+    smith_normal_form,
+    integer_rank,
+    integer_determinant,
+    cokernel,
+)
 from .winding_number import (
     WindingError,
     winding_number,
@@ -1453,6 +1460,11 @@ __all__ = [
     "are_lens_spaces_homotopy_equivalent",
     "KhovanovHomology",
     "khovanov_homology",
+    "AbelianGroup",
+    "smith_normal_form",
+    "integer_rank",
+    "integer_determinant",
+    "cokernel",
     "WindingError",
     "winding_number",
     "circle_map_degree",
