@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.1] — 2026-06-18
+
+### Added
+- **P4.7 — SageMath/GAP differential oracle** (`tests/core/test_sage_oracle.py`,
+  opt-in `PYTOP_SAGE_ORACLE=1`, Docker-based): a single batched run of the
+  `sagemath/sagemath` image validates pytop's Alexander and Jones polynomials
+  against Sage's independent algorithms, and its van Kampen group abelianisations
+  against **GAP** (Klein bottle ℤ⊕ℤ/2, torus ℤ², ℝP² ℤ/2, wedge ℤ³). Skipped by
+  default, so the suite stays fast and Docker-free.
+
+### Changed
+- Corrected the P4.6 flint-backend documentation: a clean re-measurement (the
+  earlier apparent slowdown was concurrent machine load) shows FLINT's exact
+  Smith normal form is **~5–8× faster** than the pure-Python routine even on
+  pytop's *sparse* boundary/Khovanov matrices. The optional `[fast]` backend is
+  kept; `docs/COMPLEXITY.md`, the roadmap and README updated accordingly.
+
+### Tests
+- **9 950 passing** (+ 8 opt-in SageMath-oracle tests). Runtime stays
+  dependency-free (`dependencies = []`).
+
 ## [0.9.0] — 2026-06-18
 
 ### Added
