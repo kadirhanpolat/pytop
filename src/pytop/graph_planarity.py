@@ -88,6 +88,91 @@ def _count_faces(rotation: dict[Any, list[Any]]) -> int:
     return faces
 
 
+def _is_bipartite(vertices: list[Any], neighbors: dict[Any, list[Any]]) -> bool:
+    """Return whether the component is 2-colourable (BFS).
+
+    A simple *bipartite* planar graph satisfies the tighter Euler bound
+    ``E <= 2V - 4`` (it is triangle-free), versus ``E <= 3V - 6`` in general --
+    so detecting bipartiteness lets :func:`is_planar` reject dense bipartite
+    graphs (e.g. ``K_{4,4}``) without any rotation-system search.
+    """
+
+    color: dict[Any, int] = {}
+    for start in vertices:
+        if start in color:
+            continue
+        color[start] = 0
+        queue = [start]
+        while queue:
+            u = queue.pop()
+            for w in neighbors[u]:
+                if w not in color:
+                    color[w] = color[u] ^ 1
+                    queue.append(w)
+                elif color[w] == color[u]:
+                    return False
+    return True
+
+
+def _per_vertex_rotations(
+    vertices: list[Any], neighbors: dict[Any, list[Any]]
+) -> list[list[list[Any]]]:
+    """Per-vertex cyclic orderings: fix the first neighbor (factor out the cyclic
+    symmetry) and permute the rest. The product of their lengths is the search
+    space, ``∏_v (deg(v) − 1)!``.
+    """
+
+    rotations: list[list[list[Any]]] = []
+    for v in vertices:
+        order = neighbors[v]
+        if len(order) <= 2:
+            rotations.append([order])
+        else:
+            head, rest = order[0], order[1:]
+            rotations.append([[head, *perm] for perm in permutations(rest)])
+    return rotations
+
+
+def _search_max_faces(
+    vertices: list[Any],
+    per_vertex_rotations: list[list[list[Any]]],
+    *,
+    target: int,
+) -> int:
+    """DFS over rotation systems, returning the maximum face count found.
+
+    For a connected graph the face count satisfies ``F <= E - V + 2``, with
+    equality iff the embedding has genus 0 -- the global optimum. So the search
+    **stops as soon as ``target = E - V + 2`` faces are reached**: no rotation
+    system can do better, so neither the exact genus nor a planarity verdict can
+    change. This early termination makes planar graphs dramatically cheaper while
+    leaving the result identical to a full enumeration.
+    """
+
+    n = len(vertices)
+    best = 0
+    done = False
+    rotation: dict[Any, list[Any]] = {}
+
+    def search(index: int) -> None:
+        nonlocal best, done
+        if index == n:
+            faces = _count_faces(rotation)
+            if faces > best:
+                best = faces
+            if best >= target:
+                done = True
+            return
+        for order in per_vertex_rotations[index]:
+            rotation[vertices[index]] = order
+            search(index + 1)
+            if done:
+                return
+
+    search(0)
+    return best
+
+
 def _component_min_genus(component: set[Any], adjacency: dict[Any, set[Any]]) -> int:
     vertices = sorted(component, key=repr)
     neighbors = {v: sorted(adjacency[v], key=repr) for v in vertices}
@@ -97,8 +182,9 @@ def _component_min_genus(component: set[Any], adjacency: dict[Any, set[Any]]) ->
     if edge_count == 0:
         return 0  # isolated vertex: planar
 
-    # Enumerate rotation systems: fix the first neighbor at each vertex to factor
-    # out the cyclic symmetry, permuting the rest. Size = product of (deg-1)!.
+    # The exact minimum genus needs the full enumeration (a genus-0 embedding lets
+    # us stop early, but a non-planar graph must be searched exhaustively), so the
+    # static search-space cap still guards graph_genus.
     search_space = 1
     for v in vertices:
         search_space *= factorial(max(len(neighbors[v]) - 1, 0))
@@ -108,30 +194,43 @@ def _component_min_genus(component: set[Any], adjacency: dict[Any, set[Any]]) ->
             f"({_MAX_ROTATIONS}); this exact method is for small graphs."
         )
 
-    per_vertex_rotations: list[list[list[Any]]] = []
-    for v in vertices:
-        order = neighbors[v]
-        if len(order) <= 2:
-            per_vertex_rotations.append([order])
-        else:
-            head, rest = order[0], order[1:]
-            per_vertex_rotations.append([[head, *perm] for perm in permutations(rest)])
-
-    best_faces = 0
-
-    def search(index: int, rotation: dict[Any, list[Any]]) -> None:
-        nonlocal best_faces
-        if index == len(vertices):
-            best_faces = max(best_faces, _count_faces(rotation))
-            return
-        vertex = vertices[index]
-        for order in per_vertex_rotations[index]:
-            rotation[vertex] = order
-            search(index + 1, rotation)
-
-    search(0, {})
+    per_vertex_rotations = _per_vertex_rotations(vertices, neighbors)
     # Euler: V - E + F = 2 - 2g  =>  g = (2 - V + E - F) / 2, minimized by max F.
+    target_faces = edge_count - vertex_count + 2  # genus-0 face count (global max)
+    best_faces = _search_max_faces(vertices, per_vertex_rotations, target=target_faces)
     return (2 - vertex_count + edge_count - best_faces) // 2
+
+
+def _violates_planar_edge_bound(component: set[Any], adjacency: dict[Any, set[Any]]) -> bool:
+    """Return whether a component fails the necessary Euler edge bound.
+
+    A simple planar graph has ``E <= 3V - 6`` (``E <= 2V - 4`` if bipartite). When
+    violated the component is certainly non-planar, so :func:`is_planar` can reject
+    it with no rotation-system search at all -- this is what makes ``K_n`` and
+    ``K_{m,n}`` (whose search spaces are astronomical) decide instantly.
+    """
+
+    vertices = sorted(component, key=repr)
+    neighbors = {v: sorted(adjacency[v], key=repr) for v in vertices}
+    vertex_count = len(vertices)
+    if vertex_count < 3:
+        return False
+    edge_count = sum(len(neighbors[v]) for v in vertices) // 2
+    bound = (2 * vertex_count - 4) if _is_bipartite(vertices, neighbors) else (3 * vertex_count - 6)
+    return edge_count > bound
+
+
+def _component_is_planar(component: set[Any], adjacency: dict[Any, set[Any]]) -> bool:
+    """Decide planarity of one connected component (genus 0).
+
+    First the cheap Euler edge bound rejects dense graphs with no search; only if
+    that passes do we compute the genus, which early-terminates as soon as a
+    genus-0 embedding is found.
+    """
+
+    if _violates_planar_edge_bound(component, adjacency):
+        return False
+    return _component_min_genus(component, adjacency) == 0
 
 
 def graph_genus(edges: Iterable[Edge], vertices: Iterable[Any] = ()) -> int:
@@ -155,9 +254,24 @@ def graph_genus(edges: Iterable[Edge], vertices: Iterable[Any] = ()) -> int:
 
 
 def is_planar(edges: Iterable[Edge], vertices: Iterable[Any] = ()) -> bool:
-    """Return whether the graph is planar (orientable genus zero)."""
+    """Return whether the graph is planar (orientable genus zero).
 
-    return graph_genus(edges, vertices) == 0
+    A graph is planar iff every connected component is, so this short-circuits on
+    the first non-planar component. Each component is decided by
+    :func:`_component_is_planar`, which rejects dense graphs via the Euler edge
+    bound (no search) and otherwise stops at the first genus-0 embedding -- far
+    cheaper than computing the full genus via :func:`graph_genus`.
+
+    Complexity
+    ----------
+    Worst case still exponential (a non-planar graph passing the edge bound is
+    searched), but planar graphs and dense non-planar graphs (``K_n``, ``K_{m,n}``)
+    are decided cheaply. See ``docs/COMPLEXITY.md``.
+    """
+
+    edge_list = [tuple(e) for e in edges]
+    adjacency = _adjacency(vertices, edge_list)
+    return all(_component_is_planar(c, adjacency) for c in _components(adjacency))
 
 
 def satisfies_planar_edge_bound(vertex_count: int, edge_count: int, *, bipartite: bool = False) -> bool:
