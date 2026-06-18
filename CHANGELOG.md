@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.3] — 2026-06-18
+
+### Fixed
+- **CI is green again.** The `ruff check src/pytop/` step had been failing since
+  ~v0.8.0 on 34 accumulated lint errors in the Phase 1/2 code (none in the
+  Phase 3/4 modules): import sorting (I001), unused imports (F401), quoted
+  annotations (UP037), a deprecated import (UP035), dead local variables (F841),
+  two undefined annotation names (F821 — `Sequence`, `MetricTopologySpace`), and
+  ambiguous loop variables `l` → `row` (E741). No behaviour change; the full
+  suite is unchanged (9 950 passed, 16 opt-in oracle tests skipped). This is the
+  first release with a passing CI run on Python 3.11 / 3.12 / 3.13.
+
 ## [0.9.2] — 2026-06-18
 
 ### Added
