@@ -1563,6 +1563,106 @@ def _kp_hart_modified_cocountable() -> _CertifiedSpace:
     return _CertifiedSpace("S000183", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
 
 
+# ---------------------------------------------------------------------------
+# Batch 8: sequence/function spaces and RP²
+# ---------------------------------------------------------------------------
+
+def _SEQ_FRAC_MEMBER(p: Any) -> bool:
+    return isinstance(p, tuple) and all(isinstance(x, Fraction) for x in p)
+
+
+def _SEQ_FRAC_UNIT_MEMBER(p: Any) -> bool:
+    return isinstance(p, tuple) and all(
+        isinstance(x, Fraction) and Fraction(0) <= x <= Fraction(1) for x in p
+    )
+
+
+def _SEQ_FRAC_MONO_MEMBER(p: Any) -> bool:
+    if not _SEQ_FRAC_UNIT_MEMBER(p):
+        return False
+    seq: tuple[Fraction, ...] = p
+    return all(seq[i] <= seq[i + 1] for i in range(len(seq) - 1))
+
+
+def _RP2_MEMBER(p: Any) -> bool:
+    if not (isinstance(p, tuple) and len(p) == 3):
+        return False
+    if not all(isinstance(x, Fraction) for x in p):
+        return False
+    a: Fraction
+    b: Fraction
+    c: Fraction
+    a, b, c = p
+    if a == b == c == Fraction(0):
+        return False
+    for x in (a, b, c):
+        if x != Fraction(0):
+            return x == Fraction(1)
+    return False  # unreachable
+
+
+def _l1_dist(p: Any, q: Any) -> Fraction:
+    # L1 distance on finite-support Fraction tuples (exact; equiv. topology to L2).
+    a: tuple[Fraction, ...] = p if isinstance(p, tuple) else ()
+    b: tuple[Fraction, ...] = q if isinstance(q, tuple) else ()
+    n = max(len(a), len(b)) if (a or b) else 0
+    _z = Fraction(0)
+    total: Fraction = Fraction(0)
+    for i in range(n):
+        ai: Fraction = a[i] if i < len(a) else _z
+        bi: Fraction = b[i] if i < len(b) else _z
+        total += abs(ai - bi)
+    return total
+
+
+@_reg("S000021")
+def _weak_hilbert() -> _CertifiedSpace:
+    # Weak topology on separable Hilbert space; points = finite-support ℓ² vectors.
+    return _CertifiedSpace("S000021", _SEQ_FRAC_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000030")
+def _real_omega() -> _CertifiedSpace:
+    # Countable product ℝ^ω; points = finite tuples of Fractions (finite support).
+    return _CertifiedSpace("S000030", _SEQ_FRAC_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000032")
+def _hilbert_cube() -> _CertifiedSpace:
+    # Hilbert cube [0,1]^ω; points = finite Fraction tuples with each entry in [0,1].
+    return _CertifiedSpace("S000032", _SEQ_FRAC_UNIT_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000105")
+def _helly_space() -> _CertifiedSpace:
+    # Helly space of non-decreasing [0,1]→[0,1]; points = monotone Fraction tuples.
+    return _CertifiedSpace("S000105", _SEQ_FRAC_MONO_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000107")
+def _box_product_reals() -> _CertifiedSpace:
+    # Countable box product ℝ^ω (box topology); points = finite Fraction tuples.
+    return _CertifiedSpace("S000107", _SEQ_FRAC_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000142")
+def _erdos_space() -> _MetricWithCerts:
+    # Erdős space {x∈ℓ²: xₙ∈ℚ}; points = finite-support Fraction sequences.
+    return _MetricWithCerts("S000142", _l1_dist, _SEQ_FRAC_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000146")
+def _q_omega() -> _CertifiedSpace:
+    # Countable product ℚ^ω; points = finite Fraction tuples.
+    return _CertifiedSpace("S000146", _SEQ_FRAC_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000168")
+def _real_projective_plane() -> _CertifiedSpace:
+    # Real projective plane RP²; points = canonical rational homogeneous coords [a:b:c].
+    return _CertifiedSpace("S000168", _RP2_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
 # ===========================================================================
 # Public API
 # ===========================================================================

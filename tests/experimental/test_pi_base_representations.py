@@ -40,7 +40,7 @@ from pytop.experimental.spaces.pi_base_representations import (
 
 def test_list_representable_count():
     reps = list_representable()
-    assert len(reps) == 147
+    assert len(reps) == 155
 
 
 def test_list_representable_structure():
@@ -1617,3 +1617,94 @@ class TestBatch7Properties:
         sp = best_space("S000161")
         assert is_hausdorff(sp).value is False
         assert is_compact(sp).value is True
+
+
+# ---------------------------------------------------------------------------
+# Batch 8: sequence/function spaces and RP²
+# ---------------------------------------------------------------------------
+
+class TestBatch8CertifiedSpaceTypes:
+    @pytest.mark.parametrize("uid", [
+        "S000021", "S000030", "S000032", "S000105", "S000107", "S000146", "S000168",
+    ])
+    def test_is_certified_space(self, uid: str) -> None:
+        assert isinstance(best_space(uid), _CertifiedSpace)
+
+    def test_erdos_is_metric(self) -> None:
+        assert isinstance(best_space("S000142"), _MetricWithCerts)
+
+
+class TestBatch8SequenceMembership:
+    def test_seq_frac_member_basic(self) -> None:
+        for uid in ("S000021", "S000030", "S000107", "S000146"):
+            sp = best_space(uid)
+            assert sp.contains(())                           # empty = zero sequence
+            assert sp.contains((Fraction(1), Fraction(0)))
+            assert sp.contains((Fraction(1, 2), Fraction(-3)))
+            assert not sp.contains(42)
+            assert not sp.contains("x")
+            assert not sp.contains((1.0, 2.0))              # float, not Fraction
+
+    def test_hilbert_cube_unit_bounds(self) -> None:
+        sp = best_space("S000032")
+        assert sp.contains(())
+        assert sp.contains((Fraction(0), Fraction(1, 2), Fraction(1)))
+        assert not sp.contains((Fraction(0), Fraction(3, 2)))   # > 1
+        assert not sp.contains((Fraction(-1, 4),))               # < 0
+        assert not sp.contains((Fraction(1, 2), 0.5))            # float
+
+    def test_helly_space_monotone(self) -> None:
+        sp = best_space("S000105")
+        assert sp.contains(())
+        assert sp.contains((Fraction(0), Fraction(1, 2), Fraction(1)))   # non-decreasing
+        assert sp.contains((Fraction(1, 4), Fraction(1, 4)))              # equal is ok
+        assert not sp.contains((Fraction(1), Fraction(0)))                # decreasing
+        assert not sp.contains((Fraction(0), Fraction(3, 2)))             # > 1
+
+    def test_erdos_space_membership(self) -> None:
+        sp = best_space("S000142")
+        assert sp.contains(())
+        assert sp.contains((Fraction(1), Fraction(0)))
+        assert sp.contains((Fraction(1, 3), Fraction(-1, 3)))
+        assert not sp.contains((1.0, 2.0))
+        assert not sp.contains("x")
+
+    def test_rp2_membership(self) -> None:
+        sp = best_space("S000168")
+        assert sp.contains((Fraction(1), Fraction(0), Fraction(0)))       # [1:0:0]
+        assert sp.contains((Fraction(0), Fraction(1), Fraction(0)))       # [0:1:0]
+        assert sp.contains((Fraction(1), Fraction(1), Fraction(1)))       # [1:1:1]
+        assert sp.contains((Fraction(1), Fraction(-1, 2), Fraction(3)))   # [1:-1/2:3]
+        assert not sp.contains((Fraction(2), Fraction(0), Fraction(0)))   # not canonical
+        assert not sp.contains((Fraction(0), Fraction(2), Fraction(0)))   # not canonical
+        assert not sp.contains((Fraction(0), Fraction(0), Fraction(0)))   # zero vector
+        assert not sp.contains("x")
+        assert not sp.contains((Fraction(1), Fraction(1)))                # wrong length
+        assert not sp.contains((Fraction(1), Fraction(1), Fraction(1), Fraction(0)))  # len 4
+
+
+class TestBatch8Properties:
+    def test_hilbert_cube_compact(self) -> None:
+        sp = best_space("S000032")
+        cert = sp.certificate("compact")
+        assert cert is not None
+        assert cert.value is True
+
+    def test_rp2_compact_connected(self) -> None:
+        sp = best_space("S000168")
+        assert sp.certificate("compact") is not None
+        assert sp.certificate("compact").value is True  # type: ignore[union-attr]
+        assert sp.certificate("connected") is not None
+        assert sp.certificate("connected").value is True  # type: ignore[union-attr]
+
+    def test_erdos_separable(self) -> None:
+        sp = best_space("S000142")
+        cert = sp.certificate("separable")
+        assert cert is not None
+        assert cert.value is True
+
+    def test_real_omega_connected(self) -> None:
+        sp = best_space("S000030")
+        cert = sp.certificate("connected")
+        assert cert is not None
+        assert cert.value is True
