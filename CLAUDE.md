@@ -46,7 +46,8 @@ pytop has two complementary layers — keep this distinction in mind when extend
   `bitmap_to_cubical_filtration` — lower-star filtration from 2-D pixel arrays with
   f(face) ≤ f(coface) guaranteed; `persistent_homology_bitmap` via Twist+Clearing),
   `van_kampen` (Seifert–van Kampen: GroupPresentation + GroupHomomorphism; amalgamated free
-  product; Tietze elimination; abelianization via SNF; group identification; CW1Complex route;
+  product; Tietze elimination with cyclic reduction + inverse-duplicate deduplication;
+  abelianization via SNF; group identification; CW1Complex route;
   standard spaces S¹∨⋯∨S¹→Fₙ, S²→1, T²→ℤ², Klein→⟨a,b|abab⁻¹⟩, RP²→ℤ/2),
   `knot_invariants` (Kauffman→Jones, reduced Burau→Alexander), `winding_number`,
   `surface_word_classification`, `graph_planarity` (rotation-system genus), and
@@ -55,7 +56,28 @@ pytop has two complementary layers — keep this distinction in mind when extend
 - **Research-grade point-set layer** (`experimental.spaces`) — a third layer bridging the two above:
   a `Space` protocol + 16 witness-producing predicates + property-reasoning engine that derives
   and *explains* properties of constructed infinite spaces (preservation theorems + pi-Base
-  implication graph). See `docs/CAPABILITIES_AND_ROADMAP.md` for Phase 1/2 status.
+  implication graph). **10 representations**: `FiniteSpace`, `CofiniteSpace`, `OrderTopologySpace`,
+  `MetricTopologySpace`, `SorgenfreyLineSpace`, `DiscreteCountableSpace`, `OpaqueInfiniteSpace`,
+  `AlexandroffSpace` (upset topology of a preorder), `SubbaseSpace` (subbase-generated topology),
+  `InverseLimitSpace` (finite inverse system + bonding maps). **Factory functions**:
+  `finite_circle()` (4-pt diamond, π₁=ℤ), `finite_sphere(n)` (2(n+1)-pt suspension tower),
+  `finite_wedge_circles(k)` (1+3k pt model of S¹∨⋯∨S¹, π₁=F_k). **Cardinal invariants**
+  (`cardinal_invariants.py`): weight, density, character, cellularity — exact for finite spaces;
+  `cardinal_certificate` hook on each infinite representation; `AlexandroffSpace.certificate`
+  provides structural T0 (antisymmetry test) and connectedness (union-find on order graph) verdicts
+  without open-set enumeration; `cardinal_certificate` returns character=1, weight=|X| (T0 case).
+  **Urysohn witnesses** (`urysohn.py`): `UrysohnWitness` + `urysohn_function(space, x₀, C)`;
+  discrete finite → exact indicator; general finite → BFS chain; `MetricTopologySpace` →
+  distance-ratio formula; `SorgenfreyLineSpace` → Euclidean formula (τ_std ⊊ τ_Sorgenfrey);
+  `OrderTopologySpace` → order-metric formula. **π₁ computation** (`pi1.py`): `pi1_space(space)`
+  via McCord order complex (specialization order → CW1Complex → spanning-tree algorithm);
+  T0 quotient for non-T0 inputs; `ProductSpace` → π₁(A)×π₁(B); `SumSpace` → π₁(first).
+  **Tietze improvements** (`van_kampen.py`): `_cyclically_reduce` (prefix/suffix inverse-pair
+  removal), `_dedup_relators` (duplicate relators up to cyclic conjugation + inversion),
+  applied after every Tietze II elimination. `predicates._decide` checks `certificate` first
+  so `AlexandroffSpace` (and future subclasses) give structural reasons without enumeration.
+  `persistence_betti_numbers(pairs)` counts essential pairs per dimension.
+  See `docs/CAPABILITIES_AND_ROADMAP.md` for Phase 1/2 status.
 
 ## pi-Base data
 

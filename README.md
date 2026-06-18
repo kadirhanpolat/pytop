@@ -164,14 +164,33 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
 
 ## What's New (post-v0.6.0)
 
+- **Phase 1/2 incremental improvements** (latest):
+  - **Alexandroff factory functions**: `finite_circle()` (4-pt diamond, π₁=ℤ), `finite_sphere(n)`
+    (2(n+1)-pt McCord model via iterated suspension, π₁=trivial for n≥2), `finite_wedge_circles(k)`
+    (1+3k-pt model of S¹∨⋯∨S¹, π₁=F_k).
+  - **AlexandroffSpace structural certificates**: `certificate("T0")` checks antisymmetry of the
+    order relation (no open-set enumeration needed); `certificate("connected")` uses union-find on
+    the strict-order graph. `cardinal_certificate("character")` = 1 (principal upset is the unique
+    minimal neighbourhood); `cardinal_certificate("weight")` = |X| for T0 Alexandroff spaces.
+  - **Urysohn witnesses for all infinite Tychonoff representations**:
+    `SorgenfreyLineSpace` → Euclidean distance-ratio formula (valid because τ_std ⊊ τ_Sorgenfrey);
+    `OrderTopologySpace` → order-metric formula (order topology on ℚ = metric topology).
+  - **Stronger Tietze simplification**: `_cyclically_reduce` removes outer inverse-pair letters from
+    relators; `_dedup_relators` eliminates duplicate relators up to cyclic conjugation + inversion.
+    Applied after every Tietze II elimination.
+  - **`predicates._decide` certificate-first**: structural certificates checked before finite-topology
+    enumeration — allows subclasses to short-circuit without enumerating all open sets.
+  - **`persistence_betti_numbers(pairs)`**: counts essential (death=∞) persistence pairs per dimension.
 - **Research-grade computable-space protocol** (`experimental.spaces`) — Phase 1 complete (S1–S5):
   unified `Space` ABC with 16 witness-producing, decidability-honest predicates (T0–T6/Tychonoff,
-  regular/normal, compact/connected, Lindelöf/separable, first/second-countable), 7 representations
-  (Finite, Cofinite, Order-ℚ, Metric, Sorgenfrey, Discrete-ℕ, Opaque), finite+infinite construction
-  closure (`ProductSpace`, `SubspaceSpace`, `SumSpace`, `QuotientSpace`), and a property-reasoning
-  engine that derives and *explains* properties of constructed infinite spaces via preservation
-  theorems + the pi-Base implication graph — no enumeration. `synthesize(has=…, lacks=…)` finds
-  example spaces. Preservation table cross-validated against pi-Base meta-properties.
+  regular/normal, compact/connected, Lindelöf/separable, first/second-countable), **10 representations**
+  (Finite, Cofinite, Order-ℚ, Metric, Sorgenfrey, Discrete-ℕ, Opaque, Alexandroff, Subbase,
+  InverseLimit), finite+infinite construction closure (`ProductSpace`, `SubspaceSpace`, `SumSpace`,
+  `QuotientSpace`), cardinal invariants (weight/density/character/cellularity), Urysohn witnesses,
+  π₁ via McCord order complex, and a property-reasoning engine that derives and *explains* properties
+  of constructed infinite spaces via preservation theorems + the pi-Base implication graph — no
+  enumeration. `synthesize(has=…, lacks=…)` finds example spaces. Preservation table
+  cross-validated against pi-Base meta-properties.
 - **pi-Base atlas bridge** — `pi_base_space("Cantor set")` wraps any of 222 famous spaces as a
   protocol `Space`; feeds directly into the reasoning engine and construction wrappers.
 - **Field-coefficient & relative homology** — `betti_numbers_over(K, "Q")` / `betti_numbers_over(K, p)`
@@ -213,7 +232,7 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   2-D pixel array with f(face) ≤ f(coface) guaranteed); `persistence_pairs_cubical` +
   `persistent_homology_bitmap` via the shared Twist+Clearing kernel — 3×3 annular image
   correctly yields H₁ bar [0, 1). 74 new tests.
-- **9 482 tests passing** across the full suite.
+- **9 655 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 
