@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] — 2026-06-18
+
+### Added
+- **Phase 4 — performance, correctness, interoperability** (merged via PR #17):
+  - `exact_linalg` — public exact integer linear algebra: `smith_normal_form`,
+    `integer_rank`, `integer_determinant` (fraction-free Bareiss), `cokernel` →
+    `AbelianGroup`. `dehn_surgery` shares this core (DRY).
+  - **`docs/COMPLEXITY.md`** — an honest reference of the asymptotic cost and
+    practical input limits of every computational engine, plus `Complexity`
+    notes on the heavy docstrings.
+
+### Testing
+- **Property-based + cross-engine differential test suite**
+  (`tests/core/test_property_invariants.py`): Euler–Poincaré; rational Betti =
+  integral free rank; `b_i(ℤ/p) ≥ b_i(ℚ)`; HOMFLY-PT Markov (±) / conjugation
+  invariance; braid Alexander palindromy; HOMFLY-PT `a=1` = Burau Alexander;
+  Dehn-surgery `|H₁| = |det|`; lens-space homeomorphic ⇒ homotopy-equivalent.
+- **Differential testing against five independent external oracles**
+  (`tests/core/test_external_oracles.py`, test-only `oracles` extra; each block
+  skips when its oracle is absent): **sympy** and **python-flint** (exact linear
+  algebra), **networkx** (Boyer–Myrvold planarity), **numpy** (signature), and
+  **GUDHI** (Vietoris–Rips persistence — first external validation of the TDA
+  engine against the gold standard).
+
+### Performance
+- **Optional flint-accelerated exact Smith normal form** (`fast` extra): when
+  `python-flint` is installed, large dense integer SNFs route to FLINT — identical
+  results (the pure-Python routine remains the default and only hard requirement),
+  but a dense 30×30 SNF drops from a multi-second coefficient blow-up to ~2 ms,
+  speeding up every homology / cohomology / cellular / Khovanov / surgery engine
+  built on the SNF. `numpy`/`scipy` are floating-point and cannot accelerate the
+  exact core; only a fast exact library (FLINT) can.
+
+### Tests
+- **9 950 tests passing** (+42 since v0.8.0). Runtime stays dependency-free
+  (`dependencies = []`); the oracle/accelerator libraries are optional extras.
+
 ## [0.8.0] — 2026-06-18
 
 ### Added
