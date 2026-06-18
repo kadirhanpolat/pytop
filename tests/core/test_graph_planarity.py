@@ -2,10 +2,20 @@
 
 from __future__ import annotations
 
+import random
 from itertools import combinations
+
+import pytest
 
 from pytop import graph_genus, is_planar
 from pytop.graph_planarity import satisfies_planar_edge_bound
+
+try:
+    import networkx as _nx
+
+    HAVE_NETWORKX = True
+except ImportError:  # pragma: no cover - oracle is optional
+    HAVE_NETWORKX = False
 
 
 def _complete(n):
@@ -23,6 +33,19 @@ def _cycle(n):
 def _wheel(n):
     """Hub vertex ``n`` joined to an ``n``-cycle ``0..n-1`` — always planar."""
     return _cycle(n) + [(n, i) for i in range(n)]
+
+
+def _grid(rows, cols):
+    """``rows × cols`` grid graph (planar); returns ``(edges, vertex_count)``."""
+    edges = []
+    for i in range(rows):
+        for j in range(cols):
+            v = i * cols + j
+            if i + 1 < rows:
+                edges.append((v, v + cols))
+            if j + 1 < cols:
+                edges.append((v, v + 1))
+    return edges, rows * cols
 
 
 PETERSEN = [
@@ -138,3 +161,60 @@ def test_small_wheel_is_planar():
     # regardless of enumeration order.
     assert is_planar(_wheel(6)) is True
     assert graph_genus(_wheel(6)) == 0
+
+
+# --------------------------------------------------------------------------
+# Linear-time LR planarity: is_planar now decides ANY graph in O(V+E) and never
+# raises GraphPlanarityError (graph_genus keeps the exponential genus search).
+# --------------------------------------------------------------------------
+
+def test_large_wheels_are_planar_and_never_raise():
+    # Hub degree 9, 10, 15, 25, 40 => rotation-system spaces from 2e7 up to
+    # astronomical, all far over the old cap (which raised). The LR test decides
+    # them directly — wheels are always planar.
+    for k in (9, 10, 15, 25, 40):
+        assert is_planar(_wheel(k)) is True
+
+
+def test_large_planar_grid():
+    # 10x10 grid graph (planar), far beyond any rotation-system limit.
+    edges, n = _grid(10, 10)
+    assert is_planar(edges, vertices=range(n)) is True
+
+
+def test_large_complete_graph_non_planar_no_raise():
+    # K12 / K20: very dense, decided False in O(V+E) (no error).
+    assert is_planar(_complete(12)) is False
+    assert is_planar(_complete(20)) is False
+
+
+@pytest.mark.skipif(not HAVE_NETWORKX, reason="networkx not installed")
+class TestPlanarityVsNetworkx:
+    """Differential test of the LR decision against networkx's independent
+    (Boyer–Myrvold / LR) planarity implementation — any disagreement is a bug."""
+
+    @staticmethod
+    def _nx_planar(n, edges):
+        g = _nx.Graph()
+        g.add_nodes_from(range(n))
+        g.add_edges_from(edges)
+        return _nx.check_planarity(g, counterexample=False)[0]
+
+    def test_exhaustive_all_graphs_up_to_5_vertices(self):
+        for n in range(1, 6):
+            all_edges = list(combinations(range(n), 2))
+            for mask in range(1 << len(all_edges)):
+                edges = [all_edges[i] for i in range(len(all_edges)) if mask & (1 << i)]
+                assert is_planar(edges, vertices=range(n)) == self._nx_planar(n, edges), (
+                    f"disagreement on n={n} edges={edges}"
+                )
+
+    def test_random_larger_graphs(self):
+        for n, p, seed in [(8, 0.30, 1), (12, 0.20, 2), (18, 0.15, 3), (25, 0.10, 4)]:
+            rng = random.Random(seed)
+            all_edges = list(combinations(range(n), 2))
+            for _ in range(150):
+                edges = [e for e in all_edges if rng.random() < p]
+                assert is_planar(edges, vertices=range(n)) == self._nx_planar(n, edges), (
+                    f"disagreement on n={n} edges={edges}"
+                )

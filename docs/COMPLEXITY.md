@@ -38,7 +38,7 @@
 | Engine | Entry point | Complexity | Practical limit |
 |--------|-------------|-----------|-----------------|
 | Exact genus | `graph_genus` | `∏_v (deg(v) − 1)!` rotation systems (super-exponential); **early-terminates at the first genus-0 embedding** | small, low-degree graphs (`≲ 8` vertices) |
-| Planarity decision | `is_planar` | `O(V+E)` Euler edge-bound reject first (handles any dense `Kₙ`/`K_{m,n}` instantly); otherwise the `graph_genus` search with genus-0 early termination | dense graphs: unrestricted; sparse high-degree graphs: as `graph_genus` |
+| Planarity decision | `is_planar` | **`O(V+E)` left-right planarity test** (Brandes 2009); a cheap Euler edge-bound pre-reject runs first | **unrestricted** (never raises) |
 | Euler edge bound | `satisfies_planar_edge_bound` | `O(1)` | unrestricted (necessary, not sufficient) |
 | Bipartite test | `_is_bipartite` (internal) | `O(V+E)` 2-colouring | unrestricted |
 
@@ -56,20 +56,22 @@
   come from the **dual (persistent cohomology) algorithm** (de Silva–Morozov–
   Vejdemo-Johansson 2011) used by Ripser/GUDHI, which slashes column additions on
   Rips filtrations — a separate algorithm, not a micro-optimisation.
-- `is_planar` now applies the Euler edge bound (`E ≤ 3V−6`, or `E ≤ 2V−4` for
-  bipartite graphs, detected by 2-colouring) **internally and per component**, so
-  any sufficiently dense non-planar graph (every `Kₙ`, `n ≥ 5`; dense `K_{m,n}`)
-  is rejected in `O(V+E)` with no rotation-system search — these used to either
-  enumerate or exceed the search cap. The remaining hard case is a **sparse but
-  high-degree planar graph** (e.g. a wheel with a degree-9 hub): it passes the
-  edge bound yet has a rotation-system space over the cap, so it still raises
-  `GraphPlanarityError`. Deciding those in polynomial time needs a dedicated
-  planarity algorithm (Boyer–Myrvold / left–right / DMP); that is the natural
-  next step beyond this rotation-system core.
-- Genus-0 **early termination**: because a connected graph's face count satisfies
-  `F ≤ E−V+2` with equality iff the embedding is planar, both `graph_genus` and
-  `is_planar` stop at the first genus-0 rotation system found. This never changes
-  the result and never does more work than a full enumeration, but the speedup is
+- **`is_planar` decides planarity in `O(V+E)` and never raises.** It uses the
+  left-right planarity test (de Fraysseix–Rosenstiehl; Brandes, *The Left-Right
+  Planarity Test*, 2009) — a DFS that orients the graph, computes lowpoints and a
+  nesting order, then verifies the return edges can be 2-coloured (left/right)
+  without conflict. A cheap Euler edge bound (`E ≤ 3V−6`, or `E ≤ 2V−4` for
+  bipartite graphs) rejects dense graphs up front and double-checks the LR verdict
+  on them. This replaces the old rotation-system decision, which raised
+  `GraphPlanarityError` on sparse high-degree planar graphs (e.g. a degree-9 wheel
+  hub). The decision-only port is validated against networkx's independent test on
+  **all** labelled graphs up to 6 vertices plus random larger graphs.
+- `graph_genus` still enumerates rotation systems (computing the exact *minimum*
+  genus, not just whether it is 0, is genuinely harder than planarity) with
+  genus-0 **early termination**: because a connected graph's face count satisfies
+  `F ≤ E−V+2` with equality iff the embedding is planar, it stops at the first
+  genus-0 rotation system found. This never changes the result and never does more
+  work than a full enumeration, but the speedup is
   enumeration-order dependent (large when a planar embedding is found early).
 - **Optional accelerated exact backend (`pip install -e .[fast]`):** when
   [`python-flint`](https://pypi.org/project/python-flint/) is installed, the
