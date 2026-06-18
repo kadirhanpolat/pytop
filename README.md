@@ -119,6 +119,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Cubical complexes** (v0.6.0+) | `cubical_homology` — `CubicalComplex`, SNF homology, `bitmap_to_cubical_filtration`, `persistent_homology_bitmap` |
 | **Fundamental group / van Kampen** (v0.6.0+) | `van_kampen` — `GroupPresentation`, `van_kampen()`, `cw_complex_pi1()`, standard spaces |
 | **Knot/link invariants** (v0.6.0+) | `knot_invariants` (Jones, Alexander, linking number/matrix), `seifert` (Seifert circles, genus bound, matrix, signature), `homfly` (HOMFLY-PT `P(a,z)` from braid closures), `multivariable_alexander` (`Δ_L(t₁,…,tₙ)` via Wirtinger + Fox) |
+| **3-manifold homology** (v0.7.0+) | `dehn_surgery` — Dehn surgery → `H₁` (SNF cokernel of the framing/linking matrix), lens space homeomorphism/homotopy classification |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
 | **Graph planarity** (v0.6.0) | `graph_planarity` |
@@ -270,7 +271,16 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
     the braid Alexander (trefoil 1−t+t², figure-8 1−3t+t²); Hopf → 1; `(2,2k)` torus links →
     `Σ(t₁t₂)ⁱ` satisfying the Torres condition `Δ(t₁,1)=(t₁ᵏ−1)/(t₁−1)` and interchange
     symmetry; split links → 0.
-- **9 874 tests passing** across the full suite.
+- **Phase 3 P3.2 — 3-manifold basics** (`feat/phase3-knot-suite`, in progress):
+  - **Dehn surgery → H₁** (`dehn_surgery.py`): `first_homology_of_surgery(coefficients,
+    linking_numbers)` computes `H₁(M)` of rational/integral surgery on a framed link as the
+    cokernel of `A_{ii}=pᵢ, A_{ij}=qᵢ·lk(Lᵢ,Lⱼ)` via Smith normal form;
+    `first_homology_of_link_surgery(link, coefficients)` reads the linking numbers from a
+    `LinkDiagram`. `lens_space_first_homology(p, q)` plus exact lens-space homeomorphism
+    (`q'≡±q^±¹ mod p`) and homotopy-equivalence (`qq'≡±n² mod p`) classification. Verified:
+    lens spaces ℤ/p, S¹×S² (0-surgery), T³ (0-surgery on Borromean rings), the Poincaré
+    homology sphere (E₈ plumbing), and L(7,1)≃L(7,2) (homotopy-equivalent yet not homeomorphic).
+- **9 896 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

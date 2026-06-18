@@ -8,8 +8,9 @@
 > complete; Phase 2 (algebraic topology) is **complete** (8 / 8 items done).
 > feat/mayer-vietoris merged to **master** via PR #15 (9 764 tests, 20 correctness fixes,
 > ~6.6× Twist+Clearing kernel speedup).
-> **Phase 3 in progress** (`feat/phase3-knot-suite`): P3.1 knot/link suite complete —
-> Seifert algorithm + LinkDiagram + HOMFLY-PT + multivariable Alexander all done.
+> **Phase 3 in progress** (`feat/phase3-knot-suite`): P3.1 knot/link suite complete
+> (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander); P3.2 started —
+> `dehn_surgery.py` (surgery → H₁, lens space classification) done.
 
 ---
 
@@ -202,9 +203,14 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | HOMFLY-PT polynomial | ✅ | `homfly.py`: `homfly_polynomial(braid_word, n)` via skein recursion `a·P(L₊)−a⁻¹·P(L₋)=z·P(L₀)`; descending-defect termination; `Laurent2` (2-var Laurent); known values (trefoil −a⁻⁴+2a⁻²+a⁻²z², fig-8 a²−1+a⁻²−z², Hopf, unlinks) + Markov(±)/conjugation invariance + Jones/Alexander specialisation differential |
 | Multivariable Alexander | ✅ | `multivariable_alexander.py`: `multivariable_alexander(link)` from a `LinkDiagram` via Wirtinger presentation (arcs + intrinsic orientation by component tracing) + Fox calculus over the n-variable Laurent ring; `(c−1)`-minor det `÷ (t_γ−1)`. Verified: knots → braid Alexander (trefoil, fig-8); Hopf → 1; `(2,2k)` torus → `Σ(t₁t₂)ⁱ` (Torres condition + interchange symmetry); split → 0 |
 
-**P3.2 — 3-manifold basics:**
+**P3.2 — 3-manifold basics: 🔄 IN PROGRESS**
+- `dehn_surgery.py` — rational surgery coefficients: ✅ `first_homology_of_surgery`
+  (cokernel of ``A_{ii}=pᵢ, A_{ij}=qᵢ·lk_{ij}`` via Smith normal form);
+  `first_homology_of_link_surgery` (linking numbers from a `LinkDiagram`);
+  `lens_space_first_homology` + lens space homeomorphism/homotopy classification.
+  Verified: lens spaces ℤ/p, S¹×S² (0-surgery), T³ (0-surgery on Borromean rings),
+  Poincaré homology sphere (E₈ plumbing), L(7,1)≃L(7,2) ≇.
 - `experimental/snappy_bridge.py` — SnapPy optional bridge: ⬜ not started
-- `dehn_surgery.py` — rational surgery coefficients: ⬜ not started
 
 **P3.3 — Advanced (long-term):**
 - `khovanov.py` — cube-of-resolutions → graded complex → SNF: ⬜ not started
@@ -235,7 +241,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 874** |
+| Tests passing | **9 896** |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |

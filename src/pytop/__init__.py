@@ -612,6 +612,14 @@ from .homfly import (
     Laurent2,
     homfly_polynomial,
 )
+from .dehn_surgery import (
+    FirstHomology,
+    first_homology_of_surgery,
+    first_homology_of_link_surgery,
+    lens_space_first_homology,
+    are_lens_spaces_homeomorphic,
+    are_lens_spaces_homotopy_equivalent,
+)
 from .winding_number import (
     WindingError,
     winding_number,
@@ -1433,6 +1441,12 @@ __all__ = [
     "signature",
     "Laurent2",
     "homfly_polynomial",
+    "FirstHomology",
+    "first_homology_of_surgery",
+    "first_homology_of_link_surgery",
+    "lens_space_first_homology",
+    "are_lens_spaces_homeomorphic",
+    "are_lens_spaces_homotopy_equivalent",
     "WindingError",
     "winding_number",
     "circle_map_degree",
