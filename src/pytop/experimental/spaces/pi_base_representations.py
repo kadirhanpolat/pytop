@@ -853,6 +853,200 @@ def _converging_seq_non_hausdorff() -> _CertifiedSpace:
 
 
 # ===========================================================================
+# Batch 4 — member helpers
+# ===========================================================================
+
+def _R_MINUS_Z_MEMBER(p: Any) -> bool:
+    r"""ℝ\ℤ — Fraction-valued rationals that are not integers."""
+    return isinstance(p, Fraction) and p.denominator != 1
+
+
+def _Q_CLOSED_UNIT_MEMBER(p: Any) -> bool:
+    """Q ∩ [-1,1]."""
+    return isinstance(p, (int, Fraction)) and Fraction(-1) <= Fraction(p) <= Fraction(1)
+
+
+def _PLANE_MEMBER(p: Any) -> bool:
+    """ℝ² — (int|Fraction, int|Fraction) pairs."""
+    return (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and isinstance(p[0], (int, Fraction))
+        and isinstance(p[1], (int, Fraction))
+    )
+
+
+def _TELOPHASE_MEMBER(p: Any) -> bool:
+    """[0,1) ∪ {'1a','1b'} — doubled endpoint variant of [0,1]."""
+    if p in ("1a", "1b"):
+        return True
+    return isinstance(p, (int, Fraction)) and Fraction(0) <= Fraction(p) < Fraction(1)
+
+
+def _DOUBLE_ORIGIN_PLANE_MEMBER(p: Any) -> bool:
+    r"""ℝ²\{(0,0)} ∪ {'0a','0b'} — plane with doubled origin."""
+    if p in ("0a", "0b"):
+        return True
+    return (
+        _PLANE_MEMBER(p)
+        and (Fraction(p[0]) != 0 or Fraction(p[1]) != 0)
+    )
+
+
+def _DOUBLE_ARROW_MEMBER(p: Any) -> bool:
+    """{0,1} × (Q∩[0,1]) — double arrow space."""
+    return (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and p[0] in (0, 1)
+        and isinstance(p[1], (int, Fraction))
+        and Fraction(0) <= Fraction(p[1]) <= Fraction(1)
+    )
+
+
+# ===========================================================================
+# Batch 4 — certified spaces
+# ===========================================================================
+
+@_reg("S000006")
+def _deleted_integer_topology() -> _CertifiedSpace:
+    # Deleted integer topology on ℝ\ℤ: non-integer rationals.
+    return _CertifiedSpace("S000006", _R_MINUS_Z_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000014")
+def _either_or_topology() -> _CertifiedSpace:
+    # Either-Or topology on [-1,1]: carrier Q ∩ [-1,1].
+    return _CertifiedSpace("S000014", _Q_CLOSED_UNIT_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000019")
+def _compact_complement_reals() -> _CertifiedSpace:
+    # Compact complement topology for Euclidean ℝ.
+    return _CertifiedSpace("S000019", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000020")
+def _fort_space_omega() -> _CertifiedSpace:
+    # Fort space on a countably infinite set (carrier ω ∪ {∗}).
+    return _CertifiedSpace("S000020", _OMEGA_OR_STAR_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000022")
+def _fortissimo_reals() -> _CertifiedSpace:
+    # Fortissimo space on ℝ (carrier ℝ ∪ {∗}).
+    return _CertifiedSpace("S000022", _FOCAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000024")
+def _modified_fort_reals() -> _CertifiedSpace:
+    # Modified Fort space on ℝ (carrier ℝ ∪ {∗}).
+    return _CertifiedSpace("S000024", _FOCAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000044")
+def _nested_interval_topology() -> _CertifiedSpace:
+    # Nested interval topology on ℝ.
+    return _CertifiedSpace("S000044", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000045")
+def _overlapping_interval_topology() -> _CertifiedSpace:
+    # Overlapping interval topology on ℝ.
+    return _CertifiedSpace("S000045", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000046")
+def _interlocking_interval_topology() -> _CertifiedSpace:
+    # Interlocking interval topology on ℝ.
+    return _CertifiedSpace("S000046", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000055")
+def _countable_complement_extension() -> _CertifiedSpace:
+    # Countable complement extension topology on ℝ.
+    return _CertifiedSpace("S000055", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000056")
+def _smirnov_deleted_sequence() -> _CertifiedSpace:
+    # Smirnov's deleted sequence topology on ℝ.
+    return _CertifiedSpace("S000056", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000057")
+def _rational_sequence_topology() -> _CertifiedSpace:
+    # Rational sequence topology on ℝ.
+    return _CertifiedSpace("S000057", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000063")
+def _michael_line() -> _CertifiedSpace:
+    # Michael line on ℝ.
+    return _CertifiedSpace("S000063", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000065")
+def _telophase_topology() -> _CertifiedSpace:
+    # Telophase topology on [0,1] with endpoint 1 doubled to '1a','1b'.
+    return _CertifiedSpace("S000065", _TELOPHASE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000066")
+def _double_origin_plane() -> _CertifiedSpace:
+    # Double origin plane: ℝ²\{(0,0)} ∪ {'0a','0b'}.
+    return _CertifiedSpace("S000066", _DOUBLE_ORIGIN_PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000076")
+def _sorgenfrey_plane() -> _CertifiedSpace:
+    # Sorgenfrey plane ℝ²_ℓ: product of two Sorgenfrey lines (carrier ℝ²).
+    return _CertifiedSpace("S000076", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000093")
+def _double_arrow_space() -> _CertifiedSpace:
+    # Double arrow space {0,1}×[0,1] with lexicographic order topology.
+    return _CertifiedSpace("S000093", _DOUBLE_ARROW_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000131")
+def _sequential_fan_omega_spines() -> _CertifiedSpace:
+    # Sequential fan S_ω with ω-many spines (carrier (n,m)∪{∞}).
+    return _CertifiedSpace("S000131", _SEQ_FAN_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000140")
+def _reals_cocountable_pt() -> _CertifiedSpace:
+    # ℝ extended by a point '∗' with co-countable open neighborhoods.
+    return _CertifiedSpace("S000140", _FOCAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000154")
+def _fort_space_reals() -> _CertifiedSpace:
+    # Fort space on ℝ (carrier ℝ ∪ {∗}).
+    return _CertifiedSpace("S000154", _FOCAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000159")
+def _right_open_ray_01() -> _CertifiedSpace:
+    # Right "open-ray" topology on [0,1]: opens are (a,1] ∩ [0,1].
+    return _CertifiedSpace("S000159", _Q01_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000202")
+def _metric_fan_omega_spines() -> _CertifiedSpace:
+    # Metric fan with ω-many spines (carrier (n,m)∪{∞}).
+    return _CertifiedSpace("S000202", _SEQ_FAN_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000206")
+def _deleted_sequence_intervals() -> _CertifiedSpace:
+    # Deleted Sequence of Intervals Topology on ℝ.
+    return _CertifiedSpace("S000206", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+# ===========================================================================
 # Public API
 # ===========================================================================
 
