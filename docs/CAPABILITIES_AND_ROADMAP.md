@@ -11,10 +11,14 @@
 > P3.2 `dehn_surgery.py` (surgery → H₁, lens space classification), P3.3
 > `khovanov.py` (Khovanov homology with torsion). The optional SnapPy bridge (P3.2)
 > and Regina-scale normal surfaces (P3.3) remain out of scope / deferred.
-> **Phase 4 in progress** (v0.9.1; P4.8 SnapPy oracle pending as v0.9.2):
-> property-based testing, an exact-linalg core, complexity discipline, **seven**
-> external differential oracles (sympy, networkx, numpy, python-flint, GUDHI, plus
-> Docker-based SageMath/GAP and SnapPy), and an optional flint-accelerated SNF backend.
+> **Phase 4 complete** (P4.1–P4.8; latest release **v0.9.4**): property-based
+> testing, an exact-linalg core, complexity discipline, **seven** external
+> differential oracles (sympy, networkx, numpy, python-flint, GUDHI, plus
+> Docker-based SageMath/GAP and SnapPy), and an optional flint-accelerated SNF
+> backend. Since v0.9.3 the CI runs ruff + **(blocking) mypy** + pytest on Python
+> 3.11/3.12/3.13, and as of **v0.9.4** `src/pytop` is mypy-clean (361 → 0). The
+> only remaining items are explicitly deferred: native GAP/Regina (unavailable
+> here — only via the Docker images) and formal verification of the core routines.
 
 ---
 
@@ -197,7 +201,12 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | Optimized persistence (clearing/twist) | ✅ | `persistent_homology_optimized`: Twist algorithm (Chen–Kerber 2011) + Clearing Lemma; dimension-top-down sweep; `ReductionStats` (n_cleared, clearing_ratio, n_column_additions); cross-validated against standard reduction |
 | Cubical complexes | ✅ | `cubical_homology`: `CubicalComplex` (face-closure, boundary ℤ-matrix, SNF homology); standard spaces S¹/D²/interval; `CubicalFiltration` + `bitmap_to_cubical_filtration` (lower-star from 2-D pixel array); `persistence_pairs_cubical` + `persistent_homology_bitmap` via shared Twist+Clearing kernel |
 
-### Phase 3 — Geometric & low-dimensional topology 🔄 IN PROGRESS
+### Phase 3 — Geometric & low-dimensional topology ✅ COMPLETE
+
+> P3.1 (knot/link suite), P3.2 (`dehn_surgery`), and P3.3 (`khovanov`) all delivered.
+> The only unstarted items are explicitly out of scope for pure-Python pytop: an
+> *in-process* SnapPy bridge (P3.2 — superseded by the P4.8 Docker oracle) and
+> Regina-scale normal surfaces (P3.3).
 
 **P3.1 — Knot/Link suite (pure Python): ✅ COMPLETE**
 
@@ -208,14 +217,16 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | HOMFLY-PT polynomial | ✅ | `homfly.py`: `homfly_polynomial(braid_word, n)` via skein recursion `a·P(L₊)−a⁻¹·P(L₋)=z·P(L₀)`; descending-defect termination; `Laurent2` (2-var Laurent); known values (trefoil −a⁻⁴+2a⁻²+a⁻²z², fig-8 a²−1+a⁻²−z², Hopf, unlinks) + Markov(±)/conjugation invariance + Jones/Alexander specialisation differential |
 | Multivariable Alexander | ✅ | `multivariable_alexander.py`: `multivariable_alexander(link)` from a `LinkDiagram` via Wirtinger presentation (arcs + intrinsic orientation by component tracing) + Fox calculus over the n-variable Laurent ring; `(c−1)`-minor det `÷ (t_γ−1)`. Verified: knots → braid Alexander (trefoil, fig-8); Hopf → 1; `(2,2k)` torus → `Σ(t₁t₂)ⁱ` (Torres condition + interchange symmetry); split → 0 |
 
-**P3.2 — 3-manifold basics: 🔄 IN PROGRESS**
+**P3.2 — 3-manifold basics: ✅ COMPLETE** (in-process SnapPy bridge deferred — see P4.8 Docker oracle)
 - `dehn_surgery.py` — rational surgery coefficients: ✅ `first_homology_of_surgery`
   (cokernel of ``A_{ii}=pᵢ, A_{ij}=qᵢ·lk_{ij}`` via Smith normal form);
   `first_homology_of_link_surgery` (linking numbers from a `LinkDiagram`);
   `lens_space_first_homology` + lens space homeomorphism/homotopy classification.
   Verified: lens spaces ℤ/p, S¹×S² (0-surgery), T³ (0-surgery on Borromean rings),
   Poincaré homology sphere (E₈ plumbing), L(7,1)≃L(7,2) ≇.
-- `experimental/snappy_bridge.py` — SnapPy optional bridge: ⬜ not started
+- `experimental/snappy_bridge.py` — in-process SnapPy bridge: ⬜ deferred
+  (superseded by the **P4.8** Docker-based SnapPy oracle, which validates
+  `dehn_surgery` without an in-process dependency)
 
 **P3.3 — Advanced (long-term):**
 - `khovanov.py` — cube-of-resolutions → graded complex → SNF: ✅
@@ -227,7 +238,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   unnormalised Jones (cross-checked against `jones_polynomial`).
 - Normal surfaces (Regina-scale): out of scope for pure-Python pytop
 
-### Phase 4 — Performance, correctness, interoperability 🔄 IN PROGRESS
+### Phase 4 — Performance, correctness, interoperability ✅ COMPLETE
 
 - **P4.1 — Property-based + cross-engine differential testing** ✅
   (`tests/core/test_property_invariants.py`): seeded, reproducible checks of
