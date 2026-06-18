@@ -21,7 +21,6 @@ from typing import Any
 
 from .core import CardinalValue, NotEnumerableError, Space
 
-
 # --------------------------------------------------------------------------
 # Internal helpers
 # --------------------------------------------------------------------------

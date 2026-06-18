@@ -49,9 +49,8 @@ from pytop.van_kampen import (
     trivial_group,
 )
 
-from .core import NotEnumerableError, Space
 from .constructed import ProductSpace, SumSpace
-
+from .core import NotEnumerableError, Space
 
 # --------------------------------------------------------------------------
 # Pi1Result
@@ -152,7 +151,6 @@ def _quotient_spec_order(
     reprs: dict[Any, Any],
 ) -> tuple[list[Any], set[tuple[Any, Any]]]:
     """Project the spec order onto the T0 quotient representatives."""
-    q_pts_set: set[Any] = set(reprs.values())
     q_pts = [p for p in pts if reprs[p] == p]  # keep only canonical reps, in original order
 
     q_spec: set[tuple[Any, Any]] = set()

@@ -70,19 +70,19 @@ class CardinalValue:
             raise ValueError("finite cardinal must be non-negative.")
 
     @classmethod
-    def of(cls, n: int) -> "CardinalValue":
+    def of(cls, n: int) -> CardinalValue:
         return cls(finite=n)
 
     @classmethod
-    def aleph_0(cls) -> "CardinalValue":
+    def aleph_0(cls) -> CardinalValue:
         return cls(symbol="ℵ₀")
 
     @classmethod
-    def continuum(cls) -> "CardinalValue":
+    def continuum(cls) -> CardinalValue:
         return cls(symbol="𝔠")
 
     @classmethod
-    def unknown(cls) -> "CardinalValue":
+    def unknown(cls) -> CardinalValue:
         return cls(symbol="unknown")
 
     def is_finite_cardinal(self) -> bool:
@@ -173,7 +173,7 @@ class Space(ABC):
 
         return Verdict.undecidable(f"{self.name!r} cannot decide point separation.")
 
-    def cardinal_certificate(self, invariant: str) -> "CardinalValue | None":
+    def cardinal_certificate(self, invariant: str) -> CardinalValue | None:
         """Known cardinal invariant from a construction-level theorem.
 
         ``invariant`` is one of ``"weight"``, ``"density"``, ``"character"``,

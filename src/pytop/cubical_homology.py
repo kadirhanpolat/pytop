@@ -59,14 +59,12 @@ persistent_homology_bitmap      → tuple[PersistencePair, ...]
 
 from __future__ import annotations
 
-import math
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
-from typing import Iterable, Sequence
 
 from .homology import HomologyResult, _smith_normal_form
 from .persistent_homology import PersistencePair
-from .persistent_homology_optimized import ReductionStats, _twist_reduce
-
+from .persistent_homology_optimized import _twist_reduce
 
 # ---------------------------------------------------------------------------
 # Types

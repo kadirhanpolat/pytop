@@ -49,8 +49,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .homology import HomologyResult, _simplices_of_dimension, boundary_matrix
-from .mayer_vietoris import _snf_ext, _mat_mul, _imat, _col, _mat_vec
+from .homology import _simplices_of_dimension, boundary_matrix
+from .mayer_vietoris import _col, _imat, _mat_mul, _mat_vec, _snf_ext
 from .simplicial_complexes import SimplicialComplex
 
 Matrix = list[list[int]]
@@ -151,8 +151,8 @@ class _CohomologyData:
             coeff = pinv_col[i]
             if coeff == 0:
                 continue
-            for l in range(self.n_k):
-                rep[l] += coeff * self.Q_k[l][self.r_k + i]
+            for row in range(self.n_k):
+                rep[row] += coeff * self.Q_k[row][self.r_k + i]
         return rep
 
     def coords_in_cohk(self, z: Vector) -> Vector:

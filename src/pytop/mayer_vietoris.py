@@ -18,14 +18,13 @@ Exactness is verified at every position.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
 
-from .simplicial_complexes import SimplicialComplex
 from .homology import (
     HomologyResult,
     _simplices_of_dimension,
     boundary_matrix,
 )
+from .simplicial_complexes import SimplicialComplex
 
 Matrix = list[list[int]]
 Vector = list[int]
@@ -270,8 +269,8 @@ class _HomologyData:
             coeff = pinv_col[i]
             if coeff == 0:
                 continue
-            for l in range(self.n_k):
-                rep[l] += coeff * self.Q_k[l][self.r_k + i]
+            for row in range(self.n_k):
+                rep[row] += coeff * self.Q_k[row][self.r_k + i]
         return rep
 
     def coords_in_hk(self, z: Vector) -> Vector:
@@ -517,7 +516,6 @@ class MayerVietorisSequence:
             "═" * 55,
             "",
         ]
-        max_n = max((d.degree for d in self.degrees), default=-1)
         for d in sorted(self.degrees, key=lambda x: -x.degree):
             lines.append(d.describe_line())
         lines.append("  ⋯ → 0")
@@ -671,7 +669,6 @@ def mayer_vietoris(
         i_star = _induced_on_hk(i_chain, ab_n, a_n)
         j_star = _induced_on_hk(j_chain, ab_n, b_n)
         # Stack vertically: rows = A-block then B-block
-        n_ab = ab_n.total_generators
         phi: Matrix = []
         for row in i_star:
             phi.append(list(row))

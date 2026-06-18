@@ -701,7 +701,6 @@ def _sylvester_signature(S: list[list[float]]) -> int:
     # We perform row/column reduction and track the sign of each pivot.
     # For a symmetric matrix, each Gaussian elimination step preserves
     # the signature (Sylvester's law of inertia).
-    import copy
     A = [list(row) for row in S]
     n_pos = 0
     n_neg = 0
