@@ -56,12 +56,25 @@ def _col(M: Matrix, j: int) -> Vector:
 
 # ── Extended Smith Normal Form ────────────────────────────────────────────────
 
-def _snf_ext(M: Matrix) -> tuple[Matrix, Matrix, Matrix, Matrix, Matrix]:
+def _snf_ext(
+    M: Matrix,
+    *,
+    compute_transforms: bool = True,
+) -> tuple[Matrix, Matrix, Matrix, Matrix, Matrix]:
     """Extended Smith Normal Form with all transformation matrices.
 
     Returns ``(D, P, Pinv, Q, Qinv)`` (all integer) such that
     ``P @ M @ Q = D`` (diagonal, non-negative, divisibility chain) and
     ``P @ Pinv = I_{rows}``, ``Q @ Qinv = I_{cols}``.
+
+    Parameters
+    ----------
+    compute_transforms:
+        When ``False`` the row/column transformation matrices P, Pinv, Q, Qinv
+        are not updated during the reduction (they remain identity matrices).
+        Only ``D`` is meaningful in that case.  Use this when only the diagonal
+        (rank / invariant factors) is needed — it skips ~80 % of the inner-loop
+        work for large matrices.
     """
     if not M or not M[0]:
         m = len(M)
@@ -75,48 +88,54 @@ def _snf_ext(M: Matrix) -> tuple[Matrix, Matrix, Matrix, Matrix, Matrix]:
 
     def swap_rows(i: int, j: int) -> None:
         D[i], D[j] = D[j], D[i]
-        P[i], P[j] = P[j], P[i]
-        for r in range(m):
-            Pinv[r][i], Pinv[r][j] = Pinv[r][j], Pinv[r][i]
+        if compute_transforms:
+            P[i], P[j] = P[j], P[i]
+            for r in range(m):
+                Pinv[r][i], Pinv[r][j] = Pinv[r][j], Pinv[r][i]
 
     def add_row(src: int, dst: int, f: int) -> None:
         for c in range(n):
             D[dst][c] += f * D[src][c]
-        for c in range(m):
-            P[dst][c] += f * P[src][c]
-        for r in range(m):
-            Pinv[r][src] -= f * Pinv[r][dst]
+        if compute_transforms:
+            for c in range(m):
+                P[dst][c] += f * P[src][c]
+            for r in range(m):
+                Pinv[r][src] -= f * Pinv[r][dst]
 
     def negate_row(i: int) -> None:
         for c in range(n):
             D[i][c] = -D[i][c]
-        for c in range(m):
-            P[i][c] = -P[i][c]
-        for r in range(m):
-            Pinv[r][i] = -Pinv[r][i]
+        if compute_transforms:
+            for c in range(m):
+                P[i][c] = -P[i][c]
+            for r in range(m):
+                Pinv[r][i] = -Pinv[r][i]
 
     def swap_cols(i: int, j: int) -> None:
         for r in range(m):
             D[r][i], D[r][j] = D[r][j], D[r][i]
-        for r in range(n):
-            Q[r][i], Q[r][j] = Q[r][j], Q[r][i]
-        Qinv[i], Qinv[j] = Qinv[j], Qinv[i]
+        if compute_transforms:
+            for r in range(n):
+                Q[r][i], Q[r][j] = Q[r][j], Q[r][i]
+            Qinv[i], Qinv[j] = Qinv[j], Qinv[i]
 
     def add_col(src: int, dst: int, f: int) -> None:
         for r in range(m):
             D[r][dst] += f * D[r][src]
-        for r in range(n):
-            Q[r][dst] += f * Q[r][src]
-        for c in range(n):
-            Qinv[src][c] -= f * Qinv[dst][c]
+        if compute_transforms:
+            for r in range(n):
+                Q[r][dst] += f * Q[r][src]
+            for c in range(n):
+                Qinv[src][c] -= f * Qinv[dst][c]
 
     def negate_col(j: int) -> None:
         for r in range(m):
             D[r][j] = -D[r][j]
-        for r in range(n):
-            Q[r][j] = -Q[r][j]
-        for c in range(n):
-            Qinv[j][c] = -Qinv[j][c]
+        if compute_transforms:
+            for r in range(n):
+                Q[r][j] = -Q[r][j]
+            for c in range(n):
+                Qinv[j][c] = -Qinv[j][c]
 
     step = 0
     while step < min(m, n):
@@ -549,7 +568,7 @@ def _mat_rank(M: Matrix) -> int:
     """Rank of an integer matrix via partial SNF."""
     if not M or not M[0]:
         return 0
-    D, _, _, _, _ = _snf_ext(M)
+    D, _, _, _, _ = _snf_ext(M, compute_transforms=False)
     return sum(
         1 for i in range(min(len(D), len(D[0]) if D else 0))
         if i < len(D) and i < len(D[i]) and D[i][i] != 0

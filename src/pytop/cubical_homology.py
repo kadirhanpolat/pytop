@@ -417,15 +417,23 @@ def bitmap_to_cubical_filtration(
 
 def _cubical_boundary_columns(
     filtration: CubicalFiltration,
-) -> list[set[int]]:
-    """Build Z/2 boundary columns for the cubical filtration."""
+) -> list[int]:
+    """Build Z/2 boundary columns for the cubical filtration.
+
+    Each column is a Python bigint bitmask (bit *r* set ⟺ row *r* is a
+    boundary face), matching the representation expected by
+    :func:`~pytop.persistent_homology_optimized._twist_reduce`.
+    """
     index_of: dict[Cube, int] = {c: idx for idx, c in enumerate(filtration.cubes)}
-    columns: list[set[int]] = []
+    columns: list[int] = []
     for cube, d in zip(filtration.cubes, filtration.dimensions):
         if d == 0:
-            columns.append(set())
+            columns.append(0)
         else:
-            columns.append({index_of[f] for f in cube_faces_z2(cube)})
+            mask = 0
+            for f in cube_faces_z2(cube):
+                mask |= 1 << index_of[f]
+            columns.append(mask)
     return columns
 
 
