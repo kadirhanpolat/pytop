@@ -1,7 +1,7 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-0.9.1-blue)
+![Version](https://img.shields.io/badge/version-0.9.2-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 

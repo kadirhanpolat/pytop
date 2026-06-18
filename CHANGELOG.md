@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.2] — 2026-06-18
+
+### Added
+- **P4.8 — SnapPy 3-manifold differential oracle** (`tests/core/test_snappy_oracle.py`,
+  opt-in `PYTOP_SNAPPY_ORACLE=1`, Docker-based): SnapPy — the gold-standard 3-manifold
+  software — is the one independent oracle for `dehn_surgery`. A single batched run of a
+  local `pytop-snappy` image (Python 3.12 + `snappy`) validates `first_homology_of_surgery`
+  against SnapPy's Dehn-filling homology: figure-8 knot surgeries (`p/q` → ℤ/p) and
+  Whitehead-link surgeries (ℤ/a ⊕ ℤ/b). Both report the invariant-factor form, so they
+  match directly. Skipped by default, so the suite stays fast and Docker-free.
+
+### Tests
+- **9 950 passing** (+ 16 opt-in SageMath/SnapPy-oracle tests). Runtime stays
+  dependency-free (`dependencies = []`).
+
 ## [0.9.1] — 2026-06-18
 
 ### Added
