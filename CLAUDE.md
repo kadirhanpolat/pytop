@@ -211,7 +211,8 @@ feature/<topic> ← feature branches, merge to master via PR
 - Never commit directly to `master`
 - Tag every release: `git tag vX.Y.Z && git push origin vX.Y.Z`
 - **Latest release:** Phase 3 (PR #16, **v0.8.0**); Phase 4 P4.1–P4.6 (PR #17, **v0.9.0**) — property tests (`test_property_invariants.py`), `exact_linalg` core (SNF/rank/Bareiss det/cokernel), complexity discipline (`docs/COMPLEXITY.md`), external differential oracles (`test_external_oracles.py`: sympy/networkx/numpy/python-flint/GUDHI; test-only `oracles` extra, runtime dep-free), optional flint-accelerated SNF backend (`[fast]` extra; **~5–8× faster even on sparse boundary/Khovanov matrices**, identical results)
-- **In progress:** Phase 4 P4.7 — Docker-based SageMath/GAP oracle (`tests/core/test_sage_oracle.py`, opt-in `PYTOP_SAGE_ORACLE=1`; Alexander/Jones vs Sage, van Kampen abelianisation vs GAP); pending as **v0.9.1**; 9 950 tests (+8 opt-in Sage)
+- **Released v0.9.1:** Phase 4 P4.7 — Docker-based SageMath/GAP oracle (`test_sage_oracle.py`, opt-in `PYTOP_SAGE_ORACLE=1`; Alexander/Jones vs Sage, van Kampen abelianisation vs GAP)
+- **In progress:** Phase 4 P4.8 — Docker-based SnapPy oracle (`tests/core/test_snappy_oracle.py`, opt-in `PYTOP_SNAPPY_ORACLE=1`; `dehn_surgery` H₁ vs SnapPy Dehn-filling homology — figure-8 & Whitehead-link surgeries; needs a local `pytop-snappy` image); pending as **v0.9.2**; 9 950 tests (+16 opt-in Sage/SnapPy)
 
 ---
 

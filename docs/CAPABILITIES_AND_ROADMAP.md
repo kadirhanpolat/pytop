@@ -11,10 +11,10 @@
 > P3.2 `dehn_surgery.py` (surgery → H₁, lens space classification), P3.3
 > `khovanov.py` (Khovanov homology with torsion). The optional SnapPy bridge (P3.2)
 > and Regina-scale normal surfaces (P3.3) remain out of scope / deferred.
-> **Phase 4 in progress** (v0.9.0; P4.7 + doc-accuracy fixes pending as v0.9.1):
-> property-based testing, an exact-linalg core, complexity discipline, five
-> external differential oracles (sympy, networkx, numpy, python-flint, GUDHI) plus
-> a Docker-based SageMath/GAP oracle, and an optional flint-accelerated SNF backend.
+> **Phase 4 in progress** (v0.9.1; P4.8 SnapPy oracle pending as v0.9.2):
+> property-based testing, an exact-linalg core, complexity discipline, **seven**
+> external differential oracles (sympy, networkx, numpy, python-flint, GUDHI, plus
+> Docker-based SageMath/GAP and SnapPy), and an optional flint-accelerated SNF backend.
 
 ---
 
@@ -278,9 +278,20 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   abelianisations against **GAP** (Klein bottle ℤ⊕ℤ/2, torus ℤ², ℝP² ℤ/2, wedge
   ℤ³). Sage cannot run natively here, so it is a subprocess oracle; opt-in keeps
   it out of the default suite.
-- **Remaining** (deferred — tooling unavailable here): **SnapPy** (no wheel for
-  this platform) and other orchestration / interop bridges; and formal
-  verification of the core routines.
+- **P4.8 — SnapPy oracle (3-manifold Dehn-surgery homology)** ✅
+  (`tests/core/test_snappy_oracle.py`; opt-in `PYTOP_SNAPPY_ORACLE=1`,
+  Docker-based): SnapPy is the gold-standard 3-manifold software and the one
+  independent oracle for `dehn_surgery`, which no other oracle covers. A single
+  batched run of a local `pytop-snappy` image (Python 3.12 + `snappy`) validates
+  `first_homology_of_surgery` against SnapPy's Dehn-filling homology — figure-8
+  knot surgeries (`p/q` → ℤ/p) and Whitehead-link surgeries (ℤ/a ⊕ ℤ/b). SnapPy
+  cannot run natively here, so it is a subprocess oracle; opt-in keeps it out of
+  the default suite. (Both report the invariant-factor form, so they match
+  directly — e.g. ℤ/2 ⊕ ℤ/3 is `[6]` in both.)
+- **Remaining** (deferred — genuinely unavailable here): **GAP** and **Regina**
+  as *native* libraries (only reachable via the Docker SageMath / SnapPy images);
+  deeper orchestration / interop bridges; and formal verification of the core
+  routines.
 
 ---
 
@@ -301,7 +312,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 950** (+ 8 opt-in SageMath-oracle tests) |
+| Tests passing | **9 950** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
