@@ -211,7 +211,7 @@ feature/<topic> ← feature branches, merge to master via PR
 - Never commit directly to `master`
 - Tag every release: `git tag vX.Y.Z && git push origin vX.Y.Z`
 - **Latest merged:** `feat/mayer-vietoris` → `master` via PR #15 (Phase 1/2 complete, 9 764 tests)
-- **In progress:** `feat/phase3-knot-suite` — P3.1 knot/link suite **complete** (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander); P3.2 started — `dehn_surgery.py` (surgery → H₁, lens space classification) done (9 896 tests)
+- **In progress:** `feat/phase3-knot-suite` — P3.1 knot/link suite **complete** (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander); P3.2 — `dehn_surgery.py` (surgery → H₁, lens space classification) done; P3.3 — `khovanov.py` (Khovanov homology with torsion) done (9 908 tests)
 
 ---
 

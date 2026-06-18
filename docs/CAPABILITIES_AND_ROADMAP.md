@@ -10,7 +10,8 @@
 > ~6.6× Twist+Clearing kernel speedup).
 > **Phase 3 in progress** (`feat/phase3-knot-suite`): P3.1 knot/link suite complete
 > (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander); P3.2 started —
-> `dehn_surgery.py` (surgery → H₁, lens space classification) done.
+> `dehn_surgery.py` (surgery → H₁, lens space classification) done; P3.3 —
+> `khovanov.py` (Khovanov homology with torsion) done.
 
 ---
 
@@ -96,8 +97,9 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
 ### ❌ Cannot do (real limits)
 
 - No spectral-sequence computation.
-- Knots: needs a PD code (or braid word) you supply; HOMFLY-PT and multivariable
-  Alexander are available, but there is no Khovanov homology.
+- Knots: needs a PD code (or braid word) you supply; HOMFLY-PT, multivariable
+  Alexander, and Khovanov homology are available, but everything is small-diagram
+  scale (the Khovanov complex is exponential in the crossing number).
 - Planarity is exact but **small-graph only** (exponential rotation-system search).
 - TDA is Z/2 and small clouds only (Phase 2 added Twist+Clearing optimisation, but
   still single-machine, no GPU/distributed scale).
@@ -213,7 +215,13 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 - `experimental/snappy_bridge.py` — SnapPy optional bridge: ⬜ not started
 
 **P3.3 — Advanced (long-term):**
-- `khovanov.py` — cube-of-resolutions → graded complex → SNF: ⬜ not started
+- `khovanov.py` — cube-of-resolutions → graded complex → SNF: ✅
+  `khovanov_homology(diagram)` builds the Khovanov cochain complex (Frobenius
+  algebra ``V = ℤ⟨1,X⟩`` with ``m``/``Δ``, Khovanov sign) and reduces each
+  quantum grading over ℤ via SNF → free ranks **and torsion**. Verified:
+  ``d²=0``; integral groups for unknot, trefoil (ℤ/2 at ``(−2,−7)``), figure-8
+  (ℤ/2 at ``(−1,−3)``, ``(2,3)``), Hopf link; graded Euler characteristic =
+  unnormalised Jones (cross-checked against `jones_polynomial`).
 - Normal surfaces (Regina-scale): out of scope for pure-Python pytop
 
 ### Phase 4 — Performance, correctness, interoperability ⬜ NOT STARTED
@@ -241,7 +249,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 896** |
+| Tests passing | **9 908** |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |

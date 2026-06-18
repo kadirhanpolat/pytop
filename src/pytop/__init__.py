@@ -620,6 +620,10 @@ from .dehn_surgery import (
     are_lens_spaces_homeomorphic,
     are_lens_spaces_homotopy_equivalent,
 )
+from .khovanov import (
+    KhovanovHomology,
+    khovanov_homology,
+)
 from .winding_number import (
     WindingError,
     winding_number,
@@ -1447,6 +1451,8 @@ __all__ = [
     "lens_space_first_homology",
     "are_lens_spaces_homeomorphic",
     "are_lens_spaces_homotopy_equivalent",
+    "KhovanovHomology",
+    "khovanov_homology",
     "WindingError",
     "winding_number",
     "circle_map_degree",

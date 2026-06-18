@@ -120,6 +120,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Fundamental group / van Kampen** (v0.6.0+) | `van_kampen` — `GroupPresentation`, `van_kampen()`, `cw_complex_pi1()`, standard spaces |
 | **Knot/link invariants** (v0.6.0+) | `knot_invariants` (Jones, Alexander, linking number/matrix), `seifert` (Seifert circles, genus bound, matrix, signature), `homfly` (HOMFLY-PT `P(a,z)` from braid closures), `multivariable_alexander` (`Δ_L(t₁,…,tₙ)` via Wirtinger + Fox) |
 | **3-manifold homology** (v0.7.0+) | `dehn_surgery` — Dehn surgery → `H₁` (SNF cokernel of the framing/linking matrix), lens space homeomorphism/homotopy classification |
+| **Khovanov homology** (v0.7.0+) | `khovanov` — bigraded `Kh^{i,j}` (free rank + torsion) categorifying the Jones polynomial |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
 | **Graph planarity** (v0.6.0) | `graph_planarity` |
@@ -280,7 +281,15 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
     (`q'≡±q^±¹ mod p`) and homotopy-equivalence (`qq'≡±n² mod p`) classification. Verified:
     lens spaces ℤ/p, S¹×S² (0-surgery), T³ (0-surgery on Borromean rings), the Poincaré
     homology sphere (E₈ plumbing), and L(7,1)≃L(7,2) (homotopy-equivalent yet not homeomorphic).
-- **9 896 tests passing** across the full suite.
+- **Phase 3 P3.3 — Khovanov homology** (`feat/phase3-knot-suite`, in progress):
+  - **Khovanov homology** (`khovanov.py`): `khovanov_homology(diagram)` builds the cube of
+    resolutions from a PD code, the Frobenius algebra `V = ℤ⟨1,X⟩` (with `m`/`Δ` and the
+    Khovanov sign), and reduces each quantum grading over ℤ by Smith normal form to give the
+    bigraded `Kh^{i,j}` with **free ranks and torsion**. Verified: `d²=0`; the integral groups
+    of the unknot, trefoil (ℤ/2 at (−2,−7)), figure-8 (ℤ/2 at (−1,−3),(2,3)) and Hopf link;
+    and the graded Euler characteristic = unnormalised Jones (cross-checked against
+    `jones_polynomial`).
+- **9 908 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 
