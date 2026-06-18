@@ -74,7 +74,7 @@ def finite_chain_space(n: int = 3) -> FiniteTopologicalSpace:
     if n <= 0:
         raise ValueError('n must be positive.')
     points = tuple(range(1, n + 1))
-    topology = [set()]
+    topology: list[set[Any]] = [set()]
     for k in range(1, n + 1):
         topology.append(set(points[:k]))
     topology.append(set(points))
@@ -95,7 +95,7 @@ def finite_chain_space(n: int = 3) -> FiniteTopologicalSpace:
 def partition_space(blocks: Iterable[Iterable[Any]]) -> FiniteTopologicalSpace:
     block_sets = tuple(frozenset(block) for block in blocks)
     points = tuple(sorted(set().union(*block_sets), key=repr))
-    topology = [set()]
+    topology: list[set[Any]] = [set()]
     for r in range(1, len(block_sets) + 1):
         for family in combinations(block_sets, r):
             topology.append(set().union(*family))

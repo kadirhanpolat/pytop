@@ -41,7 +41,6 @@ jobs:
 
       - name: Type-check with mypy
         run: mypy src/pytop/
-        continue-on-error: true
 
       - name: Run tests with coverage
         run: pytest tests/ --cov=pytop --cov-report=term-missing -q

@@ -1048,7 +1048,7 @@ def _build_default_catalog() -> SpaceCatalog:
                 "first_countable": True, "second_countable": True, "separable": True,
                 "lindelof": True, "metrizable": True,
             },
-            constructor=ns.real_n_space,
+            constructor=ns.real_n_space,  # type: ignore[arg-type]
             aliases=["Euclidean n-space", "R^n"],
         ),
         SpaceRecord(
@@ -1275,7 +1275,7 @@ def _build_default_catalog() -> SpaceCatalog:
                 "first_countable": True, "second_countable": True, "separable": True,
                 "metrizable": True,
             },
-            constructor=ns.real_projective_n_space,
+            constructor=ns.real_projective_n_space,  # type: ignore[arg-type]
             aliases=["real projective n-space"],
         ),
         SpaceRecord(
@@ -1363,7 +1363,7 @@ def _build_default_catalog() -> SpaceCatalog:
                 "first_countable": True, "second_countable": True, "separable": True,
                 "metrizable": True,
             },
-            constructor=ns.n_torus,
+            constructor=ns.n_torus,  # type: ignore[arg-type]
             aliases=["n-torus"],
         ),
         SpaceRecord(

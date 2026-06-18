@@ -56,9 +56,9 @@ def bounded_metric_transform_contract(space: MetricSpace, *, transform: str = "n
     if base.status != "true":
         return MetricContract(name, base.status, base.mode, base.carrier_size, "bounded_transform", warnings=base.warnings, metadata={"base": base.to_result().to_dict()})
     if transform == "normalized":
-        distance=normalized_metric(space.distance)
+        distance=normalized_metric(space.distance)  # type: ignore[arg-type]
     elif transform == "capped":
-        distance=capped_metric(space.distance, cap=1.0)
+        distance=capped_metric(space.distance, cap=1.0)  # type: ignore[arg-type]
     else:
         return MetricContract(name, "false", "exact", base.carrier_size, "bounded_transform", warnings=("transform must be 'normalized' or 'capped'",), metadata={"transform": transform})
     transformed=FiniteMetricSpace(carrier=tuple(space.carrier), distance=distance, metadata={"source": transform})

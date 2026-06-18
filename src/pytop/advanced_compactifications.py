@@ -128,7 +128,7 @@ def _name_of(obj: Any, fallback: str) -> str:
     return fallback
 
 
-def _has_any(tags: set[str], candidates: set[str]) -> bool:
+def _has_any(tags: set[str], candidates: set[str] | frozenset[str]) -> bool:
     return bool(tags & candidates)
 
 
@@ -310,7 +310,7 @@ def is_perfect_map(mapping: Any) -> Result:
         "compact_fibers": _bool_field(mapping, "compact_fibers"),
         "surjective": _bool_field(mapping, "surjective"),
     }
-    metadata["feature_map"] = dict(feature_map)
+    metadata["feature_map"] = dict(feature_map)  # type: ignore[assignment]
 
     if all(value is True for value in feature_map.values()):
         return Result.true(

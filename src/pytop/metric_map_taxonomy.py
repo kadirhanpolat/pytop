@@ -172,7 +172,7 @@ def render_metric_map_taxonomy(profile: MetricMapProfile) -> str:
 def _finite_carrier(space: MetricSpace, role: str) -> tuple[Any, ...]:
     carrier = getattr(space, "carrier", None)
     try:
-        points = tuple(carrier)
+        points = tuple(carrier)  # type: ignore[arg-type]
     except TypeError as exc:
         raise ValueError(f"The {role} metric space must have an explicit finite carrier.") from exc
     if not points and carrier is None:

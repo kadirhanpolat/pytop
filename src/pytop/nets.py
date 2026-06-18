@@ -77,7 +77,7 @@ def is_directed_set(index_set: Iterable[Any], preorder: Iterable[tuple[Any, Any]
             else:
                 upper_bound_witnesses[(a, b)] = upper_bound
 
-    metadata = {
+    metadata: dict[str, Any] = {
         'operator': 'is_directed_set',
         'index_count': len(indices),
         'relation_count': len(relation),
@@ -157,7 +157,7 @@ def is_eventually_in(
 
     values_result = _finite_net_values(indices, net_values)
     if values_result.is_false:
-        metadata = {'operator': 'is_eventually_in'}
+        metadata: dict[str, Any] = {'operator': 'is_eventually_in'}
         metadata.update(values_result.metadata)
         return Result.false(
             mode='exact',
@@ -228,7 +228,7 @@ def is_frequently_in(
 
     values_result = _finite_net_values(indices, net_values)
     if values_result.is_false:
-        metadata = {'operator': 'is_frequently_in'}
+        metadata: dict[str, Any] = {'operator': 'is_frequently_in'}
         metadata.update(values_result.metadata)
         return Result.false(
             mode='exact',
@@ -321,7 +321,7 @@ def net_converges_to(
 
     values_result = _finite_net_values(indices, net_values)
     if values_result.is_false:
-        metadata = {'operator': 'net_converges_to'}
+        metadata: dict[str, Any] = {'operator': 'net_converges_to'}
         metadata.update(values_result.metadata)
         return Result.false(
             mode='exact',

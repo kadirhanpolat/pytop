@@ -26,6 +26,7 @@ so ``partial_{k-1} . partial_k = 0`` holds matrix-wise.
 
 from __future__ import annotations
 
+import importlib.util
 from dataclasses import dataclass
 from typing import Any
 
@@ -102,10 +103,11 @@ def boundary_matrix(complex_obj: SimplicialComplex, k: int) -> Matrix:
     return matrix
 
 
-try:
-    import flint as _flint
-except ImportError:  # pragma: no cover
-    _flint = None
+_flint = (
+    importlib.import_module("flint")
+    if importlib.util.find_spec("flint") is not None
+    else None
+)
 
 # Above this dimension a dense integer SNF is routed to python-flint (when it is
 # installed) to avoid the pure-Python routine's coefficient blow-up. The results
@@ -117,6 +119,7 @@ _FLINT_SNF_MIN_DIM = 16
 def _smith_normal_form_flint(matrix: Matrix) -> list[int]:
     """Invariant factors via python-flint's exact Smith normal form (fast path)."""
 
+    assert _flint is not None  # the dispatcher only calls this when flint is present
     normal = _flint.fmpz_mat([[int(v) for v in row] for row in matrix]).snf()
     size = min(normal.nrows(), normal.ncols())
     return [abs(int(normal[i, i])) for i in range(size) if int(normal[i, i]) != 0]

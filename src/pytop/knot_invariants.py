@@ -238,7 +238,7 @@ class LinkDiagram:
 
         All arcs are assigned to component 0.
         """
-        crossings = [tuple(c) for c in diagram.pd]  # type: ignore[misc]
+        crossings = [tuple(c) for c in diagram.pd]
         signs = list(diagram.signs)
         # Collect all arc labels in encounter order to build component_map
         labels: list[Any] = []
@@ -252,7 +252,7 @@ class LinkDiagram:
         n_arcs = len(labels)
         component_map = [0] * n_arcs
         return cls(
-            crossings=crossings,  # type: ignore[arg-type]
+            crossings=crossings,
             signs=signs,
             n_components=1,
             component_map=component_map,
@@ -267,7 +267,7 @@ class LinkDiagram:
         return result
 
 
-def linking_number(  # type: ignore[misc]
+def linking_number(
     link_or_signs: LinkDiagram | Any,
     i: int | None = None,
     j: int | None = None,
@@ -335,7 +335,7 @@ def linking_matrix(link: LinkDiagram) -> list[list[int]]:
     matrix: list[list[int]] = [[0] * n for _ in range(n)]
     for i in range(n):
         for j in range(i + 1, n):
-            lk = linking_number(link, i, j)
+            lk = int(linking_number(link, i, j))
             matrix[i][j] = lk
             matrix[j][i] = lk
     return matrix

@@ -65,7 +65,7 @@ def analyze_infinite_countability(space: Any, property_name: str = 'first_counta
                 mode='exact',
                 value=property_name,
                 justification=[f'{cls.__name__} has a class-level exact countability classification for {property_name}.'],
-                metadata={'representation': space.metadata.get('representation'), 'property': property_name, 'source': cls.__name__},
+                metadata={'representation': space.metadata.get('representation'), 'property': property_name, 'source': cls.__name__},  # type: ignore[attr-defined]
             )
     for cls, features in KNOWN_FALSE.items():
         if isinstance(space, cls) and property_name in features:
@@ -73,7 +73,7 @@ def analyze_infinite_countability(space: Any, property_name: str = 'first_counta
                 mode='exact',
                 value=property_name,
                 justification=[f'{cls.__name__} has a class-level exact countability classification for {property_name}.'],
-                metadata={'representation': space.metadata.get('representation'), 'property': property_name, 'source': cls.__name__},
+                metadata={'representation': space.metadata.get('representation'), 'property': property_name, 'source': cls.__name__},  # type: ignore[attr-defined]
             )
     return analyze_countability(space, property_name)
 

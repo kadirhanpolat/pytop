@@ -197,22 +197,22 @@ def run_negative_witness_case(code: str) -> NegativeWitnessReport:
         return _unexpected_success(code, "finite_map_engine", "outside_codomain_value")
 
     if code == "NEG-CONTINUITY-PREIMAGE-FAILURE":
-        analysis = analyze_finite_map(
+        fm_analysis = analyze_finite_map(
             {"a", "b"},
             [set(), {"a", "b"}],
             {0, 1},
             [set(), {1}, {0, 1}],
             {"a": 0, "b": 1},
         )
-        failed = tuple(item for item in analysis.continuity_checks if not item[2])
+        failed = tuple(item for item in fm_analysis.continuity_checks if not item[2])
         return NegativeWitnessReport(
             code=code,
-            passed=analysis.is_bijective and not analysis.is_continuous and any(item[1] == frozenset({"b"}) for item in failed),
+            passed=fm_analysis.is_bijective and not fm_analysis.is_continuous and any(item[1] == frozenset({"b"}) for item in failed),
             engine_area="finite_map_engine",
             failure_kind="continuity_preimage_failure",
             witness={
-                "is_bijective": analysis.is_bijective,
-                "is_continuous": analysis.is_continuous,
+                "is_bijective": fm_analysis.is_bijective,
+                "is_continuous": fm_analysis.is_continuous,
                 "failed_preimage_checks": failed,
             },
             teaching_note="The codomain open {1} has preimage {b}, which is not open in the indiscrete domain.",

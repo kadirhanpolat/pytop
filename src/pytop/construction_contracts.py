@@ -62,7 +62,7 @@ def finite_product_summary(*factors: Iterable[Any]) -> str:
 
 def finite_partition_contract(carrier: Iterable[Any], partition: Iterable[Iterable[Any]]) -> FiniteConstructionContract:
     """Validate a finite partition contract without building a topology."""
-    points=tuple(carrier); point_set=set(points); blocks=[tuple(block) for block in partition]; seen=set()
+    points=tuple(carrier); point_set=set(points); blocks=[tuple(block) for block in partition]; seen: set[Any] = set()
     for idx, block in enumerate(blocks):
         if not block:
             return FiniteConstructionContract(kind="partition", status="false", warnings=("empty block is not allowed",), metadata={"block_index": idx})

@@ -182,7 +182,7 @@ def _exact_neighborhood_system_result(finite_data: dict[str, Any], point: Any) -
         for candidate in _all_subsets(finite_data['points'])
         if any(open_set.issubset(candidate) for open_set in open_neighborhoods)
     ]
-    neighborhoods = _sorted_frozensets(neighborhoods)
+    neighborhoods = _sorted_frozensets(neighborhoods)  # type: ignore[assignment]
     open_neighborhoods = _sorted_frozensets(open_neighborhoods)
     minimal_open = frozenset.intersection(*open_neighborhoods) if open_neighborhoods else frozenset()
     return Result.true(

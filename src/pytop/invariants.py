@@ -277,7 +277,7 @@ def _representation_of(space: Any) -> str:
 
 def _extract_tags(space: Any) -> set[str]:
     tags: set[str] = set()
-    raw_tags = getattr(space, 'tags', set())
+    raw_tags: set[str] = getattr(space, 'tags', set())
     tags.update(str(tag).strip().lower() for tag in raw_tags if str(tag).strip())
     metadata = getattr(space, 'metadata', {}) or {}
     for tag in metadata.get('tags', []):
