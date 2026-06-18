@@ -40,7 +40,7 @@ from pytop.experimental.spaces.pi_base_representations import (
 
 def test_list_representable_count():
     reps = list_representable()
-    assert len(reps) == 42
+    assert len(reps) == 67
 
 
 def test_list_representable_structure():
@@ -570,3 +570,306 @@ class TestCertifiedSpaceTypes:
     def test_indiscrete_omega_not_t0(self):
         sp = best_space("S000193")
         assert is_t0(sp).value is False
+
+
+# ---------------------------------------------------------------------------
+# Batch 3 — _MetricWithCerts: radial plane + disjoint union
+# ---------------------------------------------------------------------------
+
+class TestBatch3MetricWithCerts:
+    def test_radial_plane_type(self):
+        assert isinstance(best_space("S000134"), _MetricWithCerts)
+
+    def test_disjoint_union_reals_singleton_type(self):
+        assert isinstance(best_space("S000198"), _MetricWithCerts)
+
+    def test_radial_plane_membership(self):
+        sp = best_space("S000134")
+        assert sp.contains((Fraction(1), Fraction(0)))
+        assert sp.contains((Fraction(0), Fraction(0)))
+        assert not sp.contains((1, 2, 3))
+        assert not sp.contains("xy")
+
+    def test_radial_plane_hausdorff_connected(self):
+        sp = best_space("S000134")
+        assert is_hausdorff(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_radial_plane_same_ray_distance(self):
+        sp = best_space("S000134")
+        # (1,0) and (2,0) are on the same ray; distance = |1-2| = 1
+        v = sp.point_separation((Fraction(1), Fraction(0)), (Fraction(2), Fraction(0)))
+        assert v.value is True
+
+    def test_radial_plane_different_ray_distance(self):
+        sp = best_space("S000134")
+        # (1,0) and (0,1): different rays — d = 1 + 1 = 2
+        v = sp.point_separation((Fraction(1), Fraction(0)), (Fraction(0), Fraction(1)))
+        assert v.value is True
+
+    def test_disjoint_union_membership(self):
+        sp = best_space("S000198")
+        assert sp.contains(Fraction(0))
+        assert sp.contains(Fraction(1, 2))
+        assert sp.contains("*")
+        assert not sp.contains("x")
+        assert not sp.contains((1, 2))
+
+    def test_disjoint_union_not_connected(self):
+        sp = best_space("S000198")
+        assert is_connected(sp).value is False
+
+    def test_disjoint_union_hausdorff(self):
+        sp = best_space("S000198")
+        assert is_hausdorff(sp).value is True
+
+    def test_disjoint_union_cross_component_separation(self):
+        sp = best_space("S000198")
+        # ∗ vs 0: different components — always separated
+        v = sp.point_separation("*", Fraction(0))
+        assert v.value is True
+
+
+# ---------------------------------------------------------------------------
+# Batch 3 — _CertifiedSpace type checks
+# ---------------------------------------------------------------------------
+
+class TestBatch3CertifiedSpaceTypes:
+    @pytest.mark.parametrize("uid", [
+        "S000023",  # Arens-Fort
+        "S000029",  # OPC of Q
+        "S000033",  # ordinal ω+ω
+        "S000034",  # ordinal ω+ω+1
+        "S000042",  # right ray reals
+        "S000047",  # countable sum of Sierpinski spaces
+        "S000048",  # cofinite ω + generic point
+        "S000050",  # Q focal point
+        "S000054",  # double pointed reals
+        "S000083",  # line two origins
+        "S000096",  # Appert space
+        "S000097",  # OPC sequential fan
+        "S000098",  # minimal Hausdorff
+        "S000100",  # David Gao's space
+        "S000118",  # integer broom
+        "S000150",  # right closed-ray Q∩[0,1]
+        "S000151",  # right open-ray Q∩[0,1]
+        "S000160",  # right open-ray ω+1
+        "S000165",  # OPC Arens-Fort
+        "S000166",  # left ray ω+1
+        "S000185",  # OPC metric fan
+        "S000186",  # converging seq non-Hausdorff
+        "S000194",  # indiscrete ℝ
+    ])
+    def test_is_certified_space(self, uid):
+        assert isinstance(best_space(uid), _CertifiedSpace)
+
+
+# ---------------------------------------------------------------------------
+# Batch 3 — membership correctness per carrier type
+# ---------------------------------------------------------------------------
+
+class TestBatch3Membership:
+    def test_ordinal_ww_membership(self):
+        sp = best_space("S000033")
+        assert sp.contains((0, 0))
+        assert sp.contains((1, 42))
+        assert not sp.contains((2, 0))  # only copy 0 or 1
+        assert not sp.contains("ω")
+        assert not sp.contains(0)
+
+    def test_ordinal_ww1_membership(self):
+        sp = best_space("S000034")
+        assert sp.contains((0, 0))
+        assert sp.contains((1, 5))
+        assert sp.contains("Ω")  # the limit point
+        assert not sp.contains("ω")
+        assert not sp.contains(0)
+
+    def test_arens_fort_membership(self):
+        sp = best_space("S000023")
+        assert sp.contains((0, 0))
+        assert sp.contains((3, 7))
+        assert sp.contains("∞")
+        assert not sp.contains(0)
+        assert not sp.contains((-1, 0))
+
+    def test_opc_arens_fort_membership(self):
+        sp = best_space("S000165")
+        assert sp.contains((0, 0))
+        assert sp.contains("∞")
+        assert not sp.contains(0)
+
+    def test_two_origins_membership(self):
+        sp = best_space("S000083")
+        assert sp.contains("0a")
+        assert sp.contains("0b")
+        assert sp.contains(Fraction(1, 2))
+        assert sp.contains(-3)
+        assert not sp.contains(0)     # 0 is replaced by "0a"/"0b"
+        assert not sp.contains("0c")
+
+    def test_double_pointed_reals_membership(self):
+        sp = best_space("S000054")
+        assert sp.contains((Fraction(1, 2), 0))
+        assert sp.contains((Fraction(1, 2), 1))
+        assert sp.contains((0, 0))
+        assert not sp.contains((Fraction(1), 2))  # b not in {0,1}
+        assert not sp.contains(Fraction(1))        # must be pair
+
+    def test_sierpinski_sum_membership(self):
+        sp = best_space("S000047")
+        assert sp.contains((0, 0))
+        assert sp.contains((0, 1))
+        assert sp.contains((5, 1))
+        assert not sp.contains((0, 2))  # b not in {0,1}
+        assert not sp.contains((-1, 0))
+
+    def test_cofinite_omega_star_membership(self):
+        sp = best_space("S000048")
+        assert sp.contains(0)
+        assert sp.contains(42)
+        assert sp.contains("*")
+        assert not sp.contains(-1)
+        assert not sp.contains("x")
+
+    def test_opc_Q_membership(self):
+        sp = best_space("S000029")
+        assert sp.contains(Fraction(1, 3))
+        assert sp.contains(0)
+        assert sp.contains("*")   # _FOCAL_MEMBER uses "*" for the ideal point
+        assert not sp.contains("x")
+
+    def test_Q_focal_point_membership(self):
+        sp = best_space("S000050")
+        assert sp.contains(Fraction(1, 3))
+        assert sp.contains(0)
+        assert sp.contains("*")
+        assert not sp.contains("x")
+
+    def test_right_ray_reals_membership(self):
+        sp = best_space("S000042")
+        assert sp.contains(0)
+        assert sp.contains(Fraction(-1, 2))
+        assert not sp.contains("x")
+
+    def test_indiscrete_reals_membership(self):
+        sp = best_space("S000194")
+        assert sp.contains(0)
+        assert sp.contains(Fraction(1, 3))
+        assert not sp.contains("x")
+
+    def test_omega1_membership(self):
+        for uid in ["S000160", "S000166"]:
+            sp = best_space(uid)
+            assert sp.contains(0)
+            assert sp.contains(10)
+            assert sp.contains("ω")
+            assert not sp.contains(-1)
+            assert not sp.contains("Ω")
+
+    def test_q01_membership(self):
+        for uid in ["S000150", "S000151"]:
+            sp = best_space(uid)
+            assert sp.contains(Fraction(0))
+            assert sp.contains(Fraction(1))
+            assert sp.contains(Fraction(1, 2))
+            assert not sp.contains(Fraction(-1, 2))
+            assert not sp.contains(Fraction(3, 2))
+
+    def test_appert_membership(self):
+        sp = best_space("S000096")
+        assert sp.contains(1)
+        assert sp.contains(100)
+        assert not sp.contains(0)
+        assert not sp.contains(-1)
+
+    def test_omega_based_membership(self):
+        for uid in ["S000098", "S000100"]:
+            sp = best_space(uid)
+            assert sp.contains(0)
+            assert sp.contains(7)
+            assert not sp.contains(-1)
+            assert not sp.contains("x")
+
+    def test_integer_broom_membership(self):
+        sp = best_space("S000118")
+        assert sp.contains((-3, Fraction(0)))
+        assert sp.contains((0, Fraction(1, 2)))
+        assert sp.contains((5, Fraction(1)))
+        assert not sp.contains((0, Fraction(3, 2)))    # t > 1
+        assert not sp.contains((Fraction(1, 2), Fraction(0)))  # n not int
+
+    def test_seq_fan_membership(self):
+        for uid in ["S000097", "S000185"]:
+            sp = best_space(uid)
+            assert sp.contains((0, 0))
+            assert sp.contains((3, 7))
+            assert sp.contains("∞")
+            assert not sp.contains((-1, 0))
+            assert not sp.contains(0)
+
+    def test_conv_seq_membership(self):
+        sp = best_space("S000186")
+        assert sp.contains((0, 0))
+        assert sp.contains((2, 1))
+        assert sp.contains("∞")
+        assert not sp.contains((0, 2))  # b not in {0,1}
+        assert not sp.contains(0)
+
+
+# ---------------------------------------------------------------------------
+# Batch 3 — property certificate checks via pi-Base
+# ---------------------------------------------------------------------------
+
+class TestBatch3Properties:
+    def test_right_ray_reals_t0_not_t1(self):
+        sp = best_space("S000042")
+        assert is_t0(sp).value is True
+        assert is_t1(sp).value is False
+
+    def test_right_ray_reals_connected(self):
+        sp = best_space("S000042")
+        assert is_connected(sp).value is True
+
+    def test_double_pointed_reals_not_t0(self):
+        sp = best_space("S000054")
+        assert is_t0(sp).value is False
+
+    def test_line_two_origins_t1_not_hausdorff(self):
+        sp = best_space("S000083")
+        assert is_t1(sp).value is True
+        assert is_hausdorff(sp).value is False
+
+    def test_arens_fort_hausdorff_not_compact(self):
+        sp = best_space("S000023")
+        assert is_hausdorff(sp).value is True
+        assert is_compact(sp).value is False
+
+    def test_opc_seq_fan_compact(self):
+        sp = best_space("S000097")
+        assert is_compact(sp).value is True
+
+    def test_ordinal_ww_hausdorff(self):
+        sp = best_space("S000033")
+        assert is_hausdorff(sp).value is True
+
+    def test_sierpinski_sum_not_t1(self):
+        sp = best_space("S000047")
+        assert is_t1(sp).value is False
+
+    def test_cofinite_omega_star_compact(self):
+        sp = best_space("S000048")
+        assert is_compact(sp).value is True
+
+    def test_converging_seq_compact_not_hausdorff(self):
+        sp = best_space("S000186")
+        assert is_compact(sp).value is True
+        assert is_hausdorff(sp).value is False
+
+    def test_indiscrete_reals_not_t0(self):
+        sp = best_space("S000194")
+        assert is_t0(sp).value is False
+
+    def test_disjoint_union_not_connected(self):
+        sp = best_space("S000198")
+        assert is_connected(sp).value is False

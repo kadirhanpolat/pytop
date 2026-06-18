@@ -553,6 +553,306 @@ def _right_ray_omega() -> _CertifiedSpace:
 
 
 # ===========================================================================
+# Batch 3 — metric spaces with radial/post-office structure
+# ===========================================================================
+
+@_reg("S000134")
+def _radial_metric_plane() -> _MetricWithCerts:
+    # Radial (French railway) metric on ℝ²: d(p,q) = ||p-O||+||q-O|| unless
+    # p,q lie on the same ray from O, where d = |||p|-|q|||.  Uses max-norm.
+    def _radial_dist(p: Any, q: Any) -> Fraction:
+        if p == q:
+            return Fraction(0)
+        px, py = Fraction(p[0]), Fraction(p[1])
+        qx, qy = Fraction(q[0]), Fraction(q[1])
+        norm_p = max(abs(px), abs(py))
+        norm_q = max(abs(qx), abs(qy))
+        cross = px * qy - py * qx
+        dot = px * qx + py * qy
+        if cross == 0 and dot >= 0:          # same ray from origin
+            return abs(norm_p - norm_q)
+        return norm_p + norm_q
+
+    return _MetricWithCerts(
+        "S000134",
+        dist=_radial_dist,
+        member=lambda p: (
+            isinstance(p, tuple)
+            and len(p) == 2
+            and isinstance(p[0], (int, Fraction))
+            and isinstance(p[1], (int, Fraction))
+        ),
+        carrier_kind=CarrierKind.UNCOUNTABLE,
+    )
+
+
+@_reg("S000198")
+def _disjoint_union_reals_singleton() -> _MetricWithCerts:
+    # Disjoint union ℝ ⊔ {∗}: d(a,b)=|a-b| within ℝ; d(∗,x)=1 across components.
+    def _du_dist(a: Any, b: Any) -> Fraction:
+        if a == b:
+            return Fraction(0)
+        if isinstance(a, (int, Fraction)) and isinstance(b, (int, Fraction)):
+            return abs(Fraction(a) - Fraction(b))
+        return Fraction(1)   # different components
+
+    def _du_member(p: Any) -> bool:
+        return p == "*" or isinstance(p, (int, Fraction))
+
+    return _MetricWithCerts(
+        "S000198",
+        dist=_du_dist,
+        member=_du_member,
+        carrier_kind=CarrierKind.UNCOUNTABLE,
+    )
+
+
+# ===========================================================================
+# Batch 3 — certified countable/infinite spaces
+# ===========================================================================
+
+def _OMEGA1_MEMBER(p: Any) -> bool:
+    """Carrier ω+1 = ω ∪ {ω}."""
+    return p == "ω" or (isinstance(p, int) and p >= 0)
+
+def _Q01_MEMBER(p: Any) -> bool:
+    """Carrier ℚ ∩ [0,1]."""
+    return isinstance(p, (int, Fraction)) and Fraction(0) <= Fraction(p) <= Fraction(1)
+
+def _ORDINAL_WW_MEMBER(p: Any) -> bool:
+    """Carrier ω+ω as pairs (copy, index): (0,n) for first ω, (1,n) for second."""
+    return (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and p[0] in (0, 1)
+        and isinstance(p[1], int)
+        and p[1] >= 0
+    )
+
+def _ORDINAL_WW1_MEMBER(p: Any) -> bool:
+    """Carrier ω+ω+1: pairs (0|1, n≥0) plus sentinel 'Ω'."""
+    return p == "Ω" or _ORDINAL_WW_MEMBER(p)
+
+def _GRID_OR_INF_MEMBER(p: Any) -> bool:
+    """Carrier ω×ω ∪ {∞}: (int≥0, int≥0) tuples or '∞'."""
+    return p == "∞" or (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and isinstance(p[0], int) and p[0] >= 0
+        and isinstance(p[1], int) and p[1] >= 0
+    )
+
+def _SIERP_SUM_MEMBER(p: Any) -> bool:
+    """Carrier ω×{0,1}: (n, b) with n≥0 int, b in {0,1}."""
+    return (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and isinstance(p[0], int) and p[0] >= 0
+        and p[1] in (0, 1)
+    )
+
+def _TWO_ORIGIN_MEMBER(p: Any) -> bool:
+    """Line with two origins: real points (Fraction, non-zero) or '0a'/'0b'."""
+    if p in ("0a", "0b"):
+        return True
+    return isinstance(p, (int, Fraction)) and Fraction(p) != 0
+
+def _DOUBLE_REAL_MEMBER(p: Any) -> bool:
+    """Double pointed reals ℝ×{0,1}: (x, k) with x∈ℚ, k∈{0,1}."""
+    return (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and isinstance(p[0], (int, Fraction))
+        and p[1] in (0, 1)
+    )
+
+def _INT_BROOM_MEMBER(p: Any) -> bool:
+    """Integer broom: (n, t) with n∈ℤ, t∈ℚ∩[0,1]."""
+    return (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and isinstance(p[0], int)
+        and isinstance(p[1], (int, Fraction))
+        and Fraction(0) <= Fraction(p[1]) <= Fraction(1)
+    )
+
+def _SEQ_FAN_MEMBER(p: Any) -> bool:
+    """Metric fan (ω-many spines): (n, m) with n≥0, m≥0 or '∞'."""
+    return p == "∞" or (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and isinstance(p[0], int) and p[0] >= 0
+        and isinstance(p[1], int) and p[1] >= 0
+    )
+
+def _CONV_SEQ_MEMBER(p: Any) -> bool:
+    """Converging sequence of non-Hausdorff spaces: (n, b) or '∞'."""
+    return p == "∞" or (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and isinstance(p[0], int) and p[0] >= 0
+        and p[1] in (0, 1)
+    )
+
+def _FOCAL_MEMBER(p: Any) -> bool:
+    """ℚ extended by focal point: Fraction or '∗'."""
+    return p == "*" or isinstance(p, (int, Fraction))
+
+
+# — ordinal spaces —
+
+@_reg("S000033")
+def _ordinal_omega_omega() -> _CertifiedSpace:
+    return _CertifiedSpace("S000033", _ORDINAL_WW_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000034")
+def _ordinal_omega_omega_1() -> _CertifiedSpace:
+    return _CertifiedSpace("S000034", _ORDINAL_WW1_MEMBER, CarrierKind.COUNTABLE)
+
+
+# — uncountable spaces with computable membership —
+
+@_reg("S000042")
+def _right_ray_reals() -> _CertifiedSpace:
+    # Right ray topology on ℝ: opens are right rays (a,∞) and ∅. T0 but not T1.
+    return _CertifiedSpace("S000042", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000054")
+def _double_pointed_reals() -> _CertifiedSpace:
+    # Double pointed reals ℝ×{0,1}: (x,0) and (x,1) are topologically indistinct.
+    return _CertifiedSpace("S000054", _DOUBLE_REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000083")
+def _line_two_origins() -> _CertifiedSpace:
+    # Line with two origins: ℝ with 0 doubled to '0a' and '0b'. T1, not T2.
+    return _CertifiedSpace("S000083", _TWO_ORIGIN_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000194")
+def _indiscrete_reals() -> _CertifiedSpace:
+    # Indiscrete topology on ℝ: only ∅ and ℝ are open.
+    return _CertifiedSpace("S000194", _REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+# — countable spaces: one-point compactifications —
+
+@_reg("S000023")
+def _arens_fort() -> _CertifiedSpace:
+    # Arens-Fort space: carrier ω×ω ∪ {∞}, the unique limit point is '∞'.
+    return _CertifiedSpace("S000023", _GRID_OR_INF_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000029")
+def _one_pt_compact_Q() -> _CertifiedSpace:
+    # One-point compactification of ℚ: ℚ ∪ {∞}.
+    return _CertifiedSpace("S000029", _FOCAL_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000050")
+def _Q_focal_point() -> _CertifiedSpace:
+    # ℚ extended by a focal point '∗': ∗ belongs to every nonempty open set.
+    return _CertifiedSpace("S000050", _FOCAL_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000165")
+def _one_pt_compact_arens_fort() -> _CertifiedSpace:
+    # One-point compactification of the Arens-Fort space: grid ∪ {∞}.
+    return _CertifiedSpace("S000165", _GRID_OR_INF_MEMBER, CarrierKind.COUNTABLE)
+
+
+# — countable spaces: ray topologies on ω+1 —
+
+@_reg("S000160")
+def _right_open_ray_omega1() -> _CertifiedSpace:
+    # Right "open-ray" topology on ω+1: carrier = ω ∪ {ω}.
+    return _CertifiedSpace("S000160", _OMEGA1_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000166")
+def _left_ray_omega1() -> _CertifiedSpace:
+    # Left ray topology on ω+1: opens are downward-closed initial segments.
+    return _CertifiedSpace("S000166", _OMEGA1_MEMBER, CarrierKind.COUNTABLE)
+
+
+# — countable spaces: interval topologies on ℚ∩[0,1] —
+
+@_reg("S000150")
+def _right_closed_ray_Q01() -> _CertifiedSpace:
+    # Right "closed-ray" topology on ℚ∩[0,1]: opens are [a,1]∩ℚ∩[0,1].
+    return _CertifiedSpace("S000150", _Q01_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000151")
+def _right_open_ray_Q01() -> _CertifiedSpace:
+    # Right "open-ray" topology on ℚ∩[0,1]: opens are (a,1]∩ℚ∩[0,1].
+    return _CertifiedSpace("S000151", _Q01_MEMBER, CarrierKind.COUNTABLE)
+
+
+# — countable spaces: sum/fan/broom structures —
+
+@_reg("S000047")
+def _countable_sum_sierpinski() -> _CertifiedSpace:
+    # Countable sum of Sierpiński spaces: ω×{0,1} with Sierpiński topo on each copy.
+    return _CertifiedSpace("S000047", _SIERP_SUM_MEMBER, CarrierKind.COUNTABLE)
+
+
+def _OMEGA_OR_STAR_MEMBER(p: Any) -> bool:
+    """Carrier ω ∪ {'∗'}: non-negative int or the sentinel '∗'."""
+    return p == "*" or (isinstance(p, int) and p >= 0)
+
+
+@_reg("S000048")
+def _cofinite_omega_generic() -> _CertifiedSpace:
+    # Cofinite on ω extended by a non-open generic point '∗'.
+    return _CertifiedSpace("S000048", _OMEGA_OR_STAR_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000096")
+def _appert_space() -> _CertifiedSpace:
+    # Appert space: carrier ℤ>0.
+    return _CertifiedSpace("S000096", _POS_INT_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000097")
+def _one_pt_compact_seq_fan() -> _CertifiedSpace:
+    # One-point compactification of sequential fan S_ω: (n,m) ∪ {∞}.
+    return _CertifiedSpace("S000097", _SEQ_FAN_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000098")
+def _minimal_hausdorff_omega() -> _CertifiedSpace:
+    # Minimal Hausdorff topology on ω.
+    return _CertifiedSpace("S000098", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000100")
+def _david_gao_space() -> _CertifiedSpace:
+    # David Gao's ultraconnected non-contractible space: carrier ω.
+    return _CertifiedSpace("S000100", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000118")
+def _integer_broom() -> _CertifiedSpace:
+    # Integer broom: (n, t) pairs with n∈ℤ, t∈ℚ∩[0,1].
+    return _CertifiedSpace("S000118", _INT_BROOM_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000185")
+def _one_pt_compact_metric_fan() -> _CertifiedSpace:
+    # One-point compactification of the metric fan: (n,m) pairs ∪ {∞}.
+    return _CertifiedSpace("S000185", _SEQ_FAN_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000186")
+def _converging_seq_non_hausdorff() -> _CertifiedSpace:
+    # Converging sequence of non-Hausdorff spaces: (n,b) pairs ∪ {∞}.
+    return _CertifiedSpace("S000186", _CONV_SEQ_MEMBER, CarrierKind.COUNTABLE)
+
+
+# ===========================================================================
 # Public API
 # ===========================================================================
 
