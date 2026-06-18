@@ -276,3 +276,33 @@ class TestGudhiPersistence:
         for _ in range(5):
             points = [(rng.uniform(0, 2), rng.uniform(0, 2)) for _ in range(9)]
             self._assert_agree(points, max_dim=2, max_scale=1.2)
+
+    @staticmethod
+    def _pytop_cohomology_finite_bars(points, max_dim, max_scale, tol=1e-6):
+        import math
+
+        from pytop.metric_spaces import FiniteMetricSpace
+        from pytop.persistent_homology import vietoris_rips_filtration
+        from pytop.persistent_homology_optimized import persistence_pairs_cohomology
+
+        space = FiniteMetricSpace(carrier=tuple(points), distance=math.dist)
+        filtered = vietoris_rips_filtration(space, max_dimension=max_dim, max_scale=max_scale)
+        pairs = persistence_pairs_cohomology(filtered)
+        bars: dict[int, list] = {}
+        for p in pairs:
+            if p.death < max_scale - tol and p.death - p.birth > tol:
+                bars.setdefault(p.dimension, []).append((p.birth, p.death))
+        return {d: sorted(v) for d, v in bars.items()}
+
+    def test_cohomology_matches_gudhi(self):
+        # The dual (persistent cohomology) engine must also agree with GUDHI.
+        import math
+
+        points = [(math.cos(2 * math.pi * k / 12), math.sin(2 * math.pi * k / 12)) for k in range(12)]
+        coh_bars = self._pytop_cohomology_finite_bars(points, 2, 1.9)
+        gudhi_bars = self._gudhi_finite_bars(points, 2, 1.9)
+        assert set(coh_bars) == set(gudhi_bars)
+        for dim in coh_bars:
+            assert len(coh_bars[dim]) == len(gudhi_bars[dim])
+            for (b1, d1), (b2, d2) in zip(coh_bars[dim], gudhi_bars[dim]):
+                assert abs(b1 - b2) < 1e-6 and abs(d1 - d2) < 1e-6

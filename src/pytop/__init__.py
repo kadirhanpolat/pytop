@@ -2934,6 +2934,8 @@ from .persistent_homology import (
 )
 from .persistent_homology_optimized import (
     ReductionStats,
+    persistence_pairs_cohomology,
+    persistence_pairs_cohomology_with_stats,
     persistence_pairs_twist,
     persistence_pairs_twist_with_stats,
     persistent_homology_optimized,

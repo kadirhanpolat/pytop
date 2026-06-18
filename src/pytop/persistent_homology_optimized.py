@@ -279,9 +279,142 @@ def persistent_homology_optimized(
     )
 
 
+# ---------------------------------------------------------------------------
+# Persistent cohomology — de Silva–Morozov–Vejdemo-Johansson (2011)
+# ---------------------------------------------------------------------------
+
+def persistence_pairs_cohomology_with_stats(
+    filtered: FilteredComplex,
+    *,
+    include_zero_persistence: bool = False,
+) -> tuple[tuple[PersistencePair, ...], ReductionStats]:
+    """Persistent **cohomology** via the incremental algorithm; also returns stats.
+
+    The dual algorithm of de Silva–Morozov–Vejdemo-Johansson (2011): instead of
+    reducing the boundary matrix column by column, it processes the simplices in
+    filtration order while maintaining the live **cocycles** (Z/2 cochains).  When
+    a new simplex ``σ`` is added, the cocycles ``z`` with ``⟨z, ∂σ⟩ = 1`` are
+    exactly those whose class ``σ`` cobounds; the youngest of them dies (a finite
+    pair) and the rest are updated by adding the dying cochain.  Cocycles that are
+    never killed are the essential classes.
+
+    An inverted index ``containing[s]`` (the live cocycles whose cochain contains
+    simplex ``s``) means each new simplex is only compared against the cocycles
+    sharing one of its facets — so on Vietoris–Rips filtrations, where almost all
+    pairs are *apparent*, the number of cochain additions is tiny compared with the
+    boundary reduction (often hundreds vs hundreds of thousands), giving the same
+    barcode faster.
+
+    Returns the persistence pairs (identical to
+    :func:`~pytop.persistent_homology.persistence_pairs`) and a
+    :class:`ReductionStats` whose ``n_column_additions`` counts the cochain
+    additions performed (``n_cleared`` is not applicable here and is ``0``).
+
+    Complexity
+    ----------
+    Output-sensitive: dominated by the cochain additions, which is small on
+    structured (Rips-like) inputs. See ``docs/COMPLEXITY.md``.
+    """
+
+    n = filtered.size()
+    if n == 0:
+        return (), ReductionStats(0, 0, 0, 0, 0)
+
+    simplices, dims, births = filtered.simplices, filtered.dimensions, filtered.births
+    index_of = {simplex: idx for idx, simplex in enumerate(simplices)}
+
+    def facets(idx: int) -> list[int]:
+        simplex = simplices[idx]
+        if len(simplex) <= 1:
+            return []
+        return [index_of[face] for face in combinations(simplex, len(simplex) - 1)]
+
+    birth_of: dict[int, int] = {}        # cocycle id -> birth simplex index
+    cochain_of: dict[int, set[int]] = {}  # cocycle id -> set of simplex indices
+    containing: dict[int, set[int]] = {}  # simplex index -> cocycle ids containing it
+    pairs: list[PersistencePair] = []
+    xor_ops = 0
+    next_id = 0
+
+    for i in range(n):
+        # Parity of each live cocycle over the facets of simplex i = ⟨z, ∂σ_i⟩.
+        parity: dict[int, int] = {}
+        for f in facets(i):
+            for cid in containing.get(f, ()):
+                parity[cid] = parity.get(cid, 0) ^ 1
+        hit = [cid for cid, p in parity.items() if p]
+
+        if not hit:  # σ_i creates a new cocycle (positive simplex)
+            cid = next_id
+            next_id += 1
+            birth_of[cid] = i
+            cochain_of[cid] = {i}
+            containing.setdefault(i, set()).add(cid)
+            continue
+
+        # σ_i kills the youngest cocycle it cobounds (elder rule), pairing it.
+        pivot = max(hit, key=lambda cid: birth_of[cid])
+        creator = birth_of[pivot]
+        if include_zero_persistence or births[creator] != births[i]:
+            pairs.append(PersistencePair(dims[creator], births[creator], births[i]))
+        pivot_cochain = cochain_of[pivot]
+        for cid in hit:
+            if cid == pivot:
+                continue
+            xor_ops += 1
+            target = cochain_of[cid]
+            for s in pivot_cochain:  # target ^= pivot_cochain, keeping the index
+                if s in target:
+                    target.discard(s)
+                    containing[s].discard(cid)
+                else:
+                    target.add(s)
+                    containing.setdefault(s, set()).add(cid)
+        for s in pivot_cochain:
+            containing[s].discard(pivot)
+        del cochain_of[pivot]
+        del birth_of[pivot]
+
+    for cid, b in birth_of.items():  # unkilled cocycles are essential
+        pairs.append(PersistencePair(dims[b], births[b], math.inf))
+
+    result = tuple(sorted(pairs, key=lambda p: (p.dimension, p.birth, p.death)))
+    finite = sum(1 for p in result if not p.is_essential)
+    stats = ReductionStats(
+        n_simplices=n,
+        n_cleared=0,
+        n_column_additions=xor_ops,
+        n_finite_pairs=finite,
+        n_essential=len(result) - finite,
+    )
+    return result, stats
+
+
+def persistence_pairs_cohomology(
+    filtered: FilteredComplex,
+    *,
+    include_zero_persistence: bool = False,
+) -> tuple[PersistencePair, ...]:
+    """Compute persistence pairs via the dual (persistent cohomology) algorithm.
+
+    Produces results identical to
+    :func:`~pytop.persistent_homology.persistence_pairs` and
+    :func:`persistence_pairs_twist`, but via persistent cohomology (de Silva–
+    Morozov–Vejdemo-Johansson 2011) — far fewer column operations on Vietoris–Rips
+    filtrations.  See :func:`persistence_pairs_cohomology_with_stats`.
+    """
+
+    pairs, _ = persistence_pairs_cohomology_with_stats(
+        filtered, include_zero_persistence=include_zero_persistence
+    )
+    return pairs
+
+
 __all__ = [
     "ReductionStats",
     "persistence_pairs_twist",
     "persistence_pairs_twist_with_stats",
+    "persistence_pairs_cohomology",
+    "persistence_pairs_cohomology_with_stats",
     "persistent_homology_optimized",
 ]

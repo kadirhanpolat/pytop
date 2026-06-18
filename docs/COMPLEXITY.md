@@ -27,7 +27,8 @@
 | Engine | Entry point | Complexity | Practical limit |
 |--------|-------------|-----------|-----------------|
 | Simplicial homology | `betti_numbers` | SNF of boundary matrices, polynomial in the number of simplices | moderate complexes |
-| Persistent homology (Vietoris–Rips) | `persistent_homology` | `O(n^{d+2})` simplices to dimension `d`; reduction `O(m³)` in `m` = simplices | clouds `n ≲ 20–30` (small `d`) |
+| Persistent homology (Vietoris–Rips) | `persistent_homology` | `O(n^{d+2})` simplices to dimension `d`; reduction `O(m³)` worst case in `m` = simplices | clouds `n ≲ 20–30` (small `d`) |
+| Persistent **cohomology** (dual) | `persistence_pairs_cohomology` | de Silva–Morozov–Vejdemo-Johansson incremental algorithm; output-sensitive — dominated by the (few) cochain additions on Rips inputs | same complex, **far fewer column ops** |
 | Cubical persistence (Twist+Clearing) | `persistent_homology_bitmap` | shared Twist+Clearing kernel; `O(m³)` worst case, near-linear typical | moderate 2-D bitmaps |
 | Smith normal form | `smith_normal_form` | iterative pivot reduction, polynomial; integer growth bounded by divisibility | a few hundred rows |
 | Integer determinant (Bareiss) | `integer_determinant` | `O(n³)` fraction-free, exact (bounded coefficient growth) | a few hundred rows |
@@ -50,12 +51,18 @@
   substantially on structured inputs but do not change the worst case.
 - **Vietoris–Rips persistence** spends most of its time in the column reduction,
   not in building the filtration (profiled: at 40 points to dimension 2 the
-  reduction is ~3–4× the filtration). The Twist+Clearing kernel uses Python
-  bigint bitmask columns (native XOR / `bit_length` pivot), which is close to the
-  ceiling for a pure-Python *standard* reduction. The next substantial gain would
-  come from the **dual (persistent cohomology) algorithm** (de Silva–Morozov–
-  Vejdemo-Johansson 2011) used by Ripser/GUDHI, which slashes column additions on
-  Rips filtrations — a separate algorithm, not a micro-optimisation.
+  reduction is ~3–4× the filtration). Two reductions are available, with identical
+  barcodes:
+  - `persistence_pairs_twist` — Twist+Clearing on the boundary matrix, Python
+    bigint bitmask columns (native XOR / `bit_length` pivot); near the ceiling for
+    a pure-Python *standard* reduction.
+  - `persistence_pairs_cohomology` — the **dual (persistent cohomology) algorithm**
+    (de Silva–Morozov–Vejdemo-Johansson 2011) used by Ripser/GUDHI. Processing
+    simplices while maintaining live cocycles (with an inverted index) exploits the
+    fact that nearly all Rips pairs are *apparent*, so it does orders of magnitude
+    fewer cochain additions than the boundary reduction (e.g. 40-point circle to
+    dim 2: ~130 vs ~180 000) for a ~2–2.5× wall-clock win that grows with size.
+    Validated against the standard reduction and **GUDHI**.
 - **`is_planar` decides planarity in `O(V+E)` and never raises.** It uses the
   left-right planarity test (de Fraysseix–Rosenstiehl; Brandes, *The Left-Right
   Planarity Test*, 2009) — a DFS that orients the graph, computes lowpoints and a
