@@ -97,8 +97,11 @@ class QuotientSpace(Space):
         self.carrier_kind = parent.carrier_kind
         self.construction = Construction("quotient", (parent,), relation_name)
 
-    def contains(self, point: Any) -> bool:  # pragma: no cover - quotient points are classes
-        return True
+    def contains(self, point: Any) -> bool:
+        raise NotImplementedError(
+            "QuotientSpace.contains: quotient equivalence classes are not directly enumerable; "
+            "use space.open_sets() for topology operations"
+        )
 
 
 __all__ = [

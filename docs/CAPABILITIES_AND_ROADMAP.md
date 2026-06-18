@@ -5,7 +5,7 @@
 > starting from set-theoretic (point-set) topology.
 >
 > **Status as of 2026-06-18:** Phase 1 (set-theoretic topology) is substantially
-> complete; Phase 2 (algebraic topology) has begun.
+> complete; Phase 2 (algebraic topology) is **complete** (8 / 8 items done).
 
 ---
 
@@ -26,6 +26,10 @@ operations; Alexandroff ↔ preorder correspondence; finite map analysis.
 - `homology_coefficients` — field-coefficient homology (Q, Z/p) and relative
   homology H_*(K,L; Z); demonstrates coefficient dependence (RP²: H₁(;Q)=0 vs
   H₁(;Z/2)=Z/2)
+- `mayer_vietoris` — Mayer–Vietoris long exact sequence for K = A ∪ B:
+  extended Smith Normal Form with transformation matrices gives explicit
+  homology bases; chain-level inclusion maps + snake lemma yield
+  φ, ψ, δ as integer matrices; exactness verified at every position
 - `persistent_homology` — Vietoris–Rips barcodes from a finite metric space (Z/2)
 - `knot_invariants` — Jones & Alexander polynomials from a diagram
 - `winding_number` — winding number, map degree, vector-field index
@@ -40,9 +44,11 @@ property-reasoning engine. Key components:
   regular, normal, compact, connected, Lindelöf, separable, first/second-countable)
   — on finite spaces computed from the topology; on infinite spaces via mathematical
   certificates; honest `UNDECIDABLE` where no route applies.
-- **7 representations**: `FiniteSpace`, `CofiniteSpace`, `OrderTopologySpace` (ℚ),
+- **10 representations**: `FiniteSpace`, `CofiniteSpace`, `OrderTopologySpace` (ℚ),
   `MetricTopologySpace`, `SorgenfreyLineSpace`, `DiscreteCountableSpace`,
-  `OpaqueInfiniteSpace`.
+  `OpaqueInfiniteSpace`, `AlexandroffSpace` (preorder → upset topology),
+  `SubbaseSpace` (subbase-generated topology), `InverseLimitSpace` (finite
+  inverse system + bonding maps).
 - **Construction closure** — `subspace`, `product`, `sum`, `quotient` for finite
   spaces; `ProductSpace`, `SubspaceSpace`, `SumSpace`, `QuotientSpace` provenance
   wrappers for infinite spaces.
@@ -84,16 +90,15 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
 
 ### ❌ Cannot do (real limits)
 
-- No cohomology rings or cup products; no spectral-sequence computation.
-- No general fundamental-group computation (van Kampen → presentation) beyond the
-  surface-word genus/Euler case. **Phase 2 target.**
+- No spectral-sequence computation.
 - Knots: needs a PD/Gauss code you supply; no HOMFLY/Khovanov.
 - Planarity is exact but **small-graph only** (exponential rotation-system search).
-- TDA is Z/2 and small clouds only (unoptimized reduction).
+- TDA is Z/2 and small clouds only (Phase 2 added Twist+Clearing optimisation, but
+  still single-machine, no GPU/distributed scale).
 - pi-Base inference is bounded by the vendored snapshot's vocabulary.
 - No coordinate/geometric topology, mesh processing, or general homeomorphism decision.
 - Most engines are finite / brute-force — **does not scale**.
-- `experimental.spaces` predicates are limited to the 7 bundled representations;
+- `experimental.spaces` predicates are limited to the 10 bundled representations;
   user-supplied infinite spaces can only be analyzed if they implement `certificate`.
 
 **One-sentence summary.** pytop is a solid finite point-set core + a focused
@@ -140,7 +145,7 @@ All five planned milestones delivered:
 
 | Milestone | Status | Delivered |
 |-----------|--------|-----------|
-| S1 — Space protocol + representations | ✅ | `Space` ABC, `Verdict`, 7 representations, `is_hausdorff` with witnesses |
+| S1 — Space protocol + representations | ✅ | `Space` ABC, `Verdict`, 10 representations (7 original + Alexandroff + Subbase + InverseLimit), `is_hausdorff` with witnesses |
 | S2 — 7 predicates + finite construction closure | ✅ | is_t0/t1/t2/regular/normal/compact/connected; subspace/product/sum/quotient |
 | S3 — Property-reasoning engine | ✅ | `reasoning.py`: preservation + pi-Base closure + `Derivation` + `synthesize` |
 | S4 — Extended axioms + representations | ✅ | is_t3/t4, Lindelöf/separable/1st-2nd-countable; Sorgenfrey + discrete-ℕ |
@@ -151,23 +156,35 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 (PRESERVATION table pin-tested against pi-Base meta-properties).
 
 **Remaining Phase 1 work (incremental):**
-- Computed cardinal invariants (weight, density, character, cellularity) for
-  representable spaces — turn today's profiles into computations.
-- More representations (Alexandroff/poset, subbase-generated, exact limit).
-- T3.5 / Urysohn-function witness for infinite spaces where decidable.
-- van Kampen preparation (π₁ of `experimental.spaces` objects).
+- ~~Computed cardinal invariants (weight, density, character, cellularity)~~ ✅
+  `cardinal_invariants.py`: exact computation for finite spaces; `cardinal_certificate`
+  hook on each infinite representation; `CardinalValue` type in `core.py`.
+- ~~More representations (Alexandroff/poset, subbase-generated, exact limit)~~ ✅
+  `AlexandroffSpace` (preorder → Alexandroff topology via upsets),
+  `SubbaseSpace` (subbase → finite intersections → topology),
+  `InverseLimitSpace` (finite inverse system + bonding maps → explicit limit).
+- ~~T3.5 / Urysohn-function witness for infinite spaces where decidable~~ ✅
+  `urysohn.py`: `UrysohnWitness` + `urysohn_function(space, x₀, C)`;
+  discrete finite spaces → exact indicator; MetricTopologySpace → distance-ratio formula;
+  `is_tychonoff` now carries a witness dict for finite T1 and metric spaces.
+- ~~van Kampen preparation (π₁ of `experimental.spaces` objects)~~ ✅
+  `pi1.py`: `pi1_space(space) → Pi1Result` via McCord order complex
+  (specialization order → CW1Complex → spanning-tree algorithm);
+  T0 quotient for non-T0 inputs; `ProductSpace` → π₁(A) × π₁(B);
+  `SumSpace` → π₁ of first component. Diamond poset verified = ℤ (minimal model of S¹).
 
-### Phase 2 — Algebraic topology to research grade 🔄 STARTED
+### Phase 2 — Algebraic topology to research grade ✅ COMPLETE
 
 | Item | Status | Delivered |
 |------|--------|-----------|
 | Field-coefficient homology (Q, Z/p) | ✅ | `homology_coefficients`: Gaussian elim; RP² katsayı bağımlılığı |
 | Relative homology H_*(K,L; Z) | ✅ | Disk mod boundary H₂(D²,∂D²)=Z |
-| Mayer–Vietoris, cellular homology | ⬜ | — |
-| Cohomology + cup product | ⬜ | — |
-| van Kampen → group presentations | ⬜ | Major item; GAP bridge candidate |
-| Optimized persistence (clearing/twist) | ⬜ | — |
-| Cubical complexes | ⬜ | — |
+| Mayer–Vietoris LES | ✅ | `mayer_vietoris`: extended SNF → explicit bases; φ,ψ,δ matrices; exactness verified (S¹,S²,interval) |
+| Cellular homology | ✅ | `cellular_homology`: CWComplex + SNF; standard spaces (S^n, RP^n, CP^n, T², Klein, L(p,q), M(Z/n,k)); cross-validated via `cw_from_simplicial` |
+| Cohomology + cup product | ✅ | `cohomology`: δ^k=(∂_{k+1})^T via extended SNF; UCT verified; Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity; torus H^1⊗H^1→H^2 non-degenerate |
+| van Kampen → group presentations | ✅ | `van_kampen`: GroupPresentation + GroupHomomorphism; amalgamated free product; Tietze elimination; abelianization via SNF; group identification; CW1Complex route (spanning tree → π₁); standard spaces (S¹∨⋯∨S¹→Fₙ, S²→1, T²→ℤ², Klein→⟨a,b\|abab⁻¹⟩, RP²→ℤ/2) |
+| Optimized persistence (clearing/twist) | ✅ | `persistent_homology_optimized`: Twist algorithm (Chen–Kerber 2011) + Clearing Lemma; dimension-top-down sweep; `ReductionStats` (n_cleared, clearing_ratio, n_column_additions); cross-validated against standard reduction |
+| Cubical complexes | ✅ | `cubical_homology`: `CubicalComplex` (face-closure, boundary ℤ-matrix, SNF homology); standard spaces S¹/D²/interval; `CubicalFiltration` + `bitmap_to_cubical_filtration` (lower-star from 2-D pixel array); `persistence_pairs_cubical` + `persistent_homology_bitmap` via shared Twist+Clearing kernel |
 
 ### Phase 3 — Geometric & low-dimensional topology ⬜ NOT STARTED
 
@@ -199,11 +216,32 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 155** |
-| New PRs this arc | 13 (PR #1 → #13) |
-| Representations in `experimental.spaces` | 7 |
+| Tests passing | **9 764** |
+| Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
 | Phase 1 milestones complete | 5 / 5 |
-| Phase 2 milestones complete | 2 / 7 |
+| Phase 2 milestones complete | 8 / 8 ✅ |
+
+### Phase 2 post-completion fixes & optimizations (2026-06-18)
+
+**Correctness (20 bugs fixed):**
+- 5 HIGH: `is_hausdorff` certificate bypass; `_close_under_unions` deduplication;
+  `_provable_true_props` recursion guard; `_product_pi1` silent exception;
+  Mayer–Vietoris torsion-aware exactness (`val % d == 0`).
+- 15 MEDIUM: `OrderTopologySpace` midpoint formula; `AlexandroffSpace` union-find
+  refactor; `SorgenfreyLineSpace` counterexample witness; `QuotientSpace.contains`
+  raises `NotImplementedError`; `DiscreteCountableSpace` Urysohn support;
+  `_bfs_urysohn` dead-code; `homology_coefficients` prime-modulus validation;
+  `relative_homology` double boundary matrix; `_induced_on_hk` shape for empty target;
+  `mayer_vietoris` off-by-one boundary; `CohomologyRing.verify_graded_commutativity()`;
+  torus `group_type` → `"free_abelian_rank_2"`; `cw_complex_pi1` disconnected-skeleton
+  guard; cubical OOM docstring warnings.
+
+**Performance (Phase 4 preview):**
+- `_snf_ext(compute_transforms=False)` — skips P/Pinv/Q/Qinv when only D is needed
+  (~80% inner-loop saving); `_mat_rank` now uses this path.
+- `_twist_reduce` bigint bitmask — `list[set[int]]` → `list[int]` Python bigint;
+  `col.bit_length()-1` pivot (C-level intrinsic); **~6.6× kernel speedup**;
+  applied to both `persistent_homology_optimized` and `cubical_homology`.

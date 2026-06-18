@@ -39,13 +39,21 @@ def _via_certificate(space: Space, prop: str) -> Verdict:
 
 
 def _decide(space: Space, prop: str, finite_rule: Callable[[FiniteTopology], Verdict]) -> Verdict:
+    # Certificate takes priority — allows structural short-cuts (e.g. AlexandroffSpace)
+    # even for finite spaces, without enumerating all open sets.
+    cert = space.certificate(prop)
+    if cert is not None:
+        return cert
     if space.is_finite():
         try:
             topology = _finite_topology(space)
         except NotEnumerableError:
             return Verdict.undecidable(f"{space.name!r}: topology not enumerable.")
         return finite_rule(topology)
-    return _via_certificate(space, prop)
+    return Verdict.undecidable(
+        f"{space.name!r}: infinite space without a {prop!r} certificate; "
+        "cannot enumerate the topology."
+    )
 
 
 # --------------------------------------------------------------------------
@@ -55,7 +63,9 @@ def _decide(space: Space, prop: str, finite_rule: Callable[[FiniteTopology], Ver
 
 def is_hausdorff(space: Space) -> Verdict:
     """Decide whether ``space`` is Hausdorff (T2), with witness or counterexample."""
-
+    cert = space.certificate("T2")
+    if cert is not None:
+        return cert
     if space.is_finite():
         return _decide_finite_hausdorff(space)
     return _via_certificate(space, "T2")
@@ -63,22 +73,18 @@ def is_hausdorff(space: Space) -> Verdict:
 
 def _decide_finite_hausdorff(space: Space) -> Verdict:
     try:
-        points = list(space.points())
+        carrier, opens, _ = _finite_topology(space)
     except NotEnumerableError:
         return Verdict.undecidable(f"{space.name!r}: carrier not enumerable.")
+    points = sorted(carrier, key=repr)
     checked = 0
     for x, y in combinations(points, 2):
-        separation = space.point_separation(x, y)
-        if separation.value is False:
+        opens_x = [o for o in opens if x in o]
+        opens_y = [o for o in opens if y in o]
+        if not any(not (u & v) for u in opens_x for v in opens_y):
             return Verdict.false(
-                reason=f"{space.name!r}: {separation.reason}",
-                counterexample=separation.counterexample or (x, y),
-            )
-        if separation.value is None:
-            return Verdict(
-                None,
-                Decidability.UNDECIDABLE,
-                reason=f"{space.name!r}: point separation undecidable for {(x, y)!r}",
+                reason=f"{space.name!r}: {x!r} and {y!r} have no disjoint open neighbourhoods",
+                counterexample=(x, y),
             )
         checked += 1
     return Verdict.true(
@@ -228,12 +234,25 @@ def _finite_t1_or_certificate(space: Space, prop: str) -> Verdict:
 
     On a finite space, T1 ⟹ discrete ⟹ every higher axiom (Tychonoff, T5, T6),
     so the predicate reduces to T1. Infinite spaces defer to a certificate.
+    For Tychonoff the witness includes the Urysohn function construction method.
     """
 
     if space.is_finite():
         t1 = is_t1(space)
         if t1.value is True:
-            return Verdict.true(reason=f"a finite T1 space is discrete, hence {prop}")
+            witness = (
+                {"method": "discrete_indicator",
+                 "description": (
+                     "finite T1 ⟹ discrete; for any x₀ and closed C not containing x₀: "
+                     "f(x₀)=0, f(y)=1 for y∈C (every function is continuous on a discrete space)"
+                 )}
+                if prop == "tychonoff"
+                else None
+            )
+            return Verdict.true(
+                reason=f"a finite T1 space is discrete, hence {prop}",
+                witness=witness,
+            )
         if t1.value is False:
             return Verdict.false(
                 reason=f"not {prop}: the finite space is not even T1",

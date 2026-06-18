@@ -16,6 +16,21 @@ is_hausdorff(rational_metric_space()).value   # True  (decided via metric certif
 
 from __future__ import annotations
 
+from .pi1 import (
+    Pi1Result,
+    pi1_space,
+)
+from .urysohn import (
+    UrysohnWitness,
+    urysohn_function,
+)
+from .cardinal_invariants import (
+    CardinalValue,
+    cellularity,
+    character,
+    density,
+    weight,
+)
 from .constructed import (
     Construction,
     ProductSpace,
@@ -67,23 +82,43 @@ from .reasoning import (
     synthesize,
 )
 from .representations import (
+    AlexandroffSpace,
     CofiniteSpace,
     DiscreteCountableSpace,
     FiniteSpace,
+    InverseLimitSpace,
     MetricTopologySpace,
     OpaqueInfiniteSpace,
     OrderTopologySpace,
     SorgenfreyLineSpace,
+    SubbaseSpace,
     discrete_finite_space,
+    finite_circle,
+    finite_sphere,
+    finite_wedge_circles,
     rational_metric_space,
 )
 
 __all__ = [
+    # Core protocol
     "CarrierKind",
     "Decidability",
     "NotEnumerableError",
     "Space",
     "Verdict",
+    # π₁ computation
+    "Pi1Result",
+    "pi1_space",
+    # Urysohn witnesses
+    "UrysohnWitness",
+    "urysohn_function",
+    # Cardinal invariants
+    "CardinalValue",
+    "weight",
+    "density",
+    "character",
+    "cellularity",
+    # Separation predicates
     "is_hausdorff",
     "is_t0",
     "is_t1",
@@ -94,36 +129,48 @@ __all__ = [
     "is_t6",
     "is_regular",
     "is_normal",
+    # Covering and connectedness predicates
     "is_compact",
     "is_connected",
     "is_lindelof",
     "is_separable",
     "is_second_countable",
     "is_first_countable",
+    # Construction functions
     "subspace",
     "binary_product",
     "disjoint_sum",
     "quotient",
+    # Construction wrappers
     "Construction",
     "ProductSpace",
     "SumSpace",
     "SubspaceSpace",
     "QuotientSpace",
+    # Reasoning engine
     "PRESERVATION",
     "Derivation",
     "derive",
     "explain",
     "synthesize",
+    # pi-Base bridge
     "PiBaseSpace",
     "pi_base_space",
     "analyze_pi_base_space",
-    "FiniteSpace",
+    # Representations
+    "AlexandroffSpace",
     "CofiniteSpace",
-    "OrderTopologySpace",
-    "MetricTopologySpace",
-    "SorgenfreyLineSpace",
     "DiscreteCountableSpace",
+    "FiniteSpace",
+    "InverseLimitSpace",
+    "MetricTopologySpace",
     "OpaqueInfiniteSpace",
+    "OrderTopologySpace",
+    "SorgenfreyLineSpace",
+    "SubbaseSpace",
     "discrete_finite_space",
+    "finite_circle",
+    "finite_sphere",
+    "finite_wedge_circles",
     "rational_metric_space",
 ]

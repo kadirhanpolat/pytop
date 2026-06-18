@@ -6,10 +6,14 @@
 It provides point-set topology, knot theory, graph topology, surface classification,
 3-manifolds, degree theory, cardinal functions, and more. As of **v0.6.0+** it also ships a
 **constructive computational core** (simplicial homology with field/relative coefficients,
-persistent homology / TDA, knot invariant polynomials, winding/degree, surface-word
-classification, exact graph planarity), a **pi-Base–backed deductive inference engine**
+persistent homology / TDA, optimized persistence with Twist+Clearing, cubical complexes +
+bitmap persistence, knot invariant polynomials, winding/degree, surface-word classification,
+exact graph planarity), a **pi-Base–backed deductive inference engine**
 (`pytop.experimental.pi_base`), and a **research-grade computable-space protocol**
-(`pytop.experimental.spaces`) for point-set topology — Phase 1 complete (S1–S5).
+(`pytop.experimental.spaces`) for point-set topology — Phase 1 complete (S1–S5),
+**Phase 2 complete (8/8)**: field-coeff homology, relative homology, Mayer–Vietoris LES,
+cellular homology, cohomology + cup product, van Kampen → group presentations,
+optimized persistence (Twist+Clearing), cubical complexes.
 
 - **GitHub:** https://github.com/kadirhanpolat/pytop
 - **License:** MIT
@@ -27,7 +31,30 @@ pytop has two complementary layers — keep this distinction in mind when extend
 - **Constructive** — engines that *compute* invariants from raw input. The v0.6.0+ computational core:
   `homology` (integer boundary matrices → Smith normal form → Betti + torsion),
   `homology_coefficients` (field-coefficient / relative homology — Gaussian elimination over Q and Z/p),
+  `mayer_vietoris` (Mayer–Vietoris LES: extended SNF with transformation matrices → explicit homology
+  bases; φ, ψ, δ as integer matrices; exactness verified at every position; `_snf_ext` supports
+  `compute_transforms=False` to skip P/Pinv/Q/Qinv updates when only D is needed — `_mat_rank`
+  uses this path for ~80% inner-loop saving),
+  `cellular_homology` (CW complex chain complex → SNF; standard spaces S^n, RP^n, CP^n, T², Klein
+  bottle, lens spaces, Moore spaces; `cw_from_simplicial` cross-validation bridge),
+  `cohomology` (cochain complex via δ^k=(∂_{k+1})^T; extended SNF → H^k; UCT verified;
+  Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity, torus pairing, and
+  `verify_graded_commutativity()` method),
   `persistent_homology` (Vietoris–Rips filtration → Z/2 reduction → barcodes),
+  `persistent_homology_optimized` (Twist algorithm, Chen–Kerber 2011: dimension-top-down sweep +
+  Clearing Lemma; `ReductionStats` with n_cleared / clearing_ratio / n_column_additions;
+  shared `_twist_reduce` kernel used by both simplicial and cubical pipelines; **bigint bitmask**
+  column representation — `list[int]` Python bigint replaces `list[set[int]]`, pivot via
+  `col.bit_length()-1`; ~6.6× kernel speedup),
+  `cubical_homology` (`CubicalComplex` with face-closure + ℤ boundary matrix + SNF homology;
+  `circle_cubical`, `disk_cubical`, `interval_complex`; `CubicalFiltration` +
+  `bitmap_to_cubical_filtration` — lower-star filtration from 2-D pixel arrays with
+  f(face) ≤ f(coface) guaranteed; `persistent_homology_bitmap` via Twist+Clearing),
+  `van_kampen` (Seifert–van Kampen: GroupPresentation + GroupHomomorphism; amalgamated free
+  product; Tietze elimination with cyclic reduction + inverse-duplicate deduplication;
+  abelianization via SNF; group identification (`"free_abelian_rank_2"` for T²); CW1Complex route
+  with disconnected 1-skeleton guard (raises ValueError); standard spaces S¹∨⋯∨S¹→Fₙ, S²→1,
+  T²→ℤ², Klein→⟨a,b|abab⁻¹⟩, RP²→ℤ/2),
   `knot_invariants` (Kauffman→Jones, reduced Burau→Alexander), `winding_number`,
   `surface_word_classification`, `graph_planarity` (rotation-system genus), and
   `experimental.spaces` (research-grade computable-space protocol — see below).
@@ -35,7 +62,29 @@ pytop has two complementary layers — keep this distinction in mind when extend
 - **Research-grade point-set layer** (`experimental.spaces`) — a third layer bridging the two above:
   a `Space` protocol + 16 witness-producing predicates + property-reasoning engine that derives
   and *explains* properties of constructed infinite spaces (preservation theorems + pi-Base
-  implication graph). See `docs/CAPABILITIES_AND_ROADMAP.md` for Phase 1/2 status.
+  implication graph). **10 representations**: `FiniteSpace`, `CofiniteSpace`, `OrderTopologySpace`,
+  `MetricTopologySpace`, `SorgenfreyLineSpace`, `DiscreteCountableSpace`, `OpaqueInfiniteSpace`,
+  `AlexandroffSpace` (upset topology of a preorder), `SubbaseSpace` (subbase-generated topology),
+  `InverseLimitSpace` (finite inverse system + bonding maps). **Factory functions**:
+  `finite_circle()` (4-pt diamond, π₁=ℤ), `finite_sphere(n)` (2(n+1)-pt suspension tower),
+  `finite_wedge_circles(k)` (1+3k pt model of S¹∨⋯∨S¹, π₁=F_k). **Cardinal invariants**
+  (`cardinal_invariants.py`): weight, density, character, cellularity — exact for finite spaces;
+  `cardinal_certificate` hook on each infinite representation; `AlexandroffSpace.certificate`
+  provides structural T0 (antisymmetry test) and connectedness (union-find on order graph) verdicts
+  without open-set enumeration; `cardinal_certificate` returns character=1, weight=|X| (T0 case).
+  **Urysohn witnesses** (`urysohn.py`): `UrysohnWitness` + `urysohn_function(space, x₀, C)`;
+  discrete finite → exact indicator; general finite → BFS chain; `MetricTopologySpace` →
+  distance-ratio formula; `SorgenfreyLineSpace` → Euclidean formula (τ_std ⊊ τ_Sorgenfrey);
+  `OrderTopologySpace` → order-metric formula; `DiscreteCountableSpace` → discrete metric
+  (d(x,y)=0 iff x=y) with `method="discrete_metric"` witness. **π₁ computation** (`pi1.py`): `pi1_space(space)`
+  via McCord order complex (specialization order → CW1Complex → spanning-tree algorithm);
+  T0 quotient for non-T0 inputs; `ProductSpace` → π₁(A)×π₁(B); `SumSpace` → π₁(first).
+  **Tietze improvements** (`van_kampen.py`): `_cyclically_reduce` (prefix/suffix inverse-pair
+  removal), `_dedup_relators` (duplicate relators up to cyclic conjugation + inversion),
+  applied after every Tietze II elimination. `predicates._decide` checks `certificate` first
+  so `AlexandroffSpace` (and future subclasses) give structural reasons without enumeration.
+  `persistence_betti_numbers(pairs)` counts essential pairs per dimension.
+  See `docs/CAPABILITIES_AND_ROADMAP.md` for Phase 1/2 status.
 
 ## pi-Base data
 

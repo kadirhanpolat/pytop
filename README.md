@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v0.6.0+**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients, persistent homology, knot polynomials, winding number, surface classification, graph planarity), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
+As of **v0.6.0+**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence — **Phase 2: 8/8 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
 
 ## Installation
 
@@ -114,7 +114,10 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | Knot theory | `knots`, `invariants` |
 | Surfaces & manifolds | `surfaces`, `surface_classification`, `manifolds`, `three_manifolds` |
 | Graph topology | `graph_topology` |
-| **Computational homology** (v0.6.0) | `homology`, `persistent_homology`, `homology_coefficients` |
+| **Computational homology** (v0.6.0+) | `homology`, `persistent_homology`, `homology_coefficients`, `mayer_vietoris`, `cellular_homology`, `cohomology` |
+| **Optimized persistence** (v0.6.0+) | `persistent_homology_optimized` — Twist+Clearing (Chen–Kerber 2011), `ReductionStats` |
+| **Cubical complexes** (v0.6.0+) | `cubical_homology` — `CubicalComplex`, SNF homology, `bitmap_to_cubical_filtration`, `persistent_homology_bitmap` |
+| **Fundamental group / van Kampen** (v0.6.0+) | `van_kampen` — `GroupPresentation`, `van_kampen()`, `cw_complex_pi1()`, standard spaces |
 | **Knot invariants** (v0.6.0) | `knot_invariants` |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
@@ -161,20 +164,94 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
 
 ## What's New (post-v0.6.0)
 
+- **Phase 1/2 incremental improvements** (latest):
+  - **Alexandroff factory functions**: `finite_circle()` (4-pt diamond, π₁=ℤ), `finite_sphere(n)`
+    (2(n+1)-pt McCord model via iterated suspension, π₁=trivial for n≥2), `finite_wedge_circles(k)`
+    (1+3k-pt model of S¹∨⋯∨S¹, π₁=F_k).
+  - **AlexandroffSpace structural certificates**: `certificate("T0")` checks antisymmetry of the
+    order relation (no open-set enumeration needed); `certificate("connected")` uses union-find on
+    the strict-order graph. `cardinal_certificate("character")` = 1 (principal upset is the unique
+    minimal neighbourhood); `cardinal_certificate("weight")` = |X| for T0 Alexandroff spaces.
+  - **Urysohn witnesses for all infinite Tychonoff representations**:
+    `SorgenfreyLineSpace` → Euclidean distance-ratio formula (valid because τ_std ⊊ τ_Sorgenfrey);
+    `OrderTopologySpace` → order-metric formula (order topology on ℚ = metric topology).
+  - **Stronger Tietze simplification**: `_cyclically_reduce` removes outer inverse-pair letters from
+    relators; `_dedup_relators` eliminates duplicate relators up to cyclic conjugation + inversion.
+    Applied after every Tietze II elimination.
+  - **`predicates._decide` certificate-first**: structural certificates checked before finite-topology
+    enumeration — allows subclasses to short-circuit without enumerating all open sets.
+  - **`persistence_betti_numbers(pairs)`**: counts essential (death=∞) persistence pairs per dimension.
 - **Research-grade computable-space protocol** (`experimental.spaces`) — Phase 1 complete (S1–S5):
   unified `Space` ABC with 16 witness-producing, decidability-honest predicates (T0–T6/Tychonoff,
-  regular/normal, compact/connected, Lindelöf/separable, first/second-countable), 7 representations
-  (Finite, Cofinite, Order-ℚ, Metric, Sorgenfrey, Discrete-ℕ, Opaque), finite+infinite construction
-  closure (`ProductSpace`, `SubspaceSpace`, `SumSpace`, `QuotientSpace`), and a property-reasoning
-  engine that derives and *explains* properties of constructed infinite spaces via preservation
-  theorems + the pi-Base implication graph — no enumeration. `synthesize(has=…, lacks=…)` finds
-  example spaces. Preservation table cross-validated against pi-Base meta-properties.
+  regular/normal, compact/connected, Lindelöf/separable, first/second-countable), **10 representations**
+  (Finite, Cofinite, Order-ℚ, Metric, Sorgenfrey, Discrete-ℕ, Opaque, Alexandroff, Subbase,
+  InverseLimit), finite+infinite construction closure (`ProductSpace`, `SubspaceSpace`, `SumSpace`,
+  `QuotientSpace`), cardinal invariants (weight/density/character/cellularity), Urysohn witnesses,
+  π₁ via McCord order complex, and a property-reasoning engine that derives and *explains* properties
+  of constructed infinite spaces via preservation theorems + the pi-Base implication graph — no
+  enumeration. `synthesize(has=…, lacks=…)` finds example spaces. Preservation table
+  cross-validated against pi-Base meta-properties.
 - **pi-Base atlas bridge** — `pi_base_space("Cantor set")` wraps any of 222 famous spaces as a
   protocol `Space`; feeds directly into the reasoning engine and construction wrappers.
 - **Field-coefficient & relative homology** — `betti_numbers_over(K, "Q")` / `betti_numbers_over(K, p)`
   and `relative_homology(K, L)` / `relative_betti_numbers(K, L)`. Demonstrates coefficient
   dependence: RP² → H₁(;Q)=0 but H₁(;Z/2)=Z/2 (2-torsion visible over Z/2 only).
-- **9 155 tests passing** across the full suite.
+- **Mayer–Vietoris long exact sequence** — `mayer_vietoris(A, B)` computes the full LES for K = A ∪ B:
+  extended Smith Normal Form yields explicit homology bases and cycle representatives;
+  inclusion maps and the snake-lemma connecting homomorphism δ are returned as integer matrices;
+  exactness verified at every position (S¹, S², interval). 30 new tests.
+- **Cellular homology** — `cellular_homology(cw, k)` computes H_k(X; Z) from a CW complex specified
+  by cell counts and integer boundary matrices. Convenience constructors cover the standard spaces:
+  `cw_sphere(n)`, `cw_real_projective_space(n)`, `cw_complex_projective_space(n)`, `cw_torus()`,
+  `cw_klein_bottle()`, `cw_lens_space(p)`, `cw_moore_space(n, k)`. `cw_from_simplicial(K)` bridges
+  CW and simplicial homology for cross-validation. Chain-complex condition d∘d=0 verified on
+  construction. 65 new tests.
+- **Cohomology + cup product** — `simplicial_cohomology(K, k)` computes H^k(K; Z) via the cochain
+  complex δ^k = (∂_{k+1})^T and extended Smith Normal Form. UCT (H^k torsion = H_{k-1} torsion)
+  verified against homology. `simplicial_cohomology_ring(K)` returns a `CohomologyRing` with the
+  Alexander-Whitney cup product on cohomology generators — torus H^1 ⊗ H^1 → H^2 pairing is
+  non-degenerate and graded-commutative; RP² H^2 = Z/2 from UCT. 53 new tests.
+- **Seifert–van Kampen theorem** — `van_kampen(π₁A, π₁B, π₁(A∩B), φ_A, φ_B)` computes π₁(A∪B) as
+  the amalgamated free product via `GroupPresentation` + `GroupHomomorphism`. Tietze elimination
+  reduces the raw presentation; abelianization (H₁ = π₁^ab) is computed via Smith Normal Form.
+  `cw_complex_pi1(cw)` derives π₁ directly from a `CW1Complex` using a BFS spanning tree.
+  Convenience constructors cover the standard spaces: `van_kampen_sphere()` → trivial,
+  `van_kampen_torus()` → ⟨a,b | aba⁻¹b⁻¹⟩ ≅ ℤ², `van_kampen_klein_bottle()` → ⟨a,b | abab⁻¹⟩
+  (H₁ = ℤ⊕ℤ/2), `van_kampen_real_projective_plane()` → ⟨a | a²⟩ ≅ ℤ/2,
+  `van_kampen_wedge_circles(n)` → Fₙ. Group type identified automatically. 59 new tests.
+- **Optimized persistence (Twist+Clearing)** — `persistent_homology_optimized` implements the
+  Chen–Kerber 2011 Twist algorithm: columns processed dimension-top-down; the Clearing Lemma
+  immediately skips every creator whose reduction is guaranteed to be zero. Returns identical
+  results to the standard L→R sweep, typically with significantly fewer column additions.
+  `persistence_pairs_twist_with_stats` exposes `ReductionStats` (n_cleared, clearing_ratio,
+  n_column_additions). Shared `_twist_reduce` kernel reused by the cubical pipeline. 46 new tests.
+- **Cubical complexes** — `cubical_homology` provides a complete cubical TDA stack:
+  `CubicalComplex` (face-closure under ∂, ℤ boundary matrices, SNF-based homology — S¹: H₁=ℤ,
+  D²: contractible, verified); `circle_cubical`, `disk_cubical`, `interval_complex` standard
+  spaces; `CubicalFiltration` + `bitmap_to_cubical_filtration` (lower-star filtration from a
+  2-D pixel array with f(face) ≤ f(coface) guaranteed); `persistence_pairs_cubical` +
+  `persistent_homology_bitmap` via the shared Twist+Clearing kernel — 3×3 annular image
+  correctly yields H₁ bar [0, 1). 74 new tests.
+- **Phase 1/2 correctness fixes** (current):
+  - **5 HIGH fixes**: `is_hausdorff` certificate bypass; `_close_under_unions` deduplication
+    (constructions.py → imports from representations.py); `_provable_true_props` recursion guard
+    (depth limit 100); `_product_pi1` bare `except Exception` removed; Mayer–Vietoris
+    `_check_exact_at_middle` torsion-aware composition (`val % d == 0` for torsion generators).
+  - **15 MEDIUM fixes**: `OrderTopologySpace` midpoint formula (`(lo+hi)/2`); `AlexandroffSpace`
+    union-find refactored to `_order_graph_component_count()`; `SorgenfreyLineSpace` counterexample
+    in certificate; `QuotientSpace.contains` raises `NotImplementedError`; `DiscreteCountableSpace`
+    Urysohn support (discrete metric); `_bfs_urysohn` dead-code path fixed; `homology_coefficients`
+    prime modulus validation; `relative_homology` double boundary matrix computation; `_induced_on_hk`
+    zero-row shape for empty target; `mayer_vietoris` off-by-one boundary (max_dim+2→max_dim+1);
+    `CohomologyRing.verify_graded_commutativity()` added; torus `group_type` corrected to
+    `"free_abelian_rank_2"`; `cw_complex_pi1` disconnected 1-skeleton guard; cubical OOM warnings.
+- **Performance optimizations** (current):
+  - `_snf_ext(compute_transforms=False)` — skips all row/column transform matrix updates when only
+    the diagonal D is needed; `_mat_rank` now uses this path (~80% inner-loop saving for rank queries).
+  - `_twist_reduce` bigint bitmask — `list[set[int]]` → `list[int]` Python bigint column
+    representation; pivot detection via `col.bit_length()-1` (C-level intrinsic); **~6.6× kernel
+    speedup** applied to both `persistent_homology_optimized` and `cubical_homology`.
+- **9 764 tests passing** across the full suite.
 
 ## What's New in v0.6.0
 

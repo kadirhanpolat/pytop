@@ -1035,6 +1035,39 @@ def persistence_diagram(pairs: tuple[PersistencePair, ...]) -> dict[int, tuple[t
     return {dim: tuple(sorted(bars)) for dim, bars in sorted(diagram.items())}
 
 
+def persistence_betti_numbers(pairs: tuple[PersistencePair, ...]) -> dict[int, int]:
+    """Count essential (infinite-lifetime) classes per homological dimension.
+
+    Essential pairs — those with ``death = ∞`` — correspond to homology classes
+    that survive the entire filtration.  Their count per dimension is the Betti
+    number β_k of the underlying space (assuming the filtration is complete).
+
+    Parameters
+    ----------
+    pairs:
+        Output of :func:`persistence_pairs`, :func:`persistence_pairs_twist`,
+        or any function returning a tuple of :class:`PersistencePair` objects.
+
+    Returns
+    -------
+    dict[int, int]
+        ``{dimension: betti_number}`` for every dimension that has at least one
+        essential class.  Dimensions with no essential classes are absent (not 0).
+
+    Examples
+    --------
+    A circle point cloud has β₀ = 1 and β₁ = 1::
+
+        pairs = persistence_pairs(vietoris_rips_filtration(circle_cloud))
+        persistence_betti_numbers(pairs)   # {0: 1, 1: 1}
+    """
+    result: dict[int, int] = {}
+    for pair in pairs:
+        if pair.is_essential:
+            result[pair.dimension] = result.get(pair.dimension, 0) + 1
+    return result
+
+
 def euler_characteristic_curve(
     filtered: FilteredComplex,
     scales: tuple[float, ...],
@@ -1079,6 +1112,7 @@ __all__ = [
     "persistence_pairs",
     "persistent_homology",
     "barcode",
+    "persistence_betti_numbers",
     "persistence_diagram",
     "euler_characteristic_curve",
 ]

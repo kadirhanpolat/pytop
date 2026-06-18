@@ -27,6 +27,16 @@ from .simplicial_complexes import SimplicialComplex
 Matrix = list[list[int]]
 
 
+def _is_prime(n: int) -> bool:
+    """Return True iff n is a prime number."""
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
 def _field_rank(matrix: Matrix, modulus: int | None) -> int:
     """Rank of an integer matrix over a field: Q if ``modulus`` is None, else Z/modulus."""
 
@@ -85,6 +95,10 @@ def homology_with_coefficients(
     if degree < 0:
         return HomologyResult(degree=degree, betti=0, torsion=())
     modulus = _normalize_coefficients(coefficients)
+    if modulus is not None and not _is_prime(modulus):
+        raise ValueError(
+            f"p={modulus} is not prime; Z/p homology requires a prime modulus."
+        )
     n_k = len(_simplices_of_dimension(complex_obj, degree))
     if n_k == 0:
         return HomologyResult(degree=degree, betti=0, torsion=())
@@ -102,6 +116,10 @@ def betti_numbers_over(complex_obj: SimplicialComplex, coefficients: Any = "Q") 
 
     if coefficients in ("Z", "z"):
         return betti_numbers(complex_obj)
+    if isinstance(coefficients, int) and coefficients >= 2 and not _is_prime(coefficients):
+        raise ValueError(
+            f"p={coefficients} is not prime; Z/p homology requires a prime modulus."
+        )
     return tuple(
         homology_with_coefficients(complex_obj, degree, coefficients).betti
         for degree in range(complex_obj.dimension + 1)
@@ -149,10 +167,9 @@ def relative_homology(
         raise ValueError("sub must be a subcomplex of complex_obj.")
     if degree < 0:
         return HomologyResult(degree=degree, betti=0, torsion=())
-    _, n_k = _relative_boundary_matrix(complex_obj, sub, degree)
+    boundary_k, n_k = _relative_boundary_matrix(complex_obj, sub, degree)
     if n_k == 0:
         return HomologyResult(degree=degree, betti=0, torsion=())
-    boundary_k, _ = _relative_boundary_matrix(complex_obj, sub, degree)
     rank_k = len(_smith_normal_form(boundary_k))
     next_factors = _smith_normal_form(_relative_boundary_matrix(complex_obj, sub, degree + 1)[0])
     rank_k_plus_1 = len(next_factors)

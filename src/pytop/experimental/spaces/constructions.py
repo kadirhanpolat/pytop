@@ -14,25 +14,7 @@ from collections.abc import Iterable
 from itertools import combinations
 from typing import Any
 
-from .representations import FiniteSpace
-
-
-def _close_under_unions(basis: Iterable[frozenset]) -> set[frozenset]:
-    """Return all (finite) unions of basis elements, including the empty set."""
-
-    opens: set[frozenset] = {frozenset()}
-    opens.update(frozenset(b) for b in basis)
-    changed = True
-    while changed:
-        changed = False
-        current = list(opens)
-        for i in range(len(current)):
-            for j in range(i + 1, len(current)):
-                union = current[i] | current[j]
-                if union not in opens:
-                    opens.add(union)
-                    changed = True
-    return opens
+from .representations import FiniteSpace, _close_under_unions
 
 
 def subspace(space: FiniteSpace, subset: Iterable[Any], *, name: str | None = None) -> FiniteSpace:
