@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.7] — 2026-06-19
+
+### Added
+
+- **Persistent cohomology** (`persistent_homology_optimized.py`):
+  `persistence_pairs_cohomology` / `persistence_pairs_cohomology_with_stats` — the
+  dual algorithm of de Silva–Morozov–Vejdemo-Johansson (2011). It processes
+  simplices in filtration order while maintaining the live cocycles (Z/2 cochains)
+  with an inverted index, so each new simplex is tested only against cocycles that
+  share one of its facets; the youngest cocycle it cobounds dies (elder rule).
+  Produces **identical barcodes** to `persistence_pairs` / `persistence_pairs_twist`,
+  but on Vietoris–Rips filtrations — where nearly all pairs are *apparent* — it
+  does orders of magnitude fewer column operations (40-point circle to dim 2:
+  ~130 cochain additions vs ~180 000 for the boundary reduction; ~2–2.5× wall-clock,
+  growing with size). Validated against the standard reduction, the Twist algorithm,
+  and **GUDHI**. `persistence_pairs_twist` remains the default for
+  `persistent_homology_optimized`; cohomology is exposed as a faster peer.
+
 ## [0.9.6] — 2026-06-18
 
 ### Added / Changed
