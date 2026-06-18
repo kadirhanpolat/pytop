@@ -52,6 +52,11 @@ from .pi_base_bridge import (
     analyze_pi_base_space,
     pi_base_space,
 )
+from .pi_base_representations import (
+    best_space,
+    is_representable,
+    list_representable,
+)
 from .predicates import (
     is_compact,
     is_connected,
@@ -157,6 +162,10 @@ __all__ = [
     "PiBaseSpace",
     "pi_base_space",
     "analyze_pi_base_space",
+    # pi-Base concrete representations
+    "best_space",
+    "is_representable",
+    "list_representable",
     # Representations
     "AlexandroffSpace",
     "CofiniteSpace",
