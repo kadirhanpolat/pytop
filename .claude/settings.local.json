@@ -138,7 +138,10 @@
       "Bash(Select-Object Name)",
       "Bash(Sort-Object Name)",
       "Bash(mypy src/pytop/)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(git pull *)",
+      "Bash(py -3.14 -m pytest tests/core/test_mayer_vietoris.py -x -q)",
+      "Bash(py -3.14 -m pytest tests/ -q --tb=no)"
     ]
   }
 }
