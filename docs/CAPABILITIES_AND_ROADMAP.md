@@ -212,15 +212,36 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 ---
 
-## Part V — Summary statistics (2026-06-19)
+## Part V — Summary statistics (2026-06-18)
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 655** |
-| New PRs this arc | 14 (PR #1 → #14) |
+| Tests passing | **9 764** |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
 | Phase 1 milestones complete | 5 / 5 |
 | Phase 2 milestones complete | 8 / 8 ✅ |
+
+### Phase 2 post-completion fixes & optimizations (2026-06-18)
+
+**Correctness (20 bugs fixed):**
+- 5 HIGH: `is_hausdorff` certificate bypass; `_close_under_unions` deduplication;
+  `_provable_true_props` recursion guard; `_product_pi1` silent exception;
+  Mayer–Vietoris torsion-aware exactness (`val % d == 0`).
+- 15 MEDIUM: `OrderTopologySpace` midpoint formula; `AlexandroffSpace` union-find
+  refactor; `SorgenfreyLineSpace` counterexample witness; `QuotientSpace.contains`
+  raises `NotImplementedError`; `DiscreteCountableSpace` Urysohn support;
+  `_bfs_urysohn` dead-code; `homology_coefficients` prime-modulus validation;
+  `relative_homology` double boundary matrix; `_induced_on_hk` shape for empty target;
+  `mayer_vietoris` off-by-one boundary; `CohomologyRing.verify_graded_commutativity()`;
+  torus `group_type` → `"free_abelian_rank_2"`; `cw_complex_pi1` disconnected-skeleton
+  guard; cubical OOM docstring warnings.
+
+**Performance (Phase 4 preview):**
+- `_snf_ext(compute_transforms=False)` — skips P/Pinv/Q/Qinv when only D is needed
+  (~80% inner-loop saving); `_mat_rank` now uses this path.
+- `_twist_reduce` bigint bitmask — `list[set[int]]` → `list[int]` Python bigint;
+  `col.bit_length()-1` pivot (C-level intrinsic); **~6.6× kernel speedup**;
+  applied to both `persistent_homology_optimized` and `cubical_homology`.

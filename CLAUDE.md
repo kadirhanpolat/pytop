@@ -32,7 +32,9 @@ pytop has two complementary layers — keep this distinction in mind when extend
   `homology` (integer boundary matrices → Smith normal form → Betti + torsion),
   `homology_coefficients` (field-coefficient / relative homology — Gaussian elimination over Q and Z/p),
   `mayer_vietoris` (Mayer–Vietoris LES: extended SNF with transformation matrices → explicit homology
-  bases; φ, ψ, δ as integer matrices; exactness verified at every position),
+  bases; φ, ψ, δ as integer matrices; exactness verified at every position; `_snf_ext` supports
+  `compute_transforms=False` to skip P/Pinv/Q/Qinv updates when only D is needed — `_mat_rank`
+  uses this path for ~80% inner-loop saving),
   `cellular_homology` (CW complex chain complex → SNF; standard spaces S^n, RP^n, CP^n, T², Klein
   bottle, lens spaces, Moore spaces; `cw_from_simplicial` cross-validation bridge),
   `cohomology` (cochain complex via δ^k=(∂_{k+1})^T; extended SNF → H^k; UCT verified;
@@ -41,7 +43,9 @@ pytop has two complementary layers — keep this distinction in mind when extend
   `persistent_homology` (Vietoris–Rips filtration → Z/2 reduction → barcodes),
   `persistent_homology_optimized` (Twist algorithm, Chen–Kerber 2011: dimension-top-down sweep +
   Clearing Lemma; `ReductionStats` with n_cleared / clearing_ratio / n_column_additions;
-  shared `_twist_reduce` kernel used by both simplicial and cubical pipelines),
+  shared `_twist_reduce` kernel used by both simplicial and cubical pipelines; **bigint bitmask**
+  column representation — `list[int]` Python bigint replaces `list[set[int]]`, pivot via
+  `col.bit_length()-1`; ~6.6× kernel speedup),
   `cubical_homology` (`CubicalComplex` with face-closure + ℤ boundary matrix + SNF homology;
   `circle_cubical`, `disk_cubical`, `interval_complex`; `CubicalFiltration` +
   `bitmap_to_cubical_filtration` — lower-star filtration from 2-D pixel arrays with

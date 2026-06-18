@@ -245,6 +245,12 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
     zero-row shape for empty target; `mayer_vietoris` off-by-one boundary (max_dim+2→max_dim+1);
     `CohomologyRing.verify_graded_commutativity()` added; torus `group_type` corrected to
     `"free_abelian_rank_2"`; `cw_complex_pi1` disconnected 1-skeleton guard; cubical OOM warnings.
+- **Performance optimizations** (current):
+  - `_snf_ext(compute_transforms=False)` — skips all row/column transform matrix updates when only
+    the diagonal D is needed; `_mat_rank` now uses this path (~80% inner-loop saving for rank queries).
+  - `_twist_reduce` bigint bitmask — `list[set[int]]` → `list[int]` Python bigint column
+    representation; pivot detection via `col.bit_length()-1` (C-level intrinsic); **~6.6× kernel
+    speedup** applied to both `persistent_homology_optimized` and `cubical_homology`.
 - **9 764 tests passing** across the full suite.
 
 ## What's New in v0.6.0
