@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] — 2026-06-18
+
+### Added
+- **Phase 2 algebraic topology — complete (8/8)** (merged via PR #15):
+  - `mayer_vietoris` — Mayer–Vietoris LES; extended SNF with transformation matrices;
+    φ, ψ, δ as integer matrices; exactness verified at every position.
+  - `cellular_homology` — CW complex chain complex → SNF; standard spaces S^n, RP^n,
+    CP^n, T², Klein bottle, lens spaces, Moore spaces; `cw_from_simplicial` bridge.
+  - `cohomology` — cochain complex δ^k=(∂_{k+1})^T; UCT verified; Alexander-Whitney
+    cup product; `CohomologyRing` with `verify_graded_commutativity()`.
+  - `van_kampen` — Seifert–van Kampen; GroupPresentation + GroupHomomorphism; amalgamated
+    free product; Tietze elimination (cyclic reduction + deduplication); abelianization via
+    SNF; `cw_complex_pi1` with disconnected-skeleton guard.
+  - `persistent_homology_optimized` — Twist algorithm (Chen–Kerber 2011) + Clearing Lemma;
+    `ReductionStats`; shared `_twist_reduce` kernel; **bigint bitmask (~6.6× kernel speedup)**.
+  - `cubical_homology` — `CubicalComplex`; `bitmap_to_cubical_filtration`; `persistent_homology_bitmap`.
+  - `homology_coefficients` — field-coefficient (Q, Z/p) and relative homology; prime-modulus validation.
+- **Phase 1 extensions**: `AlexandroffSpace`, `SubbaseSpace`, `InverseLimitSpace`; cardinal invariants;
+  Urysohn witnesses (`DiscreteCountableSpace` → discrete metric); π₁ via McCord order complex.
+- **`_snf_ext(compute_transforms=False)`** — skips P/Pinv/Q/Qinv when only D is needed (~80% saving).
+
+### Fixed
+- 5 HIGH correctness bugs: `is_hausdorff` certificate bypass; `_close_under_unions` deduplication;
+  `_provable_true_props` recursion guard; `_product_pi1` silent exception; Mayer–Vietoris
+  torsion-aware exactness check.
+- 15 MEDIUM bugs across all Phase 1/2 modules (midpoint formula, union-find refactor, torus
+  `group_type` → `"free_abelian_rank_2"`, `QuotientSpace.contains` raises `NotImplementedError`, etc.).
+
+### Tests
+- **9 764 tests passing** (+729 since v0.6.0).
+
 ### Added
 - **Computable space protocol (Milestone S1, experimental)** — `pytop.experimental.spaces`:
   a `Space` representation protocol unifying finite and finitely-presented infinite spaces
