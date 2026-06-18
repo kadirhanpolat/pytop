@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.4] — 2026-06-18
+
+### Fixed
+- **The codebase is now mypy-clean and mypy is enforced in CI.** `mypy src/pytop/`
+  reported 361 errors (57 files) under the existing lenient config; all are
+  resolved. The dominant pattern (301) was the copy-pasted `_matches_any` helper
+  declaring `candidates: set[str]` while callers pass `frozenset` constants and
+  `set` literals interchangeably — widened to `set[str] | frozenset[str]`. Also:
+  `nets.py` metadata dicts annotated `dict[str, Any]`; empty-collection locals
+  annotated; a `BasisAnalysis`/`FiniteMapAnalysis` variable-reuse renamed; the
+  optional `python-flint` import switched to the `importlib` idiom (version-agnostic,
+  no `type: ignore`); and ~16 targeted `type: ignore[code]` for descriptive/
+  experimental-layer cases mypy cannot follow (runtime covered by the test suite).
+  The CI `mypy` step is now blocking (`continue-on-error` removed). No behaviour
+  change; suite unchanged (9 950 passed, 16 opt-in oracle tests skipped).
+
 ## [0.9.3] — 2026-06-18
 
 ### Fixed
