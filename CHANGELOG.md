@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.5] — 2026-06-18
+
+### Performance
+
+- **Planarity scale pass** (`graph_planarity.py`): `is_planar` now rejects dense
+  graphs by the Euler edge bound (`E ≤ 3V−6`, or `E ≤ 2V−4` for bipartite graphs,
+  detected by 2-colouring) per connected component and *before* the rotation-system
+  search cap, and the genus search early-terminates at the first genus-0 embedding.
+  `is_planar(K4,4)` 16 624 ms → 0.019 ms; dense `Kₙ` / `K_{m,n}` decide in `O(V+E)`.
+  Every verdict is identical (pinned by the networkx Boyer–Myrvold oracle).
+- **Khovanov SNF memoisation** (`khovanov.py`): each differential's Smith normal
+  form was computed three times (outgoing rank, incoming rank, incoming torsion);
+  caching it per bidegree cuts SNF work to exactly 1× — 3× fewer SNF calls, `7_1`
+  (the (2,7) torus knot) 265 ms → 109 ms. Identical homology (cross-checked against
+  the Jones engine for the new 5_1 case).
+
+### Fixed
+
+- `is_planar(K6)` / `is_planar(K7)` (and any graph whose rotation-system space
+  exceeds the search cap but which the Euler edge bound rejects) now return `False`
+  instead of raising `GraphPlanarityError`.
+
+### Notes
+
+- Persistence was profiled but left unchanged: the Twist+Clearing kernel is already
+  bigint-optimised and the reduction (not the filtration) dominates; the next gain
+  needs the dual / persistent-cohomology algorithm. The remaining frontiers
+  (polynomial planarity, dual persistence) are documented in `docs/COMPLEXITY.md`.
+
 ## [0.9.4] — 2026-06-18
 
 ### Fixed

@@ -11,13 +11,16 @@
 > P3.2 `dehn_surgery.py` (surgery → H₁, lens space classification), P3.3
 > `khovanov.py` (Khovanov homology with torsion). The optional SnapPy bridge (P3.2)
 > and Regina-scale normal surfaces (P3.3) remain out of scope / deferred.
-> **Phase 4 complete** (P4.1–P4.8; latest release **v0.9.4**): property-based
+> **Phase 4 complete** (P4.1–P4.8; latest release **v0.9.5**): property-based
 > testing, an exact-linalg core, complexity discipline, **seven** external
 > differential oracles (sympy, networkx, numpy, python-flint, GUDHI, plus
 > Docker-based SageMath/GAP and SnapPy), and an optional flint-accelerated SNF
 > backend. Since v0.9.3 the CI runs ruff + **(blocking) mypy** + pytest on Python
-> 3.11/3.12/3.13, and as of **v0.9.4** `src/pytop` is mypy-clean (361 → 0). The
-> only remaining items are explicitly deferred: native GAP/Regina (unavailable
+> 3.11/3.12/3.13, and as of **v0.9.4** `src/pytop` is mypy-clean (361 → 0).
+> **v0.9.5** added a measured performance pass (planarity Euler edge-bound +
+> genus-0 early termination, Khovanov per-bidegree SNF memoisation; persistence
+> profiled and left unchanged). The only remaining items are explicitly deferred:
+> native GAP/Regina (unavailable
 > here — only via the Docker images) and formal verification of the core routines.
 
 ---

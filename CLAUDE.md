@@ -214,7 +214,8 @@ feature/<topic> ← feature branches, merge to master via PR
 - **Released v0.9.1:** Phase 4 P4.7 — Docker-based SageMath/GAP oracle (`test_sage_oracle.py`, opt-in `PYTOP_SAGE_ORACLE=1`; Alexander/Jones vs Sage, van Kampen abelianisation vs GAP)
 - **Released v0.9.2:** Phase 4 P4.8 — Docker-based SnapPy oracle (`tests/core/test_snappy_oracle.py`, opt-in `PYTOP_SNAPPY_ORACLE=1`; `dehn_surgery` H₁ vs SnapPy Dehn-filling homology — figure-8 & Whitehead-link surgeries; needs a local `pytop-snappy` image)
 - **Released v0.9.3:** CI green — fixed 34 ruff lint errors in Phase 1/2 code (PR #20); CI runs ruff + mypy + pytest on Python 3.11/3.12/3.13
-- **Released v0.9.4 (latest):** `src/pytop` is **mypy-clean** (361 → 0 errors) and **mypy is now blocking in CI** (PR #21); no behaviour change — 9 950 tests pass (+16 opt-in Sage/SnapPy). **Phase 3 & Phase 4 are complete** except explicitly-deferred items: native GAP/Regina (unavailable here — only reachable via the Docker Sage/SnapPy images) and formal verification of the core routines (long-term).
+- **Released v0.9.4:** `src/pytop` is **mypy-clean** (361 → 0 errors) and **mypy is now blocking in CI** (PR #21); no behaviour change — 9 950 tests pass (+16 opt-in Sage/SnapPy). **Phase 3 & Phase 4 are complete** except explicitly-deferred items: native GAP/Regina (unavailable here — only reachable via the Docker Sage/SnapPy images) and formal verification of the core routines (long-term).
+- **Released v0.9.5 (latest):** performance/scale pass (PR #22) — `is_planar` Euler edge-bound rejection + genus-0 early termination (`is_planar(K4,4)` 16 624 → 0.019 ms; K6/K7 return `False` instead of raising), and Khovanov per-bidegree SNF memoisation (3× fewer SNF calls; `7_1` 265 → 109 ms). All results identical (networkx + Jones oracles). Persistence profiled but left unchanged — its next gain needs the dual/cohomology algorithm (noted in `docs/COMPLEXITY.md`). 9 955 tests pass.
 
 ---
 
