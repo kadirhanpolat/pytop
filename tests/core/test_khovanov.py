@@ -26,6 +26,21 @@ FIGURE_EIGHT = KnotDiagram(
 HOPF = KnotDiagram([(1, 4, 2, 3), (3, 2, 4, 1)], signs=(1, 1), components=2)
 
 
+def _torus_2n(n):
+    """Standard PD code of the (2, n) torus link (closure of sigma_1^n)."""
+    two_n = 2 * n
+    pd = []
+    for k in range(1, n + 1):
+        a, c = 2 * k - 1, 2 * k
+        b = ((a - 1 + n) % two_n) + 1
+        d = ((c - 1 + n) % two_n) + 1
+        pd.append((a, b, c, d))
+    return KnotDiagram(pd, signs=(-1,) * n, components=1 if n % 2 else 2)
+
+
+CINQUEFOIL = _torus_2n(5)  # 5_1, the (2,5) torus knot — 5 crossings
+
+
 def _d_squared_is_zero(diagram: KnotDiagram) -> bool:
     _elements, differentials = _khovanov_complex(diagram)
     for (i, j), lower in differentials.items():
@@ -129,6 +144,13 @@ class TestStructure:
         assert _d_squared_is_zero(TREFOIL)
         assert _d_squared_is_zero(FIGURE_EIGHT)
         assert _d_squared_is_zero(HOPF)
+        assert _d_squared_is_zero(CINQUEFOIL)
+
+    def test_euler_characteristic_is_jones_cinquefoil(self):
+        # 5_1 (5 crossings): exercises the memoised-SNF homology step on larger
+        # differentials, cross-checked against the independent Jones engine.
+        kh = khovanov_homology(CINQUEFOIL)
+        assert kh.graded_euler_characteristic() == _expected_euler(CINQUEFOIL)
 
     def test_euler_characteristic_is_jones_trefoil(self):
         kh = khovanov_homology(TREFOIL)
