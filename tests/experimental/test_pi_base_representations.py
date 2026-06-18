@@ -40,7 +40,7 @@ from pytop.experimental.spaces.pi_base_representations import (
 
 def test_list_representable_count():
     reps = list_representable()
-    assert len(reps) == 109
+    assert len(reps) == 128
 
 
 def test_list_representable_structure():
@@ -1282,3 +1282,194 @@ class TestBatch5Properties:
         sp = best_space("S000031")
         assert is_compact(sp).value is True
         assert is_connected(sp).value is True
+
+
+# ---------------------------------------------------------------------------
+# Batch 6 — type checks, membership, and properties
+# ---------------------------------------------------------------------------
+
+class TestBatch6CertifiedSpaceTypes:
+    @pytest.mark.parametrize("uid", [
+        "S000060",  # pointed rational extension
+        "S000062",  # discrete rational extension
+        "S000072",  # Arens square
+        "S000073",  # simplified Arens square
+        "S000080",  # B. Scott's modified Arens square
+        "S000129",  # wheel without hub
+        "S000135",  # radial interval topology
+        "S000139",  # countable bouquet of circles
+        "S000143",  # butterfly space
+        "S000145",  # free ultrafilter topology on ω
+        "S000152",  # poset broom Alexandroff
+        "S000156",  # Arens space
+        "S000169",  # sphere S²
+        "S000170",  # circle S¹
+        "S000175",  # radial plane
+        "S000192",  # modified telophase
+        "S000201",  # infinite earring
+        "S000205",  # Warsaw circle
+        "S000209",  # circle with two origins
+    ])
+    def test_is_certified_space(self, uid):
+        assert isinstance(best_space(uid), _CertifiedSpace)
+
+
+class TestBatch6Membership:
+    def test_pointed_rational_ext(self):
+        sp = best_space("S000060")
+        assert sp.contains(0)
+        assert sp.contains(Fraction(1, 2))
+        assert sp.contains((Fraction(1, 3), 1))   # copy of rational
+        assert sp.contains((0, 1))                  # copy of 0
+        assert not sp.contains((Fraction(1, 2), 2))  # wrong tag
+        assert not sp.contains("x")
+
+    def test_discrete_rational_ext(self):
+        sp = best_space("S000062")
+        assert sp.contains(0)
+        assert sp.contains((Fraction(1, 3), 1))
+        assert not sp.contains((Fraction(1), 2))
+        assert not sp.contains("x")
+
+    def test_unit_square_arens(self):
+        for uid in ["S000072", "S000073", "S000080"]:
+            sp = best_space(uid)
+            assert sp.contains((Fraction(0), Fraction(0)))
+            assert sp.contains((Fraction(1, 2), Fraction(1, 2)))
+            assert not sp.contains((Fraction(3, 2), Fraction(0)))
+            assert not sp.contains("xy")
+
+    def test_plane_member_batch6(self):
+        for uid in ["S000129", "S000135", "S000143", "S000175", "S000201", "S000205"]:
+            sp = best_space(uid)
+            assert sp.contains((Fraction(0), Fraction(0)))
+            assert sp.contains((Fraction(1, 2), Fraction(-1, 3)))
+            assert not sp.contains((1, 2, 3))
+            assert not sp.contains("xy")
+
+    def test_bouquet_membership(self):
+        sp = best_space("S000139")
+        assert sp.contains((0, Fraction(0)))
+        assert sp.contains((3, Fraction(1, 2)))
+        assert not sp.contains((0, Fraction(1)))    # q must be < 1
+        assert not sp.contains((-1, Fraction(0)))   # n must be ≥ 0
+
+    def test_ultrafilter_omega_membership(self):
+        sp = best_space("S000145")
+        assert sp.contains(0)
+        assert sp.contains(42)
+        assert not sp.contains(-1)
+        assert not sp.contains("x")
+
+    def test_poset_broom_membership(self):
+        sp = best_space("S000152")
+        assert sp.contains(-1)
+        assert sp.contains("0a")
+        assert sp.contains("0b")
+        assert sp.contains(Fraction(1))        # 1/1
+        assert sp.contains(Fraction(1, 2))     # 1/2
+        assert sp.contains(Fraction(1, 10))    # 1/10
+        assert not sp.contains(Fraction(2, 3)) # 2/3 is not 1/n
+        assert sp.contains(Fraction(-1))       # -1 IS in carrier (minimum element)
+        assert not sp.contains(Fraction(-2))   # -2 not in carrier
+        assert not sp.contains(0)              # 0 not in carrier
+
+    def test_arens_space_membership(self):
+        sp = best_space("S000156")
+        assert sp.contains((0, 0))
+        assert sp.contains((3, 7))
+        assert sp.contains("∞")
+        assert not sp.contains(0)
+
+    def test_circle_S1_membership(self):
+        sp = best_space("S000170")
+        assert sp.contains((Fraction(1), Fraction(0)))    # (1,0) on circle
+        assert sp.contains((Fraction(-1), Fraction(0)))   # (-1,0)
+        assert sp.contains((Fraction(3, 5), Fraction(4, 5)))  # Pythagorean
+        assert not sp.contains((Fraction(1, 2), Fraction(1, 2)))  # 1/4+1/4 ≠ 1
+        assert not sp.contains("x")
+
+    def test_sphere_S2_membership(self):
+        sp = best_space("S000169")
+        assert sp.contains((Fraction(1), Fraction(0), Fraction(0)))   # poles
+        assert sp.contains((Fraction(0), Fraction(0), Fraction(-1)))
+        assert sp.contains((Fraction(3, 5), Fraction(4, 5), Fraction(0)))  # equatorial
+        assert not sp.contains((Fraction(1, 2), Fraction(1, 2), Fraction(1, 2)))  # 3/4≠1
+        assert not sp.contains("x")
+
+    def test_circle_two_origins_membership(self):
+        sp = best_space("S000209")
+        assert sp.contains("0a")
+        assert sp.contains("0b")
+        assert sp.contains((Fraction(-1), Fraction(0)))  # (-1,0) on circle
+        assert sp.contains((Fraction(3, 5), Fraction(4, 5)))
+        assert not sp.contains((Fraction(1), Fraction(0)))  # doubled point excluded
+        assert not sp.contains((1, 0))
+        assert not sp.contains("x")
+
+    def test_modified_telophase_membership(self):
+        sp = best_space("S000192")
+        assert sp.contains(Fraction(0))
+        assert sp.contains(Fraction(1, 2))
+        assert sp.contains(Fraction(1))
+        assert not sp.contains(Fraction(-1))
+        assert not sp.contains(Fraction(3, 2))
+
+
+class TestBatch6Properties:
+    def test_pointed_rational_ext_hausdorff(self):
+        sp = best_space("S000060")
+        assert is_hausdorff(sp).value is True
+
+    def test_discrete_rational_ext_not_connected(self):
+        sp = best_space("S000062")
+        assert is_connected(sp).value is False
+
+    def test_arens_square_hausdorff_not_compact(self):
+        sp = best_space("S000072")
+        assert is_hausdorff(sp).value is True
+        assert is_compact(sp).value is False
+
+    def test_simplified_arens_square_connected(self):
+        sp = best_space("S000073")
+        assert is_connected(sp).value is True
+
+    def test_poset_broom_compact_not_t1(self):
+        sp = best_space("S000152")
+        assert is_compact(sp).value is True
+        assert is_t1(sp).value is False
+
+    def test_circle_S1_compact_connected(self):
+        sp = best_space("S000170")
+        assert is_compact(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_sphere_S2_compact_connected(self):
+        sp = best_space("S000169")
+        assert is_compact(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_circle_two_origins_t1_not_hausdorff(self):
+        sp = best_space("S000209")
+        assert is_t1(sp).value is True     # pi-Base: T1=True
+        assert is_hausdorff(sp).value is False
+        assert is_compact(sp).value is True
+
+    def test_warsaw_circle_compact_connected(self):
+        sp = best_space("S000205")
+        assert is_compact(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_infinite_earring_compact_connected(self):
+        sp = best_space("S000201")
+        assert is_compact(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_modified_telophase_compact_not_hausdorff(self):
+        sp = best_space("S000192")
+        assert is_compact(sp).value is True
+        assert is_hausdorff(sp).value is False
+
+    def test_ultrafilter_not_hausdorff(self):
+        sp = best_space("S000145")
+        assert is_hausdorff(sp).value is False

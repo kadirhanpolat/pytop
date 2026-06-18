@@ -1248,6 +1248,188 @@ def _nested_angles() -> _CertifiedSpace:
 
 
 # ===========================================================================
+# Batch 6 — member helpers
+# ===========================================================================
+
+def _POINTED_RAT_EXT_MEMBER(p: Any) -> bool:
+    """ℝ ∪ {(q,1): q∈Q} — pointed rational extension carrier."""
+    if isinstance(p, tuple) and len(p) == 2 and isinstance(p[0], (int, Fraction)) and p[1] == 1:
+        return True
+    return isinstance(p, (int, Fraction))
+
+
+def _CIRCLE_MEMBER(p: Any) -> bool:
+    """Rational points on S¹: {(p,q)∈Q²: p²+q²=1}."""
+    if not (isinstance(p, tuple) and len(p) == 2):
+        return False
+    x, y = p
+    if not (isinstance(x, (int, Fraction)) and isinstance(y, (int, Fraction))):
+        return False
+    return Fraction(x) ** 2 + Fraction(y) ** 2 == Fraction(1)
+
+
+def _SPHERE_MEMBER(p: Any) -> bool:
+    """Rational points on S²: {(p,q,r)∈Q³: p²+q²+r²=1}."""
+    if not (isinstance(p, tuple) and len(p) == 3):
+        return False
+    x, y, z = p
+    if not (isinstance(x, (int, Fraction)) and isinstance(y, (int, Fraction)) and isinstance(z, (int, Fraction))):
+        return False
+    return Fraction(x) ** 2 + Fraction(y) ** 2 + Fraction(z) ** 2 == Fraction(1)
+
+
+def _POSET_BROOM_MEMBER(p: Any) -> bool:
+    r"""Carrier of {-1, 0_a, 0_b} ∪ {1/n: n∈Z+} with Alexandroff topology."""
+    if p in (-1, "0a", "0b"):
+        return True
+    if not isinstance(p, (int, Fraction)):
+        return False
+    fp = Fraction(p)
+    if fp <= 0:
+        return False
+    inv = Fraction(1) / fp
+    return inv.denominator == 1 and inv >= 1
+
+
+def _BOUQUET_MEMBER(p: Any) -> bool:
+    """Countable bouquet of circles: (n, q) with n∈ω, q∈Q∩[0,1)."""
+    return (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and isinstance(p[0], int) and p[0] >= 0
+        and isinstance(p[1], (int, Fraction))
+        and Fraction(0) <= Fraction(p[1]) < Fraction(1)
+    )
+
+
+def _CIRCLE_TWO_ORIGINS_MEMBER(p: Any) -> bool:
+    """S¹ with doubled basepoint: rational S¹\\{(1,0)} ∪ {'0a','0b'}."""
+    if p in ("0a", "0b"):
+        return True
+    if not _CIRCLE_MEMBER(p):
+        return False
+    return p != (Fraction(1), Fraction(0)) and p != (1, 0)
+
+
+# ===========================================================================
+# Batch 6 — certified spaces
+# ===========================================================================
+
+@_reg("S000060")
+def _pointed_rational_extension() -> _CertifiedSpace:
+    # Pointed rational extension of ℝ: ℝ ∪ {(q,1): q∈Q}.
+    return _CertifiedSpace("S000060", _POINTED_RAT_EXT_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000062")
+def _discrete_rational_extension() -> _CertifiedSpace:
+    # Discrete rational extension of ℝ: carrier ℝ ∪ {(q,1): q∈Q}.
+    return _CertifiedSpace("S000062", _POINTED_RAT_EXT_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000072")
+def _arens_square() -> _CertifiedSpace:
+    # Arens square: specific topology on a subset of [0,1]², carrier Q²∩[0,1]².
+    return _CertifiedSpace("S000072", _UNIT_SQUARE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000073")
+def _simplified_arens_square() -> _CertifiedSpace:
+    # Simplified Arens square: carrier Q²∩[0,1]².
+    return _CertifiedSpace("S000073", _UNIT_SQUARE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000080")
+def _scott_modified_arens_square() -> _CertifiedSpace:
+    # B. Scott's modified Arens square: carrier Q²∩[0,1]².
+    return _CertifiedSpace("S000080", _UNIT_SQUARE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000129")
+def _wheel_without_hub() -> _CertifiedSpace:
+    # Wheel without its hub: subspace of ℝ², carrier ℝ².
+    return _CertifiedSpace("S000129", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000135")
+def _radial_interval_topology() -> _CertifiedSpace:
+    # Radial interval topology on ℝ²: carrier ℝ².
+    return _CertifiedSpace("S000135", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000139")
+def _countable_bouquet_circles() -> _CertifiedSpace:
+    # Countable bouquet of circles: carrier ω×(Q∩[0,1)).
+    return _CertifiedSpace("S000139", _BOUQUET_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000143")
+def _butterfly_space() -> _CertifiedSpace:
+    # Butterfly space: topology on ℝ² with butterfly-shaped neighborhoods.
+    return _CertifiedSpace("S000143", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000145")
+def _free_ultrafilter_omega() -> _CertifiedSpace:
+    # Free ultrafilter topology on ω: carrier ω.
+    return _CertifiedSpace("S000145", _OMEGA_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000152")
+def _poset_broom_alexandroff() -> _CertifiedSpace:
+    # Poset {-1, 0_a, 0_b} ∪ {1/n: n∈Z+} with Alexandroff topology.
+    return _CertifiedSpace("S000152", _POSET_BROOM_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000156")
+def _arens_space() -> _CertifiedSpace:
+    # Arens space: sequential but non-first-countable countable space (carrier ω×ω ∪ {∞}).
+    return _CertifiedSpace("S000156", _GRID_OR_INF_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000169")
+def _sphere_S2() -> _CertifiedSpace:
+    # Sphere S²: rational points on unit sphere {p²+q²+r²=1}.
+    return _CertifiedSpace("S000169", _SPHERE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000170")
+def _circle_S1() -> _CertifiedSpace:
+    # Circle S¹: rational points on unit circle {p²+q²=1}.
+    return _CertifiedSpace("S000170", _CIRCLE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000175")
+def _radial_plane() -> _CertifiedSpace:
+    # Radial plane: topology on ℝ² using radial neighborhoods.
+    return _CertifiedSpace("S000175", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000192")
+def _modified_telophase() -> _CertifiedSpace:
+    # Modified telophase topology on [0,1]: carrier Q∩[0,1].
+    return _CertifiedSpace("S000192", _Q01_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000201")
+def _infinite_earring() -> _CertifiedSpace:
+    # Infinite earring: wedge of countably many circles (subspace of ℝ²).
+    return _CertifiedSpace("S000201", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000205")
+def _warsaw_circle() -> _CertifiedSpace:
+    # Warsaw circle: compact connected subspace of ℝ².
+    return _CertifiedSpace("S000205", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000209")
+def _circle_two_origins() -> _CertifiedSpace:
+    # Circle with two origins: S¹ with basepoint (1,0) doubled to '0a','0b'.
+    return _CertifiedSpace("S000209", _CIRCLE_TWO_ORIGINS_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+# ===========================================================================
 # Public API
 # ===========================================================================
 
