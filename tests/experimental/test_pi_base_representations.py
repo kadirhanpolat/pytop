@@ -40,7 +40,7 @@ from pytop.experimental.spaces.pi_base_representations import (
 
 def test_list_representable_count():
     reps = list_representable()
-    assert len(reps) == 90
+    assert len(reps) == 109
 
 
 def test_list_representable_structure():
@@ -1098,3 +1098,187 @@ class TestBatch4Properties:
     def test_fort_space_reals_compact(self):
         sp = best_space("S000154")
         assert is_compact(sp).value is True
+
+
+# ---------------------------------------------------------------------------
+# Batch 5 — type checks, membership, and properties
+# ---------------------------------------------------------------------------
+
+class TestBatch5CertifiedSpaceTypes:
+    @pytest.mark.parametrize("uid", [
+        "S000018",  # double pointed cocountable
+        "S000031",  # square of OPC(Q)
+        "S000041",  # lex ordered unit square
+        "S000067",  # irrational slope topology
+        "S000068",  # deleted diameter
+        "S000069",  # deleted radius
+        "S000070",  # half-disc topology
+        "S000071",  # irregular lattice
+        "S000074",  # Niemytzki plane
+        "S000075",  # rational tangent disc
+        "S000084",  # line with countably many origins
+        "S000086",  # everywhere doubled line
+        "S000094",  # strong parallel line
+        "S000095",  # concentric circles
+        "S000099",  # Alexandroff square
+        "S000112",  # nested rectangles
+        "S000116",  # infinite broom
+        "S000117",  # closed infinite broom
+        "S000119",  # nested angles
+    ])
+    def test_is_certified_space(self, uid):
+        assert isinstance(best_space(uid), _CertifiedSpace)
+
+
+class TestBatch5Membership:
+    def test_double_pointed_cocountable(self):
+        sp = best_space("S000018")
+        assert sp.contains((Fraction(1, 2), 0))
+        assert sp.contains((Fraction(0), 1))
+        assert not sp.contains((Fraction(0), 2))
+        assert not sp.contains(Fraction(0))
+
+    def test_square_opc_Q(self):
+        sp = best_space("S000031")
+        assert sp.contains((Fraction(1, 2), Fraction(0)))
+        assert sp.contains(("∞", Fraction(1, 3)))
+        assert sp.contains(("∞", "∞"))
+        assert not sp.contains((Fraction(0),))    # not a pair
+        assert not sp.contains((Fraction(0), "x"))
+
+    def test_unit_square_member(self):
+        for uid in ["S000041", "S000099"]:
+            sp = best_space(uid)
+            assert sp.contains((Fraction(0), Fraction(0)))
+            assert sp.contains((Fraction(1), Fraction(1)))
+            assert sp.contains((Fraction(1, 2), Fraction(1, 3)))
+            assert not sp.contains((Fraction(3, 2), Fraction(0)))  # x > 1
+            assert not sp.contains((Fraction(0), Fraction(-1, 2))) # y < 0
+
+    def test_plane_member_spaces(self):
+        for uid in ["S000067", "S000068", "S000069", "S000075",
+                    "S000094", "S000095", "S000112", "S000119"]:
+            sp = best_space(uid)
+            assert sp.contains((Fraction(0), Fraction(0)))
+            assert sp.contains((Fraction(1, 2), Fraction(-3, 4)))
+            assert not sp.contains((1, 2, 3))
+            assert not sp.contains("xy")
+
+    def test_upper_half_member_spaces(self):
+        for uid in ["S000070", "S000074"]:
+            sp = best_space(uid)
+            assert sp.contains((Fraction(0), Fraction(0)))      # x-axis
+            assert sp.contains((Fraction(1), Fraction(1, 2)))   # y > 0
+            assert not sp.contains((Fraction(0), Fraction(-1))) # y < 0
+
+    def test_integer_lattice_member(self):
+        sp = best_space("S000071")
+        assert sp.contains((0, 0))
+        assert sp.contains((-3, 5))
+        assert not sp.contains((0, Fraction(1, 2)))  # not int
+        assert not sp.contains(0)
+
+    def test_line_countable_origins(self):
+        sp = best_space("S000084")
+        assert sp.contains(Fraction(1, 2))
+        assert sp.contains(-1)
+        assert sp.contains((0, 0))    # origin copy 0
+        assert sp.contains((0, 3))    # origin copy 3
+        assert not sp.contains(0)     # actual 0 not in carrier
+        assert not sp.contains((0, -1))  # negative copy not in carrier
+        assert not sp.contains("x")
+
+    def test_everywhere_doubled_line(self):
+        sp = best_space("S000086")
+        assert sp.contains((Fraction(1, 2), 0))
+        assert sp.contains((Fraction(1, 2), 1))
+        assert sp.contains((0, 0))
+        assert not sp.contains((Fraction(0), 2))
+
+    def test_infinite_broom(self):
+        sp = best_space("S000116")
+        assert sp.contains((Fraction(0), Fraction(0)))    # base point
+        assert sp.contains((Fraction(1), Fraction(1, 2))) # spoke 1/1
+        assert sp.contains((Fraction(1, 2), Fraction(1))) # spoke 1/2
+        assert sp.contains((Fraction(1, 3), Fraction(0))) # spoke 1/3
+        assert not sp.contains((Fraction(1, 2), Fraction(-1)))  # y < 0
+        assert not sp.contains((Fraction(2, 3), Fraction(0)))   # 2/3 not 1/n
+        assert not sp.contains((Fraction(0), Fraction(1)))      # not at base
+
+    def test_closed_infinite_broom(self):
+        sp = best_space("S000117")
+        assert sp.contains((Fraction(0), Fraction(0)))
+        assert sp.contains((Fraction(0), Fraction(1, 2)))  # spine point
+        assert sp.contains((Fraction(0), Fraction(1)))     # spine endpoint
+        assert sp.contains((Fraction(1), Fraction(1, 2))) # spoke 1/1
+        assert not sp.contains((Fraction(2, 3), Fraction(0)))  # 2/3 not 1/n
+        assert not sp.contains((Fraction(0), Fraction(-1)))
+
+
+class TestBatch5Properties:
+    def test_double_pointed_cocountable_not_t0(self):
+        sp = best_space("S000018")
+        assert is_t0(sp).value is False
+
+    def test_lex_unit_square_compact_connected(self):
+        sp = best_space("S000041")
+        assert is_compact(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_deleted_diameter_hausdorff_connected(self):
+        sp = best_space("S000068")
+        assert is_hausdorff(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_deleted_radius_hausdorff(self):
+        sp = best_space("S000069")
+        assert is_hausdorff(sp).value is True
+
+    def test_half_disc_hausdorff_connected(self):
+        sp = best_space("S000070")
+        assert is_hausdorff(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_irregular_lattice_hausdorff_not_connected(self):
+        sp = best_space("S000071")
+        assert is_hausdorff(sp).value is True
+        assert is_connected(sp).value is False
+
+    def test_niemytzki_hausdorff_connected(self):
+        sp = best_space("S000074")
+        assert is_hausdorff(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_concentric_circles_compact(self):
+        sp = best_space("S000095")
+        assert is_compact(sp).value is True
+
+    def test_alexandroff_square_compact_connected(self):
+        sp = best_space("S000099")
+        assert is_compact(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_infinite_broom_connected_not_compact(self):
+        sp = best_space("S000116")
+        assert is_connected(sp).value is True
+        assert is_compact(sp).value is False
+
+    def test_closed_infinite_broom_compact_connected(self):
+        sp = best_space("S000117")
+        assert is_compact(sp).value is True
+        assert is_connected(sp).value is True
+
+    def test_line_countable_origins_t1_not_hausdorff(self):
+        sp = best_space("S000084")
+        assert is_t1(sp).value is True
+        assert is_hausdorff(sp).value is False
+
+    def test_everywhere_doubled_t1_not_hausdorff(self):
+        sp = best_space("S000086")
+        assert is_t1(sp).value is True
+        assert is_hausdorff(sp).value is False
+
+    def test_square_opc_Q_compact_connected(self):
+        sp = best_space("S000031")
+        assert is_compact(sp).value is True
+        assert is_connected(sp).value is True

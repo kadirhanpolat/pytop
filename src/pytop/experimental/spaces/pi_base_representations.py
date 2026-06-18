@@ -1047,6 +1047,207 @@ def _deleted_sequence_intervals() -> _CertifiedSpace:
 
 
 # ===========================================================================
+# Batch 5 — member helpers
+# ===========================================================================
+
+def _UPPER_HALF_MEMBER(p: Any) -> bool:
+    """Closed upper half-plane {(x,y): y ≥ 0}."""
+    return (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and isinstance(p[0], (int, Fraction))
+        and isinstance(p[1], (int, Fraction))
+        and Fraction(p[1]) >= 0
+    )
+
+
+def _UNIT_SQUARE_MEMBER(p: Any) -> bool:
+    """Q² ∩ [0,1]² — rational points in the unit square."""
+    return (
+        isinstance(p, tuple)
+        and len(p) == 2
+        and isinstance(p[0], (int, Fraction))
+        and isinstance(p[1], (int, Fraction))
+        and Fraction(0) <= Fraction(p[0]) <= Fraction(1)
+        and Fraction(0) <= Fraction(p[1]) <= Fraction(1)
+    )
+
+
+def _INT_PLANE_MEMBER(p: Any) -> bool:
+    """ℤ² — pairs of integers."""
+    return isinstance(p, tuple) and len(p) == 2 and isinstance(p[0], int) and isinstance(p[1], int)
+
+
+def _LINE_COUNT_ORIGINS_MEMBER(p: Any) -> bool:
+    """ℝ\\{0} ∪ {(0,n): n∈ω} — line with countably many origins."""
+    if isinstance(p, tuple) and len(p) == 2 and p[0] == 0 and isinstance(p[1], int) and p[1] >= 0:
+        return True
+    return isinstance(p, (int, Fraction)) and Fraction(p) != 0
+
+
+def _OPC_Q_SQ_MEMBER(p: Any) -> bool:
+    """(Q∪{∞})² — carrier of the square of one-point compactification of Q."""
+    def _opc_coord(x: Any) -> bool:
+        return x == "∞" or isinstance(x, (int, Fraction))
+    return isinstance(p, tuple) and len(p) == 2 and _opc_coord(p[0]) and _opc_coord(p[1])
+
+
+def _INFBROOM_MEMBER(p: Any) -> bool:
+    """{(0,0)} ∪ {(x,y): x=1/n n∈ℤ+, y∈Q∩[0,1]} — infinite broom."""
+    if not (isinstance(p, tuple) and len(p) == 2):
+        return False
+    x, y = p
+    if not (isinstance(x, (int, Fraction)) and isinstance(y, (int, Fraction))):
+        return False
+    fx, fy = Fraction(x), Fraction(y)
+    if not (Fraction(0) <= fy <= Fraction(1)):
+        return False
+    if fx == 0:
+        return fy == 0   # only (0,0) on the y-axis
+    if fx <= 0:
+        return False
+    # x must equal 1/n for some positive integer n, i.e., 1/x is a positive integer
+    inv_x = Fraction(1) / fx
+    return inv_x.denominator == 1 and inv_x >= 1
+
+
+def _CLOSED_INFBROOM_MEMBER(p: Any) -> bool:
+    """{0}×(Q∩[0,1]) ∪ {(x,y): x=1/n n∈ℤ+, y∈Q∩[0,1]} — closed infinite broom."""
+    if not (isinstance(p, tuple) and len(p) == 2):
+        return False
+    x, y = p
+    if not (isinstance(x, (int, Fraction)) and isinstance(y, (int, Fraction))):
+        return False
+    fx, fy = Fraction(x), Fraction(y)
+    if not (Fraction(0) <= fy <= Fraction(1)):
+        return False
+    if fx == 0:
+        return True   # entire spine {0}×[0,1]
+    if fx <= 0:
+        return False
+    inv_x = Fraction(1) / fx
+    return inv_x.denominator == 1 and inv_x >= 1
+
+
+# ===========================================================================
+# Batch 5 — certified spaces
+# ===========================================================================
+
+@_reg("S000018")
+def _double_pointed_cocountable() -> _CertifiedSpace:
+    # Double pointed cocountable topology on ℝ (carrier ℝ×{0,1}).
+    return _CertifiedSpace("S000018", _DOUBLE_REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000031")
+def _square_opc_Q() -> _CertifiedSpace:
+    # Square of one-point compactification of Q: carrier (Q∪{∞})².
+    return _CertifiedSpace("S000031", _OPC_Q_SQ_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000041")
+def _lex_ordered_unit_square() -> _CertifiedSpace:
+    # Lexicographically ordered unit square [0,1]²: carrier Q²∩[0,1]².
+    return _CertifiedSpace("S000041", _UNIT_SQUARE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000067")
+def _irrational_slope_topology() -> _CertifiedSpace:
+    # Irrational slope topology on Q²: carrier Q² (plane with rational coords).
+    return _CertifiedSpace("S000067", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000068")
+def _deleted_diameter_topology() -> _CertifiedSpace:
+    # Deleted diameter topology: carrier ℝ².
+    return _CertifiedSpace("S000068", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000069")
+def _deleted_radius_topology() -> _CertifiedSpace:
+    # Deleted radius topology: carrier ℝ².
+    return _CertifiedSpace("S000069", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000070")
+def _half_disc_topology() -> _CertifiedSpace:
+    # Half-disc topology: carrier = closed upper half-plane {y ≥ 0}.
+    return _CertifiedSpace("S000070", _UPPER_HALF_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000071")
+def _irregular_lattice_topology() -> _CertifiedSpace:
+    # Irregular lattice topology: carrier ℤ².
+    return _CertifiedSpace("S000071", _INT_PLANE_MEMBER, CarrierKind.COUNTABLE)
+
+
+@_reg("S000074")
+def _niemytzki_plane() -> _CertifiedSpace:
+    # Niemytzki (tangent disc) plane: carrier = closed upper half-plane {y ≥ 0}.
+    return _CertifiedSpace("S000074", _UPPER_HALF_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000075")
+def _rational_tangent_disc() -> _CertifiedSpace:
+    # Rational tangent disc topology: carrier ℝ².
+    return _CertifiedSpace("S000075", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000084")
+def _line_countable_origins() -> _CertifiedSpace:
+    # Line with countably many origins: ℝ\\{0} ∪ {(0,n): n∈ω}.
+    return _CertifiedSpace("S000084", _LINE_COUNT_ORIGINS_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000086")
+def _everywhere_doubled_line() -> _CertifiedSpace:
+    # Everywhere doubled line: ℝ×{0,1}.
+    return _CertifiedSpace("S000086", _DOUBLE_REAL_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000094")
+def _strong_parallel_line() -> _CertifiedSpace:
+    # Strong parallel line topology: carrier ℝ².
+    return _CertifiedSpace("S000094", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000095")
+def _concentric_circles() -> _CertifiedSpace:
+    # Concentric circles topology: carrier ℝ².
+    return _CertifiedSpace("S000095", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000099")
+def _alexandroff_square() -> _CertifiedSpace:
+    # Alexandroff square [0,1]²: carrier Q²∩[0,1]².
+    return _CertifiedSpace("S000099", _UNIT_SQUARE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000112")
+def _nested_rectangles() -> _CertifiedSpace:
+    # Nested rectangles in the real plane: carrier ℝ².
+    return _CertifiedSpace("S000112", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000116")
+def _infinite_broom() -> _CertifiedSpace:
+    # Infinite broom: {(0,0)} ∪ spokes {(1/n, t): n∈ℤ+, t∈[0,1]}.
+    return _CertifiedSpace("S000116", _INFBROOM_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000117")
+def _closed_infinite_broom() -> _CertifiedSpace:
+    # Closed infinite broom: spine {0}×[0,1] ∪ spokes {(1/n,t): n∈ℤ+, t∈[0,1]}.
+    return _CertifiedSpace("S000117", _CLOSED_INFBROOM_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+@_reg("S000119")
+def _nested_angles() -> _CertifiedSpace:
+    # Nested angles in the real plane: carrier ℝ².
+    return _CertifiedSpace("S000119", _PLANE_MEMBER, CarrierKind.UNCOUNTABLE)
+
+
+# ===========================================================================
 # Public API
 # ===========================================================================
 
