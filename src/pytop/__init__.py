@@ -627,6 +627,7 @@ from .khovanov import (
 from .exact_linalg import (
     AbelianGroup,
     smith_normal_form,
+    smith_normal_form_extended,
     integer_rank,
     integer_determinant,
     cokernel,
@@ -1462,6 +1463,7 @@ __all__ = [
     "khovanov_homology",
     "AbelianGroup",
     "smith_normal_form",
+    "smith_normal_form_extended",
     "integer_rank",
     "integer_determinant",
     "cokernel",

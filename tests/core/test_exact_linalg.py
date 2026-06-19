@@ -20,6 +20,7 @@ from pytop import (
     integer_determinant,
     integer_rank,
     smith_normal_form,
+    smith_normal_form_extended,
 )
 
 
@@ -246,3 +247,90 @@ class TestSNFFormalInvariants:
             assert all(d > 0 for d in factors)
             for i in range(len(factors) - 1):
                 assert factors[i + 1] % factors[i] == 0, factors
+
+
+# ---------------------------------------------------------------------------
+# smith_normal_form_extended: transformation matrices P, Q
+# ---------------------------------------------------------------------------
+
+
+def _mat_mul(A: list[list[int]], B: list[list[int]]) -> list[list[int]]:
+    """Integer matrix product A @ B."""
+    rows, mid, cols = len(A), len(B), len(B[0]) if B else 0
+    return [
+        [sum(A[i][k] * B[k][j] for k in range(mid)) for j in range(cols)]
+        for i in range(rows)
+    ]
+
+
+def _abs_det(M: list[list[int]]) -> int:
+    """Absolute value of determinant (Bareiss), for square matrices only."""
+    from pytop import integer_determinant
+    return abs(integer_determinant(M))
+
+
+class TestSNFExtended:
+    """Tests for smith_normal_form_extended: (factors, P, Q) decomposition."""
+
+    def _check_decomposition(self, matrix: list[list[int]]) -> None:
+        factors, P, Q = smith_normal_form_extended(matrix)
+        rows, cols = len(matrix), len(matrix[0]) if matrix else 0
+
+        # factors must match smith_normal_form
+        assert factors == smith_normal_form(matrix)
+
+        # P, Q must be square with the right dimensions
+        assert len(P) == rows and all(len(row) == rows for row in P)
+        assert len(Q) == cols and all(len(row) == cols for row in Q)
+
+        # P and Q must be unimodular (det = ±1)
+        if rows > 0:
+            assert _abs_det(P) == 1, f"|det(P)| = {_abs_det(P)}, not 1"
+        if cols > 0:
+            assert _abs_det(Q) == 1, f"|det(Q)| = {_abs_det(Q)}, not 1"
+
+        # P @ matrix @ Q must be diagonal with the invariant factors on the diagonal
+        D = _mat_mul(_mat_mul(P, matrix), Q)
+        r = len(factors)
+        for i in range(rows):
+            for j in range(cols):
+                if i == j and i < r:
+                    assert D[i][j] == factors[i], f"D[{i}][{j}] = {D[i][j]}, expected {factors[i]}"
+                else:
+                    assert D[i][j] == 0, f"D[{i}][{j}] = {D[i][j]}, expected 0"
+
+    def test_identity_2x2(self):
+        self._check_decomposition([[1, 0], [0, 1]])
+
+    def test_diagonal_non_snf(self):
+        # [[2, 0], [0, 3]] → SNF = [[1, 0], [0, 6]]
+        self._check_decomposition([[2, 0], [0, 3]])
+
+    def test_rank_deficient(self):
+        self._check_decomposition([[1, 2], [2, 4]])
+
+    def test_single_row(self):
+        self._check_decomposition([[4, 6, 10]])
+
+    def test_single_col(self):
+        self._check_decomposition([[6], [4], [10]])
+
+    def test_rectangular_wide(self):
+        self._check_decomposition([[1, 2, 3], [4, 5, 6]])
+
+    def test_rectangular_tall(self):
+        self._check_decomposition([[1, 4], [2, 5], [3, 6]])
+
+    def test_zero_matrix(self):
+        factors, P, Q = smith_normal_form_extended([[0, 0], [0, 0]])
+        assert factors == []
+        assert _abs_det(P) == 1
+        assert _abs_det(Q) == 1
+
+    def test_random_property(self):
+        rng = random.Random(3141)
+        for _ in range(150):
+            rows = rng.randint(1, 4)
+            cols = rng.randint(1, 4)
+            matrix = [[rng.randint(-6, 6) for _ in range(cols)] for _ in range(rows)]
+            self._check_decomposition(matrix)

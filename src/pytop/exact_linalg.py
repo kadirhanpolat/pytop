@@ -22,6 +22,7 @@ from .homology import _smith_normal_form
 __all__ = [
     "AbelianGroup",
     "smith_normal_form",
+    "smith_normal_form_extended",
     "integer_rank",
     "integer_determinant",
     "cokernel",
@@ -81,6 +82,31 @@ def smith_normal_form(matrix: list[list[int]]) -> list[int]:
     """
 
     return _smith_normal_form([list(row) for row in matrix])
+
+
+def smith_normal_form_extended(
+    matrix: list[list[int]],
+) -> tuple[list[int], list[list[int]], list[list[int]]]:
+    """Return ``(factors, P, Q)`` such that ``P @ matrix @ Q`` is in Smith normal form.
+
+    The unimodular integer matrices ``P`` (rows×rows) and ``Q`` (cols×cols) satisfy
+    ``P @ matrix @ Q = diag(d₁, …, d_r, 0, …, 0)`` where ``[d₁, …, d_r]`` is
+    exactly the output of :func:`smith_normal_form`.  Both ``P`` and ``Q`` have
+    integer determinant ±1, so the decomposition is exact over ℤ.
+
+    This extended form is needed to:
+
+    - Express homology bases in terms of the original simplices.
+    - Solve integer linear systems ``Ax = b`` over ℤ.
+    - Lift cokernel generators to explicit group elements.
+    """
+    from .mayer_vietoris import _snf_ext
+
+    m = [list(map(int, row)) for row in matrix]
+    D, P, _Pinv, Q, _Qinv = _snf_ext(m)
+    r = min(len(D), len(D[0]) if D else 0)
+    factors = [D[i][i] for i in range(r) if D[i][i] != 0]
+    return factors, P, Q
 
 
 def integer_rank(matrix: list[list[int]]) -> int:
