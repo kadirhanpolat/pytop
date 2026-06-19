@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.9] — 2026-06-19
+
+### Added
+
+- **Persistence diagram distances** (`persistence_distances.py`): `bottleneck_distance`
+  (min-max L∞ matching via sorted-threshold binary search + bipartite matching),
+  `wasserstein_distance` (p-Wasserstein via Jonker-Volgenant O(n³) Hungarian assignment),
+  `persistence_entropy` (Shannon entropy of the persistence distribution),
+  `persistence_landscape` / `PersistenceLandscape` (sampled k-th landscape functions on
+  uniform time grid). All functions accept `tuple[PersistencePair, ...]` directly and
+  support per-degree filtering. Essential bars excluded from metric computations. Dependency-
+  free pure Python implementation. 39 new tests.
+
 ## [0.9.8] — 2026-06-19
 
 ### Added

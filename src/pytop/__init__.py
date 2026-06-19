@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.9.8"
+__version__ = "0.9.9"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2968,6 +2968,13 @@ from .discrete_morse import (
     discrete_gradient_matching,
     is_valid_morse_matching,
     check_morse_inequalities,
+)
+from .persistence_distances import (
+    PersistenceLandscape,
+    bottleneck_distance,
+    wasserstein_distance,
+    persistence_entropy,
+    persistence_landscape,
 )
 from .abstract_homotopy import (
     AbstractHomotopyProfile,
