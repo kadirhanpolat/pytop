@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] — 2026-06-19
+
+### Added
+
+- **TDA Pipeline** (`tda_pipeline.py`, P6.3): `TDAPipeline` — immutable builder for
+  composing filtration, reduction, and analysis.  Methods: `.rips()`, `.cech()`,
+  `.reduce(method, prime)` (methods: `standard`, `twist`, `cohomology`, `fp`),
+  `.pairs()`, `.barcode()`, `.diagram()`, `.landscape()`, `.entropy()`,
+  `.bottleneck()`, `.wasserstein()`, `.compare_primes()`, `.summary()`.
+  Factory classmethods: `from_points()`, `from_filtration()`. 42 new tests.
+
 ## [1.0.2] — 2026-06-19
 
 ### Added

@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2991,6 +2991,7 @@ from .persistent_homology_fp import (
     is_prime,
     persistence_pairs_fp,
 )
+from .tda_pipeline import TDAPipeline
 from .abstract_homotopy import (
     AbstractHomotopyProfile,
     MODEL_CATEGORY_TAGS,
