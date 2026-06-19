@@ -17,6 +17,7 @@ import pytest
 from pytop import (
     AbelianGroup,
     cokernel,
+    cokernel_generators,
     integer_determinant,
     integer_rank,
     smith_normal_form,
@@ -334,3 +335,76 @@ class TestSNFExtended:
             cols = rng.randint(1, 4)
             matrix = [[rng.randint(-6, 6) for _ in range(cols)] for _ in range(rows)]
             self._check_decomposition(matrix)
+
+
+# ---------------------------------------------------------------------------
+# cokernel_generators: explicit generators for Z^n / im(matrix)
+# ---------------------------------------------------------------------------
+
+
+class TestCokernelGenerators:
+    """Tests for cokernel_generators(matrix) → (AbelianGroup, generators)."""
+
+    def test_group_matches_cokernel(self):
+        for matrix in [
+            [[2, 0], [0, 6]],
+            [[1, 0], [0, 1]],
+            [[1, 0, 0], [0, 0, 0]],
+            [[2]],
+            [[6, 4], [3, 2]],
+        ]:
+            group, _ = cokernel_generators(matrix)
+            assert group == cokernel(matrix)
+
+    def test_generator_count(self):
+        cases = [
+            ([[2, 0], [0, 6]], 2),     # Z/2 + Z/6
+            ([[1, 0], [0, 1]], 0),     # trivial
+            ([[1, 0, 0], [0, 0, 0]], 2),  # Z^2
+            ([[2]], 1),                # Z/2
+        ]
+        for matrix, expected_count in cases:
+            group, gens = cokernel_generators(matrix)
+            assert len(gens) == expected_count, (matrix, gens)
+            assert len(gens) == group.free_rank + len(group.torsion)
+
+    def test_trivial_cokernel_no_generators(self):
+        group, gens = cokernel_generators([[1, 0], [0, 1]])
+        assert group.is_trivial
+        assert gens == []
+
+    def test_free_cokernel_generators(self):
+        # [[1, 0, 0], [0, 0, 0]] → Z^2 free; two free generators in Z^3
+        group, gens = cokernel_generators([[1, 0, 0], [0, 0, 0]])
+        assert group.free_rank == 2
+        assert len(gens) == 2
+        for g in gens:
+            assert len(g) == 3
+
+    def test_torsion_generator_order(self):
+        # Z/2: generator g satisfies 2g in row_lattice
+        _, gens = cokernel_generators([[2]])
+        assert len(gens) == 1
+        g = gens[0][0]
+        # 2 * g must be in {2k : k ∈ Z}, so 2*g % 2 == 0 ✓ trivially
+        # but g itself should NOT be divisible by 2 (g is odd)
+        assert g % 2 != 0, f"torsion generator {g} should be odd (not in 2Z)"
+
+    def test_empty_matrix(self):
+        # Empty matrix: cokernel is Z^n with n=0
+        group, gens = cokernel_generators([])
+        assert group.is_trivial
+        assert gens == []
+
+    def test_random_group_agrees_with_cokernel(self):
+        rng = random.Random(9999)
+        for _ in range(200):
+            rows = rng.randint(1, 4)
+            cols = rng.randint(1, 4)
+            matrix = [[rng.randint(-5, 5) for _ in range(cols)] for _ in range(rows)]
+            group_c = cokernel(matrix)
+            group_g, gens = cokernel_generators(matrix)
+            assert group_g == group_c
+            assert len(gens) == group_c.free_rank + len(group_c.torsion)
+            for g in gens:
+                assert len(g) == cols

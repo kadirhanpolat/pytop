@@ -631,6 +631,7 @@ from .exact_linalg import (
     integer_rank,
     integer_determinant,
     cokernel,
+    cokernel_generators,
 )
 from .winding_number import (
     WindingError,
@@ -1467,6 +1468,7 @@ __all__ = [
     "integer_rank",
     "integer_determinant",
     "cokernel",
+    "cokernel_generators",
     "WindingError",
     "winding_number",
     "circle_map_degree",
