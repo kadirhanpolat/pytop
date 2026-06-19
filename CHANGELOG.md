@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] — 2026-06-19
+
+### Added
+
+- **Standard triangulations** (`simplicial_filtration.py`, P7.1): `simplicial_filtration`
+  generic builder (face closure, all births = 0, sorted by dimension then lex), plus
+  three standard closed-surface triangulations as `FilteredComplex` objects:
+  `torus_filtration` (9 vertices, 27 edges, 18 triangles; T² has no torsion, β=(1,2,1)
+  for all primes), `klein_bottle_filtration` (9 vertices, 18 triangles; H_1(K;Z)=Z⊕Z/2
+  detected: β_1=2 over F_2, β_1=1 over F_3), `rp2_filtration` (6 vertices, 10 triangles;
+  minimal Banchoff–Kühnel triangulation; H_1(RP²;Z)=Z/2 detected: β_1=1 over F_2,
+  β_1=0 over F_3). UCT torsion-detection confirmed for Klein bottle and RP² (β_2=1 over
+  F_2 from Tor(Z/2, Z/2), β_2=0 over odd primes). 33 new tests.
+
 ## [1.0.3] — 2026-06-19
 
 ### Added

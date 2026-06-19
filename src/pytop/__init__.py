@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2992,6 +2992,12 @@ from .persistent_homology_fp import (
     persistence_pairs_fp,
 )
 from .tda_pipeline import TDAPipeline
+from .simplicial_filtration import (
+    simplicial_filtration,
+    torus_filtration,
+    klein_bottle_filtration,
+    rp2_filtration,
+)
 from .abstract_homotopy import (
     AbstractHomotopyProfile,
     MODEL_CATEGORY_TAGS,
