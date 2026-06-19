@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.8] — 2026-06-19
+
+### Added
+
+- **Discrete Morse theory** (`discrete_morse.py`): `discrete_gradient_matching` computes
+  an acyclic discrete gradient vector field (Forman 1998) on a finite simplicial complex
+  using a greedy cycle-detection algorithm (DFS on V-paths). Produces perfect Morse
+  matchings on contractible subcomplexes (one critical 0-cell). `MorsePair` / `MorseMatching`
+  data structures, `is_valid_morse_matching` (acyclicity + partition check),
+  `check_morse_inequalities` (weak Morse inequalities m_p ≥ β_p and Euler identity via
+  integral simplicial homology). Validated on interval, circle (S¹), filled triangle,
+  tetrahedron, S², and the 9-vertex torus triangulation. 29 new tests.
+
 ## [0.9.7] — 2026-06-19
 
 ### Added

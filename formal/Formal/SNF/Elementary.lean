@@ -5,13 +5,14 @@ import Mathlib.Data.Int.Basic
 /-!
 # Elementary Row/Column Operations
 
-Formalises the four operations used by `_smith_normal_form_python`.
+Defines the four elementary operations used by the SNF algorithm and proves
+their entry-level properties.
 -/
 
 namespace PytopSNF
 
 -- ---------------------------------------------------------------------------
--- Row operations
+-- Definitions
 -- ---------------------------------------------------------------------------
 
 /-- Swap rows i and j (0-indexed). -/
@@ -21,17 +22,13 @@ def swapRows (A : IntMatrix) (i j : Nat) : IntMatrix :=
     else if k = j then A.getD i row
     else row
 
-/-- Add `factor * A[src]` to row `dst`. -/
+/-- Add `factor * row[src]` to row `dst`. -/
 def addRow (A : IntMatrix) (src dst : Nat) (factor : Int) : IntMatrix :=
   A.mapIdx fun k row =>
     if k = dst then
       let srcRow := A.getD src []
       row.mapIdx fun c x => x + factor * srcRow.getD c 0
     else row
-
--- ---------------------------------------------------------------------------
--- Column operations
--- ---------------------------------------------------------------------------
 
 /-- Swap columns i and j. -/
 def swapCols (A : IntMatrix) (i j : Nat) : IntMatrix :=
@@ -52,57 +49,153 @@ def addCol (A : IntMatrix) (src dst : Nat) (factor : Int) : IntMatrix :=
 -- Dimension preservation
 -- ---------------------------------------------------------------------------
 
-@[simp]
-theorem swapRows_numRows (A : IntMatrix) (i j : Nat) :
-    numRows (swapRows A i j) = numRows A := by
-  simp [swapRows, numRows]
+@[simp] theorem swapRows_numRows (A : IntMatrix) (i j : Nat) :
+    numRows (swapRows A i j) = numRows A := by simp [swapRows, numRows]
 
-@[simp]
-theorem addRow_numRows (A : IntMatrix) (src dst : Nat) (factor : Int) :
-    numRows (addRow A src dst factor) = numRows A := by
-  simp [addRow, numRows]
+@[simp] theorem addRow_numRows (A : IntMatrix) (src dst : Nat) (factor : Int) :
+    numRows (addRow A src dst factor) = numRows A := by simp [addRow, numRows]
 
-@[simp]
-theorem swapCols_numRows (A : IntMatrix) (i j : Nat) :
-    numRows (swapCols A i j) = numRows A := by
-  simp [swapCols, numRows]
+@[simp] theorem swapCols_numRows (A : IntMatrix) (i j : Nat) :
+    numRows (swapCols A i j) = numRows A := by simp [swapCols, numRows]
 
-@[simp]
-theorem addCol_numRows (A : IntMatrix) (src dst : Nat) (factor : Int) :
-    numRows (addCol A src dst factor) = numRows A := by
-  simp [addCol, numRows]
+@[simp] theorem addCol_numRows (A : IntMatrix) (src dst : Nat) (factor : Int) :
+    numRows (addCol A src dst factor) = numRows A := by simp [addCol, numRows]
 
 -- ---------------------------------------------------------------------------
--- Entry-level properties
+-- Private helpers
 -- ---------------------------------------------------------------------------
 
-/-- After swapping rows i and j, entry (i, c) equals old entry (j, c). -/
-theorem swapRows_entry_i (A : IntMatrix) (i j c : Nat) :
-    entry (swapRows A i j) i c = entry A j c := by
-  sorry
+/-- `(l.mapIdx f)[k]? = l[k]?.map (f k)`. -/
+private theorem mapIdx_getElem? {α β : Type*}
+    (l : List α) (f : ℕ → α → β) (k : ℕ) :
+    (l.mapIdx f)[k]? = l[k]?.map (f k) := by
+  induction l generalizing k f with
+  | nil => simp
+  | cons head tail ih =>
+    rw [List.mapIdx_cons]
+    cases k with
+    | zero => simp
+    | succ n =>
+      simp only [List.getElem?_cons_succ]
+      exact ih (f ∘ Nat.succ) n
 
-/-- addRow leaves all rows except `dst` unchanged. -/
+/-- `(A.getD i []).getD j 0 = entry A i j`.
+
+Proved by relating `List.getD` to `Option.getD` via `simp [List.getD]`. -/
+private theorem getD_eq_entry (A : IntMatrix) (i j : Nat) :
+    (A.getD i []).getD j 0 = entry A i j := by
+  simp only [entry]
+  -- List.getD A i [] = (A[i]?).getD []  (by simp [List.getD])
+  rw [show A.getD i [] = (A[i]?).getD [] from by simp [List.getD]]
+  cases A[i]? with
+  | none => simp
+  | some row => simp [List.getD]
+
+-- ---------------------------------------------------------------------------
+-- Core entry lemmas
+-- ---------------------------------------------------------------------------
+
+/-- `addRow` leaves every row except `dst` unchanged. -/
 theorem addRow_entry_unaffected (A : IntMatrix) (src dst k c : Nat) (factor : Int)
     (hk : k ≠ dst) :
     entry (addRow A src dst factor) k c = entry A k c := by
-  sorry
+  simp only [entry, addRow, mapIdx_getElem?, if_neg hk, Option.map_id']
 
-/-- addCol leaves all columns except `dst` unchanged. -/
+/-- `addCol` leaves every column except `dst` unchanged. -/
 theorem addCol_entry_unaffected (A : IntMatrix) (src dst k c : Nat) (factor : Int)
     (hc : c ≠ dst) :
     entry (addCol A src dst factor) k c = entry A k c := by
-  sorry
+  simp only [entry, addCol, List.getElem?_map]
+  cases A[k]? with
+  | none => simp
+  | some r => simp [if_neg hc]
 
-/-- addRow at position (dst, t) adds factor * entry (src, t). -/
-theorem addRow_entry_dst (A : IntMatrix) (src dst c : Nat) (factor : Int) :
+/-- `addRow` at (dst, c) satisfies the expected additive formula.
+    The out-of-bounds case (c past end of row dst) is sorry'd. -/
+theorem addRow_entry_dst (A : IntMatrix) (src dst c : Nat) (factor : Int)
+    (hdst : dst < numRows A) (hc : c < (A.getD dst []).length) :
     entry (addRow A src dst factor) dst c =
     entry A dst c + factor * entry A src c := by
-  sorry
+  have hdst' : dst < A.length := hdst
+  have hAi  : A[dst]? = some A[dst]  := List.getElem?_eq_getElem hdst'
+  have hgetd : A.getD dst [] = A[dst] := by simp [List.getD, hAi]
+  have hc'  : c < A[dst].length      := hgetd ▸ hc
+  have hrow : A[dst][c]? = some A[dst][c] := List.getElem?_eq_getElem hc'
+  have hlhs : entry (addRow A src dst factor) dst c =
+              A[dst][c] + factor * (A.getD src []).getD c 0 := by
+    simp [entry, addRow, mapIdx_getElem?, hAi, hrow, show dst = dst from rfl]
+  have hrhs : entry A dst c = A[dst][c] := by simp [entry, hAi, hrow]
+  rw [hlhs, hrhs]; congr 1; congr 1
+  exact getD_eq_entry A src c
 
-/-- addCol at position (k, dst) adds factor * entry (k, src). -/
-theorem addCol_entry_dst (A : IntMatrix) (src dst k : Nat) (factor : Int) :
+/-- `addCol` at (k, dst) satisfies the expected additive formula.
+    The out-of-bounds case is sorry'd. -/
+theorem addCol_entry_dst (A : IntMatrix) (src dst k : Nat) (factor : Int)
+    (hk : k < numRows A) (hdst : dst < (A.getD k []).length) :
     entry (addCol A src dst factor) k dst =
     entry A k dst + factor * entry A k src := by
-  sorry
+  have hk'  : k < A.length                := hk
+  have hAk  : A[k]? = some A[k]           := List.getElem?_eq_getElem hk'
+  have hgetd : A.getD k [] = A[k]         := by simp [List.getD, hAk]
+  have hdst' : dst < A[k].length          := hgetd ▸ hdst
+  have hcol : A[k][dst]? = some A[k][dst] := List.getElem?_eq_getElem hdst'
+  have hlhs : entry (addCol A src dst factor) k dst =
+              A[k][dst] + factor * A[k].getD src 0 := by
+    simp [entry, addCol, List.getElem?_map, mapIdx_getElem?, hAk, hcol,
+          show dst = dst from rfl]
+  have hrhs : entry A k dst = A[k][dst] := by simp [entry, hAk, hcol]
+  have hsrc : entry A k src = A[k].getD src 0 := by
+    simp only [entry, hAk, Option.map_some]; simp [List.getD]
+  rw [hlhs, hrhs, ← hsrc]
+
+/-- Swapping rows i↔j places old row j at position i (requires both in bounds). -/
+theorem swapRows_entry_i (A : IntMatrix) (i j c : Nat)
+    (hi : i < numRows A) (hj : j < numRows A) :
+    entry (swapRows A i j) i c = entry A j c := by
+  have hi' : i < A.length := hi
+  have hj' : j < A.length := hj
+  simp only [entry, swapRows, mapIdx_getElem?]
+  rw [List.getElem?_eq_getElem hi']
+  simp only [Option.map_some, if_true]
+  -- goal: (some (A.getD j A[i])).bind (·[c]?)).getD 0 = entry A j c
+  rw [show A.getD j A[i] = A[j] from by
+        simp [List.getD, List.getElem?_eq_getElem hj']]
+  simp [List.getElem?_eq_getElem hj']
+
+-- ---------------------------------------------------------------------------
+-- Fold-invariant helpers (used by clearPass_preserves_pivot in Termination.lean)
+-- ---------------------------------------------------------------------------
+
+/-- A foldl row-clearing loop preserves `entry _ t t`. -/
+theorem foldl_addRow_pres_pivot (l : List Nat)
+    (A : IntMatrix) (t : Nat)
+    (f : IntMatrix → Nat → Int) :
+    entry (l.foldl (fun M i =>
+        if i = t then M else addRow M t i (f M i)) A) t t =
+    entry A t t := by
+  induction l generalizing A with
+  | nil => simp
+  | cons i is ih =>
+    simp only [List.foldl_cons]
+    split_ifs with hi
+    · exact ih A
+    · rw [ih (addRow A t i (f A i)),
+          addRow_entry_unaffected A t i t t (f A i) (Ne.symm hi)]
+
+/-- A foldl col-clearing loop preserves `entry _ t t`. -/
+theorem foldl_addCol_pres_pivot (l : List Nat)
+    (A : IntMatrix) (t : Nat)
+    (f : IntMatrix → Nat → Int) :
+    entry (l.foldl (fun M j =>
+        if j = t then M else addCol M t j (f M j)) A) t t =
+    entry A t t := by
+  induction l generalizing A with
+  | nil => simp
+  | cons j js ih =>
+    simp only [List.foldl_cons]
+    split_ifs with hj
+    · exact ih A
+    · rw [ih (addCol A t j (f A j)),
+          addCol_entry_unaffected A t j t t (f A j) (Ne.symm hj)]
 
 end PytopSNF

@@ -78,6 +78,45 @@ theorem clearLoop_pivot_ne_zero (A : IntMatrix) (t pi pj innerFuel : Nat)
   exact swapped_pivot_ne_zero A t pi pj hfp
 
 -- ---------------------------------------------------------------------------
+-- isCleared and enforceDivisibility
+-- ---------------------------------------------------------------------------
+
+/-- When `isCleared A t`, every entry in column t (except row t) is zero. -/
+theorem isCleared_col_zero (A : IntMatrix) (t i : Nat) (ht : i ≠ t)
+    (hcleared : isCleared A t = true) :
+    entry A i t = 0 := by
+  simp only [isCleared, Bool.and_eq_true, List.all_eq_true] at hcleared
+  obtain ⟨hcol, _⟩ := hcleared
+  by_cases hi : i < numRows A
+  · have hmem : i ∈ List.range (numRows A) := List.mem_range.mpr hi
+    have hcheck := hcol i hmem
+    simp only [Bool.or_eq_true, decide_eq_true_eq] at hcheck
+    rcases hcheck with rfl | h
+    · exact absurd rfl ht
+    · exact h
+  · -- i ≥ numRows A → A[i]? = none → entry = 0
+    push_neg at hi
+    have hge : A.length ≤ i := by simpa [numRows] using hi
+    have hni : A[i]? = none := List.getElem?_eq_none_iff.mpr hge
+    simp [entry, hni]
+
+/-- `enforceDivisibility A t` does not change `entry A t t` when the matrix
+    is cleared (column t is zero off the diagonal).
+
+Proof: if `bad = none`, the matrix is unchanged.  If `bad = some (i, j)`, the
+algorithm returns `addRow A i t 1`.  By `addRow_entry_dst`:
+  `entry (addRow A i t 1) t t = entry A t t + 1 * entry A i t`.
+Since `isCleared A t` and `i > t`, `entry A i t = 0` by `isCleared_col_zero`. -/
+theorem enforceDivisibility_preserves_pivot (A : IntMatrix) (t : Nat)
+    (hcleared : isCleared A t = true) :
+    entry (enforceDivisibility A t) t t = entry A t t := by
+  -- Key: bad = some (i, _j) → addRow A i t 1 is returned;
+  -- entry (addRow A i t 1) t t = entry A t t + 1 * entry A i t = entry A t t
+  -- since isCleared A t → entry A i t = 0 for i ≠ t.
+  -- The findSome? API needed to extract i > t is sorry'd.
+  sorry
+
+-- ---------------------------------------------------------------------------
 -- snfOuterStep returns a positive factor
 -- ---------------------------------------------------------------------------
 
@@ -127,8 +166,25 @@ theorem snfOuterStep_pos (A : IntMatrix) (t innerFuel : Nat) (d : Int)
       -- h : some ↑(entry A₅ t t).natAbs = some d
       have hd : d = ↑(entry _ t t).natAbs := (Option.some.inj h).symm
       rw [hd]
-      -- entry A₅ t t ≠ 0: needs enforceDivisibility_preserves_pivot + clearLoop_preserves_pivot
-      sorry
+      -- Need: entry A₅ t t ≠ 0
+      -- Chain: A₂ → A₃ = clearLoop A₂ → A₄ = enforceDivisibility A₃ → A₅ = clearLoop A₄
+      -- entry A₃ t t ≠ 0  (clearLoop_pivot_ne_zero)
+      -- entry A₄ t t = entry A₃ t t  (enforceDivisibility_preserves_pivot — needs isCleared A₃)
+      -- entry A₅ t t = entry A₄ t t  (clearLoop_preserves_pivot)
+      set A₂ := swapCols (swapRows A pi t) pj t
+      set A₃ := clearLoop A₂ t innerFuel
+      have hA₃_ne : entry A₃ t t ≠ 0 := clearLoop_pivot_ne_zero A t pi pj innerFuel hfp
+      -- isCleared A₃ t: with sufficient fuel, clearLoop always clears (sorry'd)
+      have hcleared₃ : isCleared A₃ t = true := by sorry
+      have hA₄ : entry (enforceDivisibility A₃ t) t t = entry A₃ t t :=
+        enforceDivisibility_preserves_pivot A₃ t hcleared₃
+      have hA₅ : entry (clearLoop (enforceDivisibility A₃ t) t innerFuel) t t =
+                 entry (enforceDivisibility A₃ t) t t :=
+        clearLoop_preserves_pivot (enforceDivisibility A₃ t) t innerFuel
+      -- chain: entry (clearLoop A₄) t t = entry A₄ t t = entry A₃ t t ≠ 0
+      have hfinal : entry (clearLoop (enforceDivisibility A₃ t) t innerFuel) t t ≠ 0 := by
+        rw [hA₅, hA₄]; exact hA₃_ne
+      exact natAbs_cast_pos hfinal
 
 -- ---------------------------------------------------------------------------
 -- pytopSNF_positive

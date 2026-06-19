@@ -81,13 +81,22 @@ theorem clearLoop_stuck (A : IntMatrix) (t k : Nat)
 -- clearPass strictly decreases minNonzeroAbs when pivot ≠ 0
 -- ---------------------------------------------------------------------------
 
-/-- The pivot entry (t,t) is unchanged by clearPass. -/
+/-- The pivot entry (t,t) is unchanged by clearPass.
+
+Proof: clearPass does a row-clearing fold (each step is `addRow M t i _` with
+`i ≠ t`, so `addRow_entry_unaffected` applies) followed by a col-clearing fold
+(each step is `addCol M t j _` with `j ≠ t`, so `addCol_entry_unaffected`
+applies).  The two `foldl_*_pres_pivot` helpers from `Elementary.lean` package
+this fold induction. -/
 theorem clearPass_preserves_pivot (A : IntMatrix) (t : Nat) :
     entry (clearPass A t) t t = entry A t t := by
   simp only [clearPass]
   split_ifs with h
   · rfl
-  · sorry  -- addRow modifies i ≠ t; addCol modifies j ≠ t; (t,t) is untouched
+  · rw [foldl_addCol_pres_pivot (List.range (numCols A)) _ t
+          (fun M j => -(entry M t j / entry M t t)),
+        foldl_addRow_pres_pivot (List.range (numRows A)) A t
+          (fun M i => -(entry M i t / entry M t t))]
 
 /-- After `clearPass`, every off-pivot entry in column t satisfies
     `|entry (clearPass A t) i t| < |entry A t t|` (when pivot ≠ 0, i ≠ t). -/

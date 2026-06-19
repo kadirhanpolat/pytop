@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.9.7"
+__version__ = "0.9.8"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2960,6 +2960,14 @@ from .cubical_homology import (
     bitmap_to_cubical_filtration,
     persistence_pairs_cubical,
     persistent_homology_bitmap,
+)
+from .discrete_morse import (
+    MorsePair,
+    MorseMatching,
+    MorseInequalities,
+    discrete_gradient_matching,
+    is_valid_morse_matching,
+    check_morse_inequalities,
 )
 from .abstract_homotopy import (
     AbstractHomotopyProfile,
