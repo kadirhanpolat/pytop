@@ -78,6 +78,23 @@ theorem clearLoop_pivot_ne_zero (A : IntMatrix) (t pi pj innerFuel : Nat)
   exact swapped_pivot_ne_zero A t pi pj hfp
 
 -- ---------------------------------------------------------------------------
+-- findSome? existence helper (avoids depending on Mathlib API name)
+-- ---------------------------------------------------------------------------
+
+private lemma findSome?_exists {α β : Type*} {l : List α} {f : α → Option β} {b : β}
+    (h : l.findSome? f = some b) : ∃ a ∈ l, f a = some b := by
+  induction l with
+  | nil => simp [List.findSome?] at h
+  | cons a as ih =>
+    unfold List.findSome? at h
+    rcases hfa : f a with _ | b'
+    · simp only [hfa] at h
+      obtain ⟨x, hx, hxf⟩ := ih h
+      exact ⟨x, List.mem_cons.mpr (Or.inr hx), hxf⟩
+    · simp only [hfa] at h
+      exact ⟨a, List.mem_cons.mpr (Or.inl rfl), hfa.trans h⟩
+
+-- ---------------------------------------------------------------------------
 -- isCleared and enforceDivisibility
 -- ---------------------------------------------------------------------------
 
@@ -110,11 +127,66 @@ Since `isCleared A t` and `i > t`, `entry A i t = 0` by `isCleared_col_zero`. -/
 theorem enforceDivisibility_preserves_pivot (A : IntMatrix) (t : Nat)
     (hcleared : isCleared A t = true) :
     entry (enforceDivisibility A t) t t = entry A t t := by
-  -- Key: bad = some (i, _j) → addRow A i t 1 is returned;
-  -- entry (addRow A i t 1) t t = entry A t t + 1 * entry A i t = entry A t t
-  -- since isCleared A t → entry A i t = 0 for i ≠ t.
-  -- The findSome? API needed to extract i > t is sorry'd.
-  sorry
+  unfold enforceDivisibility
+  -- Case 1: pivot = 0 → unchanged
+  by_cases hpivot_ne : entry A t t = 0
+  · simp [hpivot_ne]
+  -- Case 2: pivot ≠ 0
+  · simp only [hpivot_ne, ite_false]
+    -- Derive row bound from hpivot_ne : entry A t t ≠ 0
+    have ht_row : t < numRows A := by
+      simp only [numRows]
+      by_contra hge
+      push_neg at hge
+      have hne : A[t]? = none := List.getElem?_eq_none_iff.mpr hge
+      simp [entry, hne] at hpivot_ne
+    -- Derive column bound
+    have ht_col : t < (A.getD t []).length := by
+      have hAt : A[t]? = some (A[t]'ht_row) :=
+        List.getElem?_eq_getElem ht_row
+      rw [show A.getD t [] = A[t]'ht_row from by simp [List.getD, hAt]]
+      by_contra hge
+      push_neg at hge
+      have hcol : (A[t]'ht_row)[t]? = none := List.getElem?_eq_none_iff.mpr hge
+      simp [entry, hAt, hcol] at hpivot_ne
+    -- Case-split on bad
+    set m := numRows A
+    set n := numCols A
+    set bad := (List.range m).findSome? fun i =>
+      if i ≤ t then none
+      else (List.range n).findSome? fun j =>
+        if j ≤ t then none
+        else if entry A i j % entry A t t ≠ 0 then some (i, j) else none
+    rcases hbad : bad with _ | ⟨i, _j⟩
+    · -- bad = none: unchanged
+      rfl
+    · -- bad = some (i, _j): return addRow A i t 1
+      simp only
+      -- entry A i t = 0  (isCleared_col_zero, needs i > t)
+      have hi_gt : t < i := by
+        -- Extract witness k from the outer findSome? (bad = some (i, _j))
+        obtain ⟨k, hk_mem, hk_val⟩ := findSome?_exists hbad
+        simp only [List.mem_range] at hk_mem   -- hk_mem : k < m
+        -- Outer guard: if k ≤ t then none → k must satisfy t < k
+        by_cases hkt : k ≤ t
+        · simp [if_pos hkt] at hk_val          -- none = some _ → False → goal closed
+        · simp only [if_neg hkt] at hk_val
+          -- hk_val : inner findSome? for row k = some (i, _j)
+          obtain ⟨j0, _, hj0_val⟩ := findSome?_exists hk_val
+          -- Inner guard: if j0 ≤ t then none
+          by_cases hj0t : j0 ≤ t
+          · simp [if_pos hj0t] at hj0_val      -- none = some _ → False → goal closed
+          · simp only [if_neg hj0t] at hj0_val
+            split_ifs at hj0_val with hmod
+            · -- some (k, j0) = some (i, _j)  →  i = k, and t < k from hkt
+              -- (split_ifs auto-closes the ¬hmod branch where hj0_val : none = some _)
+              have hik : k = i := (Prod.ext_iff.mp (Option.some.inj hj0_val)).1
+              simp only [Nat.not_le] at hkt; omega
+      have hentry_it : entry A i t = 0 :=
+        isCleared_col_zero A t i (Nat.ne_of_gt hi_gt) hcleared
+      -- Apply addRow_entry_dst
+      rw [addRow_entry_dst A i t t 1 ht_row ht_col]
+      simp [hentry_it]
 
 -- ---------------------------------------------------------------------------
 -- snfOuterStep returns a positive factor
