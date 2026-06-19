@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2982,6 +2982,10 @@ from .mapper import (
     MapperComplex,
     mapper,
     single_linkage_labels,
+)
+from .cech_complex import (
+    cech_filtration,
+    persistent_homology_cech,
 )
 from .abstract_homotopy import (
     AbstractHomotopyProfile,

@@ -4,12 +4,13 @@
 
 `pytop` is a standalone mathematical topology library for Python 3.11+.
 It provides point-set topology, knot theory, graph topology, surface classification,
-3-manifolds, degree theory, cardinal functions, and more. As of **v1.0.0** it ships a
+3-manifolds, degree theory, cardinal functions, and more. As of **v1.0.1** it ships a
 **constructive computational core** (simplicial homology with field/relative coefficients,
 persistent homology / TDA, optimized persistence with Twist+Clearing, persistent cohomology
 (de Silva dual), cubical complexes + bitmap persistence, discrete Morse theory, persistence
-distances (bottleneck/Wasserstein), persistence landscapes, Mapper algorithm, knot invariant
-polynomials, winding/degree, surface-word classification, exact graph planarity), a
+distances (bottleneck/Wasserstein), persistence landscapes, Mapper algorithm, Čech complex
+(Welzl miniball + circumradius), knot invariant polynomials, winding/degree,
+surface-word classification, exact graph planarity), a
 **pi-Base–backed deductive inference engine** (`pytop.experimental.pi_base`), and a
 **research-grade computable-space protocol** (`pytop.experimental.spaces`) for point-set
 topology — Phase 1 complete (S1–S5), **Phase 2 complete (8/8)**: field-coeff homology,
@@ -227,7 +228,8 @@ feature/<topic> ← feature branches, merge to master via PR
 - **Released v0.9.7:** second frontier closed (PR #24) — **persistent cohomology** (`persistence_pairs_cohomology`), the de Silva–Morozov–Vejdemo-Johansson incremental dual algorithm (live cocycles + inverted index; youngest-cocycle-dies elder rule). Identical barcodes to the standard/Twist reductions but orders of magnitude fewer column ops on Rips (circle n=40 d=2: 132 vs 178 789; ~2–2.5× wall-clock). Validated against standard reduction + Twist + **GUDHI**. `persistence_pairs_twist` stays the default; cohomology is a faster peer. Both documented frontiers (poly planarity, dual persistence) now closed. 9 975 tests pass.
 - **Released v0.9.8:** Phase 5 P5.1 — **Discrete Morse Theory** (`discrete_morse`): `MorsePair`, `MorseMatching`, `MorseInequalities`; `discrete_gradient_matching` (greedy + V-path DFS acyclicity guard); `is_valid_morse_matching`; `check_morse_inequalities`. Perfect matchings: contractible spaces → 1 critical cell, S^1 → 2, S^2 → 2, torus χ=0. 29 new tests.
 - **Released v0.9.9:** Phase 5 P5.2 — **Persistence distances & descriptors** (`persistence_distances`): `bottleneck_distance` (binary search + max bipartite matching); `wasserstein_distance` (Jonker-Volgenant O(n³) Hungarian, augmented (m+n)×(m+n) cost matrix); `PersistenceLandscape` (Bubenik 2015, k-th tent on grid); `persistence_entropy` (Shannon entropy of bar lengths). Dependency-free. 39 new tests.
-- **Released v1.0.0 (latest):** Phase 5 P5.3 — **Mapper algorithm** (`mapper`): Singh–Mémoli–Carlsson (2007) full pipeline — `IntervalCover` (overlapping uniform cover), `single_linkage_labels` (1-D single-linkage), `mapper()` (filter → cover → pullback clustering → nerve complex up to configurable dimension), `MapperComplex` with `connected_components()` / `adjacency()`. Custom `cluster_fn` and `cover` supported. 31 new tests. All Phase 5 TDA frontiers (P5.1–P5.3) closed. **10 074 tests pass.**
+- **Released v1.0.0:** Phase 5 P5.3 — **Mapper algorithm** (`mapper`): Singh–Mémoli–Carlsson (2007) full pipeline — `IntervalCover` (overlapping uniform cover), `single_linkage_labels` (1-D single-linkage), `mapper()` (filter → cover → pullback clustering → nerve complex up to configurable dimension), `MapperComplex` with `connected_components()` / `adjacency()`. Custom `cluster_fn` and `cover` supported. 31 new tests. All Phase 5 TDA frontiers (P5.1–P5.3) closed. **10 074 tests pass.**
+- **Released v1.0.1 (latest):** Phase 6 P6.1 — **Čech complex** (`cech_complex`): `cech_filtration` + `persistent_homology_cech`. Welzl's miniball (Gaussian elimination circumsphere). Rips–Čech sandwich verified. 29 new tests.
 
 ---
 

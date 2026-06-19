@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] — 2026-06-19
+
+### Added
+
+- **Čech complex** (`cech_complex.py`, P6.1): `cech_filtration` builds the Čech filtration
+  of a finite R^d point cloud via Welzl's miniball algorithm (Gaussian elimination for
+  circumsphere, O(d! · n) expected). `persistent_homology_cech` convenience wrapper.
+  Rips–Čech sandwich satisfied: each edge birth equals its Rips counterpart divided by 2.
+  Pure-Python, zero new dependencies, compatible with all pytop persistence pipelines
+  (standard, Twist, cohomology). 29 new tests.
+
 ## [1.0.0] — 2026-06-19
 
 ### Added
