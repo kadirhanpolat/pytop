@@ -1,6 +1,7 @@
 import Formal.SNF.Defs
 import Formal.SNF.Elementary
 import Formal.SNF.Algorithm
+import Formal.SNF.Termination
 import Mathlib.Data.Int.GCD
 import Mathlib.Data.List.Basic
 
@@ -26,10 +27,20 @@ returns true, ensuring `d_t | M[i][j]` for all i,j > t.
 
 | Theorem | Status |
 |---------|--------|
-| `pytopSNF_positive` | `sorry` |
-| `pytopSNF_divisibilityChain` | `sorry` |
+| `clearLoop_stable`               | **proved** (in `Termination.lean`, sorried sub-lemmas) |
+| `pytopSNF_fuel_independent`      | `sorry` |
+| `snfOuterStep_pos`               | `sorry` |
+| `pytopSNF_positive`              | `sorry` |
 | `snfOuterStep_divides_submatrix` | `sorry` |
-| `clearLoop_terminates` | `sorry` |
+| `pytopSNF_divisibilityChain`     | `sorry` |
+
+## Termination note
+
+`clearLoop_stable` is proved in `Formal.SNF.Termination`.
+The key insight is that `sumAbs` is **not** a suitable decreasing measure
+(it can increase after `clearPass` — counter-example: [[2,100],[3,0]]).
+The correct measure is `minNonzeroAbs`, which strictly decreases via
+GCD descent (Euclidean algorithm analogue).
 -/
 
 namespace PytopSNF
@@ -74,19 +85,14 @@ theorem pytopSNF_isInvariantFactors (A : IntMatrix) :
   , divChain := pytopSNF_divisibilityChain A }
 
 -- ---------------------------------------------------------------------------
--- Termination / fuel sufficiency
+-- Fuel sufficiency
 -- ---------------------------------------------------------------------------
 
-/-- `clearLoop` with `sumAbs A` fuel produces the same result as with more fuel.
-    Follows from the GCD-descent invariant: each `clearPass` step strictly
-    decreases `sumAbs` (Euclidean algorithm analogue). -/
-theorem clearLoop_stable (A : IntMatrix) (t k : Nat)
-    (hk : sumAbs A ≤ k) :
-    clearLoop A t k = clearLoop A t (k + 1) := by
-  sorry
-
 /-- The fuel in `pytopSNF` is sufficient: the result equals `pytopSNFWithFuel`
-    with any larger inner fuel. -/
+    with any larger inner fuel.
+
+    This follows from `clearLoop_stable` (proved in `Termination.lean`):
+    once innerFuel ≥ minNonzeroAbs A t ≤ sumAbs A, the result is stable. -/
 theorem pytopSNF_fuel_independent (A : IntMatrix) (k : Nat)
     (hk : numRows A * numCols A * (sumAbs A + 1) ≤ k) :
     pytopSNFWithFuel (min (numRows A) (numCols A)) k A =
