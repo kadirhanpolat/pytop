@@ -7,6 +7,92 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] — 2026-06-19
+
+### Added
+
+- **Standard triangulations** (`simplicial_filtration.py`, P7.1): `simplicial_filtration`
+  generic builder (face closure, all births = 0, sorted by dimension then lex), plus
+  three standard closed-surface triangulations as `FilteredComplex` objects:
+  `torus_filtration` (9 vertices, 27 edges, 18 triangles; T² has no torsion, β=(1,2,1)
+  for all primes), `klein_bottle_filtration` (9 vertices, 18 triangles; H_1(K;Z)=Z⊕Z/2
+  detected: β_1=2 over F_2, β_1=1 over F_3), `rp2_filtration` (6 vertices, 10 triangles;
+  minimal Banchoff–Kühnel triangulation; H_1(RP²;Z)=Z/2 detected: β_1=1 over F_2,
+  β_1=0 over F_3). UCT torsion-detection confirmed for Klein bottle and RP² (β_2=1 over
+  F_2 from Tor(Z/2, Z/2), β_2=0 over odd primes). 33 new tests.
+
+## [1.0.3] — 2026-06-19
+
+### Added
+
+- **TDA Pipeline** (`tda_pipeline.py`, P6.3): `TDAPipeline` — immutable builder for
+  composing filtration, reduction, and analysis.  Methods: `.rips()`, `.cech()`,
+  `.reduce(method, prime)` (methods: `standard`, `twist`, `cohomology`, `fp`),
+  `.pairs()`, `.barcode()`, `.diagram()`, `.landscape()`, `.entropy()`,
+  `.bottleneck()`, `.wasserstein()`, `.compare_primes()`, `.summary()`.
+  Factory classmethods: `from_points()`, `from_filtration()`. 42 new tests.
+
+## [1.0.2] — 2026-06-19
+
+### Added
+
+- **Persistent homology over Z/p** (`persistent_homology_fp.py`, P6.2):
+  `persistence_pairs_fp(filtered, prime)` — standard column reduction over the
+  finite field F_p for any prime p ≥ 2.  Alternating-sign boundary operator
+  (`(-1)^i` coefficients), modular inverse via Fermat's little theorem.
+  For p = 2 the output matches `persistence_pairs` exactly.  Higher primes
+  detect Z-homology torsion invisible over F_2 (e.g., RP² torsion classes).
+  `is_prime` helper exported publicly. 23 new tests.
+
+## [1.0.1] — 2026-06-19
+
+### Added
+
+- **Čech complex** (`cech_complex.py`, P6.1): `cech_filtration` builds the Čech filtration
+  of a finite R^d point cloud via Welzl's miniball algorithm (Gaussian elimination for
+  circumsphere, O(d! · n) expected). `persistent_homology_cech` convenience wrapper.
+  Rips–Čech sandwich satisfied: each edge birth equals its Rips counterpart divided by 2.
+  Pure-Python, zero new dependencies, compatible with all pytop persistence pipelines
+  (standard, Twist, cohomology). 29 new tests.
+
+## [1.0.0] — 2026-06-19
+
+### Added
+
+- **Mapper algorithm** (`mapper.py`): `mapper(data, filter_fn, cover)` — constructs the
+  Mapper simplicial complex (Singh–Mémoli–Carlsson 2007). `IntervalCover` (uniform
+  overlapping interval cover of the filter image), `single_linkage_labels` (built-in
+  1-D single-linkage clustering with configurable gap threshold), `MapperNode` (cluster with
+  member indices), `MapperComplex` (nodes + simplices + adjacency + connected components).
+  Custom `cover`, `cluster_fn`, `gap_threshold`, and `max_simplex_dim` supported.
+  Dependency-free. 31 new tests.
+
+## [0.9.9] — 2026-06-19
+
+### Added
+
+- **Persistence diagram distances** (`persistence_distances.py`): `bottleneck_distance`
+  (min-max L∞ matching via sorted-threshold binary search + bipartite matching),
+  `wasserstein_distance` (p-Wasserstein via Jonker-Volgenant O(n³) Hungarian assignment),
+  `persistence_entropy` (Shannon entropy of the persistence distribution),
+  `persistence_landscape` / `PersistenceLandscape` (sampled k-th landscape functions on
+  uniform time grid). All functions accept `tuple[PersistencePair, ...]` directly and
+  support per-degree filtering. Essential bars excluded from metric computations. Dependency-
+  free pure Python implementation. 39 new tests.
+
+## [0.9.8] — 2026-06-19
+
+### Added
+
+- **Discrete Morse theory** (`discrete_morse.py`): `discrete_gradient_matching` computes
+  an acyclic discrete gradient vector field (Forman 1998) on a finite simplicial complex
+  using a greedy cycle-detection algorithm (DFS on V-paths). Produces perfect Morse
+  matchings on contractible subcomplexes (one critical 0-cell). `MorsePair` / `MorseMatching`
+  data structures, `is_valid_morse_matching` (acyclicity + partition check),
+  `check_morse_inequalities` (weak Morse inequalities m_p ≥ β_p and Euler identity via
+  integral simplicial homology). Validated on interval, circle (S¹), filled triangle,
+  tetrahedron, S², and the 9-vertex torus triangulation. 29 new tests.
+
 ## [0.9.7] — 2026-06-19
 
 ### Added

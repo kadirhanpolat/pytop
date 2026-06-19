@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.9.7"
+__version__ = "1.0.4"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -627,9 +627,11 @@ from .khovanov import (
 from .exact_linalg import (
     AbelianGroup,
     smith_normal_form,
+    smith_normal_form_extended,
     integer_rank,
     integer_determinant,
     cokernel,
+    cokernel_generators,
 )
 from .winding_number import (
     WindingError,
@@ -1462,9 +1464,11 @@ __all__ = [
     "khovanov_homology",
     "AbelianGroup",
     "smith_normal_form",
+    "smith_normal_form_extended",
     "integer_rank",
     "integer_determinant",
     "cokernel",
+    "cokernel_generators",
     "WindingError",
     "winding_number",
     "circle_map_degree",
@@ -2956,6 +2960,43 @@ from .cubical_homology import (
     bitmap_to_cubical_filtration,
     persistence_pairs_cubical,
     persistent_homology_bitmap,
+)
+from .discrete_morse import (
+    MorsePair,
+    MorseMatching,
+    MorseInequalities,
+    discrete_gradient_matching,
+    is_valid_morse_matching,
+    check_morse_inequalities,
+)
+from .persistence_distances import (
+    PersistenceLandscape,
+    bottleneck_distance,
+    wasserstein_distance,
+    persistence_entropy,
+    persistence_landscape,
+)
+from .mapper import (
+    IntervalCover,
+    MapperNode,
+    MapperComplex,
+    mapper,
+    single_linkage_labels,
+)
+from .cech_complex import (
+    cech_filtration,
+    persistent_homology_cech,
+)
+from .persistent_homology_fp import (
+    is_prime,
+    persistence_pairs_fp,
+)
+from .tda_pipeline import TDAPipeline
+from .simplicial_filtration import (
+    simplicial_filtration,
+    torus_filtration,
+    klein_bottle_filtration,
+    rp2_filtration,
 )
 from .abstract_homotopy import (
     AbstractHomotopyProfile,

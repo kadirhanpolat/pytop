@@ -22,9 +22,11 @@ from .homology import _smith_normal_form
 __all__ = [
     "AbelianGroup",
     "smith_normal_form",
+    "smith_normal_form_extended",
     "integer_rank",
     "integer_determinant",
     "cokernel",
+    "cokernel_generators",
 ]
 
 
@@ -83,6 +85,31 @@ def smith_normal_form(matrix: list[list[int]]) -> list[int]:
     return _smith_normal_form([list(row) for row in matrix])
 
 
+def smith_normal_form_extended(
+    matrix: list[list[int]],
+) -> tuple[list[int], list[list[int]], list[list[int]]]:
+    """Return ``(factors, P, Q)`` such that ``P @ matrix @ Q`` is in Smith normal form.
+
+    The unimodular integer matrices ``P`` (rows×rows) and ``Q`` (cols×cols) satisfy
+    ``P @ matrix @ Q = diag(d₁, …, d_r, 0, …, 0)`` where ``[d₁, …, d_r]`` is
+    exactly the output of :func:`smith_normal_form`.  Both ``P`` and ``Q`` have
+    integer determinant ±1, so the decomposition is exact over ℤ.
+
+    This extended form is needed to:
+
+    - Express homology bases in terms of the original simplices.
+    - Solve integer linear systems ``Ax = b`` over ℤ.
+    - Lift cokernel generators to explicit group elements.
+    """
+    from .mayer_vietoris import _snf_ext
+
+    m = [list(map(int, row)) for row in matrix]
+    D, P, _Pinv, Q, _Qinv = _snf_ext(m)
+    r = min(len(D), len(D[0]) if D else 0)
+    factors = [D[i][i] for i in range(r) if D[i][i] != 0]
+    return factors, P, Q
+
+
 def integer_rank(matrix: list[list[int]]) -> int:
     """Return the rank of an integer matrix (the number of invariant factors)."""
 
@@ -135,3 +162,66 @@ def cokernel(matrix: list[list[int]]) -> AbelianGroup:
     free_rank = n_cols - len(factors)
     torsion = tuple(d for d in factors if d > 1)
     return AbelianGroup(free_rank=free_rank, torsion=torsion)
+
+
+def cokernel_generators(
+    matrix: list[list[int]],
+) -> tuple[AbelianGroup, list[list[int]]]:
+    """Return ``(group, generators)`` for the cokernel ``ℤ^n / im(matrix)``.
+
+    The rows of ``matrix`` present relations among ``n = cols`` generators.
+    This function returns:
+
+    - ``group``:      the same :class:`AbelianGroup` as :func:`cokernel`.
+    - ``generators``: a list of integer vectors in ``ℤ^n``, one per summand of
+      ``group``, ordered as ``[free generators…, torsion generators…]``.
+      Each free generator ``g`` satisfies ``matrix @ g ≡ 0 (mod 1)`` (i.e. lies
+      in the kernel of the map ``ℤ^n → ℤ^m`` encoded by ``matrix``).
+      Each torsion generator ``g_i`` has order ``d_i`` in the cokernel (i.e.
+      ``d_i · g_i`` is in the image of ``matrix``).
+
+    The generators are the columns of ``Q⁻¹`` (the inverse right-transformation
+    matrix from the extended Smith normal form) corresponding to the non-unit
+    and zero diagonal positions.
+
+    Example
+    -------
+    >>> group, gens = cokernel_generators([[2, 0], [0, 6]])
+    >>> str(group)
+    'Z/2 + Z/6'
+    >>> len(gens)   # one torsion generator per summand
+    2
+    """
+    from .mayer_vietoris import _snf_ext
+
+    m = [list(map(int, row)) for row in matrix]
+    n_cols = len(m[0]) if m else 0
+    if n_cols == 0:
+        return AbelianGroup(free_rank=0, torsion=()), []
+
+    D, _P, _Pinv, _Q, Qinv = _snf_ext(m)
+    r = min(len(D), n_cols)
+    factors = [D[i][i] for i in range(r) if D[i][i] != 0]
+
+    free_rank = n_cols - len(factors)
+    torsion = tuple(d for d in factors if d > 1)
+    group = AbelianGroup(free_rank=free_rank, torsion=torsion)
+
+    # Columns of Qinv^T (= rows of Qinv) in SNF basis correspond to summands.
+    # Columns of Q^{-1} that correspond to: free part (zero diagonal) first,
+    # then torsion part (d_i > 1 diagonal positions), then trivial (d_i = 1).
+    # We pick columns of Qinv (= Q^{-T}) matching the non-trivial summands.
+    # Qinv rows give the coordinate change; column j of Q^{-1} = row j of Qinv^T.
+    # Equivalently: the j-th column of Q^{-1} is the j-th column extracted from Qinv transposed.
+    # Simpler: Qinv[j] is the j-th row of Q^{-1}, giving coordinates in ℤ^n for summand j.
+
+    generators: list[list[int]] = []
+    # Free generators (columns beyond rank)
+    for j in range(len(factors), n_cols):
+        generators.append(list(Qinv[j]))
+    # Torsion generators (columns with d_i > 1)
+    for j, d in enumerate(factors):
+        if d > 1:
+            generators.append(list(Qinv[j]))
+
+    return group, generators

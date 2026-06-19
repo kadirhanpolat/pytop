@@ -17,9 +17,11 @@ import pytest
 from pytop import (
     AbelianGroup,
     cokernel,
+    cokernel_generators,
     integer_determinant,
     integer_rank,
     smith_normal_form,
+    smith_normal_form_extended,
 )
 
 
@@ -162,3 +164,247 @@ class TestProperties:
                 assert group.order == abs(determinant)
             else:
                 assert group.free_rank > 0
+
+
+# ---------------------------------------------------------------------------
+# Formal invariants — pytopSNF_positive and pytopSNF_divisibilityChain
+# ---------------------------------------------------------------------------
+
+
+class TestSNFFormalInvariants:
+    """Property tests corresponding to the two main formal theorems in formal/Formal/SNF/.
+
+    - pytopSNF_positive:          every factor d_i > 0
+    - pytopSNF_divisibilityChain: d_1 | d_2 | ... | d_k
+    """
+
+    # --- Known-answer spot checks ---
+
+    def test_positive_identity(self):
+        factors = smith_normal_form([[1, 0], [0, 1]])
+        assert all(d > 0 for d in factors)
+
+    def test_divisibility_chain_known(self):
+        # [[6,4],[3,2]] → SNF factors should satisfy d_1 | d_2
+        factors = smith_normal_form([[6, 4], [3, 2]])
+        for i in range(len(factors) - 1):
+            assert factors[i + 1] % factors[i] == 0, factors
+
+    def test_positive_rectangular(self):
+        factors = smith_normal_form([[2, 4, 6], [1, 3, 5]])
+        assert all(d > 0 for d in factors)
+
+    def test_divisibility_after_elimination(self):
+        # Matrix that requires row/col operations to achieve SNF
+        factors = smith_normal_form([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        for i in range(len(factors) - 1):
+            assert factors[i + 1] % factors[i] == 0, factors
+
+    # --- Random property tests (pytopSNF_positive) ---
+
+    def test_all_factors_positive_random(self):
+        rng = random.Random(2024)
+        for _ in range(300):
+            rows = rng.randint(1, 5)
+            cols = rng.randint(1, 5)
+            matrix = [[rng.randint(-10, 10) for _ in range(cols)] for _ in range(rows)]
+            factors = smith_normal_form(matrix)
+            assert all(d > 0 for d in factors), f"non-positive factor in {factors}"
+
+    # --- Random property tests (pytopSNF_divisibilityChain) ---
+
+    def test_divisibility_chain_random_square(self):
+        rng = random.Random(2025)
+        for _ in range(300):
+            n = rng.randint(1, 5)
+            matrix = [[rng.randint(-8, 8) for _ in range(n)] for _ in range(n)]
+            factors = smith_normal_form(matrix)
+            for i in range(len(factors) - 1):
+                assert factors[i + 1] % factors[i] == 0, (
+                    f"divisibility broken at index {i}: "
+                    f"{factors[i]} ∤ {factors[i + 1]}, factors={factors}"
+                )
+
+    def test_divisibility_chain_random_rectangular(self):
+        rng = random.Random(2026)
+        for _ in range(300):
+            rows = rng.randint(1, 5)
+            cols = rng.randint(1, 5)
+            matrix = [[rng.randint(-8, 8) for _ in range(cols)] for _ in range(rows)]
+            factors = smith_normal_form(matrix)
+            for i in range(len(factors) - 1):
+                assert factors[i + 1] % factors[i] == 0, (
+                    f"divisibility broken at index {i}: "
+                    f"{factors[i]} ∤ {factors[i + 1]}, factors={factors}"
+                )
+
+    def test_divisibility_chain_large_entries(self):
+        rng = random.Random(2027)
+        for _ in range(100):
+            rows = rng.randint(2, 4)
+            cols = rng.randint(2, 4)
+            matrix = [[rng.randint(-100, 100) for _ in range(cols)] for _ in range(rows)]
+            factors = smith_normal_form(matrix)
+            assert all(d > 0 for d in factors)
+            for i in range(len(factors) - 1):
+                assert factors[i + 1] % factors[i] == 0, factors
+
+
+# ---------------------------------------------------------------------------
+# smith_normal_form_extended: transformation matrices P, Q
+# ---------------------------------------------------------------------------
+
+
+def _mat_mul(A: list[list[int]], B: list[list[int]]) -> list[list[int]]:
+    """Integer matrix product A @ B."""
+    rows, mid, cols = len(A), len(B), len(B[0]) if B else 0
+    return [
+        [sum(A[i][k] * B[k][j] for k in range(mid)) for j in range(cols)]
+        for i in range(rows)
+    ]
+
+
+def _abs_det(M: list[list[int]]) -> int:
+    """Absolute value of determinant (Bareiss), for square matrices only."""
+    from pytop import integer_determinant
+    return abs(integer_determinant(M))
+
+
+class TestSNFExtended:
+    """Tests for smith_normal_form_extended: (factors, P, Q) decomposition."""
+
+    def _check_decomposition(self, matrix: list[list[int]]) -> None:
+        factors, P, Q = smith_normal_form_extended(matrix)
+        rows, cols = len(matrix), len(matrix[0]) if matrix else 0
+
+        # factors must match smith_normal_form
+        assert factors == smith_normal_form(matrix)
+
+        # P, Q must be square with the right dimensions
+        assert len(P) == rows and all(len(row) == rows for row in P)
+        assert len(Q) == cols and all(len(row) == cols for row in Q)
+
+        # P and Q must be unimodular (det = ±1)
+        if rows > 0:
+            assert _abs_det(P) == 1, f"|det(P)| = {_abs_det(P)}, not 1"
+        if cols > 0:
+            assert _abs_det(Q) == 1, f"|det(Q)| = {_abs_det(Q)}, not 1"
+
+        # P @ matrix @ Q must be diagonal with the invariant factors on the diagonal
+        D = _mat_mul(_mat_mul(P, matrix), Q)
+        r = len(factors)
+        for i in range(rows):
+            for j in range(cols):
+                if i == j and i < r:
+                    assert D[i][j] == factors[i], f"D[{i}][{j}] = {D[i][j]}, expected {factors[i]}"
+                else:
+                    assert D[i][j] == 0, f"D[{i}][{j}] = {D[i][j]}, expected 0"
+
+    def test_identity_2x2(self):
+        self._check_decomposition([[1, 0], [0, 1]])
+
+    def test_diagonal_non_snf(self):
+        # [[2, 0], [0, 3]] → SNF = [[1, 0], [0, 6]]
+        self._check_decomposition([[2, 0], [0, 3]])
+
+    def test_rank_deficient(self):
+        self._check_decomposition([[1, 2], [2, 4]])
+
+    def test_single_row(self):
+        self._check_decomposition([[4, 6, 10]])
+
+    def test_single_col(self):
+        self._check_decomposition([[6], [4], [10]])
+
+    def test_rectangular_wide(self):
+        self._check_decomposition([[1, 2, 3], [4, 5, 6]])
+
+    def test_rectangular_tall(self):
+        self._check_decomposition([[1, 4], [2, 5], [3, 6]])
+
+    def test_zero_matrix(self):
+        factors, P, Q = smith_normal_form_extended([[0, 0], [0, 0]])
+        assert factors == []
+        assert _abs_det(P) == 1
+        assert _abs_det(Q) == 1
+
+    def test_random_property(self):
+        rng = random.Random(3141)
+        for _ in range(150):
+            rows = rng.randint(1, 4)
+            cols = rng.randint(1, 4)
+            matrix = [[rng.randint(-6, 6) for _ in range(cols)] for _ in range(rows)]
+            self._check_decomposition(matrix)
+
+
+# ---------------------------------------------------------------------------
+# cokernel_generators: explicit generators for Z^n / im(matrix)
+# ---------------------------------------------------------------------------
+
+
+class TestCokernelGenerators:
+    """Tests for cokernel_generators(matrix) → (AbelianGroup, generators)."""
+
+    def test_group_matches_cokernel(self):
+        for matrix in [
+            [[2, 0], [0, 6]],
+            [[1, 0], [0, 1]],
+            [[1, 0, 0], [0, 0, 0]],
+            [[2]],
+            [[6, 4], [3, 2]],
+        ]:
+            group, _ = cokernel_generators(matrix)
+            assert group == cokernel(matrix)
+
+    def test_generator_count(self):
+        cases = [
+            ([[2, 0], [0, 6]], 2),     # Z/2 + Z/6
+            ([[1, 0], [0, 1]], 0),     # trivial
+            ([[1, 0, 0], [0, 0, 0]], 2),  # Z^2
+            ([[2]], 1),                # Z/2
+        ]
+        for matrix, expected_count in cases:
+            group, gens = cokernel_generators(matrix)
+            assert len(gens) == expected_count, (matrix, gens)
+            assert len(gens) == group.free_rank + len(group.torsion)
+
+    def test_trivial_cokernel_no_generators(self):
+        group, gens = cokernel_generators([[1, 0], [0, 1]])
+        assert group.is_trivial
+        assert gens == []
+
+    def test_free_cokernel_generators(self):
+        # [[1, 0, 0], [0, 0, 0]] → Z^2 free; two free generators in Z^3
+        group, gens = cokernel_generators([[1, 0, 0], [0, 0, 0]])
+        assert group.free_rank == 2
+        assert len(gens) == 2
+        for g in gens:
+            assert len(g) == 3
+
+    def test_torsion_generator_order(self):
+        # Z/2: generator g satisfies 2g in row_lattice
+        _, gens = cokernel_generators([[2]])
+        assert len(gens) == 1
+        g = gens[0][0]
+        # 2 * g must be in {2k : k ∈ Z}, so 2*g % 2 == 0 ✓ trivially
+        # but g itself should NOT be divisible by 2 (g is odd)
+        assert g % 2 != 0, f"torsion generator {g} should be odd (not in 2Z)"
+
+    def test_empty_matrix(self):
+        # Empty matrix: cokernel is Z^n with n=0
+        group, gens = cokernel_generators([])
+        assert group.is_trivial
+        assert gens == []
+
+    def test_random_group_agrees_with_cokernel(self):
+        rng = random.Random(9999)
+        for _ in range(200):
+            rows = rng.randint(1, 4)
+            cols = rng.randint(1, 4)
+            matrix = [[rng.randint(-5, 5) for _ in range(cols)] for _ in range(rows)]
+            group_c = cokernel(matrix)
+            group_g, gens = cokernel_generators(matrix)
+            assert group_g == group_c
+            assert len(gens) == group_c.free_rank + len(group_c.torsion)
+            for g in gens:
+                assert len(g) == cols

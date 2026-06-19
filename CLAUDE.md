@@ -4,16 +4,19 @@
 
 `pytop` is a standalone mathematical topology library for Python 3.11+.
 It provides point-set topology, knot theory, graph topology, surface classification,
-3-manifolds, degree theory, cardinal functions, and more. As of **v0.6.0+** it also ships a
+3-manifolds, degree theory, cardinal functions, and more. As of **v1.0.1** it ships a
 **constructive computational core** (simplicial homology with field/relative coefficients,
-persistent homology / TDA, optimized persistence with Twist+Clearing, cubical complexes +
-bitmap persistence, knot invariant polynomials, winding/degree, surface-word classification,
-exact graph planarity), a **pi-Base–backed deductive inference engine**
-(`pytop.experimental.pi_base`), and a **research-grade computable-space protocol**
-(`pytop.experimental.spaces`) for point-set topology — Phase 1 complete (S1–S5),
-**Phase 2 complete (8/8)**: field-coeff homology, relative homology, Mayer–Vietoris LES,
-cellular homology, cohomology + cup product, van Kampen → group presentations,
-optimized persistence (Twist+Clearing), cubical complexes.
+persistent homology / TDA, optimized persistence with Twist+Clearing, persistent cohomology
+(de Silva dual), cubical complexes + bitmap persistence, discrete Morse theory, persistence
+distances (bottleneck/Wasserstein), persistence landscapes, Mapper algorithm, Čech complex
+(Welzl miniball + circumradius), knot invariant polynomials, winding/degree,
+surface-word classification, exact graph planarity), a
+**pi-Base–backed deductive inference engine** (`pytop.experimental.pi_base`), and a
+**research-grade computable-space protocol** (`pytop.experimental.spaces`) for point-set
+topology — Phase 1 complete (S1–S5), **Phase 2 complete (8/8)**: field-coeff homology,
+relative homology, Mayer–Vietoris LES, cellular homology, cohomology + cup product,
+van Kampen → group presentations, optimized persistence (Twist+Clearing), cubical complexes.
+**Phase 5 complete (3/3):** discrete Morse theory, persistence distances, Mapper.
 
 - **GitHub:** https://github.com/kadirhanpolat/pytop
 - **License:** MIT
@@ -56,7 +59,12 @@ pytop has two complementary layers — keep this distinction in mind when extend
   with disconnected 1-skeleton guard (raises ValueError); standard spaces S¹∨⋯∨S¹→Fₙ, S²→1,
   T²→ℤ², Klein→⟨a,b|abab⁻¹⟩, RP²→ℤ/2),
   `knot_invariants` (Kauffman→Jones, reduced Burau→Alexander), `winding_number`,
-  `surface_word_classification`, `graph_planarity` (rotation-system genus), and
+  `surface_word_classification`, `graph_planarity` (rotation-system genus),
+  `discrete_morse` (Forman gradient vector fields, V-path acyclicity guard, Morse inequalities),
+  `persistence_distances` (bottleneck + Wasserstein via augmented cost matrix + Hungarian;
+  `PersistenceLandscape` Bubenik 2015; `persistence_entropy` Shannon),
+  `mapper` (Singh–Mémoli–Carlsson 2007: `IntervalCover`, `single_linkage_labels`,
+  `MapperComplex`), and
   `experimental.spaces` (research-grade computable-space protocol — see below).
   New computational work should prefer this constructive style.
 - **Research-grade point-set layer** (`experimental.spaces`) — a third layer bridging the two above:
@@ -217,7 +225,13 @@ feature/<topic> ← feature branches, merge to master via PR
 - **Released v0.9.4:** `src/pytop` is **mypy-clean** (361 → 0 errors) and **mypy is now blocking in CI** (PR #21); no behaviour change — 9 950 tests pass (+16 opt-in Sage/SnapPy). **Phase 3 & Phase 4 are complete** except explicitly-deferred items: native GAP/Regina (unavailable here — only reachable via the Docker Sage/SnapPy images) and formal verification of the core routines (long-term).
 - **Released v0.9.5:** performance/scale pass (PR #22) — `is_planar` Euler edge-bound rejection + genus-0 early termination (`is_planar(K4,4)` 16 624 → 0.019 ms; K6/K7 return `False` instead of raising), and Khovanov per-bidegree SNF memoisation (3× fewer SNF calls; `7_1` 265 → 109 ms). All results identical (networkx + Jones oracles). Persistence profiled but left unchanged — its next gain needs the dual/cohomology algorithm (noted in `docs/COMPLEXITY.md`). 9 955 tests pass.
 - **Released v0.9.6:** first "frontier" closed (PR #23) — `is_planar` now uses the `O(V+E)` **left-right planarity test** (Brandes 2009) instead of the exponential rotation-system search, so it decides any graph and **never raises** (`W9…W40`, large grids that used to raise `GraphPlanarityError` now return `True`). `graph_genus` unchanged. Validated against networkx on **all** ≤6-vertex graphs (33 867, 0 disagreements) + random larger. 9 960 tests pass.
-- **Released v0.9.7 (latest):** second frontier closed (PR #24) — **persistent cohomology** (`persistence_pairs_cohomology`), the de Silva–Morozov–Vejdemo-Johansson incremental dual algorithm (live cocycles + inverted index; youngest-cocycle-dies elder rule). Identical barcodes to the standard/Twist reductions but orders of magnitude fewer column ops on Rips (circle n=40 d=2: 132 vs 178 789; ~2–2.5× wall-clock). Validated against standard reduction + Twist + **GUDHI**. `persistence_pairs_twist` stays the default; cohomology is a faster peer. Both documented frontiers (poly planarity, dual persistence) now closed. 9 975 tests pass.
+- **Released v0.9.7:** second frontier closed (PR #24) — **persistent cohomology** (`persistence_pairs_cohomology`), the de Silva–Morozov–Vejdemo-Johansson incremental dual algorithm (live cocycles + inverted index; youngest-cocycle-dies elder rule). Identical barcodes to the standard/Twist reductions but orders of magnitude fewer column ops on Rips (circle n=40 d=2: 132 vs 178 789; ~2–2.5× wall-clock). Validated against standard reduction + Twist + **GUDHI**. `persistence_pairs_twist` stays the default; cohomology is a faster peer. Both documented frontiers (poly planarity, dual persistence) now closed. 9 975 tests pass.
+- **Released v0.9.8:** Phase 5 P5.1 — **Discrete Morse Theory** (`discrete_morse`): `MorsePair`, `MorseMatching`, `MorseInequalities`; `discrete_gradient_matching` (greedy + V-path DFS acyclicity guard); `is_valid_morse_matching`; `check_morse_inequalities`. Perfect matchings: contractible spaces → 1 critical cell, S^1 → 2, S^2 → 2, torus χ=0. 29 new tests.
+- **Released v0.9.9:** Phase 5 P5.2 — **Persistence distances & descriptors** (`persistence_distances`): `bottleneck_distance` (binary search + max bipartite matching); `wasserstein_distance` (Jonker-Volgenant O(n³) Hungarian, augmented (m+n)×(m+n) cost matrix); `PersistenceLandscape` (Bubenik 2015, k-th tent on grid); `persistence_entropy` (Shannon entropy of bar lengths). Dependency-free. 39 new tests.
+- **Released v1.0.0:** Phase 5 P5.3 — **Mapper algorithm** (`mapper`): Singh–Mémoli–Carlsson (2007) full pipeline — `IntervalCover` (overlapping uniform cover), `single_linkage_labels` (1-D single-linkage), `mapper()` (filter → cover → pullback clustering → nerve complex up to configurable dimension), `MapperComplex` with `connected_components()` / `adjacency()`. Custom `cluster_fn` and `cover` supported. 31 new tests. All Phase 5 TDA frontiers (P5.1–P5.3) closed. **10 074 tests pass.**
+- **Released v1.0.1:** Phase 6 P6.1 — **Čech complex** (`cech_complex`): `cech_filtration` + `persistent_homology_cech`. Welzl's miniball (Gaussian elimination circumsphere). Rips–Čech sandwich verified. 29 new tests.
+- **Released v1.0.2:** Phase 6 P6.2 — **Persistence over Z/p** (`persistent_homology_fp`): `persistence_pairs_fp(filtered, prime)` over F_p for any prime p. Alternating-sign boundary, Fermat modinv. Torsion detection. `is_prime` helper. 23 new tests.
+- **Released v1.0.3 (latest):** Phase 6 P6.3 — **TDA Pipeline** (`tda_pipeline`): `TDAPipeline` immutable builder. `.rips()/.cech()/.reduce(method)/.pairs()/.barcode()/.diagram()/.landscape()/.entropy()/.bottleneck()/.wasserstein()/.compare_primes()/.summary()`. All 4 reduction methods (standard/twist/cohomology/fp). 42 new tests.
 
 ---
 
