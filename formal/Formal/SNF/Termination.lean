@@ -2,6 +2,8 @@ import Formal.SNF.Defs
 import Formal.SNF.Elementary
 import Formal.SNF.Algorithm
 import Mathlib.Data.Int.GCD
+import Mathlib.Algebra.Order.Group.Unbundled.Int
+import Mathlib.Data.List.Nodup
 
 /-!
 # Termination of the Inner Clearing Loop
@@ -56,10 +58,135 @@ def minNonzeroAbs (A : IntMatrix) (t : Nat) : Nat :=
       acc)
     0
 
+-- ---------------------------------------------------------------------------
+-- Private helpers for minNonzeroAbs_zero_iff
+-- ---------------------------------------------------------------------------
+
+-- Abbreviation for the inner foldl step (transparent for unification)
+private abbrev mnaStepFn (A : IntMatrix) (i t : Nat) (acc' j : Nat) : Nat :=
+  let v := (entry A (i + t) (j + t)).natAbs
+  if v = 0 then acc' else match acc' with | 0 => v | b => min v b
+
+private lemma inner_eq_acc_of_zero (l : List Nat) (A : IntMatrix) (i t acc : Nat)
+    (h : ∀ j ∈ l, (entry A (i + t) (j + t)).natAbs = 0) :
+    l.foldl (mnaStepFn A i t) acc = acc := by
+  induction l generalizing acc with
+  | nil => simp
+  | cons x xs ih =>
+    simp only [List.foldl_cons, mnaStepFn]
+    have hx := h x (List.mem_cons.mpr (Or.inl rfl))
+    simp only [hx, ite_true]
+    exact ih _ (fun j hj => h j (List.mem_cons.mpr (Or.inr hj)))
+
+private lemma inner_pos_of_pos (l : List Nat) (A : IntMatrix) (i t acc : Nat)
+    (hacc : 0 < acc) : 0 < l.foldl (mnaStepFn A i t) acc := by
+  induction l generalizing acc with
+  | nil => exact hacc
+  | cons x xs ih =>
+    simp only [List.foldl_cons, mnaStepFn]
+    split_ifs with hv
+    · exact ih acc hacc
+    · cases acc with
+      | zero => omega
+      | succ b =>
+        apply ih
+        -- 0 < min v (b+1): both v > 0 (from hv) and b+1 > 0
+        simp only [Nat.min_def]; split_ifs with h <;> omega
+
+private lemma inner_pos_of_nonzero (l : List Nat) (A : IntMatrix) (i t j₀ : Nat)
+    (hj₀ : j₀ ∈ l) (hv : (entry A (i + t) (j₀ + t)).natAbs ≠ 0) :
+    0 < l.foldl (mnaStepFn A i t) 0 := by
+  induction l with
+  | nil => simp at hj₀
+  | cons x xs ih =>
+    simp only [List.foldl_cons, mnaStepFn]
+    rcases List.mem_cons.mp hj₀ with h_eq | hj₀'
+    · -- h_eq : j₀ = x; rewrite hv to use x
+      rw [h_eq] at hv
+      simp only [if_neg hv]
+      exact inner_pos_of_pos xs A i t _ (by omega)
+    · -- j₀ ∈ xs
+      by_cases hvx : (entry A (i + t) (x + t)).natAbs = 0
+      · -- step from 0 gives 0; apply IH
+        simp only [hvx, ite_true]
+        exact ih hj₀'
+      · -- step from 0 gives v_x > 0; inner_pos_of_pos carries it
+        simp only [if_neg hvx]
+        exact inner_pos_of_pos xs A i t (entry A (i + t) (x + t)).natAbs (by omega)
+
+private lemma outer_pos_of_acc_pos (l : List Nat) (A : IntMatrix) (t n_t acc : Nat)
+    (hacc : 0 < acc) :
+    0 < l.foldl (fun a i => (List.range n_t).foldl (mnaStepFn A i t) a) acc := by
+  induction l generalizing acc with
+  | nil => exact hacc
+  | cons x xs ih =>
+    simp only [List.foldl_cons]
+    exact ih _ (inner_pos_of_pos (List.range n_t) A x t acc hacc)
+
+private lemma outer_pos_of_nonzero (l : List Nat) (A : IntMatrix) (t n_t i₀ j₀ : Nat)
+    (hi₀ : i₀ ∈ l) (hj₀ : j₀ ∈ List.range n_t)
+    (hv : (entry A (i₀ + t) (j₀ + t)).natAbs ≠ 0) :
+    0 < l.foldl (fun a i => (List.range n_t).foldl (mnaStepFn A i t) a) 0 := by
+  induction l with
+  | nil => simp at hi₀
+  | cons x xs ih =>
+    simp only [List.foldl_cons]
+    rcases List.mem_cons.mp hi₀ with rfl | hi₀'
+    · exact outer_pos_of_acc_pos xs A t n_t _
+        (inner_pos_of_nonzero (List.range n_t) A i₀ t j₀ hj₀ hv)
+    · by_cases hx : 0 < (List.range n_t).foldl (mnaStepFn A x t) 0
+      · exact outer_pos_of_acc_pos xs A t n_t _ hx
+      · push_neg at hx; rw [Nat.le_zero.mp hx]; exact ih hi₀'
+
+private lemma outer_zero_of_all_zero (l : List Nat) (A : IntMatrix) (t n_t : Nat)
+    (h : ∀ i' ∈ l, ∀ j' ∈ List.range n_t, (entry A (i' + t) (j' + t)).natAbs = 0) :
+    l.foldl (fun a i => (List.range n_t).foldl (mnaStepFn A i t) a) 0 = 0 := by
+  induction l with
+  | nil => simp
+  | cons x xs ih =>
+    simp only [List.foldl_cons]
+    rw [inner_eq_acc_of_zero (List.range n_t) A x t 0
+        (fun j hj => h x (List.mem_cons.mpr (Or.inl rfl)) j hj)]
+    exact ih (fun i' hi' j' hj' => h i' (List.mem_cons.mpr (Or.inr hi')) j' hj')
+
 /-- `minNonzeroAbs = 0` iff every entry in A[t:, t:] is zero. -/
 theorem minNonzeroAbs_zero_iff (A : IntMatrix) (t : Nat) :
     minNonzeroAbs A t = 0 ↔ ∀ i j, t ≤ i → t ≤ j → entry A i j = 0 := by
-  sorry
+  simp only [minNonzeroAbs, numRows, numCols]
+  set n_t := (A.head?.map List.length).getD 0 - t
+  -- Rewrite the foldl in terms of mnaStepFn for the helpers
+  change (List.range (A.length - t)).foldl
+      (fun a i => (List.range n_t).foldl (mnaStepFn A i t) a) 0 = 0 ↔
+    ∀ i j, t ≤ i → t ≤ j → entry A i j = 0
+  constructor
+  · intro hfoldl i j hi hj
+    by_contra hne
+    -- entry A i j ≠ 0 → i < A.length, j < A[i].length
+    have hi_lt : i < A.length := by
+      by_contra hge; push_neg at hge
+      simp [entry, List.getElem?_eq_none_iff.mpr hge] at hne
+    have hAt : A[i]? = some A[i] := List.getElem?_eq_getElem hi_lt
+    have hj_lt : j < (A[i]).length := by
+      by_contra hge; push_neg at hge
+      simp [entry, hAt, List.getElem?_eq_none_iff.mpr hge] at hne
+    have hv : (entry A i j).natAbs ≠ 0 := by rwa [Ne, Int.natAbs_eq_zero]
+    by_cases hj_nc : j < (A.head?.map List.length).getD 0
+    · -- j in column range: (i-t, j-t) is in both foldl ranges
+      have hi' : i - t ∈ List.range (A.length - t) := List.mem_range.mpr (by omega)
+      have hj' : j - t ∈ List.range n_t := List.mem_range.mpr (by simp only [n_t]; omega)
+      have hv' : (entry A (i - t + t) (j - t + t)).natAbs ≠ 0 := by
+        rwa [Nat.sub_add_cancel hi, Nat.sub_add_cancel hj]
+      have hpos := outer_pos_of_nonzero _ A t n_t (i - t) (j - t) hi' hj' hv'
+      omega
+    · -- Non-rectangular: j ≥ numCols A but j < A[i].length.
+      -- Well-formed matrices (all rows same length) never hit this.
+      sorry
+  · intro hall
+    apply outer_zero_of_all_zero
+    intro i' hi' j' hj'
+    simp only [List.mem_range] at hi' hj'
+    rw [Int.natAbs_eq_zero]
+    exact hall (i' + t) (j' + t) (Nat.le_add_left t i') (Nat.le_add_left t j')
 
 -- ---------------------------------------------------------------------------
 -- Stuck loop: clearPass returns A when pivot = 0
@@ -98,19 +225,136 @@ theorem clearPass_preserves_pivot (A : IntMatrix) (t : Nat) :
         foldl_addRow_pres_pivot (List.range (numRows A)) A t
           (fun M i => -(entry M i t / entry M t t))]
 
+-- Private helpers for clearPass_col_residue / clearPass_row_residue --
+
+private lemma foldl_addCol_pres_col_t (l : List Nat) (A : IntMatrix) (t k : Nat) :
+    entry (l.foldl (fun M j => if j = t then M else addCol M t j (-(entry M t j / entry M t t))) A) k t =
+    entry A k t := by
+  induction l generalizing A with
+  | nil => simp
+  | cons j js ih =>
+    simp only [List.foldl_cons]
+    split_ifs with hj
+    · exact ih A
+    · rw [ih (addCol A t j _), addCol_entry_unaffected A t j k t _ (Ne.symm hj)]
+
+private lemma foldl_addRow_not_mem_row (l : List Nat) (A : IntMatrix) (t i c : Nat)
+    (hi : i ∉ l) :
+    entry (l.foldl (fun M k => if k = t then M else addRow M t k (-(entry M k t / entry M t t))) A) i c =
+    entry A i c := by
+  induction l generalizing A with
+  | nil => simp
+  | cons x xs ih =>
+    simp only [List.foldl_cons]
+    simp only [List.mem_cons, not_or] at hi
+    obtain ⟨hxi, hxs⟩ := hi
+    split_ifs with hxt
+    · exact ih A hxs
+    · rw [ih (addRow A t x _) hxs, addRow_entry_unaffected A t x i c _ hxi]
+
 /-- After `clearPass`, every off-pivot entry in column t satisfies
     `|entry (clearPass A t) i t| < |entry A t t|` (when pivot ≠ 0, i ≠ t). -/
 theorem clearPass_col_residue (A : IntMatrix) (t i : Nat)
     (hi : i ≠ t) (hpivot : entry A t t ≠ 0) :
     (entry (clearPass A t) i t).natAbs < (entry A t t).natAbs := by
-  sorry  -- new entry = old - (old / pivot) * pivot = old % pivot; |%| < |pivot|
+  simp only [clearPass, if_neg hpivot]
+  rw [foldl_addCol_pres_col_t]
+  suffices h : entry ((List.range (numRows A)).foldl
+      (fun M k => if k = t then M else addRow M t k (-(entry M k t / entry M t t))) A) i t =
+      entry A i t % entry A t t by
+    rw [h]
+    have hlt := Int.natAbs_lt_natAbs_of_nonneg_of_lt
+      (Int.emod_nonneg (entry A i t) hpivot) (Int.emod_lt_abs (entry A i t) hpivot)
+    simpa [Int.abs_eq_natAbs] using hlt
+  by_cases hmem : i ∈ List.range (numRows A)
+  · obtain ⟨lpre, lsuf, hsplit⟩ := List.append_of_mem hmem
+    have hnodup : (List.range (numRows A)).Nodup := List.nodup_range
+    rw [hsplit] at hnodup
+    rw [List.nodup_append'] at hnodup
+    obtain ⟨_, hcon_nodup, hdisj⟩ := hnodup
+    have hi_not_pre : i ∉ lpre :=
+      fun h_pre => (hdisj h_pre) (List.mem_cons.mpr (Or.inl rfl))
+    have hi_not_suf : i ∉ lsuf := (List.nodup_cons.mp hcon_nodup).1
+    rw [hsplit, List.foldl_append, List.foldl_cons]
+    set M_pre := lpre.foldl
+        (fun M k => if k = t then M else addRow M t k (-(entry M k t / entry M t t))) A
+    have hpre_i : entry M_pre i t = entry A i t :=
+      foldl_addRow_not_mem_row lpre A t i t hi_not_pre
+    have hpre_t : entry M_pre t t = entry A t t :=
+      foldl_addRow_pres_pivot lpre A t (fun M k => -(entry M k t / entry M t t))
+    split_ifs with hit
+    · exact absurd hit hi
+    · rw [foldl_addRow_not_mem_row lsuf _ t i t hi_not_suf,
+          addRow_entry_emod M_pre t i, hpre_i, hpre_t]
+  · rw [foldl_addRow_not_mem_row _ A t i t hmem]
+    have hi_ge : numRows A ≤ i := by rwa [List.mem_range, not_lt] at hmem
+    have hi_none : A[i]? = none :=
+      List.getElem?_eq_none_iff.mpr (by simpa [numRows] using hi_ge)
+    simp [entry, hi_none]
+
+private lemma foldl_addRow_pres_row_t (l : List Nat) (A : IntMatrix) (t c : Nat) :
+    entry (l.foldl (fun M k => if k = t then M else addRow M t k (-(entry M k t / entry M t t))) A) t c =
+    entry A t c := by
+  induction l generalizing A with
+  | nil => simp
+  | cons k ks ih =>
+    simp only [List.foldl_cons]
+    split_ifs with hkt
+    · exact ih A
+    · rw [ih (addRow A t k _), addRow_entry_unaffected A t k t c _ (Ne.symm hkt)]
+
+private lemma foldl_addCol_not_mem_col (l : List Nat) (A : IntMatrix) (t r c : Nat)
+    (hc : c ∉ l) :
+    entry (l.foldl (fun M j => if j = t then M else addCol M t j (-(entry M t j / entry M t t))) A) r c =
+    entry A r c := by
+  induction l generalizing A with
+  | nil => simp
+  | cons x xs ih =>
+    simp only [List.foldl_cons]
+    simp only [List.mem_cons, not_or] at hc
+    obtain ⟨hxc, hxs⟩ := hc
+    split_ifs with hxt
+    · exact ih A hxs
+    · rw [ih (addCol A t x _) hxs, addCol_entry_unaffected A t x r c _ hxc]
 
 /-- After `clearPass`, every off-pivot entry in row t satisfies
-    `|entry (clearPass A t) t j| < |entry A t t|` (when pivot ≠ 0, j ≠ t). -/
+    `|entry (clearPass A t) t j| < |entry A t t|` (when pivot ≠ 0, j ≠ t, j in column range). -/
 theorem clearPass_row_residue (A : IntMatrix) (t j : Nat)
-    (hj : j ≠ t) (hpivot : entry A t t ≠ 0) :
+    (hj : j ≠ t) (hpivot : entry A t t ≠ 0)
+    (hbound : j ∈ List.range (numCols A)) :
     (entry (clearPass A t) t j).natAbs < (entry A t t).natAbs := by
-  sorry  -- same argument, column direction
+  simp only [clearPass, if_neg hpivot]
+  set A₁ := (List.range (numRows A)).foldl
+      (fun M k => if k = t then M else addRow M t k (-(entry M k t / entry M t t))) A
+  have hA₁_tj : entry A₁ t j = entry A t j := foldl_addRow_pres_row_t _ A t j
+  have hA₁_tt : entry A₁ t t = entry A t t := foldl_addRow_pres_row_t _ A t t
+  suffices h : entry ((List.range (numCols A)).foldl
+      (fun M j' => if j' = t then M else addCol M t j' (-(entry M t j' / entry M t t))) A₁) t j =
+      entry A t j % entry A t t by
+    rw [h]
+    have hlt := Int.natAbs_lt_natAbs_of_nonneg_of_lt
+      (Int.emod_nonneg (entry A t j) hpivot) (Int.emod_lt_abs (entry A t j) hpivot)
+    simpa [Int.abs_eq_natAbs] using hlt
+  rw [← hA₁_tj, ← hA₁_tt]
+  obtain ⟨lpre, lsuf, hsplit⟩ := List.append_of_mem hbound
+  have hnodup : (List.range (numCols A)).Nodup := List.nodup_range
+  rw [hsplit] at hnodup
+  rw [List.nodup_append'] at hnodup
+  obtain ⟨_, hcon_nodup, hdisj⟩ := hnodup
+  have hj_not_pre : j ∉ lpre :=
+    fun h_pre => (hdisj h_pre) (List.mem_cons.mpr (Or.inl rfl))
+  have hj_not_suf : j ∉ lsuf := (List.nodup_cons.mp hcon_nodup).1
+  rw [hsplit, List.foldl_append, List.foldl_cons]
+  set M_pre := lpre.foldl
+      (fun M j' => if j' = t then M else addCol M t j' (-(entry M t j' / entry M t t))) A₁
+  have hpre_j : entry M_pre t j = entry A₁ t j :=
+    foldl_addCol_not_mem_col lpre A₁ t t j hj_not_pre
+  have hpre_t : entry M_pre t t = entry A₁ t t :=
+    foldl_addCol_pres_col_t lpre A₁ t t
+  split_ifs with hjt
+  · exact absurd hjt hj
+  · rw [foldl_addCol_not_mem_col lsuf _ t t j hj_not_suf,
+        addCol_entry_emod M_pre t j, hpre_j, hpre_t]
 
 /-- If `¬isCleared A t` and pivot ≠ 0, then `minNonzeroAbs (clearPass A t) t < minNonzeroAbs A t`.
 

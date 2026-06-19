@@ -198,4 +198,66 @@ theorem foldl_addCol_pres_pivot (l : List Nat)
     · rw [ih (addCol A t j (f A j)),
           addCol_entry_unaffected A t j t t (f A j) (Ne.symm hj)]
 
+/-- After applying the clearPass row-clearing factor, the (i, t) entry equals
+    `entry A i t % entry A t t`. Works unconditionally (out-of-bounds → 0 on both sides). -/
+theorem addRow_entry_emod (A : IntMatrix) (t i : Nat) :
+    entry (addRow A t i (-(entry A i t / entry A t t))) i t =
+    entry A i t % entry A t t := by
+  by_cases h_i : i < numRows A
+  · by_cases h_t : t < (A.getD i []).length
+    · -- in-bounds: addRow_entry_dst + explicit rewrite chain (ring fails on Int ediv)
+      rw [addRow_entry_dst A t i t _ h_i h_t, Int.emod_def, Int.neg_mul,
+          ← Int.sub_eq_add_neg, mul_comm (entry A i t / entry A t t)]
+    · -- column t out of bounds for row i: both sides are 0
+      simp only [not_lt] at h_t
+      have hi' : i < A.length := h_i
+      have hrow_eq : A.getD i [] = A[i] :=
+        by simp [List.getD, List.getElem?_eq_getElem hi']
+      have ht_nn : A[i].length ≤ t := hrow_eq ▸ h_t
+      have hentry : entry A i t = 0 := by
+        simp only [entry, List.getElem?_eq_getElem hi', Option.bind_some,
+                   List.getElem?_eq_none_iff.mpr ht_nn, Option.getD_none]
+      simp only [hentry, Int.zero_ediv, neg_zero, Int.zero_emod]
+      simp only [entry, addRow, mapIdx_getElem?, List.getElem?_eq_getElem hi',
+                 Option.map_some, Option.bind_some, eq_self_iff_true, if_true,
+                 mapIdx_getElem?]
+      rw [List.getElem?_eq_none_iff.mpr ht_nn]
+      simp
+  · -- row i out of bounds: both sides are 0
+    simp only [not_lt] at h_i
+    have hi_ge : A.length ≤ i := by simpa [numRows] using h_i
+    have hi_none : A[i]? = none := List.getElem?_eq_none_iff.mpr hi_ge
+    have hentry : entry A i t = 0 := by simp [entry, hi_none]
+    simp only [hentry, Int.zero_ediv, neg_zero, Int.zero_emod]
+    simp [entry, addRow, mapIdx_getElem?, hi_none]
+
+/-- After applying the clearPass col-clearing factor, the (t, j) entry equals
+    `entry A t j % entry A t t`. Works unconditionally (out-of-bounds → 0 on both sides). -/
+theorem addCol_entry_emod (A : IntMatrix) (t j : Nat) :
+    entry (addCol A t j (-(entry A t j / entry A t t))) t j =
+    entry A t j % entry A t t := by
+  by_cases h_t : t < numRows A
+  · by_cases h_j : j < (A.getD t []).length
+    · rw [addCol_entry_dst A t j t _ h_t h_j, Int.emod_def, Int.neg_mul,
+          ← Int.sub_eq_add_neg, mul_comm (entry A t j / entry A t t)]
+    · simp only [not_lt] at h_j
+      have ht' : t < A.length := h_t
+      have hrow_eq : A.getD t [] = A[t] :=
+        by simp [List.getD, List.getElem?_eq_getElem ht']
+      have hj_nn : A[t].length ≤ j := hrow_eq ▸ h_j
+      have hentry : entry A t j = 0 := by
+        simp only [entry, List.getElem?_eq_getElem ht', Option.bind_some,
+                   List.getElem?_eq_none_iff.mpr hj_nn, Option.getD_none]
+      simp only [hentry, Int.zero_ediv, neg_zero, Int.zero_emod]
+      simp only [entry, addCol, List.getElem?_map, List.getElem?_eq_getElem ht',
+                 Option.map_some, Option.bind_some]
+      rw [List.getElem?_eq_none_iff.mpr (by simp [hj_nn])]
+      simp
+  · simp only [not_lt] at h_t
+    have ht_ge : A.length ≤ t := by simpa [numRows] using h_t
+    have ht_none : A[t]? = none := List.getElem?_eq_none_iff.mpr ht_ge
+    have hentry : entry A t j = 0 := by simp [entry, ht_none]
+    simp only [hentry, Int.zero_ediv, neg_zero, Int.zero_emod]
+    simp [entry, addCol, List.getElem?_map, ht_none]
+
 end PytopSNF
