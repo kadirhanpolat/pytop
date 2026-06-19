@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] — 2026-06-19
+
+### Added
+
+- **Persistent homology over Z/p** (`persistent_homology_fp.py`, P6.2):
+  `persistence_pairs_fp(filtered, prime)` — standard column reduction over the
+  finite field F_p for any prime p ≥ 2.  Alternating-sign boundary operator
+  (`(-1)^i` coefficients), modular inverse via Fermat's little theorem.
+  For p = 2 the output matches `persistence_pairs` exactly.  Higher primes
+  detect Z-homology torsion invisible over F_2 (e.g., RP² torsion classes).
+  `is_prime` helper exported publicly. 23 new tests.
+
 ## [1.0.1] — 2026-06-19
 
 ### Added
