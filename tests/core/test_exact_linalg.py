@@ -162,3 +162,87 @@ class TestProperties:
                 assert group.order == abs(determinant)
             else:
                 assert group.free_rank > 0
+
+
+# ---------------------------------------------------------------------------
+# Formal invariants — pytopSNF_positive and pytopSNF_divisibilityChain
+# ---------------------------------------------------------------------------
+
+
+class TestSNFFormalInvariants:
+    """Property tests corresponding to the two main formal theorems in formal/Formal/SNF/.
+
+    - pytopSNF_positive:          every factor d_i > 0
+    - pytopSNF_divisibilityChain: d_1 | d_2 | ... | d_k
+    """
+
+    # --- Known-answer spot checks ---
+
+    def test_positive_identity(self):
+        factors = smith_normal_form([[1, 0], [0, 1]])
+        assert all(d > 0 for d in factors)
+
+    def test_divisibility_chain_known(self):
+        # [[6,4],[3,2]] → SNF factors should satisfy d_1 | d_2
+        factors = smith_normal_form([[6, 4], [3, 2]])
+        for i in range(len(factors) - 1):
+            assert factors[i + 1] % factors[i] == 0, factors
+
+    def test_positive_rectangular(self):
+        factors = smith_normal_form([[2, 4, 6], [1, 3, 5]])
+        assert all(d > 0 for d in factors)
+
+    def test_divisibility_after_elimination(self):
+        # Matrix that requires row/col operations to achieve SNF
+        factors = smith_normal_form([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        for i in range(len(factors) - 1):
+            assert factors[i + 1] % factors[i] == 0, factors
+
+    # --- Random property tests (pytopSNF_positive) ---
+
+    def test_all_factors_positive_random(self):
+        rng = random.Random(2024)
+        for _ in range(300):
+            rows = rng.randint(1, 5)
+            cols = rng.randint(1, 5)
+            matrix = [[rng.randint(-10, 10) for _ in range(cols)] for _ in range(rows)]
+            factors = smith_normal_form(matrix)
+            assert all(d > 0 for d in factors), f"non-positive factor in {factors}"
+
+    # --- Random property tests (pytopSNF_divisibilityChain) ---
+
+    def test_divisibility_chain_random_square(self):
+        rng = random.Random(2025)
+        for _ in range(300):
+            n = rng.randint(1, 5)
+            matrix = [[rng.randint(-8, 8) for _ in range(n)] for _ in range(n)]
+            factors = smith_normal_form(matrix)
+            for i in range(len(factors) - 1):
+                assert factors[i + 1] % factors[i] == 0, (
+                    f"divisibility broken at index {i}: "
+                    f"{factors[i]} ∤ {factors[i + 1]}, factors={factors}"
+                )
+
+    def test_divisibility_chain_random_rectangular(self):
+        rng = random.Random(2026)
+        for _ in range(300):
+            rows = rng.randint(1, 5)
+            cols = rng.randint(1, 5)
+            matrix = [[rng.randint(-8, 8) for _ in range(cols)] for _ in range(rows)]
+            factors = smith_normal_form(matrix)
+            for i in range(len(factors) - 1):
+                assert factors[i + 1] % factors[i] == 0, (
+                    f"divisibility broken at index {i}: "
+                    f"{factors[i]} ∤ {factors[i + 1]}, factors={factors}"
+                )
+
+    def test_divisibility_chain_large_entries(self):
+        rng = random.Random(2027)
+        for _ in range(100):
+            rows = rng.randint(2, 4)
+            cols = rng.randint(2, 4)
+            matrix = [[rng.randint(-100, 100) for _ in range(cols)] for _ in range(rows)]
+            factors = smith_normal_form(matrix)
+            assert all(d > 0 for d in factors)
+            for i in range(len(factors) - 1):
+                assert factors[i + 1] % factors[i] == 0, factors
