@@ -29,9 +29,10 @@ analysis of high dimensional data sets and 3D object recognition. *SPBG*.
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
-from typing import Any, Callable, Sequence
-
+from collections.abc import Callable, Sequence
+from dataclasses import dataclass
+from itertools import combinations
+from typing import Any
 
 # ---------------------------------------------------------------------------
 # Cover
@@ -209,13 +210,13 @@ class MapperComplex:
             (min(s), max(s)) for s in self.simplices if len(s) == 2
         )
 
-    def adjacency(self) -> dict[int, set[int]]:
+    def adjacency(self) -> dict[int, frozenset[int]]:
         """Return the adjacency dict of the Mapper 1-skeleton."""
         adj: dict[int, set[int]] = {i: set() for i in range(self.num_nodes)}
         for i, j in self.edges():
             adj[i].add(j)
             adj[j].add(i)
-        return adj
+        return {i: frozenset(nbrs) for i, nbrs in adj.items()}
 
     def connected_components(self) -> list[frozenset[int]]:
         """Return connected components as frozensets of node indices."""
@@ -233,7 +234,7 @@ class MapperComplex:
                     continue
                 visited.add(node)
                 component.add(node)
-                stack.extend(adj[node] - visited)
+                stack.extend(adj[node] - visited)  # frozenset - set is fine
             components.append(frozenset(component))
         return components
 
@@ -283,6 +284,7 @@ def mapper(
     gap_threshold:
         Gap threshold for the default single-linkage clustering.  Defaults to
         10 % of each pullback bin's value range; set explicitly to override.
+        Ignored when ``cluster_fn`` is supplied.
 
     Returns
     -------
@@ -364,7 +366,7 @@ def mapper(
         simplices.add(frozenset([i]))
 
     # Add higher simplices up to max_simplex_dim
-    if max_simplex_dim >= 1:
+    if max_simplex_dim >= 1 and num_nodes >= 2:
         _build_nerve(nodes, num_nodes, max_simplex_dim, simplices)
 
     return MapperComplex(
@@ -385,8 +387,6 @@ def _build_nerve(
     Uses the fact that a simplex {i_0, ..., i_k} is in the nerve iff the
     intersection of all member sets is nonempty.
     """
-    from itertools import combinations
-
     for dim in range(1, max_dim + 1):
         for combo in combinations(range(num_nodes), dim + 1):
             intersection = nodes[combo[0]].members

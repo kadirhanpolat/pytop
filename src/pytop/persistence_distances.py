@@ -151,7 +151,7 @@ def _hungarian(cost: list[list[float]]) -> tuple[float, list[int]]:
             p[j0] = p[way[j0]]
             j0 = way[j0]
 
-    assignment = [0] * n
+    assignment = [-1] * n
     total = 0.0
     for j in range(1, n + 1):
         if p[j] != 0:
@@ -457,8 +457,7 @@ def persistence_landscape(
 
     # Pad with zero layers if num_layers > number of bars
     zero_layer: tuple[float, ...] = (0.0,) * num_grid_points
-    all_layers = tuple(tuple(layer) for layer in raw_layers)
-    while len(all_layers) < num_layers:
-        all_layers = all_layers + (zero_layer,)
+    padding = [zero_layer] * max(0, num_layers - len(raw_layers))
+    all_layers = tuple(tuple(layer) for layer in raw_layers) + tuple(padding)
 
     return PersistenceLandscape(grid=grid, layers=all_layers)

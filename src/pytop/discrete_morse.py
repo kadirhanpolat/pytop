@@ -29,7 +29,6 @@ from dataclasses import dataclass
 from .simplices import Simplex
 from .simplicial_complexes import SimplicialComplex
 
-
 # ---------------------------------------------------------------------------
 # Data structures
 # ---------------------------------------------------------------------------
@@ -63,6 +62,10 @@ class MorseMatching:
     ``pairs`` is the set of gradient pairs; ``critical`` is the set of unpaired
     critical simplices.  Every simplex of the complex appears in exactly one of
     the two sets.
+
+    Note: this dataclass does not self-validate that ``pairs ∪ critical`` covers
+    a particular complex.  Use ``is_valid_morse_matching`` to verify acyclicity
+    before drawing conclusions from the Morse vector or inequalities.
     """
 
     pairs: frozenset[MorsePair]
@@ -167,8 +170,8 @@ def discrete_gradient_matching(
 
     Notes
     -----
-    Cycle detection is O(n) per candidate pair (DFS on existing V-paths), so
-    the overall algorithm is O(n²) in the number of simplices.  For contractible
+    Cycle detection runs a DFS (O(n)) for each face of each candidate coface, so
+    the overall algorithm is O(n³) in the number of simplices.  For contractible
     subcomplexes the greedy algorithm finds a perfect Morse matching (one critical
     0-cell, no higher critical cells).
     """
