@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "0.9.9"
+__version__ = "1.0.0"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2975,6 +2975,13 @@ from .persistence_distances import (
     wasserstein_distance,
     persistence_entropy,
     persistence_landscape,
+)
+from .mapper import (
+    IntervalCover,
+    MapperNode,
+    MapperComplex,
+    mapper,
+    single_linkage_labels,
 )
 from .abstract_homotopy import (
     AbstractHomotopyProfile,

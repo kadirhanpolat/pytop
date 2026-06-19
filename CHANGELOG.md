@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] — 2026-06-19
+
+### Added
+
+- **Mapper algorithm** (`mapper.py`): `mapper(data, filter_fn, cover)` — constructs the
+  Mapper simplicial complex (Singh–Mémoli–Carlsson 2007). `IntervalCover` (uniform
+  overlapping interval cover of the filter image), `single_linkage_labels` (built-in
+  1-D single-linkage clustering with configurable gap threshold), `MapperNode` (cluster with
+  member indices), `MapperComplex` (nodes + simplices + adjacency + connected components).
+  Custom `cover`, `cluster_fn`, `gap_threshold`, and `max_simplex_dim` supported.
+  Dependency-free. 31 new tests.
+
 ## [0.9.9] — 2026-06-19
 
 ### Added
