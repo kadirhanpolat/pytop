@@ -26,3 +26,7 @@ pyvenv.cfg
 
 # Copyrighted reference textbooks — local research only, never commit
 Topoloji/
+
+# Lean 4 / Lake build artifacts
+formal/.lake/build/
+formal/.lake/packages/
