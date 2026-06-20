@@ -2,6 +2,9 @@ import Formal.SNF.Defs
 import Formal.SNF.Elementary
 import Formal.SNF.Algorithm
 import Formal.SNF.Termination
+import Formal.SNF.Positivity
+import Formal.SNF.Divisibility
+import Formal.SNF.Chain
 import Mathlib.Data.Int.GCD
 import Mathlib.Data.List.Basic
 
@@ -27,52 +30,21 @@ returns true, ensuring `d_t | M[i][j]` for all i,j > t.
 
 | Theorem | Status |
 |---------|--------|
-| `clearLoop_stable`               | **proved** (in `Termination.lean`, sorried sub-lemmas) |
+| `clearLoop_stable`               | **proved** (in `Termination.lean`) |
+| `snfOuterStep_pos`               | **proved** (in `Positivity.lean`) |
+| `snfOuterStep_divides_submatrix` | partial (in `Divisibility.lean`) |
+| `pytopSNF_divisibilityChain`     | `sorry` (in `Chain.lean`) |
+| `pytopSNF_positive`              | `sorry` (in `Positivity.lean`) |
 | `pytopSNF_fuel_independent`      | `sorry` |
-| `snfOuterStep_pos`               | `sorry` |
-| `pytopSNF_positive`              | `sorry` |
-| `snfOuterStep_divides_submatrix` | `sorry` |
-| `pytopSNF_divisibilityChain`     | `sorry` |
 
 ## Termination note
 
 `clearLoop_stable` is proved in `Formal.SNF.Termination`.
-The key insight is that `sumAbs` is **not** a suitable decreasing measure
-(it can increase after `clearPass` — counter-example: [[2,100],[3,0]]).
-The correct measure is `minNonzeroAbs`, which strictly decreases via
-GCD descent (Euclidean algorithm analogue).
+The key insight is that `clearPass` is **idempotent** (proved), which means
+`clearLoop` stabilises after at most one `clearPass` application.
 -/
 
 namespace PytopSNF
-
--- ---------------------------------------------------------------------------
--- Positivity
--- ---------------------------------------------------------------------------
-
-/-- Every factor returned by `snfOuterStep` is positive (comes from `natAbs`). -/
-theorem snfOuterStep_pos (A : IntMatrix) (t innerFuel : Nat) (d : Int)
-    (h : (snfOuterStep A t innerFuel).2 = some d) : 0 < d := by
-  sorry
-
-/-- All elements of `pytopSNF A` are positive. -/
-theorem pytopSNF_positive (A : IntMatrix) : ∀ d ∈ pytopSNF A, 0 < d := by
-  sorry
-
--- ---------------------------------------------------------------------------
--- Divisibility chain
--- ---------------------------------------------------------------------------
-
-/-- After `snfOuterStep` records factor `d`, `d` divides every remaining entry. -/
-theorem snfOuterStep_divides_submatrix (A : IntMatrix) (t innerFuel : Nat)
-    (M' : IntMatrix) (d : Int)
-    (h : snfOuterStep A t innerFuel = (M', some d)) :
-    ∀ i j : Nat, t < i → t < j → d ∣ entry M' i j := by
-  sorry
-
-/-- The output of `pytopSNF` is a divisibility chain. -/
-theorem pytopSNF_divisibilityChain (A : IntMatrix) :
-    IsDivisibilityChain (pytopSNF A) := by
-  sorry
 
 -- ---------------------------------------------------------------------------
 -- Main result
@@ -88,15 +60,78 @@ theorem pytopSNF_isInvariantFactors (A : IntMatrix) :
 -- Fuel sufficiency
 -- ---------------------------------------------------------------------------
 
+-- `clearLoop A t (k+1) = clearLoop A t (k+2)` holds unconditionally:
+-- if isCleared, both sides equal A; otherwise clearPass is idempotent, so
+-- clearLoop_stuck applies to both.
+private lemma clearLoop_succ_stable (A : IntMatrix) (t k : Nat) :
+    clearLoop A t (k + 1) = clearLoop A t (k + 2) := by
+  rw [clearLoop_succ, clearLoop_succ]
+  split_ifs with hc
+  · rfl
+  · have hcpB : clearPass (clearPass A t) t = clearPass A t := by
+      by_cases hpiv : entry A t t = 0
+      · have hcp : clearPass A t = A := by unfold clearPass; rw [if_pos hpiv]
+        rw [hcp]; exact hcp
+      · exact clearPass_idempotent A t hpiv
+    exact (clearLoop_stuck (clearPass A t) t k hcpB).trans
+          (clearLoop_stuck (clearPass A t) t (k + 1) hcpB).symm
+
+-- All fuel values ≥ 1 give the same clearLoop result.
+private lemma clearLoop_fuel_eq (A : IntMatrix) (t k : Nat) :
+    clearLoop A t 1 = clearLoop A t (k + 1) := by
+  induction k with
+  | zero => rfl
+  | succ n ih => rw [← clearLoop_succ_stable A t n]; exact ih
+
+-- snfOuterStep result is the same for any two innerFuel values ≥ 1.
+-- Proof: subst both fuels to k+1 form, then simp rewrites all clearLoop calls.
+private lemma snfOuterStep_fuel_eq (A : IntMatrix) (t f₁ f₂ : Nat)
+    (h₁ : 1 ≤ f₁) (h₂ : 1 ≤ f₂) :
+    snfOuterStep A t f₁ = snfOuterStep A t f₂ := by
+  obtain ⟨k₁, rfl⟩ : ∃ k, f₁ = k + 1 := ⟨f₁ - 1, by omega⟩
+  obtain ⟨k₂, rfl⟩ : ∃ k, f₂ = k + 1 := ⟨f₂ - 1, by omega⟩
+  have hcl : ∀ B, clearLoop B t (k₁ + 1) = clearLoop B t (k₂ + 1) := fun B =>
+    (clearLoop_fuel_eq B t k₁).symm.trans (clearLoop_fuel_eq B t k₂)
+  simp only [snfOuterStep, hcl]
+
+-- pytopSNFWithFuel.go is independent of innerFuel when both values are ≥ 1.
+private lemma go_fuel_eq (n : Nat) (M : IntMatrix) (t : Nat) (acc : List Int) (f₁ f₂ : Nat)
+    (h₁ : 1 ≤ f₁) (h₂ : 1 ≤ f₂) :
+    pytopSNFWithFuel.go f₁ n M t acc = pytopSNFWithFuel.go f₂ n M t acc := by
+  induction n generalizing M t acc with
+  | zero => simp only [pytopSNFWithFuel.go]
+  | succ k ih =>
+    simp only [pytopSNFWithFuel.go]
+    split_ifs with hbounds
+    · rfl
+    · rw [snfOuterStep_fuel_eq M t f₁ f₂ h₁ h₂]
+      rcases snfOuterStep M t f₂ with ⟨M', dOpt⟩
+      rcases dOpt with _ | d'
+      · rfl
+      · exact ih M' (t + 1) (d' :: acc)
+
 /-- The fuel in `pytopSNF` is sufficient: the result equals `pytopSNFWithFuel`
     with any larger inner fuel.
 
-    This follows from `clearLoop_stable` (proved in `Termination.lean`):
-    once innerFuel ≥ minNonzeroAbs A t ≤ sumAbs A, the result is stable. -/
+    Proof: `clearLoop` stabilises after 1 step unconditionally (idempotency of
+    `clearPass`), so all inner-fuel values ≥ 1 give identical results. Since
+    the standard fuel `m·n·(|A|+1) ≥ 1` when mn > 0, and k ≥ that bound ≥ 1,
+    both calls produce the same output. -/
 theorem pytopSNF_fuel_independent (A : IntMatrix) (k : Nat)
     (hk : numRows A * numCols A * (sumAbs A + 1) ≤ k) :
     pytopSNFWithFuel (min (numRows A) (numCols A)) k A =
     pytopSNF A := by
-  sorry
+  simp only [pytopSNF, pytopSNFWithFuel]
+  rcases Nat.eq_zero_or_pos (numRows A * numCols A) with hmn | hmn
+  · have hmin : min (numRows A) (numCols A) = 0 := by
+      rcases Nat.mul_eq_zero.mp hmn with hm | hn
+      · simp [hm]
+      · simp [hn]
+    simp [hmin, pytopSNFWithFuel.go]
+  · have hsf_pos : 1 ≤ numRows A * numCols A * (sumAbs A + 1) :=
+        Nat.mul_pos hmn (Nat.succ_pos _)
+    have hk_pos : 1 ≤ k := hsf_pos.trans hk
+    exact go_fuel_eq (min (numRows A) (numCols A)) A 0 []
+        k (numRows A * numCols A * (sumAbs A + 1)) hk_pos hsf_pos
 
 end PytopSNF

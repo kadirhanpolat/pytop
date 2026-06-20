@@ -128,6 +128,7 @@ theorem dvd_natAbs_cast {a b : Int} (h : a ∣ b) : (a.natAbs : Int) ∣ b :=
 **Branch 3** (both false): `snfOuterStep` returns `none`, contradicting `h`. -/
 theorem snfOuterStep_divides_submatrix (A : IntMatrix) (t innerFuel : Nat)
     (M' : IntMatrix) (d : Int)
+    (h_fuel : 1 ≤ innerFuel)
     (h : snfOuterStep A t innerFuel = (M', some d)) :
     ∀ i j : Nat, t < i → t < j → d ∣ entry M' i j := by
   unfold snfOuterStep at h
@@ -155,23 +156,24 @@ theorem snfOuterStep_divides_submatrix (A : IntMatrix) (t innerFuel : Nat)
       have hd_eq : d = ↑(entry _ t t).natAbs := (Option.some.inj hd).symm
       subst hd_eq
       intro i j hi hj
-      set A₃ := clearLoop (swapCols (swapRows A pi t) pj t) t innerFuel
+      set A₂ := swapCols (swapRows A pi t) pj t
+      set A₃ := clearLoop A₂ t innerFuel
       set A₄ := enforceDivisibility A₃ t
       set A₅ := clearLoop A₄ t innerFuel
-      have hpivot₅ : entry A₅ t t ≠ 0 := by
-        -- Chain: A₅ tt = A₄ tt = A₃ tt ≠ 0
-        have h_A5_A4 : entry A₅ t t = entry A₄ t t :=
-          clearLoop_preserves_pivot A₄ t innerFuel
-        have h_A4_A3 : entry A₄ t t = entry A₃ t t := by
-          apply enforceDivisibility_preserves_pivot
-          -- `isCleared A₃ t = true` holds when innerFuel ≥ minNonzeroAbs A₂ t.
-          -- This follows from clearLoop_stable (Termination.lean) but requires
-          -- a fuel-sufficiency argument connecting pytopSNF's innerFuel bound
-          -- to the actual minNonzeroAbs value.  Deferred to a follow-up.
-          sorry
-        rw [h_A5_A4, h_A4_A3]
-        exact clearLoop_pivot_ne_zero A t pi pj innerFuel hfp
-      exact dvd_natAbs_cast (pivotDividesAll_correct A₅ t hpda' hpivot₅ i j hi hj)
+      -- A₃ t t ≠ 0: if it were 0, pivotDividesAll A₃ t = true contradicts hpda
+      have hA₂_ne : entry A₂ t t ≠ 0 := swapped_pivot_ne_zero A t pi pj hfp
+      have hA₃_ne : entry A₃ t t ≠ 0 := by
+        intro h0; simp [pivotDividesAll, h0] at hpda
+      -- |col-t entry of A₃ at row i| < |A₃ tt| for any i ≠ t (fuel ≥ 1)
+      have hbound : ∀ i, i ≠ t → (entry A₃ i t).natAbs < (entry A₃ t t).natAbs :=
+        fun i hit => clearLoop_col_lt_pivot A₂ t i innerFuel hA₂_ne hit h_fuel
+      -- enforceDivisibility doesn't zero the pivot
+      have hA₄_ne : entry A₄ t t ≠ 0 :=
+        enforceDivisibility_pivot_ne_zero A₃ t hA₃_ne hbound
+      -- clearLoop preserves pivot: A₅ tt = A₄ tt ≠ 0
+      have hA₅_ne : entry A₅ t t ≠ 0 :=
+        (clearLoop_preserves_pivot A₄ t innerFuel).symm ▸ hA₄_ne
+      exact dvd_natAbs_cast (pivotDividesAll_correct A₅ t hpda' hA₅_ne i j hi hj)
     · -- Branch 3: both false → snfOuterStep returns none, contradicts h
       simp at h
 

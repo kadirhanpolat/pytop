@@ -162,6 +162,15 @@ theorem swapRows_entry_i (A : IntMatrix) (i j c : Nat)
         simp [List.getD, List.getElem?_eq_getElem hj']]
   simp [List.getElem?_eq_getElem hj']
 
+/-- Swapping rows i↔j leaves row k unchanged when k ≠ i and k ≠ j. -/
+theorem swapRows_entry_ne (A : IntMatrix) (i j k c : Nat)
+    (hki : k ≠ i) (hkj : k ≠ j) :
+    entry (swapRows A i j) k c = entry A k c := by
+  simp only [entry, swapRows, mapIdx_getElem?]
+  cases A[k]? with
+  | none => simp
+  | some row => simp only [Option.map_some, Option.bind_some, if_neg hki, if_neg hkj]
+
 -- ---------------------------------------------------------------------------
 -- Fold-invariant helpers (used by clearPass_preserves_pivot in Termination.lean)
 -- ---------------------------------------------------------------------------
