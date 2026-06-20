@@ -757,6 +757,389 @@ theorem compact_closed_subset (τ : Topology α) {K A : Set α}
     · exact hxj
 
 -- ──────────────────────────────────────────────────────────
+-- 21. İç / Kapanış dualitesi (tümleyen)
+-- ──────────────────────────────────────────────────────────
+
+/-- Tümleyen kümenin iç bölgesi = kapanışın tümleyeni: `int(Aᶜ) = cl(A)ᶜ`. -/
+theorem interior_compl (τ : Topology α) (A : Set α) :
+    interior τ Aᶜ = (closure τ A)ᶜ := by
+  apply Set.Subset.antisymm
+  · -- int(Aᶜ) ⊆ cl(A)ᶜ
+    intro x hx
+    simp only [interior, Set.mem_sUnion, Set.mem_setOf_eq] at hx
+    obtain ⟨U, ⟨hUo, hUAc⟩, hxU⟩ := hx
+    simp only [Set.mem_compl_iff]
+    intro hxcl
+    have hUcCl : isClosed τ Uᶜ := by unfold isClosed; rw [compl_compl]; exact hUo
+    have hAUc : A ⊆ Uᶜ := fun a haA haU => hUAc haU haA
+    exact (Set.mem_sInter.mp hxcl Uᶜ ⟨hUcCl, hAUc⟩) hxU
+  · -- cl(A)ᶜ ⊆ int(Aᶜ)
+    intro x hxncl
+    simp only [Set.mem_compl_iff] at hxncl
+    have hexist : ∃ C, isClosed τ C ∧ A ⊆ C ∧ x ∉ C := by
+      by_contra h
+      apply hxncl
+      simp only [closure, Set.mem_sInter, Set.mem_setOf_eq]
+      intro C ⟨hCcl, hAC⟩
+      by_contra hxC
+      exact h ⟨C, hCcl, hAC, hxC⟩
+    obtain ⟨C, hCcl, hAC, hxC⟩ := hexist
+    simp only [interior, Set.mem_sUnion, Set.mem_setOf_eq]
+    exact ⟨Cᶜ, ⟨hCcl, Set.compl_subset_compl.mpr hAC⟩, hxC⟩
+
+/-- Tümleyen kümenin kapanışı = iç bölgenin tümleyeni: `cl(Aᶜ) = int(A)ᶜ`. -/
+theorem closure_compl (τ : Topology α) (A : Set α) :
+    closure τ Aᶜ = (interior τ A)ᶜ := by
+  have h := interior_compl τ Aᶜ
+  rw [compl_compl] at h
+  -- h : interior τ A = (closure τ Aᶜ)ᶜ
+  rw [h, compl_compl]
+
+-- ──────────────────────────────────────────────────────────
+-- 22. T₁ eşdeğerliği: tekil kümelerin kapalılığı
+-- ──────────────────────────────────────────────────────────
+
+/-- T1 ↔ her tekil küme kapalıdır. -/
+theorem t1_iff_singletons_closed (τ : Topology α) :
+    isT1 τ ↔ ∀ x : α, isClosed τ {x} := by
+  constructor
+  · exact t1_singleton_closed τ
+  · intro h x y hne
+    refine ⟨{y}ᶜ, h y, ?_, ?_⟩
+    · simp [hne]
+    · simp
+
+-- ──────────────────────────────────────────────────────────
+-- 23. Sonlu birleşimler: Fin n indeksli kapalıların birleşimi
+-- ──────────────────────────────────────────────────────────
+
+/-- `Fin n`-indeksli sonlu kapalı küme ailesi kapalıdır. -/
+theorem closed_sUnion_finite (τ : Topology α) :
+    ∀ {n : ℕ} (F : Fin n → Set α), (∀ i, isClosed τ (F i)) → isClosed τ (⋃ i, F i) := by
+  intro n
+  induction n with
+  | zero =>
+    intro F _
+    rw [show (⋃ i : Fin 0, F i) = ∅ from
+          Set.iUnion_eq_empty.mpr (fun i => i.elim0)]
+    exact closed_empty τ
+  | succ n ih =>
+    intro F hF
+    have heq : (⋃ i : Fin (n + 1), F i) =
+        F (Fin.last n) ∪ ⋃ i : Fin n, F (Fin.castSucc i) := by
+      ext x
+      simp only [Set.mem_iUnion, Set.mem_union]
+      constructor
+      · rintro ⟨i, hx⟩
+        by_cases h : i = Fin.last n
+        · exact Or.inl (h ▸ hx)
+        · exact Or.inr ⟨⟨i.val,
+              Nat.lt_of_le_of_ne (Nat.lt_succ_iff.mp i.isLt) (fun heq => h (Fin.ext heq))⟩, hx⟩
+      · rintro (hx | ⟨j, hx⟩)
+        · exact ⟨Fin.last n, hx⟩
+        · exact ⟨Fin.castSucc j, hx⟩
+    rw [heq]
+    exact closed_union τ (hF (Fin.last n))
+      (ih (F ∘ Fin.castSucc) (fun i => hF (Fin.castSucc i)))
+
+-- ──────────────────────────────────────────────────────────
+-- 24. Ürün topolojisi — izdüşümler ve evrensel özellik
+-- ──────────────────────────────────────────────────────────
+
+/-- Birinci izdüşüm `π₁ : α × β → α` ürün topolojisinde süreklidir. -/
+theorem prodTopology_proj1_continuous (τ : Topology α) (σ : Topology β) :
+    isContinuous (prodTopology τ σ) τ Prod.fst := by
+  intro U hU
+  have heq : (Prod.fst : α × β → α) ⁻¹' U = U ×ˢ (Set.univ : Set β) := by
+    ext ⟨x, y⟩; simp
+  rw [heq]; exact prodTopology_cylinder_open τ σ hU σ.univ_open
+
+/-- İkinci izdüşüm `π₂ : α × β → β` ürün topolojisinde süreklidir. -/
+theorem prodTopology_proj2_continuous (τ : Topology α) (σ : Topology β) :
+    isContinuous (prodTopology τ σ) σ Prod.snd := by
+  intro V hV
+  have heq : (Prod.snd : α × β → β) ⁻¹' V = (Set.univ : Set α) ×ˢ V := by
+    ext ⟨x, y⟩; simp
+  rw [heq]; exact prodTopology_cylinder_open τ σ τ.univ_open hV
+
+/-- **Evrensel özellik**: `f : γ → α × β` sürekli ↔ her bileşen süreklidir. -/
+theorem continuous_to_product {ρ : Topology γ} (τ : Topology α) (σ : Topology β)
+    (f : γ → α × β) :
+    isContinuous ρ (prodTopology τ σ) f ↔
+      isContinuous ρ τ (Prod.fst ∘ f) ∧ isContinuous ρ σ (Prod.snd ∘ f) := by
+  constructor
+  · intro hf
+    exact ⟨continuous_comp ρ (prodTopology τ σ) τ hf (prodTopology_proj1_continuous τ σ),
+           continuous_comp ρ (prodTopology τ σ) σ hf (prodTopology_proj2_continuous τ σ)⟩
+  · intro ⟨hf1, hf2⟩ W hW
+    -- f⁻¹(W) = ⋃ açık silindirler; tümü ρ'da açık
+    suffices h : f ⁻¹' W = ⋃₀ {S | ρ.isOpen S ∧ S ⊆ f ⁻¹' W} by
+      rw [h]; exact ρ.union_open _ (fun S hS => hS.1)
+    ext z
+    simp only [Set.mem_sUnion, Set.mem_setOf_eq, Set.mem_preimage]
+    constructor
+    · intro hzW
+      obtain ⟨U, V, hUo, hVo, hfzU, hfzV, hUVW⟩ := hW (f z) hzW
+      exact ⟨(Prod.fst ∘ f) ⁻¹' U ∩ (Prod.snd ∘ f) ⁻¹' V,
+             ⟨ρ.inter_open _ _ (hf1 U hUo) (hf2 V hVo),
+              fun w ⟨hwU, hwV⟩ => hUVW ⟨hwU, hwV⟩⟩, hfzU, hfzV⟩
+    · rintro ⟨S, ⟨_, hSW⟩, hzS⟩
+      exact hSW hzS
+
+-- ──────────────────────────────────────────────────────────
+-- 25. İç operatörünün cebirsel özellikleri
+-- ──────────────────────────────────────────────────────────
+
+/-- `int(A ∩ B) = int(A) ∩ int(B)`. -/
+theorem interior_inter (τ : Topology α) (A B : Set α) :
+    interior τ (A ∩ B) = interior τ A ∩ interior τ B := by
+  apply Set.Subset.antisymm
+  · intro x hx
+    simp only [interior, Set.mem_sUnion, Set.mem_setOf_eq] at hx ⊢
+    obtain ⟨U, ⟨hUo, hUAB⟩, hxU⟩ := hx
+    exact ⟨⟨U, ⟨hUo, hUAB.trans Set.inter_subset_left⟩, hxU⟩,
+           ⟨U, ⟨hUo, hUAB.trans Set.inter_subset_right⟩, hxU⟩⟩
+  · intro x hx
+    simp only [interior, Set.mem_sUnion, Set.mem_setOf_eq,
+               Set.mem_inter_iff] at hx ⊢
+    obtain ⟨⟨U, ⟨hUo, hUA⟩, hxU⟩, ⟨V, ⟨hVo, hVB⟩, hxV⟩⟩ := hx
+    exact ⟨U ∩ V, ⟨τ.inter_open U V hUo hVo, Set.inter_subset_inter hUA hVB⟩, hxU, hxV⟩
+
+/-- `cl(A ∩ B) ⊆ cl(A) ∩ cl(B)`. -/
+theorem closure_inter_subset (τ : Topology α) (A B : Set α) :
+    closure τ (A ∩ B) ⊆ closure τ A ∩ closure τ B :=
+  Set.subset_inter
+    (closure_mono τ Set.inter_subset_left)
+    (closure_mono τ Set.inter_subset_right)
+
+-- ──────────────────────────────────────────────────────────
+-- 26. Sonlu kesişim: açık kümelerin sonlu kesişimi açıktır
+-- ──────────────────────────────────────────────────────────
+
+/-- `Fin n`-indeksli sonlu açık küme ailesinin kesişimi açıktır. -/
+theorem open_iInter_finite (τ : Topology α) :
+    ∀ {n : ℕ} (G : Fin n → Set α), (∀ i, τ.isOpen (G i)) → τ.isOpen (⋂ i, G i) := by
+  intro n
+  induction n with
+  | zero =>
+    intro G _
+    have : (⋂ i : Fin 0, G i) = Set.univ := by simp
+    rw [this]; exact τ.univ_open
+  | succ n ih =>
+    intro G hG
+    have heq : (⋂ i : Fin (n + 1), G i) =
+        G (Fin.last n) ∩ ⋂ i : Fin n, G (Fin.castSucc i) := by
+      ext x
+      simp only [Set.mem_iInter, Set.mem_inter_iff]
+      exact ⟨fun h => ⟨h (Fin.last n), fun i => h (Fin.castSucc i)⟩,
+             fun ⟨hl, hr⟩ => Fin.lastCases hl hr⟩
+    rw [heq]
+    exact τ.inter_open _ _ (hG (Fin.last n))
+      (ih (G ∘ Fin.castSucc) (fun i => hG (Fin.castSucc i)))
+
+-- ──────────────────────────────────────────────────────────
+-- 27. Sürekli fonksiyonun kompakt kümenin görüntüsü kompakttır
+-- ──────────────────────────────────────────────────────────
+
+/-- Sürekli bir fonksiyonun kompakt bir kümedeki görüntüsü kompakttır. -/
+theorem compact_continuous_image (τ : Topology α) (σ : Topology β)
+    {f : α → β} (hf : isContinuous τ σ f) {K : Set α} (hK : isCompact τ K) :
+    isCompact σ (f '' K) := by
+  intro F hF hcover
+  -- Geri-çekim ailesi: F' = {f⁻¹(V) | V ∈ F}
+  have hF'open : ∀ s ∈ (fun V => f ⁻¹' V) '' F, τ.isOpen s := by
+    rintro _ ⟨V, hVF, rfl⟩; exact hf V (hF V hVF)
+  have hcoverK : K ⊆ ⋃₀ ((fun V => f ⁻¹' V) '' F) := by
+    intro x hxK
+    obtain ⟨V, hVF, hfxV⟩ := Set.mem_sUnion.mp (hcover ⟨x, hxK, rfl⟩)
+    exact Set.mem_sUnion.mpr ⟨f ⁻¹' V, Set.mem_image_of_mem _ hVF, hfxV⟩
+  obtain ⟨n, G, hGF, hKsub⟩ := hK _ hF'open hcoverK
+  -- Her G i = f⁻¹(V i) için V i seç
+  have hchoice : ∀ i : Fin n, ∃ V ∈ F, f ⁻¹' V = G i := by
+    intro i; obtain ⟨V, hVF, hVG⟩ := hGF i; exact ⟨V, hVF, hVG⟩
+  choose V hVF hVG using hchoice
+  refine ⟨n, V, hVF, ?_⟩
+  rintro y ⟨x, hxK, rfl⟩
+  obtain ⟨j, hxGj⟩ := Set.mem_iUnion.mp (hKsub hxK)
+  have hxV : x ∈ f ⁻¹' V j := by rw [hVG j]; exact hxGj
+  exact Set.mem_iUnion.mpr ⟨j, hxV⟩
+
+-- ──────────────────────────────────────────────────────────
+-- 28. Hausdorff uzayında kompakt küme kapalıdır
+-- ──────────────────────────────────────────────────────────
+
+/-- T₂ (Hausdorff) uzayında her kompakt küme kapalıdır. -/
+theorem compact_t2_closed (τ : Topology α) (ht2 : isT2 τ) {K : Set α}
+    (hK : isCompact τ K) : isClosed τ K := by
+  unfold isClosed
+  rw [open_iff_eq_interior]
+  apply Set.Subset.antisymm _ (interior_subset τ Kᶜ)
+  intro y hyKc
+  rw [Set.mem_compl_iff] at hyKc
+  -- K'yı örten T₂-ayrım açık ailesi
+  obtain ⟨n, G, hGF, hKsub⟩ := hK
+    {U | ∃ x ∈ K, ∃ V, τ.isOpen U ∧ x ∈ U ∧ τ.isOpen V ∧ y ∈ V ∧ U ∩ V = ∅}
+    (by rintro s ⟨_, _, _, hs, _, _, _, _⟩; exact hs)
+    (by
+      intro x hxK
+      obtain ⟨U, V, hUo, hVo, hxU, hyV, hUV⟩ := ht2 x y (fun h => hyKc (h ▸ hxK))
+      exact Set.mem_sUnion.mpr ⟨U, ⟨x, hxK, V, hUo, hxU, hVo, hyV, hUV⟩, hxU⟩)
+  -- Her G i için eşlenik açık V i seç
+  have hVex : ∀ i : Fin n, ∃ V, τ.isOpen V ∧ y ∈ V ∧ G i ∩ V = ∅ := by
+    intro i
+    obtain ⟨_, _, V, _, _, hVo, hyV, hGV⟩ := hGF i
+    exact ⟨V, hVo, hyV, hGV⟩
+  choose V hVo hyV hGV using hVex
+  -- W = ⋂ V i: açık, y ∈ W, W ⊆ Kᶜ
+  simp only [interior, Set.mem_sUnion, Set.mem_setOf_eq]
+  refine ⟨⋂ i, V i, ⟨open_iInter_finite τ V hVo, ?_⟩, Set.mem_iInter.mpr hyV⟩
+  intro z hzW
+  rw [Set.mem_compl_iff]
+  intro hzK
+  obtain ⟨j, hzGj⟩ := Set.mem_iUnion.mp (hKsub hzK)
+  have hmem : z ∈ G j ∩ V j := ⟨hzGj, Set.mem_iInter.mp hzW j⟩
+  rw [hGV j] at hmem
+  exact hmem.elim
+
+-- ──────────────────────────────────────────────────────────
+-- 29. Sürekli fonksiyonun bağlantılı uzayın görüntüsü bağlantılıdır
+-- ──────────────────────────────────────────────────────────
+
+/-- Sürekli ve örten bir fonksiyonun bağlantılı uzaydan görüntüsü bağlantılıdır. -/
+theorem connected_continuous_image (τ : Topology α) (σ : Topology β)
+    (f : α → β) (hf : isContinuous τ σ f) (hfS : Function.Surjective f)
+    (hconn : isConnected τ) : isConnected σ := by
+  intro U ⟨hUo, hUcl⟩
+  have hfUo  : τ.isOpen (f ⁻¹' U)   := hf U hUo
+  have hfUcl : isClosed τ (f ⁻¹' U) := continuous_preimage_closed τ σ hf hUcl
+  rcases hconn (f ⁻¹' U) ⟨hfUo, hfUcl⟩ with h | h
+  · -- f⁻¹(U) = ∅ → U = ∅
+    left; ext y; constructor
+    · intro hyU
+      obtain ⟨x, rfl⟩ := hfS y
+      have hxU : x ∈ f ⁻¹' U := hyU
+      rw [h] at hxU; exact hxU.elim
+    · exact False.elim
+  · -- f⁻¹(U) = univ → U = univ
+    right; ext y; simp only [Set.mem_univ, iff_true]
+    obtain ⟨x, rfl⟩ := hfS y
+    have : x ∈ Set.univ := Set.mem_univ x
+    rwa [← h] at this
+
+-- ──────────────────────────────────────────────────────────
+-- 30. İç/kapanış dualite sonuçları
+-- ──────────────────────────────────────────────────────────
+
+/-- `interior τ A = (closure τ Aᶜ)ᶜ` — dualite sonucu. -/
+theorem interior_eq_compl_closure_compl (τ : Topology α) (A : Set α) :
+    interior τ A = (closure τ Aᶜ)ᶜ := by
+  have h := interior_compl τ Aᶜ
+  simp only [compl_compl] at h
+  exact h
+
+/-- `closure τ A = (interior τ Aᶜ)ᶜ` — dualite sonucu. -/
+theorem closure_eq_compl_interior_compl (τ : Topology α) (A : Set α) :
+    closure τ A = (interior τ Aᶜ)ᶜ := by
+  have h := closure_compl τ Aᶜ
+  simp only [compl_compl] at h
+  exact h
+
+-- ──────────────────────────────────────────────────────────
+-- 31. Sürekli fonksiyon kapanış görüntüsünü içerir
+-- ──────────────────────────────────────────────────────────
+
+/-- Sürekli `f` için `f '' (closure τ A) ⊆ closure σ (f '' A)`. -/
+theorem continuous_closure_image (τ : Topology α) (σ : Topology β)
+    {f : α → β} (hf : isContinuous τ σ f) (A : Set α) :
+    f '' closure τ A ⊆ closure σ (f '' A) := by
+  rintro y ⟨x, hxcl, rfl⟩
+  simp only [closure, Set.mem_sInter, Set.mem_setOf_eq]
+  intro C ⟨hCcl, hfAC⟩
+  have hfCcl : isClosed τ (f ⁻¹' C) := continuous_preimage_closed τ σ hf hCcl
+  have hAfC  : A ⊆ f ⁻¹' C := fun a haA => hfAC (Set.mem_image_of_mem f haA)
+  have hcl_sub : closure τ A ⊆ f ⁻¹' C := Set.sInter_subset_of_mem ⟨hfCcl, hAfC⟩
+  exact hcl_sub hxcl
+
+-- ──────────────────────────────────────────────────────────
+-- 32. Kompakt uzaydan T₂ uzaya biyektif sürekli → homeomorfizma
+-- ──────────────────────────────────────────────────────────
+
+/-- Kompakt uzaydan T₂ (Hausdorff) uzaya biyektif sürekli fonksiyon homeomorfizmadır. -/
+theorem compact_t2_homeomorphism (τ : Topology α) (σ : Topology β)
+    (hτK : isCompact τ Set.univ) (hσT2 : isT2 σ)
+    (f : α → β) (hcont : isContinuous τ σ f)
+    (hinj : Function.Injective f) (hsurj : Function.Surjective f) :
+    ∃ h : Homeomorphism τ σ, h.toFun = f := by
+  choose g hgf using hsurj
+  have hgf_left : ∀ x : α, g (f x) = x := fun x => hinj (hgf (f x))
+  have hgcont : isContinuous σ τ g := by
+    intro U hUo
+    have heq : g ⁻¹' U = (f '' Uᶜ)ᶜ := by
+      ext y
+      simp only [Set.mem_preimage, Set.mem_compl_iff, Set.mem_image]
+      constructor
+      · intro hgy ⟨x, hxUc, hfx⟩
+        have hxeq : x = g y := by
+          have h := congr_arg g hfx
+          rw [hgf_left] at h; exact h
+        exact absurd hgy (hxeq ▸ hxUc)
+      · intro hnotimg
+        by_contra hgy
+        exact hnotimg ⟨g y, hgy, hgf y⟩
+    rw [heq]
+    have hUcCl : isClosed τ Uᶜ := by unfold isClosed; rw [compl_compl]; exact hUo
+    exact compact_t2_closed σ hσT2
+      (compact_continuous_image τ σ hcont
+        (compact_closed_subset τ hτK (Set.subset_univ Uᶜ) hUcCl))
+  exact ⟨⟨f, g, hgf_left, hgf, hcont, hgcont⟩, rfl⟩
+
+-- ──────────────────────────────────────────────────────────
+-- 33. T₂ ↔ çapraz kapalı
+-- ──────────────────────────────────────────────────────────
+
+/-- `isT2 τ ↔ isClosed (prodTopology τ τ) {p | p.1 = p.2}`. -/
+theorem t2_iff_diagonal_closed (τ : Topology α) :
+    isT2 τ ↔ isClosed (prodTopology τ τ) {p : α × α | p.1 = p.2} := by
+  constructor
+  · intro ht2
+    unfold isClosed
+    have heq : {p : α × α | p.1 = p.2}ᶜ = {p | p.1 ≠ p.2} := by
+      ext ⟨a, b⟩; simp [Ne]
+    rw [heq]
+    intro ⟨x, y⟩ hne
+    obtain ⟨U, V, hUo, hVo, hxU, hyV, hUV⟩ := ht2 x y hne
+    refine ⟨U, V, hUo, hVo, hxU, hyV, ?_⟩
+    intro ⟨a, b⟩ ⟨haU, hbV⟩
+    show a ≠ b
+    intro hab
+    have haV : a ∈ V := by rw [hab]; exact hbV
+    have hmem : a ∈ U ∩ V := ⟨haU, haV⟩
+    rw [hUV] at hmem; exact hmem.elim
+  · intro hdiag x y hne
+    unfold isClosed at hdiag
+    have heq : {p : α × α | p.1 = p.2}ᶜ = {p | p.1 ≠ p.2} := by
+      ext ⟨a, b⟩; simp [Ne]
+    rw [heq] at hdiag
+    obtain ⟨U, V, hUo, hVo, hxU, hyV, hUVsub⟩ := hdiag (x, y) hne
+    refine ⟨U, V, hUo, hVo, hxU, hyV, ?_⟩
+    ext z
+    simp only [Set.mem_inter_iff, Set.mem_empty_iff_false, iff_false]
+    intro ⟨hzU, hzV⟩
+    have hmemProd : (z, z) ∈ U ×ˢ V := ⟨hzU, hzV⟩
+    exact hUVsub hmemProd rfl
+
+-- ──────────────────────────────────────────────────────────
+-- 34. İç birleşim alt kümesi
+-- ──────────────────────────────────────────────────────────
+
+/-- `interior τ A ∪ interior τ B ⊆ interior τ (A ∪ B)`. -/
+theorem interior_union_subset (τ : Topology α) (A B : Set α) :
+    interior τ A ∪ interior τ B ⊆ interior τ (A ∪ B) := by
+  apply Set.union_subset
+  · exact interior_mono τ Set.subset_union_left
+  · exact interior_mono τ Set.subset_union_right
+
+-- ──────────────────────────────────────────────────────────
 -- 20. Urysohn Lemması (T₄ uzaylarda)
 -- ──────────────────────────────────────────────────────────
 
