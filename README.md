@@ -1,7 +1,7 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-0.9.7-blue)
+![Version](https://img.shields.io/badge/version-1.0.3-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
@@ -365,6 +365,47 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
 - **8 914 tests passing**, 98.74% coverage
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
+
+## Formal Verification (`formal/`)
+
+The `formal/` directory contains **Lean 4 + Mathlib v4.31** machine-checked proofs
+for the core algorithms and topological foundations.  
+Build: `cd formal && lake build`
+
+### Verified paths
+
+| File | Content | Sorry |
+|------|---------|-------|
+| `SNF/` | Smith Normal Form correctness — clearPass residues, pivot positivity, fuel-independence, divisibility chain, all 5 branch theorems | **0** |
+| `Homology.lean` | Boundary operator ∂∘∂=0, Euler–Poincaré theorem via alternating-sum telescope | 0 |
+| `EulerChar.lean` | Euler characteristic = alternating Betti sum | 0 |
+| `PersHomology.lean` | Z/2 persistence reduction, `symmDiff_comm/self`, Cauchy sequence model | 0 |
+| `PiBase.lean` | Pi-Base implication graph load & traversal | 0 |
+| `SetTopology.lean` | Open-set axioms, closure/interior/boundary, Kuratowski, subspace & product topologies, homeomorphism, dense sets, connectedness, **T₃/T₄ definitions + implication chain (T₄→T₃→T₂), `compact_union`, `compact_closed_subset`**, Urysohn lemma (statement) | 1 (Urysohn construction) |
+| `MetricTopology.lean` | Metric space structure, open balls, metric topology axioms, ε-δ ↔ topological continuity (both directions), **Cauchy sequences, convergence, completeness, `fixedPoint_unique`**, Banach fixed-point theorem (uniqueness proved; existence deferred) | 1 (Banach existence) |
+
+### Key theorems (selected)
+
+```lean
+-- Smith Normal Form
+theorem pytopSNF_positive      : ∀ i, 0 ≤ (pytopSNF M).diag i
+theorem pytopSNF_fuel_independent : pytopSNF M = pytopSNF' M   -- fuel doesn't matter
+theorem pytopSNF_divisibilityChain : isDivisibilityChain (pytopSNF M).diag
+
+-- Set topology
+theorem t4_implies_t3 (τ : Topology α) : isT4 τ → isT3 τ
+theorem t3_implies_t2 (τ : Topology α) : isT3 τ → isT2 τ
+theorem compact_union  (τ : Topology α) : isCompact τ K₁ → isCompact τ K₂ → isCompact τ (K₁ ∪ K₂)
+theorem compact_closed_subset (τ : Topology α) : isCompact τ K → A ⊆ K → isClosed τ A → isCompact τ A
+
+-- Metric topology
+theorem openBall_isOpen   (M : MetricSpace α) : (metricTopology M).isOpen (openBall M x r)
+theorem epsDelta_implies_topoCont : epsilonDeltaContinuous M N f x₀ → topological continuity at x₀
+theorem topoCont_implies_epsDelta : topological continuity at x₀ → epsilonDeltaContinuous M N f x₀
+theorem convergent_is_cauchy      : convergesTo M seq L → isCauchy M seq
+theorem limit_unique              : convergesTo M seq L₁ → convergesTo M seq L₂ → L₁ = L₂
+theorem fixedPoint_unique         : isContraction M f → f p = p → f q = q → p = q
+```
 
 ## Contributing
 

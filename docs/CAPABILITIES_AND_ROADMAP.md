@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-18:** Phase 1 (set-theoretic topology) substantially
+> **Status as of 2026-06-20:** Phase 1 (set-theoretic topology) substantially
 > complete; Phase 2 (algebraic topology) **complete** (8 / 8).
 > **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
 > P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
@@ -19,9 +19,12 @@
 > 3.11/3.12/3.13, and as of **v0.9.4** `src/pytop` is mypy-clean (361 → 0).
 > **v0.9.5** added a measured performance pass (planarity Euler edge-bound +
 > genus-0 early termination, Khovanov per-bidegree SNF memoisation; persistence
-> profiled and left unchanged). The only remaining items are explicitly deferred:
-> native GAP/Regina (unavailable
-> here — only via the Docker images) and formal verification of the core routines.
+> profiled and left unchanged). **Phases 5–6 complete** (TDA pipeline, v1.0.0–v1.0.3):
+> discrete Morse theory, persistence distances/landscapes, Mapper, Čech complex,
+> persistence over Z/p, TDA pipeline builder.
+> **Formal verification in progress** (`formal/`): Lean 4 + Mathlib v4.31 proofs
+> for SNF (0 sorry), homology, set topology (T₁–T₄, compactness theorems), and
+> metric topology (ε-δ ↔ topological continuity, Cauchy, Banach fixed-point uniqueness).
 
 ---
 
