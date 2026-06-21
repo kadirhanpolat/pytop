@@ -22,9 +22,11 @@
 > profiled and left unchanged). **Phases 5–6 complete** (TDA pipeline, v1.0.0–v1.0.3):
 > discrete Morse theory, persistence distances/landscapes, Mapper, Čech complex,
 > persistence over Z/p, TDA pipeline builder.
-> **Formal verification in progress** (`formal/`): Lean 4 + Mathlib v4.31 proofs
-> for SNF (0 sorry), homology, set topology (T₁–T₄, compactness theorems), and
-> metric topology (ε-δ ↔ topological continuity, Cauchy, Banach fixed-point uniqueness).
+> **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs for SNF (0 sorry),
+> set topology — 34 theorems (T₀–T₄, closure/interior duality, compactness, diagonal
+> characterisation; 0 sorry) + **24 alternative proofs** in 5 strategies (by contradiction,
+> contrapositive, direct, interior-closure duality, simp-heavy; `SetTopologyAltProofs.lean`),
+> and metric topology (ε-δ ↔ topological continuity, Cauchy, Banach fixed-point).
 
 ---
 
@@ -307,8 +309,8 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   directly — e.g. ℤ/2 ⊕ ℤ/3 is `[6]` in both.)
 - **Remaining** (deferred — genuinely unavailable here): **GAP** and **Regina**
   as *native* libraries (only reachable via the Docker SageMath / SnapPy images);
-  deeper orchestration / interop bridges; and formal verification of the core
-  routines.
+  deeper orchestration / interop bridges; and formal verification of the full
+  computational core (SNF proved; topology modules expanding).
 
 ---
 

@@ -1,0 +1,92 @@
+{
+  "iff": {
+    "en": [
+      "{lhs} if and only if {rhs}.",
+      "{lhs} is equivalent to {rhs}.",
+      "{lhs} holds precisely when {rhs}.",
+      "{lhs} and {rhs} are equivalent conditions.",
+      "The following are equivalent: {lhs}; {rhs}."
+    ],
+    "tr": [
+      "{lhs} ancak ve ancak {rhs} ise doğrudur.",
+      "{lhs} ile {rhs} birbirine denktir.",
+      "{lhs}, tam olarak {rhs} koşulunda sağlanır.",
+      "{lhs} ve {rhs} eşdeğer koşullardır.",
+      "Şunlar birbirine denktir: {lhs}; {rhs}."
+    ]
+  },
+  "implication": {
+    "en": [
+      "If {cond}, then {concl}.",
+      "{Cond} ensures {concl}.",
+      "Whenever {cond}, {concl} holds.",
+      "Under {cond}, {concl} follows.",
+      "{Cond} is sufficient to conclude that {concl}.",
+      "From {cond}, one deduces that {concl}."
+    ],
+    "tr": [
+      "{cond} ise {concl}.",
+      "{cond} durumunda {concl} sağlanır.",
+      "{cond} olduğunda {concl} geçerlidir.",
+      "{cond} varsayımı altında {concl} elde edilir.",
+      "{cond}, {concl} sonucuna varmak için yeterlidir.",
+      "{cond}'dan {concl} türetilebilir."
+    ]
+  },
+  "subset": {
+    "en": [
+      "{lhs} is contained in {rhs}.",
+      "Every element of {lhs} lies in {rhs}.",
+      "{lhs} is a subset of {rhs}.",
+      "{rhs} contains {lhs}.",
+      "{lhs} sits inside {rhs}."
+    ],
+    "tr": [
+      "{lhs}, {rhs} içinde yer alır.",
+      "{lhs}'nin her elemanı {rhs}'ye aittir.",
+      "{lhs}, {rhs}'nin bir alt kümesidir.",
+      "{rhs}, {lhs}'yi içerir.",
+      "{lhs}, {rhs} içine gömülüdür."
+    ]
+  },
+  "equality": {
+    "en": [
+      "{lhs} equals {rhs}.",
+      "{lhs} and {rhs} coincide.",
+      "{lhs} is identical to {rhs}.",
+      "As sets, {lhs} = {rhs}."
+    ],
+    "tr": [
+      "{lhs}, {rhs}'ye eşittir.",
+      "{lhs} ile {rhs} çakışır.",
+      "{lhs}, {rhs} ile özdeştir.",
+      "Küme olarak {lhs} = {rhs}."
+    ]
+  },
+  "existence": {
+    "en": [
+      "Under {cond}, there exists {obj} with {prop}.",
+      "{cond} yields {obj} satisfying {prop}.",
+      "Assuming {cond}, a {obj} with {prop} is guaranteed to exist.",
+      "Given {cond}, one can find {obj} such that {prop}."
+    ],
+    "tr": [
+      "{cond} altında {prop} sağlayan bir {obj} mevcuttur.",
+      "{cond} durumunda {prop} olan bir {obj} elde edilir.",
+      "{cond} varsayımıyla {prop} sağlayan bir {obj}'nin varlığı güvence altındadır.",
+      "{cond} verildiğinde {prop} koşulunu karşılayan bir {obj} bulunabilir."
+    ]
+  },
+  "other": {
+    "en": [
+      "{content}",
+      "It follows that {content}.",
+      "One has: {content}."
+    ],
+    "tr": [
+      "{content}",
+      "Buradan {content} çıkar.",
+      "Şu sağlanır: {content}."
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "predicates": {
+    "isCompact": {
+      "en": ["τ is compact", "the space is compact", "compactness holds"],
+      "tr": ["τ kompakttır", "uzay kompakttır", "kompaktlık geçerlidir"]
+    },
+    "isT2": {
+      "en": ["σ is Hausdorff (T₂)", "the Hausdorff condition holds", "σ satisfies T₂"],
+      "tr": ["σ Hausdorff'tur (T₂)", "Hausdorff koşulu sağlanır", "σ, T₂ aksiyomunu karşılar"]
+    },
+    "isT1": {
+      "en": ["τ is T₁", "T₁ separation holds", "all singletons are closed"],
+      "tr": ["τ T₁'dir", "T₁ ayrımı geçerlidir", "tüm tekil kümeler kapalıdır"]
+    },
+    "isT0": {
+      "en": ["τ is T₀ (Kolmogorov)", "T₀ separation holds"],
+      "tr": ["τ T₀'dır (Kolmogorov)", "T₀ ayrımı sağlanır"]
+    },
+    "isT3": {
+      "en": ["τ is regular (T₃)", "T₃ regularity holds"],
+      "tr": ["τ düzgündür (T₃)", "T₃ düzgünlüğü geçerlidir"]
+    },
+    "isT4": {
+      "en": ["τ is normal (T₄)", "normality (T₄) holds"],
+      "tr": ["τ normaldir (T₄)", "normallik (T₄) sağlanır"]
+    },
+    "isContinuous": {
+      "en": ["f is continuous", "f is a continuous map", "continuity of f holds"],
+      "tr": ["f süreklidir", "f sürekli bir fonksiyondur", "f'nin sürekliliği geçerlidir"]
+    },
+    "isClosed": {
+      "en": ["the set is closed", "closedness holds"],
+      "tr": ["küme kapalıdır", "kapalılık sağlanır"]
+    },
+    "isDense": {
+      "en": ["A is dense", "A is a dense subset", "density of A holds"],
+      "tr": ["A yoğundur", "A yoğun bir alt kümedir", "A'nın yoğunluğu geçerlidir"]
+    },
+    "isConnected": {
+      "en": ["τ is connected", "the space is connected", "connectedness holds"],
+      "tr": ["τ bağlantılıdır", "uzay bağlantılıdır", "bağlantılılık sağlanır"]
+    },
+    "Function.Injective": {
+      "en": ["f is injective", "f is one-to-one", "injectivity of f holds"],
+      "tr": ["f birebirdir", "f bire-bir dönüşümdür", "f'nin birebirliği geçerlidir"]
+    },
+    "Function.Surjective": {
+      "en": ["f is surjective", "f is onto", "surjectivity of f holds"],
+      "tr": ["f örtendir", "f üzerine dönüşümdür", "f'nin örtenliği geçerlidir"]
+    },
+    "Function.Bijective": {
+      "en": ["f is bijective", "f is a bijection"],
+      "tr": ["f biyektiftir", "f bire-bir örten dönüşümdür"]
+    }
+  },
+  "conclusions": {
+    "Homeomorphism": {
+      "en": [
+        "is a homeomorphism",
+        "yields a homeomorphism",
+        "constitutes a homeomorphism between the spaces"
+      ],
+      "tr": [
+        "bir homeomorfizmadır",
+        "homeomorfizma verir",
+        "uzaylar arasında homeomorfizma oluşturur"
+      ]
+    },
+    "isClosed": {
+      "en": ["is closed", "is necessarily closed", "turns out to be closed"],
+      "tr": ["kapalıdır", "zorunlu olarak kapalıdır", "kapalı olduğu görülür"]
+    },
+    "isCompact": {
+      "en": ["is compact", "remains compact", "is again compact"],
+      "tr": ["kompakttır", "kompakt kalır", "yine kompakttır"]
+    },
+    "isConnected": {
+      "en": ["is connected", "remains connected", "inherits connectedness"],
+      "tr": ["bağlantılıdır", "bağlantılı kalır", "bağlantılılığı miras alır"]
+    },
+    "isDense": {
+      "en": ["is dense", "is a dense subset"],
+      "tr": ["yoğundur", "yoğun bir alt kümedir"]
+    }
+  },
+  "substitutions": {
+    "en": {
+      "interior τ": "int",
+      "closure τ":  "cl",
+      "boundary τ": "bd",
+      "Set.univ":   "the whole space",
+      "Set.univ α": "the whole space",
+      "prodTopology τ τ": "the product topology on α×α",
+      "prodTopology τ σ": "the product topology",
+      "subtopology": "the subspace topology",
+      "Prod.fst":   "the first projection",
+      "Prod.snd":   "the second projection",
+      "Function.LeftInverse":  "left-inverse",
+      "Function.RightInverse": "right-inverse",
+      "isContinuous τ σ": "continuous",
+      "isClosed τ":  "closed",
+      "isOpen τ":    "open",
+      "isCompact τ": "compact",
+      "isT2 τ":  "Hausdorff (T₂)",
+      "isT1 τ":  "T₁",
+      "isT0 τ":  "T₀",
+      "isT3 τ":  "T₃",
+      "isT4 τ":  "T₄"
+    },
+    "tr": {
+      "interior τ": "int",
+      "closure τ":  "cl",
+      "boundary τ": "sınır",
+      "Set.univ":   "tüm uzay",
+      "Set.univ α": "tüm uzay",
+      "prodTopology τ τ": "α×α üzerindeki çarpım topolojisi",
+      "prodTopology τ σ": "çarpım topolojisi",
+      "subtopology": "alt uzay topolojisi",
+      "Prod.fst":   "birinci izdüşüm",
+      "Prod.snd":   "ikinci izdüşüm",
+      "Function.LeftInverse":  "sol-ters",
+      "Function.RightInverse": "sağ-ters",
+      "isContinuous τ σ": "sürekli",
+      "isClosed τ":  "kapalı",
+      "isOpen τ":    "açık",
+      "isCompact τ": "kompakt",
+      "isT2 τ":  "Hausdorff (T₂)",
+      "isT1 τ":  "T₁",
+      "isT0 τ":  "T₀",
+      "isT3 τ":  "T₃",
+      "isT4 τ":  "T₄"
+    }
+  }
+}

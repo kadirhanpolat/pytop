@@ -27,18 +27,38 @@ pytopSNF_fuel_independent :
 
 ```
 Formal/SNF/
-  Defs.lean          — IntMatrix, entry, numRows/numCols, IsSmithNF spec
-  Elementary.lean    — addRow, addCol, swapRows, swapCols + entry lemmas
-  Algorithm.lean     — clearPass, clearLoop, findPivot, pytopSNF definitions
-  Termination.lean   — clearLoop stabilises (idempotency of clearPass)
-  Positivity.lean    — invariant factors are positive (pivot preservation chain)
-  Divisibility.lean  — pivotDividesAll + snfOuterStep divisibility
-  Chain.lean         — divisibility chain of invariant factors
-  Correctness.lean   — top-level IsSmithNF theorem + fuel sufficiency
-  TestLemmas.lean    — scratch / sanity checks
+  Defs.lean               — IntMatrix, entry, numRows/numCols, IsSmithNF spec
+  Elementary.lean         — addRow, addCol, swapRows, swapCols + entry lemmas
+  Algorithm.lean          — clearPass, clearLoop, findPivot, pytopSNF definitions
+  Termination.lean        — clearLoop stabilises (idempotency of clearPass)
+  Positivity.lean         — invariant factors are positive (pivot preservation chain)
+  Divisibility.lean       — pivotDividesAll + snfOuterStep divisibility
+  Chain.lean              — divisibility chain of invariant factors
+  Correctness.lean        — top-level IsSmithNF theorem + fuel sufficiency
+  TestLemmas.lean         — scratch / sanity checks
+
+Formal/
+  SetTopology.lean        — point-set topology: T0–T4 axioms, closure/interior,
+                            compactness, continuity, 34 proved theorems
+  SetTopologyAltProofs.lean — 24 alternative proofs of SetTopology results in 5 strategies:
+                            [ÇY] by contradiction, [KT] contrapositive, [D] alternative
+                            direct, [De] interior-closure duality, [Tak] simp-heavy
+  MetricTopology.lean     — metric spaces: ε-δ continuity ↔ topological, Cauchy sequences,
+                            Banach fixed-point (existence + uniqueness)
+  Basic.lean              — set-theoretic utilities
+  Homology.lean           — simplicial homology (descriptive layer)
+  PiBase.lean             — pi-Base property reasoning
+  PersHomology.lean       — persistent homology stubs
+
+tools/
+  bilingual_docs.py       — generates bilingual (EN/TR) Markdown proof documentation
+                            from SetTopology.lean; dependency-free, template-driven
+  data/                   — JSON template and terminology files
 ```
 
 ## Proof Status
+
+### SNF module
 
 | File | Status |
 |------|--------|
@@ -50,6 +70,14 @@ Formal/SNF/
 | Divisibility.lean | **all proved** — `pivotDividesAll_correct`, `snfOuterStep_divides_submatrix` (both branches) |
 | Chain.lean | **all proved** — `factor_dvd_next` (both branches), `pytopSNF_divisibilityChain` |
 | Correctness.lean | **all proved** — `pytopSNF_isInvariantFactors`, `pytopSNF_fuel_independent` |
+
+### Topology modules
+
+| File | Theorems | Status |
+|------|----------|--------|
+| SetTopology.lean | 34 | **all proved** — T0–T4 separation, closure/interior duality, compactness, continuity, diagonal characterisation, 0 sorry |
+| SetTopologyAltProofs.lean | 24 | **all proved** — alternative strategies for SetTopology results (by contradiction, contrapositive, direct, duality, simp-heavy), 0 sorry |
+| MetricTopology.lean | ~15 | **all proved** — ε-δ ↔ topological continuity, Cauchy sequences, Banach fixed-point (1 sorry: contraction uniqueness — Cauchy completeness lemma deferred) |
 
 ## Building
 

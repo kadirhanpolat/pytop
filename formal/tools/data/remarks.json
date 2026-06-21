@@ -1,0 +1,90 @@
+{
+  "interior_compl": {
+    "en": "De Morgan law for topology: complementation swaps interior and closure.",
+    "tr": "Topoloji için De Morgan yasası: tümleme, iç ve kapanışı yer değiştirir."
+  },
+  "closure_compl": {
+    "en": "Dual of interior_compl. Together they form the complete De Morgan picture.",
+    "tr": "interior_compl'nin duali. İkisi birlikte tam De Morgan tablosunu oluşturur."
+  },
+  "interior_eq_compl_closure_compl": {
+    "en": "Equivalent form: int(A) = (cl(Aᶜ))ᶜ. Derived from De Morgan duality.",
+    "tr": "Eşdeğer ifade: int(A) = (cl(Aᶜ))ᶜ. De Morgan dualitesinden elde edilir."
+  },
+  "closure_eq_compl_interior_compl": {
+    "en": "Equivalent form: cl(A) = (int(Aᶜ))ᶜ. Dual of the interior formula.",
+    "tr": "Eşdeğer ifade: cl(A) = (int(Aᶜ))ᶜ. İç formülünün dualidir."
+  },
+  "t1_iff_singletons_closed": {
+    "en": "The easiest way to verify T₁: just check that {x} is closed for every x.",
+    "tr": "T₁'i doğrulamanın en kolay yolu: her x için {x}'in kapalı olduğunu kontrol etmek."
+  },
+  "closed_sUnion_finite": {
+    "en": "Finiteness is essential: ⋃ₙ [1/n, 1] = (0,1] is a counterexample for infinite unions.",
+    "tr": "Sonluluk zorunludur: ⋃ₙ [1/n, 1] = (0,1] sonsuz birleşimler için karşı-örnektir."
+  },
+  "open_iInter_finite": {
+    "en": "Dual to closed_sUnion_finite: ⋂ₙ (-1/n, 1/n) = {0} is a counterexample for infinite intersections.",
+    "tr": "closed_sUnion_finite'ın duali: ⋂ₙ (-1/n, 1/n) = {0} sonsuz kesişimler için karşı-örnektir."
+  },
+  "interior_inter": {
+    "en": "Equality holds exactly — not just inclusion. Dual: closure_union also has equality.",
+    "tr": "Eşitlik tam olarak sağlanır — yalnızca içerme değil. Dual: closure_union da eşitlik verir."
+  },
+  "closure_inter_subset": {
+    "en": "Strict inclusion can occur: cl([0,1]) ∩ cl([1,2]) = {1}, but cl([0,1] ∩ [1,2]) = {1} here — equality fails in general.",
+    "tr": "Katı içerme oluşabilir: genel olarak eşitlik sağlanmaz."
+  },
+  "closure_union": {
+    "en": "Equality holds for finite unions, fails for infinite: cl(⋃ₙ {1/n}) ≠ ⋃ₙ cl({1/n}).",
+    "tr": "Sonlu birleşimler için eşitlik sağlanır, sonsuz için bozulur: cl(⋃ₙ {1/n}) ≠ ⋃ₙ cl({1/n})."
+  },
+  "interior_union_subset": {
+    "en": "Equality int(A) ∪ int(B) = int(A ∪ B) holds iff at least one of A, B is open.",
+    "tr": "int(A) ∪ int(B) = int(A ∪ B) eşitliği ancak ve ancak A veya B açıksa sağlanır."
+  },
+  "compact_t2_closed": {
+    "en": "The Hausdorff hypothesis is essential; compact sets need not be closed in non-Hausdorff spaces.",
+    "tr": "Hausdorff koşulu zorunludur; Hausdorff olmayan uzaylarda kompakt kümeler kapalı olmayabilir."
+  },
+  "compact_closed_subset": {
+    "en": "Compactness is hereditary for closed subsets, not for arbitrary subsets.",
+    "tr": "Kompaktlık kapalı alt kümeler için kalıtsaldır, keyfi alt kümeler için değil."
+  },
+  "compact_continuous_image": {
+    "en": "Compactness is a topological invariant — preserved by all continuous maps.",
+    "tr": "Kompaktlık topolojik bir değişmezdir — tüm sürekli fonksiyonlar altında korunur."
+  },
+  "connected_continuous_image": {
+    "en": "Connectedness is a topological invariant. This is the topological form of the intermediate value theorem.",
+    "tr": "Bağlantılılık topolojik bir değişmezdir. Bu, Ara Değer Teoremi'nin topolojik biçimidir."
+  },
+  "compact_t2_homeomorphism": {
+    "en": "No continuity assumption is needed on the inverse; it follows automatically. Fails without T₂: the Zariski topology provides counterexamples.",
+    "tr": "Tersin sürekliliği varsayılmaz; otomatik olarak elde edilir. T₂ olmadan çalışmaz: Zariski topolojisi karşı-örnekler verir."
+  },
+  "t2_iff_diagonal_closed": {
+    "en": "The diagonal Δ = {(x,x) | x ∈ X} being closed in X×X is the standard characterisation of Hausdorff spaces.",
+    "tr": "Çapraz Δ = {(x,x) | x ∈ X}'in X×X'te kapalı olması, Hausdorff uzaylarının standart karakterizasyonudur."
+  },
+  "continuous_closure_image": {
+    "en": "The reverse inclusion f(cl(A)) ⊇ cl(f(A)) requires f to be open; this direction suffices for all density arguments.",
+    "tr": "Ters içerme f(cl(A)) ⊇ cl(f(A)) için f'nin açık olması gerekir; bu yön tüm yoğunluk argümanları için yeterlidir."
+  },
+  "isDense_iff": {
+    "en": "Equivalent characterisation: A is dense iff every nonempty open set meets A. Often more useful than the closure definition.",
+    "tr": "Eşdeğer karakterizasyon: A yoğundur ancak ve ancak her boş olmayan açık küme A ile kesişiyorsa. Kapanış tanımından sıklıkla daha kullanışlıdır."
+  },
+  "prodTopology_proj1_continuous": {
+    "en": "Projection maps are continuous by construction of the product topology — this is the defining property.",
+    "tr": "İzdüşüm fonksiyonları, çarpım topolojisinin tanımı gereği süreklidir — bu tanımlayıcı özelliktir."
+  },
+  "continuous_to_product": {
+    "en": "The universal property of the product topology: a map into a product is continuous iff each component is continuous.",
+    "tr": "Çarpım topolojisinin evrensel özelliği: çarpıma giden bir fonksiyon, ancak ve ancak her bileşeni sürekli ise süreklidir."
+  },
+  "urysohn_lemma": {
+    "en": "One of the deepest results in point-set topology. The proof requires a dyadic approximation construction — deferred here.",
+    "tr": "Nokta-küme topolojisinin en derin sonuçlarından biri. Kanıtı dyadic yaklaşım inşası gerektirir — burada ertelenmiştir."
+  }
+}
