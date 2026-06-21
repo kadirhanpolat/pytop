@@ -32,7 +32,12 @@
 > set topology — 34 theorems (T₀–T₄, closure/interior duality, compactness, diagonal
 > characterisation; 0 sorry) + **24 alternative proofs** in 5 strategies (by contradiction,
 > contrapositive, direct, interior-closure duality, simp-heavy; `SetTopologyAltProofs.lean`),
-> and metric topology (ε-δ ↔ topological continuity, Cauchy, Banach fixed-point).
+> metric topology (ε-δ ↔ topological continuity, Cauchy, Banach fixed-point; 0 sorry),
+> and persistence homology (`PersHomology.lean`) — `symmDiff_assoc` (Z/2 column algebra is
+> associative), `pairs_have_distinct_deaths` (death indices are Nodup — proved from
+> `List.range` structure without `reduce_is_reduced`), `pairs_birth_lt_death` (birth < death
+> under lower-triangular hypothesis; **1 sorry** remaining: `reduce_is_reduced`, blocked by
+> `partial def reduceCol` — no Lean termination certificate; fuel-based rewrite deferred).
 
 ---
 
