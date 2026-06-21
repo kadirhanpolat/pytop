@@ -4,7 +4,7 @@
 
 `pytop` is a standalone mathematical topology library for Python 3.11+.
 It provides point-set topology, knot theory, graph topology, surface classification,
-3-manifolds, degree theory, cardinal functions, and more. As of **v1.0.1** it ships a
+3-manifolds, degree theory, cardinal functions, and more. As of **v1.0.4** it ships a
 **constructive computational core** (simplicial homology with field/relative coefficients,
 persistent homology / TDA, optimized persistence with Twist+Clearing, persistent cohomology
 (de Silva dual), cubical complexes + bitmap persistence, discrete Morse theory, persistence
@@ -231,7 +231,25 @@ feature/<topic> ← feature branches, merge to master via PR
 - **Released v1.0.0:** Phase 5 P5.3 — **Mapper algorithm** (`mapper`): Singh–Mémoli–Carlsson (2007) full pipeline — `IntervalCover` (overlapping uniform cover), `single_linkage_labels` (1-D single-linkage), `mapper()` (filter → cover → pullback clustering → nerve complex up to configurable dimension), `MapperComplex` with `connected_components()` / `adjacency()`. Custom `cluster_fn` and `cover` supported. 31 new tests. All Phase 5 TDA frontiers (P5.1–P5.3) closed. **10 074 tests pass.**
 - **Released v1.0.1:** Phase 6 P6.1 — **Čech complex** (`cech_complex`): `cech_filtration` + `persistent_homology_cech`. Welzl's miniball (Gaussian elimination circumsphere). Rips–Čech sandwich verified. 29 new tests.
 - **Released v1.0.2:** Phase 6 P6.2 — **Persistence over Z/p** (`persistent_homology_fp`): `persistence_pairs_fp(filtered, prime)` over F_p for any prime p. Alternating-sign boundary, Fermat modinv. Torsion detection. `is_prime` helper. 23 new tests.
-- **Released v1.0.3 (latest):** Phase 6 P6.3 — **TDA Pipeline** (`tda_pipeline`): `TDAPipeline` immutable builder. `.rips()/.cech()/.reduce(method)/.pairs()/.barcode()/.diagram()/.landscape()/.entropy()/.bottleneck()/.wasserstein()/.compare_primes()/.summary()`. All 4 reduction methods (standard/twist/cohomology/fp). 42 new tests.
+- **Released v1.0.3:** Phase 6 P6.3 — **TDA Pipeline** (`tda_pipeline`): `TDAPipeline` immutable builder. `.rips()/.cech()/.reduce(method)/.pairs()/.barcode()/.diagram()/.landscape()/.entropy()/.bottleneck()/.wasserstein()/.compare_primes()/.summary()`. All 4 reduction methods (standard/twist/cohomology/fp). 42 new tests.
+- **Released v1.0.4 (latest):** Phase 7 P7.1 — **Standard Triangulations** (`simplicial_filtration`): `simplicial_filtration()` (generic simplicial complex filtration builder), `torus_filtration()` (7-vertex minimal triangulation of T²), `klein_bottle_filtration()` (8-vertex minimal Klein bottle Δ-complex), `rp2_filtration()` (6-vertex minimal RP² triangulation). All compatible with the full TDA pipeline (Twist, cohomology, Z/p). **Lean 4 formal verification** — `urysohn_lemma` (Sierpinski-target Urysohn, T₄ → separating Bool map), `banach_fixed_point` (contraction iteration + geometric series Cauchy bound). All `sorry` tactics eliminated from project-owned `.lean` files.
+
+---
+
+## Phase 7 Roadmap: Combinatorial Topology & Geometric Structures
+
+Phase 7 focuses on combinatorial/geometric topology — richer simplicial structures, algebraic invariants from geometric input, and spectral methods. Six planned milestones:
+
+| Milestone | Module | Description |
+|-----------|--------|-------------|
+| **P7.1** ✅ | `simplicial_filtration` | Standard triangulations: torus, Klein bottle, RP² (7–8 vertex minimal) |
+| **P7.2** | `simplicial_maps` | Simplicial maps + chain-level induced homomorphisms; `SimplicialMap`, `induced_map_on_homology`, `cone_complex`, `suspension_complex` |
+| **P7.3** | `nerve_complex` | Nerve theorem utilities: `nerve_of_cover`, `good_cover_check`, `čech_nerve` from open covers; Nerve ≃ union for good covers |
+| **P7.4** | `spectral_sequences` | Leray–Serre spectral sequence (filtered chain complex → E^r pages → E^∞); `SpectralPage`, `differential_d_r`, `converges_to` |
+| **P7.5** | `surgery_theory` | Handle decomposition: `handle_attachment`, `trace_cobordism`, `trace_homology` (Mayer–Vietoris for handle gluing); Dehn surgery cross-validation |
+| **P7.6** | `morse_complex` | Morse complex from discrete gradient: `morse_chain_complex`, `morse_boundary_operator`, `morse_homology`; validates equality with simplicial H_* |
+
+**Deferred (long-range):** sheaf cohomology, persistent K-theory, formal verification of SNF correctness (PersHomology.lean remaining bodies).
 
 ---
 
