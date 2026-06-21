@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-20:** Phase 1 (set-theoretic topology) substantially
+> **Status as of 2026-06-21:** Phase 1 (set-theoretic topology) substantially
 > complete; Phase 2 (algebraic topology) **complete** (8 / 8).
 > **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
 > P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
@@ -22,6 +22,12 @@
 > profiled and left unchanged). **Phases 5–6 complete** (TDA pipeline, v1.0.0–v1.0.3):
 > discrete Morse theory, persistence distances/landscapes, Mapper, Čech complex,
 > persistence over Z/p, TDA pipeline builder.
+> **Phase 7 complete** (combinatorial topology, **v1.0.5**): P7.1 standard triangulations
+> (torus/Klein bottle/RP²), P7.2 simplicial maps + induced homomorphisms, P7.3 nerve
+> complex + Čech nerve, P7.4 spectral sequences (E^r pages → E^∞ convergence), P7.5
+> surgery theory (handle attachment, trace cobordism), P7.6 Morse complex (gradient
+> V-path counting, Morse boundary operator, Morse homology theorem cross-validated).
+> **153 new tests; 9 959 core tests passing.**
 > **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs for SNF (0 sorry),
 > set topology — 34 theorems (T₀–T₄, closure/interior duality, compactness, diagonal
 > characterisation; 0 sorry) + **24 alternative proofs** in 5 strategies (by contradiction,
@@ -312,6 +318,46 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   deeper orchestration / interop bridges; and formal verification of the full
   computational core (SNF proved; topology modules expanding).
 
+### Phase 5 — TDA & computational geometry ✅ COMPLETE (v0.9.8–v1.0.0)
+
+- **P5.1 — Discrete Morse theory** ✅ (`discrete_morse.py`): `MorsePair`, `MorseMatching`,
+  `discrete_gradient_matching` (greedy + V-path DFS acyclicity guard), `is_valid_morse_matching`,
+  `check_morse_inequalities`. Perfect matchings: S^1 → 2 critical cells, S^2 → 2, torus χ=0.
+- **P5.2 — Persistence distances & descriptors** ✅ (`persistence_distances.py`):
+  `bottleneck_distance` (binary search + max bipartite matching), `wasserstein_distance`
+  (Jonker–Volgenant O(n³) Hungarian, augmented (m+n)×(m+n) cost matrix),
+  `PersistenceLandscape` (Bubenik 2015 k-th tent on grid), `persistence_entropy` (Shannon).
+- **P5.3 — Mapper algorithm** ✅ (`mapper.py`): Singh–Mémoli–Carlsson (2007) full pipeline —
+  `IntervalCover` (overlapping uniform cover), `single_linkage_labels` (1-D single-linkage),
+  `mapper()` (filter → cover → pullback clustering → nerve complex up to configurable dim),
+  `MapperComplex` with `connected_components()` / `adjacency()`.
+
+### Phase 6 — TDA pipeline & advanced filtrations ✅ COMPLETE (v1.0.1–v1.0.3)
+
+- **P6.1 — Čech complex** ✅ (`cech_complex.py`): `cech_filtration` + `persistent_homology_cech`.
+  Welzl miniball (Gaussian elimination circumsphere). Rips–Čech sandwich verified.
+- **P6.2 — Persistence over Z/p** ✅ (`persistent_homology_fp.py`): `persistence_pairs_fp(filtered, prime)`
+  over F_p for any prime p. Alternating-sign boundary, Fermat modinv. Torsion detection.
+- **P6.3 — TDA Pipeline** ✅ (`tda_pipeline.py`): `TDAPipeline` immutable builder.
+  `.rips()/.cech()/.reduce(method)/.pairs()/.barcode()/.diagram()/.landscape()/.entropy()/.bottleneck()/.wasserstein()/.compare_primes()/.summary()`.
+  All 4 reduction methods (standard/twist/cohomology/fp).
+
+### Phase 7 — Combinatorial topology & geometric structures ✅ COMPLETE (v1.0.4–v1.0.5)
+
+| Milestone | Module | Status | Delivered |
+|-----------|--------|--------|-----------|
+| **P7.1** | `simplicial_filtration` | ✅ | Standard triangulations: `torus_filtration` (7-vertex T²), `klein_bottle_filtration` (8-vertex), `rp2_filtration` (6-vertex RP²). 33 tests. |
+| **P7.2** | `simplicial_maps` | ✅ | `SimplicialMap` + validation, `chain_map_matrix` (signed integer matrix), `induced_map_on_homology` (via extended SNF), `cone_complex` (contractible), `suspension_complex` (Σ(Sⁿ)≃Sⁿ⁺¹). 42 tests. |
+| **P7.3** | `nerve_complex` | ✅ | `nerve_of_cover`, `good_cover_check` (Nerve theorem preconditions), `cech_nerve` (Welzl miniball circumsphere). 30 tests. |
+| **P7.4** | `spectral_sequences` | ✅ | `SpectralPage`, `FilteredChainComplex`, `differential_d_r`, `converges_to` (E^r → E^∞ stability). 25 new tests (205 total). |
+| **P7.5** | `surgery_theory` | ✅ | `handle_attachment` (K ∪ cone(Sᵏ⁻¹)), `trace_cobordism`, `trace_homology`. 24 tests. |
+| **P7.6** | `morse_complex` | ✅ | `MorseChainComplex`, `morse_boundary_operator` (gradient V-path DFS + Forman signs), `morse_homology` (SNF + Morse theorem cross-validation). 32 tests. |
+
+**Phase 7 total: 186 new tests. All P7.1–P7.6 milestones closed.**
+
+**Deferred (long-range):** sheaf cohomology, persistent K-theory, formal verification of
+SNF correctness for the persistence pipelines (`PersHomology.lean` remaining bodies).
+
 ---
 
 ## Part IV — Hard trade-offs to decide early
@@ -327,17 +373,23 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 ---
 
-## Part V — Summary statistics (2026-06-18)
+## Part V — Summary statistics (2026-06-21)
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 950** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
+| Tests passing | **9 959** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
-| Phase 1 milestones complete | 5 / 5 |
+| Phase 1 milestones complete | 5 / 5 ✅ |
 | Phase 2 milestones complete | 8 / 8 ✅ |
+| Phase 3 milestones complete | 3 / 3 ✅ |
+| Phase 4 milestones complete | 8 / 8 ✅ |
+| Phase 5 milestones complete | 3 / 3 ✅ |
+| Phase 6 milestones complete | 3 / 3 ✅ |
+| Phase 7 milestones complete | 6 / 6 ✅ |
+| **Current version** | **v1.0.5** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 

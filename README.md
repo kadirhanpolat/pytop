@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.0.3-blue)
+![Version](https://img.shields.io/badge/version-1.0.5-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v0.6.0+**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence — **Phase 2: 8/8 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
+As of **v1.0.5**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
 
 ## Installation
 
@@ -116,15 +116,28 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | Graph topology | `graph_topology` |
 | **Computational homology** (v0.6.0+) | `homology`, `persistent_homology`, `homology_coefficients`, `mayer_vietoris`, `cellular_homology`, `cohomology` |
 | **Optimized persistence** (v0.6.0+) | `persistent_homology_optimized` — Twist+Clearing (Chen–Kerber 2011), `ReductionStats` |
+| **Persistent cohomology** (v0.9.7+) | `persistent_homology` — `persistence_pairs_cohomology` (de Silva dual; ~2–2.5× faster than standard) |
 | **Cubical complexes** (v0.6.0+) | `cubical_homology` — `CubicalComplex`, SNF homology, `bitmap_to_cubical_filtration`, `persistent_homology_bitmap` |
 | **Fundamental group / van Kampen** (v0.6.0+) | `van_kampen` — `GroupPresentation`, `van_kampen()`, `cw_complex_pi1()`, standard spaces |
 | **Knot/link invariants** (v0.6.0+) | `knot_invariants` (Jones, Alexander, linking number/matrix), `seifert` (Seifert circles, genus bound, matrix, signature), `homfly` (HOMFLY-PT `P(a,z)` from braid closures), `multivariable_alexander` (`Δ_L(t₁,…,tₙ)` via Wirtinger + Fox) |
 | **3-manifold homology** (v0.7.0+) | `dehn_surgery` — Dehn surgery → `H₁` (SNF cokernel of the framing/linking matrix), lens space homeomorphism/homotopy classification |
 | **Khovanov homology** (v0.7.0+) | `khovanov` — bigraded `Kh^{i,j}` (free rank + torsion) categorifying the Jones polynomial |
 | **Exact linear algebra** (v0.8.0+) | `exact_linalg` — Smith normal form, integer rank, Bareiss `integer_determinant`, `cokernel` → `AbelianGroup` |
+| **TDA pipeline** (v1.0.3+) | `tda_pipeline` — `TDAPipeline` immutable builder; `.rips()/.cech()/.reduce()/.pairs()/.landscape()/.entropy()/.bottleneck()/.wasserstein()` |
+| **Čech complex** (v1.0.1+) | `cech_complex` — `cech_filtration`, `persistent_homology_cech` (Welzl miniball) |
+| **Persistence over Z/p** (v1.0.2+) | `persistent_homology_fp` — `persistence_pairs_fp(filtered, prime)` |
+| **Standard triangulations** (v1.0.4+) | `simplicial_filtration` — `torus_filtration`, `klein_bottle_filtration`, `rp2_filtration` (7–8 vertex minimal triangulations) |
+| **Simplicial maps** (v1.0.5+) | `simplicial_maps` — `SimplicialMap`, `chain_map_matrix`, `induced_map_on_homology`, `cone_complex`, `suspension_complex` |
+| **Nerve complex** (v1.0.5+) | `nerve_complex` — `nerve_of_cover`, `good_cover_check`, `cech_nerve` (Welzl circumsphere) |
+| **Spectral sequences** (v1.0.5+) | `spectral_sequences` — `SpectralPage`, `FilteredChainComplex`, `differential_d_r`, `converges_to` (E^∞ stability) |
+| **Surgery theory** (v1.0.5+) | `surgery_theory` — `handle_attachment`, `trace_cobordism`, `trace_homology` |
+| **Morse complex** (v1.0.5+) | `morse_complex` — `MorseChainComplex`, `morse_boundary_operator` (gradient V-path counting), `morse_homology` (cross-validated against simplicial H_*) |
+| **Discrete Morse theory** (v0.9.8+) | `discrete_morse` — `MorsePair`, `MorseMatching`, `discrete_gradient_matching`, `check_morse_inequalities` |
+| **Persistence distances** (v0.9.9+) | `persistence_distances` — `bottleneck_distance`, `wasserstein_distance`, `PersistenceLandscape`, `persistence_entropy` |
+| **Mapper algorithm** (v1.0.0+) | `mapper` — Singh–Mémoli–Carlsson (2007): `IntervalCover`, `single_linkage_labels`, `MapperComplex` |
 | **Degree / winding** (v0.6.0) | `winding_number` |
 | **Surface classification** (v0.6.0) | `surface_word_classification` |
-| **Graph planarity** (v0.6.0) | `graph_planarity` |
+| **Graph planarity** (v0.6.0) | `graph_planarity` — O(V+E) left-right planarity test (Brandes 2009) |
 | **Deductive inference** (v0.6.0) | `experimental.pi_base`, `experimental.pi_base_atlas` |
 | **Convergence spaces** (v0.6.0) | `experimental.convergence_spaces` |
 | **Computable spaces** (experimental) | `experimental.spaces` — protocol, 16 predicates, reasoning engine, pi-Base bridge |
@@ -164,6 +177,35 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New in v1.0.5 (Phase 7 complete)
+
+**Phase 7 — Combinatorial topology & geometric structures (P7.2–P7.6):**
+
+- **Simplicial maps** (`simplicial_maps.py`, P7.2): `SimplicialMap` dataclass with vertex-map
+  validation, `chain_map_matrix` (integer matrix f#_k: C_k(K) → C_k(L) with correct signs),
+  `induced_map_on_homology` (f_*: H_k(K;Z) → H_k(L;Z) via extended SNF), `cone_complex`
+  (contractible CK = K * {apex}), `suspension_complex` (ΣK = K * S⁰; Σ(Sⁿ) ≃ Sⁿ⁺¹). 42 tests.
+- **Nerve complex** (`nerve_complex.py`, P7.3): `nerve_of_cover` (nerve N(U) of a finite open
+  cover), `good_cover_check` (verifies Nerve theorem preconditions — covers space, pairwise
+  intersections, nonempty sets), `cech_nerve` (Čech complex at fixed radius via Welzl miniball
+  least-squares circumsphere). 30 tests.
+- **Spectral sequences (computational)** (`spectral_sequences.py`, P7.4): `SpectralPage`
+  (bigraded Betti/torsion groups at page r), `FilteredChainComplex`, `filtered_chain_complex_from_simplices`,
+  `differential_d_r` (E^r page differentials d^r: E^r_{p,q} → E^r_{p−r,q+r−1}),
+  `converges_to` (iterates pages until E^{r+1} = E^r stability → E^∞). 25 new tests.
+- **Surgery theory** (`surgery_theory.py`, P7.5): `handle_attachment` (K ∪ cone(Sᵏ⁻¹),
+  homotopy-type of K with a k-cell attached), `trace_cobordism`, `trace_homology`
+  (H_*(W;Z) via direct simplicial homology with Mayer–Vietoris interpretation). 24 tests.
+- **Morse complex** (`morse_complex.py`, P7.6): `MorseChainComplex` (critical simplices +
+  Morse boundary matrices from a discrete gradient matching), `morse_boundary_operator`
+  (gradient V-path counting with Forman signs — DFS on the acyclic gradient graph),
+  `morse_homology` (H_*(C^M;Z) via Smith normal form + automatic cross-validation against
+  simplicial H_*(K;Z): **Morse homology theorem verified**). 32 tests.
+
+**9 959 core tests passing (+ opt-in SageMath/SnapPy-oracle tests). All phases 1–7 complete.**
+
+---
 
 ## What's New (post-v0.6.0, now on master — PR #15)
 
@@ -324,7 +366,7 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   independent oracle for `dehn_surgery` — a batched run of a local `pytop-snappy` image validates
   `first_homology_of_surgery` against SnapPy's Dehn-filling homology (figure-8 knot surgeries → ℤ/p,
   Whitehead-link surgeries → ℤ/a ⊕ ℤ/b).
-- **9 950 tests passing** across the full suite (+ 16 opt-in SageMath/SnapPy-oracle tests).
+- **9 959 tests passing** across the core suite (+ 16 opt-in SageMath/SnapPy-oracle tests).
 
 ## What's New in v0.6.0
 
