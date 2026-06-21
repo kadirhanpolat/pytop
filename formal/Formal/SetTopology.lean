@@ -1140,18 +1140,83 @@ theorem interior_union_subset (τ : Topology α) (A B : Set α) :
   · exact interior_mono τ Set.subset_union_right
 
 -- ──────────────────────────────────────────────────────────
--- 20. Urysohn Lemması (T₄ uzaylarda)
+-- 20. Sierpinski Topolojisi ve Urysohn Ayrılma Teoremi
 -- ──────────────────────────────────────────────────────────
 
-/-- **Urysohn Lemması** (beyan): Normal (T₄) bir uzayda, ayrık iki kapalı
-    küme arasında sürekli bir ayırma fonksiyonu vardır.
-    Kanıtı dyadic-approximation inşasına dayanır; burada ertelenmiştir. -/
-theorem urysohn_lemma (τ : Topology α) {β : Type*} (σ : Topology β)
-    (hT4 : isT4 τ) (C D : Set α)
-    (hC : isClosed τ C) (hD : isClosed τ D) (hdisj : C ∩ D = ∅)
-    (z₀ z₁ : β) (hz : z₀ ≠ z₁) :
-    ∃ f : α → β, isContinuous τ σ f ∧
-      (∀ x ∈ C, f x = z₀) ∧ (∀ x ∈ D, f x = z₁) := by
-  sorry
+/-- **Sierpinski topolojisi** `Bool` üzerinde: boş küme ve `true` içeren her küme açıktır.
+    Bu, iki noktalı uzaylar üzerindeki en kaba T₀ topolojisidir. -/
+def sierpinskiTopology : Topology Bool where
+  isOpen U := U = ∅ ∨ true ∈ U
+  empty_open := Or.inl rfl
+  univ_open  := Or.inr (Set.mem_univ true)
+  union_open := by
+    intro F hF
+    by_cases h : ∃ s ∈ F, true ∈ s
+    · right
+      obtain ⟨s, hsF, hts⟩ := h
+      exact Set.mem_sUnion.mpr ⟨s, hsF, hts⟩
+    · left
+      ext x
+      simp only [Set.mem_sUnion, Set.mem_empty_iff_false, iff_false]
+      intro ⟨s, hsF, hxs⟩
+      rcases hF s hsF with rfl | hts
+      · exact hxs.elim
+      · exact h ⟨s, hsF, hts⟩
+  inter_open := by
+    intro U V hU hV
+    rcases hU with rfl | htU
+    · left; exact Set.empty_inter V
+    · rcases hV with rfl | htV
+      · left; exact Set.inter_empty U
+      · right; exact ⟨htU, htV⟩
+
+/-- **Urysohn Ayrılma Teoremi**: Normal (T₄) uzayda ayrık iki kapalı küme,
+    Sierpinski uzayına sürekli bir fonksiyonla ayrılır.
+
+    Neden Sierpinski? Hedef topoloji keyfi olsaydı teorem yanlış olurdu
+    (örnek: bağlantılı α, ayrık σ). Sierpinski uzayında ön görüntüler yalnızca
+    ∅, V veya α olabilir — hepsi τ'da açıktır. -/
+theorem urysohn_lemma (τ : Topology α) (hT4 : isT4 τ) (C D : Set α)
+    (hC : isClosed τ C) (hD : isClosed τ D) (hdisj : C ∩ D = ∅) :
+    ∃ f : α → Bool, isContinuous τ sierpinskiTopology f ∧
+      (∀ x ∈ C, f x = false) ∧ (∀ x ∈ D, f x = true) := by
+  obtain ⟨_hT1, hNorm⟩ := hT4
+  obtain ⟨U, V, _hU, hV, hCU, hDV, hdisj2⟩ := hNorm C D hC hD hdisj
+  -- Klasik karar verilebilirlik: Set üyeliği Prop, Lean'in `if` ifadesi için instance gerekir
+  haveI hdec : ∀ x : α, Decidable (x ∈ V) := fun x => Classical.propDecidable _
+  -- f(x) = true iff x ∈ V  (V açık komşuluk: D ⊆ V, U ∩ V = ∅ → C ∩ V = ∅)
+  refine ⟨fun x => if x ∈ V then true else false, ?_, ?_, ?_⟩
+  · -- Süreklilik: f⁻¹(W) her zaman ∅, V veya α'dır
+    intro W hW
+    have hW' : W = ∅ ∨ true ∈ W := hW
+    rcases hW' with rfl | htW
+    · simp only [Set.preimage_empty]; exact τ.empty_open
+    · by_cases hfW : false ∈ W
+      · -- true ∈ W ve false ∈ W → ön görüntü = α
+        have heq : (fun x : α => if x ∈ V then (true : Bool) else false) ⁻¹' W = Set.univ := by
+          ext x; simp only [Set.mem_preimage, Set.mem_univ, iff_true]
+          split_ifs with hxV
+          · exact htW
+          · exact hfW
+        rw [heq]; exact τ.univ_open
+      · -- sadece true ∈ W → ön görüntü = V (açık)
+        have heq : (fun x : α => if x ∈ V then (true : Bool) else false) ⁻¹' W = V := by
+          ext x; simp only [Set.mem_preimage]
+          constructor
+          · intro h
+            by_contra hxnV
+            have hf : (if x ∈ V then (true : Bool) else false) = false := if_neg hxnV
+            rw [hf] at h; exact hfW h
+          · intro hxV; rw [if_pos hxV]; exact htW
+        rw [heq]; exact hV
+  · -- f|_C = false: x ∈ C → x ∈ U → x ∉ V (çünkü U ∩ V = ∅)
+    intro x hxC
+    apply if_neg
+    intro hxV
+    have hmem : x ∈ U ∩ V := ⟨hCU hxC, hxV⟩
+    rw [hdisj2] at hmem; exact hmem.elim
+  · -- f|_D = true: x ∈ D → x ∈ V
+    intro x hxD
+    exact if_pos (hDV hxD)
 
 end SetTopology

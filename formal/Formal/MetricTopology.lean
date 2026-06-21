@@ -1,5 +1,9 @@
 import Mathlib.Data.Real.Basic
+import Mathlib.Algebra.Order.Archimedean.Real.Basic
 import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Algebra.Field.GeomSum
 import Formal.SetTopology
 
 /-!
@@ -186,18 +190,151 @@ theorem fixedPoint_unique (M : MetricSpace α) (f : α → α)
   nlinarith
 
 /-- **Banach Sabit Nokta Teoremi**: Tam metrik uzayda büzülme dönüşümünün
-    tam olarak bir sabit noktası vardır.
-    Varlık kanıtı iterasyon dizisinin Cauchy olduğunu gerektirir
-    (geometrik seri yaklaşımı); burada ertelenmiştir. -/
-theorem banach_fixed_point (M : MetricSpace α) (hM : isComplete M)
+    tam olarak bir sabit noktası vardır. -/
+theorem banach_fixed_point (M : MetricSpace α) [inst : Nonempty α] (hM : isComplete M)
     (f : α → α) (hf : isContraction M f) :
     ∃! p : α, f p = p := by
   obtain ⟨k, hk0, hk1, hLip⟩ := hf
-  -- Varlık: herhangi x₀'dan başlayarak xₙ₊₁ = f xₙ dizisi Cauchy'dir.
-  -- Geometrik seri bağı: d(xₘ, xₙ) ≤ kⁿ/(1-k) · d(x₁,x₀) → 0
   suffices h : ∃ p : α, f p = p by
     obtain ⟨p, hp⟩ := h
     exact ⟨p, hp, fun q hq => (fixedPoint_unique M f ⟨k, hk0, hk1, hLip⟩ p q hp hq).symm⟩
-  sorry
+  obtain ⟨x₀⟩ := inst
+  -- Eğer x₀ zaten sabit noktaysa, doğrudan ver.
+  by_cases hfixed : f x₀ = x₀
+  · exact ⟨x₀, hfixed⟩
+  have hd0 : 0 < M.dist x₀ (f x₀) := M.dist_pos x₀ (f x₀) (fun h => hfixed h.symm)
+  have h1k : 0 < 1 - k := by linarith
+  -- Yineleme dizisi: seqₙ = fⁿ(x₀)
+  let seq : ℕ → α := fun n => f^[n] x₀
+  -- Adım bağı: d(seqₙ, seqₙ₊₁) ≤ kⁿ · d₀
+  have hstep : ∀ n : ℕ, M.dist (seq n) (seq (n + 1)) ≤ k ^ n * M.dist x₀ (f x₀) := by
+    intro n
+    induction n with
+    | zero =>
+      simp [seq, Function.iterate_succ_apply', Function.iterate_zero_apply]
+    | succ n ih =>
+      -- Rewrite seq(n+1) and seq(n+2) to their f-composition forms
+      have hn1 : seq (n + 1) = f (seq n) := by
+        simp [seq, Function.iterate_succ_apply']
+      have hn2 : seq (n + 2) = f (seq (n + 1)) := by
+        simp [seq, Function.iterate_succ_apply']
+      -- Three rewrites: seq(n+1)→f(seq n), seq(n+2)→f(seq(n+1))→f(f(seq n))
+      rw [hn1, hn2, hn1]
+      -- Goal: M.dist (f (seq n)) (f (f (seq n))) ≤ k^(n+1) * M.dist x₀ (f x₀)
+      have h1 : M.dist (f (seq n)) (f (f (seq n))) ≤ k * M.dist (seq n) (f (seq n)) :=
+        hLip (seq n) (f (seq n))
+      have h2 : M.dist (seq n) (f (seq n)) ≤ k ^ n * M.dist x₀ (f x₀) := hn1 ▸ ih
+      nlinarith [mul_nonneg hk0 (pow_nonneg hk0 n), pow_succ k n]
+  -- Kısmi toplam bağı: d(seqₘ, seqₘ₊ₚ) ≤ (∑ᵢ<ₚ k^(m+i)) · d₀
+  have hpsum : ∀ m p : ℕ,
+      M.dist (seq m) (seq (m + p)) ≤
+        (Finset.range p).sum (fun i => k ^ (m + i)) * M.dist x₀ (f x₀) := by
+    intro m p
+    induction p with
+    | zero => simp [seq, M.dist_self]
+    | succ p ihp =>
+      rw [show m + (p + 1) = m + p + 1 from by omega, Finset.sum_range_succ]
+      calc M.dist (seq m) (seq (m + p + 1))
+          ≤ M.dist (seq m) (seq (m + p)) + M.dist (seq (m + p)) (seq (m + p + 1))
+              := M.dist_triangle _ _ _
+        _ ≤ (Finset.range p).sum (fun i => k ^ (m + i)) * M.dist x₀ (f x₀) +
+              k ^ (m + p) * M.dist x₀ (f x₀) := by linarith [ihp, hstep (m + p)]
+        _ = ((Finset.range p).sum (fun i => k ^ (m + i)) + k ^ (m + p)) * M.dist x₀ (f x₀)
+              := by ring
+  -- Geometrik seri bağı: ∑ᵢ<ₚ k^(m+i) ≤ kᵐ / (1−k)
+  have hgeom : ∀ m p : ℕ,
+      (Finset.range p).sum (fun i => k ^ (m + i)) ≤ k ^ m / (1 - k) := by
+    intro m p
+    have hfact : (Finset.range p).sum (fun i => k ^ (m + i)) =
+        k ^ m * (Finset.range p).sum (fun i => k ^ i) := by
+      simp [Finset.mul_sum, pow_add]
+    rw [hfact]
+    clear hfact
+    -- Kapalı form: (∑ᵢ<ₚ kⁱ) · (1−k) = 1 − kᵖ  (induction)
+    have hform : (Finset.range p).sum (fun i => k ^ i) * (1 - k) = 1 - k ^ p := by
+      induction p with
+      | zero => simp
+      | succ p ih => rw [Finset.sum_range_succ, add_mul, ih]; ring
+    have hkp : 0 ≤ k ^ p := pow_nonneg hk0 p
+    have hkm : 0 ≤ k ^ m := pow_nonneg hk0 m
+    -- ∑ᵢ<ₚ kⁱ ≤ 1/(1−k)  iff  ∑ᵢ<ₚ kⁱ · (1−k) ≤ 1
+    have hle : (Finset.range p).sum (fun i => k ^ i) ≤ 1 / (1 - k) := by
+      rw [le_div_iff₀ h1k]; linarith [hform]
+    calc k ^ m * (Finset.range p).sum (fun i => k ^ i)
+        ≤ k ^ m * (1 / (1 - k)) := mul_le_mul_of_nonneg_left hle hkm
+      _ = k ^ m / (1 - k) := by ring
+  -- Mesafe bağı: d(seqₘ, seqₘ₊ₚ) ≤ kᵐ/(1−k) · d₀
+  have hdist : ∀ m p : ℕ,
+      M.dist (seq m) (seq (m + p)) ≤ k ^ m / (1 - k) * M.dist x₀ (f x₀) :=
+    fun m p => (hpsum m p).trans (mul_le_mul_of_nonneg_right (hgeom m p) (le_of_lt hd0))
+  -- seq Cauchy dizisidir
+  have hcauchy : isCauchy M seq := by
+    intro ε hε
+    set c := ε * (1 - k) / M.dist x₀ (f x₀) with hc_def
+    have hc : 0 < c := div_pos (mul_pos hε h1k) hd0
+    obtain ⟨N, hN⟩ := exists_pow_lt_of_lt_one hc hk1
+    -- N'den büyük her j için tek taraflı bağ
+    have hbound : ∀ j, N ≤ j → ∀ p, M.dist (seq j) (seq (j + p)) < ε := by
+      intro j hj p
+      have hpow : k ^ j ≤ k ^ N :=
+        pow_le_pow_of_le_one hk0 (le_of_lt hk1) hj
+      have hstep2 : k ^ N * M.dist x₀ (f x₀) < ε * (1 - k) := by
+        have hcv : c * M.dist x₀ (f x₀) = ε * (1 - k) := by
+          rw [hc_def, div_mul_cancel₀]
+          exact ne_of_gt hd0
+        calc k ^ N * M.dist x₀ (f x₀)
+            < c * M.dist x₀ (f x₀) := mul_lt_mul_of_pos_right hN hd0
+          _ = ε * (1 - k) := hcv
+      calc M.dist (seq j) (seq (j + p))
+          ≤ k ^ j / (1 - k) * M.dist x₀ (f x₀) := hdist j p
+        _ ≤ k ^ N / (1 - k) * M.dist x₀ (f x₀) := by
+              apply mul_le_mul_of_nonneg_right _ (le_of_lt hd0)
+              exact (div_le_div_iff_of_pos_right h1k).mpr hpow
+        _ < ε := by
+              rw [show k ^ N / (1 - k) * M.dist x₀ (f x₀) =
+                    k ^ N * M.dist x₀ (f x₀) / (1 - k) from by ring,
+                  div_lt_iff₀ h1k]
+              linarith
+    refine ⟨N, fun m n hm hn => ?_⟩
+    rcases lt_or_ge n m with hmn | hmn
+    · -- n < m
+      rw [M.dist_symm, show m = n + (m - n) from (Nat.add_sub_cancel' hmn.le).symm]
+      exact hbound n hn _
+    · -- m ≤ n
+      rw [show n = m + (n - m) from (Nat.add_sub_cancel' hmn).symm]
+      exact hbound m hm _
+  -- Limiti al
+  obtain ⟨L, hL⟩ := hM seq hcauchy
+  -- f(seqₙ) = seqₙ₊₁
+  have hfseq : ∀ n, f (seq n) = seq (n + 1) := fun n => by
+    simp [seq, Function.iterate_succ_apply']
+  -- seqₙ₊₁ → L
+  have hL1 : convergesTo M (fun n => seq (n + 1)) L := by
+    intro ε hε
+    obtain ⟨N, hN⟩ := hL ε hε
+    exact ⟨N, fun n hn => hN (n + 1) (Nat.le_succ_of_le hn)⟩
+  -- f(seqₙ) → f(L)
+  have hfL : convergesTo M (fun n => seq (n + 1)) (f L) := by
+    intro ε hε
+    by_cases hk0' : k = 0
+    · obtain ⟨N, hN⟩ := hL ε hε
+      refine ⟨N, fun n hn => ?_⟩
+      -- beta-reduce then rewrite seq(n+1) = f(seq n)
+      change M.dist (seq (n + 1)) (f L) < ε
+      rw [← hfseq n]
+      have h0 := hLip (seq n) L
+      rw [hk0', zero_mul] at h0
+      linarith [M.dist_nonneg (f (seq n)) (f L)]
+    · have hkpos : 0 < k := lt_of_le_of_ne hk0 (Ne.symm hk0')
+      obtain ⟨N, hN⟩ := hL (ε / k) (div_pos hε hkpos)
+      refine ⟨N, fun n hn => ?_⟩
+      change M.dist (seq (n + 1)) (f L) < ε
+      rw [← hfseq n]
+      calc M.dist (f (seq n)) (f L)
+          ≤ k * M.dist (seq n) L := hLip _ _
+        _ < k * (ε / k) := by nlinarith [hN n hn, M.dist_nonneg (seq n) L]
+        _ = ε := by field_simp [hkpos.ne']
+  -- Limit özgünlüğünden f(L) = L
+  exact ⟨L, limit_unique M _ (f L) L hfL hL1⟩
 
 end MetricTopology
