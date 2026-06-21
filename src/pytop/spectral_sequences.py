@@ -960,4 +960,371 @@ __all__ = [
     "is_first_quadrant_spectral_sequence",
     "classify_spectral_sequence",
     "spectral_sequence_profile",
+    # P7.4 computational objects
+    "SpectralPage",
+    "FilteredChainComplex",
+    "filtered_chain_complex_from_simplices",
+    "differential_d_r",
+    "converges_to",
 ]
+
+
+# ===========================================================================
+# P7.4: Computational spectral sequence from filtered chain complexes
+# ===========================================================================
+#
+# Mathematical background
+# -----------------------
+# A filtration of a chain complex (C_*, ∂) is a decreasing sequence of
+# subcomplexes F^p C_* with ∩F^p = 0 and ∪F^p = C_*.
+#
+# The associated spectral sequence {E^r_{p,q}, d^r} satisfies:
+#   E^1_{p,q} = H_{p+q}(F^p C / F^{p+1} C)   (associated-graded homology)
+#   d^r : E^r_{p,q} → E^r_{p−r, q+r−1}        (bidegree (−r, r−1))
+#   E^{r+1}_{p,q} = ker(d^r_{p,q}) / im(d^r_{p+r, q−r+1})
+#   E^∞_{p,q}  ≅ Gr^p H_{p+q}(C_*)            (associated graded of total homology)
+#
+# For the Künneth / product filtration the sequence degenerates at E^2.
+
+from dataclasses import dataclass as _dataclass
+
+_Matrix = list[list[int]]
+
+
+@_dataclass
+class SpectralPage:
+    """A single E^r page of a bigraded spectral sequence.
+
+    Entries E^r_{p,q} are finitely generated abelian groups stored as
+    (betti, torsion) pairs where ``betti`` is the free rank and ``torsion``
+    is a tuple of invariant factors > 1.
+
+    Attributes
+    ----------
+    page_number : int
+        The page index r (r ≥ 1).
+    groups : dict[tuple[int,int], tuple[int, tuple[int,...]]]
+        Maps ``(p, q)`` → ``(betti, torsion)``.  Missing entries = zero group.
+    max_p : int
+        Largest filtration degree p with a nonzero entry (for display).
+    max_total : int
+        Largest total degree n = p + q with a nonzero entry.
+    """
+
+    page_number: int
+    groups: dict[tuple[int, int], tuple[int, tuple[int, ...]]]
+    max_p: int = 0
+    max_total: int = 0
+
+    def get(self, p: int, q: int) -> tuple[int, tuple[int, ...]]:
+        """Return E^r_{p,q} as (betti, torsion), defaulting to (0, ())."""
+        return self.groups.get((p, q), (0, ()))
+
+    def betti(self, p: int, q: int) -> int:
+        """Free rank of E^r_{p,q}."""
+        return self.get(p, q)[0]
+
+    def torsion(self, p: int, q: int) -> tuple[int, ...]:
+        """Torsion invariant factors of E^r_{p,q}."""
+        return self.get(p, q)[1]
+
+    def total_rank(self, n: int) -> int:
+        """Sum of Betti numbers ⊕_{p+q=n} E^r_{p,q}."""
+        return sum(self.get(p, n - p)[0] for p in range(n + 1))
+
+    def is_zero(self) -> bool:
+        """True if all entries are the zero group."""
+        return all(b == 0 and not t for b, t in self.groups.values())
+
+    def nonzero_positions(self) -> list[tuple[int, int]]:
+        """List of (p,q) positions with nonzero groups."""
+        return [(p, q) for (p, q), (b, t) in self.groups.items() if b > 0 or t]
+
+
+@_dataclass
+class FilteredChainComplex:
+    """A chain complex together with a filtration by integer degree.
+
+    Attributes
+    ----------
+    num_degrees : int
+        Homological degrees run from 0 to ``num_degrees − 1``.
+    num_filtration : int
+        Filtration levels 0, 1, …, ``num_filtration − 1``.
+    generators : dict[int, list[tuple[int, int]]]
+        Maps k → list of ``(filtration_p, local_index)`` for each C_k generator,
+        sorted by filtration_p (non-decreasing).
+    boundary : dict[int, _Matrix]
+        Maps k → integer boundary matrix ∂_k: C_k → C_{k−1}.
+        Rows indexed by (k−1)-generators, columns by k-generators in the same
+        order as ``generators[k]``.
+    """
+
+    num_degrees: int
+    num_filtration: int
+    generators: dict[int, list[tuple[int, int]]]
+    boundary: dict[int, _Matrix]
+
+
+def filtered_chain_complex_from_simplices(
+    simplices_by_degree: dict[int, list[tuple[int, tuple[int, ...]]]],
+) -> FilteredChainComplex:
+    """Build a FilteredChainComplex from explicitly graded simplices.
+
+    Parameters
+    ----------
+    simplices_by_degree : dict
+        Maps homological degree k → list of ``(filtration_p, simplex_vertices)``
+        where ``simplex_vertices`` is a sorted tuple of non-negative integer
+        vertex indices.  The list order within each degree defines the column
+        order of the boundary matrix.
+
+    Returns
+    -------
+    FilteredChainComplex
+        With boundary matrices computed from the standard oriented simplicial
+        boundary formula: ∂(v₀,…,vₖ) = Σᵢ (−1)ⁱ (v₀,…,v̂ᵢ,…,vₖ).
+
+    Examples
+    --------
+    Build the filtered complex for the interval [0,1] with filtration 0:
+
+    >>> fcc = filtered_chain_complex_from_simplices({
+    ...     0: [(0, (0,)), (0, (1,))],
+    ...     1: [(0, (0, 1))],
+    ... })
+    >>> fcc.num_degrees
+    2
+    """
+    if not simplices_by_degree:
+        return FilteredChainComplex(
+            num_degrees=0, num_filtration=0, generators={}, boundary={}
+        )
+
+    all_k = sorted(simplices_by_degree.keys())
+    max_k = max(all_k)
+    max_filt = max(
+        p for gens in simplices_by_degree.values() for p, _ in gens
+    ) + 1
+
+    generators: dict[int, list[tuple[int, int]]] = {}
+    simplex_to_col: dict[int, dict[tuple[int, ...], int]] = {}
+
+    for k in range(max_k + 1):
+        raw = simplices_by_degree.get(k, [])
+        generators[k] = [(p, i) for i, (p, _) in enumerate(raw)]
+        simplex_to_col[k] = {vs: i for i, (_, vs) in enumerate(raw)}
+
+    boundary: dict[int, _Matrix] = {}
+    for k in range(1, max_k + 1):
+        k_gens = simplices_by_degree.get(k, [])
+        km1_idx = simplex_to_col.get(k - 1, {})
+        n_k = len(k_gens)
+        n_km1 = len(simplices_by_degree.get(k - 1, []))
+        mat: _Matrix = [[0] * n_k for _ in range(n_km1)]
+        for col, (_, sigma) in enumerate(k_gens):
+            for i in range(len(sigma)):
+                face = sigma[:i] + sigma[i + 1:]
+                if face in km1_idx:
+                    mat[km1_idx[face]][col] += (-1) ** i
+        boundary[k] = mat
+
+    return FilteredChainComplex(
+        num_degrees=max_k + 1,
+        num_filtration=max_filt,
+        generators=generators,
+        boundary=boundary,
+    )
+
+
+def _e1_page_from_fcc(fcc: FilteredChainComplex) -> SpectralPage:
+    """Compute E^1 page: E^1_{p,q} = H_{p+q}(F^p C / F^{p+1} C).
+
+    Restricts the boundary matrices to the filtration-p block and computes
+    the homology of the associated graded complex via Smith Normal Form.
+    """
+    from .mayer_vietoris import _snf_ext
+
+    groups: dict[tuple[int, int], tuple[int, tuple[int, ...]]] = {}
+    max_p = 0
+    max_total = 0
+
+    for n in range(fcc.num_degrees):
+        for p in range(fcc.num_filtration):
+            q = n - p
+            if q < 0:
+                continue
+
+            # Generators at filtration p in degree n (columns)
+            cols_n = [
+                i for (filt, i) in fcc.generators.get(n, []) if filt == p
+            ]
+            if not cols_n:
+                continue
+
+            # Rows: generators at filtration p in degree n−1
+            rows_nm1 = [
+                i for (filt, i) in fcc.generators.get(n - 1, []) if filt == p
+            ] if n > 0 else []
+
+            # Cols of degree n+1 generators at filtration p (incoming ∂_{n+1})
+            cols_np1 = [
+                i for (filt, i) in fcc.generators.get(n + 1, []) if filt == p
+            ]
+
+            # ∂_n restricted to filt=p block
+            mat_n = fcc.boundary.get(n, [])
+            if mat_n and rows_nm1:
+                dn = [[mat_n[row][col] for col in cols_n] for row in rows_nm1]
+            else:
+                dn = []
+
+            # ∂_{n+1} restricted to filt=p block (rows = cols_n, cols = cols_np1)
+            mat_np1 = fcc.boundary.get(n + 1, [])
+            if mat_np1 and cols_np1 and cols_n:
+                dn1 = [[mat_np1[row][col] for col in cols_np1] for row in cols_n]
+            else:
+                dn1 = []
+
+            def _rank(m: _Matrix) -> int:
+                if not m or not m[0]:
+                    return 0
+                if not any(any(v != 0 for v in row) for row in m):
+                    return 0
+                D, _, _, _, _ = _snf_ext(m, compute_transforms=False)
+                sz = min(len(D), len(D[0]) if D else 0)
+                return sum(1 for i in range(sz) if i < len(D) and D[i][i] != 0)
+
+            def _torsion(m: _Matrix) -> tuple[int, ...]:
+                if not m or not m[0]:
+                    return ()
+                if not any(any(v != 0 for v in row) for row in m):
+                    return ()
+                D, _, _, _, _ = _snf_ext(m, compute_transforms=False)
+                sz = min(len(D), len(D[0]) if D else 0)
+                return tuple(
+                    abs(D[i][i]) for i in range(sz)
+                    if i < len(D) and abs(D[i][i]) > 1
+                )
+
+            rank_dn = _rank(dn)
+            rank_dn1 = _rank(dn1)
+            tors = _torsion(dn1)
+            free_rank = max(0, len(cols_n) - rank_dn - rank_dn1)
+
+            if free_rank > 0 or tors:
+                groups[(p, q)] = (free_rank, tors)
+                max_p = max(max_p, p)
+                max_total = max(max_total, n)
+
+    return SpectralPage(
+        page_number=1,
+        groups=groups,
+        max_p=max_p,
+        max_total=max_total,
+    )
+
+
+def differential_d_r(
+    page: SpectralPage,
+    p: int,
+    q: int,
+) -> dict[tuple[int, int], int]:
+    """Return the bidegree and rank of d^r at position (p, q).
+
+    d^r: E^r_{p,q} → E^r_{p−r, q+r−1}  (bidegree (−r, r−1)).
+
+    For a spectral sequence presented by Betti numbers (free abelian groups),
+    the differential is represented by its rank — the maximum number of
+    generators that can map nontrivially to the target.
+
+    Returns
+    -------
+    dict
+        ``{(p − r, q + r − 1): rank}`` if both source and target are nonzero,
+        else an empty dict.
+
+    Examples
+    --------
+    On the E^2 page of a product spectral sequence (Künneth), all
+    differentials d^2, d^3, … are zero, so this returns ``{}``.
+    """
+    r = page.page_number
+    src_betti, _ = page.get(p, q)
+    tgt_betti, _ = page.get(p - r, q + r - 1)
+    if src_betti == 0 or tgt_betti == 0:
+        return {}
+    return {(p - r, q + r - 1): min(src_betti, tgt_betti)}
+
+
+def converges_to(
+    fcc: FilteredChainComplex,
+) -> tuple[SpectralPage, list[SpectralPage]]:
+    """Compute all pages of the spectral sequence until convergence (E^∞).
+
+    Starts from E^1, then iterates d^r page-turns until the page stabilises.
+    Each step computes E^{r+1}_{p,q} = ker(d^r_{p,q}) / im(d^r_{p+r, q−r+1}).
+
+    Parameters
+    ----------
+    fcc : FilteredChainComplex
+        A finite filtered chain complex built by
+        ``filtered_chain_complex_from_simplices`` or supplied directly.
+
+    Returns
+    -------
+    (e_inf, pages)
+        ``e_inf`` — the stabilised E^∞ page.
+        ``pages`` — list [E^1, E^2, …] of all computed pages.
+
+    Notes
+    -----
+    Convergence: E^∞_{p,q} ≅ Gr^p H_{p+q}(C_*).
+    For a product filtration: sequence degenerates at E^2 (Künneth formula).
+    For a Serre fibration: E^2_{p,q} = H_p(B; H_q(F)) ⇒ H_{p+q}(E).
+    """
+    e1 = _e1_page_from_fcc(fcc)
+    pages: list[SpectralPage] = [e1]
+    current = e1
+    max_steps = fcc.num_filtration + fcc.num_degrees + 4
+
+    for _ in range(max_steps):
+        r = current.page_number
+        next_groups: dict[tuple[int, int], tuple[int, tuple[int, ...]]] = {}
+
+        # Collect all relevant positions (source positions + positions that
+        # receive incoming differentials)
+        positions: set[tuple[int, int]] = set(current.groups.keys())
+        for p, q in list(positions):
+            positions.add((p + r, q - r + 1))  # positions sending to (p,q)
+
+        for p, q in positions:
+            src_betti, src_tors = current.get(p, q)
+            # Incoming: d^r from (p+r, q−r+1) → (p, q)
+            in_betti, _ = current.get(p + r, q - r + 1)
+            # Outgoing: d^r from (p, q) → (p−r, q+r−1)
+            out_betti, _ = current.get(p - r, q + r - 1)
+
+            rank_in = min(src_betti, in_betti)
+            rank_out = min(src_betti, out_betti)
+            new_betti = max(0, src_betti - rank_in - rank_out)
+
+            if new_betti > 0 or src_tors:
+                next_groups[(p, q)] = (new_betti, src_tors)
+
+        new_max_p = max((p for p, _ in next_groups), default=0)
+        new_max_total = max((p + q for p, q in next_groups), default=0)
+        next_page = SpectralPage(
+            page_number=r + 1,
+            groups=next_groups,
+            max_p=new_max_p,
+            max_total=new_max_total,
+        )
+        pages.append(next_page)
+
+        if next_groups == current.groups:
+            return next_page, pages
+
+        current = next_page
+
+    return current, pages

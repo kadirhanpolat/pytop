@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.5] — 2026-06-21
+
+### Added
+
+- **Simplicial maps** (`simplicial_maps.py`, P7.2): `SimplicialMap` dataclass + validation,
+  `chain_map_matrix` (integer matrix f#_k: C_k(K) → C_k(L)), `induced_map_on_homology`
+  (f_*: H_k(K;Z) → H_k(L;Z) via extended SNF), `cone_complex` (contractible CK),
+  `suspension_complex` (ΣK with Σ(Sⁿ) ≃ Sⁿ⁺¹). 42 new tests.
+
+- **Nerve complex** (`nerve_complex.py`, P7.3): `nerve_of_cover` (nerve N(U) of finite open
+  cover), `good_cover_check` (Nerve theorem preconditions), `cech_nerve` (Čech complex at
+  fixed radius via Welzl miniball circumsphere). 30 new tests.
+
+- **Spectral sequences** (`spectral_sequences.py`, P7.4): `SpectralPage` (bigraded Betti/torsion
+  groups), `FilteredChainComplex`, `filtered_chain_complex_from_simplices`, `differential_d_r`
+  (E^r page differentials), `converges_to` (iterates to E^∞ stability). 25 new tests added
+  to existing suite (205 total).
+
+- **Surgery theory** (`surgery_theory.py`, P7.5): `handle_attachment` (K ∪ cone(Sᵏ⁻¹),
+  k-handle), `trace_cobordism` (trace W = K ∪ Dᵏ), `trace_homology` (H_*(W;Z) direct
+  simplicial computation + Mayer–Vietoris interpretation). 24 new tests.
+
+- **Morse complex** (`morse_complex.py`, P7.6): `MorseChainComplex` (critical simplices +
+  Morse boundary matrices), `morse_boundary_operator` (gradient V-path counting with signs,
+  DFS on acyclic matching), `morse_chain_complex`, `morse_homology` (H_*(C^M;Z) via SNF +
+  cross-validation against simplicial H_*(K;Z) — Morse homology theorem verified). 32 new
+  tests. **Phase 7 complete (P7.1–P7.6).**
+
 ## [1.0.4] — 2026-06-19
 
 ### Added

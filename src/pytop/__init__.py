@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "1.0.4"
+__version__ = "1.0.5"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2997,6 +2997,41 @@ from .simplicial_filtration import (
     torus_filtration,
     klein_bottle_filtration,
     rp2_filtration,
+)
+from .simplicial_maps import (
+    SimplicialMap,
+    SimplicialMapError,
+    InducedHomologyMap,
+    chain_map_matrix,
+    induced_map_on_homology,
+    cone_complex,
+    suspension_complex,
+)
+from .nerve_complex import (
+    nerve_of_cover,
+    good_cover_check,
+    cech_nerve,
+)
+from .spectral_sequences import (
+    SpectralPage,
+    FilteredChainComplex,
+    filtered_chain_complex_from_simplices,
+    differential_d_r,
+    converges_to,
+)
+from .surgery_theory import (
+    SurgeryTrace,
+    TraceHomology,
+    handle_attachment,
+    trace_cobordism,
+    trace_homology,
+)
+from .morse_complex import (
+    MorseChainComplex,
+    MorseHomologyResult,
+    morse_boundary_operator,
+    morse_chain_complex,
+    morse_homology,
 )
 from .abstract_homotopy import (
     AbstractHomotopyProfile,

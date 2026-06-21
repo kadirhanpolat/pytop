@@ -812,3 +812,165 @@ class TestSpectralSequenceProfile:
         s = _space("adams_ss")
         result = spectral_sequence_profile(s)
         assert result["space"] is s
+
+
+# ===========================================================================
+# P7.4: Computational spectral sequence tests
+# ===========================================================================
+
+from pytop.spectral_sequences import (
+    FilteredChainComplex,
+    SpectralPage,
+    converges_to,
+    differential_d_r,
+    filtered_chain_complex_from_simplices,
+)
+
+
+def _interval_fcc() -> FilteredChainComplex:
+    return filtered_chain_complex_from_simplices({
+        0: [(0, (0,)), (0, (1,))],
+        1: [(0, (0, 1))],
+    })
+
+
+def _circle_fcc() -> FilteredChainComplex:
+    return filtered_chain_complex_from_simplices({
+        0: [(0, (0,)), (0, (1,)), (0, (2,))],
+        1: [(0, (0, 1)), (0, (0, 2)), (0, (1, 2))],
+    })
+
+
+def _disk_fcc() -> FilteredChainComplex:
+    return filtered_chain_complex_from_simplices({
+        0: [(0, (0,)), (0, (1,)), (0, (2,))],
+        1: [(0, (0, 1)), (0, (0, 2)), (0, (1, 2))],
+        2: [(0, (0, 1, 2))],
+    })
+
+
+class TestFilteredChainComplexBuilderP74:
+    def test_empty_input(self) -> None:
+        fcc = filtered_chain_complex_from_simplices({})
+        assert fcc.num_degrees == 0
+
+    def test_interval_degrees(self) -> None:
+        fcc = _interval_fcc()
+        assert fcc.num_degrees == 2
+
+    def test_interval_boundary_signs(self) -> None:
+        fcc = _interval_fcc()
+        mat = fcc.boundary[1]
+        col = [mat[r][0] for r in range(2)]
+        assert sorted(col) == [-1, 1]
+
+    def test_circle_boundary_shape(self) -> None:
+        fcc = _circle_fcc()
+        mat = fcc.boundary[1]
+        assert len(mat) == 3 and len(mat[0]) == 3
+
+    def test_disk_has_degree_2(self) -> None:
+        fcc = _disk_fcc()
+        assert fcc.num_degrees == 3
+
+    def test_filtration_levels_recorded(self) -> None:
+        fcc = filtered_chain_complex_from_simplices({
+            0: [(0, (0,)), (1, (1,))],
+            1: [(1, (0, 1))],
+        })
+        assert fcc.num_filtration == 2
+        filts = [p for p, _ in fcc.generators[0]]
+        assert 0 in filts and 1 in filts
+
+
+class TestSpectralPageP74:
+    def _pg(self) -> SpectralPage:
+        return SpectralPage(
+            page_number=2,
+            groups={(0, 0): (1, ()), (1, 1): (2, (3,))},
+            max_p=1, max_total=2,
+        )
+
+    def test_get_existing(self) -> None:
+        assert self._pg().get(0, 0) == (1, ())
+
+    def test_get_missing_zero(self) -> None:
+        assert self._pg().get(9, 9) == (0, ())
+
+    def test_betti(self) -> None:
+        assert self._pg().betti(1, 1) == 2
+
+    def test_torsion(self) -> None:
+        assert self._pg().torsion(1, 1) == (3,)
+
+    def test_total_rank(self) -> None:
+        assert self._pg().total_rank(0) == 1
+
+    def test_is_zero_false(self) -> None:
+        assert not self._pg().is_zero()
+
+    def test_is_zero_true(self) -> None:
+        pg = SpectralPage(page_number=3, groups={(0, 0): (0, ())})
+        assert pg.is_zero()
+
+    def test_nonzero_positions(self) -> None:
+        nz = self._pg().nonzero_positions()
+        assert (0, 0) in nz and (1, 1) in nz
+
+
+class TestDifferentialDRP74:
+    def test_zero_source(self) -> None:
+        pg = SpectralPage(page_number=2, groups={(1, 0): (1, ())})
+        assert differential_d_r(pg, 0, 0) == {}
+
+    def test_zero_target(self) -> None:
+        pg = SpectralPage(page_number=2, groups={(1, 0): (1, ())})
+        assert differential_d_r(pg, 1, 0) == {}
+
+    def test_nonzero_d2(self) -> None:
+        pg = SpectralPage(
+            page_number=2,
+            groups={(2, 0): (1, ()), (0, 1): (1, ())},
+        )
+        result = differential_d_r(pg, 2, 0)
+        assert (0, 1) in result
+
+    def test_rank_min(self) -> None:
+        pg = SpectralPage(
+            page_number=2,
+            groups={(2, 0): (3, ()), (0, 1): (2, ())},
+        )
+        assert differential_d_r(pg, 2, 0)[(0, 1)] == 2
+
+
+class TestConvergesTo:
+    def test_interval_returns_pages(self) -> None:
+        _, pages = converges_to(_interval_fcc())
+        assert len(pages) >= 1
+
+    def test_circle_e_inf_total_ranks(self) -> None:
+        e_inf, _ = converges_to(_circle_fcc())
+        assert e_inf.total_rank(0) == 1
+        assert e_inf.total_rank(1) == 1
+
+    def test_disk_e_inf_h1_zero(self) -> None:
+        e_inf, _ = converges_to(_disk_fcc())
+        assert e_inf.total_rank(0) == 1
+        assert e_inf.total_rank(1) == 0
+
+    def test_page_numbers_sequential(self) -> None:
+        _, pages = converges_to(_interval_fcc())
+        for i, pg in enumerate(pages):
+            assert pg.page_number == i + 1
+
+    def test_converges_type(self) -> None:
+        e_inf, pages = converges_to(_interval_fcc())
+        assert isinstance(e_inf, SpectralPage)
+        assert all(isinstance(pg, SpectralPage) for pg in pages)
+
+    def test_empty_fcc_no_crash(self) -> None:
+        fcc = FilteredChainComplex(
+            num_degrees=0, num_filtration=0, generators={}, boundary={}
+        )
+        e_inf, pages = converges_to(fcc)
+        assert isinstance(e_inf, SpectralPage)
