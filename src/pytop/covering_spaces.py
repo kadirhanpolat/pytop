@@ -228,8 +228,318 @@ def covering_profile_summary(profile: CoveringMapProfile) -> dict[str, Any]:
     }
 
 
+# ===========================================================================
+# Computational covering-space engines
+# ===========================================================================
+
+
+@dataclass(frozen=True)
+class CoveringGraph:
+    """An n-sheeted covering of a finite graph via voltage assignment in ℤ/nℤ.
+
+    Vertices of the covering graph are pairs ``(v, k)`` with ``v`` a base
+    vertex and ``k ∈ {0, …, n−1}``.  An edge ``(u, v)`` with voltage ``α``
+    lifts to edges ``(u, k) → (v, (k+α) mod n)`` for each sheet ``k``.
+    """
+
+    n: int
+    base_vertices: tuple[int | str, ...]
+    base_edges: tuple[tuple[int | str, int | str], ...]
+    voltages: tuple[int, ...]
+
+    @property
+    def cover_vertices(self) -> list[tuple[int | str, int]]:
+        """All ``(base_vertex, sheet)`` pairs."""
+        return [(v, k) for v in self.base_vertices for k in range(self.n)]
+
+    @property
+    def cover_edges(self) -> list[tuple[tuple[int | str, int], tuple[int | str, int]]]:
+        """Lifted edges of the covering graph."""
+        result = []
+        for (u, v), volt in zip(self.base_edges, self.voltages):
+            for k in range(self.n):
+                result.append(((u, k), (v, (k + volt) % self.n)))
+        return result
+
+    @property
+    def num_cover_vertices(self) -> int:
+        return len(self.base_vertices) * self.n
+
+    @property
+    def num_cover_edges(self) -> int:
+        return len(self.base_edges) * self.n
+
+
+def _cs_bfs_tree_indices(
+    vertices: list[int | str],
+    edges: list[tuple[int | str, int | str]],
+) -> set[int]:
+    """Return edge indices forming a BFS spanning tree of the first component."""
+    adj: dict[int | str, list[tuple[int, int | str]]] = {v: [] for v in vertices}
+    for idx, (u, v) in enumerate(edges):
+        adj[u].append((idx, v))
+        adj[v].append((idx, u))
+    if not vertices:
+        return set()
+    visited: set[int | str] = {vertices[0]}
+    tree: set[int] = set()
+    queue: list[int | str] = [vertices[0]]
+    while queue:
+        node = queue.pop(0)
+        for idx, nb in adj[node]:
+            if nb not in visited:
+                visited.add(nb)
+                tree.add(idx)
+                queue.append(nb)
+    return tree
+
+
+def cyclic_voltage_cover(
+    vertices: list[int | str],
+    edges: list[tuple[int | str, int | str]],
+    n: int,
+    voltages: list[int] | None = None,
+) -> CoveringGraph:
+    """Construct the n-sheeted cyclic covering of a finite graph.
+
+    Uses voltage assignment in ℤ/nℤ.  When *voltages* is ``None`` the
+    function assigns voltage 1 to the first non-tree edge and 0 to all
+    others, producing the connected n-sheeted cyclic cover associated with
+    a single generator of π₁.
+
+    Parameters
+    ----------
+    vertices:
+        Vertex labels of the base graph.
+    edges:
+        Undirected edges of the base graph (each listed once as a pair).
+    n:
+        Number of sheets (positive integer).
+    voltages:
+        Optional voltage in ℤ/nℤ for each edge, in the same order as
+        *edges*.  Must have ``len(voltages) == len(edges)`` when supplied.
+
+    Returns
+    -------
+    CoveringGraph
+
+    Raises
+    ------
+    ValueError
+        If ``n ≤ 0``, *vertices* is empty, or the voltage list length
+        does not match the edge list.
+
+    Examples
+    --------
+    The 2-sheeted cover of S¹ (one edge, one vertex loop) lifts the circle
+    to itself with two sheets:
+
+    >>> cg = cyclic_voltage_cover([0], [(0, 0)], n=2)
+    >>> len(cg.cover_vertices)
+    2
+    """
+    if n <= 0:
+        raise ValueError(f"Sheet count must be positive, got {n!r}")
+    if not vertices:
+        raise ValueError("Graph must have at least one vertex")
+
+    if voltages is None:
+        tree_idx = _cs_bfs_tree_indices(vertices, edges)
+        found_first_non_tree = False
+        voltages = []
+        for i in range(len(edges)):
+            if i in tree_idx:
+                voltages.append(0)
+            elif not found_first_non_tree:
+                voltages.append(1)
+                found_first_non_tree = True
+            else:
+                voltages.append(0)
+
+    if len(voltages) != len(edges):
+        raise ValueError(f"Need {len(edges)} voltages, got {len(voltages)}")
+
+    typed_edges: tuple[tuple[int | str, int | str], ...] = tuple(
+        (u, v) for u, v in edges
+    )
+    return CoveringGraph(
+        n=n,
+        base_vertices=tuple(vertices),
+        base_edges=typed_edges,
+        voltages=tuple(v % n for v in voltages),
+    )
+
+
+def universal_covering_tree(
+    vertices: list[int | str],
+    edges: list[tuple[int | str, int | str]],
+    max_depth: int = 6,
+) -> tuple[
+    list[tuple[int | str, ...]],
+    list[tuple[tuple[int | str, ...], tuple[int | str, ...]]],
+]:
+    """Compute a finite BFS approximation of the universal covering tree.
+
+    The universal cover of any connected graph is a tree.  Each cover vertex
+    is a path (tuple of base-graph vertices) from the basepoint; immediate
+    backtracking is forbidden to enforce the tree condition.
+
+    Parameters
+    ----------
+    vertices:
+        Vertices of the base graph.
+    edges:
+        Undirected edges of the base graph.
+    max_depth:
+        Maximum path length (number of edges from basepoint) to expand.
+
+    Returns
+    -------
+    (cover_vertices, cover_edges)
+        *cover_vertices* — list of paths (tuples of base vertices).
+        *cover_edges* — list of ``(path_u, path_v)`` pairs.
+    """
+    if not vertices:
+        return [], []
+
+    adj: dict[int | str, list[int | str]] = {v: [] for v in vertices}
+    for u, v in edges:
+        adj[u].append(v)
+        adj[v].append(u)
+
+    start: tuple[int | str, ...] = (vertices[0],)
+    cover_verts: list[tuple[int | str, ...]] = [start]
+    cover_edgs: list[tuple[tuple[int | str, ...], tuple[int | str, ...]]] = []
+    queue: list[tuple[int | str, ...]] = [start]
+    seen: set[tuple[int | str, ...]] = {start}
+
+    while queue:
+        path = queue.pop(0)
+        if len(path) - 1 >= max_depth:
+            continue
+        current = path[-1]
+        parent = path[-2] if len(path) >= 2 else None
+        for nb in adj[current]:
+            if nb == parent:
+                continue
+            new_path = path + (nb,)
+            if new_path not in seen:
+                seen.add(new_path)
+                cover_verts.append(new_path)
+                cover_edgs.append((path, new_path))
+                queue.append(new_path)
+
+    return cover_verts, cover_edgs
+
+
+def fundamental_group_rank_graph(
+    vertices: list[int | str],
+    edges: list[tuple[int | str, int | str]],
+) -> int:
+    """Return the rank of π₁(G) for a finite graph G.
+
+    π₁(G) is free of rank β₁(G) = |E| − |V| + (number of connected
+    components).  For a connected graph this simplifies to |E| − |V| + 1.
+
+    Parameters
+    ----------
+    vertices:
+        Vertex labels.
+    edges:
+        Undirected edges (each listed once).
+
+    Returns
+    -------
+    int — rank of the free group π₁(G).
+
+    Examples
+    --------
+    >>> fundamental_group_rank_graph([0, 1, 2], [(0, 1), (1, 2), (2, 0)])
+    1   # triangle = S¹, π₁ = ℤ
+    >>> fundamental_group_rank_graph([0, 1], [(0, 1)])
+    0   # tree, simply connected
+    """
+    if not vertices:
+        return 0
+
+    parent: dict[int | str, int | str] = {v: v for v in vertices}
+
+    def _find(x: int | str) -> int | str:
+        root = x
+        while parent[root] != root:
+            root = parent[root]
+        while parent[x] != root:
+            parent[x], x = root, parent[x]
+        return root
+
+    def _union(x: int | str, y: int | str) -> None:
+        rx, ry = _find(x), _find(y)
+        if rx != ry:
+            parent[rx] = ry
+
+    for u, v in edges:
+        _union(u, v)
+
+    components = len({_find(v) for v in vertices})
+    return len(edges) - len(vertices) + components
+
+
+def is_graph_covering_map(
+    total_vertices: list[int | str],
+    total_edges: list[tuple[int | str, int | str]],
+    base_vertices: list[int | str],
+    base_edges: list[tuple[int | str, int | str]],
+    projection: dict[int | str, int | str],
+) -> bool:
+    """Check whether *projection* defines a graph-theoretic covering map.
+
+    A graph homomorphism p: G̃ → G is a covering map iff for every vertex
+    ṽ ∈ G̃ the restriction of p to the neighbourhood N(ṽ) → N(p(ṽ)) is a
+    bijection (local bijectivity / evenly-covered open stars).
+
+    Parameters
+    ----------
+    total_vertices, total_edges:
+        The covering graph G̃.
+    base_vertices, base_edges:
+        The base graph G.
+    projection:
+        Maps each vertex of G̃ to a vertex of G.
+
+    Returns
+    -------
+    bool — ``True`` iff *projection* is a valid graph covering map.
+    """
+    if not set(base_vertices).issubset(set(projection.values())):
+        return False
+
+    base_adj: dict[int | str, list[int | str]] = {v: [] for v in base_vertices}
+    for u, v in base_edges:
+        base_adj[u].append(v)
+        base_adj[v].append(u)
+
+    total_adj: dict[int | str, list[int | str]] = {v: [] for v in total_vertices}
+    for u, v in total_edges:
+        total_adj[u].append(v)
+        total_adj[v].append(u)
+
+    for vt in total_vertices:
+        if vt not in projection:
+            return False
+        vb = projection[vt]
+        if vb not in base_adj:
+            return False
+        proj_nbs = sorted(str(projection[nb]) for nb in total_adj.get(vt, []) if nb in projection)
+        base_nbs = sorted(str(nb) for nb in base_adj[vb])
+        if proj_nbs != base_nbs:
+            return False
+
+    return True
+
+
 __all__ = [
     "COVERING_PROFILE_STATUSES",
+    "CoveringGraph",
     "CoveringMapProfile",
     "CoveringSpaceProfileError",
     "KNOWN_COVERING_MODELS",
@@ -237,6 +547,10 @@ __all__ = [
     "circle_degree_covering_profile",
     "covering_map_profile",
     "covering_profile_summary",
+    "cyclic_voltage_cover",
+    "fundamental_group_rank_graph",
+    "is_graph_covering_map",
     "known_covering_profile",
+    "universal_covering_tree",
     "unknown_covering_map_profile",
 ]

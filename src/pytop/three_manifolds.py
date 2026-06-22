@@ -1,14 +1,14 @@
-"""3-manifold profil kayitlari (MAN-02).
+"""3-manifold profil kayitlari ve hesaplamalı motorlar (MAN-02).
 
-Bu modul Adams & Franzosa Bolum 14.3 icin ogretim odakli 3-manifold kayitlari
-saglar. Amac 3-manifold tanima algoritmasi yazmak degildir; lens uzaylari,
-Seifert uzaylari, torus demetleri ve temel homoloji/fibration sinyallerini paket
-icinde denetlenebilir bir API yuzeyi olarak sunmaktir.
+Profil katmani: Adams & Franzosa Bolum 14.3 icin ogretim odakli kayitlar.
+Hesaplama katmani: mapping torus H₁ (Wang dizisi), lens uzayi π₁.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
+
+from .exact_linalg import AbelianGroup, cokernel
 
 
 @dataclass(frozen=True)
@@ -171,11 +171,109 @@ def three_manifold_profile_registry() -> dict[str, int]:
     }
 
 
+# ===========================================================================
+# Computational engines
+# ===========================================================================
+
+
+def mapping_torus_h1(monodromy: list[list[int]]) -> AbelianGroup:
+    """Compute H₁ of the mapping torus T(φ) via the Wang exact sequence.
+
+    For a surface automorphism φ with monodromy matrix M acting on H₁(Σ),
+    the Wang long exact sequence of the fibration Σ → T(φ) → S¹ gives
+
+        H₁(T(φ)) ≅ coker(M − I) ⊕ ℤ
+
+    where the ℤ summand comes from the base circle direction.
+
+    Parameters
+    ----------
+    monodromy:
+        Square integer matrix M representing φ_* : H₁(Σ) → H₁(Σ).
+        For a torus bundle this is a 2×2 matrix in GL(2, ℤ).
+        For a genus-g surface bundle this is a 2g×2g symplectic matrix.
+
+    Returns
+    -------
+    AbelianGroup — H₁(T(φ)) as a finitely generated abelian group.
+
+    Raises
+    ------
+    ValueError
+        If *monodromy* is not a square matrix.
+
+    Examples
+    --------
+    Identity monodromy on T² gives the 3-torus T³ with H₁ = ℤ³:
+
+    >>> mapping_torus_h1([[1, 0], [0, 1]])
+    AbelianGroup(free_rank=3, torsion=())
+
+    Anosov map M = [[2,1],[1,1]] (det=1, |tr|>2) gives H₁ = ℤ:
+
+    >>> mapping_torus_h1([[2, 1], [1, 1]])
+    AbelianGroup(free_rank=1, torsion=())
+
+    Dehn twist M = [[1,1],[0,1]] gives H₁ = ℤ²:
+
+    >>> mapping_torus_h1([[1, 1], [0, 1]])
+    AbelianGroup(free_rank=2, torsion=())
+    """
+    n = len(monodromy)
+    if n == 0:
+        return AbelianGroup(free_rank=1, torsion=())
+    if any(len(row) != n for row in monodromy):
+        raise ValueError("monodromy must be a square matrix")
+    m_minus_i = [
+        [monodromy[i][j] - (1 if i == j else 0) for j in range(n)]
+        for i in range(n)
+    ]
+    cok = cokernel(m_minus_i)
+    return AbelianGroup(free_rank=cok.free_rank + 1, torsion=cok.torsion)
+
+
+def lens_space_pi1(p: int) -> "GroupPresentation":
+    """Return a GroupPresentation of π₁(L(p, q)) = ℤ/pℤ.
+
+    The fundamental group of the lens space L(p, q) is ℤ/pℤ, depending
+    only on *p* (independent of *q* at the group level).  Special cases:
+
+    * p = 0 → ℤ  (e.g. S¹ × S²)
+    * p = 1 → trivial group  (S³)
+
+    Parameters
+    ----------
+    p:
+        Non-negative integer; the first parameter of L(p, q).
+
+    Returns
+    -------
+    GroupPresentation — cyclic group ℤ/pℤ.
+
+    Raises
+    ------
+    ValueError
+        If ``p < 0``.
+    """
+    from .van_kampen import cyclic_group, infinite_cyclic_group, trivial_group
+
+    if p < 0:
+        raise ValueError(f"Lens space parameter p must be non-negative, got {p!r}")
+    if p == 0:
+        return infinite_cyclic_group()
+    if p == 1:
+        return trivial_group()
+    return cyclic_group(p)
+
+
 __all__ = [
+    "AbelianGroup",
     "ThreeManifoldInvariantProfile",
     "ThreeManifoldProfile",
     "get_three_manifold_invariant_profiles",
     "get_three_manifold_profiles",
+    "lens_space_pi1",
+    "mapping_torus_h1",
     "three_manifold_family_summary",
     "three_manifold_invariant_kind_summary",
     "three_manifold_profile_registry",

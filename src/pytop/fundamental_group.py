@@ -1,14 +1,19 @@
-"""Profile-based fundamental group helpers.
+"""Fundamental group helpers: profile registry and computational engine.
 
-The module records standard teaching profiles for pi_1. It is not a general
-fundamental group calculator.
+The profile section records standard teaching facts about π₁.  The
+computational section provides ``pi1_graph``, which computes the actual
+fundamental group of any finite graph via the CW-complex spanning-tree
+algorithm.
 """
 
 from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from .van_kampen import GroupPresentation
 
 
 class FundamentalGroupProfileError(ValueError):
@@ -260,6 +265,84 @@ def fundamental_group_summary(profile: FundamentalGroupProfile) -> dict[str, Any
     }
 
 
+# ===========================================================================
+# Computational engine — π₁ of finite graphs
+# ===========================================================================
+
+
+def pi1_graph(
+    vertices: list[int | str],
+    edges: list[tuple[int | str, int | str]],
+    *,
+    basepoint: int | str | None = None,
+) -> GroupPresentation:
+    """Compute π₁ of a finite connected graph via the spanning-tree algorithm.
+
+    π₁(G) is free of rank β₁(G) = |E| − |V| + 1 for a connected graph.
+    Generators correspond to non-tree edges; each gives a loop through the
+    unique tree path back to the basepoint.  For a tree (β₁ = 0) the group
+    is trivial.
+
+    The implementation builds a :class:`~pytop.van_kampen.CW1Complex` from
+    the graph (no 2-cells) and delegates to
+    :func:`~pytop.van_kampen.cw_complex_pi1`.
+
+    Parameters
+    ----------
+    vertices:
+        Vertex labels of the graph.
+    edges:
+        Undirected edges (each pair listed once).
+    basepoint:
+        Optional basepoint vertex; defaults to the lexicographically first
+        label.
+
+    Returns
+    -------
+    GroupPresentation
+        A free group presentation (no relators for graphs).
+
+    Raises
+    ------
+    ValueError
+        If *vertices* is empty or *basepoint* is not a vertex.
+
+    Examples
+    --------
+    Triangle graph — homeomorphic to S¹, π₁ = ℤ (free rank 1):
+
+    >>> p = pi1_graph([0, 1, 2], [(0, 1), (1, 2), (2, 0)])
+    >>> p.rank
+    1
+
+    Theta graph (two vertices, three edges) — free group of rank 2:
+
+    >>> p = pi1_graph([0, 1], [(0, 1), (0, 1), (0, 1)])
+    >>> p.rank
+    2
+    """
+    from .van_kampen import CW1Complex, DirectedEdge, Face2, cw_complex_pi1
+
+    if not vertices:
+        raise ValueError("Graph must have at least one vertex")
+    str_verts = frozenset(str(v) for v in vertices)
+    str_bp = str(basepoint) if basepoint is not None else None
+    if str_bp is not None and str_bp not in str_verts:
+        raise ValueError(f"Basepoint {basepoint!r} is not in the vertex set")
+
+    directed = tuple(
+        DirectedEdge(name=f"e{i}", src=str(u), tgt=str(v))
+        for i, (u, v) in enumerate(edges)
+    )
+    cw = CW1Complex(
+        vertices=str_verts,
+        edges=directed,
+        faces=(),  # type: ignore[arg-type]
+        basepoint=str_bp,
+    )
+    return cw_complex_pi1(cw)
+
+
 __all__ = [
     "FundamentalGroupProfile",
     "FundamentalGroupProfileError",
@@ -271,6 +354,7 @@ __all__ = [
     "fundamental_group_summary",
     "infinite_cyclic_group_profile",
     "known_fundamental_group_profile",
+    "pi1_graph",
     "trivial_group_profile",
     "unknown_fundamental_group_profile",
 ]

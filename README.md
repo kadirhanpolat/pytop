@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.0.5-blue)
+![Version](https://img.shields.io/badge/version-1.0.6-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.0.5**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
+As of **v1.0.6**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
 
 ## Installation
 
@@ -178,6 +178,35 @@ and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
 
+## What's New in v1.0.6
+
+**Profile→Computational engine upgrades (6 modules) + critical `_snf_ext` bug fix:**
+
+- **Covering spaces** (`covering_spaces.py`): `CoveringGraph`, `cyclic_voltage_cover` (voltage
+  construction for cyclic covers), `fundamental_group_rank_graph` (first Betti number β₁ via Euler
+  characteristic), `is_graph_covering_map` (sheet-count + uniform-degree check),
+  `universal_covering_tree` (BFS spanning tree). 32 tests.
+- **Fundamental group** (`fundamental_group.py`): `pi1_graph(edges)` — fundamental group of a
+  1-complex via van Kampen + spanning-tree; k-cycle graph → free group Fₖ. 14 tests.
+- **Three-manifolds** (`three_manifolds.py`): `mapping_torus_h1(monodromy)` — H₁ of the mapping
+  torus via Wang sequence cokernel (SNF); `lens_space_pi1(p, q)` → ℤ/p. 21 tests.
+- **Homotopy** (`homotopy.py`): `is_contractible_simplicial(simplices)` — contractibility via
+  H_*(X;ℤ) ≅ H_*(pt;ℤ); `has_sphere_homology(simplices, n)` — sphere homology type test
+  (H_*(X;ℤ) ≅ H_*(Sⁿ;ℤ)). Auto face-closure before boundary matrix. 26 tests.
+- **Degree theory** (`degree_theory.py`): `map_degree_simplicial(sim_map, n)` — topological degree
+  of f: Sⁿ → Sⁿ from the 1×1 matrix of `induced_map_on_homology` on H_n. 8 tests.
+- **Manifolds** (`manifolds.py`): `euler_characteristic_simplicial(simplices)` — χ = Σ(−1)^k f_k
+  computed combinatorially; correct for torus (χ=0), RP² (χ=1), disjoint unions (additive). 18 tests.
+- **Critical bug fix** (`mayer_vietoris.py`): `_snf_ext` no longer hangs on matrices with negative
+  entries. The `q -= 1` corrections assumed C-style truncation division; Python's `//` is floor
+  division and already gives the correct quotient — the adjustment over-corrected, making the
+  remainder exceed the pivot and triggering infinite swap cycles. Removed. All 150-iteration
+  property tests now pass in < 0.5 s.
+
+**10 864 tests passing** (+ 16 opt-in SageMath/SnapPy-oracle tests).
+
+---
+
 ## What's New in v1.0.5 (Phase 7 complete)
 
 **Phase 7 — Combinatorial topology & geometric structures (P7.2–P7.6):**
@@ -203,7 +232,7 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   `morse_homology` (H_*(C^M;Z) via Smith normal form + automatic cross-validation against
   simplicial H_*(K;Z): **Morse homology theorem verified**). 32 tests.
 
-**9 959 core tests passing (+ opt-in SageMath/SnapPy-oracle tests). All phases 1–7 complete.**
+**9 959 core tests passing when released (+ opt-in SageMath/SnapPy-oracle tests). All phases 1–7 complete.**
 
 ---
 
@@ -366,7 +395,7 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   independent oracle for `dehn_surgery` — a batched run of a local `pytop-snappy` image validates
   `first_homology_of_surgery` against SnapPy's Dehn-filling homology (figure-8 knot surgeries → ℤ/p,
   Whitehead-link surgeries → ℤ/a ⊕ ℤ/b).
-- **9 959 tests passing** across the core suite (+ 16 opt-in SageMath/SnapPy-oracle tests).
+- **9 959 tests passing** across the core suite when released (+ 16 opt-in SageMath/SnapPy-oracle tests).
 
 ## What's New in v0.6.0
 

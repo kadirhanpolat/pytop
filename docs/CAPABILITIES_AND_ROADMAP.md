@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-21:** Phase 1 (set-theoretic topology) substantially
+> **Status as of 2026-06-22:** Phase 1 (set-theoretic topology) substantially
 > complete; Phase 2 (algebraic topology) **complete** (8 / 8).
 > **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
 > P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
@@ -27,7 +27,7 @@
 > complex + Čech nerve, P7.4 spectral sequences (E^r pages → E^∞ convergence), P7.5
 > surgery theory (handle attachment, trace cobordism), P7.6 Morse complex (gradient
 > V-path counting, Morse boundary operator, Morse homology theorem cross-validated).
-> **153 new tests; 9 959 core tests passing.**
+> **153 new tests; 9 959 core tests at release; 10 864 after v1.0.6 profile→computational upgrades.**
 > **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs for SNF (0 sorry),
 > set topology — 34 theorems (T₀–T₄, closure/interior duality, compactness, diagonal
 > characterisation; 0 sorry) + **24 alternative proofs** in 5 strategies (by contradiction,
@@ -108,9 +108,14 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
 
 ### 📚 Knows but does not compute — curated / tag-based (useful, not "computation")
 
-- Knots, fundamental groups, covering spaces, manifolds / 3-manifolds, surfaces,
-  degree theory: largely **hardcoded `*Profile` registries** (known invariants
-  of famous objects). They report what is known; they do not analyze *your* object.
+- Knots, surfaces: largely **hardcoded `*Profile` registries** (known invariants of famous
+  objects). They report what is known; they do not analyze *your* object.
+- The following modules retain their `*Profile` registries **and** now also expose
+  computational engines (v1.0.6): `covering_spaces` (`CoveringGraph`, `cyclic_voltage_cover`,
+  `universal_covering_tree`, …), `fundamental_group` (`pi1_graph`), `three_manifolds`
+  (`mapping_torus_h1`, `lens_space_pi1`), `homotopy` (`is_contractible_simplicial`,
+  `has_sphere_homology`), `degree_theory` (`map_degree_simplicial`), `manifolds`
+  (`euler_characteristic_simplicial`).
 - The "advanced" modules (`locale_theory`, `topos_theory`, `noncommutative_topology`,
   `spectral_sequences`, `higher_categories`, `operads`, `topological_field_theory`,
   `derived_categories`, `shape_theory`, `coarse_geometry`): **tag-based classifiers**.
@@ -361,6 +366,31 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 **Deferred (long-range):** sheaf cohomology, persistent K-theory.
 
+### Post-Phase 7 improvements (v1.0.6, 2026-06-22)
+
+**Profile→Computational engine upgrades (6 modules):**
+
+Previously Profile-only modules (hardcoded `*Profile` registries) upgraded with live
+computational engines that operate on raw simplicial/graph input:
+
+| Module | New computational functions | Tests |
+|--------|-----------------------------|-------|
+| `covering_spaces` | `CoveringGraph`, `cyclic_voltage_cover`, `fundamental_group_rank_graph`, `is_graph_covering_map`, `universal_covering_tree` | 32 |
+| `fundamental_group` | `pi1_graph` | 14 |
+| `three_manifolds` | `mapping_torus_h1`, `lens_space_pi1` | 21 |
+| `homotopy` | `is_contractible_simplicial`, `has_sphere_homology` | 26 |
+| `degree_theory` | `map_degree_simplicial` | 8 |
+| `manifolds` | `euler_characteristic_simplicial` | 18 |
+
+**Critical bug fix — `_snf_ext` infinite loop eliminated:**
+`mayer_vietoris._snf_ext` had `q -= 1` corrections for C-style truncation division;
+Python's `//` is floor division and already gives the correct floor quotient. The
+correction over-adjusted, making remainders exceed the pivot and producing infinite
+swap cycles for matrices with negative entries (e.g. seed 3141 in the 150-iteration
+property test). Corrections removed; all property tests pass in < 0.5 s.
+
+**Total: 119 new tests; 10 864 core tests passing (+ 16 opt-in SageMath/SnapPy-oracle tests).**
+
 ---
 
 ## Part IV — Hard trade-offs to decide early
@@ -376,11 +406,11 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 ---
 
-## Part V — Summary statistics (2026-06-21)
+## Part V — Summary statistics (2026-06-22)
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **9 959** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
+| Tests passing | **10 864** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
 | Representations in `experimental.spaces` | 10 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
@@ -392,7 +422,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | Phase 5 milestones complete | 3 / 3 ✅ |
 | Phase 6 milestones complete | 3 / 3 ✅ |
 | Phase 7 milestones complete | 6 / 6 ✅ |
-| **Current version** | **v1.0.5** |
+| **Current version** | **v1.0.6** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 

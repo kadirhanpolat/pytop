@@ -194,6 +194,62 @@ def degree_theory_profile_registry() -> dict[str, int]:
     }
 
 
+# ===========================================================================
+# Computational engine — topological degree via induced homology
+# ===========================================================================
+
+
+def map_degree_simplicial(sim_map: object, n: int) -> int:
+    """Compute the degree of a simplicial self-map on an n-sphere triangulation.
+
+    The degree is the integer d such that the induced map
+    ``f_* : H_n(X; ℤ) ≅ ℤ → H_n(X; ℤ) ≅ ℤ`` acts as multiplication by d.
+
+    Parameters
+    ----------
+    sim_map:
+        A :class:`~pytop.simplicial_maps.SimplicialMap` object whose domain
+        and codomain both triangulate S^n.
+    n:
+        The sphere dimension; must be ≥ 1.
+
+    Returns
+    -------
+    int
+        The topological degree of ``sim_map``.
+
+    Raises
+    ------
+    ValueError
+        If ``n < 1`` or the induced homology matrix is not 1 × 1.
+
+    Examples
+    --------
+    The identity map on S¹ has degree 1:
+
+    >>> from pytop.simplicial_maps import SimplicialMap, SimplicialComplex
+    >>> from pytop.simplicial_complexes import simplicial_complex
+    >>> sc = simplicial_complex([[0, 1], [1, 2], [2, 0]])
+    >>> sm = SimplicialMap(domain=sc, codomain=sc, vertex_map={0: 0, 1: 1, 2: 2})
+    >>> map_degree_simplicial(sm, n=1)
+    1
+    """
+    if n < 1:
+        raise ValueError(f"Sphere dimension n must be ≥ 1, got {n!r}")
+
+    from .simplicial_maps import induced_map_on_homology
+
+    imap = induced_map_on_homology(sim_map, n)
+    mat = imap.matrix
+    if not mat or len(mat) != 1 or len(mat[0]) != 1:
+        raise ValueError(
+            f"Expected 1×1 induced-homology matrix in degree {n}, "
+            f"got {len(mat)}×{len(mat[0]) if mat else 0}. "
+            "Ensure domain and codomain both triangulate S^n."
+        )
+    return int(mat[0][0])
+
+
 __all__ = [
     "CircleDegreeProfile",
     "RetractionDegreeProfile",
@@ -202,5 +258,6 @@ __all__ = [
     "degree_theory_profile_registry",
     "get_circle_degree_profiles",
     "get_retraction_degree_profiles",
+    "map_degree_simplicial",
     "retraction_degree_summary",
 ]

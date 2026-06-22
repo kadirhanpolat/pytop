@@ -159,8 +159,6 @@ def _snf_ext(
             for r in range(m):
                 if r != step and D[r][step] != 0:
                     q = D[r][step] // D[step][step]
-                    if D[r][step] < 0 and D[r][step] % D[step][step] != 0:
-                        q -= 1
                     add_row(step, r, -q)
                     if D[r][step] != 0:
                         swap_rows(step, r)
@@ -168,8 +166,6 @@ def _snf_ext(
             for c in range(n):
                 if c != step and D[step][c] != 0:
                     q = D[step][c] // D[step][step]
-                    if D[step][c] < 0 and D[step][c] % D[step][step] != 0:
-                        q -= 1
                     add_col(step, c, -q)
                     if D[step][c] != 0:
                         swap_cols(step, c)

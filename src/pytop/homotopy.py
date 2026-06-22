@@ -322,6 +322,130 @@ def contractible_summary(profile: ContractibleProfile) -> dict[str, Any]:
     }
 
 
+# ===========================================================================
+# Computational engines — homology-based homotopy invariants
+# ===========================================================================
+
+
+def _face_close(simplices: list[list[Any]]) -> list[list[Any]]:
+    from itertools import combinations
+
+    seen: set[frozenset] = set()
+    result: list[list[Any]] = []
+    for s in simplices:
+        for r in range(1, len(s) + 1):
+            for face in combinations(s, r):
+                fs = frozenset(face)
+                if fs not in seen:
+                    seen.add(fs)
+                    result.append(list(face))
+    return result
+
+
+def is_contractible_simplicial(simplices: list[list[Any]]) -> bool:
+    """Test whether a finite simplicial complex is acyclic (contractible homology).
+
+    Returns ``True`` iff ``H_*(X; ℤ) ≅ H_*(point; ℤ)``:
+
+    * H₀(X; ℤ) = ℤ  (connected, one component)
+    * H_k(X; ℤ) = 0  for all k ≥ 1
+
+    For CW complexes of dimension ≤ 2 this condition is equivalent to
+    contractibility by Whitehead's theorem.  For higher dimensions it is
+    a necessary condition (homological contractibility).
+
+    Parameters
+    ----------
+    simplices:
+        List of simplices as lists of vertex labels, e.g.
+        ``[[0, 1, 2], [1, 2], [0, 2]]``.  Face closure is enforced
+        automatically.
+
+    Returns
+    -------
+    bool
+
+    Examples
+    --------
+    A filled triangle is contractible:
+
+    >>> is_contractible_simplicial([[0, 1, 2], [0, 1], [0, 2], [1, 2], [0], [1], [2]])
+    True
+
+    The boundary of a triangle (circle S¹) is not contractible:
+
+    >>> is_contractible_simplicial([[0, 1], [1, 2], [2, 0]])
+    False
+    """
+    from .homology import homology_groups
+    from .simplicial_complexes import simplicial_complex
+
+    sc = simplicial_complex(_face_close(simplices))
+    groups = homology_groups(sc)
+    if not groups:
+        return False
+    h0 = groups[0]
+    if h0.betti != 1 or h0.torsion:
+        return False
+    for h in groups[1:]:
+        if h.betti != 0 or h.torsion:
+            return False
+    return True
+
+
+def has_sphere_homology(simplices: list[list[Any]], n: int) -> bool:
+    """Test whether a simplicial complex has the homology of S^n.
+
+    Returns ``True`` iff ``H_*(X; ℤ) ≅ H_*(S^n; ℤ)``:
+
+    * For n ≥ 1: H₀ = ℤ, H_n = ℤ, H_k = 0 otherwise.
+    * For n = 0: H₀ = ℤ² (two components), H_k = 0 for k ≥ 1.
+
+    By Whitehead's theorem, for simply-connected CW complexes of dimension n,
+    this implies actual homotopy equivalence to S^n.
+
+    Parameters
+    ----------
+    simplices:
+        Simplices as lists of vertex labels.
+    n:
+        The dimension of the sphere to compare against.
+
+    Returns
+    -------
+    bool
+    """
+    if n < 0:
+        raise ValueError(f"Sphere dimension must be non-negative, got {n!r}")
+
+    from .homology import homology_groups
+    from .simplicial_complexes import simplicial_complex
+
+    sc = simplicial_complex(_face_close(simplices))
+    groups = homology_groups(sc)
+    h_by_degree = {g.degree: g for g in groups}
+
+    expected_h0_betti = 2 if n == 0 else 1
+    h0 = h_by_degree.get(0)
+    if h0 is None or h0.betti != expected_h0_betti or h0.torsion:
+        return False
+
+    if n >= 1:
+        hn = h_by_degree.get(n)
+        if hn is None or hn.betti != 1 or hn.torsion:
+            return False
+
+    for g in groups:
+        if g.degree == 0:
+            continue
+        if g.degree == n and n >= 1:
+            continue
+        if g.betti != 0 or g.torsion:
+            return False
+
+    return True
+
+
 __all__ = [
     "ContractibleProfile",
     "CONTRACTIBLE_STATUSES",
@@ -335,9 +459,11 @@ __all__ = [
     "contractible_summary",
     "deformation_retraction_profile",
     "deformation_retraction_summary",
+    "has_sphere_homology",
     "homotopic",
     "homotopy_profile",
     "homotopy_summary",
+    "is_contractible_simplicial",
     "known_contractible_profile",
     "not_certified_homotopy",
     "unknown_homotopy",

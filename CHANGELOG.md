@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.6] — 2026-06-22
+
+### Added
+
+- **Covering spaces — computational** (`covering_spaces.py`): `CoveringGraph` dataclass,
+  `cyclic_voltage_cover` (voltage construction for cyclic covers), `fundamental_group_rank_graph`
+  (first Betti number β₁ = |E|−|V|+1 via Euler characteristic), `is_graph_covering_map`
+  (sheet-count + uniform-degree check), `universal_covering_tree` (BFS spanning tree). 32 new tests.
+
+- **Fundamental group — computational** (`fundamental_group.py`): `pi1_graph(edges)` —
+  fundamental group of a 1-complex via van Kampen + spanning-tree algorithm; first Betti
+  number k → free group Fₖ. 14 new tests.
+
+- **Three-manifolds — computational** (`three_manifolds.py`): `mapping_torus_h1(monodromy)` —
+  H₁ of the mapping torus of a surface automorphism via Wang sequence cokernel (SNF);
+  `lens_space_pi1(p, q)` → ℤ/p. 21 new tests.
+
+- **Homotopy — computational** (`homotopy.py`): `is_contractible_simplicial(simplices)` —
+  homology-based contractibility test (H_*(X;ℤ) ≅ H_*(pt;ℤ)); `has_sphere_homology(simplices, n)` —
+  sphere homology type check (H_*(X;ℤ) ≅ H_*(Sⁿ;ℤ)). Auto face-closure before boundary matrix. 26 new tests.
+
+- **Degree theory — computational** (`degree_theory.py`): `map_degree_simplicial(sim_map, n)` —
+  topological degree of f: Sⁿ → Sⁿ from the 1×1 matrix of `induced_map_on_homology` on H_n. 8 new tests.
+
+- **Manifolds — computational** (`manifolds.py`): `euler_characteristic_simplicial(simplices)` —
+  χ = Σ(−1)^k f_k computed combinatorially from any simplicial complex; handles auto face-closure,
+  disjoint unions (additivity), and non-manifold inputs. 18 new tests.
+
+### Fixed
+
+- **`mayer_vietoris._snf_ext` infinite-loop on negative matrix entries** — the inner loop had
+  `q -= 1` corrections written for C-style truncation division; Python's `//` operator is floor
+  division and already gives the correct quotient, so the correction over-adjusted, producing a
+  remainder that exceeded the pivot and triggering an infinite swap cycle. Corrections removed.
+  All 150-iteration seeded property tests pass in < 0.5 s.
+
 ## [1.0.5] — 2026-06-21
 
 ### Added

@@ -304,12 +304,85 @@ def manifold_profile_summary(profile: ManifoldProfile) -> dict[str, Any]:
     }
 
 
+# ===========================================================================
+# Computational engine — Euler characteristic
+# ===========================================================================
+
+
+def euler_characteristic_simplicial(simplices: list[list[Any]]) -> int:
+    """Compute the Euler characteristic of a finite simplicial complex.
+
+    Uses the combinatorial formula
+
+    .. math::
+
+       \\chi(X) = \\sum_{k \\geq 0} (-1)^k f_k
+
+    where :math:`f_k` is the number of k-dimensional simplices (faces of
+    cardinality k+1). This agrees with the homological definition
+    :math:`\\chi = \\sum (-1)^k \\beta_k` by the Euler–Poincaré formula.
+
+    Face closure is performed automatically: you may pass only maximal simplices.
+
+    Parameters
+    ----------
+    simplices:
+        List of simplices as lists of vertex labels.  Duplicate simplices
+        are counted once (face closure deduplicates).
+
+    Returns
+    -------
+    int
+        The Euler characteristic.
+
+    Examples
+    --------
+    Point: χ = 1
+
+    >>> euler_characteristic_simplicial([[0]])
+    1
+
+    Circle (triangle boundary): χ = 0
+
+    >>> euler_characteristic_simplicial([[0, 1], [1, 2], [2, 0]])
+    0
+
+    Sphere S² (tetrahedron boundary): χ = 2
+
+    >>> euler_characteristic_simplicial([[0,1,2],[0,1,3],[0,2,3],[1,2,3]])
+    2
+
+    Filled triangle (contractible): χ = 1
+
+    >>> euler_characteristic_simplicial([[0, 1, 2]])
+    1
+    """
+    from itertools import combinations
+
+    seen: set[frozenset] = set()
+    counts: dict[int, int] = {}
+    for s in simplices:
+        for r in range(1, len(s) + 1):
+            for face in combinations(s, r):
+                fs = frozenset(face)
+                if fs not in seen:
+                    seen.add(fs)
+                    dim = r - 1
+                    counts[dim] = counts.get(dim, 0) + 1
+
+    if not counts:
+        return 0
+    max_dim = max(counts)
+    return sum((-1) ** k * counts.get(k, 0) for k in range(max_dim + 1))
+
+
 __all__ = [
     "MANIFOLD_ORIENTABILITY_VALUES",
     "MANIFOLD_PROFILE_STATUSES",
     "KNOWN_MANIFOLD_PROFILES",
     "ManifoldProfile",
     "ManifoldProfileError",
+    "euler_characteristic_simplicial",
     "manifold_profile",
     "real_line_manifold_profile",
     "circle_manifold_profile",
