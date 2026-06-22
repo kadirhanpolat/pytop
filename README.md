@@ -421,7 +421,7 @@ Build: `cd formal && lake build`
 | `SNF/` | Smith Normal Form correctness — clearPass residues, pivot positivity, fuel-independence, divisibility chain, all 5 branch theorems | **0** |
 | `Homology.lean` | Boundary operator ∂∘∂=0, Euler–Poincaré theorem via alternating-sum telescope | 0 |
 | `EulerChar.lean` | Euler characteristic = alternating Betti sum | 0 |
-| `PersHomology.lean` | Z/2 persistence reduction, `symmDiff_comm/self/assoc` (Z/2 column algebra), `pairs_have_distinct_deaths` (Nodup death indices — proved from `List.range` structure alone), `pairs_birth_lt_death` (birth < death under lower-triangular hypothesis) | **1** (`reduce_is_reduced` — `partial def` blocker) |
+| `PersHomology.lean` | Z/2 persistence reduction, `symmDiff_comm/self/assoc` (Z/2 column algebra), `reduce_is_reduced` (via fuel-based `reduceColFuel` + `reduceInv_step` invariant: TabInv × sorted × isReduced across every column), `pairs_have_distinct_deaths` (Nodup death indices), `pairs_birth_lt_death` (birth < death under lower-triangular hypothesis) | **0** |
 | `PiBase.lean` | Pi-Base implication graph load & traversal | 0 |
 | `SetTopology.lean` | Open-set axioms, closure/interior/boundary, Kuratowski, subspace & product topologies, homeomorphism, dense sets, connectedness, **T₃/T₄ definitions + implication chain (T₄→T₃→T₂), `compact_union`, `compact_closed_subset`**, Urysohn lemma (Sierpinski-target, T₄ → separating Bool map) | **0** |
 | `MetricTopology.lean` | Metric space structure, open balls, metric topology axioms, ε-δ ↔ topological continuity (both directions), **Cauchy sequences, convergence, completeness, `fixedPoint_unique`**, Banach fixed-point theorem (contraction iteration + geometric series Cauchy bound) | **0** |
@@ -450,6 +450,7 @@ theorem fixedPoint_unique         : isContraction M f → f p = p → f q = q �
 
 -- Persistence homology (PersHomology.lean)
 theorem symmDiff_assoc            : symmDiff (symmDiff a b) c = symmDiff a (symmDiff b c)
+theorem reduce_is_reduced          : isReduced (reduce M)  -- fuel-based termination proof
 theorem pairs_have_distinct_deaths : ((persistencePairs M).map Prod.snd).Nodup
 theorem pairs_birth_lt_death       : (∀ jcol ∈ zipWith … (reduce M), ∀ x ∈ jcol.2, x < jcol.1)
                                      → ∀ p ∈ persistencePairs M, p.1 < p.2

@@ -312,19 +312,259 @@ def isReduced (M : Z2Matrix) : Prop :=
 /-- Pivot sütun tablosu. -/
 def PivotTab := List (Option Nat)
 
-/-- Bir sütunu indirgeme adımı. `partial` — terminasyon pivot'un azalmasına dayanır,
-    burada formal ispat ertelenmiştir. -/
-partial def reduceCol (col : Z2Col) (tab : PivotTab) (M : Z2Matrix) : Z2Col :=
-  match col.getLast? with
-  | none   => col
-  | some i =>
-    match tab.getD i none with
-    | none   => col
-    | some k =>
-      reduceCol (symmDiff col (M.getD k [])) tab M
+-- ──────────────────────────────────────────────────────────
+-- 4. İndirgeme algoritması (fuel-based)
+-- ──────────────────────────────────────────────────────────
 
-/-- Matrisin tamamını sol-sağ indirgeme.
-    `List.zipWith Prod.mk (List.range n) M` yerine enumerasyon için. -/
+-- TabInv: tab[i] = some k  ↔  accM[k] son elemanı i
+private def TabInv (accM : Z2Matrix) (tab : PivotTab) : Prop :=
+  (∀ i k, tab.getD i none = some k →
+      k < accM.length ∧ (accM.getD k []).getLast? = some i) ∧
+  (∀ k i, k < accM.length → (accM.getD k []).getLast? = some i →
+      tab.getD i none = some k)
+
+-- getLast? membership (needed below, defined here to avoid forward reference)
+private lemma getLast?_mem_ph' {col : Z2Col} {ci : Nat}
+    (h : col.getLast? = some ci) : ci ∈ col := by
+  induction col with
+  | nil => simp at h
+  | cons a t ih =>
+    rcases t with _ | ⟨b, rest⟩
+    · simp [List.getLast?] at h; exact List.mem_cons.mpr (Or.inl h.symm)
+    · exact List.mem_cons.mpr (Or.inr (ih h))
+
+private lemma tabInv_nil (n : Nat) : TabInv [] (List.replicate n none) := by
+  constructor
+  · intro i k h
+    have hrep : (List.replicate n (none : Option Nat)).getD i none = none := by
+      simp only [List.getD_eq_getElem?_getD, List.getElem?_replicate]
+      split_ifs <;> rfl
+    rw [hrep] at h; exact absurd h (by simp)
+  · intro k i hk; exact absurd hk (Nat.not_lt_zero k)
+
+-- getD helpers (proved by structural induction to avoid Mathlib API version dependencies)
+private lemma getD_append_left_r {α} (l1 l2 : List α) (k : Nat) (d : α) (h : k < l1.length) :
+    (l1 ++ l2).getD k d = l1.getD k d := by
+  induction l1 generalizing k with
+  | nil => exact absurd h (Nat.not_lt_zero _)
+  | cons a t ih =>
+    cases k with
+    | zero => rfl
+    | succ n => exact ih n (Nat.lt_of_succ_lt_succ h)
+
+private lemma getD_snoc_last {α} (l : List α) (a d : α) :
+    (l ++ [a]).getD l.length d = a := by
+  induction l with
+  | nil => rfl
+  | cons b t ih => exact ih
+
+private lemma getD_out_of_bounds {α} (l : List α) (k : Nat) (d : α) (h : l.length ≤ k) :
+    l.getD k d = d := by
+  induction l generalizing k with
+  | nil => cases k <;> rfl
+  | cons a t ih =>
+    cases k with
+    | zero => exact absurd h (by simp)
+    | succ n => exact ih n (Nat.le_of_succ_le_succ h)
+
+private lemma getD_set_eq_r {α} (l : List α) (i : Nat) (v d : α) (h : i < l.length) :
+    (l.set i v).getD i d = v := by
+  induction l generalizing i with
+  | nil => exact absurd h (Nat.not_lt_zero _)
+  | cons a t ih =>
+    cases i with
+    | zero => rfl
+    | succ n => exact ih n (Nat.lt_of_succ_lt_succ h)
+
+private lemma getD_set_ne_r {α} (l : List α) (i j : Nat) (v d : α) (h : i ≠ j) :
+    (l.set i v).getD j d = l.getD j d := by
+  induction l generalizing i j with
+  | nil => cases i <;> cases j <;> rfl
+  | cons a t ih =>
+    cases i with
+    | zero => cases j with
+      | zero => exact absurd rfl h
+      | succ m => rfl
+    | succ n => cases j with
+      | zero => rfl
+      | succ m => exact ih n m (fun heq => h (congrArg Nat.succ heq))
+
+private lemma length_set_r {α} (l : List α) (i : Nat) (v : α) :
+    (l.set i v).length = l.length := by
+  induction l generalizing i with
+  | nil => cases i <;> rfl
+  | cons a t ih => cases i with
+    | zero => rfl
+    | succ n => simp [List.set, ih n]
+
+-- Helper lemmas reusing existing private functions in this namespace
+private lemma getLast?_count_one_r {l : Z2Col} {i : Nat}
+    (hl : l.getLast? = some i) (hP : List.Pairwise (· < ·) l) : List.count i l = 1 := by
+  have h1 := mem_iff_count_pos_ph.mp (getLast?_mem_ph' hl)
+  have h2 := sorted_count_le1_ph i l hP; omega
+
+private lemma not_mem_symmDiff_eqLast {col other : Z2Col} {i : Nat}
+    (hc  : col.getLast? = some i)   (hcP : List.Pairwise (· < ·) col)
+    (ho  : other.getLast? = some i) (hoP : List.Pairwise (· < ·) other) :
+    i ∉ symmDiff col other := by
+  rw [mem_iff_count_pos_ph]
+  have hmod := count_sd_mod2_ph i col other
+  rw [getLast?_count_one_r hc hcP, getLast?_count_one_r ho hoP] at hmod
+  have hle := sorted_count_le1_ph i _ (sd_sorted_ph col other hcP hoP); omega
+
+private lemma sorted_le_getLast? {l : Z2Col} {i x : Nat}
+    (hl : l.getLast? = some i) (hP : List.Pairwise (· < ·) l) (hx : x ∈ l) : x ≤ i := by
+  induction l with
+  | nil => simp at hl
+  | cons a t ih =>
+    rcases List.mem_cons.mp hx with rfl | hxt
+    · cases t with
+      | nil =>
+        -- [a].getLast? = some a definitionally, so a = i
+        have heq : x = i := Option.some.inj (show List.getLast? [x] = some i from hl)
+        omega
+      | cons b rest =>
+        have ha := (List.pairwise_cons.mp hP).1
+        -- (a :: b :: rest).getLast? reduces to (b :: rest).getLast? definitionally
+        have ht : (b :: rest).getLast? = some i := hl
+        exact Nat.le_of_lt (ha i (getLast?_mem_ph' ht))
+    · cases t with
+      | nil => exact absurd hxt (by simp)
+      | cons b rest =>
+        have ht : (b :: rest).getLast? = some i := hl
+        exact ih ht hP.tail hxt
+
+private lemma symmDiff_getLast?_lt_r {col other : Z2Col} {i : Nat}
+    (hc  : col.getLast? = some i)   (hcP : List.Pairwise (· < ·) col)
+    (ho  : other.getLast? = some i) (hoP : List.Pairwise (· < ·) other) :
+    (symmDiff col other).getLast? = none ∨
+    ∃ j, (symmDiff col other).getLast? = some j ∧ j < i := by
+  rcases h : (symmDiff col other).getLast? with _ | j
+  · exact Or.inl rfl
+  · apply Or.inr; refine ⟨j, rfl, ?_⟩
+    have hmem := getLast?_mem_ph' h
+    have hle : j ≤ i := by
+      rcases mem_sd_or_ph hmem with hj | hj
+      · exact sorted_le_getLast? hc hcP hj
+      · exact sorted_le_getLast? ho hoP hj
+    rcases Nat.lt_or_eq_of_le hle with hlt | rfl
+    · exact hlt
+    · exact absurd hmem (not_mem_symmDiff_eqLast hc hcP ho hoP)
+
+/-- Fuel-based sütun indirgeme. Fuel = başlangıç pivot + 1 yeterlidir. -/
+def reduceColFuel : Nat → Z2Col → PivotTab → Z2Matrix → Z2Col
+  | 0,     col, _,   _  => col
+  | n + 1, col, tab, M  =>
+    match col.getLast? with
+    | none   => col
+    | some i =>
+      match tab.getD i none with
+      | none   => col
+      | some k => reduceColFuel n (symmDiff col (M.getD k [])) tab M
+
+private lemma reduceColFuel_of_zero (n : Nat) (col : Z2Col) (tab : PivotTab) (M : Z2Matrix)
+    (h : col.getLast? = none) : reduceColFuel n col tab M = col := by
+  cases n <;> simp [reduceColFuel, h]
+
+private lemma reduceColFuel_sorted (n : Nat) (col : Z2Col) (tab : PivotTab) (M : Z2Matrix)
+    (hc : List.Pairwise (· < ·) col)
+    (hM : ∀ k, List.Pairwise (· < ·) (M.getD k [])) :
+    List.Pairwise (· < ·) (reduceColFuel n col tab M) := by
+  induction n generalizing col with
+  | zero => exact hc
+  | succ n ih =>
+    cases hL : col.getLast? with
+    | none =>
+      have heq : reduceColFuel (n + 1) col tab M = col := by
+        unfold reduceColFuel; simp [hL]
+      rw [heq]; exact hc
+    | some i =>
+      cases hT : tab.getD i none with
+      | none =>
+        have heq : reduceColFuel (n + 1) col tab M = col := by
+          simp only [reduceColFuel, hL, hT]
+        rw [heq]; exact hc
+      | some k =>
+        have heq : reduceColFuel (n + 1) col tab M =
+            reduceColFuel n (symmDiff col (M.getD k [])) tab M := by
+          simp only [reduceColFuel, hL, hT]
+        rw [heq]
+        exact ih _ (sd_sorted_ph col _ hc (hM k))
+
+/-- Fuel yeterli olduğunda sonuç ya sıfır ya da serbest pivotlu sütundur. -/
+private lemma reduceColFuel_free (n : Nat) (col : Z2Col) (tab : PivotTab) (M : Z2Matrix)
+    (htab : TabInv M tab)
+    (hc   : List.Pairwise (· < ·) col)
+    (hM   : ∀ k, List.Pairwise (· < ·) (M.getD k []))
+    (hf   : col.getLast?.getD 0 < n) :
+    (reduceColFuel n col tab M).getLast? = none ∨
+    ∃ i, (reduceColFuel n col tab M).getLast? = some i ∧ tab.getD i none = none := by
+  induction n generalizing col with
+  | zero => rcases h : col.getLast? <;> simp_all
+  | succ n ih =>
+    cases hL : col.getLast? with
+    | none =>
+      have heq : reduceColFuel (n + 1) col tab M = col := by
+        unfold reduceColFuel; simp [hL]
+      rw [heq]; exact Or.inl hL
+    | some i =>
+      cases hT : tab.getD i none with
+      | none =>
+        have heq : reduceColFuel (n + 1) col tab M = col := by
+          simp only [reduceColFuel, hL, hT]
+        rw [heq]; exact Or.inr ⟨i, hL, hT⟩
+      | some k =>
+        have heq : reduceColFuel (n + 1) col tab M =
+            reduceColFuel n (symmDiff col (M.getD k [])) tab M := by
+          simp only [reduceColFuel, hL, hT]
+        rw [heq]
+        have hMlast : (M.getD k []).getLast? = some i := (htab.1 i k hT).2
+        rcases symmDiff_getLast?_lt_r hL hc hMlast (hM k) with hnil | ⟨j, hj, hjlt⟩
+        · left; rw [reduceColFuel_of_zero _ _ _ _ hnil]; exact hnil
+        · apply ih
+          · exact sd_sorted_ph col _ hc (hM k)
+          · simp only [hj, Option.getD]; simp only [hL, Option.getD] at hf; omega
+
+/-- İndirgeme sırasında tüm ara pivotlar fuel sayısından küçüktür. -/
+private lemma reduceColFuel_bound_n (n : Nat) (col : Z2Col) (tab : PivotTab) (M : Z2Matrix)
+    (htab : TabInv M tab)
+    (hc : List.Pairwise (· < ·) col)
+    (hM : ∀ k, List.Pairwise (· < ·) (M.getD k []))
+    (hf : col.getLast?.getD 0 < n) :
+    ∀ ci, (reduceColFuel n col tab M).getLast? = some ci → ci < n := by
+  induction n generalizing col with
+  | zero => exact (Nat.not_lt_zero _ hf).elim
+  | succ n ih =>
+    intro ci hci
+    cases hL : col.getLast? with
+    | none =>
+      have heq : reduceColFuel (n + 1) col tab M = col := by simp only [reduceColFuel, hL]
+      rw [heq, hL] at hci; exact absurd hci (by simp)
+    | some p =>
+      have hfp : p < n + 1 := by rwa [hL, Option.getD_some] at hf
+      cases hT : tab.getD p none with
+      | none =>
+        have heq : reduceColFuel (n + 1) col tab M = col := by simp only [reduceColFuel, hL, hT]
+        rw [heq, hL] at hci
+        have hcp := Option.some.inj hci
+        omega
+      | some k =>
+        have heq : reduceColFuel (n + 1) col tab M =
+            reduceColFuel n (symmDiff col (M.getD k [])) tab M := by
+          simp only [reduceColFuel, hL, hT]
+        rw [heq] at hci
+        have hMlast : (M.getD k []).getLast? = some p := (htab.1 p k hT).2
+        rcases symmDiff_getLast?_lt_r hL hc hMlast (hM k) with hnil | ⟨j, hj, hjlt⟩
+        · rw [reduceColFuel_of_zero _ _ _ _ hnil, hnil] at hci; exact absurd hci (by simp)
+        · have hihf : (symmDiff col (M.getD k [])).getLast?.getD 0 < n := by
+            rw [hj, Option.getD_some]; omega
+          exact Nat.lt_succ_of_lt (ih _ (sd_sorted_ph col _ hc (hM k)) hihf ci hci)
+
+/-- Bir sütunu indirgeme adımı. -/
+def reduceCol (col : Z2Col) (tab : PivotTab) (M : Z2Matrix) : Z2Col :=
+  reduceColFuel (col.getLast?.getD 0 + 1) col tab M
+
+/-- Matrisin tamamını sol-sağ indirgeme. -/
 def reduce (M : Z2Matrix) : Z2Matrix :=
   let tab : PivotTab := List.replicate M.length none
   let indexed := List.zipWith Prod.mk (List.range M.length) M
@@ -338,21 +578,250 @@ def reduce (M : Z2Matrix) : Z2Matrix :=
     (accM ++ [col'], accTab')) ([], tab)).1
 
 -- ──────────────────────────────────────────────────────────
--- 4b. reduce_is_reduced  (ertelenmiş)
+-- 4b. reduce_is_reduced  (kanıtlandı)
 -- ──────────────────────────────────────────────────────────
 
--- TODO(formal): `reduceCol` şu an `partial def` olduğundan Lean kernel'i
--- terminasyon certificate üretmiyor ve bu theorem hakkında structural/well-founded
--- induction yapılamıyor.  Tam kanıt için iki yol:
---   A) `reduceCol`'u fuel-based `def`'e çevir (n : Nat parametresi ekle),
---   B) `termination_by col.getLast?.getD 0` ile `reduce`+`reduceCol`'un
---      ortak invariantını mutual induction ile kanıtla
---      (invariant: tab[i] = some k ↔ (M[k]).getLast? = some i).
--- Matematiksel doğruluk açık; sadece Lean altyapısı eksik.
-/-- `reduce M`, `isReduced` koşulunu sağlar.
-    **[sorry]** — `partial def reduceCol` terminasyon kanıtı bekliyor. -/
-theorem reduce_is_reduced (M : Z2Matrix) : isReduced (reduce M) := by
-  sorry
+private def reduceStep (acc : Z2Matrix × PivotTab) (jcol : Nat × Z2Col) :
+    Z2Matrix × PivotTab :=
+  let (accM, accTab) := acc
+  let (j, col) := jcol
+  let col' := reduceCol col accTab accM
+  let accTab' := match col'.getLast? with
+    | none   => accTab
+    | some i => accTab.set i (some j)
+  (accM ++ [col'], accTab')
+
+private def ReduceInv (accM : Z2Matrix) (accTab : PivotTab) (tabLen : Nat) : Prop :=
+  tabLen = accTab.length ∧
+  TabInv accM accTab ∧
+  (∀ k, List.Pairwise (· < ·) (accM.getD k [])) ∧
+  isReduced accM
+
+private lemma reduceInv_init (n : Nat) :
+    ReduceInv [] (List.replicate n none) n := by
+  refine ⟨by simp, tabInv_nil n, ?_, ?_⟩
+  · intro k; exact List.Pairwise.nil
+  · intro j1; exact j1.elim0
+
+private lemma reduceInv_step
+    (accM : Z2Matrix) (accTab : PivotTab) (tabLen : Nat) (j : Nat) (col : Z2Col)
+    (hInv   : ReduceInv accM accTab tabLen)
+    (hj     : j = accM.length)
+    (hcol_s : List.Pairwise (· < ·) col)
+    (hcol_b : ∀ i ∈ col, i < tabLen) :
+    ReduceInv (reduceStep (accM, accTab) (j, col)).1
+              (reduceStep (accM, accTab) (j, col)).2
+              tabLen := by
+  obtain ⟨htabLen, htab, hMs, hred⟩ := hInv
+  simp only [reduceStep]
+  set col'    := reduceCol col accTab accM
+  set accTab' := match col'.getLast? with
+    | none   => accTab
+    | some i => accTab.set i (some j)
+  have hM_sorted : ∀ k, List.Pairwise (· < ·) (accM.getD k []) := hMs
+  have hcol'_s : List.Pairwise (· < ·) col' :=
+    reduceColFuel_sorted _ col accTab accM hcol_s hM_sorted
+  have hcol'_free :
+      col'.getLast? = none ∨
+      ∃ i, col'.getLast? = some i ∧ accTab.getD i none = none :=
+    reduceColFuel_free _ col accTab accM htab hcol_s hM_sorted (Nat.lt_succ_self _)
+  have hcol'_bound : ∀ ci, col'.getLast? = some ci → ci < tabLen := by
+    intro ci hci
+    cases hL : col.getLast? with
+    | none =>
+      have hcol'_none : col'.getLast? = none := by
+        have hcol'_def : col' = col := by
+          show reduceColFuel (col.getLast?.getD 0 + 1) col accTab accM = col
+          exact reduceColFuel_of_zero _ _ _ _ hL
+        rw [hcol'_def, hL]
+      rw [hcol'_none] at hci; exact absurd hci (by simp)
+    | some p =>
+      have hpm : p < tabLen := hcol_b p (getLast?_mem_ph' hL)
+      have hlt_fuel : ci < col.getLast?.getD 0 + 1 :=
+        reduceColFuel_bound_n _ col accTab accM htab hcol_s hM_sorted (Nat.lt_succ_self _) ci hci
+      rw [hL, Option.getD_some] at hlt_fuel; omega
+  -- 1. tabLen = accTab'.length
+  have htabLen' : tabLen = accTab'.length := by
+    simp only [accTab']
+    split <;> simp [length_set_r, htabLen]
+  -- 2. TabInv (accM ++ [col']) accTab'
+  have htab' : TabInv (accM ++ [col']) accTab' := by
+    constructor
+    · intro i k hk
+      rcases hfree : col'.getLast? with _ | ci
+      · simp only [accTab', hfree] at hk
+        obtain ⟨hklt, hklast⟩ := htab.1 i k hk
+        exact ⟨by simp only [List.length_append, List.length_singleton]; omega,
+               by rw [getD_append_left_r _ _ _ _ hklt]; exact hklast⟩
+      · simp only [accTab', hfree] at hk
+        by_cases hie : i = ci
+        · have hci_lt : ci < tabLen := hcol'_bound ci hfree
+          subst hie
+          rw [getD_set_eq_r _ _ _ _ (by rw [← htabLen]; exact hci_lt)] at hk
+          have hkj : k = j := (Option.some.inj hk).symm
+          subst hkj; subst hj
+          exact ⟨by simp, by rw [getD_snoc_last]; exact hfree⟩
+        · rw [getD_set_ne_r _ _ _ _ _ (Ne.symm hie)] at hk
+          obtain ⟨hklt, hklast⟩ := htab.1 i k hk
+          exact ⟨by simp only [List.length_append, List.length_singleton]; omega,
+                 by rw [getD_append_left_r _ _ _ _ hklt]; exact hklast⟩
+    · intro k i hklt hklast
+      rw [List.length_append, List.length_singleton] at hklt
+      rcases Nat.lt_or_eq_of_le (Nat.lt_succ_iff.mp hklt) with hk | hk
+      · have hklast_old : (accM.getD k []).getLast? = some i := by
+          rwa [getD_append_left_r _ _ _ _ hk] at hklast
+        have htab_k := htab.2 k i hk hklast_old
+        rcases hfree : col'.getLast? with _ | ci
+        · simp only [accTab', hfree]; exact htab_k
+        · simp only [accTab', hfree]
+          by_cases hie : i = ci
+          · obtain ⟨ci', hci', hfree_none⟩ := hcol'_free.resolve_left (by simp [hfree])
+            have hci_eq : ci' = ci := Option.some.inj (hci'.symm.trans hfree)
+            subst hci_eq
+            subst hie
+            rw [htab_k] at hfree_none; exact absurd hfree_none (by simp)
+          · rw [getD_set_ne_r _ _ _ _ _ (Ne.symm hie)]; exact htab_k
+      · subst hk; subst hj
+        have hklast_new : col'.getLast? = some i := by
+          rwa [getD_snoc_last] at hklast
+        rcases hfree : col'.getLast? with _ | ci
+        · rw [hfree] at hklast_new; exact absurd hklast_new (by simp)
+        · simp only [accTab', hfree]
+          have hci : ci = i := Option.some.inj (hklast_new ▸ hfree ▸ rfl)
+          have hi_lt : i < tabLen := hcol'_bound i hklast_new
+          subst hci
+          rw [getD_set_eq_r _ _ _ _ (by rw [← htabLen]; exact hi_lt)]
+  -- 3. sortedness
+  have hMs' : ∀ k, List.Pairwise (· < ·) ((accM ++ [col']).getD k []) := by
+    intro k
+    by_cases hk : k < accM.length
+    · rw [getD_append_left_r _ _ _ _ hk]; exact hMs k
+    · by_cases hk2 : k = accM.length
+      · subst hk2; rw [getD_snoc_last]; exact hcol'_s
+      · rw [getD_out_of_bounds _ _ _ (by simp; omega)]; exact List.Pairwise.nil
+  -- 4. isReduced (accM ++ [col'])
+  have hred' : isReduced (accM ++ [col']) := by
+    intro j1 j2 hne
+    have hlen : (accM ++ [col']).length = accM.length + 1 := by simp
+    -- get of appended list (j typed to match j1/j2 exactly)
+    have get_acc : ∀ (j : Fin (accM ++ [col']).length) (h : j.val < accM.length),
+        (accM ++ [col']).get j = accM.get ⟨j.val, h⟩ := fun j h => by
+      simp [List.getElem_append_left h]
+    have get_col' : (accM ++ [col']).get ⟨accM.length, by simp⟩ = col' := by
+      simp [List.getElem_append_right (Nat.le_refl _)]
+    -- getD to get conversion (via universal helper, avoids dependency issues in induction)
+    have getD_acc : ∀ (n : Nat) (h : n < accM.length),
+        (accM.getD n []).getLast? = (accM.get ⟨n, h⟩).getLast? := by
+      suffices key : ∀ (l : Z2Matrix) (n : Nat) (h : n < l.length), l.getD n [] = l.get ⟨n, h⟩ from
+        fun n h => by rw [key accM n h]
+      intro l
+      induction l with
+      | nil => intro n h; exact absurd h (by simp)
+      | cons a t ih =>
+        intro n h
+        cases n with
+        | zero => rfl
+        | succ k => exact ih k (by simpa using h)
+    have hj1_le : j1.val ≤ accM.length := by have := j1.isLt; omega
+    have hj2_le : j2.val ≤ accM.length := by have := j2.isLt; omega
+    rcases Nat.lt_or_eq_of_le hj1_le with hlt1 | heq1
+    · rcases Nat.lt_or_eq_of_le hj2_le with hlt2 | heq2
+      · -- Both in accM
+        have hne' : (⟨j1.val, hlt1⟩ : Fin accM.length) ≠ ⟨j2.val, hlt2⟩ := by
+          intro h; apply hne; ext
+          exact (Fin.ext_iff (a := ⟨j1.val, hlt1⟩) (b := ⟨j2.val, hlt2⟩)).mp h
+        have := hred ⟨j1.val, hlt1⟩ ⟨j2.val, hlt2⟩ hne'
+        rw [get_acc j1 hlt1, get_acc j2 hlt2]; exact this
+      · -- j1 in accM, j2 = col'
+        have hj2 : j2 = ⟨accM.length, by simp⟩ := Fin.ext (by omega)
+        rw [get_acc j1 hlt1, hj2, get_col']
+        rcases hdi_eq : (accM.get ⟨j1.val, hlt1⟩).getLast? with _ | di
+        · exact Or.inl rfl
+        · right; intro heq
+          rcases hcol'_free with hnil | ⟨ci, hci, hfree⟩
+          · rw [hnil] at heq; exact absurd heq (Option.some_ne_none _)
+          · have hdi : di = ci := Option.some.inj (heq.trans hci)
+            have hgetD : (accM.getD j1.val []).getLast? = some di :=
+              (getD_acc j1.val hlt1).trans hdi_eq
+            exact absurd (htab.2 j1.val ci hlt1 (hdi ▸ hgetD))
+              (by change ¬ (List.getD accTab ci none = some _); rw [hfree]; exact (Option.some_ne_none _).symm)
+    · rcases Nat.lt_or_eq_of_le hj2_le with hlt2 | heq2
+      · -- j1 = col', j2 in accM
+        have hj1 : j1 = ⟨accM.length, by simp⟩ := Fin.ext (by omega)
+        rw [hj1, get_col', get_acc j2 hlt2]
+        rcases hcol'_free with hnil | ⟨ci, hci, hfree⟩
+        · exact Or.inl hnil
+        · rw [hci]; right; intro heq
+          have hgetD : (accM.getD j2.val []).getLast? = some ci := by
+            rw [getD_acc j2.val hlt2]; exact heq.symm
+          exact absurd (htab.2 j2.val ci hlt2 hgetD)
+            (by change ¬ (List.getD accTab ci none = some _); rw [hfree]; exact (Option.some_ne_none _).symm)
+      · exact absurd (Fin.ext (by omega)) hne
+  exact ⟨htabLen', htab', hMs', hred'⟩
+
+-- getD to get: structural induction, independent of library naming
+private lemma getD_eq_get_r {α : Type*} (l : List α) (d : α) (n : Nat) (h : n < l.length) :
+    l.getD n d = l.get ⟨n, h⟩ := by
+  induction l generalizing n with
+  | nil => exact absurd h (by simp)
+  | cons a t ih =>
+    cases n with
+    | zero => rfl
+    | succ k => exact ih k (by simpa using h)
+
+-- (zipWith Prod.mk (range M.length) M)[j] = (j, M.getD j [])
+private lemma zipWith_range_getD (M : Z2Matrix) (j : Nat) (hj : j < M.length) :
+    (List.zipWith Prod.mk (List.range M.length) M)[j]'(by simp [List.length_zipWith]; omega) =
+    (j, M.getD j []) := by
+  simp only [List.getElem_zipWith, List.getElem_range]
+  congr 1
+  exact (getD_eq_get_r M [] j hj).symm
+
+/-- `reduce M`, sıralı ve sınırlı sütunlara sahip matrisler için `isReduced` koşulunu sağlar. -/
+theorem reduce_is_reduced (M : Z2Matrix)
+    (hsorted : ∀ col ∈ M, List.Pairwise (· < ·) col)
+    (hbound  : ∀ col ∈ M, ∀ i ∈ col, i < M.length) :
+    isReduced (reduce M) := by
+  set indexed := List.zipWith Prod.mk (List.range M.length) M
+  set tab     := List.replicate M.length none
+  -- reduce M = (indexed.foldl reduceStep ([], tab)).1 by definitional equality
+  show isReduced (indexed.foldl reduceStep ([], tab)).1
+  -- indexed is equivalent to the range map (use getElem-based extensionality)
+  have hIndexed : indexed = (List.range M.length).map (fun j => (j, M.getD j [])) := by
+    apply List.ext_getElem
+    · simp [indexed, List.length_zipWith]
+    · intro i h1 h2
+      simp only [List.getElem_map, List.getElem_range]
+      exact zipWith_range_getD M i (by simp [indexed, List.length_zipWith] at h1; omega)
+  -- Convert foldl over indexed to foldl over range
+  have foldl_eq : indexed.foldl reduceStep ([], tab) =
+      (List.range M.length).foldl (fun acc j => reduceStep acc (j, M.getD j [])) ([], tab) := by
+    rw [hIndexed, List.foldl_map]
+  rw [foldl_eq]
+  -- Prove invariant by induction on k elements processed
+  suffices h : ∀ k ≤ M.length,
+      let acc := (List.range k).foldl (fun acc j => reduceStep acc (j, M.getD j [])) ([], tab)
+      acc.1.length = k ∧ ReduceInv acc.1 acc.2 M.length by
+    exact (h M.length (Nat.le_refl M.length)).2.2.2.2
+  intro k hk
+  induction k with
+  | zero => exact ⟨rfl, reduceInv_init M.length⟩
+  | succ n ih =>
+    obtain ⟨hlen, hInv⟩ := ih (Nat.le_of_succ_le hk)
+    have hn : n < M.length := Nat.lt_of_succ_le hk
+    rw [List.range_succ, List.foldl_append]
+    simp only [List.foldl_cons, List.foldl_nil]
+    refine ⟨?_, ?_⟩
+    · simp only [reduceStep, List.length_append, List.length_singleton] at hlen ⊢; omega
+    · -- M.getD n [] sorted and bounded, via structural getD→get conversion
+      -- getD_eq_get_r converts getD to List.get; List.get_mem gives membership
+      have hgetD : M.getD n [] = M.get ⟨n, hn⟩ := getD_eq_get_r M [] n hn
+      have hcol_s : List.Pairwise (· < ·) (M.getD n []) := by
+        rw [hgetD]; exact hsorted _ (List.getElem_mem hn)
+      have hcol_b : ∀ i ∈ M.getD n [], i < M.length := by
+        rw [hgetD]; exact hbound _ (List.getElem_mem hn)
+      -- hlen : acc.1.length = n, but reduceInv_step needs j = accM.length (i.e., n = acc.1.length)
+      exact reduceInv_step _ _ M.length n (M.getD n []) hInv hlen.symm hcol_s hcol_b
 
 -- ──────────────────────────────────────────────────────────
 -- 5. Persistence çiftleri
