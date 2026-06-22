@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![Version](https://img.shields.io/badge/version-1.2.0-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.1.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **19 canonical representations** (**Phase 9 complete**).
+As of **v1.2.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **19 canonical representations** (**Phase 9 complete**), **scale & algorithm engines** (sparse SNF, parallel Khovanov, witness complex, streaming persistence, optional GPU backend — **Phase 10 complete**), and a **pi-Base–backed deductive inference engine**.
 
 ## Installation
 
@@ -148,6 +148,11 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Higher categories** (v1.0.9+) | `higher_categories` — `nerve_of_category` N(C), `kan_fibration_check_sc`, `homotopy_type_finite_cat` (BC Betti numbers) |
 | **Noncommutative K-theory** (v1.0.9+) | `noncommutative_topology` — `k0_group_matrix_algebra`, `spectral_dimension_finite` (log-log Weyl), `k1_group_matrix_algebra` |
 | **Topological field theory** (v1.0.9+) | `topological_field_theory` — `cobordism_from_handles`, `tqft_dimension_2d`, `handle_signature_tft` (4-manifold handles) |
+| **Sparse linear algebra** (v1.2.0+) | `sparse_linalg` — `sparse_smith_normal_form` (dict-based sparse SNF; auto-routed for large sparse matrices), `matrix_density` |
+| **Parallel Khovanov** (v1.2.0+) | `khovanov` — `khovanov_homology(parallel=True)`; ThreadPoolExecutor over quantum gradings; GIL-limited on pure-Python, truly parallel with `[fast]` flint backend |
+| **Witness complex** (v1.2.0+) | `witness_complex` — `landmark_sample` (maxmin/random), `witness_filtration` (strong-witness, de Silva & Carlsson 2004), `persistent_homology_witness` → `WitnessComplex` |
+| **Streaming persistence** (v1.2.0+) | `streaming_persistence` — `StreamingPersistence`; incremental Z/2 column reduction; `add_simplex / current_pairs / current_betti / current_essential_pairs` |
+| **GPU backend** (v1.2.0+, optional) | `_gpu_backend` — `gpu_twist_reduce`; cupy boolean-array column XOR; `[gpu]` extra in pyproject.toml; graceful CPU fallback |
 | Higher algebra | `operads`, `spectral_sequences` |
 | Higher categories | `higher_categories`, `topological_field_theory` |
 | Cosmology | `cosmology_topology` |
@@ -183,6 +188,76 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New in v1.2.0
+
+**Phase 10 — Scale & Algorithm: 5 milestones, 65 new tests**
+
+Extends practical input limits of existing engines and adds approximate / streaming TDA — without changing the pure-Python correctness core.
+
+- **`sparse_linalg` (P10.1)** — Column-sparse Smith Normal Form via `_SparseMat` (dual row/col dicts).
+  `sparse_smith_normal_form` accepts `list[list[int]]` or any `scipy.sparse` matrix.
+  `homology._smith_normal_form` now **auto-routes** matrices with `min(m,n) ≥ 30` and density < 30 %
+  through the sparse path — Khovanov and Rips boundary matrices hit this automatically.
+  `matrix_density` helper exposes the sparsity fraction.
+
+- **`khovanov_homology(parallel=True)` (P10.2)** — All per-quantum-grading SNF calls are submitted
+  to a `ThreadPoolExecutor` and run in parallel.  With the pure-Python SNF backend the GIL limits
+  true concurrency; with the optional `[fast]` flint backend (C code, GIL-free) the speedup is
+  real.  Results are identical to the sequential path.
+
+- **`witness_complex` (P10.3)** — Approximate persistence for large point clouds.
+  `landmark_sample(points, k, method='maxmin')` — greedy farthest-point (maxmin) or uniform random.
+  `witness_filtration(points, landmarks, max_dim)` — strong-witness filtration (de Silva & Carlsson
+  2004): simplex σ enters at `ε(σ) = min_w max_{l∈σ} d(w,l)`.
+  `persistent_homology_witness(points, k, max_dim)` — full pipeline returning a `WitnessComplex`
+  (filtration + landmark indices + Twist-reduced pairs).
+
+- **`streaming_persistence` (P10.4)** — Online Z/2 column reduction via `StreamingPersistence`.
+  Simplices inserted one at a time with `add_simplex(simplex, birth)` (filtration order required).
+  Bitmask-column representation (same as Twist+Clearing); `current_pairs()`, `current_betti()`,
+  `current_essential_pairs()`.  Results match `persistence_pairs_twist` on the same filtration.
+
+- **`_gpu_backend` (P10.5)** — Optional cupy-accelerated Twist+Clearing via `gpu_twist_reduce`.
+  Columns stored as cupy boolean arrays; XOR is GPU-native.  Falls back silently to `_twist_reduce`
+  when cupy is absent or the filtration is below `GPU_MIN_SIZE = 500`.
+  Install with `pip install 'pytop[gpu]'`.
+
+```python
+from pytop import sparse_smith_normal_form, matrix_density
+from pytop import landmark_sample, witness_filtration, persistent_homology_witness
+from pytop import StreamingPersistence
+from pytop import GPU_AVAILABLE, gpu_twist_reduce
+
+# Sparse SNF — same result as exact_linalg.smith_normal_form, faster on sparse inputs
+boundary = [[1,-1,0,1],[0,1,-1,0],[-1,0,1,-1]]
+print(matrix_density(boundary))          # 0.75 — dense, stays on dense path
+print(sparse_smith_normal_form(boundary))  # [1, 1, 1]
+
+# Witness complex — approximate H1 of a circle
+import math, random
+pts = [(math.cos(2*math.pi*i/50), math.sin(2*math.pi*i/50)) for i in range(50)]
+wc = persistent_homology_witness(pts, k=12, max_dim=1, seed=0)
+h1 = [p for p in wc.pairs if p.dimension == 1]
+print(len(h1), "H1 bars")     # ≥ 1 (the circle loop)
+
+# Streaming persistence — insert simplices one at a time
+sp = StreamingPersistence()
+for v in range(3): sp.add_simplex((v,), 0.0)
+sp.add_simplex((0,1), 1.0); sp.add_simplex((0,2), 1.5); sp.add_simplex((1,2), 2.0)
+print(sp.current_betti())      # {0: 1}  — one component
+sp.add_simplex((0,1,2), 3.0)  # fill triangle
+print(sp.current_pairs())      # includes the H1 bar [2.0, 3.0)
+
+# Parallel Khovanov
+from pytop import khovanov_homology, KnotDiagram
+trefoil = KnotDiagram([(1,4,2,5),(3,6,4,1),(5,2,6,3)], signs=(1,1,1))
+kh = khovanov_homology(trefoil, parallel=True)   # same groups, faster on large diagrams
+```
+
+**65 new tests; 11 467 total.**
+
+---
 
 ## What's New in v1.1.0
 

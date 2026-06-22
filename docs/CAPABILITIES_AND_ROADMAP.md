@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-23 (v1.1.0):** Phase 1 (set-theoretic topology) substantially
+> **Status as of 2026-06-23 (v1.2.0):** Phase 1 (set-theoretic topology) substantially
 > complete; Phase 2 (algebraic topology) **complete** (8 / 8).
 > **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
 > P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
@@ -28,7 +28,7 @@
 > surgery theory (handle attachment, trace cobordism), P7.6 Morse complex (gradient
 > V-path counting, Morse boundary operator, Morse homology theorem cross-validated).
 > **153 new tests; 9 959 core tests at release; 10 864 after v1.0.6; 10 945 after v1.0.7;
-> 11 065 after v1.0.8 profile→computational upgrades; **11 236 after v1.0.9 Phase 8; **11 402 after v1.1.0 Phase 9.** 
+> 11 065 after v1.0.8 profile→computational upgrades; **11 236 after v1.0.9 Phase 8; **11 402 after v1.1.0 Phase 9; **11 467 after v1.2.0 Phase 10.** 
 > **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs for SNF (0 sorry),
 > set topology — 34 theorems (T₀–T₄, closure/interior duality, compactness, diagonal
 > characterisation; 0 sorry) + **24 alternative proofs** in 5 strategies (by contradiction,
@@ -484,21 +484,20 @@ Six new representations (13 → 19 canonical representations):
 ℕ is a countable dense subspace (separable = True); βℕ is not metrizable so T6 = False.
 Implemented according to mathematical facts.
 
-### Phase 10 — Scale & Algorithm (planned, v1.2.x)
+### Phase 10 — Scale & Algorithm ✅ complete (v1.2.0)
 
 Extends practical input limits of existing engines without new mathematics. All backends remain
 optional; the pure-Python correctness core is never a hard dependency.
 
-| Milestone | Target | Approach |
-|-----------|--------|----------|
-| **P10.1** | Sparse SNF | `SparseMatrix` wrapper + optional `scipy.sparse` column operations; large Khovanov / Rips boundary matrices |
-| **P10.2** | Parallel Khovanov | SNF calls per quantum grading are embarrassingly parallel → `concurrent.futures.ThreadPoolExecutor` |
-| **P10.3** | Approximate persistence | Randomized landmark sampling → `WitnessComplex`; large point clouds where exact Rips is infeasible |
-| **P10.4** | Streaming TDA | Online barcode update under simplex insertion/deletion (Vineyards algorithm) |
-| **P10.5** | Optional GPU backend | `[gpu]` extra; `cupy`-accelerated Twist+Clearing bitmask operations; follows the `[fast]` flint pattern |
+| Milestone | Target | Status | Delivered |
+|-----------|--------|--------|-----------|
+| **P10.1** | Sparse SNF | ✅ | `sparse_linalg.py`: `_SparseMat` (dual row/col dicts) + `_sparse_snf_inner`; `sparse_smith_normal_form` (scipy.sparse input accepted); `matrix_density`; `homology._smith_normal_form` auto-routes `min(m,n) ≥ 30` + density < 30 % |
+| **P10.2** | Parallel Khovanov | ✅ | `khovanov_homology(parallel=True)`: `ThreadPoolExecutor` pre-computes per-quantum-grading SNFs; GIL-limited on pure-Python, truly parallel with `[fast]` flint backend; identical results |
+| **P10.3** | Approximate persistence | ✅ | `witness_complex.py`: `landmark_sample` (maxmin farthest-point / random), `witness_filtration` (strong-witness definition, de Silva & Carlsson 2004), `persistent_homology_witness` → `WitnessComplex`; pure Python |
+| **P10.4** | Streaming TDA | ✅ | `streaming_persistence.py`: `StreamingPersistence` — incremental Z/2 bitmask column reduction; `add_simplex / current_pairs / current_betti / current_essential_pairs`; results match `persistence_pairs_twist` |
+| **P10.5** | Optional GPU backend | ✅ | `_gpu_backend.py`: `GPU_AVAILABLE`, `gpu_twist_reduce`; cupy boolean-array column XOR; `[gpu]` extra in `pyproject.toml`; graceful CPU fallback when cupy absent or filtration < `GPU_MIN_SIZE = 500` |
 
-**Ordering:** P10.1 and P10.2 are independent and low-risk; P10.3–P10.5 have increasing
-algorithmic complexity and external dependencies.
+**65 new tests; 11 467 tests pass total.**
 
 ### Phase 11 — Formal Verification Expansion (planned, v1.3.x)
 
@@ -547,7 +546,7 @@ Items beyond single-machine pure-Python scope. Each is an independent research-p
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **11 402** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
+| Tests passing | **11 467** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
 | Representations in `experimental.spaces` | 19 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
@@ -561,9 +560,10 @@ Items beyond single-machine pure-Python scope. Each is an independent research-p
 | Phase 7 milestones complete | 6 / 6 ✅ |
 | Phase 8 milestones complete | 6 / 6 ✅ (Profile→Computational: advanced algebra) |
 | Phase 9 milestones complete | 6 / 6 ✅ (`experimental.spaces` expansion) |
-| Phase 10 milestones planned | 0 / 5 ⬜ (scale & algorithm) |
+| Phase 10 milestones complete | 5 / 5 ✅ (scale & algorithm) |
 | Phase 11 milestones planned | 0 / 5 ⬜ (Lean formal verification expansion) |
 | Phase 12 milestones planned | 0 / 5 ⬜ (research frontier, long-range) |
+| **Current version** | **v1.2.0** |
 | **Current version** | **v1.1.0** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
