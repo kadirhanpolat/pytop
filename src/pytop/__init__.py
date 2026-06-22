@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "1.0.8"
+__version__ = "1.0.9"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2876,6 +2876,10 @@ from .topos_theory import (
     has_enough_points_topos,
     classify_topos,
     topos_profile,
+    site_from_finite_topology,
+    sheaf_on_site,
+    sheafification_finite,
+    topos_check,
 )
 from .combinatorial_topology import (
     CombinatorialProfile,
@@ -2921,6 +2925,9 @@ from .noncommutative_topology import (
     has_spectral_triple,
     classify_noncommutative,
     noncommutative_profile,
+    k0_group_matrix_algebra,
+    spectral_dimension_finite,
+    k1_group_matrix_algebra,
 )
 from .uniform_convergence import (
     UniformConvergenceProfile,
@@ -3134,6 +3141,9 @@ from .derived_categories import (
     is_dg_enhanced,
     classify_derived_category,
     derived_category_profile,
+    mapping_cone_complex,
+    derived_functor_h,
+    triangulated_structure_check,
 )
 from .logic import (
     Proposition,
@@ -3260,6 +3270,9 @@ from .operads import (
     is_binary_quadratic_operad,
     classify_operad,
     operad_profile_report,
+    associahedron_complex,
+    operad_composition_check,
+    bar_construction_sc,
 )
 from .spectral_sequences import (
     SpectralSequenceProfile,
@@ -3302,6 +3315,9 @@ from .higher_categories import (
     is_presentable_infinity_category,
     classify_higher_category,
     higher_category_profile,
+    nerve_of_category,
+    kan_fibration_check_sc,
+    homotopy_type_finite_cat,
 )
 from .topological_field_theory import (
     TFTProfile,
@@ -3323,4 +3339,7 @@ from .topological_field_theory import (
     admits_higher_categorical_formulation,
     classify_tft,
     tft_profile_report,
+    cobordism_from_handles,
+    tqft_dimension_2d,
+    handle_signature_tft,
 )

@@ -956,6 +956,180 @@ def operad_profile_report(space: Any) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
+# Computational engines (P8.3)
+# ---------------------------------------------------------------------------
+
+def _full_binary_trees(n: int) -> list[Any]:
+    """All full binary trees with n leaves. Leaf = None, node = (left, right)."""
+    if n == 1:
+        return [None]
+    trees: list[Any] = []
+    for i in range(1, n):
+        for l in _full_binary_trees(i):
+            for r in _full_binary_trees(n - i):
+                trees.append((l, r))
+    return trees
+
+
+def _one_step_rotations(tree: Any) -> list[Any]:
+    """All trees obtainable by one tree rotation from ``tree``."""
+    if tree is None:
+        return []
+    left, right = tree
+    rotations: list[Any] = []
+    # Right rotation at root: (X, (Y, Z)) → ((X, Y), Z)
+    if isinstance(right, tuple):
+        y, z = right
+        rotations.append(((left, y), z))
+    # Left rotation at root: ((X, Y), Z) → (X, (Y, Z))
+    if isinstance(left, tuple):
+        x, y = left
+        rotations.append((x, (y, right)))
+    # Recursive rotations in subtrees
+    for rot in _one_step_rotations(left):
+        rotations.append((rot, right))
+    for rot in _one_step_rotations(right):
+        rotations.append((left, rot))
+    return rotations
+
+
+def associahedron_complex(n: int) -> Any:
+    """Stasheff associahedron K_n as a simplicial complex.
+
+    Vertices = full binary trees with n leaves (Catalan number C_{n-1}).
+    1-simplices = pairs connected by one tree rotation.
+    K₃ = interval (2 vertices, 1 edge).
+    K₄ = pentagon (5 vertices, 5 edges, homeomorphic to S¹).
+
+    Parameters
+    ----------
+    n: number of leaves (n ≥ 2)
+
+    Returns
+    -------
+    SimplicialComplex whose 1-skeleton is the rotation graph of K_n.
+
+    Examples
+    --------
+    >>> K4 = associahedron_complex(4)
+    >>> sum(1 for s in K4.simplexes if len(s.vertices) == 1)  # 5 vertices
+    5
+    """
+    from .simplicial_complexes import SimplicialComplex
+    from .simplices import Simplex
+    if n < 2:
+        raise ValueError("n must be ≥ 2")
+    trees = _full_binary_trees(n)
+    # Deduplicate while preserving order (trees are hashable tuples/None)
+    seen: set[Any] = set()
+    unique: list[Any] = []
+    for t in trees:
+        key = repr(t)
+        if key not in seen:
+            seen.add(key)
+            unique.append(t)
+    idx: dict[str, int] = {repr(t): i for i, t in enumerate(unique)}
+    simplices: list[Simplex] = [Simplex([i]) for i in range(len(unique))]
+    edge_set: set[tuple[int, int]] = set()
+    for t in unique:
+        i = idx[repr(t)]
+        for rot in _one_step_rotations(t):
+            key = repr(rot)
+            if key in idx:
+                j = idx[key]
+                edge = (min(i, j), max(i, j))
+                if edge not in edge_set:
+                    edge_set.add(edge)
+                    simplices.append(Simplex(list(edge)))
+    return SimplicialComplex(simplices)
+
+
+def operad_composition_check(
+    mu: list[list[int]],
+) -> dict[str, Any]:
+    """Verify the operad associativity axiom for a binary composition map.
+
+    The composition µ: A ⊗ A → A (given as a matrix µ[i][j] = index of µ(eᵢ, eⱼ))
+    must satisfy the associativity pentagon: µ(µ(a,b), c) = µ(a, µ(b,c)).
+
+    Parameters
+    ----------
+    mu: square n×n matrix of non-negative integers (< n); mu[i][j] is the
+        index of µ(eᵢ, eⱼ) in the basis
+
+    Returns
+    -------
+    dict with ``associative``, ``n_violations``, ``is_operad_composition``.
+
+    Examples
+    --------
+    Constant composition µ(i,j) = 0 is trivially associative:
+
+    >>> operad_composition_check([[0, 0], [0, 0]])["associative"]
+    True
+    """
+    n = len(mu)
+    if n == 0:
+        return {"associative": True, "n_violations": 0, "is_operad_composition": True}
+    violations = 0
+    for i in range(n):
+        for j in range(n):
+            ij = mu[i][j] if 0 <= i < n and 0 <= j < n else -1
+            for k in range(n):
+                jk = mu[j][k] if 0 <= j < n and 0 <= k < n else -1
+                lhs = mu[ij][k] if 0 <= ij < n else -1
+                rhs = mu[i][jk] if 0 <= jk < n else -1
+                if lhs != rhs:
+                    violations += 1
+    return {
+        "associative": violations == 0,
+        "n_violations": violations,
+        "is_operad_composition": violations == 0,
+    }
+
+
+def bar_construction_sc(
+    n_generators: int,
+    n_relations: int = 0,
+) -> Any:
+    """Bar construction B(A) of an algebra with given generators and relations.
+
+    The bar complex B(A) has B(A)_k = A^{⊗k+2}. Its 1-skeleton over the
+    generators produces a complete graph; relations introduce 2-simplices.
+
+    Parameters
+    ----------
+    n_generators: number of algebra generators (= dimension of A)
+    n_relations: number of relations (introduces 2-simplices for the first
+        ``n_relations`` consecutive generator triples)
+
+    Returns
+    -------
+    SimplicialComplex with n_generators vertices, edges for each pair,
+    and 2-simplices for compatible relation triples.
+
+    Examples
+    --------
+    Free algebra on 2 generators (no relations):
+
+    >>> sc = bar_construction_sc(2, 0)
+    >>> sum(1 for s in sc.simplexes if len(s.vertices) == 1)
+    2
+    """
+    from .simplicial_complexes import SimplicialComplex
+    from .simplices import Simplex
+    if n_generators < 1:
+        raise ValueError("n_generators must be ≥ 1")
+    simplices: list[Simplex] = [Simplex([i]) for i in range(n_generators)]
+    for i in range(n_generators):
+        for j in range(i + 1, n_generators):
+            simplices.append(Simplex([i, j]))
+    for r in range(min(n_relations, max(0, n_generators - 2))):
+        simplices.append(Simplex([r, r + 1, r + 2]))
+    return SimplicialComplex(simplices)
+
+
+# ---------------------------------------------------------------------------
 # __all__
 # ---------------------------------------------------------------------------
 
@@ -979,4 +1153,8 @@ __all__ = [
     "is_binary_quadratic_operad",
     "classify_operad",
     "operad_profile_report",
+    # P8.3 computational engines
+    "associahedron_complex",
+    "operad_composition_check",
+    "bar_construction_sc",
 ]

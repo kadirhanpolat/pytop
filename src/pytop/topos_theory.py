@@ -884,6 +884,231 @@ def topos_profile(space: Any) -> dict[str, Any]:
     }
 
 
+# ---------------------------------------------------------------------------
+# Computational engines (P8.2)
+# ---------------------------------------------------------------------------
+
+def site_from_finite_topology(
+    open_sets: list[frozenset],
+    universe: frozenset,
+) -> dict[str, Any]:
+    """Build a Grothendieck site from a finite topological space.
+
+    Objects = open sets. Morphisms = inclusions U ⊆ V (restriction direction).
+    Covering J(U) = the maximal sieve = all open sets V with V ⊆ U.
+    Also validates that the input forms a valid topology.
+
+    Parameters
+    ----------
+    open_sets: list of open sets (each a frozenset of points)
+    universe: the total space (= union of all open sets)
+
+    Returns
+    -------
+    dict with ``n_objects``, ``n_morphisms``, ``coverings``,
+    ``topology_valid``, ``objects``.
+
+    Examples
+    --------
+    >>> site = site_from_finite_topology(
+    ...     [frozenset(), frozenset({0}), frozenset({0, 1})],
+    ...     frozenset({0, 1}),
+    ... )
+    >>> site["n_objects"]
+    3
+    """
+    objs: list[frozenset] = list({frozenset(s) for s in open_sets})
+    morphisms = [(u, v) for u in objs for v in objs if u < v]
+    fs_universe = frozenset(universe)
+    has_empty = frozenset() in objs
+    has_universe = fs_universe in objs
+    closed_union = all(u | v in objs for u in objs for v in objs)
+    closed_inter = all(u & v in objs for u in objs for v in objs)
+    valid = has_empty and has_universe and closed_union and closed_inter
+    # Covering sieve J(U) = all opens V ⊆ U (maximal Grothendieck topology)
+    coverings: dict[Any, list[frozenset]] = {u: [v for v in objs if v <= u] for u in objs}
+    return {
+        "n_objects": len(objs),
+        "n_morphisms": len(morphisms),
+        "coverings": coverings,
+        "topology_valid": valid,
+        "objects": objs,
+    }
+
+
+def sheaf_on_site(
+    site: dict[str, Any],
+    assignment: dict[frozenset, Any],
+) -> dict[str, Any]:
+    """Check sheaf conditions for a constant presheaf on a finite site.
+
+    The presheaf F assigns a value to each open set. Restriction maps are
+    assumed identity (constant presheaf). Checks:
+    - Locality: cover values agree → value on U must agree with them.
+    - Gluing: cover values are consistent → value on U equals them.
+
+    Parameters
+    ----------
+    site: output of ``site_from_finite_topology``
+    assignment: maps each open set to an integer section value
+
+    Returns
+    -------
+    dict with ``locality_ok``, ``gluing_ok``, ``is_sheaf``, ``failures``.
+
+    Examples
+    --------
+    Constant assignment is always a sheaf:
+
+    >>> site = site_from_finite_topology(
+    ...     [frozenset(), frozenset({0}), frozenset({0, 1})], frozenset({0, 1})
+    ... )
+    >>> sheaf_on_site(site, {u: 1 for u in site["objects"]})["is_sheaf"]
+    True
+    """
+    objects: list[frozenset] = site.get("objects", [])
+    coverings: dict[Any, list[frozenset]] = site.get("coverings", {})
+    locality_ok = True
+    gluing_ok = True
+    failures: list[str] = []
+    for u in objects:
+        cover = [v for v in coverings.get(u, []) if v < u]
+        if not cover:
+            continue
+        u_val = assignment.get(u)
+        cover_vals = [assignment.get(v) for v in cover if v in assignment]
+        non_none = [v for v in cover_vals if v is not None]
+        if not non_none:
+            continue
+        unique = set(non_none)
+        if len(unique) == 1:
+            cv = next(iter(unique))
+            if u_val is not None and u_val != cv:
+                locality_ok = False
+                failures.append(
+                    f"locality: U={set(u)!r} cover agrees on {cv} but F(U)={u_val}"
+                )
+        if non_none and u_val is not None and not all(v == u_val for v in non_none):
+            gluing_ok = False
+            failures.append(
+                f"gluing: U={set(u)!r} cover={non_none}, F(U)={u_val}"
+            )
+    return {
+        "locality_ok": locality_ok,
+        "gluing_ok": gluing_ok,
+        "is_sheaf": locality_ok and gluing_ok,
+        "failures": failures,
+    }
+
+
+def sheafification_finite(
+    site: dict[str, Any],
+    presheaf: dict[frozenset, Any],
+) -> dict[str, Any]:
+    """Sheafification of a presheaf over a finite site (+ construction).
+
+    For each open U, F^+(U) is computed by taking the value consistent with
+    the cover: if the restrictions to all proper opens V ⊆ U agree on a
+    value c, then F^+(U) is set to c (overriding any inconsistent value).
+    One application of + suffices for finite topological spaces.
+
+    Parameters
+    ----------
+    site: output of ``site_from_finite_topology``
+    presheaf: maps each open set to a comparable value
+
+    Returns
+    -------
+    dict with ``sheafification``, ``already_sheaf``, ``n_corrections``,
+    ``is_sheaf_after``.
+
+    Examples
+    --------
+    Constant presheaf is already a sheaf:
+
+    >>> site = site_from_finite_topology(
+    ...     [frozenset(), frozenset({0}), frozenset({0, 1})], frozenset({0, 1})
+    ... )
+    >>> r = sheafification_finite(site, {u: 7 for u in site["objects"]})
+    >>> r["already_sheaf"]
+    True
+    """
+    objects: list[frozenset] = site.get("objects", [])
+    coverings: dict[Any, list[frozenset]] = site.get("coverings", {})
+    result: dict[frozenset, Any] = {}
+    n_corrections = 0
+    for u in objects:
+        cover = [v for v in coverings.get(u, []) if v < u]
+        u_val = presheaf.get(u)
+        if not cover:
+            result[u] = u_val
+            continue
+        cover_vals = [presheaf.get(v) for v in cover if v in presheaf]
+        non_none = [v for v in cover_vals if v is not None]
+        if non_none and all(v == non_none[0] for v in non_none):
+            canonical = non_none[0]
+            if u_val != canonical:
+                result[u] = canonical
+                n_corrections += 1
+            else:
+                result[u] = u_val
+        else:
+            result[u] = u_val
+    check = sheaf_on_site(site, result)
+    return {
+        "sheafification": result,
+        "already_sheaf": n_corrections == 0 and check["is_sheaf"],
+        "n_corrections": n_corrections,
+        "is_sheaf_after": check["is_sheaf"],
+    }
+
+
+def topos_check(
+    open_sets: list[frozenset],
+    universe: frozenset,
+) -> dict[str, Any]:
+    """Verify Giraud axioms for Sh(X) where X is a finite topological space.
+
+    For any topological space (X, τ), Sh(X) is a Grothendieck topos. This
+    function checks the concrete conditions for finite X:
+    - Terminal object: the sheaf assigning {*} to every U exists.
+    - Fiber products: exist when intersections of opens are open.
+    - Subobject classifier: Ω(U) = {V open : V ⊆ U} is always a sheaf.
+
+    Parameters
+    ----------
+    open_sets: list of open sets (as frozensets)
+    universe: the total space
+
+    Returns
+    -------
+    dict with ``has_terminal``, ``has_fiber_products``,
+    ``has_subobject_classifier``, ``is_grothendieck_topos``.
+
+    Examples
+    --------
+    Any valid topology gives a Grothendieck topos:
+
+    >>> topos_check([frozenset(), frozenset({0}), frozenset({0, 1})],
+    ...             frozenset({0, 1}))["is_grothendieck_topos"]
+    True
+    """
+    site = site_from_finite_topology(open_sets, universe)
+    objs: list[frozenset] = site["objects"]
+    valid: bool = site["topology_valid"]
+    has_terminal = valid
+    has_fp = all(u & v in objs for u in objs for v in objs)
+    has_omega = has_fp  # Ω(U)={V:V⊆U} is always a sheaf when ∩ is open
+    is_topos = valid and has_terminal and has_fp and has_omega
+    return {
+        "n_objects": len(objs),
+        "has_terminal": has_terminal,
+        "has_fiber_products": has_fp,
+        "has_subobject_classifier": has_omega,
+        "is_grothendieck_topos": is_topos,
+    }
+
+
 __all__ = [
     "ToposProfile",
     "GROTHENDIECK_TOPOS_TAGS",
@@ -904,4 +1129,9 @@ __all__ = [
     "has_enough_points_topos",
     "classify_topos",
     "topos_profile",
+    # P8.2 computational engines
+    "site_from_finite_topology",
+    "sheaf_on_site",
+    "sheafification_finite",
+    "topos_check",
 ]

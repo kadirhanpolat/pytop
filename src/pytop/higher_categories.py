@@ -850,6 +850,171 @@ def higher_category_profile(space: Any) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
+# Computational engines (P8.4)
+# ---------------------------------------------------------------------------
+
+def nerve_of_category(
+    objects: list[Any],
+    morphisms: list[tuple[Any, Any]],
+) -> Any:
+    """Compute the nerve N(C) of a small category C as a simplicial complex.
+
+    N(C)_0 = objects, N(C)_1 = morphisms, N(C)_2 = composable pairs (a→b→c)
+    when the composite a→c is also in ``morphisms``.
+
+    Parameters
+    ----------
+    objects: list of object names (hashable)
+    morphisms: list of (source, target) pairs; identity morphisms are implicit
+
+    Returns
+    -------
+    SimplicialComplex capturing N(C) up to dimension 2.
+
+    Examples
+    --------
+    Chain A → B → C with composite A → C gives a 2-simplex:
+
+    >>> N = nerve_of_category(["A","B","C"],
+    ...                        [("A","B"), ("B","C"), ("A","C")])
+    >>> any(len(s.vertices) == 3 for s in N.simplexes)
+    True
+    """
+    from .simplicial_complexes import SimplicialComplex
+    from .simplices import Simplex
+    obj_idx: dict[Any, int] = {o: i for i, o in enumerate(objects)}
+    simplices: list[Simplex] = [Simplex([i]) for i in range(len(objects))]
+    # Build adjacency for composability check
+    adj: dict[Any, set[Any]] = {o: set() for o in objects}
+    morph_set: set[tuple[Any, Any]] = set()
+    for s, t in morphisms:
+        if s in obj_idx and t in obj_idx and s != t:
+            edge = tuple(sorted([obj_idx[s], obj_idx[t]]))
+            simplices.append(Simplex(list(edge)))
+            adj[s].add(t)
+            morph_set.add((s, t))
+    # 2-simplices: composable triples a → b → c with a → c present
+    tri_set: set[tuple[int, int, int]] = set()
+    for a in objects:
+        for b in adj.get(a, set()):
+            for c in adj.get(b, set()):
+                if (a, c) in morph_set:
+                    ia, ib, ic = obj_idx[a], obj_idx[b], obj_idx[c]
+                    tri = tuple(sorted([ia, ib, ic]))
+                    if len({ia, ib, ic}) == 3 and tri not in tri_set:
+                        tri_set.add(tri)  # type: ignore[arg-type]
+                        simplices.append(Simplex(list(tri)))
+    return SimplicialComplex(simplices)
+
+
+def kan_fibration_check_sc(
+    sc: Any,
+    max_dim: int = 2,
+) -> dict[str, Any]:
+    """Check the Kan horn-filling condition for a simplicial complex.
+
+    A simplicial set is a Kan complex if every horn Λⁿₖ → X extends to Δⁿ → X.
+    For a simplicial complex (set of simplices), a horn of a missing n-simplex σ
+    is present when (n) of its (n+1) faces are in the complex. This function
+    checks for unfilled horns up to ``max_dim``.
+
+    Parameters
+    ----------
+    sc: SimplicialComplex to check
+    max_dim: maximum dimension to check (default 2)
+
+    Returns
+    -------
+    dict with ``unfilled_horns``, ``n_horns_checked``, ``is_kan_complex``.
+
+    Examples
+    --------
+    A filled triangle (2-simplex) has all horns filled:
+
+    >>> from pytop.simplicial_complexes import SimplicialComplex
+    >>> from pytop.simplices import Simplex
+    >>> sc = SimplicialComplex([Simplex([0,1,2])])
+    >>> kan_fibration_check_sc(sc)["is_kan_complex"]
+    True
+    """
+    from itertools import combinations as _comb
+    simplex_set: set[tuple[int, ...]] = {
+        tuple(sorted(s.vertices)) for s in sc.simplexes
+    }
+    all_verts = sorted({v for tup in simplex_set for v in tup})
+    unfilled: list[dict[str, Any]] = []
+    n_checked = 0
+    for d in range(2, max_dim + 2):
+        for combo in _comb(all_verts, d + 1):
+            candidate = tuple(sorted(combo))
+            if candidate in simplex_set:
+                continue
+            faces = [
+                tuple(sorted(combo[:i] + combo[i + 1:]))
+                for i in range(len(combo))
+            ]
+            n_present = sum(1 for f in faces if f in simplex_set)
+            if n_present >= len(faces) - 1:
+                unfilled.append({
+                    "missing_simplex": candidate,
+                    "faces_present": n_present,
+                    "faces_total": len(faces),
+                })
+                n_checked += 1
+    return {
+        "unfilled_horns": unfilled,
+        "n_horns_checked": n_checked,
+        "is_kan_complex": len(unfilled) == 0,
+    }
+
+
+def homotopy_type_finite_cat(
+    objects: list[Any],
+    morphisms: list[tuple[Any, Any]],
+) -> dict[str, Any]:
+    """Compute the homotopy type of a finite category via its classifying space BC.
+
+    BC = |N(C)| (geometric realization of the nerve) has homology groups
+    computable from the nerve simplicial complex. A category C is contractible
+    iff BC ≃ * (all Betti numbers vanish except β₀ = 1).
+
+    Parameters
+    ----------
+    objects: list of objects in the category
+    morphisms: list of (source, target) morphism pairs
+
+    Returns
+    -------
+    dict with ``betti_numbers``, ``euler_characteristic``, ``n_objects``,
+    ``n_morphisms``, ``is_contractible``, ``is_connected``.
+
+    Examples
+    --------
+    A category with one object is contractible:
+
+    >>> homotopy_type_finite_cat(["*"], [])["is_contractible"]
+    True
+    """
+    from .homology import betti_numbers as _betti_numbers
+    nerve_sc = nerve_of_category(objects, morphisms)
+    bn = _betti_numbers(nerve_sc)
+    betti: dict[int, int] = {k: b for k, b in enumerate(bn) if b > 0}
+    euler = sum((-1) ** k * b for k, b in betti.items())
+    is_contractible = (
+        betti.get(0, 0) == 1 and all(b == 0 for k, b in betti.items() if k > 0)
+    )
+    is_connected = betti.get(0, 0) == 1
+    return {
+        "betti_numbers": betti,
+        "euler_characteristic": euler,
+        "n_objects": len(objects),
+        "n_morphisms": len(morphisms),
+        "is_contractible": is_contractible,
+        "is_connected": is_connected,
+    }
+
+
+# ---------------------------------------------------------------------------
 # __all__
 # ---------------------------------------------------------------------------
 
@@ -873,4 +1038,8 @@ __all__ = [
     "is_presentable_infinity_category",
     "classify_higher_category",
     "higher_category_profile",
+    # P8.4 computational engines
+    "nerve_of_category",
+    "kan_fibration_check_sc",
+    "homotopy_type_finite_cat",
 ]

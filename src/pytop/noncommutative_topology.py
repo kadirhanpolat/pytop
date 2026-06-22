@@ -925,6 +925,132 @@ def noncommutative_profile(space: Any) -> dict[str, Any]:
     }
 
 
+# ---------------------------------------------------------------------------
+# Computational engines (P8.5)
+# ---------------------------------------------------------------------------
+
+def k0_group_matrix_algebra(n: int) -> dict[str, Any]:
+    """K₀ group of the matrix algebra M_n(ℚ).
+
+    By Morita invariance of K-theory: K₀(M_n(ℚ)) ≅ K₀(ℚ) ≅ ℤ.
+    The generator is [P₁], the class of a rank-1 projection in M_n(ℚ).
+    The identity [I_n] = n · [P₁] in K₀(M_n(ℚ)).
+
+    Parameters
+    ----------
+    n: matrix size (n ≥ 1)
+
+    Returns
+    -------
+    dict with ``K0_rank``, ``generator_class``, ``identity_class``,
+    ``morita_equivalent_to_Q``, ``description``.
+
+    Examples
+    --------
+    >>> k0_group_matrix_algebra(3)["identity_class"]
+    3
+    >>> k0_group_matrix_algebra(1)["K0_rank"]
+    1
+    """
+    if n < 1:
+        raise ValueError(f"n must be ≥ 1, got {n}")
+    return {
+        "K0_rank": 1,
+        "generator_class": 1,
+        "identity_class": n,
+        "morita_equivalent_to_Q": True,
+        "description": (
+            f"K₀(M_{n}(ℚ)) ≅ ℤ  (Morita invariance); "
+            f"generator = [rank-1 projector], [I_{n}] = {n}"
+        ),
+    }
+
+
+def spectral_dimension_finite(
+    eigenvalues: list[float],
+    threshold: float = 1e-10,
+) -> dict[str, Any]:
+    """Estimate spectral dimension d_s from eigenvalue growth of a Dirac operator.
+
+    The spectral dimension satisfies Tr(e^{-tD²}) ~ t^{-d_s/2} as t → 0⁺.
+    By Karamata's theorem this is equivalent to the eigenvalue counting function
+    N(λ) ~ C · λ^{d_s/2}, so we fit d_s via log-log linear regression on
+    {(log λ_k, log k)} pairs (positive eigenvalues only).
+
+    Parameters
+    ----------
+    eigenvalues: non-negative eigenvalues of |D| or D² (need not be sorted)
+    threshold: eigenvalues below this are considered zero and excluded
+
+    Returns
+    -------
+    dict with ``spectral_dimension``, ``n_positive_eigenvalues``, ``slope``.
+
+    Examples
+    --------
+    Flat torus (2D): Weyl law gives N(λ) ~ λ, so d_s ≈ 2:
+
+    >>> evs = list(range(1, 50))
+    >>> abs(spectral_dimension_finite(evs)["spectral_dimension"] - 2.0) < 0.5
+    True
+    """
+    import math
+    pos = sorted(v for v in eigenvalues if v > threshold)
+    n = len(pos)
+    if n < 2:
+        return {"spectral_dimension": 0.0, "n_positive_eigenvalues": n, "slope": 0.0}
+    log_lam = [math.log(v) for v in pos]
+    log_k = [math.log(k + 1) for k in range(n)]
+    sx = sum(log_lam)
+    sy = sum(log_k)
+    sxx = sum(x * x for x in log_lam)
+    sxy = sum(x * y for x, y in zip(log_lam, log_k))
+    denom = n * sxx - sx * sx
+    slope = (n * sxy - sx * sy) / denom if abs(denom) > 1e-15 else 0.0
+    return {
+        "spectral_dimension": 2.0 * slope,
+        "n_positive_eigenvalues": n,
+        "slope": slope,
+    }
+
+
+def k1_group_matrix_algebra(n: int) -> dict[str, Any]:
+    """K₁ group of the matrix algebra M_n(ℚ).
+
+    By Morita invariance: K₁(M_n(ℚ)) ≅ K₁(ℚ) ≅ GL₁(ℚ)^{ab} = ℚ*.
+    The abelian group ℚ* ≅ ℤ/2 × ⊕_p ℤ  (sign × p-adic valuations).
+    The determinant det: GL_n(ℚ)^{ab} → ℚ* is an isomorphism (Whitehead lemma).
+
+    Parameters
+    ----------
+    n: matrix size (n ≥ 1)
+
+    Returns
+    -------
+    dict with ``K1_description``, ``torsion_part``, ``free_part_description``,
+    ``determinant_isomorphism``, ``morita_invariant``, ``description``.
+
+    Examples
+    --------
+    >>> k1_group_matrix_algebra(2)["torsion_part"]
+    'ℤ/2'
+    >>> k1_group_matrix_algebra(5)["morita_invariant"]
+    True
+    """
+    if n < 1:
+        raise ValueError(f"n must be ≥ 1, got {n}")
+    return {
+        "K1_description": "ℚ* ≅ ℤ/2 × (⊕_p ℤ)",
+        "torsion_part": "ℤ/2",
+        "free_part_description": "one ℤ summand per prime p (p-adic valuation v_p)",
+        "determinant_isomorphism": (
+            f"det: GL_{n}(ℚ)^{{ab}} → ℚ* is an isomorphism (Whitehead lemma)"
+        ),
+        "morita_invariant": True,
+        "description": f"K₁(M_{n}(ℚ)) ≅ K₁(ℚ) ≅ ℚ*  (Morita invariance)",
+    }
+
+
 __all__ = [
     "NoncommutativeProfile",
     "COMMUTATIVE_CSTAR_TAGS",
@@ -947,4 +1073,8 @@ __all__ = [
     "has_spectral_triple",
     "classify_noncommutative",
     "noncommutative_profile",
+    # P8.5 computational engines
+    "k0_group_matrix_algebra",
+    "spectral_dimension_finite",
+    "k1_group_matrix_algebra",
 ]

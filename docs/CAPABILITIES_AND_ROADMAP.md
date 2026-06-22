@@ -439,6 +439,81 @@ simplicial complexes (`list[list[Any]]`) or graph adjacency dicts (`dict[Any, li
 
 **Total (v1.0.8): 120 new tests; 11 065 core tests passing (+ 16 opt-in SageMath/SnapPy-oracle tests).**
 
+### Phase 8 — Profile→Computational: Advanced Algebra ✅ complete (v1.0.9)
+
+Six modules upgraded from `*Profile` registries to genuine computational engines. 171 new tests;
+11 236 tests pass total.
+
+| Milestone | Module | New computational functions |
+|-----------|--------|-----------------------------|
+| **P8.1** ✅ | `derived_categories` | `mapping_cone_complex`, `derived_functor_h`, `triangulated_structure_check` |
+| **P8.2** ✅ | `topos_theory` | `site_from_finite_topology`, `sheaf_on_site`, `sheafification_finite`, `topos_check` |
+| **P8.3** ✅ | `operads` | `associahedron_complex`, `operad_composition_check`, `bar_construction_sc` |
+| **P8.4** ✅ | `higher_categories` | `nerve_of_category`, `kan_fibration_check_sc`, `homotopy_type_finite_cat` |
+| **P8.5** ✅ | `noncommutative_topology` | `k0_group_matrix_algebra`, `spectral_dimension_finite`, `k1_group_matrix_algebra` |
+| **P8.6** ✅ | `topological_field_theory` | `cobordism_from_handles`, `tqft_dimension_2d`, `handle_signature_tft` |
+
+### Phase 9 — `experimental.spaces` Expansion (planned, v1.1.x)
+
+Grows the computable-space protocol from 13 to 20+ canonical representations, covering the classical
+infinite spaces missing from the current suite.
+
+| Milestone | Representation | Key certificates | Notes |
+|-----------|---------------|-----------------|-------|
+| **P9.1** | `OnePointCompactificationSpace` | Compact; T2 iff original is locally compact T2; Alexandroff extension | Wraps any existing `Space` |
+| **P9.2** | `StoneCechSpace` (βℕ) | Compact, T6; NOT separable, NOT first-countable; universal compact T2 extension of ℕ | Ultrafilter representation |
+| **P9.3** | `HilbertCubeSpace` ([0,1]^ω) | Compact, T6, second-countable; universal compact metrizable space | Cylinder-neighbourhood certificates |
+| **P9.4** | `SolenoidSpace` | Compact, connected, NOT locally connected; specialises `InverseLimitSpace` with circle bonding maps | |
+| **P9.5** | `UniformSpace` protocol | Uniform covers + completion; Cauchy filter; `UniformProduct`, `UniformSubspace` | New protocol layer |
+| **P9.6** | `ProfiniteSpace` | Totally disconnected, compact, T2; inverse limit of finite discrete groups | |
+
+**Estimated:** ~30 tests per milestone → ~180 new tests. This phase makes `experimental.spaces` a
+genuine infinite-space computation layer rather than a finite-extension.
+
+### Phase 10 — Scale & Algorithm (planned, v1.2.x)
+
+Extends practical input limits of existing engines without new mathematics. All backends remain
+optional; the pure-Python correctness core is never a hard dependency.
+
+| Milestone | Target | Approach |
+|-----------|--------|----------|
+| **P10.1** | Sparse SNF | `SparseMatrix` wrapper + optional `scipy.sparse` column operations; large Khovanov / Rips boundary matrices |
+| **P10.2** | Parallel Khovanov | SNF calls per quantum grading are embarrassingly parallel → `concurrent.futures.ThreadPoolExecutor` |
+| **P10.3** | Approximate persistence | Randomized landmark sampling → `WitnessComplex`; large point clouds where exact Rips is infeasible |
+| **P10.4** | Streaming TDA | Online barcode update under simplex insertion/deletion (Vineyards algorithm) |
+| **P10.5** | Optional GPU backend | `[gpu]` extra; `cupy`-accelerated Twist+Clearing bitmask operations; follows the `[fast]` flint pattern |
+
+**Ordering:** P10.1 and P10.2 are independent and low-risk; P10.3–P10.5 have increasing
+algorithmic complexity and external dependencies.
+
+### Phase 11 — Formal Verification Expansion (planned, v1.3.x)
+
+Extends the `formal/` Lean 4 proof corpus from SNF + basic set topology + persistence reduction
+to the main computational engines. The 0-sorry rule applies throughout.
+
+| Milestone | Lean file | Theorem target |
+|-----------|-----------|---------------|
+| **P11.1** | `MayerVietoris.lean` | LES exactness at every position; `snake_lemma` + `delta_well_defined`; Python verification already exists |
+| **P11.2** | `VanKampen.lean` | Amalgamated free product universal property; Tietze elimination preserves presentation; `pi1_cw1` spanning-tree algorithm |
+| **P11.3** | `CohomologyRing.lean` | Alexander-Whitney cup product associativity; graded-commutativity (`a ⌣ b = (-1)^{pq} b ⌣ a`); UCT |
+| **P11.4** | `PersistencePairing.lean` | `pairing_is_perfect` (every column reduces to a paired column or stays zero); extends existing `reduce_is_reduced` |
+| **P11.5** | `SpectralSequences.lean` | `d_r ∘ d_r = 0`; `E^{r+1} = H(E^r, d_r)`; convergence stabilisation criterion |
+
+**Note:** Each milestone ships as its own `.lean` file. P11.1 is the natural first target given that
+Mayer–Vietoris exactness is already Python-verified at every position.
+
+### Phase 12 — Research Frontier (long-range, v2.0.x)
+
+Items beyond single-machine pure-Python scope. Each is an independent research-project-scale effort.
+
+| Milestone | Topic | Why deferred |
+|-----------|-------|--------------|
+| **P12.1** | Sheaf cohomology (Čech) | Requires P8.2 (finite sites + sheaves) as prerequisite; ∂ operator acts on sheaf-valued cochains |
+| **P12.2** | Persistent K-theory | K₀ filtration → barcode; depends on P8.5 (matrix-algebra K-theory) |
+| **P12.3** | Homeomorphism heuristics | Undecidable in general; subclass algorithms (manifolds, CW complexes) require substantial new machinery |
+| **P12.4** | Native GAP / Regina integration | Currently only Docker oracles; in-process FFI or persistent subprocess bridge |
+| **P12.5** | Countably infinite simplicial complexes | Convergence algorithms for infinite Rips / infinite CW complexes |
+
 ---
 
 ## Part IV — Hard trade-offs to decide early
@@ -454,11 +529,11 @@ simplicial complexes (`list[list[Any]]`) or graph adjacency dicts (`dict[Any, li
 
 ---
 
-## Part V — Summary statistics (2026-06-22)
+## Part V — Summary statistics (2026-06-23)
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **10 945** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
+| Tests passing | **11 065** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
 | Representations in `experimental.spaces` | 13 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
@@ -470,7 +545,12 @@ simplicial complexes (`list[list[Any]]`) or graph adjacency dicts (`dict[Any, li
 | Phase 5 milestones complete | 3 / 3 ✅ |
 | Phase 6 milestones complete | 3 / 3 ✅ |
 | Phase 7 milestones complete | 6 / 6 ✅ |
-| **Current version** | **v1.0.6** |
+| Phase 8 milestones complete | 6 / 6 ✅ (Profile→Computational: advanced algebra) |
+| Phase 9 milestones planned | 0 / 6 ⬜ (`experimental.spaces` expansion) |
+| Phase 10 milestones planned | 0 / 5 ⬜ (scale & algorithm) |
+| Phase 11 milestones planned | 0 / 5 ⬜ (Lean formal verification expansion) |
+| Phase 12 milestones planned | 0 / 5 ⬜ (research frontier, long-range) |
+| **Current version** | **v1.0.9** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 

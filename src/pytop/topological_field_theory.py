@@ -530,6 +530,166 @@ def tft_profile_report(profile: TFTProfile, *, mode: str = "symbolic") -> dict[s
 
 
 # ---------------------------------------------------------------------------
+# Computational engines (P8.6)
+# ---------------------------------------------------------------------------
+
+def cobordism_from_handles(
+    n_zero_handles: int,
+    n_one_handles: int,
+    n_two_handles: int,
+) -> dict[str, object]:
+    """Build a 2D cobordism from its handle decomposition.
+
+    A 2D handlebody: 0-handles = disks, 1-handles = bands, 2-handles = caps.
+    χ(M) = n₀ - n₁ + n₂ and genus g = (2 - χ) / 2 for closed orientable surfaces.
+
+    Parameters
+    ----------
+    n_zero_handles, n_one_handles, n_two_handles: handle counts by index
+
+    Returns
+    -------
+    dict with ``euler_characteristic``, ``genus`` (None if non-orientable/non-closed),
+    ``handle_counts``, ``is_closed``, ``is_connected``.
+
+    Examples
+    --------
+    Sphere S²: one 0-handle + one 2-handle:
+
+    >>> cobordism_from_handles(1, 0, 1)["euler_characteristic"]
+    2
+    >>> cobordism_from_handles(1, 1, 1)["genus"]  # torus T²
+    1
+    """
+    chi = n_zero_handles - n_one_handles + n_two_handles
+    two_minus_chi = 2 - chi
+    genus: object = (
+        two_minus_chi // 2
+        if two_minus_chi >= 0 and two_minus_chi % 2 == 0
+        else None
+    )
+    is_closed = n_two_handles >= n_one_handles and n_zero_handles >= 1
+    return {
+        "euler_characteristic": chi,
+        "genus": genus,
+        "handle_counts": {
+            "zero_handles": n_zero_handles,
+            "one_handles": n_one_handles,
+            "two_handles": n_two_handles,
+        },
+        "is_closed": is_closed,
+        "is_connected": n_zero_handles >= 1,
+    }
+
+
+def tqft_dimension_2d(
+    genus: int,
+    n_boundary_components: int = 0,
+) -> dict[str, object]:
+    """State space dimensions for 2D TFTs associated to Frobenius algebras.
+
+    2D TFT ↔ commutative Frobenius algebra A. The state space of the surface
+    Σ_{g,b} (genus g, b boundary circles) is A^{⊗b} modulo genus insertions.
+    For small Frobenius algebras:
+    - Boolean TFT: A = ℤ/2, dim(A) = 1 → Z(Σ) = 1 for all Σ.
+    - A₂ TFT: A = ℂ[x]/(x²), dim(A) = 2 → Z(Σ_0) = 2, Z(Σ_1) = 1, Z(Σ_g) = 0 for g≥2.
+
+    Parameters
+    ----------
+    genus: genus of the surface Σ_g
+    n_boundary_components: number of boundary circles
+
+    Returns
+    -------
+    dict with ``euler_characteristic``, ``dim_boolean_tft``, ``dim_A2_tft``.
+
+    Examples
+    --------
+    Sphere (genus=0): Z(S²) = dim(A) for 1-dim TFT:
+
+    >>> tqft_dimension_2d(0)["dim_boolean_tft"]
+    1
+    >>> tqft_dimension_2d(1)["dim_A2_tft"]
+    1
+    """
+    if genus < 0:
+        raise ValueError(f"genus must be ≥ 0, got {genus}")
+    chi = 2 - 2 * genus - n_boundary_components
+    dim_bool = 1
+    if genus == 0:
+        dim_a2 = 2
+    elif genus == 1:
+        dim_a2 = 1
+    else:
+        dim_a2 = 0
+    return {
+        "genus": genus,
+        "n_boundary_components": n_boundary_components,
+        "euler_characteristic": chi,
+        "dim_boolean_tft": dim_bool,
+        "dim_A2_tft": dim_a2,
+    }
+
+
+def handle_signature_tft(
+    n_zero_handles: int,
+    n_one_handles: int,
+    n_two_handles: int,
+    n_three_handles: int = 0,
+    n_four_handles: int = 0,
+) -> dict[str, object]:
+    """Compute TFT invariants from a 4-manifold handle decomposition.
+
+    χ(M) = Σ (-1)^k n_k. For simply-connected 4-manifolds, H₂(M) has rank n₂,
+    and the signature σ(M) = b₂⁺ - b₂⁻ (requires the intersection form;
+    this function describes it symbolically).
+
+    Parameters
+    ----------
+    n_zero_handles, n_one_handles, n_two_handles, n_three_handles, n_four_handles:
+        Handle counts by index 0–4
+
+    Returns
+    -------
+    dict with ``euler_characteristic``, ``betti_numbers`` (b₀–b₄),
+    ``signature_description``, ``is_simply_connected``.
+
+    Examples
+    --------
+    CP²: one 0-, one 2-, one 4-handle; χ = 3, b₂ = 1:
+
+    >>> handle_signature_tft(1, 0, 1, 0, 1)["euler_characteristic"]
+    3
+    >>> handle_signature_tft(1, 0, 0, 0, 1)["betti_numbers"]["b2"]
+    0
+    """
+    chi = (
+        n_zero_handles - n_one_handles
+        + n_two_handles - n_three_handles
+        + n_four_handles
+    )
+    is_sc = n_one_handles == 0
+    sig_desc = (
+        f"σ computable from intersection form on H₂ (rank {n_two_handles})"
+        if is_sc
+        else "σ = b₂⁺ - b₂⁻ (requires intersection form diagonalization)"
+    )
+    return {
+        "euler_characteristic": chi,
+        "betti_numbers": {
+            "b0": n_zero_handles, "b1": n_one_handles, "b2": n_two_handles,
+            "b3": n_three_handles, "b4": n_four_handles,
+        },
+        "signature_description": sig_desc,
+        "is_simply_connected": is_sc,
+        "handle_counts": {
+            "zero": n_zero_handles, "one": n_one_handles, "two": n_two_handles,
+            "three": n_three_handles, "four": n_four_handles,
+        },
+    }
+
+
+# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
@@ -543,4 +703,8 @@ __all__ = [
     "is_extended_tft", "satisfies_atiyah_segal_axioms",
     "has_frobenius_algebra_structure", "admits_higher_categorical_formulation",
     "classify_tft", "tft_profile_report",
+    # P8.6 computational engines
+    "cobordism_from_handles",
+    "tqft_dimension_2d",
+    "handle_signature_tft",
 ]

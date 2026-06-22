@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.9] — 2026-06-23
+
+### Added
+
+- **Phase 8 — Profile→Computational upgrade: 6 advanced algebra modules, 16 new functions** (v1.0.9)
+
+  - **`derived_categories` (P8.1)** — `mapping_cone_complex` (cone C(f) of a chain map with
+    explicit ∂^C block matrix); `derived_functor_h` (H_n of a chain complex from boundary
+    matrices, Betti + torsion via SNF); `triangulated_structure_check` (g∘f=0 + cone Betti
+    vs C comparison).
+
+  - **`topos_theory` (P8.2)** — `site_from_finite_topology` (Grothendieck site from a finite
+    open-set lattice); `sheaf_on_site` (locality + gluing checks); `sheafification_finite`
+    (one-step F⁺ correction for finite sites); `topos_check` (terminal + fiber products +
+    subobject classifier → Grothendieck topos verdict).
+
+  - **`operads` (P8.3)** — `associahedron_complex(n)` (K_n Stasheff associahedron as a
+    SimplicialComplex; vertices = full binary trees, edges = tree-rotation pairs; Catalan(n−2)
+    vertices); `operad_composition_check` (tests µ(µ(a,b),c)=µ(a,µ(b,c)) for all basis
+    elements); `bar_construction_sc` (bar complex skeletal model over generators + relations).
+
+  - **`higher_categories` (P8.4)** — `nerve_of_category` (N(C) up to dim 2; 2-simplex for
+    composable triples a→b→c with composite a→c present); `kan_fibration_check_sc` (horn-filling
+    condition up to max_dim); `homotopy_type_finite_cat` (BC = |N(C)| via Betti numbers, reports
+    is_contractible / is_connected).
+
+  - **`noncommutative_topology` (P8.5)** — `k0_group_matrix_algebra(n)` (K₀(M_n(ℚ)) ≅ ℤ by
+    Morita invariance; identity_class = n); `spectral_dimension_finite` (log-log regression on
+    eigenvalue counting function → d_s); `k1_group_matrix_algebra(n)` (K₁(M_n(ℚ)) ≅ ℚ* by
+    Morita; torsion = ℤ/2, free part via p-adic valuations).
+
+  - **`topological_field_theory` (P8.6)** — `cobordism_from_handles(n₀,n₁,n₂)` (χ = n₀−n₁+n₂,
+    genus, connectedness); `tqft_dimension_2d(genus)` (Boolean TFT dim=1; A₂ TFT dim=2,1,0 for
+    g=0,1,≥2); `handle_signature_tft(n₀,…,n₄)` (4-manifold handles → Euler char, Betti numbers,
+    simply-connected flag).
+
+- **Bug fixes:** `_snf_ext` API alignment in `derived_functor_h` (uses `smith_normal_form →
+  list[int]` correctly); `nerve_of_category` composability condition fixed (was always-True due to
+  `or (b,c) in morph_set`); `betti_numbers` API used in `homotopy_type_finite_cat`.
+
+- **171 new tests** across 6 modules; **11 236 tests pass** total.
+
 ## [1.0.8] — 2026-06-22
 
 ### Added

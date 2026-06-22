@@ -927,6 +927,226 @@ def derived_category_profile(space: Any) -> dict[str, Any]:
     }
 
 
+# ---------------------------------------------------------------------------
+# Computational engines (P8.1)
+# ---------------------------------------------------------------------------
+
+def _dc_ncols(M: list[list[int]]) -> int:
+    return len(M[0]) if M else 0
+
+
+def _dc_nrows(M: list[list[int]]) -> int:
+    return len(M)
+
+
+def _dc_zeros(r: int, c: int) -> list[list[int]]:
+    return [[0] * c for _ in range(r)]
+
+
+def mapping_cone_complex(
+    boundaries_a: list[list[list[int]]],
+    boundaries_b: list[list[list[int]]],
+    chain_map: list[list[list[int]]],
+) -> list[list[list[int]]]:
+    """Mapping cone C(f) for a chain map f: A → B.
+
+    C(f)_n = A_{n-1} ⊕ B_n with boundary matrix::
+
+        ∂^C_n = [[-∂^A_{n-1},   0   ],
+                 [ f_{n-1},   ∂^B_n  ]]
+
+    ``boundaries_a[k]`` is ``∂^A_k : A_k → A_{k-1}``
+    (shape ``dim(A_{k-1}) × dim(A_k)``).  ``chain_map[k]`` is ``f_k : A_k → B_k``.
+
+    Returns boundary matrices of C(f).
+
+    Examples
+    --------
+    Empty inputs yield an empty cone:
+
+    >>> mapping_cone_complex([], [], [])
+    []
+    """
+    max_deg = max(len(boundaries_a), len(boundaries_b), len(chain_map), 1) + 2
+
+    def _get(lst: list[list[list[int]]], k: int) -> list[list[int]]:
+        return lst[k] if 0 <= k < len(lst) else []
+
+    def _dim_a(k: int) -> int:
+        if k < 0:
+            return 0
+        m = _get(boundaries_a, k)
+        if m:
+            return _dc_ncols(m)
+        m_prev = _get(boundaries_a, k - 1)
+        return _dc_nrows(m_prev) if m_prev else 0
+
+    def _dim_b(k: int) -> int:
+        if k < 0:
+            return 0
+        m = _get(boundaries_b, k)
+        if m:
+            return _dc_ncols(m)
+        m_prev = _get(boundaries_b, k - 1)
+        return _dc_nrows(m_prev) if m_prev else 0
+
+    cone: list[list[list[int]]] = []
+    for n in range(1, max_deg):
+        r_a = _dim_a(n - 2)
+        r_b = _dim_b(n - 1)
+        c_a = _dim_a(n - 1)
+        c_b = _dim_b(n)
+        if r_a + r_b == 0 and c_a + c_b == 0:
+            continue
+        raw_da = _get(boundaries_a, n - 1)
+        top_left: list[list[int]] = (
+            [[-x for x in row] for row in raw_da]
+            if raw_da else _dc_zeros(r_a, c_a)
+        )
+        raw_f = _get(chain_map, n - 1)
+        bot_left: list[list[int]] = raw_f if raw_f else _dc_zeros(r_b, c_a)
+        raw_db = _get(boundaries_b, n)
+        bot_right: list[list[int]] = raw_db if raw_db else _dc_zeros(r_b, c_b)
+        mat: list[list[int]] = []
+        for i in range(r_a):
+            tl = list(top_left[i]) if i < len(top_left) else [0] * c_a
+            mat.append(tl + [0] * c_b)
+        for i in range(r_b):
+            bl = list(bot_left[i]) if i < len(bot_left) else [0] * c_a
+            br = list(bot_right[i]) if i < len(bot_right) else [0] * c_b
+            mat.append(bl + br)
+        cone.append(mat)
+    return cone
+
+
+def derived_functor_h(
+    boundaries: list[list[list[int]]],
+    degree: int,
+) -> dict[str, Any]:
+    """H_{degree} of a chain complex given by its boundary matrices.
+
+    ``boundaries[k]`` is ``∂_k : C_k → C_{k-1}``
+    (shape ``dim(C_{k-1}) × dim(C_k)``).
+
+    Returns
+    -------
+    dict with keys ``degree``, ``betti_number``, ``torsion_coefficients``,
+    ``rank_in``, ``rank_out``, ``kernel_dimension``.
+
+    Examples
+    --------
+    Single edge (interval): H_0 = ℤ, H_1 = 0:
+
+    >>> derived_functor_h([[[-1, 1]]], 0)["betti_number"]
+    1
+    >>> derived_functor_h([[[-1, 1]]], 1)["betti_number"]
+    0
+    """
+    from .exact_linalg import smith_normal_form, integer_rank
+
+    def _get(k: int) -> list[list[int]]:
+        return boundaries[k] if 0 <= k < len(boundaries) else []
+
+    dk = _get(degree)
+    dk1 = _get(degree + 1)
+    rank_in = integer_rank(dk) if dk else 0
+    rank_out = integer_rank(dk1) if dk1 else 0
+    if dk:
+        dim_c = _dc_ncols(dk)
+    elif dk1:
+        dim_c = _dc_nrows(dk1)
+    else:
+        dim_c = 0
+    kernel_dim = max(0, dim_c - rank_in)
+    betti = max(0, kernel_dim - rank_out)
+    torsion: list[int] = []
+    if dk1:
+        factors = smith_normal_form(dk1)
+        torsion = [d for d in factors if d > 1]
+    return {
+        "degree": degree,
+        "betti_number": betti,
+        "torsion_coefficients": torsion,
+        "rank_in": rank_in,
+        "rank_out": rank_out,
+        "kernel_dimension": kernel_dim,
+    }
+
+
+def triangulated_structure_check(
+    boundaries_a: list[list[list[int]]],
+    boundaries_b: list[list[list[int]]],
+    boundaries_c: list[list[list[int]]],
+    f_mats: list[list[list[int]]],
+    g_mats: list[list[list[int]]],
+) -> dict[str, Any]:
+    """Check necessary conditions for A -f-> B -g-> C to be a distinguished triangle.
+
+    Verifies g ∘ f = 0 in each degree (necessary for any triangle) and
+    whether the mapping cone C(f) has the same Betti numbers as C.
+
+    Returns
+    -------
+    dict with ``composition_zero``, ``degree_checks``, ``cone_betti``,
+    ``c_betti``, ``cone_matches_c``.
+
+    Examples
+    --------
+    Zero chain map g trivially satisfies g ∘ f = 0:
+
+    >>> r = triangulated_structure_check([], [], [], [[[1]]], [[[0]]])
+    >>> r["composition_zero"]
+    True
+    """
+    def _get(lst: list[list[list[int]]], k: int) -> list[list[int]]:
+        return lst[k] if 0 <= k < len(lst) else []
+
+    def _mat_mul(A: list[list[int]], B: list[list[int]]) -> list[list[int]]:
+        if not A or not B:
+            return []
+        inner = len(B)
+        if not A[0] or len(A[0]) != inner:
+            return []
+        n2 = len(B[0]) if B else 0
+        return [
+            [sum(A[i][p] * B[p][j] for p in range(inner)) for j in range(n2)]
+            for i in range(len(A))
+        ]
+
+    max_deg = max(len(f_mats), len(g_mats), 1) + 1
+    degree_checks: dict[int, dict[str, Any]] = {}
+    all_zero = True
+    for deg in range(max_deg):
+        fk = _get(f_mats, deg)
+        gk = _get(g_mats, deg)
+        if not fk or not gk:
+            continue
+        gf = _mat_mul(gk, fk)
+        is_zero = all(x == 0 for row in gf for x in row)
+        if not is_zero:
+            all_zero = False
+        degree_checks[deg] = {
+            "is_zero": is_zero,
+            "shape": (len(gf), len(gf[0]) if gf else 0),
+        }
+
+    cone_bounds = mapping_cone_complex(boundaries_a, boundaries_b, f_mats)
+    n_check = max(len(cone_bounds), len(boundaries_c), 1) + 2
+    cone_betti = [derived_functor_h(cone_bounds, k)["betti_number"] for k in range(n_check)]
+    c_betti = [derived_functor_h(boundaries_c, k)["betti_number"] for k in range(n_check)]
+    while cone_betti and cone_betti[-1] == 0:
+        cone_betti.pop()
+    while c_betti and c_betti[-1] == 0:
+        c_betti.pop()
+    return {
+        "composition_zero": all_zero,
+        "degree_checks": degree_checks,
+        "cone_betti": cone_betti,
+        "c_betti": c_betti,
+        "cone_matches_c": cone_betti == c_betti,
+    }
+
+
 __all__ = [
     "DerivedCategoryProfile",
     "DERIVED_CATEGORY_TAGS",
@@ -947,4 +1167,8 @@ __all__ = [
     "is_dg_enhanced",
     "classify_derived_category",
     "derived_category_profile",
+    # P8.1 computational engines
+    "mapping_cone_complex",
+    "derived_functor_h",
+    "triangulated_structure_check",
 ]
