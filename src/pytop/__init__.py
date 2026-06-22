@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "1.0.7"
+__version__ = "1.0.8"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -2378,6 +2378,8 @@ from .dimension_theory import ind, Ind, dim
 
 from .dimension_theory import is_zero_dimensional, has_clopen_base
 
+from .dimension_theory import covering_dimension_simplicial, ind_finite_space
+
 from .uniform_spaces import is_uniform_space, entourage_system
 
 from .uniform_spaces import is_uniformly_continuous, is_cauchy_filter, is_uniformly_complete
@@ -2751,6 +2753,10 @@ from .shape_theory import (
     cech_cohomology_applicable,
     classify_shape,
     shape_profile,
+    link_complex,
+    is_manifold_triangulation,
+    has_trivial_shape_sc,
+    shape_anr_check_sc,
 )
 from .fiber_bundles import (
     FiberBundleProfile,
@@ -2818,6 +2824,10 @@ from .coarse_geometry import (
     coarsely_embeds_in_hilbert,
     classify_coarse_geometry,
     coarse_geometry_profile,
+    growth_function_graph,
+    geodesic_distance_graph,
+    is_tree_graph,
+    classify_graph_coarse_growth,
 )
 from .locale_theory import (
     LocaleProfile,
@@ -2840,6 +2850,11 @@ from .locale_theory import (
     is_localic_group,
     classify_locale,
     locale_profile,
+    frame_from_finite_topology,
+    pseudocomplement_in_frame,
+    well_inside_relation,
+    is_regular_frame,
+    is_spatial_finite_frame,
 )
 from .topos_theory import (
     ToposProfile,

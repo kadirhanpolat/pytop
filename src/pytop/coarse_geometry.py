@@ -38,7 +38,8 @@ Key theorems implemented
 
 from __future__ import annotations
 
-from collections import Counter
+import math
+from collections import Counter, deque
 from dataclasses import dataclass
 from typing import Any
 
@@ -962,6 +963,198 @@ def coarse_geometry_profile(space: Any) -> dict[str, Any]:
     }
 
 
+# ---------------------------------------------------------------------------
+# Computational engines (from raw graph data)
+# ---------------------------------------------------------------------------
+
+def _bfs_distances(adj: dict[Any, list[Any]], source: Any) -> dict[Any, int]:
+    dist: dict[Any, int] = {source: 0}
+    queue: deque[Any] = deque([source])
+    while queue:
+        v = queue.popleft()
+        for u in adj.get(v, []):
+            if u not in dist:
+                dist[u] = dist[v] + 1
+                queue.append(u)
+    return dist
+
+
+def growth_function_graph(
+    adj: dict[Any, list[Any]],
+    source: Any,
+    max_radius: int,
+) -> dict[int, int]:
+    """Compute the growth function b(r) = |B(source, r)| of a graph.
+
+    b(r) counts vertices within graph distance r from source.
+    Key values: b(r) ~ r^n for ℤ^n (polynomial, degree n);
+    b(r) ~ c^r for free groups (exponential). By Gromov's theorem,
+    polynomial growth characterises virtually nilpotent groups.
+
+    Parameters
+    ----------
+    adj:
+        Undirected adjacency dict ``{v: [neighbors]}``.
+    source:
+        Starting vertex.
+    max_radius:
+        Maximum radius to compute.
+
+    Returns
+    -------
+    dict[int, int]
+        ``{r: b(r)}`` for r in ``range(max_radius + 1)``.
+
+    Examples
+    --------
+    Path graph P_4: linear growth.
+
+    >>> adj = {0:[1], 1:[0,2], 2:[1,3], 3:[2]}
+    >>> growth_function_graph(adj, 1, 3)
+    {0: 1, 1: 3, 2: 4, 3: 4}
+    """
+    dist = _bfs_distances(adj, source)
+    return {r: sum(1 for d in dist.values() if d <= r) for r in range(max_radius + 1)}
+
+
+def geodesic_distance_graph(adj: dict[Any, list[Any]], u: Any, v: Any) -> int:
+    """Return the geodesic distance from u to v in the graph.
+
+    Parameters
+    ----------
+    adj:
+        Undirected adjacency dict.
+    u, v:
+        Vertices.
+
+    Returns
+    -------
+    int
+        Shortest path length, or -1 if v is unreachable from u.
+
+    Examples
+    --------
+    >>> adj = {0:[1], 1:[0,2], 2:[1,3], 3:[2]}
+    >>> geodesic_distance_graph(adj, 0, 3)
+    3
+    """
+    if u == v:
+        return 0
+    return _bfs_distances(adj, u).get(v, -1)
+
+
+def is_tree_graph(adj: dict[Any, list[Any]]) -> bool:
+    """Check whether the graph is a tree.
+
+    A connected graph G is a tree iff |E| = |V| - 1 (equivalently, acyclic).
+    Trees are 0-Gromov-hyperbolic (every triangle degenerates to a tripod).
+    The Cayley graph of a free group is a regular tree with infinitely many ends.
+
+    Parameters
+    ----------
+    adj:
+        Undirected adjacency dict.
+
+    Returns
+    -------
+    bool
+
+    Examples
+    --------
+    >>> is_tree_graph({0:[1,2], 1:[0], 2:[0]})
+    True
+    >>> is_tree_graph({0:[1,2], 1:[0,2], 2:[0,1]})
+    False
+    """
+    if not adj:
+        return False
+    vertices = set(adj)
+    edge_count = sum(len(v) for v in adj.values()) // 2
+    if edge_count != len(vertices) - 1:
+        return False
+    start = next(iter(vertices))
+    return len(_bfs_distances(adj, start)) == len(vertices)
+
+
+def classify_graph_coarse_growth(
+    adj: dict[Any, list[Any]],
+    source: Any,
+    max_radius: int = 10,
+) -> dict[str, Any]:
+    """Classify the coarse growth type of a graph.
+
+    Estimates whether growth is polynomial (virtually nilpotent by Gromov's
+    theorem) or exponential (free groups, hyperbolic groups).
+
+    Parameters
+    ----------
+    adj:
+        Undirected adjacency dict.
+    source:
+        Root vertex for BFS.
+    max_radius:
+        Depth of BFS exploration.
+
+    Returns
+    -------
+    dict with keys:
+        ``growth`` : dict[int, int] — b(r) for each r
+        ``is_tree`` : bool — True iff G is a tree (0-hyperbolic)
+        ``growth_type`` : str — ``"exponential"``, ``"polynomial"``, or ``"unknown"``
+        ``polynomial_degree`` : int | None — estimated degree for polynomial growth
+        ``connected`` : bool
+        ``vertex_count`` : int
+        ``edge_count`` : int
+
+    Examples
+    --------
+    A path graph has linear (polynomial degree 1) growth:
+
+    >>> adj = {i:[i-1,i+1] for i in range(1,9)}
+    >>> adj[0]=[1]; adj[9]=[8]
+    >>> r = classify_graph_coarse_growth(adj, 4, max_radius=4)
+    >>> r['growth_type']
+    'polynomial'
+    """
+    growth = growth_function_graph(adj, source, max_radius)
+    tree = is_tree_graph(adj)
+    vertices = set(adj)
+    edge_count = sum(len(v) for v in adj.values()) // 2
+    connected = (len(_bfs_distances(adj, source)) == len(vertices)) if vertices else False
+
+    growth_type = "unknown"
+    poly_degree: int | None = None
+
+    if max_radius >= 4 and connected:
+        bs = [growth[r] for r in range(1, max_radius + 1)]
+        if len(bs) >= 4 and bs[-2] > 0:
+            last_ratio = bs[-1] / bs[-2]
+            if last_ratio > 1.5:
+                growth_type = "exponential"
+            else:
+                growth_type = "polynomial"
+                r_vals = [r for r in range(1, max_radius + 1) if growth[r] > 1]
+                if len(r_vals) >= 2:
+                    slopes = []
+                    for i in range(1, len(r_vals)):
+                        r1, r2 = r_vals[i - 1], r_vals[i]
+                        if growth[r2] > growth[r1]:
+                            s = math.log(growth[r2] / growth[r1]) / math.log(r2 / r1)
+                            slopes.append(s)
+                    if slopes:
+                        poly_degree = round(sum(slopes) / len(slopes))
+
+    return {
+        "growth": growth,
+        "is_tree": tree,
+        "growth_type": growth_type,
+        "polynomial_degree": poly_degree,
+        "connected": connected,
+        "vertex_count": len(vertices),
+        "edge_count": edge_count,
+    }
+
+
 __all__ = [
     "CoarseGeometryProfile",
     "FINITE_ASYMPTOTIC_DIM_TAGS",
@@ -984,4 +1177,8 @@ __all__ = [
     "coarsely_embeds_in_hilbert",
     "classify_coarse_geometry",
     "coarse_geometry_profile",
+    "growth_function_graph",
+    "geodesic_distance_graph",
+    "is_tree_graph",
+    "classify_graph_coarse_growth",
 ]

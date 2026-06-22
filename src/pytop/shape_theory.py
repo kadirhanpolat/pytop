@@ -30,6 +30,7 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass
+from itertools import combinations
 from typing import Any
 
 from .result import Result
@@ -891,6 +892,195 @@ def shape_profile(space: Any) -> dict[str, Any]:
     }
 
 
+# ---------------------------------------------------------------------------
+# Computational engines (from raw simplicial data)
+# ---------------------------------------------------------------------------
+
+def _face_close_shape(simplices: list[list[Any]]) -> list[list[Any]]:
+    seen: set[frozenset[Any]] = set()
+    result: list[list[Any]] = []
+    for s in simplices:
+        for r in range(1, len(s) + 1):
+            for face in combinations(s, r):
+                fs = frozenset(face)
+                if fs not in seen:
+                    seen.add(fs)
+                    result.append(list(face))
+    return result
+
+
+def link_complex(simplices: list[list[Any]], vertex: Any) -> list[list[Any]]:
+    """Return the link of ``vertex`` in the simplicial complex.
+
+    lk(K, v) = {σ \\ {v} : σ ∈ K, v ∈ σ, |σ| ≥ 2}.
+
+    The result is face-closed.
+
+    Parameters
+    ----------
+    simplices:
+        List of simplices as vertex lists.
+    vertex:
+        The vertex whose link is computed.
+
+    Returns
+    -------
+    list[list[Any]]
+        Face-closed simplices of lk(K, v).
+
+    Examples
+    --------
+    Link of vertex 0 in a filled triangle:
+
+    >>> link_complex([[0,1,2],[0,1],[0,2],[1,2],[0],[1],[2]], 0)
+    [[1], [2], [1, 2]]
+    """
+    link_faces: set[frozenset[Any]] = set()
+    for s in simplices:
+        vs = frozenset(s)
+        if vertex in vs and len(vs) >= 2:
+            link_faces.add(vs - {vertex})
+    if not link_faces:
+        return []
+    seen: set[frozenset[Any]] = set()
+    result: list[list[Any]] = []
+    for face in link_faces:
+        for r in range(1, len(face) + 1):
+            for sub in combinations(sorted(face, key=repr), r):
+                fs = frozenset(sub)
+                if fs not in seen:
+                    seen.add(fs)
+                    result.append(list(sub))
+    return result
+
+
+def is_manifold_triangulation(simplices: list[list[Any]], n: int) -> bool:
+    """Check whether K is a triangulation of a closed n-manifold.
+
+    A compact simplicial complex K triangulates a closed n-manifold iff
+    every vertex link lk(K, v) has the homology of S^{n-1}:
+    H_{n-1}(lk(v); ℤ) = ℤ and H_k(lk(v); ℤ) = 0 for k ≠ n-1.
+
+    Parameters
+    ----------
+    simplices:
+        List of simplices as vertex lists.
+    n:
+        Expected manifold dimension (≥ 1).
+
+    Returns
+    -------
+    bool
+
+    Examples
+    --------
+    The boundary of a tetrahedron triangulates S²:
+
+    >>> bdry = [[0,1,2],[0,1,3],[0,2,3],[1,2,3],[0,1],[0,2],[0,3],[1,2],[1,3],[2,3],[0],[1],[2],[3]]
+    >>> is_manifold_triangulation(bdry, 2)
+    True
+    """
+    if n < 1:
+        raise ValueError(f"Manifold dimension must be ≥ 1, got {n!r}")
+    from .homotopy import has_sphere_homology
+
+    closed = _face_close_shape(simplices)
+    vertices: set[Any] = set()
+    for s in closed:
+        vertices.update(s)
+
+    for v in vertices:
+        lk = link_complex(closed, v)
+        if not lk:
+            return False
+        if not has_sphere_homology(lk, n - 1):
+            return False
+    return True
+
+
+def has_trivial_shape_sc(simplices: list[list[Any]]) -> bool:
+    """Check whether a finite simplicial complex has trivial shape.
+
+    A compact polyhedron K has trivial shape iff it is contractible:
+    H₀(K; ℤ) = ℤ and H_k(K; ℤ) = 0 for k ≥ 1.
+    For compact polyhedra (always ANRs), trivial shape equals compact AR.
+
+    Parameters
+    ----------
+    simplices:
+        List of simplices as vertex lists.
+
+    Returns
+    -------
+    bool
+
+    Examples
+    --------
+    A filled triangle is contractible:
+
+    >>> has_trivial_shape_sc([[0,1,2],[0,1],[0,2],[1,2],[0],[1],[2]])
+    True
+
+    The circle (boundary of triangle) is not contractible:
+
+    >>> has_trivial_shape_sc([[0,1],[1,2],[2,0]])
+    False
+    """
+    from .homotopy import is_contractible_simplicial
+    return is_contractible_simplicial(simplices)
+
+
+def shape_anr_check_sc(simplices: list[list[Any]]) -> dict[str, Any]:
+    """Shape-theoretic classification of a finite simplicial complex.
+
+    Every finite simplicial complex is a compact polyhedron, hence always
+    an ANR, FANR, and movable.  The key computed quantity is whether K has
+    trivial shape (= K is contractible = K is a compact AR).
+
+    Parameters
+    ----------
+    simplices:
+        List of simplices as vertex lists.
+
+    Returns
+    -------
+    dict with keys:
+        ``is_anr`` : bool — always True
+        ``is_fanr`` : bool — always True
+        ``is_movable`` : bool — always True
+        ``has_trivial_shape`` : bool — True iff K is contractible
+        ``shape_class`` : str — ``"compact_ar"`` or ``"anr"``
+        ``vertex_count`` : int
+        ``max_simplex_dim`` : int
+
+    Examples
+    --------
+    A cone is contractible (compact AR):
+
+    >>> r = shape_anr_check_sc([[0,1],[1,2],[0,2],[0],[1],[2]])
+    >>> r['is_anr'], r['shape_class']
+    (True, 'anr')
+    """
+    closed = _face_close_shape(simplices)
+    trivial = has_trivial_shape_sc(closed)
+    vertices: set[Any] = set()
+    max_dim = 0
+    for s in closed:
+        vertices.update(s)
+        if s:
+            max_dim = max(max_dim, len(s) - 1)
+
+    return {
+        "is_anr": True,
+        "is_fanr": True,
+        "is_movable": True,
+        "has_trivial_shape": trivial,
+        "shape_class": "compact_ar" if trivial else "anr",
+        "vertex_count": len(vertices),
+        "max_simplex_dim": max_dim,
+    }
+
+
 __all__ = [
     "ShapeProfile",
     "ANR_POSITIVE_TAGS",
@@ -912,4 +1102,8 @@ __all__ = [
     "cech_cohomology_applicable",
     "classify_shape",
     "shape_profile",
+    "link_complex",
+    "is_manifold_triangulation",
+    "has_trivial_shape_sc",
+    "shape_anr_check_sc",
 ]

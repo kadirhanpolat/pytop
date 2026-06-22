@@ -976,6 +976,225 @@ def locale_profile(space: Any) -> dict[str, Any]:
     }
 
 
+# ---------------------------------------------------------------------------
+# Computational engines (from finite topology / frame data)
+# ---------------------------------------------------------------------------
+
+def frame_from_finite_topology(
+    open_sets: list[frozenset[Any]],
+) -> list[frozenset[Any]]:
+    """Build and validate the frame (lattice of opens) of a finite topology.
+
+    The frame of (X, τ) is the complete lattice τ under inclusion, with meets
+    = finite intersections and joins = arbitrary unions.  For finite spaces
+    (where τ is finite) this coincides with closure under all intersections
+    and unions.
+
+    Parameters
+    ----------
+    open_sets:
+        List of open sets as frozensets.  Must be closed under ∩ and ∪.
+
+    Returns
+    -------
+    list[frozenset[Any]]
+        Sorted frame elements (by size, then lex on reprs).
+
+    Raises
+    ------
+    ValueError
+        If the family is not closed under binary intersection or union.
+
+    Examples
+    --------
+    Sierpiński topology on {0, 1}:
+
+    >>> tau = [frozenset(), frozenset({1}), frozenset({0,1})]
+    >>> frame_from_finite_topology(tau)
+    [frozenset(), frozenset({1}), frozenset({0, 1})]
+    """
+    opens: frozenset[frozenset[Any]] = frozenset(frozenset(u) for u in open_sets)
+    for u in opens:
+        for v in opens:
+            if u & v not in opens:
+                raise ValueError(
+                    f"Not closed under ∩: {set(u)} ∩ {set(v)} = {set(u & v)} ∉ τ"
+                )
+            if u | v not in opens:
+                raise ValueError(
+                    f"Not closed under ∪: {set(u)} ∪ {set(v)} = {set(u | v)} ∉ τ"
+                )
+    return sorted(opens, key=lambda s: (len(s), sorted(repr(x) for x in s)))
+
+
+def pseudocomplement_in_frame(
+    open_sets: list[frozenset[Any]],
+    b: frozenset[Any],
+) -> frozenset[Any]:
+    """Return the pseudocomplement b* of b in the frame.
+
+    b* = ∨{c ∈ τ : b ∩ c = ∅} = ∪{c ∈ τ : c disjoint from b}.
+    In a spatial frame, b* is the largest open set disjoint from b.
+
+    Parameters
+    ----------
+    open_sets:
+        Frame elements.
+    b:
+        An open set (element of the frame).
+
+    Returns
+    -------
+    frozenset[Any]
+
+    Examples
+    --------
+    >>> tau = [frozenset(), frozenset({1}), frozenset({0,1})]
+    >>> pseudocomplement_in_frame(tau, frozenset({1}))
+    frozenset()
+    """
+    b_fs = frozenset(b)
+    result: frozenset[Any] = frozenset()
+    for u in open_sets:
+        u_fs = frozenset(u)
+        if u_fs & b_fs == frozenset():
+            result = result | u_fs
+    return result
+
+
+def well_inside_relation(
+    open_sets: list[frozenset[Any]],
+) -> dict[tuple[frozenset[Any], frozenset[Any]], bool]:
+    """Compute the well-inside relation << on the frame.
+
+    b << a (b is well-inside a) iff b* ∨ a = 1_L, where b* is the
+    pseudocomplement of b and 1_L is the top element (= X).
+    Equivalently: b* ∪ a = X.
+
+    This is the key relation for frame regularity: L is regular iff
+    every a ∈ L equals ∨{b : b << a}.
+
+    Parameters
+    ----------
+    open_sets:
+        Frame elements (topology).
+
+    Returns
+    -------
+    dict mapping (b, a) -> bool for all frame pairs.
+
+    Examples
+    --------
+    Discrete topology on {0, 1} — every open is well-inside itself:
+
+    >>> tau = [frozenset(), frozenset({0}), frozenset({1}), frozenset({0,1})]
+    >>> wi = well_inside_relation(tau)
+    >>> wi[(frozenset({0}), frozenset({0}))]
+    True
+    """
+    frame = [frozenset(u) for u in open_sets]
+    top: frozenset[Any] = frozenset()
+    for u in frame:
+        top = top | u
+    result: dict[tuple[frozenset[Any], frozenset[Any]], bool] = {}
+    for b in frame:
+        b_star = pseudocomplement_in_frame(frame, b)
+        for a in frame:
+            result[(b, a)] = (b_star | a == top)
+    return result
+
+
+def is_regular_frame(open_sets: list[frozenset[Any]]) -> bool:
+    """Check whether the frame is regular.
+
+    A frame L is regular iff every a ∈ L equals ∨{b ∈ L : b << a}.
+    Topologically: the topology τ is regular as a locale iff every open
+    set is a union of open sets well-inside it.
+    T₃ (regular Hausdorff) spaces have regular frames; finite T₁ spaces
+    have regular frames only if they are discrete.
+
+    Parameters
+    ----------
+    open_sets:
+        Frame elements (topology).
+
+    Returns
+    -------
+    bool
+
+    Examples
+    --------
+    Discrete topology is regular:
+
+    >>> tau = [frozenset(), frozenset({0}), frozenset({1}), frozenset({0,1})]
+    >>> is_regular_frame(tau)
+    True
+
+    Sierpiński topology is not regular (the open {1} is not well-inside itself):
+
+    >>> tau = [frozenset(), frozenset({1}), frozenset({0,1})]
+    >>> is_regular_frame(tau)
+    False
+    """
+    frame = [frozenset(u) for u in open_sets]
+    wi = well_inside_relation(frame)
+    for a in frame:
+        join_wi: frozenset[Any] = frozenset()
+        for b in frame:
+            if wi.get((b, a), False):
+                join_wi = join_wi | b
+        if join_wi != a:
+            return False
+    return True
+
+
+def is_spatial_finite_frame(open_sets: list[frozenset[Any]]) -> bool:
+    """Check whether the frame is spatial (has enough points).
+
+    A locale L is spatial if distinct frame elements are separated by
+    frame homomorphisms L → {0,1} (the 'points' of L).  For a topology
+    τ on a set X, the points are exactly the elements of X, and the frame
+    Ω(X) is always spatial: distinct opens a ≠ b with a ⊄ b are
+    separated by any x ∈ a \\ b.
+
+    For finite topological spaces given as concrete set systems, the frame
+    is always spatial (the underlying points separate elements).  This
+    function confirms this and also checks that the empty set is in the
+    frame (needed for full locale axioms).
+
+    Parameters
+    ----------
+    open_sets:
+        Frame elements (topology).
+
+    Returns
+    -------
+    bool
+
+    Examples
+    --------
+    >>> tau = [frozenset(), frozenset({1}), frozenset({0,1})]
+    >>> is_spatial_finite_frame(tau)
+    True
+    """
+    frame = [frozenset(u) for u in open_sets]
+    if frozenset() not in frame:
+        return False
+    top: frozenset[Any] = frozenset()
+    for u in frame:
+        top = top | u
+    if top not in frame:
+        return False
+    # For a concrete set-based frame, spatial iff opens separate points:
+    # for any a ≠ b in τ with a ⊄ b, there exists x ∈ a \ b.
+    for a in frame:
+        for b in frame:
+            if a != b and not (a <= b):
+                if not (a - b):
+                    return False
+    return True
+
+
 __all__ = [
     "LocaleProfile",
     "SPATIAL_LOCALE_TAGS",
@@ -997,4 +1216,9 @@ __all__ = [
     "is_localic_group",
     "classify_locale",
     "locale_profile",
+    "frame_from_finite_topology",
+    "pseudocomplement_in_frame",
+    "well_inside_relation",
+    "is_regular_frame",
+    "is_spatial_finite_frame",
 ]

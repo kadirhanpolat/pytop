@@ -198,6 +198,106 @@ def is_totally_disconnected(space):
     return False
 
 
+# ---------------------------------------------------------------------------
+# Computational engines (from raw simplicial / topology data)
+# ---------------------------------------------------------------------------
+
+def covering_dimension_simplicial(simplices: list[list[Any]]) -> int:
+    """Return the covering dimension of a finite simplicial complex.
+
+    For a simplicial complex K, dim(|K|) = max{n : σ ∈ K, dim σ = n},
+    i.e., the maximum simplex dimension.  This equals the geometric
+    (and covering) dimension of the polyhedron |K|.
+
+    Parameters
+    ----------
+    simplices:
+        List of simplices as vertex lists.
+
+    Returns
+    -------
+    int
+        Covering dimension (≥ 0), or -1 for the empty complex.
+
+    Examples
+    --------
+    A filled triangle has dimension 2:
+
+    >>> covering_dimension_simplicial([[0,1,2],[0,1],[0,2],[1,2],[0],[1],[2]])
+    2
+
+    A circle S¹ (boundary of triangle) has dimension 1:
+
+    >>> covering_dimension_simplicial([[0,1],[1,2],[2,0],[0],[1],[2]])
+    1
+    """
+    if not simplices:
+        return -1
+    return max(len(s) - 1 for s in simplices if s)
+
+
+def _specialization_order(open_sets: list[frozenset[Any]]) -> dict[Any, set[Any]]:
+    universe: set[Any] = set()
+    for u in open_sets:
+        universe.update(u)
+    leq: dict[Any, set[Any]] = {x: set() for x in universe}
+    for x in universe:
+        opens_x = [frozenset(u) for u in open_sets if x in frozenset(u)]
+        for y in universe:
+            if all(y in u for u in opens_x):
+                leq[x].add(y)
+    return leq
+
+
+def ind_finite_space(open_sets: list[frozenset[Any]]) -> int:
+    """Compute the small inductive dimension of a finite topological space.
+
+    For a finite T₀ space X with specialization poset P_X:
+    ind(X) = dim(Δ(P_X)), where Δ(P_X) is the order complex of P_X and
+    dim = length of the longest chain in P_X.
+
+    A chain x₀ <_P x₁ <_P ... <_P x_k has length k.
+    ind(∅) = -1; ind(single point) = 0; ind(Sierpiński space) = 1.
+
+    Parameters
+    ----------
+    open_sets:
+        List of open sets as frozensets defining the topology.
+
+    Returns
+    -------
+    int
+        The small inductive dimension (≥ -1).
+
+    Examples
+    --------
+    A single point has ind = 0:
+
+    >>> ind_finite_space([frozenset(), frozenset({0})])
+    0
+
+    The Sierpiński space {0,1} with τ = {∅, {1}, {0,1}} has ind = 1:
+
+    >>> ind_finite_space([frozenset(), frozenset({1}), frozenset({0,1})])
+    1
+    """
+    leq = _specialization_order(open_sets)
+    universe = set(leq)
+    if not universe:
+        return -1
+
+    def longest_chain_from(x: Any, visited: frozenset[Any]) -> int:
+        best = 0
+        for y in universe:
+            # strict specialization: x ≤ y but NOT y ≤ x
+            if (y not in visited and y in leq.get(x, set())
+                    and x != y and x not in leq.get(y, set())):
+                best = max(best, 1 + longest_chain_from(y, visited | {y}))
+        return best
+
+    return max(longest_chain_from(x, frozenset({x})) for x in universe)
+
+
 __all__ = [
     "ind",
     "Ind",
@@ -205,4 +305,6 @@ __all__ = [
     "has_clopen_base",
     "is_zero_dimensional",
     "is_totally_disconnected",
+    "covering_dimension_simplicial",
+    "ind_finite_space",
 ]

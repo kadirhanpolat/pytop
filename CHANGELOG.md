@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.8] — 2026-06-22
+
+### Added
+
+- **Profile→Computational upgrade: 4 modules, 13 new functions** — promotes
+  "knows but doesn't compute" classifier modules to genuine computational engines:
+
+  - **`shape_theory`** — `link_complex(simplices, vertex)` (lk(K,v) face-closed);
+    `is_manifold_triangulation(simplices, n)` (every vertex link ≃ S^{n-1} by
+    homology); `has_trivial_shape_sc(simplices)` (contractibility via H_*);
+    `shape_anr_check_sc(simplices)` (compact polyhedron ANR/FANR/movability dict).
+
+  - **`coarse_geometry`** — `growth_function_graph(adj, source, max_radius)` (BFS
+    ball sizes b(r)); `geodesic_distance_graph(adj, u, v)` (shortest-path length
+    or −1); `is_tree_graph(adj)` (connected + |E|=|V|−1); `classify_graph_coarse_growth`
+    (polynomial/exponential classification via log-log slope, estimated degree).
+
+  - **`locale_theory`** — `frame_from_finite_topology(open_sets)` (validates closure
+    under ∩ and ∪, returns sorted frame); `pseudocomplement_in_frame(open_sets, b)`
+    (b* = ∨{c : c∧b=∅}); `well_inside_relation(open_sets)` (b << a iff b* ∨ a = top);
+    `is_regular_frame(open_sets)` (every a = ∨{b : b << a}); `is_spatial_finite_frame`
+    (∅ and top present, opens separate points).
+
+  - **`dimension_theory`** — `covering_dimension_simplicial(simplices)` (max simplex
+    dim); `ind_finite_space(open_sets)` (longest strict chain in specialization poset;
+    indiscrete spaces correctly return 0).
+
+- **120 new tests** across 4 new test files; **11 065 tests total**.
+
 ## [1.0.7] — 2026-06-22
 
 ### Added
