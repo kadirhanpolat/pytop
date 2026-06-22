@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] — 2026-06-23
+
+### Added
+
+- **Phase 9 — `experimental.spaces` expansion: 6 new canonical representations (13 → 19)** (v1.1.0)
+
+  All implementations live in `src/pytop/experimental/spaces/representations_p9.py`
+  and are re-exported from `pytop.experimental.spaces`.
+
+  - **`OnePointCompactificationSpace` (P9.1)** — Alexandroff one-point compactification αX.
+    Wraps any `Space`; for finite X the full topology is enumerated (opens of X ∪ opens ∪ {∞}).
+    Certificate: compact always; T2 iff base is Hausdorff; connected False when base is compact.
+    Factory: `one_point_compactification(space)`.
+
+  - **`StoneCechSpace` / `stone_cech_n()` (P9.2)** — Stone–Čech compactification βℕ.
+    Compact T4, separable (ℕ is a countable dense subspace), NOT first-countable (free
+    ultrafilter points), NOT T6 (compact Hausdorff is T6 iff metrizable; βℕ not metrizable).
+    Cardinals: weight=𝔠, density=ℵ₀, character=𝔠, cellularity=𝔠.
+
+  - **`HilbertCubeSpace` / `hilbert_cube()` (P9.3)** — Hilbert cube [0,1]^ω.
+    Points = finite rational tuples; cylinder-neighbourhood separation; T6, compact,
+    connected, second-countable, separable.  Cardinals: all ℵ₀.
+
+  - **`SolenoidSpace` / `dyadic_solenoid()` (P9.4)** — dyadic solenoid
+    Σ = lim←{S¹ ←² S¹ ←² …}.  Compact, connected, metrizable T6, NOT locally connected.
+    `contains()` checks angle compatibility (2θₖ ≡ θₖ₋₁ mod 1).
+
+  - **`UniformSpace` / `UniformProduct` / `UniformSubspace` (P9.5)** — uniform structure
+    via metric ε-entourages.  Methods: `entourage(ε)`, `is_cauchy(seq, ε)`,
+    `uniform_neighbourhood(x, ε)`.  Factories: `rational_uniform_space()`,
+    `metric_uniform_space(name, d, member)`.
+
+  - **`ProfiniteSpace` / `p_adic_integers(p)` (P9.6)** — inverse limit of finite discrete
+    groups.  Compact, T6, totally disconnected, metrizable, second-countable.
+    `p_adic_integers(p)` builds ℤ_p = lim← ℤ/pⁿ.
+
+- **166 new tests** in `tests/experimental/test_spaces_phase9_representations.py`;
+  **11 402 core tests** total.
+
 ## [1.0.9] — 2026-06-23
 
 ### Added

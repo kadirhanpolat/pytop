@@ -14,6 +14,24 @@ from itertools import combinations
 from typing import Any
 
 from .core import CardinalValue, CarrierKind, Space, Verdict
+from .representations_p9 import (  # noqa: F401 — re-exported for package API
+    HilbertCubeSpace,
+    OnePointCompactificationSpace,
+    ProfiniteSpace,
+    SolenoidSpace,
+    StoneCechSpace,
+    UniformProduct,
+    UniformSpace,
+    UniformSubspace,
+    dyadic_solenoid,
+    hilbert_cube,
+    metric_uniform_space,
+    one_point_compactification,
+    p_adic_integers,
+    profinite_space,
+    rational_uniform_space,
+    stone_cech_n,
+)
 
 
 class FiniteSpace(Space):
@@ -1057,21 +1075,37 @@ __all__ = [
     "CofiniteSpace",
     "DiscreteCountableSpace",
     "FiniteSpace",
+    "HilbertCubeSpace",
     "InverseLimitSpace",
     "LexicographicSquareSpace",
     "MetricTopologySpace",
+    "OnePointCompactificationSpace",
     "OpaqueInfiniteSpace",
     "OrderTopologySpace",
     "ProductMetricSpace",
+    "ProfiniteSpace",
+    "SolenoidSpace",
     "SorgenfreyLineSpace",
+    "StoneCechSpace",
     "SubbaseSpace",
+    "UniformProduct",
+    "UniformSpace",
+    "UniformSubspace",
     # Factory functions
     "cantor_space",
     "discrete_finite_space",
+    "dyadic_solenoid",
     "finite_circle",
     "finite_sphere",
     "finite_wedge_circles",
+    "hilbert_cube",
     "lexicographic_square",
+    "metric_uniform_space",
+    "one_point_compactification",
+    "p_adic_integers",
+    "profinite_space",
     "rational_metric_space",
     "rational_plane",
+    "rational_uniform_space",
+    "stone_cech_n",
 ]

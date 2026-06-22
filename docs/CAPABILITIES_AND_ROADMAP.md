@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-23 (v1.0.9):** Phase 1 (set-theoretic topology) substantially
+> **Status as of 2026-06-23 (v1.1.0):** Phase 1 (set-theoretic topology) substantially
 > complete; Phase 2 (algebraic topology) **complete** (8 / 8).
 > **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
 > P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
@@ -28,7 +28,7 @@
 > surgery theory (handle attachment, trace cobordism), P7.6 Morse complex (gradient
 > V-path counting, Morse boundary operator, Morse homology theorem cross-validated).
 > **153 new tests; 9 959 core tests at release; 10 864 after v1.0.6; 10 945 after v1.0.7;
-> 11 065 after v1.0.8 profile→computational upgrades; **11 236 after v1.0.9 Phase 8.**
+> 11 065 after v1.0.8 profile→computational upgrades; **11 236 after v1.0.9 Phase 8; **11 402 after v1.1.0 Phase 9.** 
 > **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs for SNF (0 sorry),
 > set topology — 34 theorems (T₀–T₄, closure/interior duality, compactness, diagonal
 > characterisation; 0 sorry) + **24 alternative proofs** in 5 strategies (by contradiction,
@@ -453,7 +453,7 @@ Six modules upgraded from `*Profile` registries to genuine computational engines
 | **P8.5** ✅ | `noncommutative_topology` | `k0_group_matrix_algebra`, `spectral_dimension_finite`, `k1_group_matrix_algebra` |
 | **P8.6** ✅ | `topological_field_theory` | `cobordism_from_handles`, `tqft_dimension_2d`, `handle_signature_tft` |
 
-### Phase 9 — `experimental.spaces` Expansion (planned, v1.1.x)
+### Phase 9 — `experimental.spaces` Expansion ✅ complete (v1.1.0)
 
 Grows the computable-space protocol from 13 to 20+ canonical representations, covering the classical
 infinite spaces missing from the current suite.
@@ -467,8 +467,22 @@ infinite spaces missing from the current suite.
 | **P9.5** | `UniformSpace` protocol | Uniform covers + completion; Cauchy filter; `UniformProduct`, `UniformSubspace` | New protocol layer |
 | **P9.6** | `ProfiniteSpace` | Totally disconnected, compact, T2; inverse limit of finite discrete groups | |
 
-**Estimated:** ~30 tests per milestone → ~180 new tests. This phase makes `experimental.spaces` a
-genuine infinite-space computation layer rather than a finite-extension.
+**Actual (v1.1.0): 166 new tests; 11 402 core tests passing (+ 16 opt-in SageMath/SnapPy-oracle tests).**
+
+Six new representations (13 → 19 canonical representations):
+
+| Milestone | Representation | Tests | Key facts |
+|-----------|---------------|-------|-----------|
+| **P9.1** ✅ | `OnePointCompactificationSpace` | 15 | compact; T2 iff base is locally compact T2; finite base → ∞ isolated |
+| **P9.2** ✅ | `StoneCechSpace` (βℕ) | 18 | compact, T4, separable (ℕ dense), NOT first-countable, NOT T6 |
+| **P9.3** ✅ | `HilbertCubeSpace` ([0,1]^ω) | 31 | compact, T6, second-countable, connected, universal compact metrizable |
+| **P9.4** ✅ | `SolenoidSpace` | 28 | compact, connected, T6, NOT locally connected; `contains()` checks compatibility |
+| **P9.5** ✅ | `UniformSpace` + `UniformProduct` + `UniformSubspace` | 40 | metric-derived uniformity; `entourage`, `is_cauchy`, `uniform_neighbourhood` |
+| **P9.6** ✅ | `ProfiniteSpace` + `p_adic_integers` | 34 | compact, T6, totally disconnected; ℤ_p as lim← ℤ/pⁿ |
+
+**Note:** The roadmap's P9.2 entry said "NOT separable, T6" — both are incorrect for βℕ.
+ℕ is a countable dense subspace (separable = True); βℕ is not metrizable so T6 = False.
+Implemented according to mathematical facts.
 
 ### Phase 10 — Scale & Algorithm (planned, v1.2.x)
 
@@ -533,8 +547,8 @@ Items beyond single-machine pure-Python scope. Each is an independent research-p
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **11 065** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
-| Representations in `experimental.spaces` | 13 |
+| Tests passing | **11 402** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
+| Representations in `experimental.spaces` | 19 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
@@ -546,11 +560,11 @@ Items beyond single-machine pure-Python scope. Each is an independent research-p
 | Phase 6 milestones complete | 3 / 3 ✅ |
 | Phase 7 milestones complete | 6 / 6 ✅ |
 | Phase 8 milestones complete | 6 / 6 ✅ (Profile→Computational: advanced algebra) |
-| Phase 9 milestones planned | 0 / 6 ⬜ (`experimental.spaces` expansion) |
+| Phase 9 milestones complete | 6 / 6 ✅ (`experimental.spaces` expansion) |
 | Phase 10 milestones planned | 0 / 5 ⬜ (scale & algorithm) |
 | Phase 11 milestones planned | 0 / 5 ⬜ (Lean formal verification expansion) |
 | Phase 12 milestones planned | 0 / 5 ⬜ (research frontier, long-range) |
-| **Current version** | **v1.0.9** |
+| **Current version** | **v1.1.0** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 
