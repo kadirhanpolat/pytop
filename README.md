@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.0.7-blue)
+![Version](https://img.shields.io/badge/version-1.0.8-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.0.7**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **13 canonical representations**.
+As of **v1.0.8**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **13 canonical representations**.
 
 ## Installation
 
@@ -178,6 +178,32 @@ and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
 
+## What's New in v1.0.8
+
+**Profile→Computational upgrade: 4 modules, 13 new functions**
+
+Previously tag-based classifier modules promoted to genuine computational engines:
+
+- **`shape_theory`** — `link_complex(simplices, vertex)` (lk(K,v) face-closed);
+  `is_manifold_triangulation(simplices, n)` (every vertex link ≃ Sⁿ⁻¹ by homology);
+  `has_trivial_shape_sc(simplices)` (contractibility via H_*);
+  `shape_anr_check_sc(simplices)` (compact polyhedron ANR/FANR/movability + shape class).
+- **`coarse_geometry`** — `growth_function_graph(adj, source, r)` (BFS ball sizes b(r));
+  `geodesic_distance_graph(adj, u, v)` (shortest-path length or −1);
+  `is_tree_graph(adj)` (connected + |E|=|V|−1, 0-Gromov-hyperbolic);
+  `classify_graph_coarse_growth` (polynomial/exponential via log-log slope, degree estimate).
+- **`locale_theory`** — `frame_from_finite_topology` (closure under ∩ and ∪, sorted frame);
+  `pseudocomplement_in_frame` (b* = ∨{c : c∧b=∅});
+  `well_inside_relation` (b << a iff b* ∨ a = top);
+  `is_regular_frame` (every a = ∨{b : b << a});
+  `is_spatial_finite_frame` (∅ and top present, opens separate points).
+- **`dimension_theory`** — `covering_dimension_simplicial` (max simplex dim);
+  `ind_finite_space` (longest strict chain in specialization poset; indiscrete spaces = 0).
+
+**120 new tests; 11 065 total.**
+
+---
+
 ## What's New in v1.0.7
 
 **`experimental.spaces` extended representations (10 → 13):**
@@ -240,7 +266,7 @@ from pytop.experimental.spaces.core import Decidability
 cs.point_separation((0, 1), (0, 1, 0)).decidability  # Decidability.UNDECIDABLE
 ```
 
-**10 945 tests passing** (+ 16 opt-in SageMath/SnapPy-oracle tests).
+**10 945 tests passing when released** (+ 16 opt-in SageMath/SnapPy-oracle tests).
 
 ---
 
