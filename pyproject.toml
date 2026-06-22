@@ -33,6 +33,11 @@ oracles = ["numpy>=1.26", "sympy>=1.12", "networkx>=3.0", "gudhi>=3.9", "python-
 # dense matrices to FLINT — identical results, far faster (the pure-Python core stays the
 # default and the only hard requirement).
 fast = ["python-flint>=0.6"]
+# Optional GPU-accelerated Twist+Clearing reduction via cupy.
+# Install the CUDA variant matching your driver, e.g.:
+#   pip install 'pytop[gpu]'   # cupy-cuda12x is listed as a dependency hint
+# When cupy is absent the GPU backend falls back silently to pure-Python.
+gpu = ["cupy-cuda12x"]
 
 [project.urls]
 Repository = "https://github.com/kadirhanpolat/pytop"

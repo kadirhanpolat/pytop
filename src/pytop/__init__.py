@@ -3343,3 +3343,21 @@ from .topological_field_theory import (
     tqft_dimension_2d,
     handle_signature_tft,
 )
+from .sparse_linalg import (
+    sparse_smith_normal_form,
+    matrix_density,
+)
+from .witness_complex import (
+    landmark_sample,
+    WitnessComplex,
+    witness_filtration,
+    persistent_homology_witness,
+)
+from .streaming_persistence import (
+    StreamingPersistence,
+)
+from ._gpu_backend import (
+    GPU_AVAILABLE,
+    GPU_MIN_SIZE,
+    gpu_twist_reduce,
+)

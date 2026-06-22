@@ -258,7 +258,11 @@ def _khovanov_complex(
     return elements, differentials
 
 
-def khovanov_homology(diagram: KnotDiagram) -> KhovanovHomology:
+def khovanov_homology(
+    diagram: KnotDiagram,
+    *,
+    parallel: bool = False,
+) -> KhovanovHomology:
     """Return the Khovanov homology ``Kh^{i,j}`` of a knot/link diagram.
 
     Parameters
@@ -266,6 +270,12 @@ def khovanov_homology(diagram: KnotDiagram) -> KhovanovHomology:
     diagram:
         A :class:`~pytop.knot_invariants.KnotDiagram` (PD code with crossing
         signs).  The signs fix only the ``(n₊, n₋)`` grading shift.
+    parallel:
+        When *True* the per-quantum-grading SNF calls are submitted to a
+        :class:`~concurrent.futures.ThreadPoolExecutor`.  With the pure-Python
+        backend this yields modest gains (GIL limits true parallelism); with
+        the optional ``python-flint`` backend (which releases the GIL) the
+        speedup can be significant for diagrams with many quantum gradings.
 
     Returns
     -------
@@ -278,12 +288,20 @@ def khovanov_homology(diagram: KnotDiagram) -> KhovanovHomology:
 
     elements, differentials = _khovanov_complex(diagram)
 
-    # Smith normal form of each differential, computed once and reused. The ranks
-    # and torsion below each reference d^{i}_j up to three times (as the outgoing
-    # rank of C^i_j, the incoming rank of C^{i+1}_j, and the incoming torsion of
-    # C^{i+1}_j), and SNF is the dominant cost — so memoising it per bidegree cuts
-    # the homology step's SNF work ~3x with an identical result.
+    # SNF is memoised per bidegree: each d^{i}_j is referenced up to 3×.
     snf_cache: dict[tuple[int, int], list[int]] = {}
+
+    if parallel and len(differentials) > 1:
+        # Pre-compute all SNFs in parallel; results fed into the cache.
+        from concurrent.futures import ThreadPoolExecutor
+
+        def _compute(item: tuple[tuple[int, int], list[list[int]]]) -> tuple[tuple[int, int], list[int]]:
+            key, mat = item
+            return key, _smith_normal_form(mat)
+
+        with ThreadPoolExecutor() as executor:
+            for key, factors in executor.map(_compute, differentials.items()):
+                snf_cache[key] = factors
 
     def snf(key: tuple[int, int]) -> list[int]:
         cached = snf_cache.get(key)

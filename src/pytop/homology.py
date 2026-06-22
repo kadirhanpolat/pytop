@@ -115,6 +115,11 @@ _flint = (
 # test suite is below the threshold and stays on the pure-Python path.
 _FLINT_SNF_MIN_DIM = 16
 
+# Sparse SNF thresholds (only used when flint is absent).
+from .sparse_linalg import SPARSE_MIN_DIM as _SPARSE_MIN_DIM
+from .sparse_linalg import SPARSE_MAX_DENSITY as _SPARSE_MAX_DENSITY
+from .sparse_linalg import _SparseMat, _sparse_snf_inner
+
 
 def _smith_normal_form_flint(matrix: Matrix) -> list[int]:
     """Invariant factors via python-flint's exact Smith normal form (fast path)."""
@@ -213,16 +218,27 @@ def _smith_normal_form_python(matrix: Matrix) -> list[int]:
 def _smith_normal_form(matrix: Matrix) -> list[int]:
     """Return the positive invariant factors of an integer matrix.
 
-    Dispatches large dense matrices to python-flint when it is installed
-    (identical results, far faster — the pure-Python routine suffers integer
-    coefficient blow-up); otherwise uses the pure-Python implementation.
+    Dispatch order (fastest available):
+    1. python-flint (if installed and min-dim ≥ 16) — C-level exact SNF.
+    2. Sparse pure-Python (if min-dim ≥ 30 and density < 30 %) — avoids
+       O(m×n) dense work for Khovanov / Rips boundary matrices.
+    3. Dense pure-Python fallback.
     """
 
-    if _flint is not None and matrix:
-        rows_n = len(matrix)
-        cols_n = len(matrix[0]) if rows_n else 0
-        if min(rows_n, cols_n) >= _FLINT_SNF_MIN_DIM:
-            return _smith_normal_form_flint(matrix)
+    if not matrix:
+        return []
+    rows_n = len(matrix)
+    cols_n = len(matrix[0]) if rows_n else 0
+
+    if _flint is not None and min(rows_n, cols_n) >= _FLINT_SNF_MIN_DIM:
+        return _smith_normal_form_flint(matrix)
+
+    if min(rows_n, cols_n) >= _SPARSE_MIN_DIM:
+        total = rows_n * cols_n
+        nonzero = sum(1 for row in matrix for v in row if v != 0)
+        if nonzero / total < _SPARSE_MAX_DENSITY:
+            return _sparse_snf_inner(_SparseMat.from_dense(matrix))
+
     return _smith_normal_form_python(matrix)
 
 
