@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.0.9-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.0.9**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **13 canonical representations**.
+As of **v1.1.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **19 canonical representations** (**Phase 9 complete**).
 
 ## Installation
 
@@ -140,7 +140,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Graph planarity** (v0.6.0) | `graph_planarity` — O(V+E) left-right planarity test (Brandes 2009) |
 | **Deductive inference** (v0.6.0) | `experimental.pi_base`, `experimental.pi_base_atlas` |
 | **Convergence spaces** (v0.6.0) | `experimental.convergence_spaces` |
-| **Computable spaces** (experimental) | `experimental.spaces` — protocol, 16 predicates, reasoning engine, pi-Base bridge, **13 representations** |
+| **Computable spaces** (experimental) | `experimental.spaces` — protocol, 16 predicates, reasoning engine, pi-Base bridge, **19 representations** (Phase 9) |
 | Cardinal functions | `cardinal_functions_framework`, `cardinal_numbers` |
 | **Derived categories** (v1.0.9+) | `derived_categories` — `mapping_cone_complex`, `derived_functor_h` (Betti + torsion via SNF), `triangulated_structure_check` |
 | **Topos / sheaf theory** (v1.0.9+) | `topos_theory` — `site_from_finite_topology`, `sheaf_on_site`, `sheafification_finite`, `topos_check` (Grothendieck topos) |
@@ -183,6 +183,82 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New in v1.1.0
+
+**Phase 9 — `experimental.spaces` expansion: 6 new canonical representations (13 → 19)**
+
+Six new infinite-space representations, all importable from `pytop.experimental.spaces`:
+
+- **`OnePointCompactificationSpace` / `one_point_compactification(space)` (P9.1)** —
+  Alexandroff one-point compactification αX = X ∪ {∞}.  For finite X the full topology is
+  enumerated: opens(αX) = opens_X ∪ {U ∪ {∞} : U ∈ opens_X}.  Compact always; T2 iff base
+  is locally compact Hausdorff; {∞} isolated when X is compact.
+
+- **`StoneCechSpace` / `stone_cech_n()` (P9.2)** — Stone–Čech compactification βℕ.
+  Compact T4, separable (ℕ embeds as a countable dense subspace), NOT first-countable (free
+  ultrafilter points have no countable local base), NOT T6.
+  Cardinals: weight = 𝔠, density = ℵ₀, character = 𝔠.
+
+- **`HilbertCubeSpace` / `hilbert_cube()` (P9.3)** — Hilbert cube [0,1]^ω.
+  Compact, connected, T6 (metrizable), second-countable, separable.  Points are finite
+  rational tuples; separation via cylinder neighbourhoods.
+  By Urysohn: every compact metrizable space embeds into [0,1]^ω.
+
+- **`SolenoidSpace` / `dyadic_solenoid()` (P9.4)** — dyadic solenoid
+  Σ = lim←{S¹ ←² S¹ ←² S¹ ←² …}.  Compact, connected, metrizable T6.
+  NOT locally connected (local cross-sections are Cantor sets).
+  `contains()` checks compatibility: 2·θₖ ≡ θₖ₋₁ (mod 1).
+
+- **`UniformSpace` + `UniformProduct` + `UniformSubspace` (P9.5)** — uniform structure
+  backed by a metric.  Methods: `entourage(ε)` (returns the ε-entourage as a callable
+  relation), `is_cauchy(seq, ε)` (finite-sample Cauchy test), `uniform_neighbourhood(x, ε)`.
+  `UniformProduct` uses sup-metric; `UniformSubspace` uses trace uniformity.
+  Factories: `rational_uniform_space()`, `metric_uniform_space(name, d, member)`.
+
+- **`ProfiniteSpace` / `p_adic_integers(p)` (P9.6)** — inverse limit of finite discrete
+  groups.  `p_adic_integers(p)` builds ℤ_p = lim← ℤ/p ← ℤ/p² ← ℤ/p³ ← … via reduction
+  mod pⁿ.  Compact, T6, totally disconnected, metrizable, second-countable.
+
+```python
+from pytop.experimental.spaces import (
+    hilbert_cube, dyadic_solenoid, stone_cech_n, p_adic_integers,
+    one_point_compactification, rational_uniform_space, UniformProduct,
+    is_compact, is_connected, is_t6, is_first_countable, discrete_finite_space,
+)
+from fractions import Fraction
+
+# Hilbert cube — compact T6, universal compact metrizable space
+hc = hilbert_cube()
+is_t6(hc).value        # True
+is_compact(hc).value   # True
+
+# Dyadic solenoid — compact, connected, NOT locally connected
+sol = dyadic_solenoid()
+sol.contains((Fraction(1,3), Fraction(2,3)))   # True (2·2/3 mod 1 = 1/3)
+sol.certificate("locally_connected").value      # False
+
+# Stone–Čech βℕ — separable but not first-countable
+is_first_countable(stone_cech_n()).value   # False
+
+# p-adic integers ℤ₅ — compatible sequences mod 5^k
+z5 = p_adic_integers(5)
+z5.contains((3, 8, 33))   # True  (8 mod 5 = 3, 33 mod 25 = 8)
+
+# One-point compactification — finite → full topology enumerated
+alpha = one_point_compactification(discrete_finite_space({0, 1}))
+len(list(alpha.open_sets()))   # 8
+
+# Uniform product with sup-metric
+u = rational_uniform_space()
+up = UniformProduct(u, u)
+v = up.point_separation((Fraction(0), Fraction(0)), (Fraction(3,4), Fraction(1,4)))
+v.witness["radius"]   # Fraction(3, 8)
+```
+
+**166 new tests; 11 402 total.**
+
+---
 
 ## What's New in v1.0.9
 

@@ -461,7 +461,7 @@ infinite spaces missing from the current suite.
 | Milestone | Representation | Key certificates | Notes |
 |-----------|---------------|-----------------|-------|
 | **P9.1** | `OnePointCompactificationSpace` | Compact; T2 iff original is locally compact T2; Alexandroff extension | Wraps any existing `Space` |
-| **P9.2** | `StoneCechSpace` (βℕ) | Compact, T6; NOT separable, NOT first-countable; universal compact T2 extension of ℕ | Ultrafilter representation |
+| **P9.2** | `StoneCechSpace` (βℕ) | Compact, T4, separable (ℕ dense), NOT first-countable, NOT T6 | Ultrafilter representation |
 | **P9.3** | `HilbertCubeSpace` ([0,1]^ω) | Compact, T6, second-countable; universal compact metrizable space | Cylinder-neighbourhood certificates |
 | **P9.4** | `SolenoidSpace` | Compact, connected, NOT locally connected; specialises `InverseLimitSpace` with circle bonding maps | |
 | **P9.5** | `UniformSpace` protocol | Uniform covers + completion; Cauchy filter; `UniformProduct`, `UniformSubspace` | New protocol layer |
