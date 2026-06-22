@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-22:** Phase 1 (set-theoretic topology) substantially
+> **Status as of 2026-06-22 (v1.0.7):** Phase 1 (set-theoretic topology) substantially
 > complete; Phase 2 (algebraic topology) **complete** (8 / 8).
 > **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
 > P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
@@ -389,7 +389,25 @@ correction over-adjusted, making remainders exceed the pivot and producing infin
 swap cycles for matrices with negative entries (e.g. seed 3141 in the 150-iteration
 property test). Corrections removed; all property tests pass in < 0.5 s.
 
-**Total: 119 new tests; 10 864 core tests passing (+ 16 opt-in SageMath/SnapPy-oracle tests).**
+**Total (v1.0.6): 119 new tests; 10 864 core tests passing (+ 16 opt-in SageMath/SnapPy-oracle tests).**
+
+### Post-Phase 7 improvements (v1.0.7, 2026-06-22)
+
+**Three new `experimental.spaces` representations (10 → 13 canonical representations):**
+
+| Class | Description | Key certificates | Tests |
+|-------|-------------|-----------------|-------|
+| `ProductMetricSpace` | Product of two metric spaces with sup metric | T0–T6, first-countable, Tychonoff | 20 |
+| `LexicographicSquareSpace` | [0,1]² with lex order topology | T5, compact, connected, Lindelöf, NOT second-countable, NOT separable (cellularity=𝔠) | 29 |
+| `CantorSpaceRepresentation` | {0,1}^ω product topology | T6, compact, totally disconnected, second-countable, separable, all cardinals=ℵ₀ | 25 |
+
+Factory functions: `rational_plane()` (ℚ²), `lexicographic_square()`, `cantor_space()`.
+
+The lex square and Cantor space are the two canonical compact extremes: connected vs. totally
+disconnected; not-second-countable vs. second-countable; cellularity 𝔠 vs. ℵ₀.
+The `ProductMetricSpace` enables composition of arbitrary certified metric spaces.
+
+**Total (v1.0.7): 81 new tests; 10 945 core tests passing (+ 16 opt-in SageMath/SnapPy-oracle tests).**
 
 ---
 
@@ -410,8 +428,8 @@ property test). Corrections removed; all property tests pass in < 0.5 s.
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **10 864** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
-| Representations in `experimental.spaces` | 10 |
+| Tests passing | **10 945** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
+| Representations in `experimental.spaces` | 13 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |

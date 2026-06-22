@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.7] — 2026-06-22
+
+### Added
+
+- **Three new `experimental.spaces` representations** — expands the protocol from 10 to 13
+  canonical representations, each with full `certificate` / `cardinal_certificate` coverage:
+
+  - **`ProductMetricSpace`** — product of two independent metric spaces with the sup metric
+    `d((x₁,y₁),(x₂,y₂)) = max(d_X(x₁,x₂), d_Y(y₁,y₂))`. Inherits all metric-space
+    separation properties (T0–T6, first-countable, Tychonoff). Factory: `rational_plane()`
+    (ℚ²). 20 new tests.
+
+  - **`LexicographicSquareSpace`** — [0,1]² with the lexicographic order topology.
+    Certificates: compact, connected, T5, Lindelöf, first-countable; NOT second-countable,
+    NOT separable (uncountable cellularity = 𝔠). A key counterexample to the
+    "compact T2 ⟹ metrizable" misconception. Factory: `lexicographic_square()`. 29 new tests.
+
+  - **`CantorSpaceRepresentation`** — {0,1}^ω with the product topology. Points as finite
+    binary tuples; separation by clopen cylinders at the first differing bit.
+    Certificates: compact, T6, totally disconnected, second-countable, separable,
+    weight/density/character/cellularity = ℵ₀. Factory: `cantor_space()`. 25 new tests.
+
+- **7 new factory functions** (exported from `pytop.experimental.spaces`):
+  `rational_plane`, `lexicographic_square`, `cantor_space`, plus the three class
+  constructors `ProductMetricSpace`, `LexicographicSquareSpace`, `CantorSpaceRepresentation`.
+
+- **7 new cross-representation contrast tests** verifying mathematical distinctions
+  (connected vs. totally disconnected, second-countable vs. not, T6 vs. undecided, etc.).
+
+**Total: 81 new tests; 10 945 core tests passing (+ 16 opt-in SageMath/SnapPy-oracle tests).**
+
 ## [1.0.6] — 2026-06-22
 
 ### Added
