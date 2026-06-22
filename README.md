@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.0.8-blue)
+![Version](https://img.shields.io/badge/version-1.0.9-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.0.8**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **13 canonical representations**.
+As of **v1.0.9**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **13 canonical representations**.
 
 ## Installation
 
@@ -142,6 +142,12 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Convergence spaces** (v0.6.0) | `experimental.convergence_spaces` |
 | **Computable spaces** (experimental) | `experimental.spaces` — protocol, 16 predicates, reasoning engine, pi-Base bridge, **13 representations** |
 | Cardinal functions | `cardinal_functions_framework`, `cardinal_numbers` |
+| **Derived categories** (v1.0.9+) | `derived_categories` — `mapping_cone_complex`, `derived_functor_h` (Betti + torsion via SNF), `triangulated_structure_check` |
+| **Topos / sheaf theory** (v1.0.9+) | `topos_theory` — `site_from_finite_topology`, `sheaf_on_site`, `sheafification_finite`, `topos_check` (Grothendieck topos) |
+| **Operads** (v1.0.9+) | `operads` — `associahedron_complex` (Stasheff K_n, Catalan vertices), `operad_composition_check`, `bar_construction_sc` |
+| **Higher categories** (v1.0.9+) | `higher_categories` — `nerve_of_category` N(C), `kan_fibration_check_sc`, `homotopy_type_finite_cat` (BC Betti numbers) |
+| **Noncommutative K-theory** (v1.0.9+) | `noncommutative_topology` — `k0_group_matrix_algebra`, `spectral_dimension_finite` (log-log Weyl), `k1_group_matrix_algebra` |
+| **Topological field theory** (v1.0.9+) | `topological_field_theory` — `cobordism_from_handles`, `tqft_dimension_2d`, `handle_signature_tft` (4-manifold handles) |
 | Higher algebra | `operads`, `spectral_sequences` |
 | Higher categories | `higher_categories`, `topological_field_theory` |
 | Cosmology | `cosmology_topology` |
@@ -178,6 +184,36 @@ and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
 
+## What's New in v1.0.9
+
+**Phase 8 — Profile→Computational upgrade: 6 advanced algebra modules, 16 new functions**
+
+Previously tag-based classifier modules promoted to genuine computational engines:
+
+- **`derived_categories` (P8.1)** — `mapping_cone_complex` (block boundary matrix for C(f)_n = A_{n-1}⊕B_n);
+  `derived_functor_h` (H_n from boundary matrices via Betti + torsion through SNF);
+  `triangulated_structure_check` (g∘f=0 + cone Betti comparison).
+- **`topos_theory` (P8.2)** — `site_from_finite_topology` (Grothendieck site from open-set lattice);
+  `sheaf_on_site` (locality + gluing axioms); `sheafification_finite` (one-step F⁺ correction);
+  `topos_check` (terminal object + fiber products + Ω → Grothendieck topos verdict).
+- **`operads` (P8.3)** — `associahedron_complex(n)` (Stasheff K_n as SimplicialComplex; vertices = full
+  binary trees with n leaves, edges = rotation pairs; K₃=interval, K₄=pentagon);
+  `operad_composition_check` (µ(µ(a,b),c) = µ(a,µ(b,c)) for all basis triples);
+  `bar_construction_sc` (bar complex skeletal model).
+- **`higher_categories` (P8.4)** — `nerve_of_category` (N(C) up to dim 2; 2-simplex when composite
+  a→c present for chain a→b→c); `kan_fibration_check_sc` (horn-filling condition);
+  `homotopy_type_finite_cat` (BC = |N(C)| Betti numbers, is_contractible, is_connected).
+- **`noncommutative_topology` (P8.5)** — `k0_group_matrix_algebra(n)` (K₀(Mₙ(ℚ)) ≅ ℤ, identity class = n,
+  Morita invariance); `spectral_dimension_finite` (log-log regression on eigenvalue counting → d_s);
+  `k1_group_matrix_algebra(n)` (K₁(Mₙ(ℚ)) ≅ ℚ*; torsion = ℤ/2).
+- **`topological_field_theory` (P8.6)** — `cobordism_from_handles(n₀,n₁,n₂)` (χ, genus, connectivity);
+  `tqft_dimension_2d(genus)` (Boolean TFT dim=1; A₂ TFT: 2/1/0 for g=0/1/≥2);
+  `handle_signature_tft(n₀,…,n₄)` (4-manifold handles → Euler char, Betti, π₁ flag).
+
+**171 new tests; 11 236 total.**
+
+---
+
 ## What's New in v1.0.8
 
 **Profile→Computational upgrade: 4 modules, 13 new functions**
@@ -200,7 +236,7 @@ Previously tag-based classifier modules promoted to genuine computational engine
 - **`dimension_theory`** — `covering_dimension_simplicial` (max simplex dim);
   `ind_finite_space` (longest strict chain in specialization poset; indiscrete spaces = 0).
 
-**120 new tests; 11 065 total.**
+**120 new tests; 11 065 total (pre-v1.0.9).**
 
 ---
 

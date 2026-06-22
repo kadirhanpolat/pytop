@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-22 (v1.0.8):** Phase 1 (set-theoretic topology) substantially
+> **Status as of 2026-06-23 (v1.0.9):** Phase 1 (set-theoretic topology) substantially
 > complete; Phase 2 (algebraic topology) **complete** (8 / 8).
 > **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
 > P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
@@ -28,7 +28,7 @@
 > surgery theory (handle attachment, trace cobordism), P7.6 Morse complex (gradient
 > V-path counting, Morse boundary operator, Morse homology theorem cross-validated).
 > **153 new tests; 9 959 core tests at release; 10 864 after v1.0.6; 10 945 after v1.0.7;
-> 11 065 after v1.0.8 profile→computational upgrades.**
+> 11 065 after v1.0.8 profile→computational upgrades; **11 236 after v1.0.9 Phase 8.**
 > **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs for SNF (0 sorry),
 > set topology — 34 theorems (T₀–T₄, closure/interior duality, compactness, diagonal
 > characterisation; 0 sorry) + **24 alternative proofs** in 5 strategies (by contradiction,
