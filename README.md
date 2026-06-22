@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.0.6-blue)
+![Version](https://img.shields.io/badge/version-1.0.7-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.0.6**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology.
+As of **v1.0.7**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), a **pi-Base–backed deductive inference engine**, and a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **13 canonical representations**.
 
 ## Installation
 
@@ -140,7 +140,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Graph planarity** (v0.6.0) | `graph_planarity` — O(V+E) left-right planarity test (Brandes 2009) |
 | **Deductive inference** (v0.6.0) | `experimental.pi_base`, `experimental.pi_base_atlas` |
 | **Convergence spaces** (v0.6.0) | `experimental.convergence_spaces` |
-| **Computable spaces** (experimental) | `experimental.spaces` — protocol, 16 predicates, reasoning engine, pi-Base bridge |
+| **Computable spaces** (experimental) | `experimental.spaces` — protocol, 16 predicates, reasoning engine, pi-Base bridge, **13 representations** |
 | Cardinal functions | `cardinal_functions_framework`, `cardinal_numbers` |
 | Higher algebra | `operads`, `spectral_sequences` |
 | Higher categories | `higher_categories`, `topological_field_theory` |
@@ -178,6 +178,72 @@ and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
 
+## What's New in v1.0.7
+
+**`experimental.spaces` extended representations (10 → 13):**
+
+Three new canonical infinite-space representations expand the computable-space protocol:
+
+- **`ProductMetricSpace`** — product of two metric spaces with the sup metric
+  `d((x₁,y₁),(x₂,y₂)) = max(d_X(x₁,x₂), d_Y(y₁,y₂))`. Inherits all metric-space separation
+  properties (T0–T6, first-countable, Tychonoff). Factory: `rational_plane()` builds ℚ².
+- **`LexicographicSquareSpace`** — [0,1]² with the lexicographic order topology (the canonical
+  example of a compact T5 space that is NOT metrizable). Certificates: compact, connected, T5,
+  Lindelöf, first-countable; NOT second-countable, NOT separable (cellularity = 𝔠).
+  `point_separation` splits at a rational midpoint in the first coordinate, or within the fiber
+  for equal first coordinates. Factory: `lexicographic_square()`.
+- **`CantorSpaceRepresentation`** — {0,1}^ω with the product topology. Points as finite binary
+  tuples; `point_separation` returns the clopen cylinder at the first differing bit
+  (undecidable when one tuple is a prefix of the other — honest!). Certificates: compact, T6,
+  totally disconnected, second-countable, separable; weight = density = character = cellularity = ℵ₀.
+  Brouwer's theorem: every compact metrizable zero-dimensional perfect space is homeomorphic to
+  the Cantor space. Factory: `cantor_space()`.
+
+```python
+from pytop.experimental.spaces import (
+    rational_plane, lexicographic_square, cantor_space,
+    is_hausdorff, is_compact, is_connected, is_second_countable, is_separable,
+    is_t5, is_t6,
+)
+from pytop.experimental.spaces.cardinal_invariants import cellularity, character
+from pytop.experimental.spaces.core import CardinalValue
+
+# ℚ² — product metric space
+q2 = rational_plane()
+is_hausdorff(q2).value                          # True  (metric space)
+is_t6(q2).value                                 # True  (metrizable → perfectly normal)
+q2.point_separation((0, 0), (1, 0)).witness[0][1]  # Fraction(1, 2)  (sup-ball radius)
+
+# Lex square — compact T5 but NOT second-countable
+lex = lexicographic_square()
+is_compact(lex).value                           # True
+is_connected(lex).value                         # True
+is_t5(lex).value                                # True
+is_second_countable(lex).value                  # False  (uncountable cellularity)
+is_separable(lex).value                         # False
+cellularity(lex)                                # CardinalValue(symbol='𝔠')
+character(lex)                                  # CardinalValue(symbol='ℵ₀')
+
+# Cantor space — compact, totally disconnected, perfect
+cs = cantor_space()
+is_compact(cs).value                            # True
+is_connected(cs).value                          # False  (totally disconnected)
+is_t6(cs).value                                 # True
+is_second_countable(cs).value                   # True
+character(cs)                                   # CardinalValue(symbol='ℵ₀')
+
+# Separation: clopen cylinder at first differing bit
+cs.point_separation((0, 1, 0), (0, 1, 1)).witness  # {'bit_position': 2, 'value': 0}
+
+# Prefix → honest undecidable
+from pytop.experimental.spaces.core import Decidability
+cs.point_separation((0, 1), (0, 1, 0)).decidability  # Decidability.UNDECIDABLE
+```
+
+**10 945 tests passing** (+ 16 opt-in SageMath/SnapPy-oracle tests).
+
+---
+
 ## What's New in v1.0.6
 
 **Profile→Computational engine upgrades (6 modules) + critical `_snf_ext` bug fix:**
@@ -203,7 +269,7 @@ Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.
   remainder exceed the pivot and triggering infinite swap cycles. Removed. All 150-iteration
   property tests now pass in < 0.5 s.
 
-**10 864 tests passing** (+ 16 opt-in SageMath/SnapPy-oracle tests).
+**10 864 tests passing when released** (+ 16 opt-in SageMath/SnapPy-oracle tests).
 
 ---
 
