@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.6.0**, pytop ships **16 complete research phases** with 11,748+ tests. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16**: empirical validation & oracle ecosystem — **P16.1 ✅** (benchmark: 37 tests, minimal triangulations, 40-knot table, large graphs); **P16.2 ✅** (oracle parity: 40 primes, SnapPy H₁, K-theory AHSS, 8 tests); **P16.3 ✅** (statistical: 10K ER 1-skeleta, 100% success). **Phase 18 ✅** (documentation & pedagogy): **P18.1** user guide 16 chapters (85-page PDF, TikZ→PNG, pedagogy blocks); **P18.2** API docs (225 Sphinx modules, HTML build, ReadTheDocs); **P18.3** example bank (36+ worked examples, 8 categories).
+As of **v1.6.0**, pytop ships **16 complete research phases** with 11,859+ tests. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ **empirical validation & oracle ecosystem** — **P16.1 ✅** (benchmark: 37 tests, minimal triangulations, 45-knot table, large graphs); **P16.2 ✅ AUTONOMOUS** (oracle parity framework: 45 primes unknot–10_5, GUDHI/Ripser/SnapPy/Sage adapters, OracleAgreementBuilder orchestration, automated JSON+Markdown reports, 11 tests); **P16.3 ✅** (statistical: 10K ER 1-skeleta, 100% success). **Phase 18 ✅** (documentation & pedagogy): **P18.1** user guide 16 chapters (85-page PDF, TikZ→PNG, pedagogy blocks); **P18.2** API docs (225 Sphinx modules, HTML build, ReadTheDocs); **P18.3** example bank (36+ worked examples, 8 categories).
 
 ## Installation
 
@@ -190,6 +190,41 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New in v1.6.0
+
+**Phase 16 — Empirical Validation & Oracle Ecosystem (P16.1–P16.3 complete)**
+
+Cross-validates pytop against independent gold-standard external systems via unified oracle framework.
+
+- **P16.1: Benchmark Suite (37 tests)** — Minimal triangulations (T², Klein, ℝP²), 45-prime knot table (unknot–10_5), large grid graphs (3×3–40×40), performance baselines.
+
+- **P16.2: Oracle Parity Framework ✅ AUTONOMOUS** — Unified adapter system for external systems:
+  - **`oracle_integrations.py`** — Abstract `OracleAdapter` with 4 concrete implementations:
+    * `GudhiOracleAdapter`: persistent homology Rips/Čech Betti computation
+    * `RipserOracleAdapter`: fast R-based persistent homology  
+    * `SnapPyOracleAdapter`: Dehn surgery H₁, knot invariants (Docker opt-in `PYTOP_SNAPPY_ORACLE=1`)
+    * `SageOracleAdapter`: K-theory rational groups, polynomial computation (Docker opt-in `PYTOP_SAGE_ORACLE=1`)
+  - **`oracle_agreement_builder.py`** — Orchestration engine:
+    * `OracleAgreementBuilder`: runs cross-oracle tests (polynomials, Betti, K-theory)
+    * `AgreementMatrixReport`: aggregates results, exports JSON + Markdown with agreement rates
+  - **`run_p16_2_oracle_agreement.py`** — Autonomous CLI runner:
+    * `--fast` mode: sample validation (~0.5s)
+    * `--full` mode: comprehensive cross-checks (~2–5min with all oracles)
+    * Auto-detects available oracles, gracefully skips unavailable systems
+    * JSON/Markdown reports with detailed agreement/disagreement breakdown
+  - Extended knot table: 40 → 45 primes (added 10-crossing knots 10_1–10_5)
+  - **11 new tests**: oracle availability, adapter initialization, persistent Betti agreement (GUDHI/Ripser), polynomial reference validation
+  - **Framework ready for**: PyPI publication, CI/CD integration, automated oracle matrix population
+
+- **P16.3: Statistical Validation (10,000 tests)** — Random Erdős–Rényi 1-skeleta (5–50 vertices):
+  - `test_10k_random_complexes_vs_oracles`: validates pytop H₀/H₁ on 10K random inputs (100% success, avg 6.26ms/complex)
+  - Outlier analysis and JSON report generation
+  - Framework ready for larger scales (50K+) and parallelization
+
+**Phase 18 — Documentation & Pedagogy ✅ (P18.1–P18.3 complete)**
+
+Complete user guide and API reference (16 chapters, 225 modules, 36+ examples).
 
 ## What's New in v1.2.0
 
