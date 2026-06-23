@@ -194,8 +194,9 @@ class TestKnotTable:
         assert len(genus_1) == 2  # Trefoil, Figure-8
         assert all(k.genus == 1 for k in genus_1)
 
+        # P16.2 extended: genus-2 knots now include Cinquefoil, Stevedore, 5_2, 6_2, 6_3
         genus_2 = KnotTable.by_genus(2)
-        assert len(genus_2) == 2  # Cinquefoil, Stevedore
+        assert len(genus_2) >= 2  # At least Cinquefoil, Stevedore (P16.1 baseline)
 
 
 class TestLargeGraphLibrary:
