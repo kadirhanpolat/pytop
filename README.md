@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.6.0** (released; development continues at `1.6.1.dev0`), pytop ships **20 phases** with 11,897 tests passing (22 skipped: opt-in Ripser/SnapPy/Sage oracles) on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, and **oracle parity now wired to GUDHI** — P16.2 cross-checks pytop's persistent Betti numbers against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures), and **P16.3 cross-validates the full 10 000-complex statistical run against GUDHI at 100.0% parity** (0 outliers, avg 4.35 ms/complex). **Phase 17** 🔄 **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 🚧** scaling — **inductive Vietoris–Rips construction shipped (~14–19× filtration-build speedup, byte-identical output)**; the Z/2 reduction is now the dominant cost for dense high-n. **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** 🔄 **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** 🔄 **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 🚧** PyPI publishing; **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates).
+As of **v1.6.0** (released; development continues at `1.6.1.dev0`), pytop ships **20 phases** with 11,903 tests passing (22 skipped: opt-in Ripser/SnapPy/Sage oracles) on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, and **oracle parity now wired to GUDHI** — P16.2 cross-checks pytop's persistent Betti numbers against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures), and **P16.3 cross-validates the full 10 000-complex statistical run against GUDHI at 100.0% parity** (0 outliers, avg 4.35 ms/complex). **Phase 17** 🔄 **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 🚧** scaling — **inductive Vietoris–Rips construction shipped (~14–19× filtration-build speedup, byte-identical output)**; the Z/2 reduction is now the dominant cost for dense high-n. **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** 🔄 **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** 🔄 **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 🚧** PyPI publishing; **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates).
 
 ## Installation
 
@@ -222,7 +222,7 @@ calling `compute_persistence(persistence_dim_max=True)` then `betti_numbers()`
 fixes it. An always-on `test_500_random_complexes_gudhi_parity` guard now asserts
 100% pytop=GUDHI in the default suite. Ripser is not applicable to abstract
 1-skeleta (point-cloud parity stays in `test_betti_parity.py`). Validation suite
-79 → 98 passing.
+79 → 104 passing.
 
 **P17.3 — Inductive Vietoris–Rips construction (~14–19× faster builds).** Profiling
 showed the *filtration build* — not the reduction — dominated the truncated-scale
@@ -250,7 +250,7 @@ backfilled the missing `v1.4.0`/`v1.5.0` release tags and tagged `v1.6.0`.
 
 Cross-validates pytop against independent gold-standard external systems via unified oracle framework.
 
-- **P16.1: Benchmark Suite (37 tests)** — Minimal triangulations (T², Klein, ℝP²), 45-prime knot table (unknot–10_5), large grid graphs (3×3–40×40), performance baselines.
+- **P16.1: Benchmark Suite (37 tests)** — Minimal triangulations (T², Klein, ℝP²), 51-prime knot table (unknot–17_1), large grid graphs (3×3–40×40), performance baselines.
 
 - **P16.2: Oracle Parity Framework ✅ AUTONOMOUS** — Unified adapter system for external systems:
   - **`oracle_integrations.py`** — Abstract `OracleAdapter` with 4 concrete implementations:
@@ -266,7 +266,7 @@ Cross-validates pytop against independent gold-standard external systems via uni
     * `--full` mode: comprehensive cross-checks (~2–5min with all oracles)
     * Auto-detects available oracles, gracefully skips unavailable systems
     * JSON/Markdown reports with detailed agreement/disagreement breakdown
-  - Extended knot table: 40 → 45 primes (added 10-crossing knots 10_1–10_5)
+  - Extended knot table: 40 → **51 primes** (10-crossing 10_1–10_5 + a *verified* torus-knot tail — T(3,5)=10_124 and T(2,11..17)). The torus tail and 7 corrected low-crossing entries (4_1, 5_1, 5_2, 6_2, 6_3, 7_1, 8_19) carry pytop-recomputed invariants (Burau Alexander + braid-closure→PD Kauffman Jones), each triple-checksummed against the knot determinant (|Δ(−1)| = |V(−1)| = det, V(1)=1). Legacy 8_x/9_x/10_x Jones entries still need a Sage/KnotInfo backfill.
   - **11 new tests**: oracle availability, adapter initialization, persistent Betti agreement (GUDHI/Ripser), polynomial reference validation
   - **Framework ready for**: PyPI publication, CI/CD integration, automated oracle matrix population
 
