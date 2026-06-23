@@ -931,11 +931,19 @@ def vietoris_rips_filtration(
     """
 
     if max_dimension < 0:
-        raise ValueError("max_dimension must be nonnegative.")
+        raise ValueError(
+            f"max_dimension must be nonnegative (got {max_dimension}). "
+            "This sets the highest simplex dimension to include; pass 1 for edges only, "
+            "2 for triangles, etc."
+        )
     points = list(space.carrier)
     n = len(points)
     if n == 0:
-        raise ValueError("Vietoris-Rips filtration requires a nonempty point set.")
+        raise ValueError(
+            "Vietoris-Rips filtration requires a nonempty point set. "
+            "Pass a space object with at least one point. "
+            "Example: FiniteMetricSpace(carrier=[(0,0), (1,1)], distance=math.dist)"
+        )
 
     def dist(i: int, j: int) -> float:
         return float(space.distance_between(points[i], points[j]))
@@ -1067,7 +1075,10 @@ def persistent_homology(
 
     if method not in ("twist", "standard", "cohomology"):
         raise ValueError(
-            f"method must be 'twist', 'standard', or 'cohomology'; got {method!r}"
+            f"method must be one of 'twist', 'standard', or 'cohomology'; got {method!r}. "
+            "'twist': (default) Chen-Kerber 2011 with Clearing Lemma (~1-3x speedup). "
+            "'standard': Simple Z/2 reduction (for verification). "
+            "'cohomology': Incremental cocycle algorithm (often faster on Rips)."
         )
 
     filtered = vietoris_rips_filtration(
