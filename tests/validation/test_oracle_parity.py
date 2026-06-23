@@ -285,6 +285,37 @@ class TestOracleParity:
                 f"(jones_poly={knot.jones_poly!r})"
             )
 
+    def test_all_alexander_satisfy_delta1_unit(self):
+        """Universal guard: every knot's Alexander polynomial has |Δ(1)| = 1.
+
+        Δ_K(1) = ±1 for any knot. At t=1 every t^e = 1, so the signed-coefficient
+        sum equals Δ(1); this catches corrupted/placeholder entries (several legacy
+        8ₓ/9ₓ/10ₓ Alexander strings had |Δ(1)| ≠ 1).
+        """
+
+        def coef_sum(poly: str) -> int:
+            s = poly.strip()
+            lead = -1 if s[0] == "-" else 1
+            if s[0] in "+-":
+                s = s[1:].strip()
+            parts = re.split(r"\s([+-])\s", s)
+
+            def coef(term: str) -> int:
+                m = re.match(r"(\d+)", term)
+                return int(m.group(1)) if m else 1
+
+            total = lead * coef(parts[0])
+            for i in range(1, len(parts), 2):
+                total += (1 if parts[i] == "+" else -1) * coef(parts[i + 1])
+            return total
+
+        for knot in KnotTable.KNOTS:
+            d1 = coef_sum(knot.alexander_poly)
+            assert abs(d1) == 1, (
+                f"{knot.name}: Δ(1) = {d1}, |Δ(1)| != 1 "
+                f"(alexander_poly={knot.alexander_poly!r})"
+            )
+
     def test_oracle_integrations_available(self):
         """P16.2: Verify oracle adapter framework is accessible."""
         from tests.validation.oracle_integrations import (

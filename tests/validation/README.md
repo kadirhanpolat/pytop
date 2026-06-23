@@ -38,8 +38,9 @@ against the knot determinant (|Δ(−1)| = |V(−1)| = det, V(1)=1). The 8ₓ/9�
 (plus Stevedore 6₁ and 7₂–7₇) were **backfilled from the SageMath oracle**
 (`Knots().from_table(n,k).jones_polynomial()`), mirror-calibrated to the table convention
 and each verified |V(−1)| = det and V(1) = 1; a universal `test_all_jones_satisfy_v1_equals_one`
-guard now locks every entry. (Alexander polynomials for some 8ₓ/9ₓ/10ₓ entries remain
-sign/placeholder-imperfect and are a separate follow-up.)
+guard now locks every entry. The matching **Alexander** polynomials for those entries were also
+backfilled from Sage (`alexander_polynomial()`, canonical Δ(1)=+1, det-verified), locked by a
+universal `test_all_alexander_satisfy_delta1_unit` guard (|Δ(1)| = 1).
 
 **Validation:** Polynomials against Sage/SnapPy oracles (P16.2 in progress).
 
