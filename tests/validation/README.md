@@ -26,12 +26,18 @@ Reference knot database with polynomial invariants:
 |------|-----------|-------|---|---|
 | Unknot | 0 | 0 | 1 | 1 |
 | Trefoil (3₁) | 3 | 1 | -t⁻¹ + 1 - t | q + q³ - q⁴ |
-| Figure-8 (4₁) | 4 | 1 | -t⁻¹ - 1 + t | -q⁻² + 1 - q² |
-| Cinquefoil (5₁) | 5 | 2 | -t⁻² + t⁻¹ - 1 + t - t² | q² + q⁴ + q⁶ - q⁷ - q⁸ |
+| Figure-8 (4₁) | 4 | 1 | t⁻¹ - 3 + t | q⁻² - q⁻¹ + 1 - q + q² |
+| Cinquefoil (5₁) | 5 | 2 | t⁻² - t⁻¹ + 1 - t + t² | q² + q⁴ - q⁵ + q⁶ - q⁷ |
 | Stevedore (6₁) | 6 | 2 | t⁻² - t⁻¹ + 1 - t + t² | q⁻⁴ - q⁻² + 1 - q² + q⁴ |
-| Septafoil (7₁) | 7 | 3 | -t⁻³ + t⁻² - t⁻¹ + 1 - t + t² - t³ | q³ + q⁵ + q⁷ + q⁹ - q¹⁰ - q¹¹ - q¹² |
+| Septafoil (7₁) | 7 | 3 | t⁻³ - t⁻² + t⁻¹ - 1 + t - t² + t³ | q³ + q⁵ - q⁶ + q⁷ - q⁸ + q⁹ - q¹⁰ |
 
-**Validation:** Polynomials against Sage SnapPy oracles (P16.2 in progress).
+The table now holds **51 primes** (unknot–17_1). The torus-knot tail (T(3,5)=10_124,
+T(2,11..17)) and the corrected low-crossing entries above carry pytop-recomputed
+invariants — Burau Alexander + braid-closure→PD Kauffman Jones — each triple-checksummed
+against the knot determinant (|Δ(−1)| = |V(−1)| = det, V(1)=1). Stevedore (6₁) and the
+legacy 8ₓ/9ₓ/10ₓ Jones entries still await a Sage/KnotInfo backfill.
+
+**Validation:** Polynomials against Sage/SnapPy oracles (P16.2 in progress).
 
 ---
 
@@ -178,7 +184,7 @@ PYTOP_STATISTICAL_VALIDATION=1 pytest "tests/validation/test_statistical_validat
 
 - `MinimalTriangulations` — Torus, Klein, RP² filtrations
 - `GraphExamples` — Small planar/non-planar examples
-- `KnotTable` — 40 reference prime knots with invariants (P16.2 expansion)
+- `KnotTable` — 51 reference prime knots with invariants (P16.2 expansion, unknot–17_1)
 - `GridGraphLibrary` — Large grids (3×3 to 40×40)
 - `BaselineResults` — Expected homology/planarity results
 

@@ -182,16 +182,18 @@ class KnotTable:
         name="figure8_4_1",
         crossing_number=4,
         genus=1,
-        alexander_poly="-t^{-1} - 1 + t",
-        jones_poly="-q^{-2} + 1 - q^2",
+        # verified: |Delta(-1)| = |V(-1)| = 5 (knot determinant); V(1)=1
+        alexander_poly="t^{-1} - 3 + t",
+        jones_poly="q^{-2} - q^{-1} + 1 - q + q^2",
     )
 
     CINQUEFOIL = KnotEntry(
         name="cinquefoil_5_1",
         crossing_number=5,
         genus=2,
-        alexander_poly="-t^{-2} + t^{-1} - 1 + t - t^2",
-        jones_poly="q^2 + q^4 + q^6 - q^7 - q^8",
+        # T(2,5) torus knot; verified |Delta(-1)| = |V(-1)| = 5, V(1)=1
+        alexander_poly="t^{-2} - t^{-1} + 1 - t + t^2",
+        jones_poly="q^2 + q^4 - q^5 + q^6 - q^7",
     )
 
     STEVEDORE = KnotEntry(
@@ -206,8 +208,9 @@ class KnotTable:
         name="septafoil_7_1",
         crossing_number=7,
         genus=3,
-        alexander_poly="-t^{-3} + t^{-2} - t^{-1} + 1 - t + t^2 - t^3",
-        jones_poly="q^3 + q^5 + q^7 + q^9 - q^{10} - q^{11} - q^{12}",
+        # T(2,7) torus knot; verified |Delta(-1)| = |V(-1)| = 7, V(1)=1
+        alexander_poly="t^{-3} - t^{-2} + t^{-1} - 1 + t - t^2 + t^3",
+        jones_poly="q^3 + q^5 - q^6 + q^7 - q^8 + q^9 - q^{10}",
     )
 
     # Extended knot table for P16.2 oracle parity (additional prime knots up to 8 crossings)
@@ -216,24 +219,27 @@ class KnotTable:
         name="5_2",
         crossing_number=5,
         genus=2,
-        alexander_poly="t^{-2} - t^{-1} + 1 - t + t^2",
-        jones_poly="q^{-2} + q^{-1} - 1 + q - q^2",
+        # verified |Delta(-1)| = |V(-1)| = 7, V(1)=1
+        alexander_poly="2t^{-1} - 3 + 2t",
+        jones_poly="q - q^2 + 2q^3 - q^4 + q^5 - q^6",
     )
 
     KNOT_6_2 = KnotEntry(
         name="6_2",
         crossing_number=6,
         genus=2,
-        alexander_poly="-t^{-2} + 1 - t^2",
-        jones_poly="-q^{-3} + q^{-2} + 1 - q^2 + q^3",
+        # verified |Delta(-1)| = |V(-1)| = 11, V(1)=1
+        alexander_poly="t^{-2} - 3t^{-1} + 3 - 3t + t^2",
+        jones_poly="q^{-1} - 1 + 2q - 2q^2 + 2q^3 - 2q^4 + q^5",
     )
 
     KNOT_6_3 = KnotEntry(
         name="6_3",
         crossing_number=6,
         genus=2,
-        alexander_poly="-t^{-2} - 1 + t^2",
-        jones_poly="q^{-4} - q^{-3} + q^{-2} - q^{-1} + 1 - q + q^2",
+        # verified |Delta(-1)| = |V(-1)| = 13, V(1)=1
+        alexander_poly="t^{-2} - 3t^{-1} + 5 - 3t + t^2",
+        jones_poly="-q^{-3} + 2q^{-2} - 2q^{-1} + 3 - 2q + 2q^2 - q^3",
     )
 
     KNOT_7_2 = KnotEntry(
@@ -431,9 +437,10 @@ class KnotTable:
     KNOT_8_19 = KnotEntry(
         name="8_19",
         crossing_number=8,
-        genus=4,
-        alexander_poly="-t^{-4} + t^{-2} - 1 + t^2",
-        jones_poly="q^{-8} - q^{-7} + q^{-6} - q^{-4} + 1 - q^4 + q^6",
+        genus=3,  # (3,4) torus knot: genus = (3-1)(4-1)/2 = 3
+        # T(3,4) torus knot; verified |Delta(-1)| = |V(-1)| = 3, V(1)=1
+        alexander_poly="t^{-3} - t^{-2} + 1 - t^2 + t^3",
+        jones_poly="q^3 + q^5 - q^8",
     )
 
     KNOT_8_20 = KnotEntry(
@@ -533,7 +540,74 @@ class KnotTable:
         jones_poly="-q^{-8} - q^{-6} + q^{-2} + 1 - q^2 + q^6",
     )
 
-    # Extended reference table: 25 → 45+ prime knots (unknot through 10_5)
+    # Torus knots T(m, n) — verified reference data (expands table past 50 primes).
+    # Alexander: computed by pytop's oracle-validated reduced-Burau engine from the
+    #   braid closure (T(2,n) = sigma_1^n on 2 strands; T(3,5) = (sigma_1 sigma_2)^5).
+    # Jones: exact torus closed form
+    #   V_{T(m,n)}(q) = q^{(m-1)(n-1)/2} (1 - q^{m+1} - q^{n+1} + q^{m+n}) / (1 - q^2),
+    #   self-checked against TREFOIL = T(2,3) -> "q + q^3 - q^4".
+    # Alexander is normalized to the canonical symmetric form (leading coeff +1);
+    # this is well-defined up to a unit +-t^k, so it may differ by an overall sign
+    # from some legacy entries above while denoting the same polynomial.
+    KNOT_10_124 = KnotEntry(  # (3,5) torus knot — the only torus knot at 10 crossings
+        name="10_124",
+        crossing_number=10,
+        genus=4,
+        alexander_poly="t^{-4} - t^{-3} + t^{-1} - 1 + t - t^3 + t^4",
+        jones_poly="q^4 + q^6 - q^{10}",
+    )
+
+    KNOT_11_1 = KnotEntry(  # (2,11) torus knot
+        name="11_1",
+        crossing_number=11,
+        genus=5,
+        alexander_poly="t^{-5} - t^{-4} + t^{-3} - t^{-2} + t^{-1} - 1 + t - t^2 + t^3 - t^4 + t^5",
+        jones_poly="q^5 + q^7 - q^8 + q^9 - q^{10} + q^{11} - q^{12} + q^{13} - q^{14} + q^{15} - q^{16}",
+    )
+
+    KNOT_13_1 = KnotEntry(  # (2,13) torus knot
+        name="13_1",
+        crossing_number=13,
+        genus=6,
+        alexander_poly=(
+            "t^{-6} - t^{-5} + t^{-4} - t^{-3} + t^{-2} - t^{-1} + 1 "
+            "- t + t^2 - t^3 + t^4 - t^5 + t^6"
+        ),
+        jones_poly=(
+            "q^6 + q^8 - q^9 + q^{10} - q^{11} + q^{12} - q^{13} + q^{14} "
+            "- q^{15} + q^{16} - q^{17} + q^{18} - q^{19}"
+        ),
+    )
+
+    KNOT_15_1 = KnotEntry(  # (2,15) torus knot
+        name="15_1",
+        crossing_number=15,
+        genus=7,
+        alexander_poly=(
+            "t^{-7} - t^{-6} + t^{-5} - t^{-4} + t^{-3} - t^{-2} + t^{-1} - 1 "
+            "+ t - t^2 + t^3 - t^4 + t^5 - t^6 + t^7"
+        ),
+        jones_poly=(
+            "q^7 + q^9 - q^{10} + q^{11} - q^{12} + q^{13} - q^{14} + q^{15} "
+            "- q^{16} + q^{17} - q^{18} + q^{19} - q^{20} + q^{21} - q^{22}"
+        ),
+    )
+
+    KNOT_17_1 = KnotEntry(  # (2,17) torus knot
+        name="17_1",
+        crossing_number=17,
+        genus=8,
+        alexander_poly=(
+            "t^{-8} - t^{-7} + t^{-6} - t^{-5} + t^{-4} - t^{-3} + t^{-2} - t^{-1} + 1 "
+            "- t + t^2 - t^3 + t^4 - t^5 + t^6 - t^7 + t^8"
+        ),
+        jones_poly=(
+            "q^8 + q^{10} - q^{11} + q^{12} - q^{13} + q^{14} - q^{15} + q^{16} "
+            "- q^{17} + q^{18} - q^{19} + q^{20} - q^{21} + q^{22} - q^{23} + q^{24} - q^{25}"
+        ),
+    )
+
+    # Extended reference table: 25 -> 51 prime knots (unknot through 17_1 torus knot)
     KNOTS = [
         UNKNOT, TREFOIL, FIGURE8, CINQUEFOIL, STEVEDORE, SEPTAFOIL,
         KNOT_5_2, KNOT_6_2, KNOT_6_3, KNOT_7_2, KNOT_7_3, KNOT_7_4,
@@ -543,6 +617,7 @@ class KnotTable:
         KNOT_8_17, KNOT_8_18, KNOT_8_19, KNOT_8_20, KNOT_8_21,
         KNOT_9_1, KNOT_9_2, KNOT_9_3, KNOT_9_4, KNOT_9_5,
         KNOT_10_1, KNOT_10_2, KNOT_10_3, KNOT_10_4, KNOT_10_5,
+        KNOT_10_124, KNOT_11_1, KNOT_13_1, KNOT_15_1, KNOT_17_1,
     ]
 
     @classmethod

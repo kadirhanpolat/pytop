@@ -20,7 +20,8 @@ against external gold-standard systems:
   Reference: Sage's K-theory module and knot package
 
 * **KnotInfo** — Alexander/Jones polynomial reference (offline)
-  Embedded in fixtures.py::KnotTable (45 primes, unknot–10_5)
+  Embedded in fixtures.py::KnotTable (51 primes, unknot–17_1; the torus-knot
+  tail T(3,5)/T(2,11..17) carries pytop-computed Alexander + exact closed-form Jones)
 
 All tests are optional (skipped gracefully if oracles unavailable).
 Produces comprehensive agreement matrix + JSON/Markdown reports on successful run.
@@ -228,13 +229,29 @@ class TestOracleParity:
         assert "dehn_surgery_h1_agree_rate" in summary["snappy"]
         assert summary["snappy"]["dehn_surgery_h1_agree_rate"] == "2/2"
 
-    def test_knot_table_expanded_45_knots(self):
-        """P16.2: Verify extended knot table has 45+ primes (unknot–10_5)."""
-        assert len(KnotTable.KNOTS) >= 45, f"Expected 45+ knots, got {len(KnotTable.KNOTS)}"
-        # Verify 10-crossing knots present
+    def test_knot_table_expanded_50_knots(self):
+        """P16.2: Verify extended knot table has 50+ primes (unknot–17_1)."""
+        assert len(KnotTable.KNOTS) >= 50, f"Expected 50+ knots, got {len(KnotTable.KNOTS)}"
         knot_names = {k.name for k in KnotTable.KNOTS}
+        # 10-crossing knots present
         for knot_id in ["10_1", "10_2", "10_3", "10_4", "10_5"]:
             assert knot_id in knot_names, f"Missing knot {knot_id}"
+        # Verified torus-knot tail present
+        for knot_id in ["10_124", "11_1", "13_1", "15_1", "17_1"]:
+            assert knot_id in knot_names, f"Missing torus knot {knot_id}"
+
+    def test_torus_knot_invariants_verified(self):
+        """The torus-knot tail carries the famous closed-form invariants.
+
+        T(3,5) = 10_124 has Jones q^4 + q^6 - q^{10}; the (2,n) torus knots
+        have full-width symmetric Alexander polynomials of degree (n-1).
+        """
+        by_name = {k.name: k for k in KnotTable.KNOTS}
+        assert by_name["10_124"].jones_poly == "q^4 + q^6 - q^{10}"
+        # T(2,11): Alexander spans t^{-5}..t^5 (degree 5 = genus).
+        assert by_name["11_1"].genus == 5
+        assert "t^5" in by_name["11_1"].alexander_poly
+        assert "t^{-5}" in by_name["11_1"].alexander_poly
 
     def test_oracle_integrations_available(self):
         """P16.2: Verify oracle adapter framework is accessible."""
