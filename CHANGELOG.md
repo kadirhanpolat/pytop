@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] — 2026-06-23
+
+### Added
+
+- **Phase 16 — Empirical validation & oracle ecosystem.**
+  - **P16.1 — Benchmark suite** (`tests/validation/`): minimal triangulations
+    (T²/Klein/ℝP² with verified Betti/torsion), a 40+-prime knot table
+    (unknot–9_5 with Alexander/Jones), and a large grid library (3×3–40×40, all
+    confirmed planar). 37 tests.
+  - **P16.3 — Statistical validation:** 10,000 random Erdős–Rényi 1-skeleta
+    (5–50 vertices), pytop H₀/H₁ computed with 100% success (avg ~6 ms/complex),
+    outlier analysis, JSON report.
+
 ### Changed
 
 - **P17.3 — Inductive Vietoris–Rips construction (~14–19× faster filtration builds).**
@@ -39,6 +52,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Latent `BettiResult.torsion` type bug (`list = None` → `list | None = None`) and
   the previously broken death-count Betti comparison in the oracle agreement builder.
+- Latent `_gpu_backend` bug: `ReductionStats` was built with the read-only
+  `clearing_ratio` property and missing required fields (would crash if the cupy
+  path ran); also removed a dead Clearing-sweep stub.
+
+### Maintenance
+
+- Repo-wide lint/type cleanup: `src/pytop` is ruff-clean **and** mypy-clean
+  (244 files) and the full `src/`+`tests/` tree passes ruff (was 236 ruff + 12
+  mypy errors). Behavior-preserving.
+- Version handling: `pyproject.toml` and `__version__` kept in sync; backfilled
+  the missing `v1.4.0` and `v1.5.0` release tags.
 
 ## [1.5.0] — 2026-06-23
 
