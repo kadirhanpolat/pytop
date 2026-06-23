@@ -565,7 +565,7 @@ to the main computational engines. 0-sorry rule holds throughout; corpus grows f
 | Phase 10 milestones complete | 5 / 5 ✅ (scale & algorithm) |
 | Phase 11 milestones complete | 5 / 5 ✅ (Lean formal verification expansion) |
 | Phase 12 milestones complete | 2 / 5 ✅⬜ (sheaf cohomology, persistent K-theory done) |
-| **Current version** | **v1.3.0** |
+| **Current version** | **v1.4.0** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 

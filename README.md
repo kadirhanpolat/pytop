@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.3.0-blue)
+![Version](https://img.shields.io/badge/version-1.4.0-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.3.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **19 canonical representations** (**Phase 9 complete**), **scale & algorithm engines** (sparse SNF, parallel Khovanov, witness complex, streaming persistence, optional GPU backend — **Phase 10 complete**), a **pi-Base–backed deductive inference engine**, and a **Lean 4 formal verification corpus** (11 proof files, 0 sorry — SNF correctness, set/metric topology, persistence reduction, Mayer–Vietoris, van Kampen, cohomology ring, spectral sequences — **Phase 11 complete**).
+As of **v1.4.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **19 canonical representations** (**Phase 9 complete**), **scale & algorithm engines** (sparse SNF, parallel Khovanov, witness complex, streaming persistence, optional GPU backend — **Phase 10 complete**), a **pi-Base–backed deductive inference engine**, a **Lean 4 formal verification corpus** (11 proof files, 0 sorry — SNF correctness, set/metric topology, persistence reduction, Mayer–Vietoris, van Kampen, cohomology ring, spectral sequences — **Phase 11 complete**), and **research frontier engines** (Čech sheaf cohomology on finite spaces via Leray covers + persistent K-theory via rational AHSS — **Phase 12 in progress, P12.1–P12.2 complete**).
 
 ## Installation
 
@@ -153,6 +153,8 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Witness complex** (v1.2.0+) | `witness_complex` — `landmark_sample` (maxmin/random), `witness_filtration` (strong-witness, de Silva & Carlsson 2004), `persistent_homology_witness` → `WitnessComplex` |
 | **Streaming persistence** (v1.2.0+) | `streaming_persistence` — `StreamingPersistence`; incremental Z/2 column reduction; `add_simplex / current_pairs / current_betti / current_essential_pairs` |
 | **GPU backend** (v1.2.0+, optional) | `_gpu_backend` — `gpu_twist_reduce`; cupy boolean-array column XOR; `[gpu]` extra in pyproject.toml; graceful CPU fallback |
+| **Čech sheaf cohomology** (v1.4.0+) | `sheaf_cohomology` — `FiniteSheaf`, `constant_sheaf`, `skyscraper_sheaf`, `cech_cohomology` (Leray cover → alternating-sign coboundary → SNF), `sheaf_cohomology` (McCord minimal-neighborhood cover; H⁰ = ℤ^components) |
+| **Persistent K-theory** (v1.4.0+) | `persistent_ktheory` — `KTheoryGroups` (rational AHSS: K⁰⊗ℚ = ⊕H_{2k}, K¹⊗ℚ = ⊕H_{2k+1}), `KBarcode` (Twist barcode partitioned by parity; χ_K = rank K⁰ − rank K¹), `k_theory_groups`, `k_barcode`, `k0/k1_simplicial`, `k_betti_numbers` |
 | Higher algebra | `operads`, `spectral_sequences` |
 | Higher categories | `higher_categories`, `topological_field_theory` |
 | Cosmology | `cosmology_topology` |
@@ -256,6 +258,62 @@ kh = khovanov_homology(trefoil, parallel=True)   # same groups, faster on large 
 ```
 
 **65 new tests; 11 467 total.**
+
+---
+
+## What's New in v1.4.0
+
+**Phase 12 — Research Frontier: Čech sheaf cohomology + persistent K-theory (P12.1–P12.2)**
+
+Two new research-grade engines that push pytop into algebraic K-theory and sheaf theory territory.
+
+- **`sheaf_cohomology` (P12.1)** — Čech cohomology of a sheaf on a finite topological space.
+  `FiniteSheaf` (frozen dataclass: `open_sets`, integer-rank `sections`, integer-matrix `restrictions`);
+  `constant_sheaf` and `skyscraper_sheaf` factory functions;
+  `cech_cohomology(cover, sheaf, max_degree)` — full Čech cochain complex with alternating-sign
+  coboundary δ^p, SNF → `AbelianGroup` per degree;
+  `sheaf_cohomology(open_sets, universe, sheaf)` — uses the minimal-open-neighborhood Leray cover
+  (McCord 1966) so H⁰ counts connected components correctly (e.g. H⁰=ℤ for Sierpiński,
+  H⁰=ℤ² for discrete 2-point space).
+
+- **`persistent_ktheory` (P12.2)** — Rational K-theory groups and persistent K-theory barcode.
+  `KTheoryGroups` — AHSS collapse: K⁰⊗ℚ = ⊕H_{2k}, K¹⊗ℚ = ⊕H_{2k+1}; verified on
+  point (1,0), S¹ (1,1), S² (2,0), torus T² (2,2).
+  `KBarcode` — Twist-reduced persistence pairs partitioned by dimension parity;
+  `k0_betti_at(ε)`, `k1_betti_at(ε)`, `euler_characteristic_at(ε)` (χ_K = rank K⁰ − rank K¹ = χ).
+
+```python
+from pytop import (
+    FiniteSheaf, constant_sheaf, skyscraper_sheaf, cech_cohomology, sheaf_cohomology,
+    KTheoryGroups, KBarcode, k_theory_groups, k_barcode, k_betti_numbers,
+)
+from pytop.homology import SimplicialComplex
+
+# Sheaf cohomology: discrete 2-point space with constant sheaf ℤ
+opens = [frozenset({0}), frozenset({1}), frozenset({0, 1})]
+sheaf = constant_sheaf(opens)
+result = sheaf_cohomology(opens, frozenset({0, 1}), sheaf)
+print(result["cohomology"][0])  # AbelianGroup(free_rank=2, torsion=()) — two components
+
+# Persistent K-theory of a circle
+s1 = SimplicialComplex([(0,),(1,),(2,),(0,1),(1,2),(0,2)])
+g = k_theory_groups(s1)
+print(g.k0_rank, g.k1_rank)    # 1  1  — K⁰(S¹)=ℤ, K¹(S¹)=ℤ
+
+from pytop.persistent_homology import vietoris_rips_filtration
+import math
+pts = [(math.cos(2*math.pi*i/8), math.sin(2*math.pi*i/8)) for i in range(8)]
+
+class Cloud:
+    carrier = pts
+    def distance_between(self, a, b): return math.dist(a, b)
+
+filt = vietoris_rips_filtration(Cloud(), max_dimension=2)
+kb = k_barcode(filt)
+print(kb.euler_characteristic_at(0.0))   # 8  (8 isolated points)
+```
+
+**78 new tests; 11 545 total.**
 
 ---
 
