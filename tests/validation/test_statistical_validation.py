@@ -16,7 +16,7 @@ import json
 import os
 import random
 import time
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 from typing import NamedTuple, Optional
 
 import pytest
@@ -352,16 +352,16 @@ class TestStatisticalValidation:
         print("=" * 70)
         print(f"\nTotal random ER 1-skeleta: {num_complexes:,}")
         print(f"Total elapsed time: {total_elapsed:.1f}s")
-        print(f"\nOracleAvailability:")
+        print("\nOracleAvailability:")
         print(f"  GUDHI: {len(with_gudhi):,}/{num_complexes} ({len(with_gudhi)/num_complexes*100:.1f}%)")
         print(f"  Ripser: {len(with_ripser):,}/{num_complexes} ({len(with_ripser)/num_complexes*100:.1f}%)")
-        print(f"\nParity (pytop = oracle):")
+        print("\nParity (pytop = oracle):")
         print(f"  GUDHI: {gudhi_agree}/{len(with_gudhi)} ({gudhi_pct:.1f}%)")
         print(f"  Ripser: {ripser_agree}/{len(with_ripser)} ({ripser_pct:.1f}%)")
         print(f"\nOutliers (first 10 of {len(outliers_gudhi)} GUDHI, {len(outliers_ripser)} Ripser):")
         print(f"  GUDHI: {outliers_gudhi}")
         print(f"  Ripser: {outliers_ripser}")
-        print(f"\nComplex statistics:")
+        print("\nComplex statistics:")
         print(f"  Vertices: min={report.vertex_count_stats['min']}, "
               f"max={report.vertex_count_stats['max']}, "
               f"mean={report.vertex_count_stats['mean']:.1f}")
