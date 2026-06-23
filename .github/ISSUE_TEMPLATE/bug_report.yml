@@ -1,0 +1,58 @@
+name: Bug report
+description: Report incorrect output, a crash, or unexpected behavior in pytop.
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. A minimal reproducible example and the
+        expected vs. actual result make fixes far faster.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: A clear description of the bug.
+      placeholder: "`persistent_homology(...)` returns H1=2 but the space has a single loop."
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproducible example
+      description: The smallest self-contained snippet that triggers the bug.
+      render: python
+      placeholder: |
+        from pytop import persistent_homology
+        ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+      description: What you expected, ideally with a reference (textbook, oracle, hand computation).
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: What pytop produced (full traceback if it crashed).
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: pytop version
+      description: "Output of `python -c \"import pytop; print(pytop.__version__)\"`"
+      placeholder: "1.6.0"
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version & OS
+      placeholder: "Python 3.14 on Windows 11"
+    validations:
+      required: true

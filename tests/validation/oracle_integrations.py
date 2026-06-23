@@ -14,7 +14,6 @@ from __future__ import annotations
 import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any
 
 __all__ = [
     "OracleAdapter",
@@ -32,7 +31,7 @@ class BettiResult:
 
     dimension: int
     betti: int  # H_dim rank over field
-    torsion: list[tuple[int, int]] = None  # (torsion_order, multiplicity) list
+    torsion: list[tuple[int, int]] | None = None  # (torsion_order, multiplicity) list
 
 
 class OracleAdapter(ABC):
@@ -239,7 +238,7 @@ class SnapPyOracleAdapter(OracleAdapter):
             snappy_name = self._knot_to_snappy_name(knot_name)
             if not snappy_name:
                 return None
-            knot = self._snappy.Knot(snappy_name)
+            self._snappy.Knot(snappy_name)  # validates the name (raises if unknown)
             # SnapPy uses different polynomial normalization; for compatibility, mark as "SnapPy"
             return f"SnapPy({knot_name})"
         except Exception:
@@ -253,7 +252,7 @@ class SnapPyOracleAdapter(OracleAdapter):
             snappy_name = self._knot_to_snappy_name(knot_name)
             if not snappy_name:
                 return None
-            knot = self._snappy.Knot(snappy_name)
+            self._snappy.Knot(snappy_name)  # validates the name (raises if unknown)
             return f"SnapPy({knot_name})"
         except Exception:
             return None

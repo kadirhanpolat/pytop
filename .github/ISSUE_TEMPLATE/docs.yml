@@ -1,0 +1,24 @@
+name: Documentation issue
+description: Report unclear, missing, or incorrect documentation.
+title: "[docs]: "
+labels: ["documentation"]
+body:
+  - type: textarea
+    id: location
+    attributes:
+      label: Where?
+      description: File, page, docstring, or user-guide chapter (e.g. `docs/user_guide/markdown/ch04...`, API ref for `mapper`).
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or missing?
+      description: What confused you, or what you expected to find.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      description: Optional — a proposed wording, example, or correction.

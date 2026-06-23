@@ -12,8 +12,8 @@ from pytop import (
     persistent_homology,
     vietoris_rips_filtration,
 )
-from pytop.persistent_homology import barcode, persistence_diagram
 from pytop.metric_spaces import FiniteMetricSpace
+from pytop.persistent_homology import barcode, persistence_diagram
 from pytop.simplicial_complexes import generated_subcomplex
 
 
@@ -131,3 +131,75 @@ def test_euler_characteristic_curve_starts_at_vertex_count():
     assert curve[0] == (0.0, 4)
     # at a large scale all 4 vertices and 6 edges are present -> chi = 4 - 6 = -2
     assert curve[1] == (10.0, -2)
+
+
+# ---------------------------------------------------------------------------
+# Inductive Vietoris-Rips construction (P17.3): correctness invariants.
+#
+# The filtration is built by inductive clique expansion over the neighborhood
+# graph rather than exhaustive C(n, k+1) enumeration. These tests lock in the
+# invariants the optimization must preserve.
+# ---------------------------------------------------------------------------
+
+
+def _brute_force_rips(points, max_dimension, max_scale):
+    """Reference filtration via exhaustive subset enumeration (O(n^(k+2)))."""
+    from itertools import combinations
+
+    n = len(points)
+    entries = [(0.0, 0, (i,)) for i in range(n)]
+    for k in range(1, max_dimension + 1):
+        for combo in combinations(range(n), k + 1):
+            birth = max(math.dist(points[a], points[b]) for a, b in combinations(combo, 2))
+            if max_scale is not None and birth > max_scale:
+                continue
+            entries.append((birth, k, combo))
+    entries.sort(key=lambda e: (e[0], e[1], e[2]))
+    return (
+        tuple(e[2] for e in entries),
+        tuple(e[0] for e in entries),
+        tuple(e[1] for e in entries),
+    )
+
+
+@pytest.mark.parametrize("max_dimension", [0, 1, 2, 3])
+@pytest.mark.parametrize("max_scale", [0.8, 1.5, None])
+def test_inductive_rips_matches_brute_force(max_dimension, max_scale):
+    points = _circle_points(13) + [(0.2, 0.1), (-0.3, 0.4), (0.5, -0.2)]
+    filtered = vietoris_rips_filtration(
+        _metric_space(points), max_dimension=max_dimension, max_scale=max_scale
+    )
+    bf_simplices, bf_births, bf_dims = _brute_force_rips(
+        points, max_dimension, max_scale
+    )
+    assert filtered.simplices == bf_simplices
+    assert filtered.births == bf_births
+    assert filtered.dimensions == bf_dims
+
+
+def test_inductive_rips_respects_max_scale_and_diameters():
+    points = _circle_points(20)
+    max_scale = 1.0
+    filtered = vietoris_rips_filtration(
+        _metric_space(points), max_dimension=2, max_scale=max_scale
+    )
+    for simplex, birth in zip(filtered.simplices, filtered.births):
+        # birth is exactly the simplex diameter (max pairwise distance)...
+        if len(simplex) >= 2:
+            from itertools import combinations
+
+            diameter = max(
+                math.dist(points[a], points[b]) for a, b in combinations(simplex, 2)
+            )
+            assert birth == pytest.approx(diameter)
+        # ...and no simplex exceeds the truncation scale.
+        assert birth <= max_scale + 1e-12
+
+
+def test_inductive_rips_vertices_only_for_dim_zero():
+    points = _circle_points(8)
+    filtered = vietoris_rips_filtration(
+        _metric_space(points), max_dimension=0, max_scale=2.0
+    )
+    assert all(d == 0 for d in filtered.dimensions)
+    assert len(filtered.simplices) == len(points)
