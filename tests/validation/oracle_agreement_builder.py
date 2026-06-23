@@ -138,10 +138,12 @@ class OracleAgreementBuilder:
     """Builds comprehensive oracle agreement matrix."""
 
     def __init__(self):
+        import pytop
+
         self.oracles = get_available_oracles()
         self.report = AgreementMatrixReport(
             timestamp=datetime.now().isoformat(),
-            pytop_version="1.6.0",
+            pytop_version=pytop.__version__,
             total_tests=0,
             passed_tests=0,
             failed_tests=0,
