@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.6.0** (released; development continues at `1.6.1.dev0`), pytop ships **20 phases** with 11,896 tests passing on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, statistical validation, and **P16.2 oracle parity now wired** — pytop's persistent Betti numbers cross-checked against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures). **Phase 17** 🔄 **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 🚧** scaling — **inductive Vietoris–Rips construction shipped (~14–19× filtration-build speedup, byte-identical output)**; the Z/2 reduction is now the dominant cost for dense high-n. **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** 🔄 **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** 🔄 **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 🚧** PyPI publishing; **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates).
+As of **v1.6.0** (released; development continues at `1.6.1.dev0`), pytop ships **20 phases** with 11,896 tests passing on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, and **oracle parity now wired to GUDHI** — P16.2 cross-checks pytop's persistent Betti numbers against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures), and **P16.3 cross-validates the full 10 000-complex statistical run against GUDHI at 100.0% parity** (0 outliers, avg 4.35 ms/complex). **Phase 17** 🔄 **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 🚧** scaling — **inductive Vietoris–Rips construction shipped (~14–19× filtration-build speedup, byte-identical output)**; the Z/2 reduction is now the dominant cost for dense high-n. **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** 🔄 **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** 🔄 **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 🚧** PyPI publishing; **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates).
 
 ## Installation
 
@@ -209,8 +209,20 @@ filtration and agree on the **Betti number at every scale** (bars alive at `s`,
 faithfully (`H_k` needs simplices up to dim `k+1`). Verified on circle, dense
 circle, two disjoint circles (`H₀=H₁=2`), an icosahedral 2-sphere (`H₂=1`), and a
 random cloud. This corrected two latent bugs in the old comparison (death-count
-instead of Betti-at-scale; spurious `H₂` from a triangle-only complex). Validation
-suite 79 → 97 passing.
+instead of Betti-at-scale; spurious `H₂` from a triangle-only complex).
+
+**P16.3 — 10K statistical run now cross-validated against GUDHI.** The heavy
+`test_10k_random_complexes_vs_oracles` previously recorded `num_with_gudhi: 0`
+(pytop-only). It now compares pytop H₀/H₁ against GUDHI's `SimplexTree` on every
+one of the 10 000 random Erdős–Rényi 1-skeleta: **parity 100.0%, 0 outliers**,
+~45 s total. The fix was a real GUDHI gotcha — `compute_persistence()` defaults to
+`persistence_dim_max=False`, silently skipping homology in the complex's *top*
+dimension (H₁ for a 1-skeleton), so GUDHI reported H₁=0 on every cyclic graph;
+calling `compute_persistence(persistence_dim_max=True)` then `betti_numbers()`
+fixes it. An always-on `test_500_random_complexes_gudhi_parity` guard now asserts
+100% pytop=GUDHI in the default suite. Ripser is not applicable to abstract
+1-skeleta (point-cloud parity stays in `test_betti_parity.py`). Validation suite
+79 → 98 passing.
 
 **P17.3 — Inductive Vietoris–Rips construction (~14–19× faster builds).** Profiling
 showed the *filtration build* — not the reduction — dominated the truncated-scale
@@ -258,10 +270,11 @@ Cross-validates pytop against independent gold-standard external systems via uni
   - **11 new tests**: oracle availability, adapter initialization, persistent Betti agreement (GUDHI/Ripser), polynomial reference validation
   - **Framework ready for**: PyPI publication, CI/CD integration, automated oracle matrix population
 
-- **P16.3: Statistical Validation (10,000 tests)** — Random Erdős–Rényi 1-skeleta (5–50 vertices):
-  - `test_10k_random_complexes_vs_oracles`: validates pytop H₀/H₁ on 10K random inputs (100% success, avg 6.26ms/complex)
-  - Outlier analysis and JSON report generation
-  - Framework ready for larger scales (50K+) and parallelization
+- **P16.3: Statistical Validation (10,000 complexes, ✅ GUDHI-cross-validated)** — Random Erdős–Rényi 1-skeleta (5–50 vertices):
+  - `test_10k_random_complexes_vs_oracles`: pytop H₀/H₁ compared against GUDHI on all 10K inputs — **parity 100.0%, 0 outliers**, avg 4.35ms/complex, ~45s total (`statistical_validation_report.json`: `num_with_gudhi: 10000`)
+  - `test_500_random_complexes_gudhi_parity`: always-on default-suite guard (asserts 100% pytop=GUDHI; skipped only if GUDHI missing)
+  - GUDHI `SimplexTree` path uses `compute_persistence(persistence_dim_max=True)` so the top-dimension H₁ is computed, not skipped; Ripser is N/A for abstract complexes (point-cloud parity in `test_betti_parity.py`)
+  - Outlier analysis and JSON report generation; ready for larger scales (50K+) and parallelization
 
 **Phase 18 — Documentation & Pedagogy ✅ (P18.1–P18.3 complete)**
 

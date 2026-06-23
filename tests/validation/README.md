@@ -148,22 +148,26 @@ Planned oracle comparisons:
 
 Target: 99.9% agreement across all oracles.
 
-### Phase 16.3 (Framework Complete, 10K Run In Progress)
+### Phase 16.3 (Complete — GUDHI cross-validation wired & passing)
 
 Statistical validation on random complexes:
 
 - **Framework:** `test_statistical_validation.py` + `_scripts/run_p16_3_statistical_validation.py`
 - **Dataset:** 10K random Erdős–Rényi 1-skeleta (5–50 vertices, edge probability 0.1–0.8)
 - **Computation:** pytop H₀, H₁ for each complex
-- **Oracles:** GUDHI, Ripser (opt-in, graceful skip if unavailable)
+- **Oracle:** **GUDHI** `SimplexTree` (ingests abstract complexes; `compute_persistence(persistence_dim_max=True)` so the top dimension H₁ is not skipped). Ripser is **not applicable** to abstract 1-skeleta (it needs point clouds / distance matrices) — Ripser parity is covered on genuine point clouds in `test_betti_parity.py`.
 - **Output:** JSON report with parity %, outliers, computation statistics
-- **Status:** pytop-only validation working; oracle integration pending
-- **Timeline:** ~15–30 min for full 10K run on standard hardware
+- **Status:** ✅ **GUDHI cross-validation wired and passing** — 10K run: GUDHI available 10000/10000, **pytop = GUDHI parity 100.0%**, 0 outliers, avg 4.35 ms/complex, ~45 s total. Result in `statistical_validation_report.json`.
+- **Always-on guard:** `test_500_random_complexes_gudhi_parity` runs in the default suite (500 complexes, asserts 100% pytop=GUDHI; skipped only if GUDHI missing).
+- **Timeline:** ~45 s for full 10K run on standard hardware
 
 **Run:**
 ```bash
-py -3.14 _scripts/run_p16_3_statistical_validation.py --limit 10000
-PYTOP_STATISTICAL_VALIDATION=1 pytest tests/validation/test_statistical_validation.py::...::test_10k_random_complexes_vs_oracles -v
+# Always-on guard (default suite, ~3 s):
+pytest tests/validation/test_statistical_validation.py::TestStatisticalValidation::test_500_random_complexes_gudhi_parity -v
+
+# Full 10K cross-validation + JSON report (~45 s):
+PYTOP_STATISTICAL_VALIDATION=1 pytest "tests/validation/test_statistical_validation.py::TestStatisticalValidation::test_10k_random_complexes_vs_oracles" -v -s
 ```
 
 ---
