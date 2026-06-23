@@ -1009,19 +1009,83 @@ def persistent_homology(
     max_scale: float | None = None,
     *,
     include_zero_persistence: bool = False,
+    method: str = "twist",
 ) -> tuple[PersistencePair, ...]:
     """Convenience: Vietoris-Rips filtration followed by persistence reduction.
+
+    Supports multiple reduction algorithms for performance tuning. The Twist algorithm
+    (default) applies the Clearing Lemma to skip column operations on creators that
+    are guaranteed to reduce to zero.
+
+    Parameters
+    ----------
+    space : Any
+        Object exposing `carrier` and `distance_between` (or compatible distance callable).
+    max_dimension : int, optional
+        Maximum simplex dimension to include (default 1 → edges only).
+    max_scale : float | None, optional
+        If given, simplices with birth > max_scale are excluded.
+    include_zero_persistence : bool, optional
+        Whether to include zero-length bars (birth == death).
+    method : {'twist', 'standard', 'cohomology'}, optional
+        Reduction algorithm to use (default 'twist'):
+
+        - 'twist': Twist algorithm (Chen–Kerber 2011) with Clearing Lemma.
+          Processes dimensions high-to-low and skips cleared columns.
+          Optimal for complexes with many finite pairs.
+        - 'standard': Standard left-to-right Z/2 reduction.
+          Simplest algorithm; use when result verification is critical.
+        - 'cohomology': Persistent cohomology (de Silva–Morozov–Vejdemo-Johansson 2011).
+          Incremental algorithm maintaining live cocycles.
+          Often faster than homology on Rips complexes.
+
+    Returns
+    -------
+    tuple[PersistencePair, ...]
+        Persistence pairs sorted by (dimension, birth, death).
+
+    Raises
+    ------
+    ValueError
+        If method is not in {'twist', 'standard', 'cohomology'}.
 
     Complexity
     ----------
     The Vietoris-Rips complex on ``n`` points to dimension ``d`` has
-    ``O(n^{d+2})`` simplices, and the Z/2 reduction is ``O(m³)`` in the number of
-    simplices ``m`` — so this is for **small point clouds** (``n`` of order a few
-    dozen for small ``d``). See ``docs/COMPLEXITY.md``.
-    """
+    ``O(n^{d+2})`` simplices. Reduction complexity depends on the method:
 
-    filtered = vietoris_rips_filtration(space, max_dimension=max_dimension, max_scale=max_scale)
-    return persistence_pairs(filtered, include_zero_persistence=include_zero_persistence)
+    - Standard and Twist: ``O(m³)`` worst-case in number of simplices ``m``.
+      Twist typically 1–3× faster on Rips via Clearing Lemma.
+    - Cohomology: ``O(m²)`` on average (incremental update cost).
+
+    See ``docs/COMPLEXITY.md``.
+    """
+    from .persistent_homology_optimized import (
+        persistence_pairs_twist,
+        persistence_pairs_cohomology,
+    )
+
+    if method not in ("twist", "standard", "cohomology"):
+        raise ValueError(
+            f"method must be 'twist', 'standard', or 'cohomology'; got {method!r}"
+        )
+
+    filtered = vietoris_rips_filtration(
+        space, max_dimension=max_dimension, max_scale=max_scale
+    )
+
+    if method == "standard":
+        return persistence_pairs(
+            filtered, include_zero_persistence=include_zero_persistence
+        )
+    elif method == "twist":
+        return persistence_pairs_twist(
+            filtered, include_zero_persistence=include_zero_persistence
+        )
+    else:  # method == "cohomology"
+        return persistence_pairs_cohomology(
+            filtered, include_zero_persistence=include_zero_persistence
+        )
 
 
 def barcode(

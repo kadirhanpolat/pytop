@@ -11,6 +11,7 @@ Test categories:
 
 from __future__ import annotations
 
+import math
 from typing import Any
 
 import numpy as np
@@ -19,6 +20,8 @@ import pytest
 from pytop.homology import homology_groups
 from pytop.khovanov import khovanov_homology
 from pytop.knot_invariants import KnotDiagram
+from pytop.metric_spaces import FiniteMetricSpace
+from pytop.persistent_homology import persistent_homology
 from pytop.simplicial_complexes import SimplicialComplex
 from pytop.simplicial_filtration import (
     klein_bottle_filtration,
@@ -103,10 +106,10 @@ class TestProfilePersistence:
     def test_profile_rips_persistence(
         self, n_points: int, profile_benchmark: Any
     ) -> None:
-        """Profile simplicial complex construction from grid.
+        """Profile Rips persistent homology computation on random point clouds.
 
-        Generate a 2D grid of points and build a simplicial filtration.
-        This tests profiling of complex construction and sizing at scale.
+        Generate n_points random 2D points and compute persistence homology.
+        This tests profiling of Rips complex construction and persistence computation.
 
         Args:
             n_points: Number of random points (20, 50, or 100)
@@ -117,34 +120,24 @@ class TestProfilePersistence:
         """
 
         @profile_benchmark(track_memory=True)
-        def construct_grid_complex() -> int:
-            """Construct grid-based simplicial complex and return simplex count."""
-            # Create grid-based triangulation with n_points vertices
-            # arranged in sqrt(n_points) × sqrt(n_points) grid
-            grid_size = int(np.sqrt(n_points))
-            maximal_simplices = []
+        def compute_rips_persistence() -> int:
+            """Compute persistent homology on random point cloud using Rips complex."""
+            # Generate random 2D points
+            np.random.seed(42 + n_points)
+            points = np.random.rand(n_points, 2)
 
-            # Generate triangular faces from grid
-            for i in range(grid_size - 1):
-                for j in range(grid_size - 1):
-                    v0 = i * grid_size + j
-                    v1 = i * grid_size + j + 1
-                    v2 = (i + 1) * grid_size + j
-                    v3 = (i + 1) * grid_size + j + 1
+            # Create metric space from point cloud
+            space = FiniteMetricSpace(carrier=tuple(map(tuple, points)), distance=math.dist)
 
-                    # Two triangles per grid cell
-                    maximal_simplices.append((v0, v1, v2))
-                    maximal_simplices.append((v1, v3, v2))
+            # Compute persistent homology
+            pairs = persistent_homology(space, max_dimension=1)
+            return len(pairs)
 
-            # Build filtration with automatic face closure
-            fc = simplicial_filtration(maximal_simplices)
-            return fc.size()
-
-        simplex_count, stats = construct_grid_complex()
+        pair_count, stats = compute_rips_persistence()
 
         # Verify result is reasonable
-        assert isinstance(simplex_count, int), "Simplex count should be integer"
-        assert simplex_count > 0, "Grid complex should contain simplices"
+        assert isinstance(pair_count, int), "Pair count should be integer"
+        assert pair_count > 0, "Rips complex should have persistence pairs"
 
         # Log profiling stats
         assert stats.total_time > 0, "Profile should record positive wall time"
