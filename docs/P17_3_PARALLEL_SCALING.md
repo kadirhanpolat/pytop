@@ -1,9 +1,48 @@
-# Phase 17 P17.3: Parallel Scaling (Planning & Infrastructure)
+# Phase 17 P17.3: Scaling (Construction Optimization + Parallel Planning)
 
-**Status:** 🚧 In Progress  
+**Status:** 🚧 In Progress — **first scaling win shipped** (inductive Rips construction)  
 **Date:** 2026-06-23  
 **Target:** Rips n=500 in <1s (current ~5.1s with n=350)  
 **Challenge:** Reduction algorithms are inherently sequential
+
+## Shipped: Inductive Vietoris–Rips construction (filtration build, not reduction)
+
+Profiling the end-to-end pipeline split the wall-clock between two phases and
+**overturned the earlier assumption that reduction is the sole bottleneck**: in
+the truncated-filtration regime (a finite `max_scale`, the usual TDA case) the
+*filtration construction* dominated.
+
+| n   | old build (C(n,k+1) enum) | reduction | construction share |
+|-----|---------------------------|-----------|--------------------|
+| 100 | 0.171s | 0.014s | 92% |
+| 150 | 0.621s | 0.090s | 87% |
+| 200 | 1.355s | 0.240s | 85% |
+
+The old `vietoris_rips_filtration` enumerated **every** `C(n, k+1)` vertex subset
+up to `max_dimension` and computed each diameter before discarding those past
+`max_scale`. Replaced with **inductive clique expansion** (Zomorodian 2010): build
+the neighborhood graph of edges within `max_scale`, then grow each simplex exactly
+once by intersecting lower-neighbor sets, carrying the diameter incrementally. Work
+now scales with the size of the *materialized* complex, not `C(n, k+1)`.
+
+**Measured speedup (build only, `max_dimension=2`, `max_scale=1.0`, Gaussian cloud):**
+
+| n   | old build | new build | speedup |
+|-----|-----------|-----------|---------|
+| 100 | 0.173s | 0.009s | 18.9× |
+| 200 | 1.389s | 0.071s | 19.5× |
+| 300 | 5.148s | 0.358s | 14.4× |
+| 500 | 22.703s | 1.649s | 13.8× |
+
+Output is **byte-identical** to the previous construction (same simplices, births,
+dimensions, and sort order) — verified against a brute-force reference across
+`max_dimension ∈ {0,1,2,3}` and `max_scale ∈ {0.8, 1.5, None}` in
+`tests/core/test_persistent_homology_engine.py`, and confirmed by the full 11,874
+test suite. No API change.
+
+**Remaining bottleneck:** for dense, high-`n` complexes the **Z/2 reduction** is now
+the dominant cost (and is inherently sequential, as analyzed below). The next P17.3
+increment targets the reduction via the strategies below.
 
 ## Current Performance Baseline
 
