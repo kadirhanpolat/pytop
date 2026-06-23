@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.4.0-blue)
+![Version](https://img.shields.io/badge/version-1.5.0-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.5.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **19 canonical representations** (**Phase 9 complete**), **scale & algorithm engines** (sparse SNF, parallel Khovanov, witness complex, streaming persistence, optional GPU backend — **Phase 10 complete**), a **pi-Base–backed deductive inference engine**, a **Lean 4 formal verification corpus** (11 proof files, 0 sorry — SNF correctness, set/metric topology, persistence reduction, Mayer–Vietoris, van Kampen, cohomology ring, spectral sequences — **Phase 11 complete**), **research frontier engines** (Čech sheaf cohomology on finite spaces via Leray covers + persistent K-theory via rational AHSS — **Phase 12, P12.1–P12.2 complete**), **homotopy-theory engines** (chain homotopy, Eilenberg–MacLane spaces, Massey products, Hopf invariant, Sullivan minimal models — **Phase 13 complete**), **advanced knot-homology engines** (odd Khovanov, grid HFK̂, concordance invariants, satellite/cable knots, virtual knots — **Phase 14 complete**), and **4-manifold-topology engines** (intersection forms, Kirby calculus, Casson invariant, Milnor fibers, Rohlin's theorem — **Phase 15 complete**).
+As of **v1.5.0**, pytop ships **15 complete research phases** with 11,685 tests. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16 started**: empirical validation suite (P16.1 benchmark datasets — minimal triangulations, graph validation, performance baselines; oracle parity testing and statistical validation follow).
 
 ## Installation
 

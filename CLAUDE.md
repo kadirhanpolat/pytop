@@ -243,6 +243,7 @@ feature/<topic> ← feature branches, merge to master via PR
 - **Released v1.3.0:** Phase 11 — Lean 4 formal verification expansion (5 new proof files, 0 sorry).
 - **Released v1.4.0:** Phase 12 P12.1–P12.2 — `sheaf_cohomology` (Čech cohomology of a sheaf on a finite space via Leray covers) + `persistent_ktheory` (rational AHSS K⁰/K¹ + parity-partitioned barcode). 78 new tests.
 - **Released v1.5.0 (latest):** Phases 13–15 — 15 new pure-Python modules. **Phase 13 (Homotopy):** `chain_homotopy`, `eilenberg_maclane`, `massey_products`, `hopf_invariant`, `sullivan_models`. **Phase 14 (Advanced Knot Homology):** `khovanov_odd`, `grid_floer` (HFK̂ over 𝔽₂), `concordance` (τ/s/σ), `satellite_knots` (exact torus-knot Alexander division), `virtual_knots`. **Phase 15 (4-Manifold Topology):** `intersection_forms` (Sylvester congruence signature), `kirby_calculus`, `casson_invariant` (Neumann–Wahl λ=σ(F)/8), `milnor_fibers`, `rohlin_theorem`. 140 new tests; **11 685 tests total**. All 15 modules ruff-clean + mypy-clean.
+- **In progress (Phase 16 P16.1):** Benchmark suite — minimal triangulations (T², Klein, ℝP²), graph datasets (planar/non-planar), performance baselines. `tests/validation/fixtures.py` + `test_benchmark.py`. 15 tests passing. Oracle parity (P16.2) and statistical validation (P16.3) follow.
 
 ---
 
