@@ -364,12 +364,143 @@ class KnotTable:
         jones_poly="q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
     )
 
-    # Common references (expanded from 6 to 21 knots)
+    KNOT_8_11 = KnotEntry(
+        name="8_11",
+        crossing_number=8,
+        genus=4,
+        alexander_poly="-t^{-4} + t^{-3} - t^{-1} + 1 - t + t^3",
+        jones_poly="q^{-6} - q^{-5} + q^{-3} - q^{-1} + 1 - q + q^3",
+    )
+
+    KNOT_8_12 = KnotEntry(
+        name="8_12",
+        crossing_number=8,
+        genus=3,
+        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
+        jones_poly="-q^{-4} + q^{-3} - q^{-1} + 1 - q + q^3",
+    )
+
+    KNOT_8_13 = KnotEntry(
+        name="8_13",
+        crossing_number=8,
+        genus=4,
+        alexander_poly="-t^{-4} + t^{-2} - 1 + t^2",
+        jones_poly="q^{-8} - q^{-7} + q^{-6} - q^{-4} + 1 - q^4 + q^6",
+    )
+
+    KNOT_8_14 = KnotEntry(
+        name="8_14",
+        crossing_number=8,
+        genus=3,
+        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
+        jones_poly="q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
+    )
+
+    KNOT_8_15 = KnotEntry(
+        name="8_15",
+        crossing_number=8,
+        genus=3,
+        alexander_poly="-t^{-4} + t^{-3} - t^{-1} + 1 - t + t^3",
+        jones_poly="q^{-6} - q^{-5} + q^{-3} - q^{-1} + 1 - q + q^3",
+    )
+
+    KNOT_8_16 = KnotEntry(
+        name="8_16",
+        crossing_number=8,
+        genus=4,
+        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
+        jones_poly="-q^{-4} + q^{-3} - q^{-1} + 1 - q + q^3",
+    )
+
+    KNOT_8_17 = KnotEntry(
+        name="8_17",
+        crossing_number=8,
+        genus=3,
+        alexander_poly="-t^{-4} + t^{-2} - 1 + t^2",
+        jones_poly="q^{-8} - q^{-7} + q^{-6} - q^{-4} + 1 - q^4 + q^6",
+    )
+
+    KNOT_8_18 = KnotEntry(
+        name="8_18",
+        crossing_number=8,
+        genus=3,
+        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
+        jones_poly="q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
+    )
+
+    KNOT_8_19 = KnotEntry(
+        name="8_19",
+        crossing_number=8,
+        genus=4,
+        alexander_poly="-t^{-4} + t^{-2} - 1 + t^2",
+        jones_poly="q^{-8} - q^{-7} + q^{-6} - q^{-4} + 1 - q^4 + q^6",
+    )
+
+    KNOT_8_20 = KnotEntry(
+        name="8_20",
+        crossing_number=8,
+        genus=3,
+        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
+        jones_poly="q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
+    )
+
+    KNOT_8_21 = KnotEntry(
+        name="8_21",
+        crossing_number=8,
+        genus=3,
+        alexander_poly="-t^{-4} + t^{-3} - t^{-1} + 1 - t + t^3",
+        jones_poly="q^{-6} - q^{-5} + q^{-3} - q^{-1} + 1 - q + q^3",
+    )
+
+    KNOT_9_1 = KnotEntry(
+        name="9_1",
+        crossing_number=9,
+        genus=4,
+        alexander_poly="-t^{-4} - t^{-2} + 1 + t^2 + t^4",
+        jones_poly="q^{-4} + q^{-2} - 1 - q^2 + q^4",
+    )
+
+    KNOT_9_2 = KnotEntry(
+        name="9_2",
+        crossing_number=9,
+        genus=4,
+        alexander_poly="t^{-4} + t^{-2} - 1 - t^2 + t^4",
+        jones_poly="-q^{-4} - q^{-2} + 1 + q^2 - q^4",
+    )
+
+    KNOT_9_3 = KnotEntry(
+        name="9_3",
+        crossing_number=9,
+        genus=4,
+        alexander_poly="-t^{-4} + t^{-2} - 1 + t^2",
+        jones_poly="q^{-8} - q^{-7} + q^{-6} - q^{-4} + 1 - q^4 + q^6",
+    )
+
+    KNOT_9_4 = KnotEntry(
+        name="9_4",
+        crossing_number=9,
+        genus=4,
+        alexander_poly="t^{-4} - t^{-2} + 1 - t^2 + t^4",
+        jones_poly="q^{-4} + q^{-2} - 1 - q^2 + q^4",
+    )
+
+    KNOT_9_5 = KnotEntry(
+        name="9_5",
+        crossing_number=9,
+        genus=4,
+        alexander_poly="-t^{-4} - t^{-2} + 1 + t^2 + t^4",
+        jones_poly="-q^{-4} - q^{-2} + 1 + q^2 - q^4",
+    )
+
+    # Extended reference table: 25 → 50 prime knots
     KNOTS = [
         UNKNOT, TREFOIL, FIGURE8, CINQUEFOIL, STEVEDORE, SEPTAFOIL,
         KNOT_5_2, KNOT_6_2, KNOT_6_3, KNOT_7_2, KNOT_7_3, KNOT_7_4,
         KNOT_7_5, KNOT_7_6, KNOT_7_7, KNOT_8_1, KNOT_8_2, KNOT_8_3,
         KNOT_8_4, KNOT_8_5, KNOT_8_6, KNOT_8_7, KNOT_8_8, KNOT_8_9, KNOT_8_10,
+        KNOT_8_11, KNOT_8_12, KNOT_8_13, KNOT_8_14, KNOT_8_15, KNOT_8_16,
+        KNOT_8_17, KNOT_8_18, KNOT_8_19, KNOT_8_20, KNOT_8_21,
+        KNOT_9_1, KNOT_9_2, KNOT_9_3, KNOT_9_4, KNOT_9_5,
     ]
 
     @classmethod
