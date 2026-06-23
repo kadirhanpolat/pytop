@@ -8,13 +8,10 @@ Covers:
 
 from __future__ import annotations
 
-import math
 import pytest
 
 from pytop.homology import simplicial_homology
 from pytop.nerve_complex import cech_nerve, good_cover_check, nerve_of_cover
-from pytop.simplicial_complexes import SimplicialComplex
-
 
 # ---------------------------------------------------------------------------
 # nerve_of_cover

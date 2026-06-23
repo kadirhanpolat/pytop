@@ -2,6 +2,8 @@
 
 import pytest
 
+from pytop.result import Result
+from pytop.spaces import TopologicalSpace
 from pytop.spectral_spaces import (
     GENERIC_POINT_TAGS,
     NOT_SOBER_TAGS,
@@ -24,8 +26,6 @@ from pytop.spectral_spaces import (
     spectral_space_type_index,
     stone_duality_applies,
 )
-from pytop.result import Result
-from pytop.spaces import TopologicalSpace
 
 
 def _sp(*tags: str) -> TopologicalSpace:

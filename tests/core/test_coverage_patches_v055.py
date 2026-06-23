@@ -12,11 +12,8 @@ from __future__ import annotations
 
 import types
 
-import pytest
-
 from pytop.cardinal_functions_framework import _comparison_key
 from pytop.cell_complexes import (
-    CellComplexProfile,
     cell,
     cell_complex_profile,
     validate_finite_cell_profile,
@@ -26,7 +23,6 @@ from pytop.maps import FiniteMap, _analyze_finite_map_property
 from pytop.spaces import TopologicalSpace
 from pytop.stone_cech import is_stone_cech_compactifiable
 from pytop.topological_groups import classify_topological_group, is_topological_group
-
 
 # ---------------------------------------------------------------------------
 # topological_groups.py:71  _representation_of — metadata["representation"] path

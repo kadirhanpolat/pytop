@@ -4,9 +4,9 @@ Functions tested: associahedron_complex, operad_composition_check, bar_construct
 Private helpers: _full_binary_trees, _one_step_rotations
 """
 import pytest
-from pytop import associahedron_complex, operad_composition_check, bar_construction_sc
-from pytop.operads import _full_binary_trees, _one_step_rotations
 
+from pytop import associahedron_complex, bar_construction_sc, operad_composition_check
+from pytop.operads import _full_binary_trees, _one_step_rotations
 
 # ---------------------------------------------------------------------------
 # _full_binary_trees

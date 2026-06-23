@@ -5,6 +5,7 @@ from pytop.relations import (
     canonical_projection_from_equivalence,
     compose_relations,
     equivalence_class,
+    equivalence_from_classes,
     equivalence_from_partition,
     identity_relation,
     inverse_relation,
@@ -18,16 +19,15 @@ from pytop.relations import (
     is_symmetric,
     is_total_order,
     is_transitive,
+    make_relation,
     partition_from_equivalence,
     quotient_set,
     relation_domain,
     relation_profile,
     relation_range,
+    total_order_from_list,
     validate_relation_between,
     validate_relation_on,
-    make_relation,
-    total_order_from_list,
-    equivalence_from_classes,
 )
 
 EQUALITY_MOD_2 = {
@@ -211,6 +211,7 @@ def test_make_relation_empty_pairs():
 
 def test_make_relation_validates_carrier():
     import pytest as _pytest
+
     from pytop.relations import RelationError
     with _pytest.raises(RelationError):
         make_relation([1, 2], (1, 99))  # 99 not in carrier

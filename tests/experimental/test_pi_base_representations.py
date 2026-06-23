@@ -6,8 +6,6 @@ from fractions import Fraction
 
 import pytest
 
-from fractions import Fraction
-
 from pytop.experimental.spaces import (
     AlexandroffSpace,
     CofiniteSpace,
@@ -32,7 +30,6 @@ from pytop.experimental.spaces.pi_base_representations import (
     _CertifiedSpace,
     _MetricWithCerts,
 )
-
 
 # ---------------------------------------------------------------------------
 # list_representable / is_representable

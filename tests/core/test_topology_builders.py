@@ -1,6 +1,5 @@
 """Tests for src/pytop/topology_builders.py."""
 
-import pytest
 
 from pytop.topology_builders import (
     cofinite_topology,
@@ -11,7 +10,6 @@ from pytop.topology_builders import (
     topology_from_basis,
     topology_from_subbasis,
 )
-
 
 # ---------------------------------------------------------------------------
 # make_topology

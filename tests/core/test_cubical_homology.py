@@ -10,13 +10,13 @@ from pytop.cubical_homology import (
     Cube,
     CubicalComplex,
     CubicalFiltration,
+    bitmap_to_cubical_filtration,
+    circle_cubical,
     cube_dim,
     cube_faces_signed,
     cube_faces_z2,
     cubical_boundary_matrix,
     cubical_homology,
-    bitmap_to_cubical_filtration,
-    circle_cubical,
     disk_cubical,
     interval_complex,
     make_cubical_complex,
@@ -25,14 +25,13 @@ from pytop.cubical_homology import (
     sphere_cubical_1d,
 )
 from pytop.homology import HomologyResult
+from pytop.metric_spaces import FiniteMetricSpace
 from pytop.persistent_homology import (
     FilteredComplex,
     PersistencePair,
     vietoris_rips_filtration,
 )
 from pytop.persistent_homology_optimized import persistence_pairs_twist_with_stats
-from pytop.metric_spaces import FiniteMetricSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers

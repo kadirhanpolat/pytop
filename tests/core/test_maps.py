@@ -71,7 +71,12 @@ def test_initial_topology_from_identity_map_recovers_discrete_topology():
     assert topology == {frozenset(), frozenset({'a'}), frozenset({'b'}), frozenset({'a', 'b'})}
 
 
-from pytop.maps import MapBuilderError, constant_function, identity_function, make_function
+from pytop.maps import (  # noqa: E402
+    MapBuilderError,
+    constant_function,
+    identity_function,
+    make_function,
+)
 
 
 def test_make_function_basic():

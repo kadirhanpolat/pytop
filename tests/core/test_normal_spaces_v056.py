@@ -1,6 +1,5 @@
 """Tests for normal_spaces.py (v0.5.6)."""
 
-import pytest
 
 from pytop.normal_spaces import (
     COMPACT_HAUSDORFF_TAGS,

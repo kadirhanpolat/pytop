@@ -6,8 +6,6 @@ from __future__ import annotations
 
 from fractions import Fraction
 
-import pytest
-
 from pytop.experimental.spaces import (
     CantorSpaceRepresentation,
     LexicographicSquareSpace,
@@ -37,7 +35,6 @@ from pytop.experimental.spaces.cardinal_invariants import (
     weight,
 )
 from pytop.experimental.spaces.core import CardinalValue, Decidability
-
 
 # ==========================================================================
 # ProductMetricSpace

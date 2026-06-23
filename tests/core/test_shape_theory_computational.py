@@ -11,7 +11,6 @@ from pytop.shape_theory import (
     shape_anr_check_sc,
 )
 
-
 # ---------------------------------------------------------------------------
 # Fixtures: canonical simplicial complexes
 # ---------------------------------------------------------------------------

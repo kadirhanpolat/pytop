@@ -6,7 +6,6 @@ import pytest
 
 from pytop.homotopy import has_sphere_homology, is_contractible_simplicial
 
-
 # ---------------------------------------------------------------------------
 # Helpers: canonical examples
 # ---------------------------------------------------------------------------

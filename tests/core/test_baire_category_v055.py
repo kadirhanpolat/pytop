@@ -1,6 +1,5 @@
 """Tests for baire_category.py (v0.5.5)."""
 
-import pytest
 
 from pytop.baire_category import (
     BAIRE_NEGATIVE_TAGS,
@@ -10,7 +9,6 @@ from pytop.baire_category import (
     LCH_TAGS,
     MEAGER_SPACE_TAGS,
     OPEN_DENSE_TAGS,
-    POLISH_TAGS,
     BaireCategoryProfile,
     baire_category_profile,
     baire_category_theorem_check,

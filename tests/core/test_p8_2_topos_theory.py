@@ -3,14 +3,12 @@
 Functions tested: site_from_finite_topology, sheaf_on_site,
 sheafification_finite, topos_check
 """
-import pytest
 from pytop import (
-    site_from_finite_topology,
     sheaf_on_site,
     sheafification_finite,
+    site_from_finite_topology,
     topos_check,
 )
-
 
 _EMPTY = frozenset()
 _U0 = frozenset({0})

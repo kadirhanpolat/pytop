@@ -4,20 +4,15 @@ from __future__ import annotations
 
 from fractions import Fraction
 
-import pytest
-
 from pytop.experimental.spaces import (
     CofiniteSpace,
-    DiscreteCountableSpace,
     FiniteSpace,
-    MetricTopologySpace,
     SorgenfreyLineSpace,
     discrete_finite_space,
     is_tychonoff,
     rational_metric_space,
 )
 from pytop.experimental.spaces.urysohn import UrysohnWitness, urysohn_function
-
 
 # ==========================================================================
 # UrysohnWitness dataclass

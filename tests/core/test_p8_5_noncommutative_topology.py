@@ -4,9 +4,10 @@ Functions tested: k0_group_matrix_algebra, spectral_dimension_finite,
 k1_group_matrix_algebra
 """
 import math
-import pytest
-from pytop import k0_group_matrix_algebra, spectral_dimension_finite, k1_group_matrix_algebra
 
+import pytest
+
+from pytop import k0_group_matrix_algebra, k1_group_matrix_algebra, spectral_dimension_finite
 
 # ---------------------------------------------------------------------------
 # k0_group_matrix_algebra

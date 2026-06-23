@@ -8,7 +8,6 @@ from pytop.degree_theory import map_degree_simplicial
 from pytop.simplicial_complexes import simplicial_complex
 from pytop.simplicial_maps import SimplicialMap
 
-
 # ---------------------------------------------------------------------------
 # Helper: build a standard S¹ triangulation (triangle boundary, 3 vertices)
 # ---------------------------------------------------------------------------

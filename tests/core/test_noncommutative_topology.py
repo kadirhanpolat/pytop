@@ -16,6 +16,7 @@ from pytop.noncommutative_topology import (
     SPECTRAL_TRIPLE_TAGS,
     NoncommutativeProfile,
     classify_noncommutative,
+    get_named_noncommutative_profiles,
     has_gelfand_dual,
     has_spectral_triple,
     is_commutative_cstar,
@@ -25,9 +26,7 @@ from pytop.noncommutative_topology import (
     noncommutative_layer_summary,
     noncommutative_profile,
     noncommutative_type_index,
-    get_named_noncommutative_profiles,
 )
-
 
 # ---------------------------------------------------------------------------
 # Fixtures

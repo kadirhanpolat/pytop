@@ -7,20 +7,16 @@
 
 from __future__ import annotations
 
-import pytest
-
 from pytop.experimental.spaces import (
     AlexandroffSpace,
     CofiniteSpace,
     OrderTopologySpace,
     SorgenfreyLineSpace,
-    discrete_finite_space,
     is_connected,
     is_t0,
 )
 from pytop.experimental.spaces.cardinal_invariants import character, weight
 from pytop.experimental.spaces.urysohn import UrysohnWitness, urysohn_function
-
 
 # ==========================================================================
 # AlexandroffSpace.certificate — T0

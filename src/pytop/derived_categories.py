@@ -1042,7 +1042,7 @@ def derived_functor_h(
     >>> derived_functor_h([[[-1, 1]]], 1)["betti_number"]
     0
     """
-    from .exact_linalg import smith_normal_form, integer_rank
+    from .exact_linalg import integer_rank, smith_normal_form
 
     def _get(k: int) -> list[list[int]]:
         return boundaries[k] if 0 <= k < len(boundaries) else []

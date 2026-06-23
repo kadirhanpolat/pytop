@@ -27,8 +27,6 @@ from __future__ import annotations
 import random
 from math import gcd
 
-import pytest
-
 from pytop import (
     alexander_polynomial_from_braid,
     are_lens_spaces_homeomorphic,
@@ -41,7 +39,6 @@ from pytop import (
 )
 from pytop.homology import euler_characteristic_via_homology
 from pytop.knot_invariants import _normalize_alexander
-
 
 # ---------------------------------------------------------------------------
 # Generators and helpers

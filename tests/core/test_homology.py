@@ -11,9 +11,8 @@ from pytop import (
     homology_groups,
     simplicial_homology,
 )
-from pytop.simplicial_complexes import generated_subcomplex
 from pytop.homology import _smith_normal_form
-
+from pytop.simplicial_complexes import generated_subcomplex
 
 # --------------------------------------------------------------------------
 # Test fixtures: standard triangulations

@@ -965,9 +965,9 @@ def _full_binary_trees(n: int) -> list[Any]:
         return [None]
     trees: list[Any] = []
     for i in range(1, n):
-        for l in _full_binary_trees(i):
-            for r in _full_binary_trees(n - i):
-                trees.append((l, r))
+        for left in _full_binary_trees(i):
+            for right in _full_binary_trees(n - i):
+                trees.append((left, right))
     return trees
 
 
@@ -1015,8 +1015,8 @@ def associahedron_complex(n: int) -> Any:
     >>> sum(1 for s in K4.simplexes if len(s.vertices) == 1)  # 5 vertices
     5
     """
-    from .simplicial_complexes import SimplicialComplex
     from .simplices import Simplex
+    from .simplicial_complexes import SimplicialComplex
     if n < 2:
         raise ValueError("n must be ≥ 2")
     trees = _full_binary_trees(n)
@@ -1116,8 +1116,8 @@ def bar_construction_sc(
     >>> sum(1 for s in sc.simplexes if len(s.vertices) == 1)
     2
     """
-    from .simplicial_complexes import SimplicialComplex
     from .simplices import Simplex
+    from .simplicial_complexes import SimplicialComplex
     if n_generators < 1:
         raise ValueError("n_generators must be ≥ 1")
     simplices: list[Simplex] = [Simplex([i]) for i in range(n_generators)]

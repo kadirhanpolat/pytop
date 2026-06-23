@@ -2,6 +2,8 @@
 
 import pytest
 
+from pytop.result import Result
+from pytop.spaces import TopologicalSpace
 from pytop.topos_theory import (
     BOOLEAN_TOPOS_TAGS,
     ELEMENTARY_TOPOS_TAGS,
@@ -23,8 +25,6 @@ from pytop.topos_theory import (
     topos_profile,
     topos_type_index,
 )
-from pytop.result import Result
-from pytop.spaces import TopologicalSpace
 
 
 def _sp(*tags: str) -> TopologicalSpace:

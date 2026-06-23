@@ -14,9 +14,9 @@ from __future__ import annotations
 
 import math
 import random
+from collections.abc import Sequence
 from dataclasses import dataclass
 from itertools import combinations
-from typing import Sequence
 
 from .persistent_homology import FilteredComplex, PersistencePair
 from .persistent_homology_optimized import persistence_pairs_twist
@@ -145,9 +145,9 @@ def witness_filtration(
     n_l = len(landmarks)
     n_p = len(points)
 
-    # Precompute distances d[w][l] = d(points[w], landmarks[l])
+    # Precompute distances d[w][lm] = d(points[w], landmarks[lm])
     d: list[list[float]] = [
-        [_dist(points[w], landmarks[l]) for l in range(n_l)]
+        [_dist(points[w], landmarks[lm]) for lm in range(n_l)]
         for w in range(n_p)
     ]
 
@@ -161,7 +161,7 @@ def witness_filtration(
         for sigma in combinations(range(n_l), dim + 1):
             eps_sigma = math.inf
             for w in range(n_p):
-                eps_w = max(d[w][l] for l in sigma)
+                eps_w = max(d[w][lm] for lm in sigma)
                 if eps_w < eps_sigma:
                     eps_sigma = eps_w
             if eps_sigma <= max_eps:

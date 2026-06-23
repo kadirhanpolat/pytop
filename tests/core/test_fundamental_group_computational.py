@@ -7,7 +7,6 @@ import pytest
 from pytop.fundamental_group import pi1_graph
 from pytop.van_kampen import GroupPresentation
 
-
 # ---------------------------------------------------------------------------
 # pi1_graph — basic correctness
 # ---------------------------------------------------------------------------

@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import pytest
 
-from pytop.homology import homology_groups, simplicial_homology
+from pytop.homology import simplicial_homology
 from pytop.simplices import Simplex
 from pytop.simplicial_complexes import SimplicialComplex
 from pytop.simplicial_maps import (
@@ -24,7 +24,6 @@ from pytop.simplicial_maps import (
     induced_map_on_homology,
     suspension_complex,
 )
-
 
 # ---------------------------------------------------------------------------
 # Fixtures / helpers

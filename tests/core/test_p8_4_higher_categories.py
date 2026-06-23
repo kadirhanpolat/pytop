@@ -2,11 +2,9 @@
 
 Functions tested: nerve_of_category, kan_fibration_check_sc, homotopy_type_finite_cat
 """
-import pytest
-from pytop import nerve_of_category, kan_fibration_check_sc, homotopy_type_finite_cat
-from pytop.simplicial_complexes import SimplicialComplex
+from pytop import homotopy_type_finite_cat, kan_fibration_check_sc, nerve_of_category
 from pytop.simplices import Simplex
-
+from pytop.simplicial_complexes import SimplicialComplex
 
 # ---------------------------------------------------------------------------
 # nerve_of_category

@@ -7,7 +7,6 @@ from pytop.descriptive_set_theory import is_g_delta
 from pytop.normal_spaces import urysohn_function_exists
 from pytop.topological_vector_spaces import is_locally_convex
 
-
 # ---------------------------------------------------------------------------
 # descriptive_set_theory.py:104 — _extract_tags returns set() for tagless object
 # ---------------------------------------------------------------------------

@@ -321,7 +321,7 @@ def pi1_graph(
     >>> p.rank
     2
     """
-    from .van_kampen import CW1Complex, DirectedEdge, Face2, cw_complex_pi1
+    from .van_kampen import CW1Complex, DirectedEdge, cw_complex_pi1
 
     if not vertices:
         raise ValueError("Graph must have at least one vertex")
@@ -337,7 +337,7 @@ def pi1_graph(
     cw = CW1Complex(
         vertices=str_verts,
         edges=directed,
-        faces=(),  # type: ignore[arg-type]
+        faces=(),
         basepoint=str_bp,
     )
     return cw_complex_pi1(cw)

@@ -1,9 +1,10 @@
 """Tests for zero_dimensionality.py (v0.5.9)."""
 
-import types
 
 import pytest
 
+from pytop.result import Result
+from pytop.spaces import TopologicalSpace
 from pytop.zero_dimensionality import (
     COMPACT_HAUSDORFF_TAGS,
     COMPACT_ZD_TAGS,
@@ -27,8 +28,6 @@ from pytop.zero_dimensionality import (
     zero_dimensional_type_index,
     zero_dimensionality_profile,
 )
-from pytop.result import Result
-from pytop.spaces import TopologicalSpace
 
 
 def _sp(*tags: str) -> TopologicalSpace:

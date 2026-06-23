@@ -12,7 +12,6 @@ Reference diagrams
 * **Cinquefoil** T(2,5) = 5₁: 5 crossings, all negative
 """
 
-import pytest
 
 from pytop.knot_invariants import KnotDiagram
 from pytop.seifert import (
@@ -21,7 +20,6 @@ from pytop.seifert import (
     seifert_matrix,
     signature,
 )
-
 
 # ---------------------------------------------------------------------------
 # Reference diagrams

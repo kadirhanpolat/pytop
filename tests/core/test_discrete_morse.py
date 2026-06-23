@@ -6,17 +6,15 @@ from itertools import combinations
 
 import pytest
 
-from pytop.simplices import Simplex
-from pytop.simplicial_complexes import SimplicialComplex
 from pytop.discrete_morse import (
-    MorsePair,
     MorseMatching,
-    MorseInequalities,
+    MorsePair,
+    check_morse_inequalities,
     discrete_gradient_matching,
     is_valid_morse_matching,
-    check_morse_inequalities,
 )
-
+from pytop.simplices import Simplex
+from pytop.simplicial_complexes import SimplicialComplex
 
 # ---------------------------------------------------------------------------
 # Fixtures

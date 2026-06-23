@@ -22,13 +22,12 @@ from fractions import Fraction
 
 from pytop.knot_invariants import (
     KnotDiagram,
-    LinkDiagram,
     Laurent,
-    alexander_polynomial_from_braid,
+    LinkDiagram,
     _normalize_alexander,
+    alexander_polynomial_from_braid,
     multivariable_alexander,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers

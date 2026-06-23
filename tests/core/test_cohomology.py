@@ -20,19 +20,22 @@ import pytest
 
 from pytop.cohomology import (
     CohomologyResult,
+    _compute_cohomology_data,
     coboundary_matrix,
     cohomology_betti_numbers,
     cohomology_groups,
     cup_product_cochain,
     simplicial_cohomology,
     simplicial_cohomology_ring,
-    _compute_cohomology_data,
 )
-from pytop.homology import betti_numbers, boundary_matrix, simplicial_homology
-from pytop.homology import _simplices_of_dimension
+from pytop.homology import (
+    _simplices_of_dimension,
+    betti_numbers,
+    boundary_matrix,
+    simplicial_homology,
+)
 from pytop.mayer_vietoris import _mat_vec
 from pytop.simplicial_complexes import generated_subcomplex
-
 
 # ── Fixtures ──────────────────────────────────────────────────────────────────
 
@@ -225,7 +228,6 @@ class TestCupProductCochain:
     def test_cup_unit_with_1cochain(self):
         """The constant-1 cochain in C^0 acts as identity for ∪."""
         K = _circle()
-        hd0 = _compute_cohomology_data(K, 0)
         # constant-1 cochain in C^0
         const1 = [1] * len(_simplices_of_dimension(K, 0))
         hd1 = _compute_cohomology_data(K, 1)
@@ -359,7 +361,6 @@ class TestCP2CohomologyViaRing:
         # S⁴ simplicial model: boundary of the 5-simplex.
         # H*(S⁴) = Z in degree 0 and 4, zero otherwise.
         # All cup products of positive-degree classes must be zero.
-        from pytop.simplicial_complexes import generated_subcomplex as gsc
         # Use a cone-based model: boundary of {1,2,3,4,5} (S³), then build S⁴
         # via suspension. Actually easiest: just use the sphere fixture at dim 2
         # and verify the ring is trivial.

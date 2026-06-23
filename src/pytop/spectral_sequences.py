@@ -986,7 +986,7 @@ __all__ = [
 #
 # For the Künneth / product filtration the sequence degenerates at E^2.
 
-from dataclasses import dataclass as _dataclass
+from dataclasses import dataclass as _dataclass  # noqa: E402
 
 _Matrix = list[list[int]]
 

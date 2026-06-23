@@ -52,15 +52,15 @@ KNOT_FILLS = [(5, 1), (7, 2), (3, 1), (0, 1), (1, 1)]
 # slopes (a, 1) and (b, 1) → H₁ = ℤ/a ⊕ ℤ/b.
 WHITE_FILLS = [(2, 3), (5, 7), (4, 0)]
 
-SNAPPY_SCRIPT = """
+SNAPPY_SCRIPT = f"""
 import snappy
-for (p, q) in {knot}:
+for (p, q) in {KNOT_FILLS}:
     K = snappy.Manifold('m004'); K.dehn_fill((p, q))
     print('KNOT_%d_%d' % (p, q), list(K.homology().elementary_divisors()))
-for (a, b) in {white}:
+for (a, b) in {WHITE_FILLS}:
     L = snappy.Manifold('L5a1'); L.dehn_fill([(a, 1), (b, 1)])
     print('WHITE_%d_%d' % (a, b), list(L.homology().elementary_divisors()))
-""".format(knot=KNOT_FILLS, white=WHITE_FILLS)
+"""
 
 _KEY = re.compile(r"\b(KNOT_\d+_\d+|WHITE_\d+_\d+)\s+(\[.*\])")
 

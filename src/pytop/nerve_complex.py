@@ -41,7 +41,6 @@ from typing import Any
 from .simplices import Simplex
 from .simplicial_complexes import SimplicialComplex
 
-
 # ---------------------------------------------------------------------------
 # Core API
 # ---------------------------------------------------------------------------
@@ -330,7 +329,6 @@ def _solve_ls(
     # Gaussian elimination with partial pivoting
     sol_rows = [aug[r][:] for r in range(m)]
     n_cols = d
-    pivot_col = 0
     pivot_row = 0
     for col in range(n_cols):
         if pivot_row >= m:

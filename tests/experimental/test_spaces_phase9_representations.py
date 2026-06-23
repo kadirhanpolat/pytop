@@ -23,10 +23,8 @@ from pytop.experimental.spaces import (
     UniformProduct,
     UniformSpace,
     UniformSubspace,
-    cantor_space,
     discrete_finite_space,
     dyadic_solenoid,
-    finite_circle,
     hilbert_cube,
     is_compact,
     is_connected,
@@ -56,7 +54,6 @@ from pytop.experimental.spaces.cardinal_invariants import (
     weight,
 )
 from pytop.experimental.spaces.core import CardinalValue, CarrierKind, Decidability
-
 
 # ==========================================================================
 # P9.1  OnePointCompactificationSpace

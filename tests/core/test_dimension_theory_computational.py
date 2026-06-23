@@ -2,10 +2,7 @@
 
 from __future__ import annotations
 
-import pytest
-
 from pytop.dimension_theory import covering_dimension_simplicial, ind_finite_space
-
 
 # ---------------------------------------------------------------------------
 # covering_dimension_simplicial

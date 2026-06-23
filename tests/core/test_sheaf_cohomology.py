@@ -2,16 +2,12 @@
 
 from __future__ import annotations
 
-import pytest
-
 from pytop.sheaf_cohomology import (
-    FiniteSheaf,
-    constant_sheaf,
-    skyscraper_sheaf,
     cech_cohomology,
+    constant_sheaf,
     sheaf_cohomology,
+    skyscraper_sheaf,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers: small finite topological spaces

@@ -9,39 +9,35 @@ from __future__ import annotations
 import pytest
 
 from pytop.van_kampen import (
-    # Types
-    GroupPresentation,
-    GroupPresentationError,
-    GroupHomomorphism,
-    VanKampenResult,
     CW1Complex,
     DirectedEdge,
     Face2,
-    # Constructors
-    group_homomorphism,
-    trivial_group,
-    infinite_cyclic_group,
-    free_group,
-    cyclic_group,
-    surface_group,
-    surface_group_nr,
-    # Main functions
-    van_kampen,
-    cw_complex_pi1,
-    # Convenience decompositions
-    van_kampen_wedge_circles,
-    van_kampen_sphere,
-    van_kampen_torus,
-    van_kampen_klein_bottle,
-    van_kampen_real_projective_plane,
+    GroupPresentation,
+    GroupPresentationError,
+    _concat,
     # Word utilities
     _free_reduce,
     _invert,
-    _concat,
     _substitute,
     _word_to_str,
+    cw_complex_pi1,
+    cyclic_group,
+    free_group,
+    # Constructors
+    group_homomorphism,
+    infinite_cyclic_group,
+    surface_group,
+    surface_group_nr,
+    trivial_group,
+    # Main functions
+    van_kampen,
+    van_kampen_klein_bottle,
+    van_kampen_real_projective_plane,
+    van_kampen_sphere,
+    van_kampen_torus,
+    # Convenience decompositions
+    van_kampen_wedge_circles,
 )
-
 
 # ── Word arithmetic ───────────────────────────────────────────────────────────
 

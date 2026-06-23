@@ -25,17 +25,17 @@ two "hemispheres":
 Expected: H_0=Z, H_1=0, H_2=Z.
 """
 import pytest
-from pytop.simplicial_complexes import SimplicialComplex
+
 from pytop.mayer_vietoris import (
+    _compute_homology_data,
+    _imat,
+    _mat_mul,
+    _snf_ext,
+    mayer_vietoris,
     sc_intersection,
     sc_union,
-    mayer_vietoris,
-    _snf_ext,
-    _mat_mul,
-    _imat,
-    _compute_homology_data,
 )
-
+from pytop.simplicial_complexes import SimplicialComplex
 
 # ── Fixtures ──────────────────────────────────────────────────────────────────
 
@@ -111,7 +111,6 @@ class TestScOps:
     def test_intersection_circle(self, circle_mv):
         A, B = circle_mv
         AB = sc_intersection(A, B)
-        from pytop.simplices import Simplex
         verts = {frozenset(s.vertices) for s in AB.simplexes}
         assert frozenset({0}) in verts
         assert frozenset({2}) in verts
@@ -120,7 +119,6 @@ class TestScOps:
     def test_union_circle(self, circle_mv):
         A, B = circle_mv
         K = sc_union(A, B)
-        from pytop.simplices import Simplex
         edges = {frozenset(s.vertices) for s in K.simplexes if len(s.vertices) == 2}
         assert frozenset({0, 1}) in edges
         assert frozenset({1, 2}) in edges
@@ -155,7 +153,6 @@ class TestHomologyData:
 
     def test_cycle_rep_roundtrip(self, circle_mv):
         A, B = circle_mv
-        AB = sc_intersection(A, B)
         K = sc_union(A, B)
         hd = _compute_homology_data(K, 1)  # H_1(S^1) = Z
         assert hd.group.betti == 1
@@ -348,7 +345,6 @@ class TestMVTorus:
         B = SimplicialComplex([[1, 2], [1], [2]])
         mv = mayer_vietoris(A, B)
         # Union should contain all vertices 0, 1, 2
-        from pytop.simplices import Simplex
         verts = {frozenset(s.vertices) for s in mv.union.simplexes}
         for v in [{0}, {1}, {2}]:
             assert frozenset(v) in verts

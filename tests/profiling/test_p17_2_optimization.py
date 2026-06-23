@@ -23,7 +23,6 @@ from pytop.persistent_homology import (
 )
 from pytop.persistent_homology_optimized import (
     ReductionStats,
-    persistence_pairs_cohomology,
     persistence_pairs_twist_with_stats,
 )
 

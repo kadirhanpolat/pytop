@@ -2,6 +2,7 @@
 
 import pytest
 
+from pytop.result import Result
 from pytop.solenoid_profiles import (
     COMPACT_FACTOR_TAGS,
     CONNECTED_FACTOR_TAGS,
@@ -25,7 +26,6 @@ from pytop.solenoid_profiles import (
     solenoid_profile,
     solenoid_type_index,
 )
-from pytop.result import Result
 from pytop.spaces import TopologicalSpace
 
 
