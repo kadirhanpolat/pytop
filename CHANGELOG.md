@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **P17.3 — Inductive Vietoris–Rips construction (~14–19× faster filtration builds).**
+  `vietoris_rips_filtration` now uses inductive clique expansion (Zomorodian 2010)
+  over the neighborhood graph instead of exhaustive `C(n, k+1)` subset enumeration.
+  Build time scales with the materialized complex rather than `C(n, k+1)`
+  (n=500: 22.7 s → 1.65 s). **Output is byte-identical** to the previous
+  construction — no API or behavior change — verified against a brute-force
+  reference and the full test suite.
+
+### Added
+
+- **P16.2 — GUDHI persistent-Betti parity (now wired).** `tests/validation/betti_parity.py`
+  cross-checks pytop's Vietoris–Rips persistent homology against GUDHI by Betti
+  number at scale (`birth ≤ s < death`), for dimensions the truncated skeleton
+  represents faithfully (`H_k` needs simplices up to dim `k+1`), sampled at
+  filtration-event midpoints. Passing on circle / dense circle / two circles
+  (`H₀=H₁=2`) / icosahedral 2-sphere (`H₂=1`) / random cloud. Validation suite
+  79 → 97 passing.
+- **P19.2 — Deprecation policy.** `@deprecated` decorator (`pytop._deprecation`)
+  emitting consistent WHY-HOW-THEN `DeprecationWarning`s with docstring notes and
+  metadata; `preservation_legacy` retrofitted onto it. `DEPRECATIONS.md` documents
+  the 18-month / next-major policy and registry.
+- **P19.3 — API consistency audit** in `docs/API_DESIGN.md` (naming conventions +
+  documented inconsistencies deferred to v2.0).
+- **P20.3 — Community onboarding.** Rewritten `CONTRIBUTING.md`; GitHub issue
+  templates (bug / feature / docs) and pull-request template under `.github/`.
+
+### Fixed
+
+- Latent `BettiResult.torsion` type bug (`list = None` → `list | None = None`) and
+  the previously broken death-count Betti comparison in the oracle agreement builder.
+
 ## [1.5.0] — 2026-06-23
 
 ### Added

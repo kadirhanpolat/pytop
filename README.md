@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.6.1-dev**, pytop ships **20 phases in progress** with 11,691+ tests (198 persistent_homology + profiling). **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem (benchmark suite, oracle parity, statistical validation). **Phase 17** 🔄 **performance & scale**: **P17.1 ✅** profiling infrastructure (cProfile hooks, flamegraph, memory tracking, 86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'; Twist default with Clearing Lemma + bigint bitmask ~1.1× speedup; 6 benchmarks); **P17.3 🚧** parallel scaling (architecture analysis, strategy recommendations). **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** 🔄 **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN pattern on 3 functions); **P19.2 🚧** deprecation policy. **Phase 20** 🔄 **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 test matrix, all checks green); **P20.2 🚧** PyPI publishing workflow; **P20.3 🚧** community onboarding.
+As of **v1.6.1-dev**, pytop ships **20 phases in progress** with 11,896 tests passing. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, statistical validation, and **P16.2 oracle parity now wired** — pytop's persistent Betti numbers cross-checked against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures). **Phase 17** 🔄 **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 🚧** scaling — **inductive Vietoris–Rips construction shipped (~14–19× filtration-build speedup, byte-identical output)**; the Z/2 reduction is now the dominant cost for dense high-n. **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** 🔄 **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** 🔄 **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 🚧** PyPI publishing; **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates).
 
 ## Installation
 
@@ -198,6 +198,35 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New in v1.6.1-dev
+
+**P16.2 — Oracle parity, now wired to GUDHI.** The persistent-Betti cross-check
+that was previously framework-only is now a real, passing comparison. Added
+`tests/validation/betti_parity.py`: pytop and GUDHI build the *same* Vietoris–Rips
+filtration and agree on the **Betti number at every scale** (bars alive at `s`,
+`birth ≤ s < death`) for dimensions the truncated skeleton can represent
+faithfully (`H_k` needs simplices up to dim `k+1`). Verified on circle, dense
+circle, two disjoint circles (`H₀=H₁=2`), an icosahedral 2-sphere (`H₂=1`), and a
+random cloud. This corrected two latent bugs in the old comparison (death-count
+instead of Betti-at-scale; spurious `H₂` from a triangle-only complex). Validation
+suite 79 → 97 passing.
+
+**P17.3 — Inductive Vietoris–Rips construction (~14–19× faster builds).** Profiling
+showed the *filtration build* — not the reduction — dominated the truncated-scale
+regime (85–92% of wall-clock at n=100–200). `vietoris_rips_filtration` now uses
+**inductive clique expansion** (Zomorodian 2010) over the neighborhood graph
+instead of exhaustive `C(n, k+1)` subset enumeration. Build time scales with the
+materialized complex, not `C(n, k+1)`: **n=500 went from 22.7 s → 1.65 s**, output
+**byte-identical** to before (verified vs. a brute-force reference and the full
+test suite). No API change. The Z/2 reduction is now the dominant cost for dense,
+high-n complexes (the next, inherently sequential, target).
+
+**P19.2 / P19.3 / P20.3 — API maturity & onboarding.** Reusable `@deprecated`
+decorator (`pytop._deprecation`) emitting consistent WHY-HOW-THEN
+`DeprecationWarning`s, plus `DEPRECATIONS.md` (18-month / next-major policy +
+registry). API naming/consistency audit in `docs/API_DESIGN.md`. Rewritten
+`CONTRIBUTING.md` and GitHub issue/PR templates.
 
 ## What's New in v1.6.0
 
