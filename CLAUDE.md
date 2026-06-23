@@ -243,7 +243,7 @@ feature/<topic> ← feature branches, merge to master via PR
 - **Released v1.3.0:** Phase 11 — Lean 4 formal verification expansion (5 new proof files, 0 sorry).
 - **Released v1.4.0:** Phase 12 P12.1–P12.2 — `sheaf_cohomology` (Čech cohomology of a sheaf on a finite space via Leray covers) + `persistent_ktheory` (rational AHSS K⁰/K¹ + parity-partitioned barcode). 78 new tests.
 - **Released v1.5.0 (latest):** Phases 13–15 — 15 new pure-Python modules. **Phase 13 (Homotopy):** `chain_homotopy`, `eilenberg_maclane`, `massey_products`, `hopf_invariant`, `sullivan_models`. **Phase 14 (Advanced Knot Homology):** `khovanov_odd`, `grid_floer` (HFK̂ over 𝔽₂), `concordance` (τ/s/σ), `satellite_knots` (exact torus-knot Alexander division), `virtual_knots`. **Phase 15 (4-Manifold Topology):** `intersection_forms` (Sylvester congruence signature), `kirby_calculus`, `casson_invariant` (Neumann–Wahl λ=σ(F)/8), `milnor_fibers`, `rohlin_theorem`. 140 new tests; **11 685 tests total**. All 15 modules ruff-clean + mypy-clean.
-- **Released v1.6.0 (in progress, Phase 16 P16.2):** **Oracle parity framework** — extended knot table (6 → 25 primes: unknot–8_10), SnapPy H₁ Dehn surgery oracle tests, K-theory rational AHSS validation (S¹, S²), SageMath oracle placeholder. `tests/validation/test_oracle_parity.py`: 8 oracle parity tests (5 run, 2 skipped Docker, 1 reference). Validation suite: 62 tests passing, 0 failures. Framework ready for 50+ knot expansion + live oracle results (agreement matrix). Milestone P16.2: Foundation complete; P16.3 (statistical validation) follows.
+- **Released v1.6.0 (in progress, Phase 16 P16.2–P16.3):** **Oracle parity framework** — extended knot table (6 → 25 primes: unknot–8_10), SnapPy H₁ Dehn surgery oracle tests, K-theory rational AHSS validation (S¹, S²), SageMath oracle placeholder. `tests/validation/test_oracle_parity.py`: 8 oracle parity tests (5 run, 2 skipped Docker, 1 reference). Validation suite: 62 tests passing, 0 failures. Framework ready for 50+ knot expansion + live oracle results (agreement matrix). **P16.3 Statistical Validation:** `test_statistical_validation.py` + runner script; generates 10K random ER 1-skeleta (5–50 vertices, edge_prob 0.1–0.8), computes pytop H₀/H₁, compares against GUDHI/Ripser oracles (opt-in), produces JSON report (parity %, outliers, computation stats). Fast smoke test: 10 complexes <1s. Framework ready for oracle parity expansion. Milestone P16.2: Foundation complete; P16.3: framework complete (oracle integration pending proper GUDHI API usage).
 
 ---
 
@@ -281,7 +281,7 @@ Validate computational results against established external systems and curated 
 **Current Status:** 
 - P16.1 ✅ complete (37 tests: 4 minimal triangulations, 6 small graphs, 8 knot invariants, 5 large graphs, 8 performance benchmarks)
 - P16.2 🟡 in progress (framework complete: OracleAgreement/AgreementMatrix, extended knot table 25 primes, SnapPy H₁ Dehn surgery oracle, K-theory AHSS internal validation, SageMath placeholder; 8 oracle parity tests; validation suite 62 tests passing). Next: expand to 50+ knots + fill agreement matrix.
-- P16.3 in queue (statistical validation: 10K random complexes vs GUDHI/Ripser)
+- P16.3 🟡 framework complete (10K random complexes generation + pytop validation working; GUDHI/Ripser integration pending)
 
 ### Phase 17: Performance & Scale
 
