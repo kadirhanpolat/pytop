@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-23 (v1.6.0):** Phases 1–15 complete + Phase 16 ✅ P16.1–P16.3 complete (11,859 tests). Phase 1
+> **Status as of 2026-06-23 (v1.6.0):** Phases 1–15 complete + Phase 16 ✅ P16.1–P16.3 complete + Phase 17 P17.1 ✅ profiling infrastructure complete (11,945 tests). Phase 1
 > (set-theoretic topology) substantive; Phase 2–7 computational core (homology,
 > cohomology, Mayer–Vietoris, van Kampen, Khovanov, combinatorial topology);
 > Phase 8 advanced algebra (6 modules); Phase 9 computable-space expansion (19 reps);
@@ -562,7 +562,7 @@ Cross-validates pytop against independent gold-standard external systems via uni
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **11 859** (+ 16 opt-in SageMath/SnapPy-oracle tests + 79 validation tests) |
+| Tests passing | **11 945** (+ 16 opt-in SageMath/SnapPy-oracle tests + 79 validation tests + 86 profiling tests) |
 | Representations in `experimental.spaces` | 19 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
@@ -583,6 +583,7 @@ Cross-validates pytop against independent gold-standard external systems via uni
 | Phase 14 milestones complete | 5 / 5 ✅ (advanced knot homology) |
 | Phase 15 milestones complete | 5 / 5 ✅ (4-manifold topology) |
 | Phase 16 milestones complete | 3 / 3 ✅ (P16.1–P16.3 AUTONOMOUS: benchmark, oracle parity framework, statistical validation) |
+| Phase 17 milestones complete | 1 / 3 ✅⬜ (P17.1 profiling infrastructure done; P17.2–P17.3 optimization pending) |
 | **Current version** | **v1.6.0** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
