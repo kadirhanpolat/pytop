@@ -263,6 +263,76 @@ Phase 7 focuses on combinatorial/geometric topology — richer simplicial struct
 
 ---
 
+## Phase 16–20 Roadmap: Validation, Performance & Maturity
+
+Post-Phase-15 development focuses on empirical validation, performance optimization, documentation maturity, and ecosystem readiness. Five planned phases (est. 12–18 months):
+
+### Phase 16: Empirical Validation & Oracle Ecosystem
+
+Validate computational results against established external systems and curated benchmark suites.
+
+| Milestone | Module | Description |
+|-----------|--------|-------------|
+| **P16.1** | `benchmark_suite` | Public dataset collection: minimal triangulations (Klein bottle 8-vertex, torus 7-vertex), knot tables (KnotInfo Alexander/Jones genus), graph libraries (PHOEG grid graphs W₉–W₄₀). Baseline timings on each. |
+| **P16.2** | `oracle_parity` | Extend Sage/SnapPy/GUDHI oracles: K-theory rational AHSS vs Sage, Dehn surgery H₁ vs SnapPy on 50+ knots (figure-8, trefoil, 5_2, 7_1, etc.). Full agreement matrix (pytop row × oracle col). |
+| **P16.3** | `statistical_validation` | Random test generation: 10K random Erdős–Rényi simplicial complexes (1-skeleta d=2–4), homology vs GUDHI/Ripser. Report: parity %, residual error distribution, outliers → root-cause analysis. |
+
+**Target:** 99.9% oracle agreement, `tests/validation/` suite passing on 3+ oracles.
+
+### Phase 17: Performance & Scale
+
+Profiling-driven optimization and parallel scaling.
+
+| Milestone | Module | Description |
+|-----------|--------|-------------|
+| **P17.1** | `profiling_infrastructure` | cProfile + flamegraph hooks. Memory tracking via `tracemalloc`. Identify hotspots in SNF, persistent_homology, khovanov_homology per dataset. Report: top 5 bottlenecks with call graphs in `docs/PERFORMANCE.md`. |
+| **P17.2** | `algorithm_optimization` | Sparse matrix CSR format for boundary operators. Cache-aware column traversal. Clearing Lemma threshold auto-tuning (empirical sweep 0.1–0.9). Before/after: 5 large test cases (>10K simplices). Target: 2–5× speedup on sparse inputs. |
+| **P17.3** | `parallel_scaling` | Multi-process homology (ProcessPoolExecutor per dimension). GPU cohomology optional (CuPy + `[gpu]` extra): streaming reduction on device. Benchmark: scaling plots (1–16 cores, memory overhead vs wall-clock) on Rips n=100–500. |
+
+**Target:** Rips n=500 in <1s (current ~5s), memory linear in simplex count.
+
+### Phase 18: Documentation & Pedagogy
+
+Complete user guide, auto-generated API reference, and worked-example repository.
+
+| Milestone | Module | Description |
+|-----------|--------|-------------|
+| **P18.1** | `user_guide_completion` | All 16 chapters written (LaTeX, Markdown, Python, Jupyter). Maarif pedagogy blocks mandatory per chapter: Neden bu konu?, Kendin dene, Sık hata, Bkz., Öz-yansıtma. TikZ→PNG pipeline (`build_figures.py`) outputs 300 dpi assets. Cross-format consistency verified. |
+| **P18.2** | `api_documentation` | Sphinx + autodoc on 50+ public modules. Type hints → docstring generation. Lean theorem catalog cross-linked. ReadTheDocs (or GitHub Pages) live. Search-enabled. |
+| **P18.3** | `example_bank` | 50+ worked examples: homology (1–5 dim), knot theory (polynomial invariants, satellites, concordance), manifold classification, TDA pipelines, discrete Morse. Each: problem, solution, explanation, visualization (if applicable). Category index in `examples_bank/README.md`. |
+
+**Target:** `docs/user_guide/` 100% complete; ReadTheDocs site live with 200+ indexed pages; zero "TODO" placeholders.
+
+### Phase 19: API Stability & Ergonomics
+
+Deprecation policy, error message clarity, and API surface consistency.
+
+| Milestone | Module | Description |
+|-----------|--------|-------------|
+| **P19.1** | `deprecation_policy` | Define v2.0 deprecation window (18-month). Scan Phases 1–15 for API warts (naming conflicts, parameter ordering inconsistencies). Introduce `DeprecationWarning` + migration guide per function. Document in `DEPRECATIONS.md`. |
+| **P19.2** | `error_messages` | Audit every public `raise` statement. Rewrite to explain WHY + WHAT TO DO. Examples: "SimplexError: non-matching face dimensions (got {d1}, expected {d2}). Use `check=False` to skip validation." Validate with 10 representative users (GitHub issue feedback loop). |
+| **P19.3** | `api_consistency` | Naming audit: `persistent_homology_rips()` vs `rips_persistent_homology()` — pick one pattern. Parameter order consistency (complex first, then optional options). Return type harmony (barcode vs diagram vs descriptor). Document in `docs/API_DESIGN.md`. |
+
+**Target:** Zero ambiguous error messages; all public functions follow consistent naming/param conventions; SemVer v2.0.0 migration guide.
+
+### Phase 20: Ecosystem & Release Maturity
+
+PyPI publication, CI/CD hardening, and community onboarding infrastructure.
+
+| Milestone | Module | Description |
+|-----------|--------|-------------|
+| **P20.1** | `pypi_publishing` | Register on PyPI. Build wheels + sdist, test install on Linux/macOS/Windows. Automate releases via GitHub Actions on tag. Version management via `pyproject.toml` (single source of truth). Document release process in `_internal/RELEASE.md`. |
+| **P20.2** | `ci_cd_hardening` | Test matrix: Python 3.11, 3.12, 3.13, 3.14. Enforce: ruff format check, mypy full project (`0` errors), pytest coverage (target 85%+), docs build, security scan (bandit). All checks required before merge to master. |
+| **P20.3** | `community_onboarding` | Write `CONTRIBUTING.md` (dev setup, code style, PR guidelines, test coverage expectations). GitHub issue templates (bug/feature/docs). Label `good-first-issue` on 10+ items suitable for newcomers. Response SLA: 48h on issues. |
+
+**Target:** Published on PyPI; CI green across 4 Python versions; 10+ external contributors; <48h issue response time.
+
+---
+
+**Priority order:** P16 (validation foundation) → P18 (docs for adoption) → P17 (performance for scale) → P19 (polish) → P20 (release).
+
+---
+
 ## API Design Rules
 
 1. **Public API lives in `src/pytop/__init__.py`** — every symbol intended for users must be explicitly exported there.
