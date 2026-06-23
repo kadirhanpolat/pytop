@@ -21,16 +21,16 @@ from typing import Any, Callable, Generic, Optional, TypeVar
 T = TypeVar("T")
 
 
-@dataclass(frozen=False)
+@dataclass(frozen=True)
 class ProfileStats:
     """Immutable profile statistics container.
 
     Attributes:
         function_name: Name of the profiled function or code block
         total_time: Total wall-clock time in seconds
-        call_count: Number of function calls
+        call_count: Number of function calls (aggregate count across all profiled calls)
         peak_memory_mb: Peak memory usage in MB (0.0 if not tracked)
-        top_5_callers: List of top 5 caller functions
+        top_5_callers: List of top 5 slowest caller functions sorted by cumulative time
         raw_profile_data: Raw pstats data dictionary
     """
 
@@ -98,20 +98,27 @@ class _ProfileContext(Generic[T]):
                     call_count += func_stats[1]  # Total calls
                     total_time = max(total_time, func_stats[3])  # Use max cumulative time
 
-            # Extract top 5 callers
-            callers_list = []
+            # Extract top 5 callers by cumulative time
+            # func_stats = (primitive calls, calls, total time, cumulative time, callers)
+            caller_times: list[tuple[str, float]] = []
             for func_info, func_stats in ps.stats.items():
-                if func_stats and func_info:
-                    callers_list.append(str(func_info))
+                if func_stats and len(func_stats) >= 4:
+                    cumulative_time = func_stats[3]  # 4th element is cumulative time
+                    caller_times.append((str(func_info), cumulative_time))
 
-            top_5_callers = sorted(callers_list)[:5]
+            # Sort by cumulative time (descending) and take top 5
+            top_5_callers = [name for name, _ in sorted(
+                caller_times, key=lambda x: x[1], reverse=True
+            )[:5]]
 
-        # Get peak memory
+        # Get peak memory (use max of all statistics, not first)
         peak_memory_mb = 0.0
         if self.track_memory and self._memory_snapshot:
             stats_list = self._memory_snapshot.statistics("lineno")
             if stats_list:
-                peak_memory_mb = stats_list[0].size / (1024 * 1024)
+                peak_memory_mb = max(
+                    stat.size for stat in stats_list
+                ) / (1024 * 1024)
 
         self.stats = ProfileStats(
             function_name=self.func_name,
@@ -151,8 +158,29 @@ def profile_call(
     """
 
     def decorator(func: Callable[..., T]) -> Callable[..., tuple[T, ProfileStats]]:
+        """Apply profiling instrumentation to a function.
+
+        Args:
+            func: Function to be profiled
+
+        Returns:
+            Wrapped function that returns (result, ProfileStats) tuple
+        """
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> tuple[T, ProfileStats]:
+            """Execute profiled function and return result with statistics.
+
+            Collects cProfile statistics and optional memory tracking, then
+            returns a tuple of (function_result, ProfileStats).
+
+            Args:
+                *args: Positional arguments to pass to wrapped function
+                **kwargs: Keyword arguments to pass to wrapped function
+
+            Returns:
+                Tuple of (result, ProfileStats) where result is the wrapped
+                function's return value
+            """
             if not enable_by_default:
                 # If profiling disabled, just call function
                 result = func(*args, **kwargs)
@@ -171,7 +199,8 @@ def profile_call(
             with _ProfileContext(func.__name__, track_memory=track_memory) as ctx:
                 result = func(*args, **kwargs)
 
-            assert ctx.stats is not None
+            if ctx.stats is None:
+                raise RuntimeError("ProfileStats was not initialized by context manager")
             return (result, ctx.stats)
 
         return wrapper

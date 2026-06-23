@@ -125,7 +125,7 @@ class TestProfileCallDecorator:
         assert result == 6
         assert stats.call_count > 0
 
-    def test_profile_call_enable_by_default(self):
+    def test_profile_call_enable_by_default_true(self):
         """Test @profile_call with enable_by_default=True."""
         @profile_call(enable_by_default=True)
         def simple_func() -> str:
@@ -134,6 +134,24 @@ class TestProfileCallDecorator:
         result, stats = simple_func()
         assert result == "hello"
         assert stats.total_time >= 0
+
+    def test_profile_call_enable_by_default_false(self):
+        """Test @profile_call with enable_by_default=False.
+
+        When profiling is disabled, the function should still execute
+        correctly but return ProfileStats with all zeros/empty.
+        """
+        @profile_call(enable_by_default=False)
+        def simple_func(x: int) -> int:
+            return x * 2
+
+        result, stats = simple_func(5)
+        assert result == 10
+        assert stats.total_time == 0.0
+        assert stats.call_count == 0
+        assert stats.peak_memory_mb == 0.0
+        assert stats.top_5_callers == []
+        assert stats.raw_profile_data == {}
 
     def test_profile_call_multiple_invocations(self):
         """Test calling a decorated function multiple times."""
