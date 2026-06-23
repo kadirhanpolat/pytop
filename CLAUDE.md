@@ -281,7 +281,7 @@ Validate computational results against established external systems and curated 
 **Current Status:** 
 - P16.1 ✅ complete (37 tests: 4 minimal triangulations, 6 small graphs, 8 knot invariants, 5 large graphs, 8 performance benchmarks)
 - P16.2 🟡 in progress (framework complete: OracleAgreement/AgreementMatrix, extended knot table 25 primes, SnapPy H₁ Dehn surgery oracle, K-theory AHSS internal validation, SageMath placeholder; 8 oracle parity tests; validation suite 62 tests passing). Next: expand to 50+ knots + fill agreement matrix.
-- P16.3 🟡 framework complete (10K random complexes generation + pytop validation working; GUDHI/Ripser integration pending)
+- P16.3 🟡 framework complete + 10K run in progress (pytop-only validation; GUDHI/Ripser integration pending)
 
 ### Phase 17: Performance & Scale
 

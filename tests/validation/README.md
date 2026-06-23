@@ -148,13 +148,23 @@ Planned oracle comparisons:
 
 Target: 99.9% agreement across all oracles.
 
-### Phase 16.3 (In Progress)
+### Phase 16.3 (Framework Complete, 10K Run In Progress)
 
-Statistical validation:
+Statistical validation on random complexes:
 
-- 10K random Erdős–Rényi simplicial complexes
-- Homology agreement with GUDHI/Ripser
-- Root-cause analysis of outliers
+- **Framework:** `test_statistical_validation.py` + `_scripts/run_p16_3_statistical_validation.py`
+- **Dataset:** 10K random Erdős–Rényi 1-skeleta (5–50 vertices, edge probability 0.1–0.8)
+- **Computation:** pytop H₀, H₁ for each complex
+- **Oracles:** GUDHI, Ripser (opt-in, graceful skip if unavailable)
+- **Output:** JSON report with parity %, outliers, computation statistics
+- **Status:** pytop-only validation working; oracle integration pending
+- **Timeline:** ~15–30 min for full 10K run on standard hardware
+
+**Run:**
+```bash
+py -3.14 _scripts/run_p16_3_statistical_validation.py --limit 10000
+PYTOP_STATISTICAL_VALIDATION=1 pytest tests/validation/test_statistical_validation.py::...::test_10k_random_complexes_vs_oracles -v
+```
 
 ---
 
@@ -164,7 +174,7 @@ Statistical validation:
 
 - `MinimalTriangulations` — Torus, Klein, RP² filtrations
 - `GraphExamples` — Small planar/non-planar examples
-- `KnotTable` — 6 reference knots with invariants
+- `KnotTable` — 40 reference prime knots with invariants (P16.2 expansion)
 - `GridGraphLibrary` — Large grids (3×3 to 40×40)
 - `BaselineResults` — Expected homology/planarity results
 
