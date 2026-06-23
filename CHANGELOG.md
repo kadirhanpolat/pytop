@@ -7,6 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] — 2026-06-23
+
+### Added
+
+- **Phase 11 — Lean 4 Formal Verification Expansion (5 new proof files)**
+
+  Extends the `formal/` corpus from 8 to 13 files (0 sorry across all).
+
+  - **`MayerVietoris.lean` (P11.1)** — Short exact sequences + snake lemma.
+    `SES` structure (i_inj, exact_at_B, p_surj); `delta_well_defined`; `ses_p_zero_of_im`;
+    `snake_delta_exists`; `snake_delta_independent` (connecting class well-defined in A').
+
+  - **`VanKampen.lean` (P11.2)** — Group presentations + amalgamated free product UP.
+    `Pres` + `TietzeEquiv` inductive relation; `tietze_elim / add_gen`; `tietze_equiv_symm`;
+    `AmalgamDatum` + `Pushout`; `pushout_universal`; `int_hom_determined_by_one`
+    (ℤ is the free abelian group on one generator); `int_hom_exists`.
+
+  - **`CohomologyRing.lean` (P11.3)** — Cup product over Bool (ℤ/2).
+    Alexander–Whitney `cup` product; `cup_value_assoc` (Bool.and_assoc); `cup_comm_Z2`;
+    `coboundary0`; `leibniz_0cochains` (Leibniz rule verified by case analysis).
+
+  - **`PersistencePairing.lean` (P11.4)** — Persistence pairing perfection.
+    `pairing_is_perfect` (= `reduce_is_reduced`); `pairs_have_distinct_births` (birth
+    indices Nodup); key chain: `isReduced_tail` → `filterMap_getLast_nodup_of_isReduced` →
+    `zipWith_range_filterMap_snd_eq` → `map_fst_pairs_eq`.
+
+  - **`SpectralSequences.lean` (P11.5)** — Abstract spectral sequences.
+    `ChainCx` structure (d sq = 0 by construction); `d_sq_zero`; `image_sub_kernel`;
+    `SpectralSeq`; `const_convergent`; `stabilizes_mono`; `same_diff_implies_same_stab`;
+    `const_pages_convergent`.
+
+  **Formal.lean** updated with 5 new imports. **formal/ROADMAP.md** updated.
+
+## [1.2.0] — 2026-06-23
+
+### Added
+
+- **Phase 10 — Scale & Algorithm (5 milestones)**
+  - `sparse_linalg`: sparse SNF + auto-routing in `_smith_normal_form`
+  - `khovanov_homology(parallel=True)`: ThreadPoolExecutor per bidegree
+  - `witness_complex`: `landmark_sample`, `witness_filtration`, `persistent_homology_witness`
+  - `streaming_persistence`: `StreamingPersistence` incremental Z/2 reduction
+  - `_gpu_backend`: cupy boolean-array Twist+Clearing + `[gpu]` extra
+  65 new tests; **11 467 tests total**.
+
 ## [1.1.0] — 2026-06-23
 
 ### Added

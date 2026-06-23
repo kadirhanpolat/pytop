@@ -1,6 +1,6 @@
 # Formal Verification Roadmap
 
-Status as of 2026-06-20. **All theorems proved. Verification complete.**
+Status as of 2026-06-23. **All theorems proved. Phase 11 complete.**
 
 ## Completed
 
@@ -63,6 +63,47 @@ Status as of 2026-06-20. **All theorems proved. Verification complete.**
 - [x] `go_fuel_eq` — outer loop fuel-independent for inner fuel ≥ 1
 - [x] `pytopSNF_fuel_independent` — any `k ≥ m·n·(|A|+1)` gives the same result
 - [x] `pytopSNF_isInvariantFactors` — `IsInvariantFactors (pytopSNF A)` ✓
+
+## Phase 11: Algebraic Topology Extensions (2026-06-23)
+
+Five new proof files extending the formal corpus to 13 files:
+
+### MayerVietoris.lean (P11.1)
+- [x] `delta_well_defined`          — two lifts of c ∈ C differ by im(i)
+- [x] `mv_connecting_indep`         — Mayer–Vietoris connecting morphism independence
+- [x] `ses_p_zero_of_im`            — p ∘ i = 0 from exactness
+- [x] `snake_delta_exists`          — connecting element exists via snake diagram
+- [x] `snake_delta_independent`     — snake connecting element is well-defined in A'
+
+### VanKampen.lean (P11.2)
+- [x] `tietze_equiv_refl / symm / trans` — Tietze equivalence is an equivalence relation
+- [x] `tietze_add_gen`              — Tietze move I (add generator)
+- [x] `tietze_elim`                 — Tietze move II (eliminate generator)
+- [x] `pushout_universal`           — UP of amalgamated free product
+- [x] `pushout_compat_preserved`    — factorings respect amalgamation
+- [x] `int_hom_determined_by_one`   — ℤ is the free abelian group on one generator
+- [x] `int_hom_exists`              — existence part of the free group UP
+
+### CohomologyRing.lean (P11.3)
+- [x] `cup_value_assoc`             — (f∧g)∧h = f∧(g∧h) — core associativity
+- [x] `cup_assoc_eq`                — cup product associativity (pointwise)
+- [x] `cup_bool_comm`               — commutativity of ∧ over Bool (ℤ/2)
+- [x] `cup_comm_Z2`                 — cup product commutative for 0-cochains
+- [x] `leibniz_0cochains`           — Leibniz rule δ(f∧g) = δf∧g ⊕ f∧δg
+
+### PersistencePairing.lean (P11.4)
+- [x] `pairing_is_perfect`          — `isReduced (reduce M)` (from existing reduce_is_reduced)
+- [x] `pairs_have_distinct_births`  — birth indices in persistencePairs are Nodup
+  Key lemmas: `isReduced_tail`, `filterMap_getLast_nodup_of_isReduced`,
+              `zipWith_filterMap_snd_eq`, `map_fst_filterMap_eq`, `map_fst_pairs_eq`
+
+### SpectralSequences.lean (P11.5)
+- [x] `d_sq_zero`                   — d ∘ d = 0 (by structure invariant)
+- [x] `image_sub_kernel`            — im(d) ⊆ ker(d)
+- [x] `const_convergent`            — constant spectral sequence converges
+- [x] `stabilizes_mono`             — stabilisation is upward-closed
+- [x] `same_diff_implies_same_stab` — sequences agreeing from r₀ share stabilisation
+- [x] `const_pages_convergent`      — sequence with constant pages converges
 
 ## Key Proof Insights
 

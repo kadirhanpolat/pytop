@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-23 (v1.2.0):** Phase 1 (set-theoretic topology) substantially
+> **Status as of 2026-06-23 (v1.3.0):** Phase 1 (set-theoretic topology) substantially
 > complete; Phase 2 (algebraic topology) **complete** (8 / 8).
 > **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
 > P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
@@ -37,7 +37,12 @@
 > and persistence homology (`PersHomology.lean`) — `symmDiff_assoc`, `reduce_is_reduced`
 > (via fuel-based `reduceColFuel` + `reduceInv_step` invariant proof: TabInv × sorted ×
 > isReduced across every column), `pairs_have_distinct_deaths`, `pairs_birth_lt_death`;
-> **0 sorry** — all formal targets complete. All 6 `.lean` files in `formal/` are 0-sorry.
+> **0 sorry** — all formal targets complete. All 6 original `.lean` files are 0-sorry.
+> **Phase 11 complete (v1.3.0):** 5 new Lean files — `MayerVietoris.lean` (SES + snake lemma),
+> `VanKampen.lean` (Tietze equivalence + amalgam UP + ℤ generator theorem), `CohomologyRing.lean`
+> (Alexander–Whitney cup associativity + Leibniz rule), `PersistencePairing.lean`
+> (`pairing_is_perfect` + `pairs_have_distinct_births`), `SpectralSequences.lean`
+> (`d² = 0`, convergence stabilisation); **11 formal files total; 0 sorry throughout.**
 
 ---
 
@@ -499,21 +504,20 @@ optional; the pure-Python correctness core is never a hard dependency.
 
 **65 new tests; 11 467 tests pass total.**
 
-### Phase 11 — Formal Verification Expansion (planned, v1.3.x)
+### Phase 11 — Formal Verification Expansion ✅ complete (v1.3.0)
 
 Extends the `formal/` Lean 4 proof corpus from SNF + basic set topology + persistence reduction
-to the main computational engines. The 0-sorry rule applies throughout.
+to the main computational engines. 0-sorry rule holds throughout; corpus grows from 6 to 11 files.
 
-| Milestone | Lean file | Theorem target |
-|-----------|-----------|---------------|
-| **P11.1** | `MayerVietoris.lean` | LES exactness at every position; `snake_lemma` + `delta_well_defined`; Python verification already exists |
-| **P11.2** | `VanKampen.lean` | Amalgamated free product universal property; Tietze elimination preserves presentation; `pi1_cw1` spanning-tree algorithm |
-| **P11.3** | `CohomologyRing.lean` | Alexander-Whitney cup product associativity; graded-commutativity (`a ⌣ b = (-1)^{pq} b ⌣ a`); UCT |
-| **P11.4** | `PersistencePairing.lean` | `pairing_is_perfect` (every column reduces to a paired column or stays zero); extends existing `reduce_is_reduced` |
-| **P11.5** | `SpectralSequences.lean` | `d_r ∘ d_r = 0`; `E^{r+1} = H(E^r, d_r)`; convergence stabilisation criterion |
+| Milestone | Lean file | Delivered |
+|-----------|-----------|-----------|
+| **P11.1** ✅ | `MayerVietoris.lean` | `SES` structure; `ses_p_zero_of_im`; `delta_well_defined`; `snake_delta_exists`; `snake_delta_independent` (connecting class well-defined in A') |
+| **P11.2** ✅ | `VanKampen.lean` | `Pres` + `TietzeEquiv`; `tietze_elim / add_gen`; `AmalgamDatum` + `Pushout`; `pushout_universal`; `int_hom_determined_by_one` (ℤ is initial); `int_hom_exists` |
+| **P11.3** ✅ | `CohomologyRing.lean` | Alexander–Whitney `cup` product; `cup_value_assoc` (Bool.and_assoc); `cup_comm_Z2`; `coboundary0`; `leibniz_0cochains` |
+| **P11.4** ✅ | `PersistencePairing.lean` | `pairing_is_perfect` (= `reduce_is_reduced`); `pairs_have_distinct_births` (birth indices Nodup); key chain: `isReduced_tail` → `filterMap_getLast_nodup_of_isReduced` → `zipWith_range_filterMap_snd_eq` → `map_fst_pairs_eq` |
+| **P11.5** ✅ | `SpectralSequences.lean` | `ChainCx` (d² = 0 by construction); `d_sq_zero`; `image_sub_kernel`; `SpectralSeq`; `const_convergent`; `stabilizes_mono`; `const_pages_convergent` |
 
-**Note:** Each milestone ships as its own `.lean` file. P11.1 is the natural first target given that
-Mayer–Vietoris exactness is already Python-verified at every position.
+**0 sorry across all 11 Lean files.**
 
 ### Phase 12 — Research Frontier (long-range, v2.0.x)
 
@@ -561,10 +565,9 @@ Items beyond single-machine pure-Python scope. Each is an independent research-p
 | Phase 8 milestones complete | 6 / 6 ✅ (Profile→Computational: advanced algebra) |
 | Phase 9 milestones complete | 6 / 6 ✅ (`experimental.spaces` expansion) |
 | Phase 10 milestones complete | 5 / 5 ✅ (scale & algorithm) |
-| Phase 11 milestones planned | 0 / 5 ⬜ (Lean formal verification expansion) |
+| Phase 11 milestones complete | 5 / 5 ✅ (Lean formal verification expansion) |
 | Phase 12 milestones planned | 0 / 5 ⬜ (research frontier, long-range) |
-| **Current version** | **v1.2.0** |
-| **Current version** | **v1.1.0** |
+| **Current version** | **v1.3.0** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 
