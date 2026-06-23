@@ -28,7 +28,6 @@ and homology via the Chern character.
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass
 
 from .homology import SimplicialComplex, homology_groups
@@ -259,7 +258,7 @@ def k_barcode(
     >>> len(kb.k1_pairs) >= 1
     True
     """
-    pairs = persistence_pairs_twist(filtered)
+    pairs: list[PersistencePair] = list(persistence_pairs_twist(filtered))
 
     if max_dimension is not None:
         pairs = [p for p in pairs if p.dimension <= max_dimension]

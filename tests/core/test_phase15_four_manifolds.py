@@ -1,8 +1,8 @@
 """Tests for Phase 15: 4-Manifold Topology modules."""
 
-import pytest
 from fractions import Fraction
 
+import pytest
 
 # ---------------------------------------------------------------------------
 # P15.1 intersection_forms
@@ -41,7 +41,7 @@ class TestIntersectionForms:
         assert Q.form_type == "odd"
 
     def test_connected_sum_form(self):
-        from pytop.intersection_forms import hyperbolic_form, connected_sum_form
+        from pytop.intersection_forms import connected_sum_form, hyperbolic_form
         H = hyperbolic_form()
         Q = connected_sum_form(H, H)
         assert Q.rank == 4
@@ -60,7 +60,7 @@ class TestIntersectionForms:
         assert is_unimodular([[0, 1], [1, 0]]) is True
 
     def test_donaldson_theorem_e8(self):
-        from pytop.intersection_forms import e8_form, donaldson_theorem
+        from pytop.intersection_forms import donaldson_theorem, e8_form
         e8 = e8_form()
         result = donaldson_theorem(e8)
         # E_8 is positive definite even → Donaldson says no smooth structure
@@ -91,13 +91,13 @@ class TestKirbyCalculus:
         assert signature_kirby(d) == 1
 
     def test_kirby_s2xs2(self):
-        from pytop.kirby_calculus import kirby_diagram_s2xs2, signature_kirby, b2_kirby
+        from pytop.kirby_calculus import b2_kirby, kirby_diagram_s2xs2, signature_kirby
         d = kirby_diagram_s2xs2()
         assert b2_kirby(d) == 2
         assert signature_kirby(d) == 0
 
     def test_kirby_euler(self):
-        from pytop.kirby_calculus import kirby_diagram_cp2, euler_characteristic_kirby
+        from pytop.kirby_calculus import euler_characteristic_kirby, kirby_diagram_cp2
         d = kirby_diagram_cp2()
         chi = euler_characteristic_kirby(d)
         assert chi == 3  # 2 + 1 (one 2-handle)
@@ -130,12 +130,12 @@ class TestKirbyCalculus:
         assert form.signature == 1
 
     def test_is_kirby_equivalent(self):
-        from pytop.kirby_calculus import kirby_diagram_cp2, is_kirby_equivalent
+        from pytop.kirby_calculus import is_kirby_equivalent, kirby_diagram_cp2
         d = kirby_diagram_cp2()
         assert is_kirby_equivalent(d, d) is True
 
     def test_k3_kirby_diagram(self):
-        from pytop.kirby_calculus import kirby_diagram_k3_fiber, b2_kirby
+        from pytop.kirby_calculus import b2_kirby, kirby_diagram_k3_fiber
         d = kirby_diagram_k3_fiber()
         assert b2_kirby(d) == 22
 
@@ -176,14 +176,18 @@ class TestCassonInvariant:
         assert c.lambda_value == -1
 
     def test_connected_sum(self):
-        from pytop.casson_invariant import casson_s3, casson_invariant_brieskorn, casson_invariant_connected_sum
+        from pytop.casson_invariant import (
+            casson_invariant_brieskorn,
+            casson_invariant_connected_sum,
+            casson_s3,
+        )
         s3 = casson_s3()
         p = casson_invariant_brieskorn(2, 3, 5)
         c = casson_invariant_connected_sum(s3, p)
         assert c.lambda_value == p.lambda_value
 
     def test_rohlin_mod2(self):
-        from pytop.casson_invariant import rohlin_mod2, casson_invariant_brieskorn
+        from pytop.casson_invariant import casson_invariant_brieskorn, rohlin_mod2
         c = casson_invariant_brieskorn(2, 3, 5)
         mu = rohlin_mod2(c)
         assert mu in (0, 1)
@@ -203,10 +207,9 @@ class TestCassonInvariant:
         assert isinstance(s, Fraction)
 
     def test_surgery_formula(self):
-        from pytop.casson_invariant import casson_invariant_surgery, alexander_second_derivative
+        from pytop.casson_invariant import casson_invariant_surgery
         # Trefoil alexander: Δ(t) = t^{-1} - 1 + t
         alex = {-1: 1, 0: -1, 1: 1}
-        d2 = alexander_second_derivative(alex)
         c = casson_invariant_surgery(alex, framing=1, knot_name="trefoil")
         assert isinstance(c.lambda_value, int)
 
@@ -266,8 +269,9 @@ class TestMilnorFibers:
         assert F.monodromy_order == 4  # A_n: order n+1
 
     def test_monodromy_order(self):
-        from pytop.milnor_fibers import monodromy_order
         from math import gcd
+
+        from pytop.milnor_fibers import monodromy_order
         def lcm(a,b): return a*b//gcd(a,b)
         assert monodromy_order(2, 3, 5) == lcm(lcm(2,3),5)  # 30
 
@@ -294,18 +298,15 @@ class TestMilnorFibers:
 
 class TestRohlinTheorem:
     def test_s4_rohlin(self):
-        from pytop.rohlin_theorem import check_rohlin_theorem
-        from pytop.intersection_forms import intersection_form
-        Q = intersection_form([[0]])  # Trivial? Use rank-0 form
-        # Use S^4: Q = 0 (empty)
-        # Test via known example instead
+        # S^4 has the trivial (rank-0) intersection form Q = 0; test via a
+        # known example from the Rohlin table instead.
         from pytop.rohlin_theorem import ROHLIN_EXAMPLES
         assert "K3" in ROHLIN_EXAMPLES
         assert ROHLIN_EXAMPLES["K3"]["rohlin_ok"] is True
 
     def test_k3_spin(self):
-        from pytop.intersection_forms import hyperbolic_form, connected_sum_form
-        from pytop.rohlin_theorem import is_spin_manifold, check_rohlin_theorem
+        from pytop.intersection_forms import hyperbolic_form
+        from pytop.rohlin_theorem import is_spin_manifold
         H = hyperbolic_form()
         # K3 ~ 3H ⊕ (-2)E_8: we test the signature property
         # Test that H is spin

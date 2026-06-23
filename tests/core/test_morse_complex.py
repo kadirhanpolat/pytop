@@ -9,13 +9,9 @@ Covers:
 
 from __future__ import annotations
 
-import pytest
-
-from pytop.simplices import Simplex
-from pytop.simplicial_complexes import SimplicialComplex
 from pytop.discrete_morse import (
-    MorsePair,
     MorseMatching,
+    MorsePair,
     discrete_gradient_matching,
     is_valid_morse_matching,
 )
@@ -26,8 +22,8 @@ from pytop.morse_complex import (
     morse_chain_complex,
     morse_homology,
 )
-from pytop.homology import simplicial_homology
-
+from pytop.simplices import Simplex
+from pytop.simplicial_complexes import SimplicialComplex
 
 # ---------------------------------------------------------------------------
 # Fixtures

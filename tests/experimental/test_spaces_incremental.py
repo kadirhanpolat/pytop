@@ -7,7 +7,6 @@
 from __future__ import annotations
 
 import math
-from fractions import Fraction
 
 import pytest
 
@@ -18,21 +17,17 @@ from pytop.experimental.spaces import (
     finite_wedge_circles,
 )
 from pytop.experimental.spaces.pi1 import pi1_space
-from pytop.van_kampen import (
-    GroupPresentation,
-    _canonical_relator_key,
-    _cyclically_reduce,
-    _dedup_relators,
-    _tietze_simplify,
-)
 from pytop.persistent_homology import (
-    FilteredComplex,
     PersistencePair,
     persistence_betti_numbers,
     persistence_pairs,
     vietoris_rips_filtration,
 )
-
+from pytop.van_kampen import (
+    _cyclically_reduce,
+    _dedup_relators,
+    _tietze_simplify,
+)
 
 # ==========================================================================
 # Factory: finite_circle

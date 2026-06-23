@@ -1,10 +1,7 @@
 """Tests for src/pytop/predicate_relations.py."""
 
-import pytest
 
 from pytop.predicate_relations import (
-    MathRelation,
-    PredicateRelationError,
     divides,
     geq,
     gt,
@@ -13,8 +10,7 @@ from pytop.predicate_relations import (
     relation_between,
     relation_on,
 )
-from pytop.predicate_sets import N, N_plus, R, Z
-
+from pytop.predicate_sets import N, R, Z
 
 # ===========================================================================
 # Pre-built: leq, lt, geq, gt

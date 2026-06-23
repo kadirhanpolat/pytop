@@ -13,13 +13,14 @@ import math
 
 import pytest
 
+from pytop.metric_spaces import FiniteMetricSpace
 from pytop.persistent_homology import (
     FilteredComplex,
     PersistencePair,
-    persistence_pairs,
-    vietoris_rips_filtration,
     barcode,
     persistence_diagram,
+    persistence_pairs,
+    vietoris_rips_filtration,
 )
 from pytop.persistent_homology_optimized import (
     ReductionStats,
@@ -29,8 +30,6 @@ from pytop.persistent_homology_optimized import (
     persistence_pairs_twist_with_stats,
     persistent_homology_optimized,
 )
-from pytop.metric_spaces import FiniteMetricSpace
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -156,16 +155,9 @@ class TestEdgeCases:
         assert len(essential) == 2
 
     def test_single_edge_creates_pair(self):
-        # Vertex 0, Vertex 1, Edge 0-1
-        f = FilteredComplex(
-            simplices=((0,), (1,), (0, 1)),
-            births=(0.0, 0.0, 1.0),
-            dimensions=(0, 1, 1),
-        )
-        # FilteredComplex doesn't enforce dim = simplex_size - 1, but our
-        # algorithm uses the dimensions field.  Manually set dim for vertices = 0
-        # and edge = 1.
-        # Actually simplex (0,1) has dim=1 as per the tuple above.
+        # Vertex 0, Vertex 1, Edge 0-1.
+        # FilteredComplex doesn't enforce dim = simplex_size - 1; our algorithm
+        # uses the dimensions field, so set vertices = 0 and edge = 1 explicitly.
         f2 = FilteredComplex(
             simplices=((0,), (1,), (0, 1)),
             births=(0.0, 0.0, 1.0),

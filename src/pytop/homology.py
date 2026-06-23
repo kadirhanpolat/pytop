@@ -115,10 +115,11 @@ _flint = (
 # test suite is below the threshold and stays on the pure-Python path.
 _FLINT_SNF_MIN_DIM = 16
 
-# Sparse SNF thresholds (only used when flint is absent).
-from .sparse_linalg import SPARSE_MIN_DIM as _SPARSE_MIN_DIM
-from .sparse_linalg import SPARSE_MAX_DENSITY as _SPARSE_MAX_DENSITY
-from .sparse_linalg import _SparseMat, _sparse_snf_inner
+# Sparse SNF thresholds (only used when flint is absent). Imported here, next to
+# the related dimension constants, rather than at the top of the module.
+from .sparse_linalg import SPARSE_MAX_DENSITY as _SPARSE_MAX_DENSITY  # noqa: E402
+from .sparse_linalg import SPARSE_MIN_DIM as _SPARSE_MIN_DIM  # noqa: E402
+from .sparse_linalg import _sparse_snf_inner, _SparseMat  # noqa: E402
 
 
 def _smith_normal_form_flint(matrix: Matrix) -> list[int]:

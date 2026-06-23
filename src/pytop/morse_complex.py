@@ -51,8 +51,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .discrete_morse import MorseMatching
-from .homology import HomologyResult, simplicial_homology, _smith_normal_form_python
-from .simplices import Simplex
+from .homology import HomologyResult, _smith_normal_form_python, simplicial_homology
 from .simplicial_complexes import SimplicialComplex
 
 Matrix = list[list[int]]

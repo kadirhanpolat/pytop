@@ -880,8 +880,8 @@ def nerve_of_category(
     >>> any(len(s.vertices) == 3 for s in N.simplexes)
     True
     """
-    from .simplicial_complexes import SimplicialComplex
     from .simplices import Simplex
+    from .simplicial_complexes import SimplicialComplex
     obj_idx: dict[Any, int] = {o: i for i, o in enumerate(objects)}
     simplices: list[Simplex] = [Simplex([i]) for i in range(len(objects))]
     # Build adjacency for composability check

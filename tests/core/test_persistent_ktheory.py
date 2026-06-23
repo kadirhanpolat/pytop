@@ -10,7 +10,6 @@ from pytop.homology import SimplicialComplex
 from pytop.persistent_homology import vietoris_rips_filtration
 from pytop.persistent_ktheory import (
     KBarcode,
-    KTheoryGroups,
     k0_simplicial,
     k1_simplicial,
     k_barcode,
@@ -18,7 +17,6 @@ from pytop.persistent_ktheory import (
     k_theory_groups,
 )
 from pytop.simplicial_filtration import torus_filtration
-
 
 # ---------------------------------------------------------------------------
 # Small simplicial complexes

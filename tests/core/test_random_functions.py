@@ -14,10 +14,8 @@ from pytop.random_functions import (
     random_open_map,
     random_surjective_function,
 )
-from pytop.random_generators import RandomGeneratorError
-from pytop.random_generators import random_topology
+from pytop.random_generators import RandomGeneratorError, random_topology
 from pytop.topology_builders import discrete_topology, indiscrete_topology
-
 
 # ===========================================================================
 # random_injective_function

@@ -26,7 +26,6 @@ from pytop.spectral_sequences import (
     spectral_sequence_type_index,
 )
 
-
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
@@ -818,7 +817,7 @@ class TestSpectralSequenceProfile:
 # P7.4: Computational spectral sequence tests
 # ===========================================================================
 
-from pytop.spectral_sequences import (
+from pytop.spectral_sequences import (  # noqa: E402
     FilteredChainComplex,
     SpectralPage,
     converges_to,

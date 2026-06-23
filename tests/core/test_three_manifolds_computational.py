@@ -8,7 +8,6 @@ from pytop.exact_linalg import AbelianGroup
 from pytop.three_manifolds import lens_space_pi1, mapping_torus_h1
 from pytop.van_kampen import GroupPresentation
 
-
 # ---------------------------------------------------------------------------
 # mapping_torus_h1
 # ---------------------------------------------------------------------------

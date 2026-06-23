@@ -27,9 +27,8 @@ from pytop.cellular_homology import (
     cw_sphere,
     cw_torus,
 )
-from pytop.homology import HomologyResult, simplicial_homology
+from pytop.homology import simplicial_homology
 from pytop.simplicial_complexes import generated_subcomplex
-
 
 # ── Simplicial fixtures (reused from test_homology.py) ────────────────────────
 

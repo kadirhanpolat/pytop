@@ -14,8 +14,8 @@ defining structural properties:
 from __future__ import annotations
 
 from pytop import KhovanovHomology, khovanov_homology
-from pytop.knot_invariants import KnotDiagram, jones_polynomial
 from pytop.khovanov import _khovanov_complex
+from pytop.knot_invariants import KnotDiagram, jones_polynomial
 
 # Diagrams (PD codes + signs).  Signs fix only the (n₊, n₋) grading shift.
 UNKNOT = KnotDiagram([], signs=())

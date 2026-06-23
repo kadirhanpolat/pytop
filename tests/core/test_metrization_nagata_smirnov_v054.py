@@ -1,5 +1,4 @@
 """Tests for Nagata-Smirnov and Bing metrization criteria (v0.5.4)."""
-import pytest
 
 from pytop.metrization_profiles import (
     BING_TAGS,

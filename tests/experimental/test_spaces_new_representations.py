@@ -22,11 +22,9 @@ from pytop.experimental.spaces import (
 )
 from pytop.experimental.spaces.cardinal_invariants import (
     cellularity,
-    character,
     density,
     weight,
 )
-
 
 # ==========================================================================
 # AlexandroffSpace

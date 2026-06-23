@@ -11,6 +11,7 @@ Optional scipy.sparse integration: :func:`sparse_smith_normal_form` accepts a
 from __future__ import annotations
 
 from collections import defaultdict
+from typing import Any
 
 __all__ = [
     "sparse_smith_normal_form",
@@ -44,7 +45,7 @@ class _SparseMat:
         self._c: dict[int, dict[int, int]] = defaultdict(dict)
 
     @classmethod
-    def from_dense(cls, matrix: list[list[int]]) -> "_SparseMat":
+    def from_dense(cls, matrix: list[list[int]]) -> _SparseMat:
         m = len(matrix)
         n = len(matrix[0]) if m else 0
         mat = cls(m, n)
@@ -269,10 +270,11 @@ def sparse_smith_normal_form(matrix: object) -> list[int]:
     every invariant factor (including those equal to 1) is listed.
     """
     # Accept scipy sparse matrices.
-    if hasattr(matrix, "toarray"):
-        matrix = matrix.toarray().tolist()  # type: ignore[union-attr]
+    dense: Any = matrix
+    if hasattr(dense, "toarray"):
+        dense = dense.toarray().tolist()
 
-    rows: list[list[int]] = list(matrix)  # type: ignore[arg-type]
+    rows: list[list[int]] = list(dense)
     if not rows or not rows[0]:
         return []
 

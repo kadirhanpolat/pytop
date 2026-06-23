@@ -5,7 +5,6 @@ from __future__ import annotations
 import pytest
 
 from pytop.experimental.pi_base import deduced_space_traits, property_uid
-from pytop.experimental.pi_base_atlas import space_uid
 from pytop.experimental.spaces import (
     ProductSpace,
     analyze_pi_base_space,
@@ -15,7 +14,6 @@ from pytop.experimental.spaces import (
     is_hausdorff,
     pi_base_space,
 )
-
 
 # --------------------------------------------------------------------------
 # Famous spaces, analyzed by the engine

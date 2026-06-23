@@ -8,12 +8,11 @@ import pytest
 
 from pytop.mapper import (
     IntervalCover,
-    MapperNode,
     MapperComplex,
+    MapperNode,
     mapper,
     single_linkage_labels,
 )
-
 
 # ---------------------------------------------------------------------------
 # IntervalCover

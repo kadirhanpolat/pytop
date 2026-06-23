@@ -12,7 +12,6 @@ from pytop.experimental.spaces import (
     CofiniteSpace,
     DiscreteCountableSpace,
     FiniteSpace,
-    MetricTopologySpace,
     OrderTopologySpace,
     SorgenfreyLineSpace,
     discrete_finite_space,
@@ -24,8 +23,6 @@ from pytop.experimental.spaces.cardinal_invariants import (
     density,
     weight,
 )
-from fractions import Fraction
-
 
 # --------------------------------------------------------------------------
 # CardinalValue

@@ -2,9 +2,7 @@
 
 Functions tested: mapping_cone_complex, derived_functor_h, triangulated_structure_check
 """
-import pytest
-from pytop import mapping_cone_complex, derived_functor_h, triangulated_structure_check
-
+from pytop import derived_functor_h, mapping_cone_complex, triangulated_structure_check
 
 # ---------------------------------------------------------------------------
 # mapping_cone_complex

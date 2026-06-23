@@ -48,11 +48,8 @@ from typing import Any
 
 from .homology import HomologyResult, simplicial_homology
 from .mayer_vietoris import (
-    _compute_homology_data,
-    _induced_on_hk,
     sc_union,
 )
-from .simplices import Simplex
 from .simplicial_complexes import SimplicialComplex
 from .simplicial_maps import cone_complex
 

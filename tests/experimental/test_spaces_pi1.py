@@ -14,8 +14,7 @@ from pytop.experimental.spaces import (
     discrete_finite_space,
 )
 from pytop.experimental.spaces.constructed import ProductSpace, SumSpace
-from pytop.experimental.spaces.pi1 import Pi1Result, pi1_space
-
+from pytop.experimental.spaces.pi1 import pi1_space
 
 # ==========================================================================
 # Contractible / trivial π₁

@@ -7,8 +7,12 @@ Hesaplama katmani: mapping torus H₁ (Wang dizisi), lens uzayi π₁.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 from .exact_linalg import AbelianGroup, cokernel
+
+if TYPE_CHECKING:
+    from .van_kampen import GroupPresentation
 
 
 @dataclass(frozen=True)
@@ -232,7 +236,7 @@ def mapping_torus_h1(monodromy: list[list[int]]) -> AbelianGroup:
     return AbelianGroup(free_rank=cok.free_rank + 1, torsion=cok.torsion)
 
 
-def lens_space_pi1(p: int) -> "GroupPresentation":
+def lens_space_pi1(p: int) -> GroupPresentation:
     """Return a GroupPresentation of π₁(L(p, q)) = ℤ/pℤ.
 
     The fundamental group of the lens space L(p, q) is ℤ/pℤ, depending

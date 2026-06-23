@@ -4,28 +4,28 @@ from __future__ import annotations
 
 import pytest
 
+from pytop.result import Result
 from pytop.topological_field_theory import (
-    TFTProfile,
     ATIYAH_SEGAL_TAGS,
-    COBORDISM_HYPOTHESIS_TAGS,
-    FROBENIUS_ALGEBRA_TAGS,
-    EXTENDED_TFT_TAGS,
     CHERN_SIMONS_TAGS,
-    FACTORIZATION_ALGEBRA_TAGS,
+    COBORDISM_HYPOTHESIS_TAGS,
     DONALDSON_TAGS,
+    EXTENDED_TFT_TAGS,
+    FACTORIZATION_ALGEBRA_TAGS,
+    FROBENIUS_ALGEBRA_TAGS,
     TOPOLOGICAL_STRING_TAGS,
-    get_named_tft_profiles,
-    tft_summary,
-    tft_type_registry,
-    tft_dimension_registry,
-    is_extended_tft,
-    satisfies_atiyah_segal_axioms,
-    has_frobenius_algebra_structure,
+    TFTProfile,
     admits_higher_categorical_formulation,
     classify_tft,
+    get_named_tft_profiles,
+    has_frobenius_algebra_structure,
+    is_extended_tft,
+    satisfies_atiyah_segal_axioms,
+    tft_dimension_registry,
     tft_profile_report,
+    tft_summary,
+    tft_type_registry,
 )
-from pytop.result import Result
 
 
 def _space(*tags: str) -> str:

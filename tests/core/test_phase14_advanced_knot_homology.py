@@ -1,8 +1,6 @@
 """Tests for Phase 14: Advanced Knot Homology modules."""
 
-import pytest
 from fractions import Fraction
-
 
 # ---------------------------------------------------------------------------
 # P14.1 khovanov_odd
@@ -34,8 +32,8 @@ class TestOddKhovanov:
         assert _odd_sign((1, 0, 0), 1) == -1
 
     def test_compare_parities(self):
-        from pytop.khovanov_odd import compare_khovanov_parities, OddKhovanovHomology
         from pytop.khovanov import KhovanovHomology
+        from pytop.khovanov_odd import OddKhovanovHomology, compare_khovanov_parities
         kh_even = KhovanovHomology(
             groups={(0, -1): (1, ()), (0, 1): (1, ())},
         )
@@ -71,7 +69,7 @@ class TestOddKhovanov:
 
 class TestGridFloer:
     def test_unknot_grid(self):
-        from pytop.grid_floer import unknot_grid, hfk_hat
+        from pytop.grid_floer import hfk_hat, unknot_grid
         grid = unknot_grid()
         hfk = hfk_hat(grid)
         # HFK̂ of the unknot: one generator in (m=0, a=0)
@@ -79,7 +77,7 @@ class TestGridFloer:
         assert hfk.total_rank() >= 1
 
     def test_grid_diagram_construction(self):
-        from pytop.grid_floer import grid_diagram_from_permutations, GridDiagram
+        from pytop.grid_floer import GridDiagram, grid_diagram_from_permutations
         # 2x2 unknot: O at (0,0), (1,1); X at (0,1), (1,0)
         grid = grid_diagram_from_permutations(
             o_perm=[0, 1], x_perm=[1, 0]
@@ -94,7 +92,7 @@ class TestGridFloer:
         assert len(states) > 0
 
     def test_maslov_grading(self):
-        from pytop.grid_floer import unknot_grid, GridState
+        from pytop.grid_floer import unknot_grid
         grid = unknot_grid()
         states = grid.grid_states()
         if states:
@@ -123,7 +121,7 @@ class TestGridFloer:
         assert grid.n >= 3
 
     def test_alexander_from_hfk(self):
-        from pytop.grid_floer import unknot_grid, hfk_hat, alexander_polynomial_from_hfk
+        from pytop.grid_floer import alexander_polynomial_from_hfk, hfk_hat, unknot_grid
         grid = unknot_grid()
         hfk = hfk_hat(grid)
         alex = alexander_polynomial_from_hfk(hfk)
@@ -168,25 +166,26 @@ class TestConcordance:
         assert signature_torus_knot(2, 5) == -4
 
     def test_is_algebraically_slice_unknot(self):
-        from pytop.concordance import is_algebraically_slice, concordance_data
+        from pytop.concordance import concordance_data, is_algebraically_slice
         uk = concordance_data("unknot")
         assert is_algebraically_slice(uk) is True
 
     def test_is_algebraically_slice_trefoil(self):
-        from pytop.concordance import is_algebraically_slice, concordance_data
+        from pytop.concordance import concordance_data, is_algebraically_slice
         tr = concordance_data("trefoil")
         assert is_algebraically_slice(tr) is False
 
     def test_concordance_order(self):
-        from pytop.concordance import concordance_order, concordance_data
+        from pytop.concordance import concordance_data, concordance_order
         uk = concordance_data("unknot")
         result = concordance_order(uk)
         assert result in ("infinite", "finite", "slice", 1, 2, "unknown")
 
     def test_tristram_levine(self):
-        from pytop.concordance import tristram_levine_signature
         # omega = e^{iπ/3}, just test it runs on a Seifert matrix (trefoil).
         import cmath
+
+        from pytop.concordance import tristram_levine_signature
         omega = cmath.exp(1j * cmath.pi / 3)
         seifert_trefoil = [[-1, 1], [0, -1]]
         sig = tristram_levine_signature(seifert_trefoil, omega)
@@ -223,7 +222,7 @@ class TestSatelliteKnots:
         assert tau == 2
 
     def test_satellite_data(self):
-        from pytop.satellite_knots import satellite_data, SatelliteKnot
+        from pytop.satellite_knots import SatelliteKnot, satellite_data
         data = satellite_data("Wh+(T_{2,3})")
         assert isinstance(data, SatelliteKnot)
 
@@ -305,7 +304,7 @@ class TestVirtualKnots:
         assert lb >= 1
 
     def test_arrow_polynomial(self):
-        from pytop.virtual_knots import gauss_code_from_string, arrow_polynomial_bracket
+        from pytop.virtual_knots import arrow_polynomial_bracket, gauss_code_from_string
         gc = gauss_code_from_string("O1+U2+O3+U1+O2+U3+")
         poly = arrow_polynomial_bracket(gc)
         assert isinstance(poly, dict)

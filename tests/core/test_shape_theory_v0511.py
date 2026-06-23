@@ -2,6 +2,7 @@
 
 import pytest
 
+from pytop.result import Result
 from pytop.shape_theory import (
     ANR_POSITIVE_TAGS,
     CECH_COMPUTABLE_TAGS,
@@ -24,7 +25,6 @@ from pytop.shape_theory import (
     shape_profile,
     shape_type_index,
 )
-from pytop.result import Result
 from pytop.spaces import TopologicalSpace
 
 

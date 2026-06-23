@@ -1,8 +1,7 @@
 """Tests for Phase 13: Homotopy Theory modules."""
 
-import pytest
-from fractions import Fraction
 
+import pytest
 
 # ---------------------------------------------------------------------------
 # P13.1 chain_homotopy
@@ -18,7 +17,7 @@ class TestChainHomotopy:
     def test_identity_homotopic_to_itself(self):
         from pytop.chain_homotopy import is_chain_homotopy
         n = 2
-        I = self._make_I(n)
+        I = self._make_I(n)  # noqa: E741 — identity matrix (standard notation)
         Z = self._make_zero(n, n)
         # f = g = I, homotopy h = 0: ∂0 + 0∂ = 0 = I - I ✓
         result = is_chain_homotopy(f=[I], g=[I], h=[Z], boundary_C=[Z], boundary_D=[Z])
@@ -27,7 +26,7 @@ class TestChainHomotopy:
     def test_non_homotopic_maps(self):
         from pytop.chain_homotopy import is_chain_homotopy
         n = 2
-        I = self._make_I(n)
+        I = self._make_I(n)  # noqa: E741 — identity matrix (standard notation)
         Z = self._make_zero(n, n)
         g = self._make_zero(n, n)
         # f = I, g = 0, h = 0: ∂0 + 0∂ = 0 ≠ I - 0 = I → not valid
@@ -35,9 +34,8 @@ class TestChainHomotopy:
         assert result.is_valid is False
 
     def test_chain_homotopy_result_fields(self):
-        from pytop.chain_homotopy import is_chain_homotopy, ChainHomotopyResult
-        n = 1
-        I = [[1]]
+        from pytop.chain_homotopy import ChainHomotopyResult, is_chain_homotopy
+        I = [[1]]  # noqa: E741 — identity matrix (standard mathematical notation)
         Z = [[0]]
         result = is_chain_homotopy(f=[I], g=[I], h=[Z], boundary_C=[Z], boundary_D=[Z])
         assert isinstance(result, ChainHomotopyResult)
@@ -47,7 +45,7 @@ class TestChainHomotopy:
     def test_find_chain_homotopy(self):
         from pytop.chain_homotopy import find_chain_homotopy
         n = 2
-        I = self._make_I(n)
+        I = self._make_I(n)  # noqa: E741 — identity matrix (standard notation)
         Z = self._make_zero(n, n)
         result = find_chain_homotopy(f=[I], g=[I], boundary_C=[Z], boundary_D=[Z])
         # f = g: homotopy = 0 should work
@@ -94,7 +92,7 @@ class TestChainHomotopy:
 
 class TestEilenbergMaclane:
     def test_k_z3_cyclic_h1(self):
-        from pytop.eilenberg_maclane import km_homology_cyclic, KGnHomology
+        from pytop.eilenberg_maclane import KGnHomology, km_homology_cyclic
         H = km_homology_cyclic(m=3, max_degree=4)
         assert isinstance(H, KGnHomology)
         # H_1(K(ℤ/3,1)) = ℤ/3 (torsion)
@@ -182,7 +180,7 @@ class TestMasseyProducts:
         assert mp.is_trivial is True
 
     def test_massey_vanishes_on_trivial(self):
-        from pytop.massey_products import massey_vanishes, MasseyProduct
+        from pytop.massey_products import MasseyProduct, massey_vanishes
         mp = MasseyProduct(
             is_defined=True, is_trivial=True, product_degree=2,
             cochain=(0,), null_homotopy_x=(0,), null_homotopy_y=(0,), obstruction="",
@@ -190,7 +188,7 @@ class TestMasseyProducts:
         assert massey_vanishes(mp) is True
 
     def test_massey_not_defined(self):
-        from pytop.massey_products import massey_vanishes, MasseyProduct
+        from pytop.massey_products import MasseyProduct, massey_vanishes
         mp = MasseyProduct(
             is_defined=False, is_trivial=False, product_degree=2,
             cochain=None, null_homotopy_x=None, null_homotopy_y=None,
@@ -199,16 +197,16 @@ class TestMasseyProducts:
         assert massey_vanishes(mp) is False
 
     def test_is_formal_simplicial_point(self):
-        from pytop.massey_products import is_formal_simplicial
         from pytop.homology import SimplicialComplex
+        from pytop.massey_products import is_formal_simplicial
         K = SimplicialComplex([[0]])
         result, reason = is_formal_simplicial(K)
         assert result in (True, False)
         assert isinstance(reason, str)
 
     def test_triple_massey_interval(self):
-        from pytop.massey_products import triple_massey_product
         from pytop.homology import SimplicialComplex
+        from pytop.massey_products import triple_massey_product
         K = SimplicialComplex([[0], [1], [0, 1]])
         n0 = len([s for s in K.simplexes if s.dimension == 0])
         result = triple_massey_product([1] + [0]*(n0-1), [1] + [0]*(n0-1),
@@ -216,8 +214,8 @@ class TestMasseyProducts:
         assert hasattr(result, 'is_defined')
 
     def test_all_triple_massey(self):
-        from pytop.massey_products import all_triple_massey_products
         from pytop.homology import SimplicialComplex
+        from pytop.massey_products import all_triple_massey_products
         K = SimplicialComplex([[0], [1], [0, 1]])
         result = all_triple_massey_products(K, max_total_degree=3)
         assert isinstance(result, list)

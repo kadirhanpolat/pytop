@@ -1,7 +1,8 @@
 """Tests for src/pytop/predicate_sets.py."""
 
-import pytest
 from fractions import Fraction
+
+import pytest
 
 from pytop.predicate_sets import (
     C,
@@ -26,7 +27,6 @@ from pytop.predicate_sets import (
     reals,
     set_of,
 )
-
 
 # ===========================================================================
 # Membership: base sets

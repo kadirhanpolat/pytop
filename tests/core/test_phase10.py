@@ -15,17 +15,16 @@ import random
 
 import pytest
 
+from pytop.exact_linalg import smith_normal_form
+
 # ---------------------------------------------------------------------------
 # P10.1 — Sparse SNF
 # ---------------------------------------------------------------------------
-
 from pytop.sparse_linalg import (
     _SparseMat,
-    _sparse_snf_inner,
     matrix_density,
     sparse_smith_normal_form,
 )
-from pytop.exact_linalg import smith_normal_form
 
 
 class TestMatrixDensity:
@@ -102,7 +101,7 @@ class TestSparseSNF:
     def test_accepts_scipy_sparse(self):
         pytest.importorskip("scipy", reason="scipy not installed")
         import scipy.sparse as sp
-        mat = sp.coo_matrix(([[1, 2], [0, 3]]))
+        mat = sp.coo_matrix([[1, 2], [0, 3]])
         result = sparse_smith_normal_form(mat)
         assert result == smith_normal_form([[1, 2], [0, 3]])
 
@@ -154,8 +153,8 @@ class TestSparseSNFInternal:
 # P10.2 — Parallel Khovanov
 # ---------------------------------------------------------------------------
 
-from pytop.knot_invariants import KnotDiagram
-from pytop.khovanov import khovanov_homology
+from pytop.khovanov import khovanov_homology  # noqa: E402
+from pytop.knot_invariants import KnotDiagram  # noqa: E402
 
 
 def _unknot() -> KnotDiagram:
@@ -205,11 +204,11 @@ class TestParallelKhovanov:
 # P10.3 — Witness complex
 # ---------------------------------------------------------------------------
 
-from pytop.witness_complex import (
-    landmark_sample,
+from pytop.witness_complex import (  # noqa: E402
     WitnessComplex,
-    witness_filtration,
+    landmark_sample,
     persistent_homology_witness,
+    witness_filtration,
 )
 
 
@@ -347,9 +346,9 @@ class TestPersistentHomologyWitness:
 # P10.4 — Streaming persistence
 # ---------------------------------------------------------------------------
 
-from pytop.streaming_persistence import StreamingPersistence
-from pytop.persistent_homology import FilteredComplex
-from pytop.persistent_homology_optimized import persistence_pairs_twist
+from pytop.persistent_homology import FilteredComplex  # noqa: E402
+from pytop.persistent_homology_optimized import persistence_pairs_twist  # noqa: E402
+from pytop.streaming_persistence import StreamingPersistence  # noqa: E402
 
 
 def _build_standard_filtration() -> FilteredComplex:
@@ -494,8 +493,7 @@ class TestStreamingPersistence:
 # P10.5 — GPU backend (graceful fallback)
 # ---------------------------------------------------------------------------
 
-from pytop._gpu_backend import GPU_AVAILABLE, GPU_MIN_SIZE, gpu_twist_reduce
-from pytop.persistent_homology import vietoris_rips_filtration
+from pytop._gpu_backend import GPU_AVAILABLE, GPU_MIN_SIZE, gpu_twist_reduce  # noqa: E402
 
 
 class TestGPUBackend:

@@ -3,17 +3,16 @@
 from __future__ import annotations
 
 import math
+
 import pytest
 
-from pytop.persistent_homology import PersistencePair
 from pytop.persistence_distances import (
-    PersistenceLandscape,
     bottleneck_distance,
-    wasserstein_distance,
     persistence_entropy,
     persistence_landscape,
+    wasserstein_distance,
 )
-
+from pytop.persistent_homology import PersistencePair
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -223,7 +222,6 @@ class TestPersistenceLandscape:
         # Bar (0, 2): tent function peaks at t=1 with value 1.0
         d = (pp(0, 0.0, 2.0),)
         ls = persistence_landscape(d, num_layers=1, num_grid_points=5, t_min=0.0, t_max=2.0)
-        grid = ls.grid
         layer = ls.layer(1)
         # Find the peak
         peak_idx = max(range(len(layer)), key=lambda i: layer[i])

@@ -3,8 +3,8 @@
 Functions tested: cobordism_from_handles, tqft_dimension_2d, handle_signature_tft
 """
 import pytest
-from pytop import cobordism_from_handles, tqft_dimension_2d, handle_signature_tft
 
+from pytop import cobordism_from_handles, handle_signature_tft, tqft_dimension_2d
 
 # ---------------------------------------------------------------------------
 # cobordism_from_handles

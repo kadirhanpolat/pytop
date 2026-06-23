@@ -34,10 +34,10 @@ if TYPE_CHECKING:
     pass
 
 try:
-    import cupy as _cupy  # type: ignore[import-untyped]
+    import cupy as _cupy
     GPU_AVAILABLE: bool = True
 except ImportError:
-    _cupy = None  # type: ignore[assignment]
+    _cupy = None
     GPU_AVAILABLE = False
 
 # Route to GPU only when the filtration has at least this many simplices.
@@ -74,22 +74,9 @@ def _gpu_reduce_columns(
             m >>= 1
             bit += 1
 
-    # Pivot array: pivot_row[j] = low(columns[j]), or -1 if column is zero.
-    pivot_row = cp.full(n, -1, dtype=cp.int32)
-    low_inverse: dict[int, int] = {}  # pivot → column owning it (CPU dict)
-
-    # Dimension-descending Clearing sweep: mark columns that will be cleared.
-    max_dim = max(dimensions) if dimensions else 0
-    cleared: set[int] = set()
-    for d in range(max_dim, 0, -1):
-        for j in range(n):
-            if dimensions[j] != d:
-                continue
-            # Find pivot of column j on CPU bitmask (fast).
-            col_mask = int(cp.packbits(col_gpu[j], bitorder="little").view(cp.uint8).tobytes().hex(), 16)
-            # Simpler: reduce on CPU for the Clearing pass (small work).
-
-    # Fall back to sequential GPU column reduction.
+    # Sequential GPU column reduction. (The dimension-descending Clearing
+    # optimization is not yet implemented on the GPU path; the reduction below
+    # is still correct without it.)
     low_inv_gpu: dict[int, int] = {}
     pairs_raw: list[tuple[int, int]] = []
 
@@ -142,9 +129,10 @@ def _gpu_reduce_columns(
             n_ess += 1
 
     stats = ReductionStats(
+        n_simplices=n,
         n_cleared=0,
-        clearing_ratio=0.0,
         n_column_additions=-1,  # not tracked on GPU path
+        n_finite_pairs=len(pairs) - n_ess,
         n_essential=n_ess,
     )
     return tuple(pairs), stats

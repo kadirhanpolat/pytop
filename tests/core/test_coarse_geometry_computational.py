@@ -2,15 +2,12 @@
 
 from __future__ import annotations
 
-import pytest
-
 from pytop.coarse_geometry import (
     classify_graph_coarse_growth,
     geodesic_distance_graph,
     growth_function_graph,
     is_tree_graph,
 )
-
 
 # ---------------------------------------------------------------------------
 # Fixtures

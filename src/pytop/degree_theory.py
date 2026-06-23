@@ -9,6 +9,10 @@ kayıt tabloları ve özet yardımcıları sağlar.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .simplicial_maps import SimplicialMap
 
 
 @dataclass(frozen=True)
@@ -199,7 +203,7 @@ def degree_theory_profile_registry() -> dict[str, int]:
 # ===========================================================================
 
 
-def map_degree_simplicial(sim_map: object, n: int) -> int:
+def map_degree_simplicial(sim_map: SimplicialMap, n: int) -> int:
     """Compute the degree of a simplicial self-map on an n-sphere triangulation.
 
     The degree is the integer d such that the induced map

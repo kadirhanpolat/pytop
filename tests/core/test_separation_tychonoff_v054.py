@@ -1,5 +1,4 @@
 """Tests for T3.5 / Tychonoff characterization additions (v0.5.4)."""
-import pytest
 
 from pytop.result import Result
 from pytop.separation import (

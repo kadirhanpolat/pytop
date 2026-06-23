@@ -5,8 +5,8 @@ from __future__ import annotations
 import pytest
 
 from pytop.experimental.pi_base import (
-    InconsistentTraitsError,
     PI_BASE_ATTRIBUTION,
+    InconsistentTraitsError,
     asserted_traits,
     compare_traits,
     consequences,

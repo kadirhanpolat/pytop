@@ -115,7 +115,7 @@ def constant_sheaf(open_sets: list[frozenset], name: str = "ℤ") -> FiniteSheaf
     >>> F.section_rank(frozenset())
     0
     """
-    empty = frozenset()
+    empty: frozenset = frozenset()
     opens = [frozenset(u) for u in open_sets]
     sections: dict[frozenset, int] = {u: (0 if u == empty else 1) for u in opens}
     restrictions: dict[tuple[frozenset, frozenset], list[list[int]]] = {}
@@ -240,11 +240,11 @@ def _cech_coboundary(
         r_J = ranks_p1[j_idx]
         J_set = set(J)
 
-        for i_idx, I in enumerate(mids_p):
+        for i_idx, mid_i in enumerate(mids_p):
             r_I = ranks_p[i_idx]
             if r_I == 0:
                 continue
-            I_set = set(I)
+            I_set = set(mid_i)
             if not (I_set < J_set):
                 continue
 
@@ -252,12 +252,12 @@ def _cech_coboundary(
             face_k = list(J).index(removed)
             sign = 1 if face_k % 2 == 0 else -1
 
-            inter_I = _intersect_cover(cover, I)
+            inter_I = _intersect_cover(cover, mid_i)
             res_mat = sheaf.restrict(inter_I, inter_J)
             if not res_mat:
                 continue
 
-            c_off = col_off[I]
+            c_off = col_off[mid_i]
             for ri in range(min(r_J, len(res_mat))):
                 row_vals = res_mat[ri]
                 for ci in range(min(r_I, len(row_vals))):

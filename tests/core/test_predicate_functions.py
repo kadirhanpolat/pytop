@@ -3,7 +3,6 @@
 import pytest
 
 from pytop.predicate_functions import (
-    MathFunction,
     PredicateFunctionError,
     abs_value,
     double,
@@ -12,8 +11,7 @@ from pytop.predicate_functions import (
     square,
     successor,
 )
-from pytop.predicate_sets import N, R, Z
-
+from pytop.predicate_sets import N, R
 
 # ===========================================================================
 # Pre-built: successor, square, double, abs_value, negate_fn
