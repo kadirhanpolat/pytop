@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -3376,4 +3376,195 @@ from .persistent_ktheory import (
     k_theory_groups,
     k_barcode,
     k_betti_numbers,
+)
+
+# Phase 13: Homotopy Theory
+from .chain_homotopy import (
+    ChainHomotopyResult,
+    HomotopyEquivalenceVerdict,
+    is_chain_homotopy,
+    find_chain_homotopy,
+    chain_homotopy_equiv,
+    homotopy_equivalence_simplicial,
+)
+from .eilenberg_maclane import (
+    KGnHomology,
+    km_homology_cyclic,
+    km_homology_free,
+    km_homology_free_abelian,
+    km_homology_z,
+    km_homology_z2,
+    km_homology_rational,
+    is_aspherical_by_homology,
+    km_euler_characteristic,
+)
+from .massey_products import (
+    MasseyProduct,
+    triple_massey_product,
+    massey_vanishes,
+    is_formal_simplicial,
+    all_triple_massey_products,
+)
+from .hopf_invariant import (
+    HopfInvariant,
+    hopf_invariant_from_linking,
+    hopf_invariant_from_cup,
+    hopf_fibration,
+    all_hopf_fibrations,
+    adams_hopf_invariant_one,
+    pi3_s2,
+    hopf_invariant_composition,
+    hopf_invariant_sum,
+    hopf_invariant_degree_map,
+)
+from .sullivan_models import (
+    SullivanGenerator,
+    SullivanModel,
+    sullivan_sphere,
+    sullivan_torus,
+    sullivan_complex_projective,
+    sullivan_cp_infinity,
+    sullivan_k_z1,
+    sullivan_wedge_circles,
+    sullivan_product,
+    pi_rational,
+    euler_characteristic_sullivan,
+    poincare_series_sullivan,
+    is_pure_sullivan,
+    sullivan_from_betti,
+)
+
+# Phase 14: Advanced Knot Homology
+from .khovanov_odd import (
+    OddKhovanovHomology,
+    khovanov_homology_odd,
+    compare_khovanov_parities,
+)
+from .grid_floer import (
+    GridDiagram,
+    GridState,
+    HFKHat,
+    grid_diagram_from_permutations,
+    unknot_grid,
+    trefoil_grid,
+    hopf_link_grid,
+    hfk_hat,
+    alexander_polynomial_from_hfk,
+)
+from .concordance import (
+    ConcordanceInvariants,
+    tau_torus_knot,
+    s_invariant_torus_knot,
+    tristram_levine_signature,
+    signature_torus_knot,
+    concordance_data,
+    is_algebraically_slice,
+    concordance_order,
+    is_concordant_to_unknot,
+    tau_from_alexander_degree,
+)
+from .satellite_knots import (
+    SatelliteKnot,
+    CableKnot,
+    satellite_alexander_poly,
+    cable_alexander_poly,
+    cable_genus,
+    cable_tau,
+    cable_signature,
+    whitehead_double,
+    torus_knot_alexander_poly,
+    satellite_data,
+    longitudinal_cable,
+)
+from .virtual_knots import (
+    VirtualKnotDiagram,
+    GaussCode,
+    VirtualInvariants,
+    gauss_code_from_string,
+    odd_writhe,
+    writhe as virtual_writhe,
+    parity_of_crossing,
+    virtual_genus_lower_bound,
+    arrow_polynomial_bracket,
+    virtual_knot_invariants,
+    is_classical,
+    VIRTUAL_KNOT_DATA,
+)
+
+# Phase 15: 4-Manifold Topology
+from .intersection_forms import (
+    IntersectionForm,
+    intersection_form,
+    form_rank,
+    form_signature,
+    form_type,
+    is_unimodular,
+    is_definite,
+    classify_indefinite_form,
+    e8_form,
+    hyperbolic_form,
+    diagonal_form,
+    connected_sum_form,
+    donaldson_theorem,
+    STANDARD_FORMS,
+)
+from .kirby_calculus import (
+    KirbyDiagram,
+    KirbyComponent,
+    KirbyMove,
+    kirby_diagram,
+    linking_matrix as kirby_linking_matrix,
+    kirby_stabilize,
+    kirby_handle_slide,
+    kirby_to_intersection_form,
+    euler_characteristic_kirby,
+    signature_kirby,
+    b2_kirby,
+    is_kirby_equivalent,
+    kirby_diagram_cp2,
+    kirby_diagram_s2xs2,
+    kirby_diagram_k3_fiber,
+    dehn_surgery_matrix,
+)
+from .casson_invariant import (
+    CassonInvariant,
+    casson_invariant_surgery,
+    casson_invariant_brieskorn,
+    casson_invariant_connected_sum,
+    casson_s3,
+    dedekind_sum,
+    alexander_second_derivative,
+    rohlin_mod2,
+    is_integer_homology_sphere,
+    casson_invariant_lens_space,
+    casson_data,
+    CASSON_DATABASE,
+)
+from .milnor_fibers import (
+    MilnorFiber,
+    milnor_fiber_brieskorn,
+    milnor_number,
+    milnor_fiber_signature,
+    milnor_fiber_euler,
+    seifert_form_trace,
+    monodromy_order,
+    milnor_fiber_ade,
+    ade_singularity_data,
+    characteristic_polynomial_monodromy,
+    zeta_function_monodromy,
+    brieskorn_fiber_homology,
+    ADE_DATABASE,
+)
+from .rohlin_theorem import (
+    SpinStructureResult,
+    RohlinCheck,
+    check_rohlin_theorem,
+    is_spin_manifold,
+    kirby_siebenmann_obstruction,
+    n_spin_structures,
+    check_freedman_realization,
+    rohlin_invariant_from_signature,
+    spin_cobordism_group,
+    spin_structure_result,
+    ROHLIN_EXAMPLES,
 )

@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-23 (v1.4.0):** Phase 1 (set-theoretic topology) substantially
+> **Status as of 2026-06-23 (v1.5.0):** Phase 1 (set-theoretic topology) substantially
 > complete; Phase 2 (algebraic topology) **complete** (8 / 8).
 > **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
 > P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
@@ -529,6 +529,36 @@ to the main computational engines. 0-sorry rule holds throughout; corpus grows f
 | **P12.4** | Native GAP / Regina integration | ⬜ | Currently only Docker oracles; in-process FFI or persistent subprocess bridge |
 | **P12.5** | Countably infinite simplicial complexes | ⬜ | Convergence algorithms for infinite Rips / infinite CW complexes |
 
+### Phase 13 — Homotopy Theory (v1.5.0)
+
+| Milestone | Topic | Status | Delivered |
+|-----------|-------|--------|-----------|
+| **P13.1** | Chain homotopy | ✅ | `chain_homotopy.py`: `is_chain_homotopy` (∂h+h∂=f−g), `find_chain_homotopy` (ℚ-Gaussian elimination), `chain_homotopy_equiv`, `homotopy_equivalence_simplicial`. |
+| **P13.2** | Eilenberg–MacLane spaces | ✅ | `eilenberg_maclane.py`: `km_homology_{cyclic,free,free_abelian,z,z2,rational}`, `is_aspherical_by_homology` (complex or explicit homology), `km_euler_characteristic`. |
+| **P13.3** | Massey products / formality | ✅ | `massey_products.py`: `triple_massey_product`, `massey_vanishes`, `is_formal_simplicial`, `all_triple_massey_products`. |
+| **P13.4** | Hopf invariant | ✅ | `hopf_invariant.py`: `hopf_fibration` (n=1,2,4,8), `adams_hopf_invariant_one`, `hopf_invariant_from_{linking,cup}`, `pi3_s2`. |
+| **P13.5** | Sullivan minimal models | ✅ | `sullivan_models.py`: `sullivan_{sphere,torus,complex_projective,product,from_betti}`, `pi_rational`, `euler_characteristic_sullivan` (Hilbert series of ΛV), `is_pure_sullivan`. |
+
+### Phase 14 — Advanced Knot Homology (v1.5.0)
+
+| Milestone | Topic | Status | Delivered |
+|-----------|-------|--------|-----------|
+| **P14.1** | Odd Khovanov homology | ✅ | `khovanov_odd.py`: `khovanov_homology_odd`, `OddKhovanovHomology`, `compare_khovanov_parities`. |
+| **P14.2** | Grid diagram Floer (HFK̂) | ✅ | `grid_floer.py`: `GridDiagram`, `GridState`, `HFKHat`, `hfk_hat` (𝔽₂ rectangle differential), `trefoil_grid`, `alexander_polynomial_from_hfk`. |
+| **P14.3** | Concordance invariants | ✅ | `concordance.py`: `tau_torus_knot`, `s_invariant_torus_knot`, `signature_torus_knot`, `tristram_levine_signature`, `is_algebraically_slice`, `concordance_order`. |
+| **P14.4** | Satellite / cable knots | ✅ | `satellite_knots.py`: `satellite_alexander_poly` (Morton), `cable_alexander_poly`, `torus_knot_alexander_poly` (exact polynomial division), `cable_genus`, `whitehead_double`. |
+| **P14.5** | Virtual knots | ✅ | `virtual_knots.py`: `gauss_code_from_string`, `parity_of_crossing`, `odd_writhe`, `arrow_polynomial_bracket`, `virtual_knot_invariants`. |
+
+### Phase 15 — 4-Manifold Topology (v1.5.0)
+
+| Milestone | Topic | Status | Delivered |
+|-----------|-------|--------|-----------|
+| **P15.1** | Intersection forms | ✅ | `intersection_forms.py`: `intersection_form`, `form_signature` (Sylvester congruence diagonalisation), `e8_form`, `hyperbolic_form`, `donaldson_theorem`, `STANDARD_FORMS`. |
+| **P15.2** | Kirby calculus | ✅ | `kirby_calculus.py`: `kirby_diagram`, `kirby_stabilize`, `kirby_handle_slide`, `kirby_to_intersection_form`, `kirby_diagram_{cp2,s2xs2,k3_fiber}`, `dehn_surgery_matrix`. |
+| **P15.3** | Casson invariant | ✅ | `casson_invariant.py`: `casson_invariant_brieskorn` (Neumann–Wahl λ=σ(F)/8), `casson_invariant_surgery`, `casson_invariant_lens_space`, `dedekind_sum`, `CASSON_DATABASE`. |
+| **P15.4** | Milnor fibers | ✅ | `milnor_fibers.py`: `milnor_number`, `milnor_fiber_brieskorn`, `milnor_fiber_signature`, `monodromy_order`, `milnor_fiber_ade`, `ADE_DATABASE`. |
+| **P15.5** | Rohlin's theorem | ✅ | `rohlin_theorem.py`: `check_rohlin_theorem` (spin+smooth → σ≡0 mod 16), `is_spin_manifold`, `kirby_siebenmann_obstruction`, `check_freedman_realization`, `ROHLIN_EXAMPLES`. |
+
 ---
 
 ## Part IV — Hard trade-offs to decide early
@@ -548,7 +578,7 @@ to the main computational engines. 0-sorry rule holds throughout; corpus grows f
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **11 545** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
+| Tests passing | **11 685** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
 | Representations in `experimental.spaces` | 19 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
@@ -565,7 +595,10 @@ to the main computational engines. 0-sorry rule holds throughout; corpus grows f
 | Phase 10 milestones complete | 5 / 5 ✅ (scale & algorithm) |
 | Phase 11 milestones complete | 5 / 5 ✅ (Lean formal verification expansion) |
 | Phase 12 milestones complete | 2 / 5 ✅⬜ (sheaf cohomology, persistent K-theory done) |
-| **Current version** | **v1.4.0** |
+| Phase 13 milestones complete | 5 / 5 ✅ (homotopy theory) |
+| Phase 14 milestones complete | 5 / 5 ✅ (advanced knot homology) |
+| Phase 15 milestones complete | 5 / 5 ✅ (4-manifold topology) |
+| **Current version** | **v1.5.0** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 

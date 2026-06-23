@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.4.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **19 canonical representations** (**Phase 9 complete**), **scale & algorithm engines** (sparse SNF, parallel Khovanov, witness complex, streaming persistence, optional GPU backend — **Phase 10 complete**), a **pi-Base–backed deductive inference engine**, a **Lean 4 formal verification corpus** (11 proof files, 0 sorry — SNF correctness, set/metric topology, persistence reduction, Mayer–Vietoris, van Kampen, cohomology ring, spectral sequences — **Phase 11 complete**), and **research frontier engines** (Čech sheaf cohomology on finite spaces via Leray covers + persistent K-theory via rational AHSS — **Phase 12 in progress, P12.1–P12.2 complete**).
+As of **v1.5.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **19 canonical representations** (**Phase 9 complete**), **scale & algorithm engines** (sparse SNF, parallel Khovanov, witness complex, streaming persistence, optional GPU backend — **Phase 10 complete**), a **pi-Base–backed deductive inference engine**, a **Lean 4 formal verification corpus** (11 proof files, 0 sorry — SNF correctness, set/metric topology, persistence reduction, Mayer–Vietoris, van Kampen, cohomology ring, spectral sequences — **Phase 11 complete**), **research frontier engines** (Čech sheaf cohomology on finite spaces via Leray covers + persistent K-theory via rational AHSS — **Phase 12, P12.1–P12.2 complete**), **homotopy-theory engines** (chain homotopy, Eilenberg–MacLane spaces, Massey products, Hopf invariant, Sullivan minimal models — **Phase 13 complete**), **advanced knot-homology engines** (odd Khovanov, grid HFK̂, concordance invariants, satellite/cable knots, virtual knots — **Phase 14 complete**), and **4-manifold-topology engines** (intersection forms, Kirby calculus, Casson invariant, Milnor fibers, Rohlin's theorem — **Phase 15 complete**).
 
 ## Installation
 
@@ -261,7 +261,29 @@ kh = khovanov_homology(trefoil, parallel=True)   # same groups, faster on large 
 
 ---
 
-## What's New in v1.4.0
+## What's New in v1.5.0
+
+**Phases 13–15 — Homotopy theory, advanced knot homology, and 4-manifold topology (15 new modules)**
+
+Three full phases, each five modules, all pure-Python and dependency-free, ruff-clean and mypy-clean.
+
+- **Phase 13 — Homotopy Theory:** `chain_homotopy` (∂h+h∂=f−g verification + ℚ-solver),
+  `eilenberg_maclane` (H_*(K(G,n)) for cyclic/free/free-abelian/ℤ groups, asphericity),
+  `massey_products` (triple products + formality), `hopf_invariant` (Hopf fibrations,
+  Adams' theorem, π₃(S²)), `sullivan_models` (minimal models over ℚ; χ via the Hilbert
+  series of ΛV → χ(T²)=0, χ(S^{2k})=2, χ(CP^n)=n+1).
+- **Phase 14 — Advanced Knot Homology:** `khovanov_odd` (odd Khovanov homology),
+  `grid_floer` (grid-diagram HFK̂ over 𝔽₂), `concordance` (τ, s, σ, Tristram–Levine,
+  algebraic sliceness), `satellite_knots` (Morton's formula, exact torus-knot Alexander
+  polynomial division, cables, Whitehead doubles), `virtual_knots` (Gauss codes, parity,
+  odd writhe, arrow polynomial).
+- **Phase 15 — 4-Manifold Topology:** `intersection_forms` (Sylvester congruence signature,
+  E₈/hyperbolic, Donaldson), `kirby_calculus` (handle moves → intersection form),
+  `casson_invariant` (Neumann–Wahl λ(Σ(a,b,c))=σ(Milnor fibre)/8), `milnor_fibers`
+  (Brieskorn–Pham μ, signature, ADE), `rohlin_theorem` (spin + smooth ⇒ σ≡0 mod 16,
+  Kirby–Siebenmann, Freedman realisation).
+
+**140 new tests; 11 685 tests pass total.**
 
 **Phase 12 — Research Frontier: Čech sheaf cohomology + persistent K-theory (P12.1–P12.2)**
 

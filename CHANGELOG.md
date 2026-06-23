@@ -7,6 +7,125 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] — 2026-06-23
+
+### Added
+
+- **Phase 13 — Homotopy Theory (5 modules)**
+
+  - **`chain_homotopy.py` (P13.1)** — Chain homotopies and homotopy equivalences.
+    `ChainHomotopyResult`, `HomotopyEquivalenceVerdict`; `is_chain_homotopy` (verifies ∂h + h∂ = f−g);
+    `find_chain_homotopy` (Gaussian elimination over ℚ via `Fraction`);
+    `chain_homotopy_equiv` (splitting theorem: same Betti ↔ chain-homotopy equivalent);
+    `homotopy_equivalence_simplicial`.
+
+  - **`eilenberg_maclane.py` (P13.2)** — Eilenberg–MacLane spaces K(G,n).
+    `KGnHomology`; `km_homology_cyclic` (K(ℤ/m,1): H_{2k-1}=ℤ/m, H_{2k}=0);
+    `km_homology_free` (K(F_r,1)=∨S¹: H_1=ℤ^r);
+    `km_homology_free_abelian` (K(ℤ^r,1)=T^r: H_k=ℤ^C(r,k));
+    `km_homology_z`, `km_homology_z2`, `km_homology_rational`;
+    `is_aspherical_by_homology`, `km_euler_characteristic`.
+
+  - **`massey_products.py` (P13.3)** — Massey triple products and formality.
+    `MasseyProduct`; `triple_massey_product` (solves δx=α∪β, δy=β∪γ over ℚ);
+    `massey_vanishes`; `is_formal_simplicial` (vanishing of all triple Massey products);
+    `all_triple_massey_products`.
+
+  - **`hopf_invariant.py` (P13.4)** — Hopf invariant and fibrations.
+    `HopfInvariant`; `hopf_fibration(n)` (valid for n∈{1,2,4,8} — Adams theorem);
+    `all_hopf_fibrations`; `adams_hopf_invariant_one`; `pi3_s2` (π₃(S²)=ℤ, generator η₂);
+    `hopf_invariant_from_cup`, `hopf_invariant_from_linking`;
+    `hopf_invariant_composition`, `hopf_invariant_sum`, `hopf_invariant_degree_map`.
+
+  - **`sullivan_models.py` (P13.5)** — Sullivan minimal models over ℚ.
+    `SullivanGenerator`, `SullivanModel`; `sullivan_sphere(n)` (S^n odd: Λ(e_n), d=0;
+    S^n even: Λ(e_n,f_{2n-1}), d(f)=e_n²); `sullivan_torus(r)`, `sullivan_complex_projective(n)`,
+    `sullivan_cp_infinity`, `sullivan_k_z1`, `sullivan_wedge_circles`, `sullivan_product`;
+    `pi_rational`, `euler_characteristic_sullivan`, `poincare_series_sullivan`,
+    `is_pure_sullivan`, `sullivan_from_betti`.
+
+- **Phase 14 — Advanced Knot Homology (5 modules)**
+
+  - **`khovanov_odd.py` (P14.1)** — Odd Khovanov homology (Ozsváth–Rasmussen–Szabó 2013).
+    `OddKhovanovHomology`; `khovanov_homology_odd` (cube-of-resolutions with ORS odd sign
+    assignment: (−1)^{#{j<i: v[j]=1}}); `compare_khovanov_parities`; `_odd_sign`.
+    Identical to even Khovanov over ℤ/2; functorial for oriented link cobordisms.
+
+  - **`grid_floer.py` (P14.2)** — Grid diagram Floer homology HFK̂.
+    `GridDiagram`, `GridState`, `HFKHat`; `grid_diagram_from_permutations`;
+    `unknot_grid`, `trefoil_grid`, `hopf_link_grid`;
+    `hfk_hat` (grid states = permutations; empty rectangle differential; Maslov/Alexander gradings;
+    constrained to n≤5); `alexander_polynomial_from_hfk`.
+
+  - **`concordance.py` (P14.3)** — Concordance invariants (τ, s, σ).
+    `ConcordanceInvariants`; `tau_torus_knot` (τ(T(p,q))=(p-1)(q-1)/2);
+    `s_invariant_torus_knot` (s(T(p,q))=(p-1)(q-1));
+    `signature_torus_knot` (σ(T(2,q))=-(q-1));
+    `tristram_levine_signature`, `concordance_data`, `is_algebraically_slice`,
+    `concordance_order`, `is_concordant_to_unknot`, `tau_from_alexander_degree`.
+    Database: unknot, trefoil, figure-eight, T(2,5), T(3,4), T(2,7).
+
+  - **`satellite_knots.py` (P14.4)** — Satellite and cable knot invariants.
+    `SatelliteKnot`, `CableKnot`; `satellite_alexander_poly` (Morton's formula:
+    Δ_{S(P,K)}(t)=Δ_P(t)·Δ_K(t^w)); `cable_alexander_poly`, `cable_genus`
+    (Gabai: p·g(K)+(p-1)(q-1)/2); `cable_tau` (Hedden's formula);
+    `cable_signature`, `whitehead_double`, `torus_knot_alexander_poly`,
+    `satellite_data`, `longitudinal_cable`.
+
+  - **`virtual_knots.py` (P14.5)** — Virtual knot theory and invariants.
+    `GaussCode`, `VirtualKnotDiagram`, `VirtualInvariants`; `gauss_code_from_string`;
+    `parity_of_crossing` (odd/even via inter-crossing count); `odd_writhe` (J(K) — Kauffman 1999);
+    `writhe`; `is_classical` (J(K)=0 necessary condition); `virtual_genus_lower_bound`;
+    `arrow_polynomial_bracket` (Dye–Kauffman 2009, simplified); `virtual_knot_invariants`;
+    `VIRTUAL_KNOT_DATA` (unknot, virtual trefoil, Kishino's knot).
+
+- **Phase 15 — 4-Manifold Topology (5 modules)**
+
+  - **`intersection_forms.py` (P15.1)** — Intersection forms of 4-manifolds.
+    `IntersectionForm`; `intersection_form`, `form_rank`, `form_signature`, `form_type`,
+    `is_unimodular`, `is_definite`, `classify_indefinite_form` (Serre: odd→⟨1⟩^p⊕⟨-1⟩^q,
+    even→aE8⊕bH); `e8_form`, `hyperbolic_form`, `diagonal_form`, `connected_sum_form`;
+    `donaldson_theorem` (definite smooth 4-manifolds must have diagonal form);
+    `STANDARD_FORMS` (CP², S²×S², K3, E₈ manifold).
+
+  - **`kirby_calculus.py` (P15.2)** — Kirby diagrams and handle calculus.
+    `KirbyComponent`, `KirbyDiagram`, `KirbyMove`; `kirby_diagram`, `linking_matrix`;
+    `kirby_stabilize` (K1 move: add ±1-framed unknot);
+    `kirby_handle_slide` (K2 move: row/column operations on linking matrix);
+    `kirby_to_intersection_form`, `euler_characteristic_kirby`, `signature_kirby`, `b2_kirby`,
+    `is_kirby_equivalent`; `kirby_diagram_cp2`, `kirby_diagram_s2xs2`,
+    `kirby_diagram_k3_fiber` (E₈ plumbing + 3H); `dehn_surgery_matrix`.
+
+  - **`casson_invariant.py` (P15.3)** — Casson invariant for integer homology spheres.
+    `CassonInvariant`; `casson_s3` (λ(S³)=0); `casson_invariant_brieskorn`
+    (Neumann–Wahl theorem λ(Σ(a,b,c)) = σ(Milnor fibre)/8, via the Brieskorn
+    eigenvalue count of i/a+j/b+k/c mod 2);
+    `casson_invariant_surgery` (Walker's formula via Δ''(1));
+    `casson_invariant_connected_sum` (additivity); `casson_invariant_lens_space`;
+    `dedekind_sum` (sawtooth-function formula with reciprocity);
+    `alexander_second_derivative`, `rohlin_mod2`, `is_integer_homology_sphere`, `casson_data`;
+    `CASSON_DATABASE` (S³, Poincaré sphere Σ(2,3,5) λ=−1, Σ(2,3,7) λ=−1).
+
+  - **`milnor_fibers.py` (P15.4)** — Milnor fibers and singularity topology.
+    `MilnorFiber`; `milnor_fiber_brieskorn` (Brieskorn–Pham z₀^a+z₁^b+z₂^c);
+    `milnor_number` (μ=(a-1)(b-1)(c-1)); `milnor_fiber_signature` (cosine formula);
+    `milnor_fiber_euler` (χ=1+μ); `seifert_form_trace`; `monodromy_order` (lcm(a,b,c));
+    `milnor_fiber_ade` (ADE singularities); `ade_singularity_data`;
+    `characteristic_polynomial_monodromy`, `zeta_function_monodromy`, `brieskorn_fiber_homology`;
+    `ADE_DATABASE` (E₆ μ=6, E₇ μ=7, E₈ μ=8).
+
+  - **`rohlin_theorem.py` (P15.5)** — Rohlin's theorem and spin structures.
+    `SpinStructureResult`, `RohlinCheck`; `check_rohlin_theorem` (spin + smooth → σ≡0 mod 16);
+    `is_spin_manifold` (form is even ↔ w₂=0); `kirby_siebenmann_obstruction` (σ/8 mod 2);
+    `n_spin_structures` (2^|H¹(X;ℤ/2)|); `check_freedman_realization` (every form topologically
+    realizable; smooth obstruction from Rohlin + Donaldson);
+    `rohlin_invariant_from_signature` (σ/8 mod 2 for spin manifolds);
+    `spin_cobordism_group`, `spin_structure_result`; `ROHLIN_EXAMPLES`
+    (S⁴, CP², K3, E₈ manifold, S²×S²).
+
+  **140 new tests across 3 files (Phase 13/14/15); 11 685 tests pass total.**
+  All 15 new modules are ruff-clean and mypy-clean.
+
 ## [1.4.0] — 2026-06-23
 
 ### Added
