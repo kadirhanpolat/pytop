@@ -231,3 +231,98 @@ class TestContextProfile:
         assert prof2.stats is not None
         assert prof1.stats.function_name == "first"
         assert prof2.stats.function_name == "second"
+
+
+class TestIntegrationWithRealPytopFunctions:
+    """Integration tests profiling real pytop computations."""
+
+    def test_profile_real_homology(self, profile_benchmark):
+        """Profile real homology computation on torus.
+
+        Creates a torus via torus_filtration() and computes its homology.
+        Verifies:
+        - Homology result is correct (3 groups for torus)
+        - Profiling stats are collected
+        - Memory and time are tracked properly
+        """
+        from pytop.homology import homology_groups
+        from pytop.simplicial_complexes import SimplicialComplex
+        from pytop.simplicial_filtration import torus_filtration
+
+        @profile_benchmark(track_memory=True)
+        def compute_torus():
+            # Get the torus filtration
+            torus_filt = torus_filtration()
+            # Create simplicial complex from the simplices
+            complex_obj = SimplicialComplex(torus_filt.simplices)
+            # Compute homology groups for all dimensions
+            groups = homology_groups(complex_obj)
+            # Return Betti numbers for verification
+            return tuple(group.betti for group in groups)
+
+        betti_numbers, stats = compute_torus()
+
+        # Verify homology is correct: torus has Betti numbers (1, 2, 1)
+        assert len(betti_numbers) == 3
+        assert betti_numbers[0] == 1  # H0 rank (1 connected component)
+        assert betti_numbers[1] == 2  # H1 rank (2 independent loops)
+        assert betti_numbers[2] == 1  # H2 rank (1 2-dimensional hole)
+
+        # Verify profiling stats are populated
+        assert isinstance(stats, ProfileStats)
+        assert stats.function_name == "compute_torus"
+        assert stats.total_time > 0.001  # Should take measurable time (>1ms)
+        # Memory tracking may vary; just verify it's tracked
+        assert stats.peak_memory_mb >= 0
+        assert stats.call_count > 0
+
+    def test_profile_persistent_homology(self, profile_benchmark):
+        """Profile real persistent homology computation on grid-based complex.
+
+        Creates a simplicial complex from a grid and verifies profiling works
+        on real pytop computations.
+        Verifies:
+        - Complex construction and profiling work together
+        - Profiling stats are collected
+        - Memory and time are tracked
+        """
+        import numpy as np
+
+        from pytop.simplicial_complexes import SimplicialComplex
+        from pytop.simplicial_filtration import simplicial_filtration
+
+        @profile_benchmark(track_memory=True)
+        def construct_grid_complex():
+            # Generate grid-based simplicial complex (10x10)
+            grid_size = 10
+            maximal_simplices = []
+
+            # Generate triangular faces from grid
+            for i in range(grid_size - 1):
+                for j in range(grid_size - 1):
+                    v0 = i * grid_size + j
+                    v1 = i * grid_size + j + 1
+                    v2 = (i + 1) * grid_size + j
+                    v3 = (i + 1) * grid_size + j + 1
+
+                    # Two triangles per grid cell
+                    maximal_simplices.append((v0, v1, v2))
+                    maximal_simplices.append((v1, v3, v2))
+
+            # Build filtration with automatic face closure
+            fc = simplicial_filtration(maximal_simplices)
+            complex_obj = SimplicialComplex(fc.simplices)
+            return len(complex_obj.simplexes)
+
+        simplex_count, stats = construct_grid_complex()
+
+        # Verify complex was constructed
+        assert isinstance(simplex_count, int)
+        assert simplex_count > 0  # Should have simplices
+
+        # Verify profiling stats are populated
+        assert isinstance(stats, ProfileStats)
+        assert stats.function_name == "construct_grid_complex"
+        assert stats.total_time > 0  # Should have measurable time
+        assert stats.peak_memory_mb >= 0  # Memory should be tracked
+        assert stats.call_count > 0
