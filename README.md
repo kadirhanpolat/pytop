@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.5.0**, pytop ships **15 complete research phases** with 11,685 tests. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16 in progress**: empirical validation suite — **P16.1 complete** (benchmark suite: 37 tests, minimal triangulations, knot tables, large graph library, performance baselines); P16.2–P16.3 (oracle parity & statistical validation) follow.
+As of **v1.5.0**, pytop ships **15 complete research phases** with 11,685 tests. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16 in progress**: empirical validation suite — **P16.1 complete** (benchmark suite: 37 tests, minimal triangulations, knot tables, large graph library, performance baselines); **P16.2 in progress** (oracle parity framework: extended knot table 25 primes, SnapPy H₁ Dehn surgery oracle, K-theory AHSS validation, 8 oracle parity tests); P16.3 (statistical validation) follows.
 
 ## Installation
 
