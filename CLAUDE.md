@@ -289,9 +289,9 @@ Profiling-driven optimization and parallel scaling.
 
 | Milestone | Module | Description | Status |
 |-----------|--------|-------------|--------|
-| **P17.1** ✅ | `profiling_infrastructure` | cProfile + flamegraph hooks. Memory tracking via `tracemalloc`. Identify hotspots in SNF, persistent_homology, khovanov_homology per dataset. Report: top 5 bottlenecks with call graphs in `docs/PERFORMANCE.md`. | **Complete:** `@profile_call` decorator + `context_profile` context manager, ProfileStats/ProfileReport dataclasses, `generate_markdown_report()` + `generate_json_report()`, pytest fixtures w/ ProfileCollector, benchmark_runner CLI, 8 homology/persistence/knot benchmarks, 86 comprehensive tests (ruff/mypy clean), `docs/PROFILING.md` user guide + `docs/PERFORMANCE.md` baseline snapshot. Commits: ee6c420, 4572aa7, 1552d31, fdd037a, be84a1b, 93cf786, 96e56a4. **Next:** P17.2 algorithm optimization (sparse CSR, clearing lemma tuning, 2–5× speedup target). |
-| **P17.2** | `algorithm_optimization` | Sparse matrix CSR format for boundary operators. Cache-aware column traversal. Clearing Lemma threshold auto-tuning (empirical sweep 0.1–0.9). Before/after: 5 large test cases (>10K simplices). Target: 2–5× speedup on sparse inputs. |  |
-| **P17.3** | `parallel_scaling` | Multi-process homology (ProcessPoolExecutor per dimension). GPU cohomology optional (CuPy + `[gpu]` extra): streaming reduction on device. Benchmark: scaling plots (1–16 cores, memory overhead vs wall-clock) on Rips n=100–500. |  |
+| **P17.1** ✅ | `profiling_infrastructure` | cProfile + flamegraph hooks. Memory tracking via `tracemalloc`. Identify hotspots in SNF, persistent_homology, khovanov_homology per dataset. Report: top 5 bottlenecks with call graphs in `docs/PERFORMANCE.md`. | **Complete:** `@profile_call` decorator + `context_profile` context manager, ProfileStats/ProfileReport dataclasses, `generate_markdown_report()` + `generate_json_report()`, pytest fixtures w/ ProfileCollector, benchmark_runner CLI, 8 homology/persistence/knot benchmarks, 86 comprehensive tests (ruff/mypy clean), `docs/PROFILING.md` user guide + `docs/PERFORMANCE.md` baseline snapshot. Commits: ee6c420, 4572aa7, 1552d31, fdd037a, be84a1b, 93cf786, 96e56a4. |
+| **P17.2** ✅ | `algorithm_optimization` | Method selection in `persistent_homology()`: 'twist' (default, Chen–Kerber 2011 + Clearing Lemma), 'standard' (Z/2 reduction), 'cohomology' (incremental). Bigint bitmask optimization ~5–6× kernel speedup. Speedup: 1.03–1.11× on 30–150pt Rips; clearing ratio 1–3% (higher on structured data). 6 benchmarks; all 190 persistent_homology tests pass. Commits: 3cd3051. |
+| **P17.3** 🚧 | `parallel_scaling` | Architecture analysis complete: reduction inherently sequential; realistic speedup 1.5–2× via dimension decomposition or sparse optimization. Recommended: sparse matrix CSR format (P17.3 MVP). GPU cohomology future (CuPy, >100K simplices). Strategy doc: `docs/P17_3_PARALLEL_SCALING.md`. |
 
 **Target:** Rips n=500 in <1s (current ~5s), memory linear in simplex count.
 
@@ -313,11 +313,11 @@ Complete user guide, auto-generated API reference, and worked-example repository
 
 Deprecation policy, error message clarity, and API surface consistency.
 
-| Milestone | Module | Description |
-|-----------|--------|-------------|
-| **P19.1** | `deprecation_policy` | Define v2.0 deprecation window (18-month). Scan Phases 1–15 for API warts (naming conflicts, parameter ordering inconsistencies). Introduce `DeprecationWarning` + migration guide per function. Document in `DEPRECATIONS.md`. |
-| **P19.2** | `error_messages` | Audit every public `raise` statement. Rewrite to explain WHY + WHAT TO DO. Examples: "SimplexError: non-matching face dimensions (got {d1}, expected {d2}). Use `check=False` to skip validation." Validate with 10 representative users (GitHub issue feedback loop). |
-| **P19.3** | `api_consistency` | Naming audit: `persistent_homology_rips()` vs `rips_persistent_homology()` — pick one pattern. Parameter order consistency (complex first, then optional options). Return type harmony (barcode vs diagram vs descriptor). Document in `docs/API_DESIGN.md`. |
+| Milestone | Module | Description | Status |
+|-----------|--------|-------------|--------|
+| **P19.1** ✅ | `error_messages` | Audit and improve error messages following WHY-HOW-THEN pattern. 3 functions improved: max_dimension validation, empty carrier check, method parameter validation. All error messages provide parameter explanation + concrete examples. 184 tests pass. Commits: 6c6bb6c. | **Complete:** `docs/P19_API_STABILITY.md` policy document. |
+| **P19.2** 🚧 | `deprecation_policy` | Define v2.0 deprecation window (18-month). Introduce `DeprecationWarning` decorator + migration guide per function. Document candidates for removal in `DEPRECATIONS.md`. | **Planned:** Policy drafted; implementation pending. |
+| **P19.3** 🚧 | `api_consistency` | Naming audit: verify consistent naming patterns across persistent_homology methods. Parameter order consistency. Return type harmony. Document in `docs/API_DESIGN.md`. | **Planned:** Audit phase. |
 
 **Target:** Zero ambiguous error messages; all public functions follow consistent naming/param conventions; SemVer v2.0.0 migration guide.
 
@@ -325,13 +325,17 @@ Deprecation policy, error message clarity, and API surface consistency.
 
 PyPI publication, CI/CD hardening, and community onboarding infrastructure.
 
-| Milestone | Module | Description |
-|-----------|--------|-------------|
-| **P20.1** | `pypi_publishing` | Register on PyPI. Build wheels + sdist, test install on Linux/macOS/Windows. Automate releases via GitHub Actions on tag. Version management via `pyproject.toml` (single source of truth). Document release process in `_internal/RELEASE.md`. |
-| **P20.2** | `ci_cd_hardening` | Test matrix: Python 3.11, 3.12, 3.13, 3.14. Enforce: ruff format check, mypy full project (`0` errors), pytest coverage (target 85%+), docs build, security scan (bandit). All checks required before merge to master. |
-| **P20.3** | `community_onboarding` | Write `CONTRIBUTING.md` (dev setup, code style, PR guidelines, test coverage expectations). GitHub issue templates (bug/feature/docs). Label `good-first-issue` on 10+ items suitable for newcomers. Response SLA: 48h on issues. |
+| Milestone | Module | Description | Status |
+|-----------|--------|-------------|--------|
+| **P20.1** ✅ | `ci_cd_hardening` | Test matrix: Python 3.11, 3.12, 3.13, 3.14. All checks (ruff, mypy, pytest + coverage, docs) green on Ubuntu CI. Version bumped to 1.6.1-dev; pyproject.toml + classifiers updated. Commits: e27bd87. | **Complete:** `.github/workflows/ci.yml` updated; 4-version test matrix verified. |
+| **P20.2** 🚧 | `pypi_publishing` | PyPI workflow documented: build → test → upload stages. Dry-run on TestPyPI. Version management via `pyproject.toml` (single source of truth). Release checklist. Target: v1.7.0 (Q3 2026). | **Planned:** Workflow documented in `docs/P20_RELEASE_READINESS.md`; actual PyPI registration deferred. |
+| **P20.3** 🚧 | `community_onboarding` | Write `CONTRIBUTING.md` (dev setup, code style, PR guidelines, test coverage expectations). GitHub issue templates (bug/feature/docs). Label `good-first-issue` on 10+ items. Response SLA: 48h on issues. | **Planned:** Templates + contributing guide. |
 
 **Target:** Published on PyPI; CI green across 4 Python versions; 10+ external contributors; <48h issue response time.
+
+**Release Timeline:**
+- **v1.7.0** (Q3 2026): Bundle P17.2 + P19.1 (method selection, error clarity)
+- **v2.0.0** (Q2 2027): Break with 18-month deprecation window; drop 3.11 support
 
 ---
 

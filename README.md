@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.6.0-blue)
-![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
-![Python](https://img.shields.io/badge/python-3.11%2B-blue)
+![Version](https://img.shields.io/badge/version-1.6.1-dev-blue)
+![Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen)
+![Python](https://img.shields.io/badge/python-3.11--3.14-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.6.0**, pytop ships **17 complete research phases** with 11,945+ tests. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ **empirical validation & oracle ecosystem** — **P16.1 ✅** (benchmark: 37 tests, minimal triangulations, 45-knot table, large graphs); **P16.2 ✅ AUTONOMOUS** (oracle parity framework: 45 primes unknot–10_5, GUDHI/Ripser/SnapPy/Sage adapters, OracleAgreementBuilder orchestration, automated JSON+Markdown reports, 11 tests); **P16.3 ✅** (statistical: 10K ER 1-skeleta, 100% success). **Phase 17 P17.1 ✅** **profiling infrastructure** — cProfile + tracemalloc decorator + context manager, ProfileStats/ProfileReport dataclasses, pytest fixtures w/ auto-collection, benchmark_runner CLI, 8 computational benchmarks, 86 tests (ruff/mypy clean). **Phase 18 ✅** (documentation & pedagogy): **P18.1** user guide 16 chapters (85-page PDF, TikZ→PNG, pedagogy blocks); **P18.2** API docs (225 Sphinx modules, HTML build, ReadTheDocs); **P18.3** example bank (36+ worked examples, 8 categories).
+As of **v1.6.1-dev**, pytop ships **20 phases in progress** with 11,691+ tests (198 persistent_homology + profiling). **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem (benchmark suite, oracle parity, statistical validation). **Phase 17** 🔄 **performance & scale**: **P17.1 ✅** profiling infrastructure (cProfile hooks, flamegraph, memory tracking, 86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'; Twist default with Clearing Lemma + bigint bitmask ~1.1× speedup; 6 benchmarks); **P17.3 🚧** parallel scaling (architecture analysis, strategy recommendations). **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** 🔄 **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN pattern on 3 functions); **P19.2 🚧** deprecation policy. **Phase 20** 🔄 **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 test matrix, all checks green); **P20.2 🚧** PyPI publishing workflow; **P20.3 🚧** community onboarding.
 
 ## Installation
 
@@ -61,7 +61,15 @@ import math
 from pytop import persistent_homology
 from pytop.metric_spaces import FiniteMetricSpace
 pts = [(math.cos(2*math.pi*k/12), math.sin(2*math.pi*k/12)) for k in range(12)]
-persistent_homology(FiniteMetricSpace(carrier=tuple(pts), distance=math.dist), max_dimension=2)
+
+# Default: Twist algorithm (Chen–Kerber 2011) with Clearing Lemma (~1.1× speedup)
+pairs = persistent_homology(FiniteMetricSpace(carrier=tuple(pts), distance=math.dist), max_dimension=2)
+
+# Or choose algorithm explicitly: method='twist' (default), 'standard', or 'cohomology'
+pairs_cohomology = persistent_homology(
+    FiniteMetricSpace(carrier=tuple(pts), distance=math.dist),
+    max_dimension=2,
+    method='cohomology'  # Incremental cocycle algorithm (often faster on Rips)
 
 # Knot invariants — Jones / Alexander polynomials from a diagram
 from pytop import KnotDiagram, jones_polynomial
