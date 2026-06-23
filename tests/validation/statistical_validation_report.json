@@ -1,24 +1,24 @@
 {
   "total_complexes": 10000,
-  "num_with_gudhi": 0,
+  "num_with_gudhi": 10000,
   "num_with_ripser": 0,
-  "gudhi_parity_pct": 0.0,
+  "gudhi_parity_pct": 100.0,
   "ripser_parity_pct": 0.0,
   "outliers_gudhi_count": 0,
   "outliers_ripser_count": 0,
   "vertex_count_stats": {
     "min": 5,
     "max": 50,
-    "mean": 27.7
+    "mean": 27.5
   },
   "edge_count_stats": {
     "min": 0,
-    "max": 993,
-    "mean": 204.6
+    "max": 997,
+    "mean": 202.8
   },
   "computation_time_stats_ms": {
     "min": 0.03,
-    "max": 69.17,
-    "mean": 6.26
+    "max": 31.78,
+    "mean": 4.35
   }
 }

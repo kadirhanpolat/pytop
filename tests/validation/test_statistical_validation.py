@@ -1,12 +1,23 @@
 """
-P16.3 Statistical Validation: 10K random complexes vs external oracles.
+P16.3 Statistical Validation: random complexes vs an external oracle.
 
-Generates 10K random Erdős–Rényi 1-skeleta (d=2–4 vertices, edge probability 0.1–0.8),
-computes homology using pytop, and compares against GUDHI and Ripser oracles.
+Generates random Erdős–Rényi 1-skeleta (5–50 vertices, edge probability 0.1–0.8),
+computes H₀/H₁ with pytop, and cross-validates against **GUDHI** (whose
+``SimplexTree`` ingests abstract simplicial complexes directly). Ripser is *not*
+applicable here -- it consumes point clouds / distance matrices, not abstract
+complexes -- so Ripser parity lives in ``test_betti_parity.py`` on genuine point
+clouds instead.
+
+Two tests:
+- ``test_500_random_complexes_gudhi_parity`` runs by default and asserts pytop ==
+  GUDHI on 500 complexes whenever GUDHI is installed (skipped otherwise). This is
+  the always-on cross-validation guard.
+- ``test_10k_random_complexes_vs_oracles`` is the opt-in heavy run (10K complexes)
+  that also writes ``statistical_validation_report.json``.
 
 Produces statistical parity report, residual error distribution, and outlier analysis.
 
-Usage (opt-in, CPU-intensive):
+Usage (opt-in heavy run, CPU-intensive):
     PYTOP_STATISTICAL_VALIDATION=1 pytest tests/validation/test_statistical_validation.py -v --tb=short
 """
 
@@ -168,24 +179,22 @@ def compute_gudhi_homology(
 
         sc = gudhi.SimplexTree()
         for simplex in simplices:
-            if not sc.insert(simplex):
-                pass
+            sc.insert(simplex)
 
-        sc.compute_persistence()
-
-        h0_betti = sc.persistent_betti_numbers(0, 1)[0]
-        h1_betti = sc.persistent_betti_numbers(0, 1)[1] if len(
-            sc.persistent_betti_numbers(0, 1)
-        ) > 1 else 0
-
-        h0_torsion: tuple[int, ...] = ()
-        h1_torsion: tuple[int, ...] = ()
+        # persistence_dim_max=True is REQUIRED so GUDHI computes homology in the
+        # complex's *top* dimension. For a 1-skeleton that top dimension is H1 --
+        # with the default persistence_dim_max=False GUDHI silently skips the top
+        # dimension and reports H1 = 0, disagreeing with pytop on every graph
+        # that contains a cycle. betti_numbers() then returns the static Betti
+        # numbers of the whole complex (essential classes have infinite bars).
+        sc.compute_persistence(persistence_dim_max=True)
+        betti = sc.betti_numbers()
 
         return HomologyPair(
-            h0_betti=h0_betti,
-            h0_torsion=h0_torsion,
-            h1_betti=h1_betti,
-            h1_torsion=h1_torsion,
+            h0_betti=betti[0] if len(betti) > 0 else 0,
+            h0_torsion=(),
+            h1_betti=betti[1] if len(betti) > 1 else 0,
+            h1_torsion=(),
         )
     except Exception:
         return None
@@ -195,47 +204,21 @@ def compute_ripser_homology(
     simplices: list[list[int]],
 ) -> Optional[HomologyPair]:
     """
-    Compute homology using Ripser oracle (if available).
+    Ripser is NOT an applicable oracle for an abstract 1-skeleton.
 
-    Args:
-        simplices: List of simplices.
+    Ripser computes Vietoris-Rips persistent homology from a *point cloud* or a
+    *distance matrix*; it has no API to ingest a hand-built abstract simplicial
+    complex. Forcing the random ER graph into a distance matrix would change the
+    space (the Rips complex of that matrix is not the original 1-skeleton), so
+    the comparison would be meaningless. We therefore return None here and rely
+    on GUDHI's SimplexTree (which *does* accept abstract complexes) for the
+    1-skeleton cross-check. Ripser parity against pytop on genuine point clouds
+    lives in ``betti_parity.py`` / ``test_betti_parity.py`` instead.
 
     Returns:
-        HomologyPair if Ripser is available and computation succeeds, None otherwise.
+        Always None (not applicable).
     """
-    try:
-        import ripser  # noqa: F401
-    except ImportError:
-        return None
-
-    try:
-        import ripser as ripser_module
-
-        result = ripser_module.ripser({"simplices": simplices}, maxdim=1)
-        dgms = result.get("dgms", [])
-
-        h0_betti = 0
-        h1_betti = 0
-
-        if len(dgms) > 0:
-            h0_dgm = dgms[0]
-            h0_betti = len([p for p in h0_dgm if p[1] == float("inf")])
-
-        if len(dgms) > 1:
-            h1_dgm = dgms[1]
-            h1_betti = len([p for p in h1_dgm if p[1] == float("inf")])
-
-        h0_torsion: tuple[int, ...] = ()
-        h1_torsion: tuple[int, ...] = ()
-
-        return HomologyPair(
-            h0_betti=h0_betti,
-            h0_torsion=h0_torsion,
-            h1_betti=h1_betti,
-            h1_torsion=h1_torsion,
-        )
-    except Exception:
-        return None
+    return None
 
 
 class TestStatisticalValidation:
@@ -300,8 +283,8 @@ class TestStatisticalValidation:
                 elapsed = time.perf_counter() - start_time
                 print(
                     f"\n  [{i+1}/{num_complexes}] {elapsed:.1f}s elapsed, "
-                    f"GUDHI={'✓' if gudhi_pair else '✗'}, "
-                    f"Ripser={'✓' if ripser_pair else '✗'}"
+                    f"GUDHI={'OK' if gudhi_pair else '--'}, "
+                    f"Ripser={'OK' if ripser_pair else '--'}"
                 )
 
         total_elapsed = time.perf_counter() - start_time
@@ -385,6 +368,43 @@ class TestStatisticalValidation:
         assert (
             ripser_pct >= 95.0 or len(with_ripser) == 0
         ), f"Ripser parity {ripser_pct:.1f}% < 95% threshold"
+
+    def test_500_random_complexes_gudhi_parity(self) -> None:
+        """Always-on cross-validation: pytop H₀/H₁ == GUDHI on 500 random ER 1-skeleta.
+
+        Skipped only when GUDHI is not installed. This is the real external-oracle
+        guard that was previously "pending" (the heavy 10K run had num_with_gudhi=0).
+        """
+        pytest.importorskip("gudhi")
+
+        rng = random.Random(20260623)
+        num_complexes = 500
+        checked = 0
+        disagreements: list[tuple[int, HomologyPair, HomologyPair]] = []
+
+        for i in range(num_complexes):
+            num_vertices = rng.randint(5, 50)
+            edge_prob = rng.uniform(0.1, 0.8)
+            # Deterministic per-complex seed so failures are reproducible.
+            random.seed(i * 7919 + 13)
+            simplices = generate_erdos_renyi_1skeleton(num_vertices, edge_prob)
+
+            sc = SimplicialComplex(simplices)
+            h0 = simplicial_homology(sc, degree=0)
+            h1 = simplicial_homology(sc, degree=1)
+            pytop_pair = HomologyPair(h0.betti, h0.torsion, h1.betti, h1.torsion)
+
+            gudhi_pair = compute_gudhi_homology(simplices)
+            assert gudhi_pair is not None, "GUDHI importable but returned None"
+            checked += 1
+            if gudhi_pair != pytop_pair:
+                disagreements.append((i, pytop_pair, gudhi_pair))
+
+        assert checked == num_complexes
+        assert not disagreements, (
+            f"pytop vs GUDHI disagreed on {len(disagreements)}/{num_complexes} "
+            f"complexes; first few: {disagreements[:5]}"
+        )
 
     def test_small_sample_validation(self) -> None:
         """Quick smoke test: 10 random complexes with pytop only."""

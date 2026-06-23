@@ -14,7 +14,6 @@ from __future__ import annotations
 import math
 from typing import Any
 
-import numpy as np
 import pytest
 
 from pytop.homology import homology_groups
@@ -28,6 +27,10 @@ from pytop.simplicial_filtration import (
     simplicial_filtration,
     torus_filtration,
 )
+
+# numpy is an optional (test-only) dependency — see the [oracles] extra. Skip the
+# whole module gracefully when it is absent instead of failing collection.
+np = pytest.importorskip("numpy")
 
 
 @pytest.mark.benchmark

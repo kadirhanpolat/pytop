@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-23 (v1.6.0 released; development at `1.6.1.dev0`):** Phases 1–15 complete; **Phase 16 ✅** (P16.1 benchmark suite, P16.2 oracle parity **wired to GUDHI**, P16.3 statistical validation); **Phase 17** P17.1 ✅ profiling + P17.2 ✅ method selection + **P17.3 ✅ inductive Vietoris–Rips build (~14–19×; Z/2 reduction parallelization still pending)**; **Phase 18 ✅** docs/pedagogy; **Phase 19 ✅** (P19.1–P19.3: error messages, deprecation policy, API audit); **Phase 20** P20.1 ✅ CI + P20.3 ✅ onboarding (P20.2 PyPI pending). **11,896 tests**; `src/pytop` ruff-clean + mypy-clean; release tags backfilled through v1.6.0.
+> **Status as of 2026-06-23 (v1.6.0 released; development at `1.6.1.dev0`):** Phases 1–15 complete; **Phase 16 ✅** (P16.1 benchmark suite, P16.2 oracle parity **wired to GUDHI**, P16.3 statistical validation **cross-validated against GUDHI: 10K complexes at 100.0% parity**); **Phase 17** P17.1 ✅ profiling + P17.2 ✅ method selection + **P17.3 ✅ inductive Vietoris–Rips build (~14–19×; Z/2 reduction parallelization still pending)**; **Phase 18 ✅** docs/pedagogy; **Phase 19 ✅** (P19.1–P19.3: error messages, deprecation policy, API audit); **Phase 20** P20.1 ✅ CI + P20.3 ✅ onboarding (P20.2 PyPI pending). **11,896 tests**; `src/pytop` ruff-clean + mypy-clean; release tags backfilled through v1.6.0.
 > (set-theoretic topology) substantive; Phase 2–7 computational core (homology,
 > cohomology, Mayer–Vietoris, van Kampen, Khovanov, combinatorial topology);
 > Phase 8 advanced algebra (6 modules); Phase 9 computable-space expansion (19 reps);
@@ -12,7 +12,7 @@
 > verification (11 files, 0 sorry); Phase 12 sheaf cohomology + persistent K-theory;
 > Phase 13 homotopy (Eilenberg–MacLane, Massey, Hopf); Phase 14 advanced knot
 > homology (Khovanov odd, grid Floer, concordance); Phase 15 4-manifold topology
-> (intersection forms, Kirby, Casson, Rohlin). **Phase 16 ✅ AUTONOMOUS**: P16.1 benchmark suite ✅ (37 tests, minimal triangulations, 45-knot table, large graphs); **P16.2 ✅ oracle parity** (45 primes unknot–10_5, GUDHI/Ripser/SnapPy/Sage adapters, OracleAgreementBuilder orchestration; **GUDHI persistent-Betti parity now wired & passing** via `betti_parity.py`); P16.3 statistical validation ✅ (10K ER 1-skeleta, pytop 100% success, avg 6.26 ms/complex). **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs — SNF (0 sorry),
+> (intersection forms, Kirby, Casson, Rohlin). **Phase 16 ✅ AUTONOMOUS**: P16.1 benchmark suite ✅ (37 tests, minimal triangulations, 45-knot table, large graphs); **P16.2 ✅ oracle parity** (45 primes unknot–10_5, GUDHI/Ripser/SnapPy/Sage adapters, OracleAgreementBuilder orchestration; **GUDHI persistent-Betti parity now wired & passing** via `betti_parity.py`); P16.3 statistical validation ✅ (10K ER 1-skeleta **cross-validated against GUDHI: 100.0% parity, 0 outliers**, avg 4.35 ms/complex). **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs — SNF (0 sorry),
 > set topology (34 theorems + 24 alt proofs; 0 sorry), metric topology (0 sorry),
 > persistence homology (0 sorry). **11 formal files total; 0 sorry throughout.**
 
@@ -538,8 +538,8 @@ Cross-validates pytop against independent gold-standard external systems via uni
 | Milestone | Target | Status | Delivered |
 |-----------|--------|--------|-----------|
 | **P16.1** ✅ | Benchmark suite | ✅ | `tests/validation/fixtures.py`: `MinimalTriangulations` (T², Klein, ℝP²), `KnotTable` (45 primes unknot–10_5), `GridGraphLibrary` (3×3–40×40), `BaselineResults` (reference Betti/Euler). 37 tests. |
-| **P16.2** ✅ **AUTONOMOUS** | Oracle parity framework | ✅ | `tests/validation/oracle_integrations.py` — `OracleAdapter` ABC + 4 adapters: `GudhiOracleAdapter` (Rips/Čech Betti), `RipserOracleAdapter` (fast persistent homology), `SnapPyOracleAdapter` (Dehn H₁, opt-in Docker), `SageOracleAdapter` (K-theory, opt-in Docker). `tests/validation/oracle_agreement_builder.py` — `OracleAgreementBuilder` orchestration engine, `AgreementMatrixReport` (JSON + Markdown export). Knot table expansion 40→45. **Now wired to GUDHI (v1.6.0):** `tests/validation/betti_parity.py` cross-checks pytop's persistent Betti against GUDHI by **Betti-at-scale** (`birth ≤ s < death`), restricted to dims the truncated skeleton represents faithfully (`H_k` ⇐ simplices up to dim `k+1`), sampled at filtration-event midpoints. Passing on circle / dense circle / two circles (`H₀=H₁=2`) / icosahedral 2-sphere (`H₂=1`) / random cloud. Corrected two latent comparison bugs (death-count vs Betti-at-scale; spurious `H₂`). Validation suite 79 → 97 passing. |
-| **P16.3** ✅ | Statistical validation | ✅ | `tests/validation/test_statistical_validation.py`: 10,000 random Erdős–Rényi 1-skeleta (5–50 vertices), pytop H₀/H₁ 100% success rate, avg 6.26 ms/complex. JSON report + outlier analysis. Framework ready for 50K+ scale. |
+| **P16.2** ✅ **AUTONOMOUS** | Oracle parity framework | ✅ | `tests/validation/oracle_integrations.py` — `OracleAdapter` ABC + 4 adapters: `GudhiOracleAdapter` (Rips/Čech Betti), `RipserOracleAdapter` (fast persistent homology), `SnapPyOracleAdapter` (Dehn H₁, opt-in Docker), `SageOracleAdapter` (K-theory, opt-in Docker). `tests/validation/oracle_agreement_builder.py` — `OracleAgreementBuilder` orchestration engine, `AgreementMatrixReport` (JSON + Markdown export). Knot table expansion 40→45. **Now wired to GUDHI (v1.6.0):** `tests/validation/betti_parity.py` cross-checks pytop's persistent Betti against GUDHI by **Betti-at-scale** (`birth ≤ s < death`), restricted to dims the truncated skeleton represents faithfully (`H_k` ⇐ simplices up to dim `k+1`), sampled at filtration-event midpoints. Passing on circle / dense circle / two circles (`H₀=H₁=2`) / icosahedral 2-sphere (`H₂=1`) / random cloud. Corrected two latent comparison bugs (death-count vs Betti-at-scale; spurious `H₂`). Validation suite 79 → 98 passing. |
+| **P16.3** ✅ | Statistical validation | ✅ | `tests/validation/test_statistical_validation.py`: 10,000 random Erdős–Rényi 1-skeleta (5–50 vertices), pytop H₀/H₁ **cross-validated against GUDHI** — **parity 100.0%, 0 outliers**, avg 4.35 ms/complex, ~45 s total (`statistical_validation_report.json`: `num_with_gudhi: 10000`). GUDHI `SimplexTree` path uses `compute_persistence(persistence_dim_max=True)` so the top-dim H₁ is computed (the default skips it → spurious H₁=0). Always-on `test_500_random_complexes_gudhi_parity` guard asserts 100% pytop=GUDHI in the default suite. Ripser N/A for abstract complexes (point-cloud parity in `test_betti_parity.py`). JSON report + outlier analysis. Ready for 50K+ scale. |
 
 **Framework ready for:** PyPI publication, CI/CD matrix integration, automated cross-oracle matrix population (GUDHI vs Ripser vs SnapPy vs Sage agreement pipeline).
 
@@ -562,7 +562,7 @@ Cross-validates pytop against independent gold-standard external systems via uni
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **11 896** (full `pytest tests/`, 22 skipped: opt-in Ripser/SnapPy/Sage oracles) — includes 97 validation tests (oracle parity + benchmark + statistical) |
+| Tests passing | **11 897** (full `pytest tests/`, 22 skipped: opt-in Ripser/SnapPy/Sage oracles) — includes 98 validation tests (oracle parity + benchmark + statistical + GUDHI betti-parity) |
 | Representations in `experimental.spaces` | 19 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
@@ -582,7 +582,7 @@ Cross-validates pytop against independent gold-standard external systems via uni
 | Phase 13 milestones complete | 5 / 5 ✅ (homotopy theory) |
 | Phase 14 milestones complete | 5 / 5 ✅ (advanced knot homology) |
 | Phase 15 milestones complete | 5 / 5 ✅ (4-manifold topology) |
-| Phase 16 milestones complete | 3 / 3 ✅ (P16.1–P16.3: benchmark, oracle parity — **GUDHI Betti parity now wired** — statistical validation) |
+| Phase 16 milestones complete | 3 / 3 ✅ (P16.1–P16.3: benchmark, oracle parity, statistical validation — **GUDHI cross-validation wired & passing: 10K-complex run at 100.0% pytop=GUDHI parity**) |
 | Phase 17 milestones complete | 2.5 / 3 ✅⬜ (P17.1 profiling ✅; P17.2 method selection ✅; **P17.3 inductive Rips build ~14–19× ✅**, reduction parallelization pending) |
 | Phase 18 milestones complete | 3 / 3 ✅ (user guide, API ref, example bank) |
 | Phase 19 milestones complete | 3 / 3 ✅ (P19.1 error messages, P19.2 deprecation policy + `@deprecated`, P19.3 API design audit) |

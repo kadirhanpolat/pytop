@@ -13,7 +13,6 @@ from __future__ import annotations
 
 from typing import Any
 
-import numpy as np
 import pytest
 
 from pytop.metric_spaces import FiniteMetricSpace
@@ -25,6 +24,10 @@ from pytop.persistent_homology_optimized import (
     ReductionStats,
     persistence_pairs_twist_with_stats,
 )
+
+# numpy is an optional (test-only) dependency — see the [oracles] extra. Skip the
+# whole module gracefully when it is absent instead of failing collection.
+np = pytest.importorskip("numpy")
 
 
 @pytest.mark.benchmark
