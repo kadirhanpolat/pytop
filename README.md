@@ -1,13 +1,13 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.2.0-blue)
+![Version](https://img.shields.io/badge/version-1.3.0-blue)
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.2.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **19 canonical representations** (**Phase 9 complete**), **scale & algorithm engines** (sparse SNF, parallel Khovanov, witness complex, streaming persistence, optional GPU backend — **Phase 10 complete**), and a **pi-Base–backed deductive inference engine**.
+As of **v1.3.0**, alongside its descriptive/profile layer pytop ships a **constructive computational core** (simplicial homology + field/relative coefficients + Mayer–Vietoris LES + cellular homology + cohomology ring with cup product + van Kampen → π₁ group presentations + optimized persistence (Twist+Clearing) + cubical complexes + bitmap persistence + persistent cohomology + discrete Morse theory + TDA pipeline + Čech complex + Mapper — **Phases 1–7 complete**), **advanced algebra engines** (derived categories, topos theory, operads, higher categories, noncommutative K-theory, TFT handles — **Phase 8 complete**), a **research-grade computable-space protocol** (`experimental.spaces`) for point-set topology with **19 canonical representations** (**Phase 9 complete**), **scale & algorithm engines** (sparse SNF, parallel Khovanov, witness complex, streaming persistence, optional GPU backend — **Phase 10 complete**), a **pi-Base–backed deductive inference engine**, and a **Lean 4 formal verification corpus** (11 proof files, 0 sorry — SNF correctness, set/metric topology, persistence reduction, Mayer–Vietoris, van Kampen, cohomology ring, spectral sequences — **Phase 11 complete**).
 
 ## Installation
 
@@ -256,6 +256,43 @@ kh = khovanov_homology(trefoil, parallel=True)   # same groups, faster on large 
 ```
 
 **65 new tests; 11 467 total.**
+
+---
+
+## What's New in v1.3.0
+
+**Phase 11 — Lean 4 Formal Verification Expansion: 5 new proof files, 0 sorry**
+
+Extends the `formal/` corpus from 6 to **11 Lean files**. The zero-sorry rule holds throughout.
+
+- **`MayerVietoris.lean` (P11.1)** — Short exact sequences + snake lemma.
+  `SES` structure (injective `i`, exact at `B`, surjective `p`); `ses_p_zero_of_im`
+  (exactness → `p ∘ i = 0`); `delta_well_defined`; `snake_delta_exists`;
+  `snake_delta_independent` (connecting class well-defined in A').
+
+- **`VanKampen.lean` (P11.2)** — Group presentations + amalgamated free product.
+  `Pres` structure; `TietzeEquiv` inductive relation with `tietze_elim` / `tietze_add_gen`;
+  `AmalgamDatum` + `Pushout`; `pushout_universal`; `int_hom_determined_by_one`
+  (ℤ is the free abelian group on one generator — uniqueness); `int_hom_exists` (existence).
+
+- **`CohomologyRing.lean` (P11.3)** — Cup product over Bool (ℤ/2).
+  Alexander–Whitney `cup` (`⌣`) operator; `cup_value_assoc` (`Bool.and_assoc`);
+  `cup_comm_Z2`; `coboundary0`; `leibniz_0cochains` (Leibniz rule δ(f⌣g) = δf⌣g ⊕ f⌣δg,
+  verified by 4-way Bool case analysis).
+
+- **`PersistencePairing.lean` (P11.4)** — Persistence pairing perfection.
+  `pairing_is_perfect` (= `reduce_is_reduced`); `pairs_have_distinct_births` (birth indices
+  are `Nodup`). Key lemma chain: `isReduced_tail` → `filterMap_getLast_nodup_of_isReduced`
+  (induction + `List.mem_iff_getElem` for positional index) → `zipWith_range_filterMap_snd_eq`
+  → `map_fst_pairs_eq`.
+
+- **`SpectralSequences.lean` (P11.5)** — Abstract spectral sequences.
+  `ChainCx α` structure with differential `d : α →+ α` and `sq : ∀ x, d (d x) = 0`;
+  `d_sq_zero`; `image_sub_kernel`; `SpectralSeq`; `StabilizesAt`; `Convergent`;
+  `const_convergent`; `stabilizes_mono`; `same_diff_implies_same_stab`;
+  `const_pages_convergent`.
+
+**0 sorry across all 11 Lean files.**
 
 ---
 
@@ -729,10 +766,15 @@ Build: `cd formal && lake build`
 | `SNF/` | Smith Normal Form correctness — clearPass residues, pivot positivity, fuel-independence, divisibility chain, all 5 branch theorems | **0** |
 | `Homology.lean` | Boundary operator ∂∘∂=0, Euler–Poincaré theorem via alternating-sum telescope | 0 |
 | `EulerChar.lean` | Euler characteristic = alternating Betti sum | 0 |
-| `PersHomology.lean` | Z/2 persistence reduction, `symmDiff_comm/self/assoc` (Z/2 column algebra), `reduce_is_reduced` (via fuel-based `reduceColFuel` + `reduceInv_step` invariant: TabInv × sorted × isReduced across every column), `pairs_have_distinct_deaths` (Nodup death indices), `pairs_birth_lt_death` (birth < death under lower-triangular hypothesis) | **0** |
+| `PersHomology.lean` | Z/2 persistence reduction, `symmDiff_comm/self/assoc`, `reduce_is_reduced` (fuel-based `reduceColFuel` + `reduceInv_step` invariant), `pairs_have_distinct_deaths`, `pairs_birth_lt_death` | **0** |
 | `PiBase.lean` | Pi-Base implication graph load & traversal | 0 |
-| `SetTopology.lean` | Open-set axioms, closure/interior/boundary, Kuratowski, subspace & product topologies, homeomorphism, dense sets, connectedness, **T₃/T₄ definitions + implication chain (T₄→T₃→T₂), `compact_union`, `compact_closed_subset`**, Urysohn lemma (Sierpinski-target, T₄ → separating Bool map) | **0** |
-| `MetricTopology.lean` | Metric space structure, open balls, metric topology axioms, ε-δ ↔ topological continuity (both directions), **Cauchy sequences, convergence, completeness, `fixedPoint_unique`**, Banach fixed-point theorem (contraction iteration + geometric series Cauchy bound) | **0** |
+| `SetTopology.lean` | Open-set axioms, closure/interior/boundary, Kuratowski, subspace & product topologies, homeomorphism, T₃/T₄ chain, `compact_union`, `compact_closed_subset`, Urysohn lemma | **0** |
+| `MetricTopology.lean` | Metric space, open balls, ε-δ ↔ topological continuity, Cauchy sequences, completeness, `fixedPoint_unique`, Banach fixed-point theorem | **0** |
+| `MayerVietoris.lean` _(Phase 11)_ | `SES` structure; `ses_p_zero_of_im`; `delta_well_defined`; `snake_delta_exists`; `snake_delta_independent` | **0** |
+| `VanKampen.lean` _(Phase 11)_ | `Pres` + `TietzeEquiv`; `tietze_elim/add_gen`; `AmalgamDatum` + `Pushout`; `pushout_universal`; `int_hom_determined_by_one`; `int_hom_exists` | **0** |
+| `CohomologyRing.lean` _(Phase 11)_ | Alexander–Whitney `cup` (`⌣`); `cup_value_assoc`; `cup_comm_Z2`; `coboundary0`; `leibniz_0cochains` | **0** |
+| `PersistencePairing.lean` _(Phase 11)_ | `pairing_is_perfect`; `pairs_have_distinct_births`; lemma chain via `isReduced_tail` + `filterMap_getLast_nodup_of_isReduced` + `List.mem_iff_getElem` | **0** |
+| `SpectralSequences.lean` _(Phase 11)_ | `ChainCx` (d²=0); `d_sq_zero`; `image_sub_kernel`; `SpectralSeq`; `const_convergent`; `stabilizes_mono`; `const_pages_convergent` | **0** |
 
 ### Key theorems (selected)
 
