@@ -95,6 +95,7 @@ class TestOracleParity:
         """
         pytest.importorskip("snappy")
         import snappy
+
         from pytop import first_homology_of_surgery
 
         # Sample surgeries: (knot_name, snappy_name, (p, q), linking_matrix)
@@ -278,44 +279,42 @@ class TestOracleParity:
         # Otherwise, skip is graceful (no oracles support knot polynomials)
 
     def test_oracle_agreement_persistent_betti_gudhi(self):
-        """P16.2: Test GUDHI persistent Betti agreement on sample circle."""
+        """P16.2: pytop vs GUDHI persistent Betti agreement on a sample circle.
+
+        Full Betti-curve cross-check (see ``betti_parity.py`` and the dedicated
+        ``test_betti_parity.py`` suite for the rationale and broader fixtures).
+        """
         pytest.importorskip("gudhi")
-        from tests.validation.oracle_integrations import GudhiOracleAdapter
-
-        oracle = GudhiOracleAdapter()
-        if not oracle.is_available:
-            pytest.skip("GUDHI not available")
-
         import math
 
-        # Circle with 12 points
+        from tests.validation.betti_parity import compare_betti
+
         points = [
             (math.cos(2 * math.pi * k / 12), math.sin(2 * math.pi * k / 12))
             for k in range(12)
         ]
-        betti = oracle.compute_persistent_betti(points, max_dimension=2, max_scale=1.9)
-        assert isinstance(betti, dict)
-        assert all(isinstance(v, int) for v in betti.values())
+        result = compare_betti(
+            points, oracle="gudhi", max_scale=2.0, max_betti_dim=1
+        )
+        assert result.scales
+        assert result.agree, f"pytop vs GUDHI: {result.disagreements()[:10]}"
 
     def test_oracle_agreement_persistent_betti_ripser(self):
-        """P16.2: Test Ripser persistent Betti agreement on sample circle."""
+        """P16.2: pytop vs Ripser persistent Betti agreement on a sample circle."""
         pytest.importorskip("ripser")
-        from tests.validation.oracle_integrations import RipserOracleAdapter
-
-        oracle = RipserOracleAdapter()
-        if not oracle.is_available:
-            pytest.skip("Ripser not available")
-
         import math
 
-        # Circle with 12 points
+        from tests.validation.betti_parity import compare_betti
+
         points = [
             (math.cos(2 * math.pi * k / 12), math.sin(2 * math.pi * k / 12))
             for k in range(12)
         ]
-        betti = oracle.compute_persistent_betti(points, max_dimension=2, max_scale=1.9)
-        assert isinstance(betti, dict)
-        assert all(isinstance(v, int) for v in betti.values())
+        result = compare_betti(
+            points, oracle="ripser", max_scale=2.0, max_betti_dim=1
+        )
+        assert result.scales
+        assert result.agree, f"pytop vs Ripser: {result.disagreements()[:10]}"
 
 
 # Convenience: export test fixtures for downstream (P16.3, etc.)

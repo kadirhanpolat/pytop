@@ -12,19 +12,13 @@ Produces: agreement matrix, disagreement report, confidence scores.
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import NamedTuple
 
-from pytop import persistent_homology, SimplicialComplex
-
 from tests.validation.fixtures import KnotTable
 from tests.validation.oracle_integrations import (
-    GudhiOracleAdapter,
-    OracleAdapter,
-    RipserOracleAdapter,
-    SageOracleAdapter,
-    SnapPyOracleAdapter,
     get_available_oracles,
 )
 
@@ -219,65 +213,61 @@ class OracleAgreementBuilder:
                         self.report.failed_tests += 1
 
     def test_persistent_betti(self, sample_circles: int = 3):
-        """Test persistent Betti computation on sample circles."""
-        import math
+        """Test persistent Betti agreement on sample circles.
 
-        # Generate sample point clouds (circles at different resolutions)
+        Compares Betti numbers *at scale* (bars alive at a representative
+        plateau scale, ``birth <= s < death``) rather than counting deaths, and
+        only for ``H_k`` with ``k <= max_betti_dim`` -- the dimensions the
+        truncated Rips skeleton can represent faithfully. See
+        ``betti_parity.compare_betti`` for the underlying machinery.
+        """
+        from tests.validation.betti_parity import compare_betti
+
+        max_betti_dim = 1  # circles: H0, H1 are faithful with a triangle-complete complex
         for n_points in [6, 12, 24][:sample_circles]:
             points = [
                 (math.cos(2 * math.pi * k / n_points), math.sin(2 * math.pi * k / n_points))
                 for k in range(n_points)
             ]
-
             subject = f"circle_{n_points}pt"
             max_scale = 1.9
 
-            # Compute pytop reference via Rips
-            from pytop.metric_spaces import FiniteMetricSpace
-
-            space = FiniteMetricSpace(
-                carrier=tuple(points), distance=lambda p, q: math.dist(p, q)
-            )
-            pytop_pairs = persistent_homology(space, max_dimension=2, max_scale=max_scale)
-            pytop_betti: dict[int, int] = {}
-            for dim in [0, 1, 2]:
-                pytop_betti[dim] = sum(
-                    1
-                    for p in pytop_pairs
-                    if p.dimension == dim
-                    and p.death < float("inf")
-                    and p.death < max_scale
-                )
-
-            # Test each oracle
             for oracle in self.oracles:
-                if oracle.name in ["GUDHI", "Ripser"]:
-                    try:
-                        oracle_betti = oracle.compute_persistent_betti(
-                            points, max_dimension=2, max_scale=max_scale
+                if oracle.name not in ("GUDHI", "Ripser"):
+                    continue
+                try:
+                    result = compare_betti(
+                        points,
+                        oracle=oracle.name.lower(),
+                        max_scale=max_scale,
+                        max_betti_dim=max_betti_dim,
+                    )
+                except Exception as e:  # pragma: no cover - oracle import/runtime issues
+                    print(f"Warning: {oracle.name} failed on {subject}: {e}")
+                    continue
+
+                # One comparison per dimension: agreement across *all* sampled scales.
+                for dim in range(max_betti_dim + 1):
+                    agree = all(
+                        per_dim[dim][0] == per_dim[dim][1]
+                        for _s, per_dim in result.samples
+                    )
+                    self.comparisons.append(
+                        OracleComparison(
+                            oracle_name=oracle.name,
+                            test_type="persistent_betti",
+                            subject=f"{subject}_H{dim}",
+                            pytop_result="betti_curve",
+                            oracle_result="betti_curve",
+                            agree=agree,
+                            confidence=1.0 if agree else 0.0,
                         )
-                        for dim in [0, 1, 2]:
-                            pytop_val = pytop_betti.get(dim, 0)
-                            oracle_val = oracle_betti.get(dim, 0)
-                            agree = pytop_val == oracle_val
-                            self.comparisons.append(
-                                OracleComparison(
-                                    oracle_name=oracle.name,
-                                    test_type="persistent_betti",
-                                    subject=f"{subject}_H{dim}",
-                                    pytop_result=str(pytop_val),
-                                    oracle_result=str(oracle_val),
-                                    agree=agree,
-                                    confidence=1.0 if agree else 0.0,
-                                )
-                            )
-                            self.report.total_tests += 1
-                            if agree:
-                                self.report.passed_tests += 1
-                            else:
-                                self.report.failed_tests += 1
-                    except Exception as e:
-                        print(f"Warning: {oracle.name} failed on {subject}: {e}")
+                    )
+                    self.report.total_tests += 1
+                    if agree:
+                        self.report.passed_tests += 1
+                    else:
+                        self.report.failed_tests += 1
 
     def build(self) -> AgreementMatrixReport:
         """Build complete agreement matrix."""
