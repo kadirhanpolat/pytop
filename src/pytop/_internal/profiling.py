@@ -12,11 +12,12 @@ Provides:
 import cProfile
 import pstats
 import tracemalloc
+from collections.abc import Callable
 from contextlib import contextmanager
 from dataclasses import dataclass
 from functools import wraps
 from io import StringIO
-from typing import Any, Callable, Generic, Optional, TypeVar
+from typing import Any, Generic, Optional, TypeVar
 
 T = TypeVar("T")
 
@@ -74,7 +75,8 @@ class _ProfileContext(Generic[T]):
 
     def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
         """Exit profiling context and collect statistics."""
-        self.profiler.disable()
+        if self.profiler is not None:
+            self.profiler.disable()
 
         if self.track_memory:
             self._memory_snapshot = tracemalloc.take_snapshot()
@@ -90,9 +92,9 @@ class _ProfileContext(Generic[T]):
         call_count = 0
         top_5_callers: list[str] = []
 
-        if ps.stats:
+        if ps.stats:  # type: ignore[attr-defined]
             # Calculate total time as sum of all call times
-            for func_info, func_stats in ps.stats.items():
+            for func_info, func_stats in ps.stats.items():  # type: ignore[attr-defined]
                 if func_stats:
                     # func_stats = (primitive calls, calls, total time, cumulative time, callers)
                     call_count += func_stats[1]  # Total calls
@@ -101,7 +103,7 @@ class _ProfileContext(Generic[T]):
             # Extract top 5 callers by cumulative time
             # func_stats = (primitive calls, calls, total time, cumulative time, callers)
             caller_times: list[tuple[str, float]] = []
-            for func_info, func_stats in ps.stats.items():
+            for func_info, func_stats in ps.stats.items():  # type: ignore[attr-defined]
                 if func_stats and len(func_stats) >= 4:
                     cumulative_time = func_stats[3]  # 4th element is cumulative time
                     caller_times.append((str(func_info), cumulative_time))
@@ -126,7 +128,7 @@ class _ProfileContext(Generic[T]):
             call_count=call_count,
             peak_memory_mb=peak_memory_mb,
             top_5_callers=top_5_callers,
-            raw_profile_data=dict(ps.stats) if ps.stats else {},
+            raw_profile_data=dict(ps.stats) if ps.stats else {},  # type: ignore[attr-defined]
         )
 
 
@@ -196,7 +198,7 @@ def profile_call(
                     ),
                 )
 
-            with _ProfileContext(func.__name__, track_memory=track_memory) as ctx:
+            with _ProfileContext[T](func.__name__, track_memory=track_memory) as ctx:
                 result = func(*args, **kwargs)
 
             if ctx.stats is None:
@@ -230,6 +232,6 @@ def context_profile(
         ...     result = expensive_operation()
         >>> print(prof.stats.total_time, prof.stats.peak_memory_mb)
     """
-    ctx = _ProfileContext(func_name, track_memory=track_memory)
+    ctx: _ProfileContext[Any] = _ProfileContext(func_name, track_memory=track_memory)
     with ctx:
         yield ctx

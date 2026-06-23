@@ -7,7 +7,8 @@ Tests for:
 """
 
 import pytest
-from pytop._internal.profiling import ProfileStats, profile_call, context_profile
+
+from pytop._internal.profiling import ProfileStats, context_profile, profile_call
 
 
 def fibonacci(n: int) -> int:
@@ -209,7 +210,7 @@ class TestContextProfile:
     def test_context_profile_with_exception(self):
         """Test context_profile propagates exceptions."""
         with pytest.raises(ValueError, match="Test error"):
-            with context_profile("error_block", track_memory=False) as prof:
+            with context_profile("error_block", track_memory=False) as _:
                 raise ValueError("Test error")
 
     def test_context_profile_name(self):
@@ -286,8 +287,6 @@ class TestIntegrationWithRealPytopFunctions:
         - Profiling stats are collected
         - Memory and time are tracked
         """
-        import numpy as np
-
         from pytop.simplicial_complexes import SimplicialComplex
         from pytop.simplicial_filtration import simplicial_filtration
 
