@@ -1,0 +1,49 @@
+name: Feature request
+description: Propose a new capability, invariant, algorithm, or representation.
+title: "[feat]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        pytop spans point-set topology, algebraic topology, knot theory, TDA,
+        and more. Tell us the mathematics first, then the API you'd want.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: The mathematical question or workflow that pytop can't currently serve.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed capability
+      description: The invariant/algorithm/representation, with a reference if one exists.
+      placeholder: "Alpha complex filtration (Edelsbrunner-Mücke 1994), as a peer to cech_filtration."
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: Sketch of the API
+      render: python
+      placeholder: |
+        from pytop import alpha_filtration
+        filt = alpha_filtration(points, max_scale=...)
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Which layer?
+      options:
+        - Constructive (computes invariants from input)
+        - Descriptive (curated facts about known spaces)
+        - experimental.spaces (computable-space protocol)
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: How could results be validated?
+      description: Known answers, an external oracle (GUDHI, SnapPy, Sage, networkx), or a reference computation.
