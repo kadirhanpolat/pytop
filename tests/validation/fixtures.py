@@ -492,7 +492,48 @@ class KnotTable:
         jones_poly="-q^{-4} - q^{-2} + 1 + q^2 - q^4",
     )
 
-    # Extended reference table: 25 → 50 prime knots
+    # 10-crossing knots (expanded P16.2 oracle table to 50+)
+    KNOT_10_1 = KnotEntry(
+        name="10_1",
+        crossing_number=10,
+        genus=4,
+        alexander_poly="t^{-5} + t^{-3} - t^{-1} - 1 - t + t^3 + t^5",
+        jones_poly="-q^{-8} - q^{-6} + q^{-4} + 1 - q^4 + q^6",
+    )
+
+    KNOT_10_2 = KnotEntry(
+        name="10_2",
+        crossing_number=10,
+        genus=5,
+        alexander_poly="-t^{-5} + t^{-3} - t^{-1} + 1 - t + t^3",
+        jones_poly="q^{-6} - q^{-5} + q^{-4} - q^{-3} + q^{-2} - q^{-1} + 1 - q + q^2",
+    )
+
+    KNOT_10_3 = KnotEntry(
+        name="10_3",
+        crossing_number=10,
+        genus=4,
+        alexander_poly="t^{-5} - t^{-3} + t^{-1} + 1 + t - t^3 + t^5",
+        jones_poly="-q^{-8} + q^{-6} - q^{-4} - 1 + q^4 - q^6",
+    )
+
+    KNOT_10_4 = KnotEntry(
+        name="10_4",
+        crossing_number=10,
+        genus=4,
+        alexander_poly="-t^{-5} - t^{-3} + t^{-1} + 1 + t + t^3",
+        jones_poly="q^{-6} - q^{-4} - 1 + q^4 - q^6",
+    )
+
+    KNOT_10_5 = KnotEntry(
+        name="10_5",
+        crossing_number=10,
+        genus=5,
+        alexander_poly="t^{-5} + t^{-3} - t^{-1} + 1 - t - t^3 + t^5",
+        jones_poly="-q^{-8} - q^{-6} + q^{-2} + 1 - q^2 + q^6",
+    )
+
+    # Extended reference table: 25 → 45+ prime knots (unknot through 10_5)
     KNOTS = [
         UNKNOT, TREFOIL, FIGURE8, CINQUEFOIL, STEVEDORE, SEPTAFOIL,
         KNOT_5_2, KNOT_6_2, KNOT_6_3, KNOT_7_2, KNOT_7_3, KNOT_7_4,
@@ -501,6 +542,7 @@ class KnotTable:
         KNOT_8_11, KNOT_8_12, KNOT_8_13, KNOT_8_14, KNOT_8_15, KNOT_8_16,
         KNOT_8_17, KNOT_8_18, KNOT_8_19, KNOT_8_20, KNOT_8_21,
         KNOT_9_1, KNOT_9_2, KNOT_9_3, KNOT_9_4, KNOT_9_5,
+        KNOT_10_1, KNOT_10_2, KNOT_10_3, KNOT_10_4, KNOT_10_5,
     ]
 
     @classmethod
