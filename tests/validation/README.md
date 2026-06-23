@@ -34,8 +34,12 @@ Reference knot database with polynomial invariants:
 The table now holds **51 primes** (unknot–17_1). The torus-knot tail (T(3,5)=10_124,
 T(2,11..17)) and the corrected low-crossing entries above carry pytop-recomputed
 invariants — Burau Alexander + braid-closure→PD Kauffman Jones — each triple-checksummed
-against the knot determinant (|Δ(−1)| = |V(−1)| = det, V(1)=1). Stevedore (6₁) and the
-legacy 8ₓ/9ₓ/10ₓ Jones entries still await a Sage/KnotInfo backfill.
+against the knot determinant (|Δ(−1)| = |V(−1)| = det, V(1)=1). The 8ₓ/9ₓ/10ₓ Jones
+(plus Stevedore 6₁ and 7₂–7₇) were **backfilled from the SageMath oracle**
+(`Knots().from_table(n,k).jones_polynomial()`), mirror-calibrated to the table convention
+and each verified |V(−1)| = det and V(1) = 1; a universal `test_all_jones_satisfy_v1_equals_one`
+guard now locks every entry. (Alexander polynomials for some 8ₓ/9ₓ/10ₓ entries remain
+sign/placeholder-imperfect and are a separate follow-up.)
 
 **Validation:** Polynomials against Sage/SnapPy oracles (P16.2 in progress).
 

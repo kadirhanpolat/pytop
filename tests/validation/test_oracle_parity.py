@@ -30,6 +30,7 @@ Produces comprehensive agreement matrix + JSON/Markdown reports on successful ru
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass
 from typing import NamedTuple
 
@@ -252,6 +253,37 @@ class TestOracleParity:
         assert by_name["11_1"].genus == 5
         assert "t^5" in by_name["11_1"].alexander_poly
         assert "t^{-5}" in by_name["11_1"].alexander_poly
+
+    def test_all_jones_satisfy_v1_equals_one(self):
+        """Universal guard: every knot's Jones polynomial satisfies V(1) = 1.
+
+        For a knot (one component) V_L(1) = 1 always. Summing the signed
+        coefficients of the LaTeX ``q``-polynomial evaluates it at q=1, so this
+        catches any corrupted/placeholder entry cheaply (the legacy 8ₓ/9ₓ/10ₓ
+        Jones strings summed to 2 and would have failed here).
+        """
+
+        def v_at_one(jones: str) -> int:
+            s = jones.strip()
+            lead = -1 if s[0] == "-" else 1
+            if s[0] in "+-":
+                s = s[1:].strip()
+            parts = re.split(r"\s([+-])\s", s)  # term0, op, term1, op, term2, ...
+
+            def coef(term: str) -> int:
+                m = re.match(r"(\d+)", term)
+                return int(m.group(1)) if m else 1
+
+            total = lead * coef(parts[0])
+            for i in range(1, len(parts), 2):
+                total += (1 if parts[i] == "+" else -1) * coef(parts[i + 1])
+            return total
+
+        for knot in KnotTable.KNOTS:
+            assert v_at_one(knot.jones_poly) == 1, (
+                f"{knot.name}: V(1) = {v_at_one(knot.jones_poly)} != 1 "
+                f"(jones_poly={knot.jones_poly!r})"
+            )
 
     def test_oracle_integrations_available(self):
         """P16.2: Verify oracle adapter framework is accessible."""
