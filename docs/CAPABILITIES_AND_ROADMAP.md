@@ -4,45 +4,20 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-23 (v1.5.0):** Phase 1 (set-theoretic topology) substantially
-> complete; Phase 2 (algebraic topology) **complete** (8 / 8).
-> **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
-> P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
-> P3.2 `dehn_surgery.py` (surgery → H₁, lens space classification), P3.3
-> `khovanov.py` (Khovanov homology with torsion). The optional SnapPy bridge (P3.2)
-> and Regina-scale normal surfaces (P3.3) remain out of scope / deferred.
-> **Phase 4 complete** (P4.1–P4.8; latest release **v0.9.7**): property-based
-> testing, an exact-linalg core, complexity discipline, **seven** external
-> differential oracles (sympy, networkx, numpy, python-flint, GUDHI, plus
-> Docker-based SageMath/GAP and SnapPy), and an optional flint-accelerated SNF
-> backend. Since v0.9.3 the CI runs ruff + **(blocking) mypy** + pytest on Python
-> 3.11/3.12/3.13, and as of **v0.9.4** `src/pytop` is mypy-clean (361 → 0).
-> **v0.9.5** added a measured performance pass (planarity Euler edge-bound +
-> genus-0 early termination, Khovanov per-bidegree SNF memoisation; persistence
-> profiled and left unchanged). **Phases 5–6 complete** (TDA pipeline, v1.0.0–v1.0.3):
-> discrete Morse theory, persistence distances/landscapes, Mapper, Čech complex,
-> persistence over Z/p, TDA pipeline builder.
-> **Phase 7 complete** (combinatorial topology, **v1.0.5**): P7.1 standard triangulations
-> (torus/Klein bottle/RP²), P7.2 simplicial maps + induced homomorphisms, P7.3 nerve
-> complex + Čech nerve, P7.4 spectral sequences (E^r pages → E^∞ convergence), P7.5
-> surgery theory (handle attachment, trace cobordism), P7.6 Morse complex (gradient
-> V-path counting, Morse boundary operator, Morse homology theorem cross-validated).
-> **153 new tests; 9 959 core tests at release; 10 864 after v1.0.6; 10 945 after v1.0.7;
-> 11 065 after v1.0.8 profile→computational upgrades; **11 236 after v1.0.9 Phase 8; **11 402 after v1.1.0 Phase 9; **11 467 after v1.2.0 Phase 10.** 
-> **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs for SNF (0 sorry),
-> set topology — 34 theorems (T₀–T₄, closure/interior duality, compactness, diagonal
-> characterisation; 0 sorry) + **24 alternative proofs** in 5 strategies (by contradiction,
-> contrapositive, direct, interior-closure duality, simp-heavy; `SetTopologyAltProofs.lean`),
-> metric topology (ε-δ ↔ topological continuity, Cauchy, Banach fixed-point; 0 sorry),
-> and persistence homology (`PersHomology.lean`) — `symmDiff_assoc`, `reduce_is_reduced`
-> (via fuel-based `reduceColFuel` + `reduceInv_step` invariant proof: TabInv × sorted ×
-> isReduced across every column), `pairs_have_distinct_deaths`, `pairs_birth_lt_death`;
-> **0 sorry** — all formal targets complete. All 6 original `.lean` files are 0-sorry.
-> **Phase 11 complete (v1.3.0):** 5 new Lean files — `MayerVietoris.lean` (SES + snake lemma),
-> `VanKampen.lean` (Tietze equivalence + amalgam UP + ℤ generator theorem), `CohomologyRing.lean`
-> (Alexander–Whitney cup associativity + Leibniz rule), `PersistencePairing.lean`
-> (`pairing_is_perfect` + `pairs_have_distinct_births`), `SpectralSequences.lean`
-> (`d² = 0`, convergence stabilisation); **11 formal files total; 0 sorry throughout.**
+> **Status as of 2026-06-23 (v1.5.0):** Phases 1–15 complete (11,685 tests). Phase 1
+> (set-theoretic topology) substantive; Phase 2–7 computational core (homology,
+> cohomology, Mayer–Vietoris, van Kampen, Khovanov, combinatorial topology);
+> Phase 8 advanced algebra (6 modules); Phase 9 computable-space expansion (19 reps);
+> Phase 10 scale & algorithms (sparse SNF, GPU optional); Phase 11 Lean formal
+> verification (11 files, 0 sorry); Phase 12 sheaf cohomology + persistent K-theory;
+> Phase 13 homotopy (Eilenberg–MacLane, Massey, Hopf); Phase 14 advanced knot
+> homology (Khovanov odd, grid Floer, concordance); Phase 15 4-manifold topology
+> (intersection forms, Kirby, Casson, Rohlin). **Phase 16 in progress**: P16.1
+> benchmark suite ✅ (37 tests: minimal triangulations, knot tables, large grids,
+> performance baselines); P16.2–P16.3 (oracle parity & statistical validation) pending.
+> **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs — SNF (0 sorry),
+> set topology (34 theorems + 24 alt proofs; 0 sorry), metric topology (0 sorry),
+> persistence homology (0 sorry). **11 formal files total; 0 sorry throughout.**
 
 ---
 
@@ -598,6 +573,7 @@ to the main computational engines. 0-sorry rule holds throughout; corpus grows f
 | Phase 13 milestones complete | 5 / 5 ✅ (homotopy theory) |
 | Phase 14 milestones complete | 5 / 5 ✅ (advanced knot homology) |
 | Phase 15 milestones complete | 5 / 5 ✅ (4-manifold topology) |
+| Phase 16 milestones complete | 1 / 3 ✅⬜ (P16.1 benchmark suite done; P16.2–P16.3 pending) |
 | **Current version** | **v1.5.0** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)

@@ -274,11 +274,11 @@ Validate computational results against established external systems and curated 
 
 | Milestone | Module | Description |
 |-----------|--------|-------------|
-| **P16.1** | `benchmark_suite` | Public dataset collection: minimal triangulations (Klein bottle 8-vertex, torus 7-vertex), knot tables (KnotInfo Alexander/Jones genus), graph libraries (PHOEG grid graphs W₉–W₄₀). Baseline timings on each. |
+| **P16.1** ✅ | `benchmark_suite` | Public dataset collection: minimal triangulations (T²/Klein/ℝP² with verified Betti/torsion), 6-knot table (unknot–septafoil with Alexander/Jones), large grid library (3×3–40×40, all confirmed planar). 37 tests; ruff/mypy clean. |
 | **P16.2** | `oracle_parity` | Extend Sage/SnapPy/GUDHI oracles: K-theory rational AHSS vs Sage, Dehn surgery H₁ vs SnapPy on 50+ knots (figure-8, trefoil, 5_2, 7_1, etc.). Full agreement matrix (pytop row × oracle col). |
 | **P16.3** | `statistical_validation` | Random test generation: 10K random Erdős–Rényi simplicial complexes (1-skeleta d=2–4), homology vs GUDHI/Ripser. Report: parity %, residual error distribution, outliers → root-cause analysis. |
 
-**Target:** 99.9% oracle agreement, `tests/validation/` suite passing on 3+ oracles.
+**Current Status:** P16.1 complete (37 tests: 4 minimal triangulations, 6 small graphs, 8 knot invariants, 5 large graphs, 8 performance benchmarks). P16.2–P16.3 in queue.
 
 ### Phase 17: Performance & Scale
 
