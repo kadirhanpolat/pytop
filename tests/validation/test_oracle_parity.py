@@ -87,22 +87,36 @@ class TestOracleParity:
         """
         pytest.importorskip("snappy")
         import snappy
+        from pytop import first_homology_of_surgery
 
-        # Sample surgeries: (knot, (p, q)) → expect H₁
+        # Sample surgeries: (knot_name, snappy_name, (p, q), linking_matrix)
+        # For unknot, linking_numbers = None (unlink, no self-linking)
         test_cases = [
-            ("m004", (5, 1)),    # figure-8: H₁ = ℤ/5
-            ("m004", (7, 2)),    # figure-8: different slope
-            ("m003", (3, 1)),    # trefoil: H₁ = ℤ/3
+            ("unknot", "0_1", (5, 1), None),       # unknot: 5/1 surgery → L(5,1), H₁ = ℤ/5
+            ("unknot", "0_1", (3, 2), None),       # unknot: 3/2 surgery → H₁ = ℤ/3
+            ("trefoil", "m003", (3, 1), None),     # trefoil: 3/1 surgery → H₁ = ℤ/3
+            ("figure8", "m004", (5, 1), None),     # figure-8: 5/1 surgery
+            ("figure8", "m004", (7, 2), None),     # figure-8: 7/2 surgery
         ]
 
-        for manifold_name, (p, q) in test_cases:
-            snap_manifold = snappy.Manifold(manifold_name)
+        for knot_name, snappy_name, (p, q), link_matrix in test_cases:
+            # SnapPy: compute H₁ via elementary_divisors
+            snap_manifold = snappy.Manifold(snappy_name)
             snap_manifold.dehn_fill((p, q))
-            snap_h1 = snap_manifold.homology().elementary_divisors()
+            snap_divisors = snap_manifold.homology().elementary_divisors()
 
-            # TODO: compute pytop's first_homology_of_surgery and compare
-            # For now, just verify SnapPy runs without error.
-            assert snap_h1 is not None, f"SnapPy failed on {manifold_name}({p},{q})"
+            # pytop: compute H₁ via first_homology_of_surgery
+            pytop_h1 = first_homology_of_surgery([(p, q)], linking_numbers=link_matrix)
+
+            # Convert both to comparable torsion format
+            pytop_torsion = sorted(pytop_h1.torsion)
+            snap_torsion = sorted([d for d in snap_divisors if d > 1])
+
+            # Verify agreement
+            assert pytop_h1.free_rank == 0, f"{knot_name}({p},{q}): pytop free_rank nonzero"
+            assert pytop_torsion == snap_torsion, (
+                f"{knot_name}({p},{q}): pytop {pytop_torsion} vs SnapPy {snap_torsion}"
+            )
 
     @pytest.mark.skipif(
         os.environ.get("PYTOP_SAGE_ORACLE") != "1",
