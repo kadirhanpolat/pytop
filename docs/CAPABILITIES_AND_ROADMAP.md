@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-23 (v1.5.0):** Phases 1–15 complete (11,685 tests). Phase 1
+> **Status as of 2026-06-23 (v1.6.0):** Phases 1–15 complete + Phase 16 P16.1–P16.3 framework (11,748 tests). Phase 1
 > (set-theoretic topology) substantive; Phase 2–7 computational core (homology,
 > cohomology, Mayer–Vietoris, van Kampen, Khovanov, combinatorial topology);
 > Phase 8 advanced algebra (6 modules); Phase 9 computable-space expansion (19 reps);
@@ -12,9 +12,9 @@
 > verification (11 files, 0 sorry); Phase 12 sheaf cohomology + persistent K-theory;
 > Phase 13 homotopy (Eilenberg–MacLane, Massey, Hopf); Phase 14 advanced knot
 > homology (Khovanov odd, grid Floer, concordance); Phase 15 4-manifold topology
-> (intersection forms, Kirby, Casson, Rohlin). **Phase 16 in progress**: P16.1
-> benchmark suite ✅ (37 tests: minimal triangulations, knot tables, large grids,
-> performance baselines); P16.2–P16.3 (oracle parity & statistical validation) pending.
+> (intersection forms, Kirby, Casson, Rohlin). **Phase 16**: P16.1 benchmark suite ✅ (37 tests);
+> P16.2 oracle parity 🟡 (25 primes, SnapPy H₁, K-theory AHSS, 8 tests);
+> P16.3 statistical validation 🟡 (10K ER 1-skeleta, pytop vs GUDHI/Ripser, JSON reports).
 > **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs — SNF (0 sorry),
 > set topology (34 theorems + 24 alt proofs; 0 sorry), metric topology (0 sorry),
 > persistence homology (0 sorry). **11 formal files total; 0 sorry throughout.**
@@ -573,8 +573,8 @@ to the main computational engines. 0-sorry rule holds throughout; corpus grows f
 | Phase 13 milestones complete | 5 / 5 ✅ (homotopy theory) |
 | Phase 14 milestones complete | 5 / 5 ✅ (advanced knot homology) |
 | Phase 15 milestones complete | 5 / 5 ✅ (4-manifold topology) |
-| Phase 16 milestones complete | 1 / 3 ✅⬜ (P16.1 benchmark suite done; P16.2–P16.3 pending) |
-| **Current version** | **v1.5.0** |
+| Phase 16 milestones complete | 2.5 / 3 ✅🟡 (P16.1 benchmark ✅, P16.2–P16.3 framework 🟡) |
+| **Current version** | **v1.6.0** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 
