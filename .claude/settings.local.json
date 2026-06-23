@@ -141,7 +141,13 @@
       "WebSearch",
       "Bash(git pull *)",
       "Bash(py -3.14 -m pytest tests/core/test_mayer_vietoris.py -x -q)",
-      "Bash(py -3.14 -m pytest tests/ -q --tb=no)"
+      "Bash(py -3.14 -m pytest tests/ -q --tb=no)",
+      "Bash(lake build *)",
+      "Bash(Select-String -Pattern \"error:|warning:|sorry\")",
+      "Bash(Select-Object -First 30)",
+      "Bash(git -C E:\\\\PYTHON\\\\pytop diff --name-only HEAD)",
+      "Bash(git -C E:\\\\PYTHON\\\\pytop\\\\formal diff --name-only HEAD)",
+      "Bash(Get-ChildItem \"E:\\\\PYTHON\\\\pytop\\\\formal\" -Name)"
     ]
   }
 }

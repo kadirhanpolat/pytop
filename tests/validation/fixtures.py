@@ -4,12 +4,13 @@ Benchmark suite fixtures: minimal triangulations, knots, and graphs.
 Datasets validated against external oracles (Sage, SnapPy, GUDHI).
 """
 
-from typing import Tuple, List, Dict, Iterable
+from typing import NamedTuple
+
 from pytop import (
-    torus_filtration,
+    SimplicialComplex,
     klein_bottle_filtration,
     rp2_filtration,
-    SimplicialComplex,
+    torus_filtration,
 )
 from pytop.persistent_homology import FilteredComplex
 
@@ -56,7 +57,7 @@ class GraphExamples:
     """Small graph examples for testing planarity and graph invariants."""
 
     @staticmethod
-    def grid_3x3() -> List[Tuple[int, int]]:
+    def grid_3x3() -> list[tuple[int, int]]:
         """3×3 grid graph (9 vertices, 12 edges).
 
         Planar, χ = 2 (tree), genus = 0.
@@ -71,7 +72,7 @@ class GraphExamples:
         ]
 
     @staticmethod
-    def complete_graph_5() -> List[Tuple[int, int]]:
+    def complete_graph_5() -> list[tuple[int, int]]:
         """K₅: complete graph on 5 vertices (10 edges).
 
         Non-planar, K₅ witness (Kuratowski).
@@ -83,7 +84,7 @@ class GraphExamples:
         return edges
 
     @staticmethod
-    def complete_graph_6() -> List[Tuple[int, int]]:
+    def complete_graph_6() -> list[tuple[int, int]]:
         """K₆: complete graph on 6 vertices (15 edges).
 
         Non-planar, K₆ witness.
@@ -95,7 +96,7 @@ class GraphExamples:
         return edges
 
     @staticmethod
-    def petersen_graph() -> List[Tuple[int, int]]:
+    def petersen_graph() -> list[tuple[int, int]]:
         """Petersen graph: 10 vertices, 15 edges, non-planar.
 
         Genus = 1 (on torus), girth = 5.
@@ -109,7 +110,162 @@ class GraphExamples:
             (0, 5), (1, 6), (2, 7), (3, 8), (4, 9),
         ]
 
+    @staticmethod
+    def grid_graph(rows: int, cols: int) -> list[tuple[int, int]]:
+        """Generate rows × cols grid graph.
 
+        V = rows * cols, E = 2*rows*cols - rows - cols
+        Planar, genus = 0.
+        """
+        edges = []
+        for r in range(rows):
+            for c in range(cols):
+                v = r * cols + c
+                # Right neighbor
+                if c < cols - 1:
+                    edges.append((v, v + 1))
+                # Bottom neighbor
+                if r < rows - 1:
+                    edges.append((v, v + cols))
+        return edges
+
+    @staticmethod
+    def wheel_graph(n: int) -> list[tuple[int, int]]:
+        """Wheel graph W_n: hub (vertex 0) + rim (vertices 1..n).
+
+        V = n+1, E = 2n.
+        W₃ (hub + triangle): planar.
+        W₄, W₅, ... can be planar depending on embedding.
+        """
+        edges = []
+        # Spokes: hub 0 to rim 1..n
+        for i in range(1, n + 1):
+            edges.append((0, i))
+        # Rim cycle: 1-2-3-...-n-1
+        for i in range(1, n + 1):
+            edges.append((i, (i % n) + 1))
+        return edges
+
+
+class KnotTable:
+    """Reference knot table with known invariants from KnotInfo.
+
+    Each entry: display_name, crossing_number, genus,
+    alexander_poly (LaTeX), jones_poly (LaTeX).
+    """
+
+    class KnotEntry(NamedTuple):
+        name: str
+        crossing_number: int
+        genus: int
+        alexander_poly: str
+        jones_poly: str
+
+    # KnotInfo reference data
+    UNKNOT = KnotEntry(
+        name="unknot",
+        crossing_number=0,
+        genus=0,
+        alexander_poly="1",
+        jones_poly="1",
+    )
+
+    TREFOIL = KnotEntry(
+        name="trefoil_3_1",
+        crossing_number=3,
+        genus=1,
+        alexander_poly="-t^{-1} + 1 - t",
+        jones_poly="q + q^3 - q^4",
+    )
+
+    FIGURE8 = KnotEntry(
+        name="figure8_4_1",
+        crossing_number=4,
+        genus=1,
+        alexander_poly="-t^{-1} - 1 + t",
+        jones_poly="-q^{-2} + 1 - q^2",
+    )
+
+    CINQUEFOIL = KnotEntry(
+        name="cinquefoil_5_1",
+        crossing_number=5,
+        genus=2,
+        alexander_poly="-t^{-2} + t^{-1} - 1 + t - t^2",
+        jones_poly="q^2 + q^4 + q^6 - q^7 - q^8",
+    )
+
+    STEVEDORE = KnotEntry(
+        name="stevedore_6_1",
+        crossing_number=6,
+        genus=2,
+        alexander_poly="t^{-2} - t^{-1} + 1 - t + t^2",
+        jones_poly="q^{-4} - q^{-2} + 1 - q^2 + q^4",
+    )
+
+    SEPTAFOIL = KnotEntry(
+        name="septafoil_7_1",
+        crossing_number=7,
+        genus=3,
+        alexander_poly="-t^{-3} + t^{-2} - t^{-1} + 1 - t + t^2 - t^3",
+        jones_poly="q^3 + q^5 + q^7 + q^9 - q^{10} - q^{11} - q^{12}",
+    )
+
+    # Common references
+    KNOTS = [UNKNOT, TREFOIL, FIGURE8, CINQUEFOIL, STEVEDORE, SEPTAFOIL]
+
+    @classmethod
+    def by_crossing_number(cls, n: int) -> list[KnotEntry]:
+        """Return all knots with crossing number n."""
+        return [k for k in cls.KNOTS if k.crossing_number == n]
+
+    @classmethod
+    def by_genus(cls, g: int) -> list[KnotEntry]:
+        """Return all knots with given genus."""
+        return [k for k in cls.KNOTS if k.genus == g]
+
+
+class GridGraphLibrary:
+    """Large grid graph library for scalability testing.
+
+    Contains rectangular grids from 3×3 up to 40×40.
+    Useful for planarity/genus computation benchmarks on larger instances.
+    """
+
+    @staticmethod
+    def grid_3x3() -> list[tuple[int, int]]:
+        """3×3 grid: 9 vertices, 12 edges, planar."""
+        return GraphExamples.grid_graph(3, 3)
+
+    @staticmethod
+    def grid_5x5() -> list[tuple[int, int]]:
+        """5×5 grid: 25 vertices, 40 edges, planar."""
+        return GraphExamples.grid_graph(5, 5)
+
+    @staticmethod
+    def grid_10x10() -> list[tuple[int, int]]:
+        """10×10 grid: 100 vertices, 180 edges, planar."""
+        return GraphExamples.grid_graph(10, 10)
+
+    @staticmethod
+    def grid_20x20() -> list[tuple[int, int]]:
+        """20×20 grid: 400 vertices, 760 edges, planar."""
+        return GraphExamples.grid_graph(20, 20)
+
+    @staticmethod
+    def grid_40x40() -> list[tuple[int, int]]:
+        """40×40 grid: 1600 vertices, 3120 edges, planar."""
+        return GraphExamples.grid_graph(40, 40)
+
+    @staticmethod
+    def grids_all() -> dict[str, list[tuple[int, int]]]:
+        """All available grids as a dict."""
+        return {
+            "grid_3x3": GridGraphLibrary.grid_3x3(),
+            "grid_5x5": GridGraphLibrary.grid_5x5(),
+            "grid_10x10": GridGraphLibrary.grid_10x10(),
+            "grid_20x20": GridGraphLibrary.grid_20x20(),
+            "grid_40x40": GridGraphLibrary.grid_40x40(),
+        }
 
 
 class BaselineResults:
@@ -162,5 +318,7 @@ class BaselineResults:
 __all__ = [
     "MinimalTriangulations",
     "GraphExamples",
+    "KnotTable",
+    "GridGraphLibrary",
     "BaselineResults",
 ]
