@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] — 2026-06-23
+
+### Added
+
+- **Phase 12 (partial) — Research Frontier: Sheaf Cohomology + Persistent K-Theory**
+
+  First two milestones of Phase 12, opening the research-frontier tier.
+
+  - **`sheaf_cohomology.py` (P12.1)** — Čech sheaf cohomology on finite topological spaces.
+    `FiniteSheaf` (frozen dataclass: `open_sets`, `sections`, `restrictions`, `name`);
+    `constant_sheaf(open_sets)` — constant ℤ-sheaf (F(U)=ℤ for U≠∅);
+    `skyscraper_sheaf(open_sets, stalk_open, rank)` — supported at one open;
+    `cech_cohomology(cover, sheaf, max_degree)` — Čech cochain complex (alternating-sum
+    coboundary δ^p via restriction maps, SNF → `AbelianGroup` per degree);
+    `sheaf_cohomology(open_sets, universe, sheaf)` — convenience wrapper using the
+    minimal-open-neighborhood cover {U_x : x ∈ X} (Leray cover for constant sheaf, McCord
+    1966: Čech H* equals singular H* of the geometric realisation of the order complex).
+    Verified: Sierpiński space → H^0=ℤ; 2-point discrete → H^0=ℤ²; skyscraper → H^0=ℤ.
+    41 new tests.
+
+  - **`persistent_ktheory.py` (P12.2)** — Persistent K-theory via Atiyah-Hirzebruch.
+    `KTheoryGroups` (frozen dataclass: `k0_rank`, `k1_rank`, rational strings, Betti tuple);
+    `KBarcode` (frozen dataclass: `k0_pairs`, `k1_pairs`, `all_pairs`;
+    `.k0_betti_at(scale)`, `.k1_betti_at(scale)`, `.euler_characteristic_at(scale)`);
+    `k_theory_groups(K)` — rational K⁰/K¹ via AHSS collapse: K⁰⊗ℚ ≅ ⊕H_{2k}⊗ℚ,
+    K¹⊗ℚ ≅ ⊕H_{2k+1}⊗ℚ;
+    `k0_simplicial`, `k1_simplicial`, `k_betti_numbers` — convenience accessors;
+    `k_barcode(filtered, max_dimension)` — runs Twist persistence and partitions bars by
+    dimension parity (K⁰=even, K¹=odd). χ_K = rank K⁰ − rank K¹ = χ (topological).
+    Verified: point(1,0), S¹(1,1), S²(2,0), T²(2,2); circle 8-pt cloud K⁰+K¹ bars.
+    37 new tests.
+
+  **78 new tests; 11 545 core tests passing.**
+
 ## [1.3.0] — 2026-06-23
 
 ### Added

@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-23 (v1.3.0):** Phase 1 (set-theoretic topology) substantially
+> **Status as of 2026-06-23 (v1.4.0):** Phase 1 (set-theoretic topology) substantially
 > complete; Phase 2 (algebraic topology) **complete** (8 / 8).
 > **Phase 3 complete** and merged to **master** via PR #16 (released as **v0.8.0**):
 > P3.1 knot/link suite (Seifert + LinkDiagram + HOMFLY-PT + multivariable Alexander),
@@ -519,17 +519,15 @@ to the main computational engines. 0-sorry rule holds throughout; corpus grows f
 
 **0 sorry across all 11 Lean files.**
 
-### Phase 12 — Research Frontier (long-range, v2.0.x)
+### Phase 12 — Research Frontier (v1.4.0+)
 
-Items beyond single-machine pure-Python scope. Each is an independent research-project-scale effort.
-
-| Milestone | Topic | Why deferred |
-|-----------|-------|--------------|
-| **P12.1** | Sheaf cohomology (Čech) | Requires P8.2 (finite sites + sheaves) as prerequisite; ∂ operator acts on sheaf-valued cochains |
-| **P12.2** | Persistent K-theory | K₀ filtration → barcode; depends on P8.5 (matrix-algebra K-theory) |
-| **P12.3** | Homeomorphism heuristics | Undecidable in general; subclass algorithms (manifolds, CW complexes) require substantial new machinery |
-| **P12.4** | Native GAP / Regina integration | Currently only Docker oracles; in-process FFI or persistent subprocess bridge |
-| **P12.5** | Countably infinite simplicial complexes | Convergence algorithms for infinite Rips / infinite CW complexes |
+| Milestone | Topic | Status | Delivered |
+|-----------|-------|--------|-----------|
+| **P12.1** | Sheaf cohomology (Čech) | ✅ | `sheaf_cohomology.py`: `FiniteSheaf`, `constant_sheaf`, `skyscraper_sheaf`, `cech_cohomology`, `sheaf_cohomology`. Čech cochain complex with alternating-sum coboundary δ^p; minimal-neighborhood Leray cover; SNF → AbelianGroup per degree. 41 tests. |
+| **P12.2** | Persistent K-theory | ✅ | `persistent_ktheory.py`: `KTheoryGroups`, `KBarcode`, `k_theory_groups`, `k_barcode`. Rational AHSS: K⁰⊗ℚ=⊕H_{2k}, K¹⊗ℚ=⊕H_{2k+1}; persistent barcode partitioned by dimension parity. 37 tests. |
+| **P12.3** | Homeomorphism heuristics | ⬜ | Undecidable in general; subclass algorithms require substantial new machinery |
+| **P12.4** | Native GAP / Regina integration | ⬜ | Currently only Docker oracles; in-process FFI or persistent subprocess bridge |
+| **P12.5** | Countably infinite simplicial complexes | ⬜ | Convergence algorithms for infinite Rips / infinite CW complexes |
 
 ---
 
@@ -550,7 +548,7 @@ Items beyond single-machine pure-Python scope. Each is an independent research-p
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **11 467** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
+| Tests passing | **11 545** (+ 16 opt-in SageMath/SnapPy-oracle tests) |
 | Representations in `experimental.spaces` | 19 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
@@ -566,7 +564,7 @@ Items beyond single-machine pure-Python scope. Each is an independent research-p
 | Phase 9 milestones complete | 6 / 6 ✅ (`experimental.spaces` expansion) |
 | Phase 10 milestones complete | 5 / 5 ✅ (scale & algorithm) |
 | Phase 11 milestones complete | 5 / 5 ✅ (Lean formal verification expansion) |
-| Phase 12 milestones planned | 0 / 5 ⬜ (research frontier, long-range) |
+| Phase 12 milestones complete | 2 / 5 ✅⬜ (sheaf cohomology, persistent K-theory done) |
 | **Current version** | **v1.3.0** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)

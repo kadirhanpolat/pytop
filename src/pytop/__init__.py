@@ -1,6 +1,6 @@
 """Core mathematical topology package."""
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 
 from .capabilities import DEFAULT_REGISTRY, explain_capability
 
@@ -3360,4 +3360,20 @@ from ._gpu_backend import (
     GPU_AVAILABLE,
     GPU_MIN_SIZE,
     gpu_twist_reduce,
+)
+from .sheaf_cohomology import (
+    FiniteSheaf,
+    constant_sheaf,
+    skyscraper_sheaf,
+    cech_cohomology,
+    sheaf_cohomology,
+)
+from .persistent_ktheory import (
+    KTheoryGroups,
+    KBarcode,
+    k0_simplicial,
+    k1_simplicial,
+    k_theory_groups,
+    k_barcode,
+    k_betti_numbers,
 )
