@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solenoid Profiles &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Solenoid Profiles</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/solenoid_profiles.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.solenoid_profiles">
+<span id="solenoid-profiles"></span><h1>Solenoid Profiles<a class="headerlink" href="#module-pytop.solenoid_profiles" title="Link to this heading"></a></h1>
+<p>Solenoids and inverse limit spaces.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>A solenoid Sigma_p is the inverse limit lim_&lt;– (S^1 &lt;–phi_p– S^1 &lt;–phi_p– …)
+where phi_p(z) = z^p is the p-fold covering map of the circle.</p></li>
+<li><p>Compactness of inverse limits (Tychonoff): the inverse limit of compact spaces
+with continuous bonding maps is compact.</p></li>
+<li><p>Connectedness of inverse limits: if all factor spaces are connected and all
+bonding maps are surjective, the inverse limit is connected.</p></li>
+<li><p>Indecomposability: every solenoid is an indecomposable continuum — it cannot
+be written as the union of two proper subcontinua.</p></li>
+<li><p>Homogeneity: solenoids are compact abelian topological groups and hence
+homogeneous (every point has a homeomorphism of the whole space sending it
+to any other point).</p></li>
+<li><p>Local structure: locally, every solenoid is homeomorphic to (Cantor set) x (0,1).</p></li>
+<li><p>Non-local connectedness: solenoids are NOT locally connected — no connected
+open neighbourhood exists at any point.</p></li>
+<li><p>Pontryagin duality: the Pontryagin dual of the p-adic solenoid Sigma_p is the
+Prufer group Z(p^inf) = Z[1/p]/Z.</p></li>
+<li><p>Metrizable inverse limits: a countable inverse limit of compact metrizable
+spaces is compact metrizable (hence second-countable).</p></li>
+<li><p>The Cantor set arises as the inverse limit of finite discrete spaces.</p></li>
+<li><p>The Hilbert cube [0,1]^omega is the inverse limit of [0,1]^n with projection maps.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">SolenoidProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">space_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_compact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_connected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_metrizable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_indecomposable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_homogeneous</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated solenoid or inverse limit space example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.space_type">
+<span class="sig-name descname"><span class="pre">space_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.space_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.is_compact">
+<span class="sig-name descname"><span class="pre">is_compact</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.is_compact" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.is_connected">
+<span class="sig-name descname"><span class="pre">is_connected</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.is_connected" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.is_metrizable">
+<span class="sig-name descname"><span class="pre">is_metrizable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.is_metrizable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.is_indecomposable">
+<span class="sig-name descname"><span class="pre">is_indecomposable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.is_indecomposable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.is_homogeneous">
+<span class="sig-name descname"><span class="pre">is_homogeneous</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.is_homogeneous" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.SolenoidProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.solenoid_profiles.SolenoidProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.get_named_solenoid_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">get_named_solenoid_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.solenoid_profiles.SolenoidProfile" title="pytop.solenoid_profiles.SolenoidProfile"><span class="pre">SolenoidProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.solenoid_profiles.get_named_solenoid_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical solenoid and inverse limit examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.solenoid_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">solenoid_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.solenoid_profiles.solenoid_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.solenoid_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">solenoid_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.solenoid_profiles.solenoid_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.solenoid_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">solenoid_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.solenoid_profiles.solenoid_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from space_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.is_solenoid">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">is_solenoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.solenoid_profiles.is_solenoid" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is a solenoid (inverse limit of circles).</p>
+<p>A solenoid is an inverse limit lim_&lt;– (S^1 &lt;–phi_{p_i}– S^1 …) where
+each phi_{p_i} is a p_i-fold covering map of the circle. Key facts:
+- Solenoids are compact, connected, metrizable abelian topological groups.
+- Every solenoid is an indecomposable continuum.
+- Solenoids are NOT locally connected.
+- A space is a solenoid iff it is a compact connected metrizable abelian group</p>
+<blockquote>
+<div><p>whose Pontryagin dual is a subgroup of Q (rational numbers).</p>
+</div></blockquote>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit solenoid tags -&gt; true.</p></li>
+<li><p>Inverse limit of circles with covering maps -&gt; true.</p></li>
+<li><p>Locally connected -&gt; false (solenoids are never locally connected).</p></li>
+<li><p>Manifold / arc / sphere -&gt; false.</p></li>
+<li><p>Discrete / zero-dimensional -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.inverse_limit_is_compact">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">inverse_limit_is_compact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.solenoid_profiles.inverse_limit_is_compact" title="Link to this definition"></a></dt>
+<dd><p>Check whether the inverse limit is compact (Tychonoff for inverse limits).</p>
+<p>By the Tychonoff theorem, the inverse limit of any family of compact spaces
+with continuous bonding maps is compact (it is a closed subspace of the
+product, which is compact by Tychonoff). Key facts:
+- Solenoids: compact (each circle factor S^1 is compact).
+- Zp = lim_&lt;– Z/p^nZ: compact (finite discrete factors are compact).
+- Cantor set as lim_&lt;– {0,1}^n: compact.
+- Hilbert cube [0,1]^omega: compact.
+- If even one factor is not compact, the inverse limit may fail to be compact.</p>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Solenoid (compact by definition) -&gt; true.</p></li>
+<li><p>Compact factor spaces (Tychonoff) -&gt; true.</p></li>
+<li><p>Profinite / Cantor / Hilbert cube -&gt; true.</p></li>
+<li><p>Non-compact factors explicitly mentioned -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.inverse_limit_is_connected">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">inverse_limit_is_connected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.solenoid_profiles.inverse_limit_is_connected" title="Link to this definition"></a></dt>
+<dd><p>Check whether the inverse limit is connected.</p>
+<p>If all factor spaces are connected and all bonding maps are surjective, then
+the inverse limit is connected. Key facts:
+- Solenoids: connected (circle S^1 is connected, covering maps are surjective).
+- Hilbert cube: connected (each [0,1]^n factor is connected).
+- Cantor set as inverse limit: NOT connected (finite discrete factors are</p>
+<blockquote>
+<div><p>disconnected when <a href="#id6"><span class="problematic" id="id7">|factor|</span></a> &gt; 1).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Zp: NOT connected (finite group factors Z/p^nZ with discrete topology are
+disconnected for p^n &gt; 1).</p></li>
+</ul>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Solenoid (always connected) -&gt; true.</p></li>
+<li><p>Connected factors + surjective bonding maps -&gt; true.</p></li>
+<li><p>Hilbert cube -&gt; true.</p></li>
+<li><p>Profinite / Cantor set / Zp (disconnected factors) -&gt; false.</p></li>
+<li><p>Totally disconnected inverse limit -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.is_indecomposable_continuum">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">is_indecomposable_continuum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.solenoid_profiles.is_indecomposable_continuum" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is an indecomposable continuum.</p>
+<p>A continuum X is indecomposable if it cannot be written as the union of two
+proper subcontinua (proper closed connected subsets). Key facts:
+- Every solenoid is an indecomposable continuum.
+- The pseudo-arc is another classic indecomposable continuum.
+- Locally connected continua are NEVER indecomposable (by a theorem of</p>
+<blockquote>
+<div><p>Sierpinski: every locally connected continuum is decomposable).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Arcs, disks, circles, tori are all decomposable (locally connected).</p></li>
+<li><p>An indecomposable continuum has uncountably many composants (maximal
+proper subcontinua that are not the whole space).</p></li>
+</ul>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit solenoid or indecomposable tags -&gt; true.</p></li>
+<li><p>Locally connected continuum -&gt; false (Sierpinski’s theorem).</p></li>
+<li><p>Arc / disk / sphere / torus -&gt; false (decomposable manifolds).</p></li>
+<li><p>Discrete / zero-dimensional -&gt; false (not a continuum).</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.solenoid_is_homogeneous">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">solenoid_is_homogeneous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.solenoid_profiles.solenoid_is_homogeneous" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is homogeneous (as a topological group or continuum).</p>
+<p>A topological space X is homogeneous if for every pair of points x, y in X
+there is a homeomorphism h: X -&gt; X with h(x) = y. Key facts:
+- Every topological group is homogeneous (left translation is a homeomorphism).
+- Solenoids are topological groups, hence homogeneous.
+- The Cantor set is homogeneous.
+- The Hilbert cube is NOT homogeneous (boundary points vs interior points).
+- The Warsaw circle is NOT homogeneous.
+- Arcs [0,1] are not homogeneous (endpoints are topologically distinct).</p>
+<section id="id4">
+<h2>Decision layers<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Solenoid or explicit homogeneous / topological group -&gt; true.</p></li>
+<li><p>Cantor set/space (universal homogeneous compact metrizable zero-dim) -&gt; true.</p></li>
+<li><p>Hilbert cube -&gt; false (not homogeneous).</p></li>
+<li><p>Arc / interval / disk -&gt; false (endpoints/boundary points differ).</p></li>
+<li><p>Warsaw circle / chainable continuum without group structure -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.classify_solenoid">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">classify_solenoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.solenoid_profiles.classify_solenoid" title="Link to this definition"></a></dt>
+<dd><p>Classify the solenoid and inverse limit properties of space.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>solenoid_type<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;solenoid&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;profinite_inverse_limit&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;connected_inverse_limit&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;compact_inverse_limit&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;not_solenoid&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_solenoid : Result
+is_compact : Result
+is_connected : Result
+is_indecomposable : Result
+is_homogeneous : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.solenoid_profiles.solenoid_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.solenoid_profiles.</span></span><span class="sig-name descname"><span class="pre">solenoid_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.solenoid_profiles.solenoid_profile" title="Link to this definition"></a></dt>
+<dd><p>Full solenoid profile combining classification and named examples.</p>
+<section id="id5">
+<h2>Keys<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.solenoid_profiles.classify_solenoid" title="pytop.solenoid_profiles.classify_solenoid"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_solenoid()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[SolenoidProfile, …]</span></dt><dd><p>Registry of canonical solenoid and inverse limit examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

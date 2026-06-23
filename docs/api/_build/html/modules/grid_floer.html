@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid Floer &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Grid Floer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/grid_floer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.grid_floer">
+<span id="grid-floer"></span><h1>Grid Floer<a class="headerlink" href="#module-pytop.grid_floer" title="Link to this heading"></a></h1>
+<p>Grid diagram Floer homology — HFK̂ (Phase 14.2).</p>
+<p>Knot Floer homology HFK̂(K) is a bigraded abelian group associated to a knot K,
+defined by Ozsváth–Szabó and Rasmussen (2003/2004).  It categorifies the
+Alexander polynomial and detects the Seifert genus.</p>
+<dl>
+<dt>Grid diagram approach (Manolescu–Ozsváth–Sarkar–Szabó–Thurston 2009):</dt><dd><dl class="simple">
+<dt>An n×n grid diagram G encodes a knot K ⊂ S³ via:</dt><dd><ul class="simple">
+<li><p>An n×n toroidal grid (doubly-periodic plane)</p></li>
+<li><p>n X-markings: one per row and one per column</p></li>
+<li><p>n O-markings: one per row and one per column</p></li>
+</ul>
+</dd>
+</dl>
+<p>The knot is traced by connecting O’s to X’s horizontally and X’s to O’s
+vertically (following a specific rule).</p>
+<p>Grid states: bijections σ: {rows} → {columns}.  There are n! grid states.</p>
+<dl class="simple">
+<dt>Chain complex:</dt><dd><p>CFK̂(G) = ℤ[grid states], graded by Maslov M and Alexander A gradings.</p>
+</dd>
+<dt>Differential: d(x) = Σ_{rectangles r: x→y} (−1)^{sign(r)} y</dt><dd><p>where the sum is over empty rectangles r from x to y (no X or O inside,
+occupying the correct row/column structure).</p>
+</dd>
+</dl>
+</dd>
+<dt>For small grids (n ≤ 5) this computation is tractable.  We implement:</dt><dd><ul class="simple">
+<li><p>Grid state generation</p></li>
+<li><p>Maslov and Alexander grading computation</p></li>
+<li><p>Rectangle counting (empty rectangle = no X or O markings inside)</p></li>
+<li><p>Homology via SNF (Smith normal form)</p></li>
+</ul>
+</dd>
+</dl>
+<p>The resulting homology HFK̂(K; ℤ) is a bigraded abelian group.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridDiagram">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.grid_floer.</span></span><span class="sig-name descname"><span class="pre">GridDiagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_marks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">O_marks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.grid_floer.GridDiagram" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An n×n grid diagram encoding a link.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>n<span class="classifier">int</span></dt><dd><p>Grid size.</p>
+</dd>
+<dt>X_marks<span class="classifier">tuple[tuple[int,int], …]</span></dt><dd><p>Positions of X-markings: (row, column) in [0,n)×[0,n).</p>
+</dd>
+<dt>O_marks<span class="classifier">tuple[tuple[int,int], …]</span></dt><dd><p>Positions of O-markings: (row, column) in [0,n)×[0,n).</p>
+</dd>
+<dt>name<span class="classifier">str</span></dt><dd><p>Human-readable name of the knot/link.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridDiagram.n">
+<span class="sig-name descname"><span class="pre">n</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.grid_floer.GridDiagram.n" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridDiagram.X_marks">
+<span class="sig-name descname"><span class="pre">X_marks</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.grid_floer.GridDiagram.X_marks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridDiagram.O_marks">
+<span class="sig-name descname"><span class="pre">O_marks</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.grid_floer.GridDiagram.O_marks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridDiagram.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#pytop.grid_floer.GridDiagram.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridDiagram.X_in_row">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">X_in_row</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.grid_floer.GridDiagram.X_in_row" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridDiagram.X_in_col">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">X_in_col</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.grid_floer.GridDiagram.X_in_col" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridDiagram.O_in_row">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">O_in_row</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.grid_floer.GridDiagram.O_in_row" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridDiagram.O_in_col">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">O_in_col</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.grid_floer.GridDiagram.O_in_col" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridDiagram.grid_states">
+<span class="sig-name descname"><span class="pre">grid_states</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.grid_floer.GridState" title="pytop.grid_floer.GridState"><span class="pre">GridState</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.grid_floer.GridDiagram.grid_states" title="Link to this definition"></a></dt>
+<dd><p>All n! grid states (bijections rows → columns).</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.grid_floer.</span></span><span class="sig-name descname"><span class="pre">GridState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">perm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.grid_floer.GridState" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A grid state: one point per row and per column.</p>
+<section id="id1">
+<h2>Attributes<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>perm<span class="classifier">tuple[int, …]</span></dt><dd><p>perm[i] = column of the grid point in row i.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridState.perm">
+<span class="sig-name descname"><span class="pre">perm</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.grid_floer.GridState.perm" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridState.n">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">n</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.grid_floer.GridState.n" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridState.as_set">
+<span class="sig-name descname"><span class="pre">as_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.grid_floer.GridState.as_set" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridState.maslov_grading">
+<span class="sig-name descname"><span class="pre">maslov_grading</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.grid_floer.GridDiagram" title="pytop.grid_floer.GridDiagram"><span class="pre">GridDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.grid_floer.GridState.maslov_grading" title="Link to this definition"></a></dt>
+<dd><p>Maslov grading M(x) of this state in <code class="docutils literal notranslate"><span class="pre">grid</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.grid_floer.GridState.alexander_grading">
+<span class="sig-name descname"><span class="pre">alexander_grading</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.grid_floer.GridDiagram" title="pytop.grid_floer.GridDiagram"><span class="pre">GridDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.grid_floer.GridState.alexander_grading" title="Link to this definition"></a></dt>
+<dd><p>Alexander grading A(x) of this state in <code class="docutils literal notranslate"><span class="pre">grid</span></code>.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.grid_floer.HFKHat">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.grid_floer.</span></span><span class="sig-name descname"><span class="pre">HFKHat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alexander_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_generators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.grid_floer.HFKHat" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Knot Floer homology HFK̂(K; ℤ).</p>
+<section id="id2">
+<h2>Attributes<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>groups<span class="classifier">dict[(int,int), tuple[int, tuple[int,…]]]</span></dt><dd><p>Maps (maslov_degree, alexander_degree) → (betti, torsion_factors).</p>
+</dd>
+<dt>tau<span class="classifier">int | None</span></dt><dd><p>The τ-invariant (concordance invariant from HFK̂).</p>
+</dd>
+<dt>alexander_poly<span class="classifier">dict[int, int]</span></dt><dd><p>Alexander polynomial coefficients from graded Euler characteristic.</p>
+</dd>
+<dt>name<span class="classifier">str</span></dt><dd><p>Name of the knot.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.grid_floer.HFKHat.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.grid_floer.HFKHat.groups" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.grid_floer.HFKHat.tau">
+<span class="sig-name descname"><span class="pre">tau</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pytop.grid_floer.HFKHat.tau" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.grid_floer.HFKHat.alexander_poly">
+<span class="sig-name descname"><span class="pre">alexander_poly</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pytop.grid_floer.HFKHat.alexander_poly" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.grid_floer.HFKHat.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#pytop.grid_floer.HFKHat.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.grid_floer.HFKHat.total_generators">
+<span class="sig-name descname"><span class="pre">total_generators</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pytop.grid_floer.HFKHat.total_generators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.grid_floer.HFKHat.betti">
+<span class="sig-name descname"><span class="pre">betti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.grid_floer.HFKHat.betti" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.grid_floer.HFKHat.total_rank">
+<span class="sig-name descname"><span class="pre">total_rank</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.grid_floer.HFKHat.total_rank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.grid_floer.HFKHat.nonzero_groups">
+<span class="sig-name descname"><span class="pre">nonzero_groups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.grid_floer.HFKHat.nonzero_groups" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.grid_floer.grid_diagram_from_permutations">
+<span class="sig-prename descclassname"><span class="pre">pytop.grid_floer.</span></span><span class="sig-name descname"><span class="pre">grid_diagram_from_permutations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_perm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o_perm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.grid_floer.GridDiagram" title="pytop.grid_floer.GridDiagram"><span class="pre">GridDiagram</span></a></span></span><a class="headerlink" href="#pytop.grid_floer.grid_diagram_from_permutations" title="Link to this definition"></a></dt>
+<dd><p>Build a grid diagram from column permutations.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>x_perm<span class="classifier">list[int]</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x_perm[i]</span></code> = column of the X-marking in row i.</p>
+</dd>
+<dt>o_perm<span class="classifier">list[int]</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">o_perm[i]</span></code> = column of the O-marking in row i.</p>
+</dd>
+</dl>
+<p>name : str</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.grid_floer.unknot_grid">
+<span class="sig-prename descclassname"><span class="pre">pytop.grid_floer.</span></span><span class="sig-name descname"><span class="pre">unknot_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.grid_floer.GridDiagram" title="pytop.grid_floer.GridDiagram"><span class="pre">GridDiagram</span></a></span></span><a class="headerlink" href="#pytop.grid_floer.unknot_grid" title="Link to this definition"></a></dt>
+<dd><p>2×2 grid diagram for the unknot.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.grid_floer.trefoil_grid">
+<span class="sig-prename descclassname"><span class="pre">pytop.grid_floer.</span></span><span class="sig-name descname"><span class="pre">trefoil_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.grid_floer.GridDiagram" title="pytop.grid_floer.GridDiagram"><span class="pre">GridDiagram</span></a></span></span><a class="headerlink" href="#pytop.grid_floer.trefoil_grid" title="Link to this definition"></a></dt>
+<dd><p>5×5 grid diagram for the right-handed trefoil knot T(2,3).</p>
+<p>A shift-by-2 staircase on a 5×5 grid: O at (i, i) and X at (i, i+2 mod 5),
+which traces the (2,3) torus knot.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.grid_floer.hopf_link_grid">
+<span class="sig-prename descclassname"><span class="pre">pytop.grid_floer.</span></span><span class="sig-name descname"><span class="pre">hopf_link_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.grid_floer.GridDiagram" title="pytop.grid_floer.GridDiagram"><span class="pre">GridDiagram</span></a></span></span><a class="headerlink" href="#pytop.grid_floer.hopf_link_grid" title="Link to this definition"></a></dt>
+<dd><p>4×4 grid diagram for the Hopf link.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.grid_floer.hfk_hat">
+<span class="sig-prename descclassname"><span class="pre">pytop.grid_floer.</span></span><span class="sig-name descname"><span class="pre">hfk_hat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.grid_floer.GridDiagram" title="pytop.grid_floer.GridDiagram"><span class="pre">GridDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.grid_floer.HFKHat" title="pytop.grid_floer.HFKHat"><span class="pre">HFKHat</span></a></span></span><a class="headerlink" href="#pytop.grid_floer.hfk_hat" title="Link to this definition"></a></dt>
+<dd><p>Compute HFK̂ from an n×n grid diagram G.</p>
+<p>Warning: complexity is O((n!)²) and only feasible for n ≤ 5.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>G : GridDiagram</p>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>HFKHat</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.grid_floer.alexander_polynomial_from_hfk">
+<span class="sig-prename descclassname"><span class="pre">pytop.grid_floer.</span></span><span class="sig-name descname"><span class="pre">alexander_polynomial_from_hfk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hfk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.grid_floer.HFKHat" title="pytop.grid_floer.HFKHat"><span class="pre">HFKHat</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.grid_floer.alexander_polynomial_from_hfk" title="Link to this definition"></a></dt>
+<dd><p>Extract Alexander polynomial coefficients from HFK̂.</p>
+<dl class="simple">
+<dt>The Alexander polynomial Δ_K(t) satisfies:</dt><dd><p>Δ_K(t) = Σ_a χ(HFK̂(K, <a href="#id4"><span class="problematic" id="id5">*</span></a>, a)) · t^a</p>
+</dd>
+</dl>
+<p>where χ is the Euler characteristic in the Maslov direction.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

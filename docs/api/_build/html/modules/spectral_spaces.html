@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spectral Spaces &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Spectral Spaces</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/spectral_spaces.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.spectral_spaces">
+<span id="spectral-spaces"></span><h1>Spectral Spaces<a class="headerlink" href="#module-pytop.spectral_spaces" title="Link to this heading"></a></h1>
+<p>Spectral spaces, sober spaces, Stone duality, and frame-locale correspondence.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>A topological space X is sober if every irreducible closed subset F of X
+(F non-empty, and F = A u B with A, B closed implies F = A or F = B)
+has a unique generic point x (i.e., cl({x}) = F).</p></li>
+<li><p>Every Hausdorff (T2) space is sober; the converse fails — sober spaces need
+not be T1 (the Sierpinski space is sober but not T1).</p></li>
+<li><p>The Sierpinski space Sigma = {0,1} with open sets {empty, {1}, {0,1}} is the
+paradigmatic sober non-Hausdorff space: the whole space has generic point 1
+(cl({1}) = {0,1}), and {0} has generic point 0.</p></li>
+<li><p>Hochster’s theorem: a topological space is homeomorphic to Spec(R) for some
+commutative ring R if and only if it is a spectral space.</p></li>
+<li><p>A spectral space is a compact sober T0 space whose compact open sets form a
+basis closed under finite intersection.</p></li>
+<li><p>Stone duality: the category of Boolean algebras is dually equivalent to the
+category of Stone spaces (compact totally disconnected Hausdorff spaces) via
+the functors Clopen(-) and Spec(-). Every Stone space is spectral.</p></li>
+<li><p>Priestley duality: the category of bounded distributive lattices is dually
+equivalent to the category of Priestley spaces (compact ordered spaces with a
+compatible topology where the order is a closed subset of X x X and every
+clopen upper set separates comparable pairs).</p></li>
+<li><p>Frame-locale duality: the category of frames (complete lattices satisfying
+a ^ (V b_i) = V(a ^ b_i)) is dually equivalent to the category of locales.
+A frame is spatial if every a &lt; b is witnessed by a point (frame map to {0,1});
+spatial frames correspond bijectively to sober spaces via O(X) (open set frame).</p></li>
+<li><p>The Alexandrov topology on a poset (P, &lt;=) (open sets = upper sets of P) is
+always T0. It is sober if and only if P is a dcpo (every directed subset has a
+supremum): the irreducible closed sets are exactly the lower sets of the form
+cl({x}) = {y : y &lt;= x} (principal lower sets), which exist iff every directed
+set has a least upper bound in P.</p></li>
+<li><p>The Alexandrov topology on (N, &lt;=) (natural numbers with usual ordering) is NOT
+sober: the lower set N itself is irreducible but has no generic point (N has
+no maximum element).</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">SpectralSpaceProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">space_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_sober</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_spectral</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_stone_space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_t0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_t1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_generic_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated spectral/sober space example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.space_type">
+<span class="sig-name descname"><span class="pre">space_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.space_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.is_sober">
+<span class="sig-name descname"><span class="pre">is_sober</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.is_sober" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.is_spectral">
+<span class="sig-name descname"><span class="pre">is_spectral</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.is_spectral" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.is_stone_space">
+<span class="sig-name descname"><span class="pre">is_stone_space</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.is_stone_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.is_t0">
+<span class="sig-name descname"><span class="pre">is_t0</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.is_t0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.is_t1">
+<span class="sig-name descname"><span class="pre">is_t1</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.is_t1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.has_generic_point">
+<span class="sig-name descname"><span class="pre">has_generic_point</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.has_generic_point" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.SpectralSpaceProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.spectral_spaces.SpectralSpaceProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.get_named_spectral_space_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">get_named_spectral_space_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.spectral_spaces.SpectralSpaceProfile" title="pytop.spectral_spaces.SpectralSpaceProfile"><span class="pre">SpectralSpaceProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_spaces.get_named_spectral_space_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical spectral/sober space examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.spectral_space_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">spectral_space_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_spaces.spectral_space_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.spectral_space_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">spectral_space_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_spaces.spectral_space_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.spectral_space_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">spectral_space_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_spaces.spectral_space_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from space_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.is_sober">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">is_sober</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.spectral_spaces.is_sober" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is sober.</p>
+<p>A topological space X is sober if every irreducible closed subset F
+(F != empty, and F = A u B with A, B closed implies F = A or F = B)
+has a unique generic point x (a point x with cl({x}) = F). Key facts:
+- Every Hausdorff space is sober (T2 =&gt; sober).
+- Every spectral space is sober by definition.
+- The Sierpinski space is sober (not Hausdorff).
+- Spec(R) of any commutative ring is sober (Zariski topology).
+- The Alexandrov topology on a poset P is sober iff P is a dcpo.
+- The Alexandrov topology on (N, &lt;=) is NOT sober: N is irreducible</p>
+<blockquote>
+<div><p>with no generic point.</p>
+</div></blockquote>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit sober tag -&gt; true.</p></li>
+<li><p>Hausdorff / T2 space (T2 =&gt; sober) -&gt; true.</p></li>
+<li><p>Stone / profinite / Boolean space (compact T.D. Hausdorff =&gt; sober) -&gt; true.</p></li>
+<li><p>Spec(R) / spectral space / coherent space -&gt; true.</p></li>
+<li><p>Alexandrov on (N,&lt;=) or poset with no maximal/directed suprema -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.is_spectral">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">is_spectral</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.spectral_spaces.is_spectral" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is a spectral space.</p>
+<p>A spectral space (or coherent space) is a topological space X that is:
+(i)  compact (every open cover has a finite subcover),
+(ii) sober (every irreducible closed set has a unique generic point),
+(iii) T0,
+(iv) the compact open sets form a basis,
+(v)  the compact open sets are closed under finite intersection.
+Key facts:
+- Hochster’s theorem: X is spectral iff X is homeomorphic to Spec(R)</p>
+<blockquote>
+<div><p>for some commutative ring R.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Every Stone space is spectral (Boolean algebra =&gt; distributive lattice =&gt;
+spectral via Stone/Priestley duality).</p></li>
+<li><p>Finite T0 spaces are spectral (finite sets are trivially compact and sober).</p></li>
+<li><p>The Sierpinski space is spectral.</p></li>
+<li><p>The Alexandrov topology on (N, &lt;=) is NOT spectral (not sober, not compact).</p></li>
+</ul>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit spectral / coherent / Spec(R) tag -&gt; true.</p></li>
+<li><p>Stone / profinite space -&gt; true (Boolean algebra =&gt; spectral).</p></li>
+<li><p>Alexandrov topology on a finite poset -&gt; true.</p></li>
+<li><p>Sierpinski space -&gt; true.</p></li>
+<li><p>Not sober or not compact -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.is_stone_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">is_stone_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.spectral_spaces.is_stone_space" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is a Stone space (compact totally disconnected Hausdorff).</p>
+<p>A Stone space is a compact Hausdorff space that is totally disconnected
+(every connected component is a singleton). Key facts:
+- Stone’s representation theorem: the category of Boolean algebras is dually</p>
+<blockquote>
+<div><p>equivalent to the category of Stone spaces via Clopen(-) and Spec(-).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Stone spaces are also called Boolean spaces or profinite spaces.</p></li>
+<li><p>Every Stone space is zero-dimensional (clopen sets form a basis).</p></li>
+<li><p>Stone spaces are spectral: the clopen sets form a basis of compact opens
+closed under finite intersection and complement.</p></li>
+<li><p>The Cantor set 2^N is the unique compact metrizable Stone space without
+isolated points.</p></li>
+<li><p>Profinite groups (inverse limits of finite discrete groups) are Stone spaces.</p></li>
+<li><p>The Sierpinski space is NOT a Stone space (not T1, not Hausdorff).</p></li>
+<li><p>Spec(R) for a non-field ring is NOT a Stone space (not Hausdorff).</p></li>
+</ul>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit Stone / Boolean / profinite space tag -&gt; true.</p></li>
+<li><p>Compact totally disconnected Hausdorff tag -&gt; true.</p></li>
+<li><p>Cantor set / p-adic integers -&gt; true.</p></li>
+<li><p>Non-Hausdorff (Sierpinski, Spec(R)) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.frame_is_spatial">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">frame_is_spatial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.spectral_spaces.frame_is_spatial" title="Link to this definition"></a></dt>
+<dd><p>Check whether the frame O(X) of open sets of space is spatial.</p>
+<p>A frame is a complete lattice L satisfying the infinite distributive law:
+a ^ (V S) = V{a ^ s : s in S} for all a in L and S subset L.
+A frame is spatial if for any a &lt; b in L there exists a frame homomorphism
+p: L -&gt; {0,1} (a ‘point’) with p(b) = 1 and p(a) = 0 — i.e., the points
+separate elements. Key facts:
+- The open set lattice O(X) of any topological space X is a frame.
+- O(X) is spatial if and only if X is sober.
+- Spatial frames are in bijective correspondence with sober spaces:</p>
+<blockquote>
+<div><p>the functor O: SoberSpaces -&gt; Framesop and pt: Framesop -&gt; SoberSpaces
+establish an equivalence of categories.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Non-spatial frames exist: the free frame on countably many generators
+contains non-spatial elements.</p></li>
+<li><p>Every Stone space has a spatial frame (Boolean algebra =&gt; spatial frame).</p></li>
+</ul>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit spatial frame tag -&gt; true.</p></li>
+<li><p>Sober space (O(X) spatial iff X sober) -&gt; true.</p></li>
+<li><p>Stone / Boolean space -&gt; true.</p></li>
+<li><p>Non-sober space (O(X) not spatial) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.stone_duality_applies">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">stone_duality_applies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.spectral_spaces.stone_duality_applies" title="Link to this definition"></a></dt>
+<dd><p>Check whether Stone duality provides a Boolean algebra correspondence.</p>
+<p>Stone’s representation theorem (1936): the category of Boolean algebras is
+dually equivalent to the category of Stone spaces via:
+- Clopen: Stone spaces -&gt; Boolean algebras   (X <a href="#id4"><span class="problematic" id="id5">|</span></a>-&gt; Clopen(X))
+- Spec:   Boolean algebras -&gt; Stone spaces    (B <a href="#id6"><span class="problematic" id="id7">|</span></a>-&gt; ultrafilters on B)
+Key facts:
+- Every Boolean algebra B corresponds to a unique Stone space Spec(B).
+- Every Stone space X corresponds to a unique Boolean algebra Clopen(X).
+- Generalisation: Priestley duality extends this to bounded distributive</p>
+<blockquote>
+<div><p>lattices and Priestley spaces (compact ordered spaces).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Further generalisation: the equivalence between sober spaces and spatial
+frames is the locale-theoretic extension.</p></li>
+<li><p>The Stone-Cech compactification beta(X) is a Stone space containing X as
+a dense subspace (for discrete X, C(beta(X)) = l^inf(X)).</p></li>
+<li><p>Stone duality does NOT apply to Sierpinski space or Spec(R) for non-field R
+(these are T0 non-Hausdorff; the Boolean algebra structure is absent).</p></li>
+</ul>
+<section id="id8">
+<h2>Decision layers<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Stone / Boolean / profinite space -&gt; true.</p></li>
+<li><p>Compact totally disconnected Hausdorff -&gt; true.</p></li>
+<li><p>Boolean algebra explicitly tagged -&gt; true.</p></li>
+<li><p>Non-Hausdorff / non-T1 space (Sierpinski, Spec(R)) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.classify_spectral_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">classify_spectral_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_spaces.classify_spectral_space" title="Link to this definition"></a></dt>
+<dd><p>Classify the spectral/sober properties of space.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>space_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;stone&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;spectral&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;sober&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;t0_not_sober&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_sober : Result
+is_spectral : Result
+is_stone_space : Result
+frame_is_spatial : Result
+stone_duality : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_spaces.spectral_space_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_spaces.</span></span><span class="sig-name descname"><span class="pre">spectral_space_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_spaces.spectral_space_profile" title="Link to this definition"></a></dt>
+<dd><p>Full spectral space profile combining classification and named examples.</p>
+<section id="id9">
+<h2>Keys<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.spectral_spaces.classify_spectral_space" title="pytop.spectral_spaces.classify_spectral_space"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_spectral_space()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[SpectralSpaceProfile, …]</span></dt><dd><p>Registry of canonical spectral/sober space examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

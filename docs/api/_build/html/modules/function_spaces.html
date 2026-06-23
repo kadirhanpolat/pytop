@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Function Spaces &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Function Spaces</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/function_spaces.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.function_spaces">
+<span id="function-spaces"></span><h1>Function Spaces<a class="headerlink" href="#module-pytop.function_spaces" title="Link to this heading"></a></h1>
+<section id="function-spaces-py-cilt-iii-v0-1-58">
+<h2>function_spaces.py — Cilt III v0.1.58<a class="headerlink" href="#function-spaces-py-cilt-iii-v0-1-58" title="Link to this heading"></a></h2>
+<p>Durable API for function-space topologies (pointwise, uniform, compact-open).</p>
+<section id="public-surface">
+<h3>Public surface<a class="headerlink" href="#public-surface" title="Link to this heading"></a></h3>
+<p>pointwise_topology_profile(space)      → dict
+uniform_topology_profile(space)        → dict
+compact_open_topology_profile(space)   → dict
+function_space_profile(space)          → dict  (all three combined)
+analyze_function_space(space)          → Result
+FunctionSpaceError                     → exception class</p>
+</section>
+</section>
+<dl class="py exception">
+<dt class="sig sig-object py" id="pytop.function_spaces.FunctionSpaceError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">FunctionSpaceError</span></span><a class="headerlink" href="#pytop.function_spaces.FunctionSpaceError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Raised when a function-space operation cannot be completed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.pointwise_topology_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">pointwise_topology_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.function_spaces.pointwise_topology_profile" title="Link to this definition"></a></dt>
+<dd><p>Describe the pointwise convergence topology on C(X, Y).</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>space<span class="classifier">Any</span></dt><dd><p>The <em>domain</em> space X.  Y is assumed ℝ (or a fixed metrizable target).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict with keys:</dt><dd><p>topology_name, basis_description, hausdorff, first_countable,
+second_countable_condition, metrizability_note, representation</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.uniform_topology_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">uniform_topology_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.function_spaces.uniform_topology_profile" title="Link to this definition"></a></dt>
+<dd><p>Describe the uniform (sup-metric) topology on C(X, Y).</p>
+<p>Assumes Y = ℝ with bounded functions, or equivalently the sup-metric
+d_∞(f,g) = sup_{x∈X} <a href="#id9"><span class="problematic" id="id10">|f(x)−g(x)|</span></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.compact_open_topology_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">compact_open_topology_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.function_spaces.compact_open_topology_profile" title="Link to this definition"></a></dt>
+<dd><p>Describe the compact-open topology on C(X, Y).</p>
+<p>Assumes Y = ℝ (or any metrizable space).  The compact-open topology has
+sub-basic sets V(K, U) = {f ∈ C(X,Y) : f(K) ⊆ U} for K compact in X,
+U open in Y.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.function_space_topology_families">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">function_space_topology_families</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.function_spaces.function_space_topology_families" title="Link to this definition"></a></dt>
+<dd><p>Return a pedagogically ordered family list for pointwise / compact-open /
+uniform topologies on C(X, R).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.function_space_topology_selector">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">function_space_topology_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">family_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.function_spaces.function_space_topology_selector" title="Link to this definition"></a></dt>
+<dd><p>Return exactly one family record by stable key.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.render_function_space_topology_report">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">render_function_space_topology_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.function_spaces.render_function_space_topology_report" title="Link to this definition"></a></dt>
+<dd><p>Render a compact human-readable separation report for the three topologies.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.function_space_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">function_space_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.function_spaces.function_space_profile" title="Link to this definition"></a></dt>
+<dd><p>Return all three function-space topology profiles for <em>space</em> as domain X.</p>
+<section id="id1">
+<h2>Returns<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>dict with keys ‘pointwise’, ‘uniform’, ‘compact_open’, ‘domain_representation’</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.analyze_function_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">analyze_function_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.function_spaces.analyze_function_space" title="Link to this definition"></a></dt>
+<dd><p>Single-call facade that analyses <em>space</em> as the domain of a function space.</p>
+<p>Returns a <a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">Result</span></code></a> whose <code class="docutils literal notranslate"><span class="pre">value</span></code> is the
+<code class="docutils literal notranslate"><span class="pre">function_space_profile</span></code> dict and whose <code class="docutils literal notranslate"><span class="pre">justification</span></code> summarises the
+key topological facts.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>space<span class="classifier">Any</span></dt><dd><p>A topological space acting as the domain X for C(X, ℝ).</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h2>Returns<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Result</dt><dd><p>status=”true”, mode=”theorem” (or “exact” for finite spaces)</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.compact_open_basis_elements">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">compact_open_basis_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.function_spaces.compact_open_basis_elements" title="Link to this definition"></a></dt>
+<dd><p>Describe the sub-basic and basic open sets of the compact-open topology
+on C(X, Y) in detail, with examples for concrete space representations.</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>space<span class="classifier">Any</span></dt><dd><p>The domain space X.</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict with keys:</dt><dd><p>subbasis_description, basis_description, neighbourhood_base,
+convergence_characterisation, finite_example (if applicable),
+representation</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.compact_open_homotopy_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">compact_open_homotopy_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.function_spaces.compact_open_homotopy_profile" title="Link to this definition"></a></dt>
+<dd><p>Describe the role of the compact-open topology in homotopy theory.</p>
+<p>Covers: loop space Ω(X,x₀), path space PX, free loop space LX,
+adjunction with suspension, and the relationship to CW-complexes.</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>space<span class="classifier">Any</span></dt><dd><p>The base space X (typically a pointed topological space).</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict with keys:</dt><dd><p>loop_space, path_space, free_loop_space,
+adjunction_with_suspension, cw_complex_note,
+exponential_law_statement, representation</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.compare_function_space_topologies">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">compare_function_space_topologies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.function_spaces.compare_function_space_topologies" title="Link to this definition"></a></dt>
+<dd><p>Compare the pointwise, uniform, and compact-open topologies on C(X, ℝ).</p>
+<dl class="simple">
+<dt>Returns a structured dict with:</dt><dd><ul class="simple">
+<li><p>fineness_order: the ordering pt ≤ co ≤ u (with coincidence notes)</p></li>
+<li><p>coincidence_conditions: when two or more topologies agree</p></li>
+<li><p>comparison_table: list of dicts, one row per topology pair</p></li>
+<li><p>counterexamples: classical spaces where topologies differ</p></li>
+<li><p>summary: human-readable paragraph</p></li>
+<li><p>representation: domain representation tag</p></li>
+</ul>
+</dd>
+</dl>
+<section id="id8">
+<h2>Parameters<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>space<span class="classifier">Any</span></dt><dd><p>The domain space X.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.is_admissible_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">is_admissible_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.function_spaces.is_admissible_topology" title="Link to this definition"></a></dt>
+<dd><p>Check if a topology on a function space is admissible
+(makes the evaluation map continuous).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.function_spaces.is_splitting_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.function_spaces.</span></span><span class="sig-name descname"><span class="pre">is_splitting_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codomain</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.function_spaces.is_splitting_topology" title="Link to this definition"></a></dt>
+<dd><p>Check if a topology on a function space is splitting
+(the property dual to admissibility).</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

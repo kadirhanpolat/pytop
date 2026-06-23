@@ -1,0 +1,644 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Van Kampen &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cech Complex" href="cech_complex.html" />
+    <link rel="prev" title="Mayer Vietoris" href="mayer_vietoris.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Van Kampen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.GroupPresentationError"><code class="docutils literal notranslate"><span class="pre">GroupPresentationError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation"><code class="docutils literal notranslate"><span class="pre">GroupPresentation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation.generators"><code class="docutils literal notranslate"><span class="pre">GroupPresentation.generators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation.relators"><code class="docutils literal notranslate"><span class="pre">GroupPresentation.relators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation.rank"><code class="docutils literal notranslate"><span class="pre">GroupPresentation.rank</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation.is_free"><code class="docutils literal notranslate"><span class="pre">GroupPresentation.is_free</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation.presentation_string"><code class="docutils literal notranslate"><span class="pre">GroupPresentation.presentation_string()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.GroupHomomorphism"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.GroupHomomorphism.source"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism.source</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.GroupHomomorphism.target"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism.target</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.GroupHomomorphism.images"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism.images</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.GroupHomomorphism.image_of"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism.image_of()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.GroupHomomorphism.apply"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult"><code class="docutils literal notranslate"><span class="pre">VanKampenResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult.generators"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.generators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult.relators"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.relators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult.simplified_generators"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.simplified_generators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult.simplified_relators"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.simplified_relators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult.abelianization"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.abelianization</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult.group_type"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.group_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult.notes"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.notes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult.presentation_string"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.presentation_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult.raw_presentation_string"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.raw_presentation_string()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.DirectedEdge"><code class="docutils literal notranslate"><span class="pre">DirectedEdge</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.DirectedEdge.name"><code class="docutils literal notranslate"><span class="pre">DirectedEdge.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.DirectedEdge.src"><code class="docutils literal notranslate"><span class="pre">DirectedEdge.src</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.DirectedEdge.tgt"><code class="docutils literal notranslate"><span class="pre">DirectedEdge.tgt</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.Face2"><code class="docutils literal notranslate"><span class="pre">Face2</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.Face2.name"><code class="docutils literal notranslate"><span class="pre">Face2.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.Face2.attaching_word"><code class="docutils literal notranslate"><span class="pre">Face2.attaching_word</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.CW1Complex"><code class="docutils literal notranslate"><span class="pre">CW1Complex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.CW1Complex.vertices"><code class="docutils literal notranslate"><span class="pre">CW1Complex.vertices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.CW1Complex.edges"><code class="docutils literal notranslate"><span class="pre">CW1Complex.edges</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.CW1Complex.faces"><code class="docutils literal notranslate"><span class="pre">CW1Complex.faces</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.van_kampen.CW1Complex.basepoint"><code class="docutils literal notranslate"><span class="pre">CW1Complex.basepoint</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.group_homomorphism"><code class="docutils literal notranslate"><span class="pre">group_homomorphism()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.trivial_group"><code class="docutils literal notranslate"><span class="pre">trivial_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.infinite_cyclic_group"><code class="docutils literal notranslate"><span class="pre">infinite_cyclic_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.free_group"><code class="docutils literal notranslate"><span class="pre">free_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.cyclic_group"><code class="docutils literal notranslate"><span class="pre">cyclic_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.surface_group"><code class="docutils literal notranslate"><span class="pre">surface_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.surface_group_nr"><code class="docutils literal notranslate"><span class="pre">surface_group_nr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.van_kampen"><code class="docutils literal notranslate"><span class="pre">van_kampen()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.cw_complex_pi1"><code class="docutils literal notranslate"><span class="pre">cw_complex_pi1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.van_kampen_wedge_circles"><code class="docutils literal notranslate"><span class="pre">van_kampen_wedge_circles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.van_kampen_sphere"><code class="docutils literal notranslate"><span class="pre">van_kampen_sphere()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.van_kampen_torus"><code class="docutils literal notranslate"><span class="pre">van_kampen_torus()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.van_kampen_klein_bottle"><code class="docutils literal notranslate"><span class="pre">van_kampen_klein_bottle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.van_kampen.van_kampen_real_projective_plane"><code class="docutils literal notranslate"><span class="pre">van_kampen_real_projective_plane()</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Van Kampen</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/van_kampen.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.van_kampen">
+<span id="van-kampen"></span><h1>Van Kampen<a class="headerlink" href="#module-pytop.van_kampen" title="Link to this heading"></a></h1>
+<p>Seifert–van Kampen theorem: π₁ of a union via amalgamated free product.</p>
+<p>Given X = A ∪ B where A, B, A∩B are path-connected and the inclusions are
+basepoint-preserving, the Seifert–van Kampen theorem states</p>
+<blockquote>
+<div><p>π₁(X, x₀) ≅ π₁(A, x₀) <a href="#id1"><span class="problematic" id="id2">*</span></a>_{π₁(A∩B, x₀)} π₁(B, x₀)</p>
+</div></blockquote>
+<p>the amalgamated free product over π₁(A∩B, x₀).</p>
+<dl class="simple">
+<dt>In terms of presentations: if</dt><dd><p>π₁(A) = ⟨S_A | R_A⟩,
+π₁(B) = ⟨S_B | R_B⟩,
+π₁(A∩B) = ⟨T | Q⟩,
+φ_A : π₁(A∩B) → π₁(A),   φ_B : π₁(A∩B) → π₁(B)  (inclusion-induced),</p>
+</dd>
+<dt>then</dt><dd><p>π₁(X) = ⟨S_A ∪ S_B | R_A ∪ R_B ∪ {φ_A(t)φ_B(t)⁻¹ : t ∈ T}⟩.</p>
+</dd>
+</dl>
+<p>This module also supports the CW-complex route: given a finite connected CW
+complex with explicit 1-skeleton and 2-cell attaching maps, it computes π₁
+directly from a maximal spanning tree (standard algorithm).</p>
+<section id="public-api">
+<h2>Public API<a class="headerlink" href="#public-api" title="Link to this heading"></a></h2>
+<p>GroupPresentation    — finite group presentation ⟨S | R⟩
+GroupHomomorphism    — source, target, generator images as words
+VanKampenResult      — raw + simplified presentation, abelianization, group type</p>
+<p>van_kampen(…)      — amalgamated free product from two presentations + maps
+group_homomorphism(source, target, images)  — convenience constructor</p>
+<p>cw_complex_pi1(cw)  — π₁ from a finite CW complex with attaching words</p>
+<p>trivial_group()                 — ⟨ | ⟩ = {1}
+infinite_cyclic_group(gen)      — ⟨a | ⟩ = ℤ
+free_group(<a href="#id3"><span class="problematic" id="id4">*</span></a>gens)               — ⟨a, b, … | ⟩ = Fₙ
+cyclic_group(n, gen)            — ⟨a | aⁿ⟩ = ℤ/nℤ
+surface_group(g)                — orientable genus g
+surface_group_nr(n)             — non-orientable, n crosscaps</p>
+<p>van_kampen_wedge_circles(n)     — S¹ ∨ ⋯ ∨ S¹  → Fₙ
+van_kampen_sphere()             — S² via two hemispheres  → trivial
+van_kampen_torus()              — T² → ⟨a,b | aba⁻¹b⁻¹⟩
+van_kampen_klein_bottle()       — Klein bottle → ⟨a,b | abab⁻¹⟩
+van_kampen_real_projective_plane()  — RP² → ⟨a | a²⟩</p>
+</section>
+<dl class="py exception">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupPresentationError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">GroupPresentationError</span></span><a class="headerlink" href="#pytop.van_kampen.GroupPresentationError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a></p>
+<p>Raised when a group presentation or homomorphism is malformed.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupPresentation">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">GroupPresentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.van_kampen.GroupPresentation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A finite group presentation ⟨S | R⟩.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>generators:</dt><dd><p>Tuple of generator names.  Names must be nonempty and distinct.</p>
+</dd>
+<dt>relators:</dt><dd><p>Tuple of Words; each word represents an element set equal to the
+identity (a relator, not a relation).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupPresentation.generators">
+<span class="sig-name descname"><span class="pre">generators</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.GroupPresentation.generators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupPresentation.relators">
+<span class="sig-name descname"><span class="pre">relators</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.GroupPresentation.relators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupPresentation.rank">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">rank</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.van_kampen.GroupPresentation.rank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupPresentation.is_free">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_free</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.van_kampen.GroupPresentation.is_free" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupPresentation.presentation_string">
+<span class="sig-name descname"><span class="pre">presentation_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.GroupPresentation.presentation_string" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupHomomorphism">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">GroupHomomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.van_kampen.GroupHomomorphism" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A group homomorphism specified by generator images.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>source:</dt><dd><p>Domain presentation.</p>
+</dd>
+<dt>target:</dt><dd><p>Codomain presentation.</p>
+</dd>
+<dt>images:</dt><dd><p>Tuple of <code class="docutils literal notranslate"><span class="pre">(source_gen,</span> <span class="pre">target_word)</span></code> pairs — one entry per
+source generator.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupHomomorphism.source">
+<span class="sig-name descname"><span class="pre">source</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span><a class="headerlink" href="#pytop.van_kampen.GroupHomomorphism.source" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupHomomorphism.target">
+<span class="sig-name descname"><span class="pre">target</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span><a class="headerlink" href="#pytop.van_kampen.GroupHomomorphism.target" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupHomomorphism.images">
+<span class="sig-name descname"><span class="pre">images</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.GroupHomomorphism.images" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupHomomorphism.image_of">
+<span class="sig-name descname"><span class="pre">image_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.van_kampen.GroupHomomorphism.image_of" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.van_kampen.GroupHomomorphism.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.van_kampen.GroupHomomorphism.apply" title="Link to this definition"></a></dt>
+<dd><p>Extend φ homomorphically to a word.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.van_kampen.VanKampenResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">VanKampenResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified_generators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified_relators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abelianization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">notes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.van_kampen.VanKampenResult" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Result of the Seifert–van Kampen computation.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>generators:</dt><dd><p>Generators of the raw amalgamated free product.</p>
+</dd>
+<dt>relators:</dt><dd><p>Relators of the raw presentation.</p>
+</dd>
+<dt>simplified_generators:</dt><dd><p>Generators after Tietze elimination.</p>
+</dd>
+<dt>simplified_relators:</dt><dd><p>Relators after Tietze elimination.</p>
+</dd>
+<dt>abelianization:</dt><dd><p>H₁ = π₁^{ab} from the simplified presentation.</p>
+</dd>
+<dt>group_type:</dt><dd><p>Identifier string: <code class="docutils literal notranslate"><span class="pre">&quot;trivial&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;infinite_cyclic&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;free_rank_n&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cyclic_n&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;abelian_Z2&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;surface_group_orientable_genus_g&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;surface_group_non_orientable_n&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;klein_bottle_group&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+<dt>notes:</dt><dd><p>Human-readable notes about the computation steps.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.VanKampenResult.generators">
+<span class="sig-name descname"><span class="pre">generators</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.VanKampenResult.generators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.VanKampenResult.relators">
+<span class="sig-name descname"><span class="pre">relators</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.VanKampenResult.relators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.VanKampenResult.simplified_generators">
+<span class="sig-name descname"><span class="pre">simplified_generators</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.VanKampenResult.simplified_generators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.VanKampenResult.simplified_relators">
+<span class="sig-name descname"><span class="pre">simplified_relators</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.VanKampenResult.simplified_relators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.VanKampenResult.abelianization">
+<span class="sig-name descname"><span class="pre">abelianization</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span><a class="headerlink" href="#pytop.van_kampen.VanKampenResult.abelianization" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.VanKampenResult.group_type">
+<span class="sig-name descname"><span class="pre">group_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.van_kampen.VanKampenResult.group_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.VanKampenResult.notes">
+<span class="sig-name descname"><span class="pre">notes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.VanKampenResult.notes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.van_kampen.VanKampenResult.presentation_string">
+<span class="sig-name descname"><span class="pre">presentation_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.VanKampenResult.presentation_string" title="Link to this definition"></a></dt>
+<dd><p>Simplified presentation as a string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.van_kampen.VanKampenResult.raw_presentation_string">
+<span class="sig-name descname"><span class="pre">raw_presentation_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.VanKampenResult.raw_presentation_string" title="Link to this definition"></a></dt>
+<dd><p>Raw (unsimplified) presentation as a string.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.van_kampen.DirectedEdge">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">DirectedEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.van_kampen.DirectedEdge" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A 1-cell with explicit source and target vertices.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.DirectedEdge.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.van_kampen.DirectedEdge.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.DirectedEdge.src">
+<span class="sig-name descname"><span class="pre">src</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.van_kampen.DirectedEdge.src" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.DirectedEdge.tgt">
+<span class="sig-name descname"><span class="pre">tgt</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.van_kampen.DirectedEdge.tgt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.van_kampen.Face2">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">Face2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">attaching_word</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.van_kampen.Face2" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A 2-cell with an attaching word in the 1-skeleton.</p>
+<p><code class="docutils literal notranslate"><span class="pre">attaching_word</span></code> is a tuple of <code class="docutils literal notranslate"><span class="pre">(edge_name,</span> <span class="pre">sign)</span></code> pairs where
+sign ∈ {+1, −1} indicates the traversal direction.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.Face2.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.van_kampen.Face2.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.Face2.attaching_word">
+<span class="sig-name descname"><span class="pre">attaching_word</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.Face2.attaching_word" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.van_kampen.CW1Complex">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">CW1Complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.van_kampen.DirectedEdge" title="pytop.van_kampen.DirectedEdge"><span class="pre">DirectedEdge</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.van_kampen.Face2" title="pytop.van_kampen.Face2"><span class="pre">Face2</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basepoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.van_kampen.CW1Complex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A finite connected CW complex with explicit attaching data up to dim 2.</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>vertices:</dt><dd><p>Frozenset of vertex names (0-cells).</p>
+</dd>
+<dt>edges:</dt><dd><p>Tuple of <a class="reference internal" href="#pytop.van_kampen.DirectedEdge" title="pytop.van_kampen.DirectedEdge"><code class="xref py py-class docutils literal notranslate"><span class="pre">DirectedEdge</span></code></a> objects (1-cells).</p>
+</dd>
+<dt>faces:</dt><dd><p>Tuple of <a class="reference internal" href="#pytop.van_kampen.Face2" title="pytop.van_kampen.Face2"><code class="xref py py-class docutils literal notranslate"><span class="pre">Face2</span></code></a> objects (2-cells).</p>
+</dd>
+<dt>basepoint:</dt><dd><p>The chosen basepoint vertex.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the lexicographically
+smallest vertex is used.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.CW1Complex.vertices">
+<span class="sig-name descname"><span class="pre">vertices</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.CW1Complex.vertices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.CW1Complex.edges">
+<span class="sig-name descname"><span class="pre">edges</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.van_kampen.DirectedEdge" title="pytop.van_kampen.DirectedEdge"><span class="pre">DirectedEdge</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.CW1Complex.edges" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.CW1Complex.faces">
+<span class="sig-name descname"><span class="pre">faces</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.van_kampen.Face2" title="pytop.van_kampen.Face2"><span class="pre">Face2</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.van_kampen.CW1Complex.faces" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.van_kampen.CW1Complex.basepoint">
+<span class="sig-name descname"><span class="pre">basepoint</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pytop.van_kampen.CW1Complex.basepoint" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.group_homomorphism">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">group_homomorphism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.GroupHomomorphism" title="pytop.van_kampen.GroupHomomorphism"><span class="pre">GroupHomomorphism</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.group_homomorphism" title="Link to this definition"></a></dt>
+<dd><p>Convenience constructor: build a <a class="reference internal" href="#pytop.van_kampen.GroupHomomorphism" title="pytop.van_kampen.GroupHomomorphism"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupHomomorphism</span></code></a> from a dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.trivial_group">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">trivial_group</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.trivial_group" title="Link to this definition"></a></dt>
+<dd><p>Return the trivial group presentation ⟨ | ⟩.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.infinite_cyclic_group">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">infinite_cyclic_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'t'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.infinite_cyclic_group" title="Link to this definition"></a></dt>
+<dd><p>Return ⟨gen | ⟩ ≅ ℤ.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.free_group">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">free_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">gens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.free_group" title="Link to this definition"></a></dt>
+<dd><p>Return ⟨gens | ⟩ ≅ Fₙ.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.cyclic_group">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">cyclic_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'a'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.cyclic_group" title="Link to this definition"></a></dt>
+<dd><p>Return ⟨gen | gen^n⟩ ≅ ℤ/nℤ.  Requires n ≥ 1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.surface_group">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">surface_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.surface_group" title="Link to this definition"></a></dt>
+<dd><p>Return the fundamental group of the orientable surface Σ_g.</p>
+<p>Presentation: ⟨a₁,b₁,…,aₘ,bₘ | [a₁,b₁]⋯[aₘ,bₘ]⟩.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.surface_group_nr">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">surface_group_nr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.surface_group_nr" title="Link to this definition"></a></dt>
+<dd><p>Return the fundamental group of the non-orientable surface Nₙ.</p>
+<p>Presentation: ⟨a₁,…,aₙ | a₁²⋯aₙ²⟩.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.van_kampen">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">van_kampen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pi1_A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi1_B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi1_intersection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.van_kampen.GroupHomomorphism" title="pytop.van_kampen.GroupHomomorphism"><span class="pre">GroupHomomorphism</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.van_kampen.GroupHomomorphism" title="pytop.van_kampen.GroupHomomorphism"><span class="pre">GroupHomomorphism</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplify</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult" title="pytop.van_kampen.VanKampenResult"><span class="pre">VanKampenResult</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.van_kampen" title="Link to this definition"></a></dt>
+<dd><p>Compute π₁(A ∪ B) via the Seifert–van Kampen theorem.</p>
+<section id="id7">
+<h2>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>pi1_A:</dt><dd><p>Presentation of π₁(A).</p>
+</dd>
+<dt>pi1_B:</dt><dd><p>Presentation of π₁(B).  <strong>Generator names must be disjoint from
+pi1_A’s generators.</strong></p>
+</dd>
+<dt>pi1_intersection:</dt><dd><p>Presentation of π₁(A ∩ B).</p>
+</dd>
+<dt>phi_A:</dt><dd><p>Homomorphism π₁(A ∩ B) → π₁(A) induced by the inclusion A ∩ B ↪ A.</p>
+</dd>
+<dt>phi_B:</dt><dd><p>Homomorphism π₁(A ∩ B) → π₁(B) induced by the inclusion A ∩ B ↪ B.</p>
+</dd>
+<dt>simplify:</dt><dd><p>Apply Tietze elimination to the raw presentation (default True).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>VanKampenResult</dt><dd><p>Raw and simplified presentations, abelianization, and group type.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.cw_complex_pi1">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">cw_complex_pi1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.van_kampen.CW1Complex" title="pytop.van_kampen.CW1Complex"><span class="pre">CW1Complex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.cw_complex_pi1" title="Link to this definition"></a></dt>
+<dd><p>Compute π₁(cw) from a <a class="reference internal" href="#pytop.van_kampen.CW1Complex" title="pytop.van_kampen.CW1Complex"><code class="xref py py-class docutils literal notranslate"><span class="pre">CW1Complex</span></code></a>.</p>
+<p>Algorithm:
+1. BFS spanning tree T in the 1-skeleton.
+2. Generators = {edge names not in T}.
+3. Each 2-cell gives one relator: traverse the attaching word, keeping</p>
+<blockquote>
+<div><p>non-tree edges as letters and discarding tree edges (= identity).</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.van_kampen_wedge_circles">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">van_kampen_wedge_circles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult" title="pytop.van_kampen.VanKampenResult"><span class="pre">VanKampenResult</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.van_kampen_wedge_circles" title="Link to this definition"></a></dt>
+<dd><p>π₁(S¹ ∨ ⋯ ∨ S¹) = Fₙ via iterated free product.</p>
+<p>Decomposition: X = A ∪ B where A carries n−1 circles, B carries one,
+and A ∩ B = basepoint (trivial intersection).  Iterated n−1 times.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.van_kampen_sphere">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">van_kampen_sphere</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult" title="pytop.van_kampen.VanKampenResult"><span class="pre">VanKampenResult</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.van_kampen_sphere" title="Link to this definition"></a></dt>
+<dd><p>π₁(S²) = trivial via two-hemisphere decomposition.</p>
+<p>A = upper hemisphere (contractible), B = lower hemisphere (contractible),
+A ∩ B = equator ≅ S¹.  Both inclusions send the equator to identity.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.van_kampen_torus">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">van_kampen_torus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult" title="pytop.van_kampen.VanKampenResult"><span class="pre">VanKampenResult</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.van_kampen_torus" title="Link to this definition"></a></dt>
+<dd><p>π₁(T²) = ⟨a,b | aba⁻¹b⁻¹⟩ ≅ ℤ² via standard decomposition.</p>
+<p>A = T² minus a small open disk ≃ S¹ ∨ S¹, π₁(A) = F₂ = ⟨a,b | ⟩.
+B = open disk (contractible), π₁(B) = trivial.
+A ∩ B = annulus ≃ S¹, π₁(A∩B) = ℤ = ⟨c | ⟩.
+φ_A(c) = aba⁻¹b⁻¹  (the boundary circle in A = the commutator).
+φ_B(c) = identity   (c bounds a disk in B).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.van_kampen_klein_bottle">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">van_kampen_klein_bottle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult" title="pytop.van_kampen.VanKampenResult"><span class="pre">VanKampenResult</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.van_kampen_klein_bottle" title="Link to this definition"></a></dt>
+<dd><p>π₁(Klein bottle) = ⟨a,b | abab⁻¹⟩ via standard decomposition.</p>
+<p>Same structure as the torus but the boundary word is abab⁻¹.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.van_kampen.van_kampen_real_projective_plane">
+<span class="sig-prename descclassname"><span class="pre">pytop.van_kampen.</span></span><span class="sig-name descname"><span class="pre">van_kampen_real_projective_plane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.van_kampen.VanKampenResult" title="pytop.van_kampen.VanKampenResult"><span class="pre">VanKampenResult</span></a></span></span><a class="headerlink" href="#pytop.van_kampen.van_kampen_real_projective_plane" title="Link to this definition"></a></dt>
+<dd><p>π₁(RP²) = ⟨a | a²⟩ ≅ ℤ/2ℤ via Möbius-band decomposition.</p>
+<p>A = RP² minus an open disk ≃ Möbius band, π₁(A) = ℤ = ⟨a | ⟩.
+B = open disk (contractible), π₁(B) = trivial.
+A ∩ B = annulus ≃ S¹, π₁(A∩B) = ℤ = ⟨c | ⟩.
+φ_A(c) = a²  (boundary of Möbius band wraps around twice).
+φ_B(c) = identity.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mayer_vietoris.html" class="btn btn-neutral float-left" title="Mayer Vietoris" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cech_complex.html" class="btn btn-neutral float-right" title="Cech Complex" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kirby Calculus &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Kirby Calculus</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/kirby_calculus.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.kirby_calculus">
+<span id="kirby-calculus"></span><h1>Kirby Calculus<a class="headerlink" href="#module-pytop.kirby_calculus" title="Link to this heading"></a></h1>
+<p>Kirby calculus and handle decompositions of 4-manifolds (Phase 15.2).</p>
+<p>A 4-manifold can be described by a <em>Kirby diagram</em>: a framed link in S³
+where each component specifies a 2-handle attachment.  The linking matrix
+of the framed link is the intersection form of the 4-manifold.</p>
+<section id="kirby-moves">
+<h2>Kirby moves<a class="headerlink" href="#kirby-moves" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Two Kirby diagrams give diffeomorphic 4-manifolds iff they are related by:</dt><dd><dl class="simple">
+<dt>K1 (stabilization): add/remove an isolated ±1-framed unknot</dt><dd><p>(adds/removes a ±ℂP² summand)</p>
+</dd>
+<dt>K2 (handle slide): slide one 2-handle over another</dt><dd><p>(modifies the linking matrix by row/column operations)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="handle-decomposition">
+<h2>Handle decomposition<a class="headerlink" href="#handle-decomposition" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>A 4-manifold X has handles of indices 0, 1, 2, 3, 4.</dt><dd><p>0-handle: a 4-disk D⁴ (one per connected component)
+1-handle: attaches as S⁰ × D³ → boundary
+2-handle: framed knot in ∂(previous handles) = S³
+3-handle: attaches as D² × S¹
+4-handle: fills in the remaining S³ boundary</p>
+</dd>
+</dl>
+<p>For a simply-connected manifold: no 1- or 3-handles needed.
+The Kirby diagram specifies only the 2-handles.</p>
+</section>
+<section id="linking-matrix">
+<h2>Linking matrix<a class="headerlink" href="#linking-matrix" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>For a Kirby diagram with components K_1, …, K_n:</dt><dd><p>L_{ii} = framing of K_i
+L_{ij} = lk(K_i, K_j) for i ≠ j</p>
+</dd>
+</dl>
+<p>This equals the intersection form Q_X on H_2(X; ℤ) = ℤ^n.</p>
+<p>References: Kirby 1978, Kirby 1989, Gompf–Stipsicz 1999.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyDiagram">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">KirbyDiagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.kirby_calculus.KirbyComponent" title="pytop.kirby_calculus.KirbyComponent"><span class="pre">KirbyComponent</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linking_matrix_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_zero_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_one_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_three_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_four_handle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.kirby_calculus.KirbyDiagram" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A Kirby diagram: framed link in S³ specifying a 4-manifold.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>components<span class="classifier">tuple[KirbyComponent, …]</span></dt><dd><p>Framed link components.</p>
+</dd>
+<dt>linking_matrix_data<span class="classifier">tuple[tuple[int,…],…]</span></dt><dd><p>The linking/framing matrix.</p>
+</dd>
+<dt>n_zero_handles<span class="classifier">int</span></dt><dd><p>Number of 0-handles (default: 1).</p>
+</dd>
+<dt>n_one_handles<span class="classifier">int</span></dt><dd><p>Number of 1-handles.</p>
+</dd>
+<dt>n_three_handles<span class="classifier">int</span></dt><dd><p>Number of 3-handles.</p>
+</dd>
+<dt>has_four_handle<span class="classifier">bool</span></dt><dd><p>Whether a 4-handle is present.</p>
+</dd>
+<dt>name<span class="classifier">str</span></dt><dd><p>Name of the 4-manifold.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyDiagram.components">
+<span class="sig-name descname"><span class="pre">components</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.kirby_calculus.KirbyComponent" title="pytop.kirby_calculus.KirbyComponent"><span class="pre">KirbyComponent</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyDiagram.components" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyDiagram.linking_matrix_data">
+<span class="sig-name descname"><span class="pre">linking_matrix_data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyDiagram.linking_matrix_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyDiagram.n_zero_handles">
+<span class="sig-name descname"><span class="pre">n_zero_handles</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyDiagram.n_zero_handles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyDiagram.n_one_handles">
+<span class="sig-name descname"><span class="pre">n_one_handles</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyDiagram.n_one_handles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyDiagram.n_three_handles">
+<span class="sig-name descname"><span class="pre">n_three_handles</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyDiagram.n_three_handles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyDiagram.has_four_handle">
+<span class="sig-name descname"><span class="pre">has_four_handle</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyDiagram.has_four_handle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyDiagram.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyDiagram.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyDiagram.n_two_handles">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">n_two_handles</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyDiagram.n_two_handles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyDiagram.matrix">
+<span class="sig-name descname"><span class="pre">matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyDiagram.matrix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyComponent">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">KirbyComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">framing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">knot_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'unknot'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linking_numbers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.kirby_calculus.KirbyComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A framed knot component in a Kirby diagram.</p>
+<section id="id1">
+<h2>Attributes<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>name<span class="classifier">str</span></dt><dd><p>Label for the component.</p>
+</dd>
+<dt>framing<span class="classifier">int</span></dt><dd><p>Framing coefficient (self-linking number).</p>
+</dd>
+<dt>knot_type<span class="classifier">str</span></dt><dd><p>Type of the attaching knot (<code class="docutils literal notranslate"><span class="pre">&quot;unknot&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;trefoil&quot;</span></code>, etc.)</p>
+</dd>
+<dt>linking_numbers<span class="classifier">tuple[int, …]</span></dt><dd><p>Linking numbers with each other component (indexed by position).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyComponent.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyComponent.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyComponent.framing">
+<span class="sig-name descname"><span class="pre">framing</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyComponent.framing" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyComponent.knot_type">
+<span class="sig-name descname"><span class="pre">knot_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'unknot'</span></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyComponent.knot_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyComponent.linking_numbers">
+<span class="sig-name descname"><span class="pre">linking_numbers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyComponent.linking_numbers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyMove">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">KirbyMove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">move_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.kirby_calculus.KirbyMove" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Record of a Kirby move applied to a diagram.</p>
+<section id="id2">
+<h2>Attributes<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>move_type<span class="classifier">str</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">&quot;stabilize_plus&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;stabilize_minus&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;handle_slide&quot;</span></code>.</p>
+</dd>
+<dt>details<span class="classifier">str</span></dt><dd><p>Human-readable description.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyMove.move_type">
+<span class="sig-name descname"><span class="pre">move_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyMove.move_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.KirbyMove.details">
+<span class="sig-name descname"><span class="pre">details</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.kirby_calculus.KirbyMove.details" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.kirby_diagram">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">kirby_diagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">framings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lk_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">knot_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">one_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">three_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">four_handle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></span><a class="headerlink" href="#pytop.kirby_calculus.kirby_diagram" title="Link to this definition"></a></dt>
+<dd><p>Build a Kirby diagram from framings and an optional linking matrix.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>framings<span class="classifier">list[int]</span></dt><dd><p>Framing coefficients for each 2-handle.</p>
+</dd>
+<dt>lk_matrix<span class="classifier">Matrix or None</span></dt><dd><p>Off-diagonal linking numbers.  If None, all off-diagonal = 0.</p>
+</dd>
+<dt>knot_types<span class="classifier">list[str] or None</span></dt><dd><p>Knot types for each component.</p>
+</dd>
+<dt>name<span class="classifier">str</span></dt><dd><p>Name of the manifold.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.linking_matrix">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">linking_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.kirby_calculus.KirbyComponent" title="pytop.kirby_calculus.KirbyComponent"><span class="pre">KirbyComponent</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.kirby_calculus.linking_matrix" title="Link to this definition"></a></dt>
+<dd><p>Build the linking/framing matrix from a list of components.</p>
+<dl class="simple">
+<dt>The matrix L has:</dt><dd><p>L[i][i] = framing of component i
+L[i][j] = linking_numbers[j] of component i (for i &lt; j, and symmetric)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.kirby_stabilize">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">kirby_stabilize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sign</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#pytop.kirby_calculus.KirbyMove" title="pytop.kirby_calculus.KirbyMove"><span class="pre">KirbyMove</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.kirby_calculus.kirby_stabilize" title="Link to this definition"></a></dt>
+<dd><p>Apply a K1 stabilization move: add an isolated ±1-framed unknot.</p>
+<p>This corresponds to the connected sum X # ±ℂP².</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>diagram : KirbyDiagram
+sign : int</p>
+<blockquote>
+<div><p>+1 or -1 (adds +ℂP² or -ℂP² summand).</p>
+</div></blockquote>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>(new_diagram, move_record)</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.kirby_handle_slide">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">kirby_handle_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">slide_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">over_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#pytop.kirby_calculus.KirbyMove" title="pytop.kirby_calculus.KirbyMove"><span class="pre">KirbyMove</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.kirby_calculus.kirby_handle_slide" title="Link to this definition"></a></dt>
+<dd><p>Apply a K2 handle slide: slide component <cite>slide_idx</cite> over <cite>over_idx</cite>.</p>
+<dl class="simple">
+<dt>The effect on the linking matrix:</dt><dd><p>L[slide_idx][j] += L[over_idx][j]  for all j
+L[j][slide_idx] += L[j][over_idx]  for all j
+L[slide_idx][slide_idx] += L[over_idx][over_idx] + 2*L[slide_idx][over_idx]</p>
+</dd>
+</dl>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>diagram : KirbyDiagram
+slide_idx : int</p>
+<blockquote>
+<div><p>Index of the handle being slid.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>over_idx<span class="classifier">int</span></dt><dd><p>Index of the handle being slid over.</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>(new_diagram, move_record)</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.kirby_to_intersection_form">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">kirby_to_intersection_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="intersection_forms.html#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></span><a class="headerlink" href="#pytop.kirby_calculus.kirby_to_intersection_form" title="Link to this definition"></a></dt>
+<dd><p>Compute the intersection form from a Kirby diagram’s linking matrix.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.euler_characteristic_kirby">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">euler_characteristic_kirby</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.kirby_calculus.euler_characteristic_kirby" title="Link to this definition"></a></dt>
+<dd><p>Euler characteristic: χ = 2 + b_2 (for closed simply-connected 4-manifold).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.signature_kirby">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">signature_kirby</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.kirby_calculus.signature_kirby" title="Link to this definition"></a></dt>
+<dd><p>Compute the signature σ(X) from the linking matrix.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.b2_kirby">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">b2_kirby</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.kirby_calculus.b2_kirby" title="Link to this definition"></a></dt>
+<dd><p>Second Betti number b_2 = number of 2-handles.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.is_kirby_equivalent">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">is_kirby_equivalent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.kirby_calculus.is_kirby_equivalent" title="Link to this definition"></a></dt>
+<dd><p>Test Kirby equivalence via signature and rank invariants.</p>
+<p>Two diagrams are Kirby equivalent only if they have the same signature
+and rank (necessary conditions).  Full Kirby equivalence is undecidable
+in general; this tests the computable invariants.</p>
+<p>Returns True iff σ(d1) = σ(d2) and rank(d1) = rank(d2).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.kirby_diagram_cp2">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">kirby_diagram_cp2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></span><a class="headerlink" href="#pytop.kirby_calculus.kirby_diagram_cp2" title="Link to this definition"></a></dt>
+<dd><p>Kirby diagram for ℂP²: single +1-framed unknot.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.kirby_diagram_s2xs2">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">kirby_diagram_s2xs2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></span><a class="headerlink" href="#pytop.kirby_calculus.kirby_diagram_s2xs2" title="Link to this definition"></a></dt>
+<dd><p>Kirby diagram for S²×S²: two 0-framed unknots with linking number 1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.kirby_diagram_k3_fiber">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">kirby_diagram_k3_fiber</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.kirby_calculus.KirbyDiagram" title="pytop.kirby_calculus.KirbyDiagram"><span class="pre">KirbyDiagram</span></a></span></span><a class="headerlink" href="#pytop.kirby_calculus.kirby_diagram_k3_fiber" title="Link to this definition"></a></dt>
+<dd><p>Kirby diagram for the K3 surface (fiber-sum description).</p>
+<p>K3 is the fiber sum of two E(1) = ℂP² # 9(-ℂP²).
+Intersection form: Q_{K3} = 3H ⊕ (-2)E_8 (rank 22, σ = -16).</p>
+<p>This returns the plumbing description via the E_8 + 3H plumbing diagram.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.kirby_calculus.dehn_surgery_matrix">
+<span class="sig-prename descclassname"><span class="pre">pytop.kirby_calculus.</span></span><span class="sig-name descname"><span class="pre">dehn_surgery_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surgery_coefficients</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linking_matrix_off</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.kirby_calculus.dehn_surgery_matrix" title="Link to this definition"></a></dt>
+<dd><p>Build the linking matrix from Dehn surgery coefficients p/q.</p>
+<p>For a rational surgery on a framed link, the surgery coefficient p/q
+gives a framing p for the corresponding handle (in the integer surgery
+presentation after blowing down).</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>surgery_coefficients<span class="classifier">list[(p, q)]</span></dt><dd><p>Pairs (p, q) for each surgery component.</p>
+</dd>
+<dt>linking_matrix_off<span class="classifier">Matrix or None</span></dt><dd><p>Off-diagonal linking numbers.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Matrix</dt><dd><p>The linking/framing matrix (framings are p values, off-diagonal from linking).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

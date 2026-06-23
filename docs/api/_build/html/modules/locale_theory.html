@@ -1,0 +1,628 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locale Theory &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Locale Theory</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/locale_theory.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.locale_theory">
+<span id="locale-theory"></span><h1>Locale Theory<a class="headerlink" href="#module-pytop.locale_theory" title="Link to this heading"></a></h1>
+<p>Locale theory: frames, locales, pointfree topology, and the Isbell adjunction.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Frames and locales: a frame L is a complete lattice satisfying the infinite
+distributive law a ^ (big-join S) = big-join{a ^ s : s in S} for all a in L
+and all S ⊆ L. A locale is a frame regarded as a generalised space; the
+category Loc = Frm^op. Frame homomorphisms f: L -&gt; M preserve finite meets
+and arbitrary joins; localic maps go in the opposite direction.</p></li>
+<li><dl class="simple">
+<dt>The Isbell adjunction: there is a contravariant adjunction</dt><dd><p>Omega: Top^op ⟶⟵ Frm : pt</p>
+</dd>
+</dl>
+<p>where Omega(X) is the frame of open sets of X and pt(L) is the space of
+frame homomorphisms L -&gt; {0,1} (the ‘points’ of L). The adjunction restricts
+to a dual equivalence between sober topological spaces and spatial locales.</p>
+</li>
+<li><p>Spatial locales: a locale L is spatial if the canonical surjection
+Omega(pt(L)) -&gt; L is an isomorphism — equivalently, L has enough points to
+distinguish its elements. The locale Omega(X) is spatial iff X is sober.
+In ZFC every compact regular locale is spatial; constructively this fails.</p></li>
+<li><p>Compact regular locales: in classical mathematics, compact regular locales
+correspond exactly to compact Hausdorff spaces (Isbell 1972). The compact
+regular locales form a reflective subcategory of Loc.</p></li>
+<li><p>The locale of random reals (measure algebra locale): the measure algebra
+B(R)/N — Borel sets modulo Lebesgue null sets — is a complete Boolean
+algebra, hence a compact zero-dimensional regular locale. Its points (frame
+homomorphisms to {0,1}) require the ultrafilter lemma; constructively (or in
+ZF without AC) this locale has no points at all, yet it carries a canonical
+probability measure. This is the canonical example showing locales strictly
+extend classical point-set topology.</p></li>
+<li><p>Stone locales (localic Stone duality): a locale is a Stone locale iff it
+is compact, regular, and zero-dimensional (complemented elements form a
+base). Stone duality for locales: Stone locales correspond to Boolean
+algebras (Johnstone 1982). A spatial Stone locale is a Stone space
+(compact totally disconnected Hausdorff space).</p></li>
+<li><p>Isbell’s density theorem for localic groups: every localic group (a group
+object in Loc) is spatial — it has enough points (Isbell 1988). Hence
+locally compact localic groups coincide with locally compact Hausdorff
+topological groups. This theorem shows localic groups do not go beyond
+classical topology, unlike general locales.</p></li>
+<li><p>The well-inside relation: in a frame L, b &lt;&lt; a (‘b is well-inside a’) means
+b* v a = 1 where b* = join{c : b ^ c = 0} is the pseudocomplement. A locale
+is regular iff a = join{b : b &lt;&lt; a} for every a in L. It is completely
+regular iff the well-inside relation satisfies interpolation: b &lt;&lt; a implies
+there exists c with b &lt;&lt; c &lt;&lt; a.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">LocaleProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">locale_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_spatial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_compact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_regular</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_completely_regular</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_zero_dimensional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_localic_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated locale theory example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.locale_type">
+<span class="sig-name descname"><span class="pre">locale_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.locale_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.is_spatial">
+<span class="sig-name descname"><span class="pre">is_spatial</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.is_spatial" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.is_compact">
+<span class="sig-name descname"><span class="pre">is_compact</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.is_compact" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.is_regular">
+<span class="sig-name descname"><span class="pre">is_regular</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.is_regular" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.is_completely_regular">
+<span class="sig-name descname"><span class="pre">is_completely_regular</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.is_completely_regular" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.is_zero_dimensional">
+<span class="sig-name descname"><span class="pre">is_zero_dimensional</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.is_zero_dimensional" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.is_localic_group">
+<span class="sig-name descname"><span class="pre">is_localic_group</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.is_localic_group" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.locale_theory.LocaleProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.locale_theory.LocaleProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.get_named_locale_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">get_named_locale_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.locale_theory.LocaleProfile" title="pytop.locale_theory.LocaleProfile"><span class="pre">LocaleProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.locale_theory.get_named_locale_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical locale theory examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.locale_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">locale_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.locale_theory.locale_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.locale_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">locale_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.locale_theory.locale_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.locale_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">locale_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.locale_theory.locale_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from locale_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.is_spatial_locale">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">is_spatial_locale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.locale_theory.is_spatial_locale" title="Link to this definition"></a></dt>
+<dd><p>Check whether the locale associated to space is spatial (has enough points).</p>
+<p>A locale L is spatial if the canonical surjection Omega(pt(L)) -&gt; L is an
+isomorphism. Equivalently, L has enough frame homomorphisms L -&gt; {0,1} to
+distinguish its elements. Key facts:
+- Omega(X) is spatial iff X is sober (the unit X -&gt; pt(Omega(X)) is a homeomorphism).
+- Every Hausdorff (T2) space is sober, hence Omega(X) is spatial.
+- Every metrizable space is sober (metrizable =&gt; T2 =&gt; sober).
+- The measure algebra locale B(R)/N is NOT spatial: no ‘random reals’ exist</p>
+<blockquote>
+<div><p>constructively, and classically their existence requires the ultrafilter lemma.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>In ZFC, every compact regular locale is spatial; constructively this fails.</p></li>
+<li><p>Localic groups are always spatial (Isbell’s density theorem).</p></li>
+</ul>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘spatial_locale’ / ‘sober’ / ‘sober_space’ tag -&gt; true.</p></li>
+<li><p>Hausdorff / metrizable / compact Hausdorff (T2 =&gt; sober =&gt; spatial) -&gt; true.</p></li>
+<li><p>Stone space / profinite / tychonoff -&gt; true.</p></li>
+<li><p>Localic group (Isbell’s density theorem: localic groups are spatial) -&gt; true.</p></li>
+<li><p>Non-spatial / no-classical-points / measure-algebra -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.is_compact_locale">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">is_compact_locale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.locale_theory.is_compact_locale" title="Link to this definition"></a></dt>
+<dd><p>Check whether the locale is compact.</p>
+<p>A locale L is compact if every directed open cover has a finite subcover:
+equivalently, the top element of the frame is inaccessible by directed joins
+of proper elements. In frame terms: 1 = big-join S implies 1 in S_finite for
+some finite S_finite ⊆ S. Key facts:
+- Omega(X) is compact iff X is compact.
+- Complete Boolean algebras give compact locales (Stone locales).
+- The Stone-Cech compactification of a Tychonoff space is compact regular.
+- Compact locales need not be spatial (the measure algebra locale).</p>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘compact_locale’ / ‘compact’ / ‘compact_hausdorff’ tag -&gt; true.</p></li>
+<li><p>Stone locale / Boolean locale / profinite (compact by definition) -&gt; true.</p></li>
+<li><p>Measure algebra (complete Boolean algebra =&gt; compact locale) -&gt; true.</p></li>
+<li><p>‘non_compact_locale’ / real-line-like tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.is_regular_locale">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">is_regular_locale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.locale_theory.is_regular_locale" title="Link to this definition"></a></dt>
+<dd><p>Check whether the locale is regular.</p>
+<p>A locale L is regular if every element a in L satisfies a = join{b : b &lt;&lt; a},
+where b &lt;&lt; a (b is well-inside a) means b* v a = 1 (the pseudocomplement
+b* = join{c : b ^ c = 0} satisfies b* v a = 1). Key facts:
+- Every Hausdorff space gives a regular locale (T3 spaces satisfy the condition).
+- Every compact Hausdorff locale is regular.
+- Complete Boolean algebras give regular locales (every Boolean algebra is regular).
+- T0 but non-T1 spaces (e.g., Sierpinski) give non-regular locales.</p>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘regular_locale’ tag -&gt; true.</p></li>
+<li><p>Compact Hausdorff / metrizable -&gt; true.</p></li>
+<li><p>Stone locale / Boolean algebra -&gt; true.</p></li>
+<li><p>‘not_regular_locale’ / ‘t0_not_t1’ / ‘sierpinski_locale’ -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.is_stone_locale">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">is_stone_locale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.locale_theory.is_stone_locale" title="Link to this definition"></a></dt>
+<dd><p>Check whether the locale is a Stone locale (compact zero-dimensional regular).</p>
+<p>A Stone locale is a compact, regular, zero-dimensional locale — one whose
+complemented elements form a generating set (base). Key facts:
+- Stone duality for locales: Stone Loc ≃ Bool^op (Johnstone 1982).
+- Every Boolean algebra B gives a Stone locale Idl(B) (the frame of ideals).
+- Spatial Stone locales are exactly the Stone spaces (compact T.D. Hausdorff).
+- The measure algebra B(R)/N gives a non-spatial Stone locale.
+- Connected locales (like [0,1] or R) are NOT Stone (no non-trivial clopen base).</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘stone_locale’ / ‘boolean_locale’ tag -&gt; true.</p></li>
+<li><p>Stone space / profinite -&gt; true (spatial Stone locales).</p></li>
+<li><p>Complete Boolean algebra / measure algebra -&gt; true (possibly non-spatial).</p></li>
+<li><p>‘connected_nontrivial’ / ‘not_zero_dimensional’ -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.is_localic_group">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">is_localic_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.locale_theory.is_localic_group" title="Link to this definition"></a></dt>
+<dd><p>Check whether space carries the structure of a localic group.</p>
+<p>A localic group is a group object in the category Loc of locales: a locale L
+equipped with localic maps m: L x L -&gt; L (multiplication), i: L -&gt; L (inversion),
+and e: 1 -&gt; L (unit) satisfying the group axioms. Key facts:
+- Every sober topological group gives a localic group via Omega(-).
+- Isbell’s density theorem: every localic group is spatial — the space of</p>
+<blockquote>
+<div><p>points pt(L) carries a canonical topological group structure, recovering L.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Hence the category of localic groups is equivalent to the category of sober
+topological groups (which in the Hausdorff case equals all topological groups).</p></li>
+<li><p>Locally compact localic groups = locally compact Hausdorff topological groups.</p></li>
+</ul>
+<section id="id4">
+<h2>Decision layers<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘localic_group’ / ‘group_object_in_loc’ tag -&gt; true.</p></li>
+<li><p>Sober topological group (Isbell: its Omega is a localic group) -&gt; true.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.classify_locale">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">classify_locale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.locale_theory.classify_locale" title="Link to this definition"></a></dt>
+<dd><p>Classify the locale type of space.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>locale_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;non_spatial&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;stone&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;localic_group&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;compact_regular&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;spatial&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_spatial_locale : Result
+is_compact_locale : Result
+is_regular_locale : Result
+is_stone_locale : Result
+is_localic_group : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.locale_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">locale_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.locale_theory.locale_profile" title="Link to this definition"></a></dt>
+<dd><p>Full locale theory profile combining classification and named examples.</p>
+<section id="id5">
+<h2>Keys<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.locale_theory.classify_locale" title="pytop.locale_theory.classify_locale"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_locale()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[LocaleProfile, …]</span></dt><dd><p>Registry of canonical locale theory examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.frame_from_finite_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">frame_from_finite_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.locale_theory.frame_from_finite_topology" title="Link to this definition"></a></dt>
+<dd><p>Build and validate the frame (lattice of opens) of a finite topology.</p>
+<p>The frame of (X, τ) is the complete lattice τ under inclusion, with meets
+= finite intersections and joins = arbitrary unions.  For finite spaces
+(where τ is finite) this coincides with closure under all intersections
+and unions.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>open_sets:</dt><dd><p>List of open sets as frozensets.  Must be closed under ∩ and ∪.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>list[frozenset[Any]]</dt><dd><p>Sorted frame elements (by size, then lex on reprs).</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h2>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If the family is not closed under binary intersection or union.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Sierpiński topology on {0, 1}:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tau</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame_from_finite_topology</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span>
+<span class="go">[frozenset(), frozenset({1}), frozenset({0, 1})]</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.pseudocomplement_in_frame">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">pseudocomplement_in_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.locale_theory.pseudocomplement_in_frame" title="Link to this definition"></a></dt>
+<dd><p>Return the pseudocomplement b* of b in the frame.</p>
+<p>b* = ∨{c ∈ τ : b ∩ c = ∅} = ∪{c ∈ τ : c disjoint from b}.
+In a spatial frame, b* is the largest open set disjoint from b.</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>open_sets:</dt><dd><p>Frame elements.</p>
+</dd>
+<dt>b:</dt><dd><p>An open set (element of the frame).</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>frozenset[Any]</p>
+</section>
+<section id="id8">
+<h2>Examples<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tau</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pseudocomplement_in_frame</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}))</span>
+<span class="go">frozenset()</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.well_inside_relation">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">well_inside_relation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.locale_theory.well_inside_relation" title="Link to this definition"></a></dt>
+<dd><p>Compute the well-inside relation &lt;&lt; on the frame.</p>
+<p>b &lt;&lt; a (b is well-inside a) iff b* ∨ a = 1_L, where b* is the
+pseudocomplement of b and 1_L is the top element (= X).
+Equivalently: b* ∪ a = X.</p>
+<p>This is the key relation for frame regularity: L is regular iff
+every a ∈ L equals ∨{b : b &lt;&lt; a}.</p>
+<section id="id9">
+<h2>Parameters<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>open_sets:</dt><dd><p>Frame elements (topology).</p>
+</dd>
+</dl>
+</section>
+<section id="id10">
+<h2>Returns<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<p>dict mapping (b, a) -&gt; bool for all frame pairs.</p>
+</section>
+<section id="id11">
+<h2>Examples<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<p>Discrete topology on {0, 1} — every open is well-inside itself:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tau</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wi</span> <span class="o">=</span> <span class="n">well_inside_relation</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wi</span><span class="p">[(</span><span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}))]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.is_regular_frame">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">is_regular_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.locale_theory.is_regular_frame" title="Link to this definition"></a></dt>
+<dd><p>Check whether the frame is regular.</p>
+<p>A frame L is regular iff every a ∈ L equals ∨{b ∈ L : b &lt;&lt; a}.
+Topologically: the topology τ is regular as a locale iff every open
+set is a union of open sets well-inside it.
+T₃ (regular Hausdorff) spaces have regular frames; finite T₁ spaces
+have regular frames only if they are discrete.</p>
+<section id="id12">
+<h2>Parameters<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>open_sets:</dt><dd><p>Frame elements (topology).</p>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h2>Returns<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<p>bool</p>
+</section>
+<section id="id14">
+<h2>Examples<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
+<p>Discrete topology is regular:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tau</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_regular_frame</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Sierpiński topology is not regular (the open {1} is not well-inside itself):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tau</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_regular_frame</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.locale_theory.is_spatial_finite_frame">
+<span class="sig-prename descclassname"><span class="pre">pytop.locale_theory.</span></span><span class="sig-name descname"><span class="pre">is_spatial_finite_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.locale_theory.is_spatial_finite_frame" title="Link to this definition"></a></dt>
+<dd><p>Check whether the frame is spatial (has enough points).</p>
+<p>A locale L is spatial if distinct frame elements are separated by
+frame homomorphisms L → {0,1} (the ‘points’ of L).  For a topology
+τ on a set X, the points are exactly the elements of X, and the frame
+Ω(X) is always spatial: distinct opens a ≠ b with a ⊄ b are
+separated by any x ∈ a b.</p>
+<p>For finite topological spaces given as concrete set systems, the frame
+is always spatial (the underlying points separate elements).  This
+function confirms this and also checks that the empty set is in the
+frame (needed for full locale axioms).</p>
+<section id="id15">
+<h2>Parameters<a class="headerlink" href="#id15" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>open_sets:</dt><dd><p>Frame elements (topology).</p>
+</dd>
+</dl>
+</section>
+<section id="id16">
+<h2>Returns<a class="headerlink" href="#id16" title="Link to this heading"></a></h2>
+<p>bool</p>
+</section>
+<section id="id17">
+<h2>Examples<a class="headerlink" href="#id17" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tau</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_spatial_finite_frame</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

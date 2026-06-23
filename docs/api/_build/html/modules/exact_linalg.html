@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exact Linalg &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Exact Linalg</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/exact_linalg.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.exact_linalg">
+<span id="exact-linalg"></span><h1>Exact Linalg<a class="headerlink" href="#module-pytop.exact_linalg" title="Link to this heading"></a></h1>
+<p>Exact integer linear algebra: Smith normal form, rank, determinant, cokernel.</p>
+<p>Pure-Python and exact (no floating point). These primitives back pytop’s
+homology, Dehn-surgery and Alexander engines; exposing them as a small public
+core lets you compute the homology of your own integer chain complexes, the
+order of a presented abelian group, or an exact determinant directly — and keeps
+a single, well-tested implementation behind all of them.</p>
+<p>Two independent exact routes meet here as a built-in cross-check: the rank and
+torsion come from the <strong>Smith normal form</strong>, while <a class="reference internal" href="#pytop.exact_linalg.integer_determinant" title="pytop.exact_linalg.integer_determinant"><code class="xref py py-func docutils literal notranslate"><span class="pre">integer_determinant()</span></code></a>
+uses fraction-free <strong>Bareiss</strong> elimination; for a full-rank square matrix the
+determinant equals <code class="docutils literal notranslate"><span class="pre">±</span> <span class="pre">∏</span></code> of the invariant factors.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.exact_linalg.AbelianGroup">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.exact_linalg.</span></span><span class="sig-name descname"><span class="pre">AbelianGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">free_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">torsion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.exact_linalg.AbelianGroup" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A finitely generated abelian group <code class="docutils literal notranslate"><span class="pre">ℤ^{free_rank}</span> <span class="pre">⊕</span> <span class="pre">⊕</span> <span class="pre">ℤ/dᵢ</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">torsion</span></code> lists the invariant factors <code class="docutils literal notranslate"><span class="pre">dᵢ</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> with <code class="docutils literal notranslate"><span class="pre">d₁</span> <span class="pre">|</span> <span class="pre">d₂</span> <span class="pre">|</span> <span class="pre">…</span></code>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.exact_linalg.AbelianGroup.free_rank">
+<span class="sig-name descname"><span class="pre">free_rank</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.exact_linalg.AbelianGroup.free_rank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.exact_linalg.AbelianGroup.torsion">
+<span class="sig-name descname"><span class="pre">torsion</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></span><a class="headerlink" href="#pytop.exact_linalg.AbelianGroup.torsion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.exact_linalg.AbelianGroup.order">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">order</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.exact_linalg.AbelianGroup.order" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">|G|</span></code> if finite (<code class="docutils literal notranslate"><span class="pre">free_rank</span> <span class="pre">==</span> <span class="pre">0</span></code>), else <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.exact_linalg.AbelianGroup.is_trivial">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_trivial</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.exact_linalg.AbelianGroup.is_trivial" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.exact_linalg.smith_normal_form">
+<span class="sig-prename descclassname"><span class="pre">pytop.exact_linalg.</span></span><span class="sig-name descname"><span class="pre">smith_normal_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.exact_linalg.smith_normal_form" title="Link to this definition"></a></dt>
+<dd><p>Return the positive invariant factors <code class="docutils literal notranslate"><span class="pre">[d₁,</span> <span class="pre">…,</span> <span class="pre">d_r]</span></code> of an integer matrix.</p>
+<p>They satisfy <code class="docutils literal notranslate"><span class="pre">d₁</span> <span class="pre">|</span> <span class="pre">d₂</span> <span class="pre">|</span> <span class="pre">…</span> <span class="pre">|</span> <span class="pre">d_r</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> equals the rank; entries equal
+to one are retained, so <code class="docutils literal notranslate"><span class="pre">rank</span> <span class="pre">=</span> <span class="pre">len(result)</span></code> and the torsion coefficients
+are <code class="docutils literal notranslate"><span class="pre">[d</span> <span class="pre">for</span> <span class="pre">d</span> <span class="pre">in</span> <span class="pre">result</span> <span class="pre">if</span> <span class="pre">d</span> <span class="pre">&gt;</span> <span class="pre">1]</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.exact_linalg.smith_normal_form_extended">
+<span class="sig-prename descclassname"><span class="pre">pytop.exact_linalg.</span></span><span class="sig-name descname"><span class="pre">smith_normal_form_extended</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.exact_linalg.smith_normal_form_extended" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">(factors,</span> <span class="pre">P,</span> <span class="pre">Q)</span></code> such that <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">&#64;</span> <span class="pre">matrix</span> <span class="pre">&#64;</span> <span class="pre">Q</span></code> is in Smith normal form.</p>
+<p>The unimodular integer matrices <code class="docutils literal notranslate"><span class="pre">P</span></code> (rows×rows) and <code class="docutils literal notranslate"><span class="pre">Q</span></code> (cols×cols) satisfy
+<code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">&#64;</span> <span class="pre">matrix</span> <span class="pre">&#64;</span> <span class="pre">Q</span> <span class="pre">=</span> <span class="pre">diag(d₁,</span> <span class="pre">…,</span> <span class="pre">d_r,</span> <span class="pre">0,</span> <span class="pre">…,</span> <span class="pre">0)</span></code> where <code class="docutils literal notranslate"><span class="pre">[d₁,</span> <span class="pre">…,</span> <span class="pre">d_r]</span></code> is
+exactly the output of <a class="reference internal" href="#pytop.exact_linalg.smith_normal_form" title="pytop.exact_linalg.smith_normal_form"><code class="xref py py-func docutils literal notranslate"><span class="pre">smith_normal_form()</span></code></a>.  Both <code class="docutils literal notranslate"><span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">Q</span></code> have
+integer determinant ±1, so the decomposition is exact over ℤ.</p>
+<p>This extended form is needed to:</p>
+<ul class="simple">
+<li><p>Express homology bases in terms of the original simplices.</p></li>
+<li><p>Solve integer linear systems <code class="docutils literal notranslate"><span class="pre">Ax</span> <span class="pre">=</span> <span class="pre">b</span></code> over ℤ.</p></li>
+<li><p>Lift cokernel generators to explicit group elements.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.exact_linalg.integer_rank">
+<span class="sig-prename descclassname"><span class="pre">pytop.exact_linalg.</span></span><span class="sig-name descname"><span class="pre">integer_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.exact_linalg.integer_rank" title="Link to this definition"></a></dt>
+<dd><p>Return the rank of an integer matrix (the number of invariant factors).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.exact_linalg.integer_determinant">
+<span class="sig-prename descclassname"><span class="pre">pytop.exact_linalg.</span></span><span class="sig-name descname"><span class="pre">integer_determinant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.exact_linalg.integer_determinant" title="Link to this definition"></a></dt>
+<dd><p>Return the determinant of a square integer matrix.</p>
+<p>Uses fraction-free <strong>Bareiss</strong> elimination — every intermediate quotient is
+exact, so the result is an exact integer with no overflow or rounding.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.exact_linalg.cokernel">
+<span class="sig-prename descclassname"><span class="pre">pytop.exact_linalg.</span></span><span class="sig-name descname"><span class="pre">cokernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.exact_linalg.AbelianGroup" title="pytop.exact_linalg.AbelianGroup"><span class="pre">AbelianGroup</span></a></span></span><a class="headerlink" href="#pytop.exact_linalg.cokernel" title="Link to this definition"></a></dt>
+<dd><p>Return the cokernel <code class="docutils literal notranslate"><span class="pre">ℤ^{cols}</span> <span class="pre">/</span> <span class="pre">(row</span> <span class="pre">lattice)</span></code> as an <a class="reference internal" href="#pytop.exact_linalg.AbelianGroup" title="pytop.exact_linalg.AbelianGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbelianGroup</span></code></a>.</p>
+<p>The rows of <code class="docutils literal notranslate"><span class="pre">matrix</span></code> are read as relations among <code class="docutils literal notranslate"><span class="pre">cols</span></code> generators (the
+standard presentation of a finitely generated abelian group).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.exact_linalg.cokernel_generators">
+<span class="sig-prename descclassname"><span class="pre">pytop.exact_linalg.</span></span><span class="sig-name descname"><span class="pre">cokernel_generators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.exact_linalg.AbelianGroup" title="pytop.exact_linalg.AbelianGroup"><span class="pre">AbelianGroup</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.exact_linalg.cokernel_generators" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">(group,</span> <span class="pre">generators)</span></code> for the cokernel <code class="docutils literal notranslate"><span class="pre">ℤ^n</span> <span class="pre">/</span> <span class="pre">im(matrix)</span></code>.</p>
+<p>The rows of <code class="docutils literal notranslate"><span class="pre">matrix</span></code> present relations among <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">cols</span></code> generators.
+This function returns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">group</span></code>:      the same <a class="reference internal" href="#pytop.exact_linalg.AbelianGroup" title="pytop.exact_linalg.AbelianGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbelianGroup</span></code></a> as <a class="reference internal" href="#pytop.exact_linalg.cokernel" title="pytop.exact_linalg.cokernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">cokernel()</span></code></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">generators</span></code>: a list of integer vectors in <code class="docutils literal notranslate"><span class="pre">ℤ^n</span></code>, one per summand of
+<code class="docutils literal notranslate"><span class="pre">group</span></code>, ordered as <code class="docutils literal notranslate"><span class="pre">[free</span> <span class="pre">generators…,</span> <span class="pre">torsion</span> <span class="pre">generators…]</span></code>.
+Each free generator <code class="docutils literal notranslate"><span class="pre">g</span></code> satisfies <code class="docutils literal notranslate"><span class="pre">matrix</span> <span class="pre">&#64;</span> <span class="pre">g</span> <span class="pre">≡</span> <span class="pre">0</span> <span class="pre">(mod</span> <span class="pre">1)</span></code> (i.e. lies
+in the kernel of the map <code class="docutils literal notranslate"><span class="pre">ℤ^n</span> <span class="pre">→</span> <span class="pre">ℤ^m</span></code> encoded by <code class="docutils literal notranslate"><span class="pre">matrix</span></code>).
+Each torsion generator <code class="docutils literal notranslate"><span class="pre">g_i</span></code> has order <code class="docutils literal notranslate"><span class="pre">d_i</span></code> in the cokernel (i.e.
+<code class="docutils literal notranslate"><span class="pre">d_i</span> <span class="pre">·</span> <span class="pre">g_i</span></code> is in the image of <code class="docutils literal notranslate"><span class="pre">matrix</span></code>).</p></li>
+</ul>
+<p>The generators are the columns of <code class="docutils literal notranslate"><span class="pre">Q⁻¹</span></code> (the inverse right-transformation
+matrix from the extended Smith normal form) corresponding to the non-unit
+and zero diagonal positions.</p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="p">,</span> <span class="n">gens</span> <span class="o">=</span> <span class="n">cokernel_generators</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+<span class="go">&#39;Z/2 + Z/6&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">gens</span><span class="p">)</span>   <span class="c1"># one torsion generator per summand</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tda Pipeline &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Knot Invariants" href="knot_invariants.html" />
+    <link rel="prev" title="Mapper" href="mapper.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tda Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline"><code class="docutils literal notranslate"><span class="pre">TDAPipeline</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.filtered"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.filtered</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.computed_pairs"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.computed_pairs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.from_points"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.from_points()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.from_filtration"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.from_filtration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.rips"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.rips()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.cech"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.cech()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.reduce"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.reduce()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.compare_primes"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.compare_primes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.pairs"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.pairs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.barcode"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.barcode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.diagram"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.diagram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.landscape"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.landscape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.entropy"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.entropy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.bottleneck"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.bottleneck()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.wasserstein"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.wasserstein()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.summary"><code class="docutils literal notranslate"><span class="pre">TDAPipeline.summary()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tda Pipeline</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/tda_pipeline.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.tda_pipeline">
+<span id="tda-pipeline"></span><h1>Tda Pipeline<a class="headerlink" href="#module-pytop.tda_pipeline" title="Link to this heading"></a></h1>
+<p>High-level TDA pipeline that composes filtration, reduction, and analysis.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TDAPipeline</span></code> is an immutable builder: each method returns a new instance
+with updated state.  This lets you write concise multi-step analyses:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.tda_pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">TDAPipeline</span>
+
+<span class="c1"># Rips filtration → standard Z/2 reduction → barcode</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">TDAPipeline</span><span class="o">.</span><span class="n">from_points</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span><span class="o">.</span><span class="n">rips</span><span class="p">(</span><span class="n">max_dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reduce</span><span class="p">()</span>
+<span class="n">bars</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">barcode</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Čech filtration → cohomology reduction → diagram</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">TDAPipeline</span><span class="o">.</span><span class="n">from_points</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span><span class="o">.</span><span class="n">cech</span><span class="p">(</span><span class="n">max_scale</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="s2">&quot;cohomology&quot;</span><span class="p">)</span>
+<span class="n">diag</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">diagram</span><span class="p">()</span>
+
+<span class="c1"># Multi-prime torsion detection</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">TDAPipeline</span><span class="o">.</span><span class="n">from_points</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span><span class="o">.</span><span class="n">rips</span><span class="p">(</span><span class="n">max_dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">compare_primes</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+<section id="public-api">
+<h2>Public API<a class="headerlink" href="#public-api" title="Link to this heading"></a></h2>
+<p>TDAPipeline        — main pipeline class</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.tda_pipeline.</span></span><span class="sig-name descname"><span class="pre">TDAPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><span class="pre">FilteredComplex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">computed_pairs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Immutable TDA pipeline.  Build it step by step; each call returns a new
+instance with updated state.</p>
+<p>Typical workflow:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipe</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">TDAPipeline</span><span class="o">.</span><span class="n">from_points</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">rips</span><span class="p">(</span><span class="n">max_dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_scale</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;twist&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">essential_h1</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pipe</span><span class="o">.</span><span class="n">pairs</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">is_essential</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">dimension</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>filtered<span class="classifier">FilteredComplex | None</span></dt><dd><p>The filtration, once built.</p>
+</dd>
+<dt>computed_pairs<span class="classifier">tuple[PersistencePair, …] | None</span></dt><dd><p>The persistence pairs, once reduced.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.filtered">
+<span class="sig-name descname"><span class="pre">filtered</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><span class="pre">FilteredComplex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.filtered" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.computed_pairs">
+<span class="sig-name descname"><span class="pre">computed_pairs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.computed_pairs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.from_points">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline" title="pytop.tda_pipeline.TDAPipeline"><span class="pre">TDAPipeline</span></a></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.from_points" title="Link to this definition"></a></dt>
+<dd><p>Create a pipeline from a raw point cloud.</p>
+<p>Call <code class="docutils literal notranslate"><span class="pre">.rips()</span></code> or <code class="docutils literal notranslate"><span class="pre">.cech()</span></code> next to build the filtration.</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>points<span class="classifier">Sequence[Sequence[float]]</span></dt><dd><p>A finite point cloud in R^d.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.from_filtration">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_filtration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><span class="pre">FilteredComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline" title="pytop.tda_pipeline.TDAPipeline"><span class="pre">TDAPipeline</span></a></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.from_filtration" title="Link to this definition"></a></dt>
+<dd><p>Create a pipeline from a pre-built <a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">FilteredComplex</span></code></a>.</p>
+<p>Skip filtration and call <code class="docutils literal notranslate"><span class="pre">.reduce()</span></code> directly.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.rips">
+<span class="sig-name descname"><span class="pre">rips</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline" title="pytop.tda_pipeline.TDAPipeline"><span class="pre">TDAPipeline</span></a></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.rips" title="Link to this definition"></a></dt>
+<dd><p>Build a Vietoris-Rips filtration.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>points :</dt><dd><p>The point cloud.  Required if this pipeline was created with
+<code class="docutils literal notranslate"><span class="pre">TDAPipeline()</span></code> or <code class="docutils literal notranslate"><span class="pre">TDAPipeline.from_points(pts)</span></code> (pass
+<code class="docutils literal notranslate"><span class="pre">pts</span></code> here in the latter case, or pass it to <code class="docutils literal notranslate"><span class="pre">from_points</span></code>
+and call <code class="docutils literal notranslate"><span class="pre">rips()</span></code> without arguments — but then <code class="docutils literal notranslate"><span class="pre">points</span></code> must
+be stored elsewhere; passing it again here is simpler and safer).</p>
+</dd>
+<dt>max_dimension :</dt><dd><p>Maximum simplex dimension.</p>
+</dd>
+<dt>max_scale :</dt><dd><p>Truncate filtration at this scale.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.cech">
+<span class="sig-name descname"><span class="pre">cech</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline" title="pytop.tda_pipeline.TDAPipeline"><span class="pre">TDAPipeline</span></a></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.cech" title="Link to this definition"></a></dt>
+<dd><p>Build a Čech filtration.</p>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>points :</dt><dd><p>The point cloud.</p>
+</dd>
+<dt>max_dimension :</dt><dd><p>Maximum simplex dimension.</p>
+</dd>
+<dt>max_scale :</dt><dd><p>Truncate at this circumradius.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.reduce">
+<span class="sig-name descname"><span class="pre">reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'standard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_zero_persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline" title="pytop.tda_pipeline.TDAPipeline"><span class="pre">TDAPipeline</span></a></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.reduce" title="Link to this definition"></a></dt>
+<dd><p>Run the persistence reduction.</p>
+<section id="id3">
+<h3>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>method :</dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;standard&quot;</span></code> (Z/2 XOR), <code class="docutils literal notranslate"><span class="pre">&quot;twist&quot;</span></code> (Twist+Clearing),
+<code class="docutils literal notranslate"><span class="pre">&quot;cohomology&quot;</span></code> (de Silva dual), <code class="docutils literal notranslate"><span class="pre">&quot;fp&quot;</span></code> (Z/p, requires <code class="docutils literal notranslate"><span class="pre">prime</span></code>).</p>
+</dd>
+<dt>prime :</dt><dd><p>The field characteristic for <code class="docutils literal notranslate"><span class="pre">method=&quot;fp&quot;</span></code>.  Must be prime.
+Ignored for other methods.</p>
+</dd>
+<dt>include_zero_persistence :</dt><dd><p>Whether to include zero-length bars.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>TDAPipeline</dt><dd><p>New pipeline with <a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline.computed_pairs" title="pytop.tda_pipeline.TDAPipeline.computed_pairs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">computed_pairs</span></code></a> populated.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h3>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>RuntimeError</dt><dd><p>If no filtration has been built yet.</p>
+</dd>
+<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">method</span></code> is unrecognised, or if <code class="docutils literal notranslate"><span class="pre">prime</span></code> is not prime
+when <code class="docutils literal notranslate"><span class="pre">method=&quot;fp&quot;</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.compare_primes">
+<span class="sig-name descname"><span class="pre">compare_primes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(2,</span> <span class="pre">3,</span> <span class="pre">5)</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_zero_persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.compare_primes" title="Link to this definition"></a></dt>
+<dd><p>Run reduction for multiple prime fields and return a dict.</p>
+<p>Useful for detecting Z-homology torsion: if the Betti numbers differ
+between two primes, torsion classes are present.</p>
+<section id="id4">
+<h3>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>primes :</dt><dd><p>Sequence of prime integers to use as field characteristics.</p>
+</dd>
+<dt>include_zero_persistence :</dt><dd><p>Passed to each reduction.</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>dict[int, tuple[PersistencePair, …]]</dt><dd><p>Maps each prime to its persistence pairs.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.pairs">
+<span class="sig-name descname"><span class="pre">pairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.pairs" title="Link to this definition"></a></dt>
+<dd><p>Return persistence pairs, optionally restricted to one dimension.</p>
+<section id="id6">
+<h3>Raises<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>RuntimeError</dt><dd><p>If reduction has not been run yet.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.barcode">
+<span class="sig-name descname"><span class="pre">barcode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.barcode" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">(birth,</span> <span class="pre">death)</span></code> bars.</p>
+<section id="id7">
+<h3>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>dimension :</dt><dd><p>If given, restrict to this homological degree.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.diagram">
+<span class="sig-name descname"><span class="pre">diagram</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.diagram" title="Link to this definition"></a></dt>
+<dd><p>Return persistence diagram grouped by dimension.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.landscape">
+<span class="sig-name descname"><span class="pre">landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="persistence_distances.html#pytop.persistence_distances.PersistenceLandscape" title="pytop.persistence_distances.PersistenceLandscape"><span class="pre">PersistenceLandscape</span></a></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.landscape" title="Link to this definition"></a></dt>
+<dd><p>Return the k-th persistence landscape for dimension <code class="docutils literal notranslate"><span class="pre">dimension</span></code>.</p>
+<section id="id8">
+<h3>Parameters<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>dimension :</dt><dd><p>Homological degree.</p>
+</dd>
+<dt>k :</dt><dd><p>Landscape rank (1-indexed).</p>
+</dd>
+<dt>num_points :</dt><dd><p>Number of grid points.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.entropy">
+<span class="sig-name descname"><span class="pre">entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.entropy" title="Link to this definition"></a></dt>
+<dd><p>Return persistence entropy (Shannon entropy of bar lengths).</p>
+<section id="id9">
+<h3>Parameters<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>dimension :</dt><dd><p>If given, restrict to this degree before computing entropy.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.bottleneck">
+<span class="sig-name descname"><span class="pre">bottleneck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline" title="pytop.tda_pipeline.TDAPipeline"><span class="pre">TDAPipeline</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.bottleneck" title="Link to this definition"></a></dt>
+<dd><p>Bottleneck distance to <code class="docutils literal notranslate"><span class="pre">other</span></code>’s persistence pairs.</p>
+<section id="id10">
+<h3>Parameters<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>other :</dt><dd><p>Another <a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline" title="pytop.tda_pipeline.TDAPipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">TDAPipeline</span></code></a> (must have pairs) or a raw
+<code class="docutils literal notranslate"><span class="pre">tuple[PersistencePair,</span> <span class="pre">...]</span></code>.</p>
+</dd>
+<dt>dimension :</dt><dd><p>Restrict both barcodes to this degree before computing.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.wasserstein">
+<span class="sig-name descname"><span class="pre">wasserstein</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.tda_pipeline.TDAPipeline" title="pytop.tda_pipeline.TDAPipeline"><span class="pre">TDAPipeline</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.wasserstein" title="Link to this definition"></a></dt>
+<dd><p>p-Wasserstein distance to <code class="docutils literal notranslate"><span class="pre">other</span></code>’s persistence pairs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.tda_pipeline.TDAPipeline.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.tda_pipeline.TDAPipeline.summary" title="Link to this definition"></a></dt>
+<dd><p>Return a human-readable summary of the pipeline state.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mapper.html" class="btn btn-neutral float-left" title="Mapper" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="knot_invariants.html" class="btn btn-neutral float-right" title="Knot Invariants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

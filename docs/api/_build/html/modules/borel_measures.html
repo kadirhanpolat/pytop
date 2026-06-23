@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Borel Measures &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Borel Measures</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/borel_measures.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.borel_measures">
+<span id="borel-measures"></span><h1>Borel Measures<a class="headerlink" href="#module-pytop.borel_measures" title="Link to this heading"></a></h1>
+<p>Borel measures, Radon measures, regularity, and Riesz representation.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>A Borel measure on a topological space X is a measure defined on the Borel
+sigma-algebra B(X) generated by the open sets of X.</p></li>
+<li><p>A Radon measure is a Borel measure that is locally finite (every point has a
+neighbourhood of finite measure) and inner regular (mu(A) = sup{mu(K) : K compact, K subset A}).</p></li>
+<li><p>Riesz-Markov-Kakutani representation theorem: for a compact Hausdorff space X,
+every positive linear functional L on C(X) is represented by a unique regular
+Borel measure mu such that L(f) = integral f d-mu.</p></li>
+<li><p>Regularity: a Borel measure is outer regular if mu(A) = inf{mu(U) : U open, A subset U}
+and inner regular if mu(A) = sup{mu(K) : K compact, K subset A}.</p></li>
+<li><p>Haar measure: every locally compact topological group G admits a left-invariant
+Radon measure (Haar measure), unique up to a positive scalar multiple.</p></li>
+<li><p>On compact groups, the Haar measure can be normalised to a probability measure.</p></li>
+<li><p>The Lebesgue measure on R^n is translation-invariant, regular, non-atomic, and sigma-finite.</p></li>
+<li><p>The Dirac measure delta_x is a probability measure supported at {x}; it is atomic and Radon.</p></li>
+<li><p>The Cantor measure (Devil’s staircase measure) is supported on the Cantor set,
+is non-atomic, and is singular with respect to the Lebesgue measure.</p></li>
+<li><p>On a locally compact Hausdorff space, every Radon measure is regular.</p></li>
+<li><p>The counting measure on an uncountable discrete space is NOT locally finite, hence not Radon.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">BorelMeasureProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_radon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_regular</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_atomic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_sigma_finite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">support_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated Borel measure example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.measure_type">
+<span class="sig-name descname"><span class="pre">measure_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.measure_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.is_radon">
+<span class="sig-name descname"><span class="pre">is_radon</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.is_radon" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.is_regular">
+<span class="sig-name descname"><span class="pre">is_regular</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.is_regular" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.is_atomic">
+<span class="sig-name descname"><span class="pre">is_atomic</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.is_atomic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.is_sigma_finite">
+<span class="sig-name descname"><span class="pre">is_sigma_finite</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.is_sigma_finite" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.support_type">
+<span class="sig-name descname"><span class="pre">support_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.support_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.borel_measures.BorelMeasureProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.borel_measures.BorelMeasureProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.get_named_borel_measure_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">get_named_borel_measure_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.borel_measures.BorelMeasureProfile" title="pytop.borel_measures.BorelMeasureProfile"><span class="pre">BorelMeasureProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.borel_measures.get_named_borel_measure_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical Borel measure examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.borel_measure_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">borel_measure_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.borel_measures.borel_measure_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.borel_measure_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">borel_measure_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.borel_measures.borel_measure_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.borel_measure_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">borel_measure_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.borel_measures.borel_measure_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from measure_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.is_radon_measure">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">is_radon_measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.borel_measures.is_radon_measure" title="Link to this definition"></a></dt>
+<dd><p>Check whether the measure on space is a Radon measure.</p>
+<p>A Radon measure on a topological space X is a Borel measure mu that is:
+(i)  locally finite: every point x has a neighbourhood U with mu(U) &lt; inf,
+(ii) inner regular: mu(A) = sup{mu(K) : K subset A, K compact} for all Borel A.
+Key facts:
+- On a compact Hausdorff space, every finite Borel measure is Radon.
+- On a locally compact Hausdorff space, every regular Borel measure is Radon.
+- The Lebesgue, Dirac, Haar, and Gaussian measures are all Radon.
+- The counting measure on an uncountable discrete space is NOT Radon</p>
+<blockquote>
+<div><p>(fails local finiteness: every open set {x} has measure 1, but R is uncountable).</p>
+</div></blockquote>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit Radon / Dirac / Lebesgue / Haar / Gaussian tag -&gt; true.</p></li>
+<li><p>Compact Hausdorff space (finite Borel measures are Radon) -&gt; true.</p></li>
+<li><p>Locally compact Hausdorff + regular Borel measure -&gt; true.</p></li>
+<li><p>Counting measure on uncountable space -&gt; false.</p></li>
+<li><p>Explicit not-Radon tag -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.is_regular_measure">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">is_regular_measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.borel_measures.is_regular_measure" title="Link to this definition"></a></dt>
+<dd><p>Check whether the measure on space is regular (outer and inner regular).</p>
+<p>A Borel measure mu on a topological space X is:
+- Outer regular: mu(A) = inf{mu(U) : U open, A subset U} for all Borel A.
+- Inner regular: mu(A) = sup{mu(K) : K compact, K subset A} for all Borel A.
+- Regular: both outer and inner regular.
+Key facts:
+- On a locally compact Hausdorff space, every Radon measure is regular.
+- The Lebesgue, Dirac, Haar, and Gaussian measures are all regular.
+- On a compact metric space, every Borel probability measure is regular</p>
+<blockquote>
+<div><p>(Prokhorov / Ulam’s theorem).</p>
+</div></blockquote>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit regular measure tags -&gt; true.</p></li>
+<li><p>Radon measure on locally compact Hausdorff space -&gt; true.</p></li>
+<li><p>Compact metric space (Ulam’s theorem) -&gt; true.</p></li>
+<li><p>Explicit not-regular tag -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.riesz_representation_applies">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">riesz_representation_applies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.borel_measures.riesz_representation_applies" title="Link to this definition"></a></dt>
+<dd><p>Check whether the Riesz-Markov-Kakutani representation theorem applies.</p>
+<p>The Riesz-Markov-Kakutani theorem: for a locally compact Hausdorff space X,
+every positive linear functional L on C_c(X) (continuous functions with compact
+support) is represented by a unique regular Borel measure mu such that
+L(f) = integral f d-mu for all f in C_c(X).
+For compact Hausdorff X: C_c(X) = C(X) and the dual C(X)* is exactly the
+space of signed regular Borel measures (by the full Riesz theorem).
+Key facts:
+- Compact Hausdorff: C(X)* cong M(X) (regular Borel measures).
+- Locally compact Hausdorff: C_c(X) functionals &lt;- regular Borel measures.
+- Non-Hausdorff spaces: the theorem fails in general.</p>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Compact Hausdorff -&gt; true (full Riesz theorem for C(X)*).</p></li>
+<li><p>Locally compact Hausdorff -&gt; true (Riesz for C_c(X)).</p></li>
+<li><p>Non-Hausdorff / not T2 -&gt; false.</p></li>
+<li><p>Infinite-dimensional without local compactness -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.has_haar_measure">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">has_haar_measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.borel_measures.has_haar_measure" title="Link to this definition"></a></dt>
+<dd><p>Check whether space (as a topological group) admits a Haar measure.</p>
+<p>Every locally compact topological group G admits a left Haar measure: a
+non-zero left-invariant Radon measure, unique up to a positive scalar multiple.
+Key facts:
+- Compact groups: normalised Haar measure is also a probability measure.
+- Discrete groups: Haar measure is the counting measure.
+- R^n (additive): Haar measure is the Lebesgue measure.
+- Infinite-dimensional topological groups (e.g., Hilbert spaces) generally</p>
+<blockquote>
+<div><p>do NOT admit a Haar measure (no sigma-finite translation-invariant measure
+exists on infinite-dimensional Banach spaces).</p>
+</div></blockquote>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit Haar measure tag -&gt; true.</p></li>
+<li><p>Locally compact topological group (including compact groups) -&gt; true.</p></li>
+<li><p>Discrete group (counting measure is Haar) -&gt; true.</p></li>
+<li><p>Locally compact abelian group -&gt; true.</p></li>
+<li><p>Infinite-dimensional Banach / Hilbert / Frechet (not locally compact) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.measure_support_is_compact">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">measure_support_is_compact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.borel_measures.measure_support_is_compact" title="Link to this definition"></a></dt>
+<dd><p>Check whether the support of the measure is compact.</p>
+<p>The support of a Borel measure mu on X is the smallest closed set F such that
+mu(X F) = 0. Equivalently, x is in supp(mu) iff every open neighbourhood
+of x has positive measure. Key facts:
+- Dirac measure delta_x: support = {x} (compact).
+- Measure on a compact space: support subset of compact space -&gt; compact.
+- Lebesgue measure on R: support = R (not compact).
+- Gaussian measure on R^n: support = R^n (not compact).
+- Cantor measure: support = Cantor set C (compact).
+- Counting measure on Z: support = Z (not compact).</p>
+<section id="id4">
+<h2>Decision layers<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Dirac measure (support = singleton) -&gt; true.</p></li>
+<li><p>Measure on compact space (support subset compact) -&gt; true.</p></li>
+<li><p>Compactly supported measure tag -&gt; true.</p></li>
+<li><p>Cantor measure (support = Cantor set, compact) -&gt; true.</p></li>
+<li><p>Lebesgue / Gaussian / Haar on R^n (support = R^n, not compact) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.classify_borel_measure">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">classify_borel_measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.borel_measures.classify_borel_measure" title="Link to this definition"></a></dt>
+<dd><p>Classify the Borel measure properties of space.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>measure_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;radon_regular&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;radon&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;regular&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;finite_borel&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;borel&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;not_radon&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_radon : Result
+is_regular : Result
+riesz_applicable : Result
+has_haar : Result
+support_compact : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.borel_measures.borel_measure_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.borel_measures.</span></span><span class="sig-name descname"><span class="pre">borel_measure_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.borel_measures.borel_measure_profile" title="Link to this definition"></a></dt>
+<dd><p>Full Borel measure profile combining classification and named examples.</p>
+<section id="id5">
+<h2>Keys<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.borel_measures.classify_borel_measure" title="pytop.borel_measures.classify_borel_measure"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_borel_measure()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[BorelMeasureProfile, …]</span></dt><dd><p>Registry of canonical Borel measure examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

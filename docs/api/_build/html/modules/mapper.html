@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapper &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tda Pipeline" href="tda_pipeline.html" />
+    <link rel="prev" title="Persistence Distances" href="persistence_distances.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mapper</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.mapper.IntervalCover"><code class="docutils literal notranslate"><span class="pre">IntervalCover</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.IntervalCover.low"><code class="docutils literal notranslate"><span class="pre">IntervalCover.low</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.IntervalCover.high"><code class="docutils literal notranslate"><span class="pre">IntervalCover.high</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.IntervalCover.num_intervals"><code class="docutils literal notranslate"><span class="pre">IntervalCover.num_intervals</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.IntervalCover.overlap_fraction"><code class="docutils literal notranslate"><span class="pre">IntervalCover.overlap_fraction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.IntervalCover.step"><code class="docutils literal notranslate"><span class="pre">IntervalCover.step</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.IntervalCover.width"><code class="docutils literal notranslate"><span class="pre">IntervalCover.width</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.IntervalCover.intervals"><code class="docutils literal notranslate"><span class="pre">IntervalCover.intervals()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.IntervalCover.interval_for"><code class="docutils literal notranslate"><span class="pre">IntervalCover.interval_for()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.mapper.single_linkage_labels"><code class="docutils literal notranslate"><span class="pre">single_linkage_labels()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.mapper.MapperNode"><code class="docutils literal notranslate"><span class="pre">MapperNode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperNode.interval_index"><code class="docutils literal notranslate"><span class="pre">MapperNode.interval_index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperNode.cluster_index"><code class="docutils literal notranslate"><span class="pre">MapperNode.cluster_index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperNode.members"><code class="docutils literal notranslate"><span class="pre">MapperNode.members</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.mapper.MapperComplex"><code class="docutils literal notranslate"><span class="pre">MapperComplex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperComplex.nodes"><code class="docutils literal notranslate"><span class="pre">MapperComplex.nodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperComplex.simplices"><code class="docutils literal notranslate"><span class="pre">MapperComplex.simplices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperComplex.filter_values"><code class="docutils literal notranslate"><span class="pre">MapperComplex.filter_values</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperComplex.num_nodes"><code class="docutils literal notranslate"><span class="pre">MapperComplex.num_nodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperComplex.num_edges"><code class="docutils literal notranslate"><span class="pre">MapperComplex.num_edges</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperComplex.edges"><code class="docutils literal notranslate"><span class="pre">MapperComplex.edges()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperComplex.adjacency"><code class="docutils literal notranslate"><span class="pre">MapperComplex.adjacency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.mapper.MapperComplex.connected_components"><code class="docutils literal notranslate"><span class="pre">MapperComplex.connected_components()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.mapper.mapper"><code class="docutils literal notranslate"><span class="pre">mapper()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Mapper</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/mapper.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.mapper">
+<span id="mapper"></span><h1>Mapper<a class="headerlink" href="#module-pytop.mapper" title="Link to this heading"></a></h1>
+<p>Mapper algorithm for topological data analysis (Singh–Mémoli–Carlsson 2007).</p>
+<p>The Mapper algorithm constructs a combinatorial summary (simplicial complex or
+graph) of a point cloud with a scalar filter function:</p>
+<ol class="arabic simple">
+<li><p>Apply a filter function f : X → ℝ to the data.</p></li>
+<li><p>Cover f(X) with overlapping intervals (a <em>cover</em> of the image).</p></li>
+<li><p>Pull each interval back: cluster f⁻¹(U_α) ⊂ X independently.</p></li>
+<li><p>Build the <em>nerve</em> of the resulting cover: one node per cluster, edges
+(and higher simplices) where clusters share data points.</p></li>
+</ol>
+<p>The result is a <code class="docutils literal notranslate"><span class="pre">MapperComplex</span></code> — a simplicial complex whose 0-cells are
+clusters and whose higher cells encode shared membership.</p>
+<section id="public-api">
+<h2>Public API<a class="headerlink" href="#public-api" title="Link to this heading"></a></h2>
+<p>IntervalCover          — uniform interval cover of a real range
+MapperNode             — a single cluster (node) in the Mapper graph
+MapperComplex          — the full Mapper output (graph or simplicial complex)
+mapper                 — compute the Mapper simplicial complex
+single_linkage_labels  — simple single-linkage clustering on 1-D data (built-in)</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<p>Singh, G., Mémoli, F., &amp; Carlsson, G. (2007). Topological methods for the
+analysis of high dimensional data sets and 3D object recognition. <em>SPBG</em>.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.mapper.IntervalCover">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.mapper.</span></span><span class="sig-name descname"><span class="pre">IntervalCover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">low</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">high</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_intervals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap_fraction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.mapper.IntervalCover" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A uniform overlapping cover of a closed interval [low, high].</p>
+<p>The cover consists of <code class="docutils literal notranslate"><span class="pre">num_intervals</span></code> equal-width intervals with a
+fractional overlap <code class="docutils literal notranslate"><span class="pre">overlap_fraction</span></code> (0 &lt; overlap_fraction &lt; 1).
+The width of each interval is <code class="docutils literal notranslate"><span class="pre">(high</span> <span class="pre">-</span> <span class="pre">low)</span> <span class="pre">/</span> <span class="pre">(num_intervals</span> <span class="pre">*</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">overlap_fraction))</span></code>.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>low, high:</dt><dd><p>The endpoints of the interval to cover.</p>
+</dd>
+<dt>num_intervals:</dt><dd><p>Number of intervals.</p>
+</dd>
+<dt>overlap_fraction:</dt><dd><p>Fractional overlap between adjacent intervals (e.g. 0.5 means 50 % overlap).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.mapper.IntervalCover.low">
+<span class="sig-name descname"><span class="pre">low</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pytop.mapper.IntervalCover.low" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.mapper.IntervalCover.high">
+<span class="sig-name descname"><span class="pre">high</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pytop.mapper.IntervalCover.high" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.mapper.IntervalCover.num_intervals">
+<span class="sig-name descname"><span class="pre">num_intervals</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.mapper.IntervalCover.num_intervals" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.mapper.IntervalCover.overlap_fraction">
+<span class="sig-name descname"><span class="pre">overlap_fraction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pytop.mapper.IntervalCover.overlap_fraction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.mapper.IntervalCover.step">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">step</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pytop.mapper.IntervalCover.step" title="Link to this definition"></a></dt>
+<dd><p>Distance between interval centres.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.mapper.IntervalCover.width">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">width</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pytop.mapper.IntervalCover.width" title="Link to this definition"></a></dt>
+<dd><p>Width of each interval.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.mapper.IntervalCover.intervals">
+<span class="sig-name descname"><span class="pre">intervals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.mapper.IntervalCover.intervals" title="Link to this definition"></a></dt>
+<dd><p>Return the list of (a, b) interval endpoints.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.mapper.IntervalCover.interval_for">
+<span class="sig-name descname"><span class="pre">interval_for</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.mapper.IntervalCover.interval_for" title="Link to this definition"></a></dt>
+<dd><p>Return the indices of all intervals that contain <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.mapper.single_linkage_labels">
+<span class="sig-prename descclassname"><span class="pre">pytop.mapper.</span></span><span class="sig-name descname"><span class="pre">single_linkage_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.mapper.single_linkage_labels" title="Link to this definition"></a></dt>
+<dd><p>Assign cluster labels by single-linkage on 1-D data.</p>
+<p>Points are sorted and a new cluster begins whenever the gap to the
+previous point exceeds <code class="docutils literal notranslate"><span class="pre">gap_threshold</span></code>.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>values:</dt><dd><p>The 1-D filter values for the points in a pullback bin.</p>
+</dd>
+<dt>gap_threshold:</dt><dd><p>Minimum gap to start a new cluster.  Use <code class="docutils literal notranslate"><span class="pre">math.inf</span></code> to put all
+points in one cluster.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>list[int]</dt><dd><p>Cluster labels (0-indexed) in the same order as <code class="docutils literal notranslate"><span class="pre">values</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.mapper.MapperNode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.mapper.</span></span><span class="sig-name descname"><span class="pre">MapperNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.mapper.MapperNode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A single cluster (node) in the Mapper complex.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>interval_index:</dt><dd><p>Index of the cover interval that produced this cluster.</p>
+</dd>
+<dt>cluster_index:</dt><dd><p>Index of the cluster within that interval’s pullback.</p>
+</dd>
+<dt>members:</dt><dd><p>Indices into the original data set that belong to this cluster.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.mapper.MapperNode.interval_index">
+<span class="sig-name descname"><span class="pre">interval_index</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.mapper.MapperNode.interval_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.mapper.MapperNode.cluster_index">
+<span class="sig-name descname"><span class="pre">cluster_index</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.mapper.MapperNode.cluster_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.mapper.MapperNode.members">
+<span class="sig-name descname"><span class="pre">members</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.mapper.MapperNode.members" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.mapper.MapperComplex">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.mapper.</span></span><span class="sig-name descname"><span class="pre">MapperComplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.mapper.MapperNode" title="pytop.mapper.MapperNode"><span class="pre">MapperNode</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.mapper.MapperComplex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The output of the Mapper algorithm.</p>
+<p><code class="docutils literal notranslate"><span class="pre">nodes</span></code> is the ordered list of clusters (0-simplices); <code class="docutils literal notranslate"><span class="pre">simplices</span></code>
+is the full Mapper simplicial complex as an abstract simplicial complex
+(node-index–based).  Edges (1-simplices) connect nodes whose <code class="docutils literal notranslate"><span class="pre">members</span></code>
+intersect; triangles (2-simplices) exist when three mutually intersecting
+clusters exist, etc.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>nodes:</dt><dd><p>Ordered list of <a class="reference internal" href="#pytop.mapper.MapperNode" title="pytop.mapper.MapperNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">MapperNode</span></code></a> objects (vertex set).</p>
+</dd>
+<dt>simplices:</dt><dd><p>The abstract simplicial complex as a frozenset of frozensets of node
+indices.  Each element is a frozenset of node indices forming a simplex.</p>
+</dd>
+<dt>filter_values:</dt><dd><p>Filter value for each data point (same indexing as the original data).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.mapper.MapperComplex.nodes">
+<span class="sig-name descname"><span class="pre">nodes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.mapper.MapperNode" title="pytop.mapper.MapperNode"><span class="pre">MapperNode</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.mapper.MapperComplex.nodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.mapper.MapperComplex.simplices">
+<span class="sig-name descname"><span class="pre">simplices</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.mapper.MapperComplex.simplices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.mapper.MapperComplex.filter_values">
+<span class="sig-name descname"><span class="pre">filter_values</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.mapper.MapperComplex.filter_values" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.mapper.MapperComplex.num_nodes">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">num_nodes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.mapper.MapperComplex.num_nodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.mapper.MapperComplex.num_edges">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">num_edges</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.mapper.MapperComplex.num_edges" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.mapper.MapperComplex.edges">
+<span class="sig-name descname"><span class="pre">edges</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.mapper.MapperComplex.edges" title="Link to this definition"></a></dt>
+<dd><p>Return edges as sorted (i, j) pairs with i &lt; j.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.mapper.MapperComplex.adjacency">
+<span class="sig-name descname"><span class="pre">adjacency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.mapper.MapperComplex.adjacency" title="Link to this definition"></a></dt>
+<dd><p>Return the adjacency dict of the Mapper 1-skeleton.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.mapper.MapperComplex.connected_components">
+<span class="sig-name descname"><span class="pre">connected_components</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.mapper.MapperComplex.connected_components" title="Link to this definition"></a></dt>
+<dd><p>Return connected components as frozensets of node indices.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.mapper.mapper">
+<span class="sig-prename descclassname"><span class="pre">pytop.mapper.</span></span><span class="sig-name descname"><span class="pre">mapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cover</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.mapper.IntervalCover" title="pytop.mapper.IntervalCover"><span class="pre">IntervalCover</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_simplex_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_intervals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap_fraction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.mapper.MapperComplex" title="pytop.mapper.MapperComplex"><span class="pre">MapperComplex</span></a></span></span><a class="headerlink" href="#pytop.mapper.mapper" title="Link to this definition"></a></dt>
+<dd><p>Compute the Mapper simplicial complex of a data set.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>data:</dt><dd><p>The input data set.  Each element is passed to <code class="docutils literal notranslate"><span class="pre">filter_fn</span></code>.</p>
+</dd>
+<dt>filter_fn:</dt><dd><p>A scalar filter function f : X → ℝ.  Common choices include the
+first PCA coordinate, eccentricity, or density estimate.</p>
+</dd>
+<dt>cover:</dt><dd><p>An <a class="reference internal" href="#pytop.mapper.IntervalCover" title="pytop.mapper.IntervalCover"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntervalCover</span></code></a> for the image of f.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, a uniform
+cover is constructed automatically from the data range using
+<code class="docutils literal notranslate"><span class="pre">num_intervals</span></code> and <code class="docutils literal notranslate"><span class="pre">overlap_fraction</span></code>.</p>
+</dd>
+<dt>cluster_fn:</dt><dd><p>A function <code class="docutils literal notranslate"><span class="pre">(filter_values,</span> <span class="pre">point_indices)</span> <span class="pre">→</span> <span class="pre">labels</span></code> that clusters
+the points within a pullback bin.  Defaults to single-linkage on the
+filter values with <code class="docutils literal notranslate"><span class="pre">gap_threshold</span></code> (computed automatically if not
+given).</p>
+</dd>
+<dt>max_simplex_dim:</dt><dd><p>Maximum dimension of simplices to include in the nerve.  Set to 1 to
+produce only a graph (nodes + edges).</p>
+</dd>
+<dt>num_intervals:</dt><dd><p>Number of cover intervals (used when <code class="docutils literal notranslate"><span class="pre">cover</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p>
+</dd>
+<dt>overlap_fraction:</dt><dd><p>Overlap fraction for the automatic cover (used when <code class="docutils literal notranslate"><span class="pre">cover</span></code> is
+<code class="docutils literal notranslate"><span class="pre">None</span></code>).</p>
+</dd>
+<dt>gap_threshold:</dt><dd><p>Gap threshold for the default single-linkage clustering.  Defaults to
+10 % of each pullback bin’s value range; set explicitly to override.
+Ignored when <code class="docutils literal notranslate"><span class="pre">cluster_fn</span></code> is supplied.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>MapperComplex</dt><dd><p>The Mapper simplicial complex.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="persistence_distances.html" class="btn btn-neutral float-left" title="Persistence Distances" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tda_pipeline.html" class="btn btn-neutral float-right" title="Tda Pipeline" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

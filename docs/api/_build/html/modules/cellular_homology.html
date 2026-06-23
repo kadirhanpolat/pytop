@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cellular Homology &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cohomology" href="cohomology.html" />
+    <link rel="prev" title="Persistent Homology" href="persistent_homology.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cellular Homology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.CWComplex"><code class="docutils literal notranslate"><span class="pre">CWComplex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.cellular_homology.CWComplex.cell_counts"><code class="docutils literal notranslate"><span class="pre">CWComplex.cell_counts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.cellular_homology.CWComplex.boundary_maps"><code class="docutils literal notranslate"><span class="pre">CWComplex.boundary_maps</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.cellular_homology.CWComplex.require_chain_complex"><code class="docutils literal notranslate"><span class="pre">CWComplex.require_chain_complex</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.cellular_homology.CWComplex.dimension"><code class="docutils literal notranslate"><span class="pre">CWComplex.dimension</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.cellular_homology.CWComplex.euler_characteristic"><code class="docutils literal notranslate"><span class="pre">CWComplex.euler_characteristic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.cellular_homology.CWComplex.verify_chain_complex"><code class="docutils literal notranslate"><span class="pre">CWComplex.verify_chain_complex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.CWComplexError"><code class="docutils literal notranslate"><span class="pre">CWComplexError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cellular_homology"><code class="docutils literal notranslate"><span class="pre">cellular_homology()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cellular_homology_groups"><code class="docutils literal notranslate"><span class="pre">cellular_homology_groups()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cellular_betti_numbers"><code class="docutils literal notranslate"><span class="pre">cellular_betti_numbers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cellular_euler_characteristic"><code class="docutils literal notranslate"><span class="pre">cellular_euler_characteristic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cw_sphere"><code class="docutils literal notranslate"><span class="pre">cw_sphere()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cw_real_projective_space"><code class="docutils literal notranslate"><span class="pre">cw_real_projective_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cw_complex_projective_space"><code class="docutils literal notranslate"><span class="pre">cw_complex_projective_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cw_torus"><code class="docutils literal notranslate"><span class="pre">cw_torus()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cw_klein_bottle"><code class="docutils literal notranslate"><span class="pre">cw_klein_bottle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cw_lens_space"><code class="docutils literal notranslate"><span class="pre">cw_lens_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cw_moore_space"><code class="docutils literal notranslate"><span class="pre">cw_moore_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.cellular_homology.cw_from_simplicial"><code class="docutils literal notranslate"><span class="pre">cw_from_simplicial()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cellular Homology</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/cellular_homology.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.cellular_homology">
+<span id="cellular-homology"></span><h1>Cellular Homology<a class="headerlink" href="#module-pytop.cellular_homology" title="Link to this heading"></a></h1>
+<p>Cellular homology for finite CW complexes.</p>
+<dl class="simple">
+<dt>A CW complex X is given by:</dt><dd><ul class="simple">
+<li><p>cell counts   cell_counts[k] = number of k-cells</p></li>
+<li><p>boundary maps boundary_maps[k] = d_k : C_k → C_{k-1}  (integer matrix)</p></li>
+</ul>
+</dd>
+</dl>
+<p>The cellular chain complex</p>
+<blockquote>
+<div><p>0 → C_n ─d_n→ C_{n-1} → ⋯ ─d_1→ C_0 → 0</p>
+</div></blockquote>
+<p>has  H_k = ker(d_k) / im(d_{k+1}),  computed by Smith Normal Form —
+the same algorithm as <a class="reference internal" href="homology.html#module-pytop.homology" title="pytop.homology"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pytop.homology</span></code></a> but operating on the
+(usually much smaller) cellular chain complex.</p>
+<p>Key theorem: cellular homology is naturally isomorphic to singular homology.</p>
+<p>Convenience constructors
+────────────────────────
+<code class="docutils literal notranslate"><span class="pre">cw_sphere(n)</span></code>                    S^n   — minimal: one 0-cell + one n-cell
+<code class="docutils literal notranslate"><span class="pre">cw_real_projective_space(n)</span></code>     RP^n  — one cell per dimension 0…n
+<code class="docutils literal notranslate"><span class="pre">cw_complex_projective_space(n)</span></code>  CP^n  — one cell per even dimension 0…2n
+<code class="docutils literal notranslate"><span class="pre">cw_torus()</span></code>                      T²    — 1+2+1 cells
+<code class="docutils literal notranslate"><span class="pre">cw_klein_bottle()</span></code>               Klein bottle — 1+2+1 cells
+<code class="docutils literal notranslate"><span class="pre">cw_lens_space(p)</span></code>                L(p,1) in dimension 3, H₁ = Z/p
+<code class="docutils literal notranslate"><span class="pre">cw_moore_space(n,</span> <span class="pre">k)</span></code>            M(Z/n, k): H_k = Z/n, H_0 = Z, rest 0
+<code class="docutils literal notranslate"><span class="pre">cw_from_simplicial(K)</span></code>           cells = simplices of K (cross-validation)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.cellular_homology.CWComplex">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">CWComplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_chain_complex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.cellular_homology.CWComplex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A finite CW complex specified by cell counts and integer boundary maps.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>cell_counts:</dt><dd><p>Maps dimension k to the number of k-cells.  Keys with value 0 are
+silently ignored.</p>
+</dd>
+<dt>boundary_maps:</dt><dd><p>Maps dimension k to the integer matrix of d_k : C_k → C_{k-1}.
+The matrix must have shape
+<code class="docutils literal notranslate"><span class="pre">(cell_counts.get(k-1,</span> <span class="pre">0),</span> <span class="pre">cell_counts.get(k,</span> <span class="pre">0))</span></code>.
+Omitted entries default to the zero matrix of the correct shape.
+The entry for k = 0 is meaningless (C_{-1} = 0) and ignored.</p>
+</dd>
+<dt>require_chain_complex:</dt><dd><p>When True (default) the constructor verifies d_{k-1} ∘ d_k = 0
+for all k and raises <a class="reference internal" href="#pytop.cellular_homology.CWComplexError" title="pytop.cellular_homology.CWComplexError"><code class="xref py py-class docutils literal notranslate"><span class="pre">CWComplexError</span></code></a> on failure.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.cellular_homology.CWComplex.cell_counts">
+<span class="sig-name descname"><span class="pre">cell_counts</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.cellular_homology.CWComplex.cell_counts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.cellular_homology.CWComplex.boundary_maps">
+<span class="sig-name descname"><span class="pre">boundary_maps</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.cellular_homology.CWComplex.boundary_maps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.cellular_homology.CWComplex.require_chain_complex">
+<span class="sig-name descname"><span class="pre">require_chain_complex</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#pytop.cellular_homology.CWComplex.require_chain_complex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.cellular_homology.CWComplex.dimension">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dimension</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.cellular_homology.CWComplex.dimension" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.cellular_homology.CWComplex.euler_characteristic">
+<span class="sig-name descname"><span class="pre">euler_characteristic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.CWComplex.euler_characteristic" title="Link to this definition"></a></dt>
+<dd><p>Alternating sum of cell counts  χ = Σ (-1)^k · (#k-cells).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.cellular_homology.CWComplex.verify_chain_complex">
+<span class="sig-name descname"><span class="pre">verify_chain_complex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.cellular_homology.CWComplex.verify_chain_complex" title="Link to this definition"></a></dt>
+<dd><p>Return violation strings where d_{k-1} ∘ d_k ≠ 0 (empty = valid).</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="pytop.cellular_homology.CWComplexError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">CWComplexError</span></span><a class="headerlink" href="#pytop.cellular_homology.CWComplexError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a></p>
+<p>Raised when a CW complex fails the chain-complex condition.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cellular_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cellular_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.cellular_homology" title="Link to this definition"></a></dt>
+<dd><p>Return H_{degree}(cw; Z) as a <a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">HomologyResult</span></code></a>.</p>
+<p>The group is computed from the cellular chain complex via Smith Normal
+Form — the identical algorithm to <a class="reference internal" href="homology.html#pytop.homology.simplicial_homology" title="pytop.homology.simplicial_homology"><code class="xref py py-func docutils literal notranslate"><span class="pre">simplicial_homology()</span></code></a>,
+but acting on the (typically much smaller) cellular chain groups.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cellular_homology_groups">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cellular_homology_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.cellular_homology.cellular_homology_groups" title="Link to this definition"></a></dt>
+<dd><p>Return H_0, …, H_dim of <code class="docutils literal notranslate"><span class="pre">cw</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cellular_betti_numbers">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cellular_betti_numbers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.cellular_homology.cellular_betti_numbers" title="Link to this definition"></a></dt>
+<dd><p>Return (b_0, …, b_dim), the ranks of the integral homology groups.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cellular_euler_characteristic">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cellular_euler_characteristic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.cellular_euler_characteristic" title="Link to this definition"></a></dt>
+<dd><p>Alternating sum of Betti numbers — equals <code class="docutils literal notranslate"><span class="pre">cw.euler_characteristic()</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cw_sphere">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cw_sphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.cw_sphere" title="Link to this definition"></a></dt>
+<dd><p>Minimal CW structure on S^n.</p>
+<p>S^0 uses two 0-cells; S^n (n ≥ 1) uses one 0-cell and one n-cell.
+All boundary maps are zero.</p>
+<p>H_0 = Z,  H_n = Z  (n ≥ 1),  H_k = 0 otherwise.
+H_0(S^0) = Z^2.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cw_real_projective_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cw_real_projective_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.cw_real_projective_space" title="Link to this definition"></a></dt>
+<dd><p>Standard CW structure on RP^n: one cell per dimension 0…n.</p>
+<dl class="simple">
+<dt>Boundary maps  d_k = 1 + (−1)^k  (scalar, i.e. a 1×1 matrix):</dt><dd><p>d_1 = 0,   d_k = 0 for k odd ≥ 3,   d_k = 2 for k even ≥ 2.</p>
+</dd>
+<dt>Known homology (integral):</dt><dd><p>H_0 = Z
+H_k = Z/2   for k odd, 0 &lt; k &lt; n
+H_n = Z     if n is odd
+H_n = 0     if n is even  (n &gt; 0)
+H_k = 0     otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cw_complex_projective_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cw_complex_projective_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.cw_complex_projective_space" title="Link to this definition"></a></dt>
+<dd><p>Standard CW structure on CP^n: one cell in each even dimension 0, 2, …, 2n.</p>
+<p>All boundary maps are zero (no cells in odd dimensions).</p>
+<p>H_{2k} = Z  for 0 ≤ k ≤ n,  H_odd = 0.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cw_torus">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cw_torus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.cw_torus" title="Link to this definition"></a></dt>
+<dd><p>Standard CW structure on T² = S¹ × S¹.</p>
+<dl class="simple">
+<dt>Cells: one 0-cell, two 1-cells a and b, one 2-cell F.</dt><dd><p>d_1 = [[0, 0]]      (both 1-cells are loops)
+d_2 = [[0], [0]]    (word aba⁻¹b⁻¹ → 0 in the abelianisation)</p>
+</dd>
+</dl>
+<p>H_0 = Z,  H_1 = Z²,  H_2 = Z.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cw_klein_bottle">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cw_klein_bottle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.cw_klein_bottle" title="Link to this definition"></a></dt>
+<dd><p>Standard CW structure on the Klein bottle.</p>
+<dl class="simple">
+<dt>Cells: one 0-cell, two 1-cells a and b, one 2-cell F.</dt><dd><p>d_1 = [[0, 0]]     (both 1-cells are loops)
+d_2 = [[0], [2]]   (word aba⁻¹b → coefficient 2 on b in abelianisation)</p>
+</dd>
+</dl>
+<p>H_0 = Z,  H_1 = Z ⊕ Z/2,  H_2 = 0.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cw_lens_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cw_lens_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.cw_lens_space" title="Link to this definition"></a></dt>
+<dd><p>Standard CW structure on the 3-dimensional lens space L(p, 1).</p>
+<dl class="simple">
+<dt>Cells: one cell in each dimension 0, 1, 2, 3.</dt><dd><p>d_1 = [[0]],  d_2 = [[p]],  d_3 = [[0]]</p>
+</dd>
+</dl>
+<p>H_0 = Z,  H_1 = Z/p  (Z if p = 0),  H_2 = 0,  H_3 = Z.
+For p = 0:  L(0,1) = S² × S¹ in this model; H_1 = Z.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cw_moore_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cw_moore_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.cw_moore_space" title="Link to this definition"></a></dt>
+<dd><p>CW model of the Moore space M(Z/n, k).</p>
+<p>A Moore space M(Z/n, k) has H_k = Z/n, H_0 = Z, H_i = 0 otherwise.</p>
+<dl class="simple">
+<dt>Construction: take S^k and attach a (k+1)-cell via a degree-n map.</dt><dd><p>For k = 1:   cells {e⁰, e¹, e²},       d_1 = [[0]], d_2 = [[n]].
+For k ≥ 2:   cells {e⁰, e^k, e^{k+1}}, d_{k+1} = [[n]].</p>
+</dd>
+</dl>
+<p>Requires n ≥ 2, k ≥ 1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cellular_homology.cw_from_simplicial">
+<span class="sig-prename descclassname"><span class="pre">pytop.cellular_homology.</span></span><span class="sig-name descname"><span class="pre">cw_from_simplicial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cellular_homology.CWComplex" title="pytop.cellular_homology.CWComplex"><span class="pre">CWComplex</span></a></span></span><a class="headerlink" href="#pytop.cellular_homology.cw_from_simplicial" title="Link to this definition"></a></dt>
+<dd><p>Construct a CW complex from a simplicial complex.</p>
+<p>Each k-simplex becomes a k-cell; the cellular boundary maps are the
+simplicial boundary matrices.  Since cellular homology is isomorphic
+to simplicial homology, this provides an exact cross-validation bridge:</p>
+<blockquote>
+<div><p>cellular_homology(cw_from_simplicial(K), k) == simplicial_homology(K, k)</p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="persistent_homology.html" class="btn btn-neutral float-left" title="Persistent Homology" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cohomology.html" class="btn btn-neutral float-right" title="Cohomology" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

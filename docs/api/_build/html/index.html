@@ -1,0 +1,653 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pytop API Reference &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=72d88caf"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Homology" href="modules/homology.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pytop API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pytop-api-reference">
+<h1>pytop API Reference<a class="headerlink" href="#pytop-api-reference" title="Link to this heading"></a></h1>
+<p>Complete API documentation for <strong>pytop</strong> — a standalone mathematical topology library for Python.</p>
+<p>Version: 1.6.0</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/homology.html">Homology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/homology.html#orientation-convention">Orientation convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/homology.html#pytop.homology.HomologyResult"><code class="docutils literal notranslate"><span class="pre">HomologyResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/homology.html#pytop.homology.HomologyResult.degree"><code class="docutils literal notranslate"><span class="pre">HomologyResult.degree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/homology.html#pytop.homology.HomologyResult.betti"><code class="docutils literal notranslate"><span class="pre">HomologyResult.betti</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/homology.html#pytop.homology.HomologyResult.torsion"><code class="docutils literal notranslate"><span class="pre">HomologyResult.torsion</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/homology.html#pytop.homology.HomologyResult.is_free"><code class="docutils literal notranslate"><span class="pre">HomologyResult.is_free</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/homology.html#pytop.homology.HomologyResult.describe"><code class="docutils literal notranslate"><span class="pre">HomologyResult.describe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/homology.html#pytop.homology.boundary_matrix"><code class="docutils literal notranslate"><span class="pre">boundary_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/homology.html#pytop.homology.simplicial_homology"><code class="docutils literal notranslate"><span class="pre">simplicial_homology()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/homology.html#pytop.homology.homology_groups"><code class="docutils literal notranslate"><span class="pre">homology_groups()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/homology.html#pytop.homology.betti_numbers"><code class="docutils literal notranslate"><span class="pre">betti_numbers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/homology.html#pytop.homology.reduced_homology"><code class="docutils literal notranslate"><span class="pre">reduced_homology()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/homology.html#pytop.homology.euler_characteristic_via_homology"><code class="docutils literal notranslate"><span class="pre">euler_characteristic_via_homology()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/persistent_homology.html">Persistent Homology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#key-theorems-implemented">Key theorems implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.key"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.display_name"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.display_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.complex_type"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.complex_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.filtration_type"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.filtration_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.has_finite_barcode"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.has_finite_barcode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.is_stable"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.is_stable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.has_essential_classes"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.has_essential_classes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.computable_over_field"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.computable_over_field</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.presentation_layer"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.presentation_layer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.focus"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.focus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistenceProfile.chapter_targets"><code class="docutils literal notranslate"><span class="pre">PersistenceProfile.chapter_targets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.get_named_persistence_profiles"><code class="docutils literal notranslate"><span class="pre">get_named_persistence_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.persistence_layer_summary"><code class="docutils literal notranslate"><span class="pre">persistence_layer_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.persistence_chapter_index"><code class="docutils literal notranslate"><span class="pre">persistence_chapter_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.persistence_type_index"><code class="docutils literal notranslate"><span class="pre">persistence_type_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.has_finite_barcode"><code class="docutils literal notranslate"><span class="pre">has_finite_barcode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.is_stable_filtration"><code class="docutils literal notranslate"><span class="pre">is_stable_filtration()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.has_essential_classes"><code class="docutils literal notranslate"><span class="pre">has_essential_classes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.has_structure_theorem"><code class="docutils literal notranslate"><span class="pre">has_structure_theorem()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.classify_persistence"><code class="docutils literal notranslate"><span class="pre">classify_persistence()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.persistence_profile"><code class="docutils literal notranslate"><span class="pre">persistence_profile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.FilteredComplex"><code class="docutils literal notranslate"><span class="pre">FilteredComplex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.FilteredComplex.simplices"><code class="docutils literal notranslate"><span class="pre">FilteredComplex.simplices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.FilteredComplex.births"><code class="docutils literal notranslate"><span class="pre">FilteredComplex.births</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.FilteredComplex.dimensions"><code class="docutils literal notranslate"><span class="pre">FilteredComplex.dimensions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.FilteredComplex.size"><code class="docutils literal notranslate"><span class="pre">FilteredComplex.size()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistencePair"><code class="docutils literal notranslate"><span class="pre">PersistencePair</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistencePair.dimension"><code class="docutils literal notranslate"><span class="pre">PersistencePair.dimension</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistencePair.birth"><code class="docutils literal notranslate"><span class="pre">PersistencePair.birth</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistencePair.death"><code class="docutils literal notranslate"><span class="pre">PersistencePair.death</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistencePair.is_essential"><code class="docutils literal notranslate"><span class="pre">PersistencePair.is_essential</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.PersistencePair.persistence"><code class="docutils literal notranslate"><span class="pre">PersistencePair.persistence</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.vietoris_rips_filtration"><code class="docutils literal notranslate"><span class="pre">vietoris_rips_filtration()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.persistence_pairs"><code class="docutils literal notranslate"><span class="pre">persistence_pairs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.persistent_homology"><code class="docutils literal notranslate"><span class="pre">persistent_homology()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.barcode"><code class="docutils literal notranslate"><span class="pre">barcode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.persistence_betti_numbers"><code class="docutils literal notranslate"><span class="pre">persistence_betti_numbers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.persistence_diagram"><code class="docutils literal notranslate"><span class="pre">persistence_diagram()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistent_homology.html#pytop.persistent_homology.euler_characteristic_curve"><code class="docutils literal notranslate"><span class="pre">euler_characteristic_curve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/cellular_homology.html">Cellular Homology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.CWComplex"><code class="docutils literal notranslate"><span class="pre">CWComplex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.CWComplex.cell_counts"><code class="docutils literal notranslate"><span class="pre">CWComplex.cell_counts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.CWComplex.boundary_maps"><code class="docutils literal notranslate"><span class="pre">CWComplex.boundary_maps</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.CWComplex.require_chain_complex"><code class="docutils literal notranslate"><span class="pre">CWComplex.require_chain_complex</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.CWComplex.dimension"><code class="docutils literal notranslate"><span class="pre">CWComplex.dimension</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.CWComplex.euler_characteristic"><code class="docutils literal notranslate"><span class="pre">CWComplex.euler_characteristic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.CWComplex.verify_chain_complex"><code class="docutils literal notranslate"><span class="pre">CWComplex.verify_chain_complex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.CWComplexError"><code class="docutils literal notranslate"><span class="pre">CWComplexError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cellular_homology"><code class="docutils literal notranslate"><span class="pre">cellular_homology()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cellular_homology_groups"><code class="docutils literal notranslate"><span class="pre">cellular_homology_groups()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cellular_betti_numbers"><code class="docutils literal notranslate"><span class="pre">cellular_betti_numbers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cellular_euler_characteristic"><code class="docutils literal notranslate"><span class="pre">cellular_euler_characteristic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cw_sphere"><code class="docutils literal notranslate"><span class="pre">cw_sphere()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cw_real_projective_space"><code class="docutils literal notranslate"><span class="pre">cw_real_projective_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cw_complex_projective_space"><code class="docutils literal notranslate"><span class="pre">cw_complex_projective_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cw_torus"><code class="docutils literal notranslate"><span class="pre">cw_torus()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cw_klein_bottle"><code class="docutils literal notranslate"><span class="pre">cw_klein_bottle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cw_lens_space"><code class="docutils literal notranslate"><span class="pre">cw_lens_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cw_moore_space"><code class="docutils literal notranslate"><span class="pre">cw_moore_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cellular_homology.html#pytop.cellular_homology.cw_from_simplicial"><code class="docutils literal notranslate"><span class="pre">cw_from_simplicial()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/cohomology.html">Cohomology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#universal-coefficient-theorem-uct">Universal Coefficient Theorem (UCT)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#cup-product">Cup product</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyResult"><code class="docutils literal notranslate"><span class="pre">CohomologyResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyResult.degree"><code class="docutils literal notranslate"><span class="pre">CohomologyResult.degree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyResult.betti"><code class="docutils literal notranslate"><span class="pre">CohomologyResult.betti</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyResult.torsion"><code class="docutils literal notranslate"><span class="pre">CohomologyResult.torsion</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyResult.is_free"><code class="docutils literal notranslate"><span class="pre">CohomologyResult.is_free</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyResult.describe"><code class="docutils literal notranslate"><span class="pre">CohomologyResult.describe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyRing"><code class="docutils literal notranslate"><span class="pre">CohomologyRing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyRing.complex_obj"><code class="docutils literal notranslate"><span class="pre">CohomologyRing.complex_obj</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyRing.groups"><code class="docutils literal notranslate"><span class="pre">CohomologyRing.groups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyRing.cup_table"><code class="docutils literal notranslate"><span class="pre">CohomologyRing.cup_table</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyRing.h"><code class="docutils literal notranslate"><span class="pre">CohomologyRing.h()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyRing.cup"><code class="docutils literal notranslate"><span class="pre">CohomologyRing.cup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyRing.betti_numbers"><code class="docutils literal notranslate"><span class="pre">CohomologyRing.betti_numbers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyRing.is_trivial_ring"><code class="docutils literal notranslate"><span class="pre">CohomologyRing.is_trivial_ring()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyRing.verify_graded_commutativity"><code class="docutils literal notranslate"><span class="pre">CohomologyRing.verify_graded_commutativity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.CohomologyRing.describe"><code class="docutils literal notranslate"><span class="pre">CohomologyRing.describe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.coboundary_matrix"><code class="docutils literal notranslate"><span class="pre">coboundary_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.simplicial_cohomology"><code class="docutils literal notranslate"><span class="pre">simplicial_cohomology()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.cohomology_groups"><code class="docutils literal notranslate"><span class="pre">cohomology_groups()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.cohomology_betti_numbers"><code class="docutils literal notranslate"><span class="pre">cohomology_betti_numbers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.cup_product_cochain"><code class="docutils literal notranslate"><span class="pre">cup_product_cochain()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cohomology.html#pytop.cohomology.simplicial_cohomology_ring"><code class="docutils literal notranslate"><span class="pre">simplicial_cohomology_ring()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/mayer_vietoris.html">Mayer Vietoris</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.sc_intersection"><code class="docutils literal notranslate"><span class="pre">sc_intersection()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.sc_union"><code class="docutils literal notranslate"><span class="pre">sc_union()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree"><code class="docutils literal notranslate"><span class="pre">MVDegree</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.degree"><code class="docutils literal notranslate"><span class="pre">MVDegree.degree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.h_intersection"><code class="docutils literal notranslate"><span class="pre">MVDegree.h_intersection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.h_A"><code class="docutils literal notranslate"><span class="pre">MVDegree.h_A</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.h_B"><code class="docutils literal notranslate"><span class="pre">MVDegree.h_B</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.h_union"><code class="docutils literal notranslate"><span class="pre">MVDegree.h_union</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.phi"><code class="docutils literal notranslate"><span class="pre">MVDegree.phi</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.psi"><code class="docutils literal notranslate"><span class="pre">MVDegree.psi</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.delta"><code class="docutils literal notranslate"><span class="pre">MVDegree.delta</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.exact_at_AB"><code class="docutils literal notranslate"><span class="pre">MVDegree.exact_at_AB</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.exact_at_AB2"><code class="docutils literal notranslate"><span class="pre">MVDegree.exact_at_AB2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.exact_at_K"><code class="docutils literal notranslate"><span class="pre">MVDegree.exact_at_K</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MVDegree.describe_line"><code class="docutils literal notranslate"><span class="pre">MVDegree.describe_line()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MayerVietorisSequence"><code class="docutils literal notranslate"><span class="pre">MayerVietorisSequence</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MayerVietorisSequence.A"><code class="docutils literal notranslate"><span class="pre">MayerVietorisSequence.A</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MayerVietorisSequence.B"><code class="docutils literal notranslate"><span class="pre">MayerVietorisSequence.B</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MayerVietorisSequence.intersection"><code class="docutils literal notranslate"><span class="pre">MayerVietorisSequence.intersection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MayerVietorisSequence.union"><code class="docutils literal notranslate"><span class="pre">MayerVietorisSequence.union</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MayerVietorisSequence.degrees"><code class="docutils literal notranslate"><span class="pre">MayerVietorisSequence.degrees</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MayerVietorisSequence.euler_check_passed"><code class="docutils literal notranslate"><span class="pre">MayerVietorisSequence.euler_check_passed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MayerVietorisSequence.is_exact"><code class="docutils literal notranslate"><span class="pre">MayerVietorisSequence.is_exact</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MayerVietorisSequence.h_union_at"><code class="docutils literal notranslate"><span class="pre">MayerVietorisSequence.h_union_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.MayerVietorisSequence.describe"><code class="docutils literal notranslate"><span class="pre">MayerVietorisSequence.describe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mayer_vietoris.html#pytop.mayer_vietoris.mayer_vietoris"><code class="docutils literal notranslate"><span class="pre">mayer_vietoris()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/van_kampen.html">Van Kampen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupPresentationError"><code class="docutils literal notranslate"><span class="pre">GroupPresentationError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupPresentation"><code class="docutils literal notranslate"><span class="pre">GroupPresentation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupPresentation.generators"><code class="docutils literal notranslate"><span class="pre">GroupPresentation.generators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupPresentation.relators"><code class="docutils literal notranslate"><span class="pre">GroupPresentation.relators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupPresentation.rank"><code class="docutils literal notranslate"><span class="pre">GroupPresentation.rank</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupPresentation.is_free"><code class="docutils literal notranslate"><span class="pre">GroupPresentation.is_free</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupPresentation.presentation_string"><code class="docutils literal notranslate"><span class="pre">GroupPresentation.presentation_string()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupHomomorphism"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupHomomorphism.source"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism.source</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupHomomorphism.target"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism.target</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupHomomorphism.images"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism.images</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupHomomorphism.image_of"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism.image_of()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.GroupHomomorphism.apply"><code class="docutils literal notranslate"><span class="pre">GroupHomomorphism.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.VanKampenResult"><code class="docutils literal notranslate"><span class="pre">VanKampenResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.VanKampenResult.generators"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.generators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.VanKampenResult.relators"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.relators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.VanKampenResult.simplified_generators"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.simplified_generators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.VanKampenResult.simplified_relators"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.simplified_relators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.VanKampenResult.abelianization"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.abelianization</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.VanKampenResult.group_type"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.group_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.VanKampenResult.notes"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.notes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.VanKampenResult.presentation_string"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.presentation_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.VanKampenResult.raw_presentation_string"><code class="docutils literal notranslate"><span class="pre">VanKampenResult.raw_presentation_string()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.DirectedEdge"><code class="docutils literal notranslate"><span class="pre">DirectedEdge</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.DirectedEdge.name"><code class="docutils literal notranslate"><span class="pre">DirectedEdge.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.DirectedEdge.src"><code class="docutils literal notranslate"><span class="pre">DirectedEdge.src</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.DirectedEdge.tgt"><code class="docutils literal notranslate"><span class="pre">DirectedEdge.tgt</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.Face2"><code class="docutils literal notranslate"><span class="pre">Face2</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.Face2.name"><code class="docutils literal notranslate"><span class="pre">Face2.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.Face2.attaching_word"><code class="docutils literal notranslate"><span class="pre">Face2.attaching_word</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.CW1Complex"><code class="docutils literal notranslate"><span class="pre">CW1Complex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.CW1Complex.vertices"><code class="docutils literal notranslate"><span class="pre">CW1Complex.vertices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.CW1Complex.edges"><code class="docutils literal notranslate"><span class="pre">CW1Complex.edges</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.CW1Complex.faces"><code class="docutils literal notranslate"><span class="pre">CW1Complex.faces</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.CW1Complex.basepoint"><code class="docutils literal notranslate"><span class="pre">CW1Complex.basepoint</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.group_homomorphism"><code class="docutils literal notranslate"><span class="pre">group_homomorphism()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.trivial_group"><code class="docutils literal notranslate"><span class="pre">trivial_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.infinite_cyclic_group"><code class="docutils literal notranslate"><span class="pre">infinite_cyclic_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.free_group"><code class="docutils literal notranslate"><span class="pre">free_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.cyclic_group"><code class="docutils literal notranslate"><span class="pre">cyclic_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.surface_group"><code class="docutils literal notranslate"><span class="pre">surface_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.surface_group_nr"><code class="docutils literal notranslate"><span class="pre">surface_group_nr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.van_kampen"><code class="docutils literal notranslate"><span class="pre">van_kampen()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.cw_complex_pi1"><code class="docutils literal notranslate"><span class="pre">cw_complex_pi1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.van_kampen_wedge_circles"><code class="docutils literal notranslate"><span class="pre">van_kampen_wedge_circles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.van_kampen_sphere"><code class="docutils literal notranslate"><span class="pre">van_kampen_sphere()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.van_kampen_torus"><code class="docutils literal notranslate"><span class="pre">van_kampen_torus()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.van_kampen_klein_bottle"><code class="docutils literal notranslate"><span class="pre">van_kampen_klein_bottle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/van_kampen.html#pytop.van_kampen.van_kampen_real_projective_plane"><code class="docutils literal notranslate"><span class="pre">van_kampen_real_projective_plane()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/cech_complex.html">Cech Complex</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/cech_complex.html#key-relations">Key relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cech_complex.html#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cech_complex.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cech_complex.html#pytop.cech_complex.cech_filtration"><code class="docutils literal notranslate"><span class="pre">cech_filtration()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cech_complex.html#pytop.cech_complex.persistent_homology_cech"><code class="docutils literal notranslate"><span class="pre">persistent_homology_cech()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/discrete_morse.html">Discrete Morse</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/discrete_morse.html#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/discrete_morse.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/discrete_morse.html#pytop.discrete_morse.MorsePair"><code class="docutils literal notranslate"><span class="pre">MorsePair</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/discrete_morse.html#pytop.discrete_morse.MorseMatching"><code class="docutils literal notranslate"><span class="pre">MorseMatching</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/discrete_morse.html#pytop.discrete_morse.discrete_gradient_matching"><code class="docutils literal notranslate"><span class="pre">discrete_gradient_matching()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/discrete_morse.html#pytop.discrete_morse.is_valid_morse_matching"><code class="docutils literal notranslate"><span class="pre">is_valid_morse_matching()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/discrete_morse.html#pytop.discrete_morse.MorseInequalities"><code class="docutils literal notranslate"><span class="pre">MorseInequalities</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/discrete_morse.html#pytop.discrete_morse.check_morse_inequalities"><code class="docutils literal notranslate"><span class="pre">check_morse_inequalities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/persistence_distances.html">Persistence Distances</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistence_distances.html#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistence_distances.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistence_distances.html#pytop.persistence_distances.bottleneck_distance"><code class="docutils literal notranslate"><span class="pre">bottleneck_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistence_distances.html#pytop.persistence_distances.wasserstein_distance"><code class="docutils literal notranslate"><span class="pre">wasserstein_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistence_distances.html#pytop.persistence_distances.persistence_entropy"><code class="docutils literal notranslate"><span class="pre">persistence_entropy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistence_distances.html#pytop.persistence_distances.PersistenceLandscape"><code class="docutils literal notranslate"><span class="pre">PersistenceLandscape</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/persistence_distances.html#pytop.persistence_distances.persistence_landscape"><code class="docutils literal notranslate"><span class="pre">persistence_landscape()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/mapper.html">Mapper</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/mapper.html#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mapper.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mapper.html#pytop.mapper.IntervalCover"><code class="docutils literal notranslate"><span class="pre">IntervalCover</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mapper.html#pytop.mapper.single_linkage_labels"><code class="docutils literal notranslate"><span class="pre">single_linkage_labels()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mapper.html#pytop.mapper.MapperNode"><code class="docutils literal notranslate"><span class="pre">MapperNode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mapper.html#pytop.mapper.MapperComplex"><code class="docutils literal notranslate"><span class="pre">MapperComplex</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mapper.html#pytop.mapper.mapper"><code class="docutils literal notranslate"><span class="pre">mapper()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/tda_pipeline.html">Tda Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/tda_pipeline.html#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tda_pipeline.html#pytop.tda_pipeline.TDAPipeline"><code class="docutils literal notranslate"><span class="pre">TDAPipeline</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/knot_invariants.html">Knot Invariants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#diagram-conventions">Diagram conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.Laurent"><code class="docutils literal notranslate"><span class="pre">Laurent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.KnotDiagram"><code class="docutils literal notranslate"><span class="pre">KnotDiagram</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.LinkDiagram"><code class="docutils literal notranslate"><span class="pre">LinkDiagram</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.writhe"><code class="docutils literal notranslate"><span class="pre">writhe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.linking_number"><code class="docutils literal notranslate"><span class="pre">linking_number()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.linking_matrix"><code class="docutils literal notranslate"><span class="pre">linking_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.multivariable_alexander"><code class="docutils literal notranslate"><span class="pre">multivariable_alexander()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.kauffman_bracket"><code class="docutils literal notranslate"><span class="pre">kauffman_bracket()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.jones_polynomial"><code class="docutils literal notranslate"><span class="pre">jones_polynomial()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.reduced_burau"><code class="docutils literal notranslate"><span class="pre">reduced_burau()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.alexander_polynomial_from_braid"><code class="docutils literal notranslate"><span class="pre">alexander_polynomial_from_braid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/knot_invariants.html#pytop.knot_invariants.is_valid_pd_code"><code class="docutils literal notranslate"><span class="pre">is_valid_pd_code()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/concordance.html">Concordance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#key-concordance-invariants">Key concordance invariants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#known-values">Known values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#pytop.concordance.ConcordanceInvariants"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#pytop.concordance.tau_torus_knot"><code class="docutils literal notranslate"><span class="pre">tau_torus_knot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#pytop.concordance.s_invariant_torus_knot"><code class="docutils literal notranslate"><span class="pre">s_invariant_torus_knot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#pytop.concordance.tristram_levine_signature"><code class="docutils literal notranslate"><span class="pre">tristram_levine_signature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#pytop.concordance.signature_torus_knot"><code class="docutils literal notranslate"><span class="pre">signature_torus_knot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#pytop.concordance.concordance_data"><code class="docutils literal notranslate"><span class="pre">concordance_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#pytop.concordance.is_algebraically_slice"><code class="docutils literal notranslate"><span class="pre">is_algebraically_slice()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#pytop.concordance.concordance_order"><code class="docutils literal notranslate"><span class="pre">concordance_order()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#pytop.concordance.is_concordant_to_unknot"><code class="docutils literal notranslate"><span class="pre">is_concordant_to_unknot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/concordance.html#pytop.concordance.tau_from_alexander_degree"><code class="docutils literal notranslate"><span class="pre">tau_from_alexander_degree()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/three_manifolds.html">Three Manifolds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/three_manifolds.html#pytop.three_manifolds.AbelianGroup"><code class="docutils literal notranslate"><span class="pre">AbelianGroup</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/three_manifolds.html#pytop.three_manifolds.ThreeManifoldInvariantProfile"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldInvariantProfile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/three_manifolds.html#pytop.three_manifolds.ThreeManifoldProfile"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/three_manifolds.html#pytop.three_manifolds.get_three_manifold_invariant_profiles"><code class="docutils literal notranslate"><span class="pre">get_three_manifold_invariant_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/three_manifolds.html#pytop.three_manifolds.get_three_manifold_profiles"><code class="docutils literal notranslate"><span class="pre">get_three_manifold_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/three_manifolds.html#pytop.three_manifolds.lens_space_pi1"><code class="docutils literal notranslate"><span class="pre">lens_space_pi1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/three_manifolds.html#pytop.three_manifolds.mapping_torus_h1"><code class="docutils literal notranslate"><span class="pre">mapping_torus_h1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/three_manifolds.html#pytop.three_manifolds.three_manifold_family_summary"><code class="docutils literal notranslate"><span class="pre">three_manifold_family_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/three_manifolds.html#pytop.three_manifolds.three_manifold_invariant_kind_summary"><code class="docutils literal notranslate"><span class="pre">three_manifold_invariant_kind_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/three_manifolds.html#pytop.three_manifolds.three_manifold_profile_registry"><code class="docutils literal notranslate"><span class="pre">three_manifold_profile_registry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/surface_word_classification.html">Surface Word Classification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/surface_word_classification.html#pytop.surface_word_classification.SurfaceClassification"><code class="docutils literal notranslate"><span class="pre">SurfaceClassification</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/surface_word_classification.html#pytop.surface_word_classification.classify_surface_word"><code class="docutils literal notranslate"><span class="pre">classify_surface_word()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/shape_theory.html">Shape Theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#key-theorems-implemented">Key theorems implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.ShapeProfile"><code class="docutils literal notranslate"><span class="pre">ShapeProfile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.get_named_shape_profiles"><code class="docutils literal notranslate"><span class="pre">get_named_shape_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.shape_layer_summary"><code class="docutils literal notranslate"><span class="pre">shape_layer_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.shape_chapter_index"><code class="docutils literal notranslate"><span class="pre">shape_chapter_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.shape_type_index"><code class="docutils literal notranslate"><span class="pre">shape_type_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.is_anr"><code class="docutils literal notranslate"><span class="pre">is_anr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.is_fanr"><code class="docutils literal notranslate"><span class="pre">is_fanr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.is_movable"><code class="docutils literal notranslate"><span class="pre">is_movable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.has_trivial_shape"><code class="docutils literal notranslate"><span class="pre">has_trivial_shape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.cech_cohomology_applicable"><code class="docutils literal notranslate"><span class="pre">cech_cohomology_applicable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.classify_shape"><code class="docutils literal notranslate"><span class="pre">classify_shape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.shape_profile"><code class="docutils literal notranslate"><span class="pre">shape_profile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.link_complex"><code class="docutils literal notranslate"><span class="pre">link_complex()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.is_manifold_triangulation"><code class="docutils literal notranslate"><span class="pre">is_manifold_triangulation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.has_trivial_shape_sc"><code class="docutils literal notranslate"><span class="pre">has_trivial_shape_sc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/shape_theory.html#pytop.shape_theory.shape_anr_check_sc"><code class="docutils literal notranslate"><span class="pre">shape_anr_check_sc()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/graph_planarity.html">Graph Planarity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/graph_planarity.html#pytop.graph_planarity.GraphPlanarityError"><code class="docutils literal notranslate"><span class="pre">GraphPlanarityError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/graph_planarity.html#pytop.graph_planarity.graph_genus"><code class="docutils literal notranslate"><span class="pre">graph_genus()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/graph_planarity.html#pytop.graph_planarity.is_planar"><code class="docutils literal notranslate"><span class="pre">is_planar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/graph_planarity.html#pytop.graph_planarity.satisfies_planar_edge_bound"><code class="docutils literal notranslate"><span class="pre">satisfies_planar_edge_bound()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/dimension_theory.html">Dimension Theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/dimension_theory.html#pytop.dimension_theory.ind"><code class="docutils literal notranslate"><span class="pre">ind()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/dimension_theory.html#pytop.dimension_theory.Ind"><code class="docutils literal notranslate"><span class="pre">Ind()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/dimension_theory.html#pytop.dimension_theory.dim"><code class="docutils literal notranslate"><span class="pre">dim()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/dimension_theory.html#pytop.dimension_theory.has_clopen_base"><code class="docutils literal notranslate"><span class="pre">has_clopen_base()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/dimension_theory.html#pytop.dimension_theory.is_zero_dimensional"><code class="docutils literal notranslate"><span class="pre">is_zero_dimensional()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/dimension_theory.html#pytop.dimension_theory.is_totally_disconnected"><code class="docutils literal notranslate"><span class="pre">is_totally_disconnected()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/dimension_theory.html#pytop.dimension_theory.covering_dimension_simplicial"><code class="docutils literal notranslate"><span class="pre">covering_dimension_simplicial()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/dimension_theory.html#pytop.dimension_theory.ind_finite_space"><code class="docutils literal notranslate"><span class="pre">ind_finite_space()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/spaces.html">Experimental Spaces</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.CarrierKind"><code class="docutils literal notranslate"><span class="pre">CarrierKind</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.Decidability"><code class="docutils literal notranslate"><span class="pre">Decidability</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.NotEnumerableError"><code class="docutils literal notranslate"><span class="pre">NotEnumerableError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.Space"><code class="docutils literal notranslate"><span class="pre">Space</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.Verdict"><code class="docutils literal notranslate"><span class="pre">Verdict</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.Pi1Result"><code class="docutils literal notranslate"><span class="pre">Pi1Result</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.pi1_space"><code class="docutils literal notranslate"><span class="pre">pi1_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.UrysohnWitness"><code class="docutils literal notranslate"><span class="pre">UrysohnWitness</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.urysohn_function"><code class="docutils literal notranslate"><span class="pre">urysohn_function()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.CardinalValue"><code class="docutils literal notranslate"><span class="pre">CardinalValue</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.weight"><code class="docutils literal notranslate"><span class="pre">weight()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.density"><code class="docutils literal notranslate"><span class="pre">density()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.character"><code class="docutils literal notranslate"><span class="pre">character()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.cellularity"><code class="docutils literal notranslate"><span class="pre">cellularity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_hausdorff"><code class="docutils literal notranslate"><span class="pre">is_hausdorff()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_t0"><code class="docutils literal notranslate"><span class="pre">is_t0()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_t1"><code class="docutils literal notranslate"><span class="pre">is_t1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_t3"><code class="docutils literal notranslate"><span class="pre">is_t3()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_t4"><code class="docutils literal notranslate"><span class="pre">is_t4()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_tychonoff"><code class="docutils literal notranslate"><span class="pre">is_tychonoff()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_t5"><code class="docutils literal notranslate"><span class="pre">is_t5()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_t6"><code class="docutils literal notranslate"><span class="pre">is_t6()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_regular"><code class="docutils literal notranslate"><span class="pre">is_regular()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_normal"><code class="docutils literal notranslate"><span class="pre">is_normal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_compact"><code class="docutils literal notranslate"><span class="pre">is_compact()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_connected"><code class="docutils literal notranslate"><span class="pre">is_connected()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_lindelof"><code class="docutils literal notranslate"><span class="pre">is_lindelof()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_separable"><code class="docutils literal notranslate"><span class="pre">is_separable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_second_countable"><code class="docutils literal notranslate"><span class="pre">is_second_countable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_first_countable"><code class="docutils literal notranslate"><span class="pre">is_first_countable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.subspace"><code class="docutils literal notranslate"><span class="pre">subspace()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.binary_product"><code class="docutils literal notranslate"><span class="pre">binary_product()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.disjoint_sum"><code class="docutils literal notranslate"><span class="pre">disjoint_sum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.quotient"><code class="docutils literal notranslate"><span class="pre">quotient()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.Construction"><code class="docutils literal notranslate"><span class="pre">Construction</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.ProductSpace"><code class="docutils literal notranslate"><span class="pre">ProductSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.SumSpace"><code class="docutils literal notranslate"><span class="pre">SumSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.SubspaceSpace"><code class="docutils literal notranslate"><span class="pre">SubspaceSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.QuotientSpace"><code class="docutils literal notranslate"><span class="pre">QuotientSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.Derivation"><code class="docutils literal notranslate"><span class="pre">Derivation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.derive"><code class="docutils literal notranslate"><span class="pre">derive()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.explain"><code class="docutils literal notranslate"><span class="pre">explain()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.synthesize"><code class="docutils literal notranslate"><span class="pre">synthesize()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.PiBaseSpace"><code class="docutils literal notranslate"><span class="pre">PiBaseSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.pi_base_space"><code class="docutils literal notranslate"><span class="pre">pi_base_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.analyze_pi_base_space"><code class="docutils literal notranslate"><span class="pre">analyze_pi_base_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.best_space"><code class="docutils literal notranslate"><span class="pre">best_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.is_representable"><code class="docutils literal notranslate"><span class="pre">is_representable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.list_representable"><code class="docutils literal notranslate"><span class="pre">list_representable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.AlexandroffSpace"><code class="docutils literal notranslate"><span class="pre">AlexandroffSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.CantorSpaceRepresentation"><code class="docutils literal notranslate"><span class="pre">CantorSpaceRepresentation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.CofiniteSpace"><code class="docutils literal notranslate"><span class="pre">CofiniteSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.DiscreteCountableSpace"><code class="docutils literal notranslate"><span class="pre">DiscreteCountableSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.FiniteSpace"><code class="docutils literal notranslate"><span class="pre">FiniteSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.InverseLimitSpace"><code class="docutils literal notranslate"><span class="pre">InverseLimitSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.LexicographicSquareSpace"><code class="docutils literal notranslate"><span class="pre">LexicographicSquareSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.MetricTopologySpace"><code class="docutils literal notranslate"><span class="pre">MetricTopologySpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.OpaqueInfiniteSpace"><code class="docutils literal notranslate"><span class="pre">OpaqueInfiniteSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.OrderTopologySpace"><code class="docutils literal notranslate"><span class="pre">OrderTopologySpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.ProductMetricSpace"><code class="docutils literal notranslate"><span class="pre">ProductMetricSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.SorgenfreyLineSpace"><code class="docutils literal notranslate"><span class="pre">SorgenfreyLineSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.SubbaseSpace"><code class="docutils literal notranslate"><span class="pre">SubbaseSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.HilbertCubeSpace"><code class="docutils literal notranslate"><span class="pre">HilbertCubeSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.OnePointCompactificationSpace"><code class="docutils literal notranslate"><span class="pre">OnePointCompactificationSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.ProfiniteSpace"><code class="docutils literal notranslate"><span class="pre">ProfiniteSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.SolenoidSpace"><code class="docutils literal notranslate"><span class="pre">SolenoidSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.StoneCechSpace"><code class="docutils literal notranslate"><span class="pre">StoneCechSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.UniformProduct"><code class="docutils literal notranslate"><span class="pre">UniformProduct</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.UniformSpace"><code class="docutils literal notranslate"><span class="pre">UniformSpace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.UniformSubspace"><code class="docutils literal notranslate"><span class="pre">UniformSubspace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.cantor_space"><code class="docutils literal notranslate"><span class="pre">cantor_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.discrete_finite_space"><code class="docutils literal notranslate"><span class="pre">discrete_finite_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.finite_circle"><code class="docutils literal notranslate"><span class="pre">finite_circle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.finite_sphere"><code class="docutils literal notranslate"><span class="pre">finite_sphere()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.finite_wedge_circles"><code class="docutils literal notranslate"><span class="pre">finite_wedge_circles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.lexicographic_square"><code class="docutils literal notranslate"><span class="pre">lexicographic_square()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.rational_metric_space"><code class="docutils literal notranslate"><span class="pre">rational_metric_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.rational_plane"><code class="docutils literal notranslate"><span class="pre">rational_plane()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.dyadic_solenoid"><code class="docutils literal notranslate"><span class="pre">dyadic_solenoid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.hilbert_cube"><code class="docutils literal notranslate"><span class="pre">hilbert_cube()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.metric_uniform_space"><code class="docutils literal notranslate"><span class="pre">metric_uniform_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.one_point_compactification"><code class="docutils literal notranslate"><span class="pre">one_point_compactification()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.p_adic_integers"><code class="docutils literal notranslate"><span class="pre">p_adic_integers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.profinite_space"><code class="docutils literal notranslate"><span class="pre">profinite_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.rational_uniform_space"><code class="docutils literal notranslate"><span class="pre">rational_uniform_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/spaces.html#pytop.experimental.spaces.stone_cech_n"><code class="docutils literal notranslate"><span class="pre">stone_cech_n()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules/homology.html" class="btn btn-neutral float-right" title="Homology" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

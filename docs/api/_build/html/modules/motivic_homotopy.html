@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Motivic Homotopy &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Motivic Homotopy</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/motivic_homotopy.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.motivic_homotopy">
+<span id="motivic-homotopy"></span><h1>Motivic Homotopy<a class="headerlink" href="#module-pytop.motivic_homotopy" title="Link to this heading"></a></h1>
+<p>Motivic homotopy theory: A¹-homotopy, Nisnevich topology, motivic cohomology,
+algebraic K-theory, Milnor K-theory, stable motivic homotopy category, Voevodsky theorems.</p>
+<section id="key-theorems-and-constructions-implemented">
+<h2>Key theorems and constructions implemented<a class="headerlink" href="#key-theorems-and-constructions-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>A¹-homotopy theory (Morel-Voevodsky, 1999): the motivic homotopy category H(k) is
+constructed by taking the category of sheaves of simplicial sets on the Nisnevich site
+Sm/k (smooth k-schemes), then inverting two types of weak equivalences:
+(1) simplicial weak equivalences (Nisnevich-local), and
+(2) A¹-weak equivalences (maps X x A¹ -&gt; X are equivalences for A¹ = Spec k[t]).
+The role of the unit interval [0,1] in classical homotopy theory is played by the
+affine line A¹ = Spec k[t]. This gives a model category whose homotopy category H(k)
+contains classical topology (via X <a href="#id1"><span class="problematic" id="id2">|</span></a>-&gt; X(C) for k = C) and algebraic geometry.
+The A¹-fundamental group pi_1^{A¹}(P^1) was computed by Morel to be the free
+A¹-group on one generator, recovered as the Grothendieck-Witt group GW(k) for k = R.
+Key examples: P^1 = S^1 ^ (A¹{0}) (motivic) — the motivic version of S^2.
+The Hopf fibration eta: A²{0} -&gt; P^1 is an A¹-fibration, the motivic analogue of
+the classical Hopf map S³ -&gt; S². The motivic Hopf map is non-trivial and generates
+the motivic stable homotopy of the sphere spectrum.</p></li>
+<li><p>Nisnevich topology: introduced by Nisnevich (1989), it is a Grothendieck topology on
+the category Sm/k of smooth k-schemes, intermediate between the Zariski and étale
+topologies. A covering family {U_i -&gt; X} is a Nisnevich cover if every point x in X
+(not just geometric points) has a preimage with the same residue field. Formally: a
+morphism f: U -&gt; X is a Nisnevich cover if it is étale and for every point x in X,
+there exists u in U with f(u) = x and k(u) = k(x) (residue field isomorphism).
+The Nisnevich topology is crucial because: (a) cohomological dimension is bounded
+(cd_{Nis}(k) &lt;= d = dim k), (b) étale sheaves descend to Nisnevich sheaves, and
+(c) the Nisnevich cohomology of algebraic K-theory equals algebraic K-theory itself
+(Brown-Gersten property: K-theory satisfies Nisnevich descent).
+Brown-Gersten property: a presheaf F satisfies Nisnevich descent if for every
+elementary distinguished square (Cartesian square with f étale, Z closed, open
+complement isomorphic), the square F(X) -&gt; F(U) x_{F(W)} F(V) is a homotopy
+pullback.</p></li>
+<li><p>Motivic cohomology H^{p,q}(X, Z): a bigraded cohomology theory for smooth k-schemes X,
+defined using Voevodsky’s motivic complexes Z(q) (the sheaves of the DM category).
+The bidegree (p, q) has: p = cohomological degree, q = motivic weight (or twist).
+Fundamental isomorphism: H^{2n,n}(X, Z) = CH^n(X) (Chow groups). This unifies
+classical intersection theory with homotopy theory. Other cases:
+H^{0,0}(Spec k, Z) = Z, H^{1,1}(Spec k, Z) = k* (units of k),
+H^{n,n}(Spec k, Z) = K^M_n(k) (Milnor K-theory), and
+H^{p,q}(X, Z/l) ≅ H^p(X, mu_l^{tensor q}) (étale cohomology for l != char k).
+The motivic cohomology H^{p,q}(-, Z) is represented in SH(k) by the motivic
+Eilenberg-MacLane spectrum HZ: [Sigma^{p,q} Sigma^inf X_+, HZ] ≅ H^{p,q}(X, Z).
+Beilinson-Lichtenbaum conjecture (proved by Voevodsky): for l prime != char k,
+the natural map H^{p,q}(X, Z/l) -&gt; H^p_ét(X, mu_l^{tensor q}) is an isomorphism
+for p &lt;= q. Combined with the Milnor conjecture (Voevodsky 2003), this proves the
+Bloch-Kato conjecture for all primes l.</p></li>
+<li><p>Algebraic K-theory K(X): for a smooth scheme X, the algebraic K-groups K_n(X) measure
+information about vector bundles (coherent sheaves) on X. Defined as pi_n of the
+K-theory space BGL(X)+ (plus-construction) or via Quillen’s Q-construction.
+Bott periodicity: in topology, K(X)[beta^{-1}] = KU(X) (complex K-theory). In
+algebraic geometry, inverting the Bott element beta in K_*(X) gives periodic K-theory.
+Atiyah-Hirzebruch spectral sequence (motivic): E_2^{p,q} = H^{-q,-q/2}(X, Z) =&gt;
+K_{-p-q}(X) — the motivic version relating motivic cohomology and K-theory.
+Bass-Quillen theorem: for a smooth affine variety X over a field k, K_n(X x A^1) = K_n(X)
+for all n (K-theory is A¹-invariant on smooth affine varieties).
+Algebraic K-theory is represented in SH(k) by the K-theory spectrum KGL, and the
+periodicity theorem KGL = KGL[beta^{-1}] holds in SH(k). The motivic Adams operations
+psi^k: KGL -&gt; KGL play the role of Adams operations in topology.</p></li>
+<li><p>Milnor K-theory K^M_*(k): for a field k, the Milnor K-theory is
+K^M_n(k) = k* tensor … tensor k* / (a_1 tensor … tensor a_n : a_i + a_j = 1 for some i!=j).
+The generators are symbols {a_1, …, a_n} = a_1 tensor … tensor a_n in k* ^{tensor n}.
+The Milnor K-group K^M_n(k) is the quotient of (k*)^n by the Steinberg relations
+{a_1, …, a_n} = 0 whenever a_i + a_j = 1 for some i != j.
+Fundamental isomorphism: H^{n,n}(Spec k, Z) = K^M_n(k) (Nesterenko-Suslin, Totaro 1989).
+Milnor conjecture (proved by Voevodsky 1996, Fields Medal 2002): the natural map
+K^M_n(k) / 2 -&gt; H^n_ét(k, Z/2) is an isomorphism for all n and all fields k of
+characteristic != 2. This resolved a conjecture open since 1970.
+Bloch-Kato conjecture (proved by Voevodsky-Rost-Weibel 2009): for any prime l != char k,
+K^M_n(k) / l -&gt; H^n_ét(k, mu_l^{tensor n}) is an isomorphism.
+The motivic Steenrod algebra and motivic cohomology operations (motivic Sq^i) are key
+tools in the proof, constructed via the motivic Eilenberg-MacLane spectrum HZ/l.</p></li>
+<li><p>Stable motivic homotopy category SH(k): the motivic analogue of the stable homotopy
+category. Constructed by formally inverting the bigraded spheres S^{p,q} = (S^1)^{p-q}
+^ (A¹{0})^q (smash product). The sphere spectrum S^{0,0} = Spec k_+ and the motivic
+spheres satisfy S^{1,0} = S^1 (topological), S^{1,1} = A¹{0} (Gm, algebraic),
+S^{2,1} = P^1 (projective line = S^1 ^ Gm).
+Motivic stable homotopy groups: pi_{p,q}(S^{0,0}) are highly non-trivial; the first
+non-trivial element is eta in pi_{1,1}(S^{0,0}) (motivic Hopf map), satisfying
+2 eta = 0 and eta^4 = 0. Over R, eta is non-nilpotent (unlike in topology).
+Oriented spectra: a ring spectrum E in SH(k) is oriented if the tautological line
+bundle over P^inf has a Thom class. Oriented spectra satisfy the projective bundle
+formula E*(P(V)) = E*(X)[t]/(t^{n+1}) for V -&gt; X a rank n+1 bundle.
+Algebraic cobordism MGL: the universal oriented cohomology theory in SH(k), defined
+as the Thom spectrum of the canonical bundle over the algebraic Grassmannian. MGL
+is the motivic analogue of complex cobordism MU.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">MotivicHomotopyProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">motivic_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_stable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_transfers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_oriented</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_a1_invariant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_nisnevich_descent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated motivic homotopy theory example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.motivic_type">
+<span class="sig-name descname"><span class="pre">motivic_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.motivic_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.base_field">
+<span class="sig-name descname"><span class="pre">base_field</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.base_field" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.is_stable">
+<span class="sig-name descname"><span class="pre">is_stable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.is_stable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.has_transfers">
+<span class="sig-name descname"><span class="pre">has_transfers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.has_transfers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.is_oriented">
+<span class="sig-name descname"><span class="pre">is_oriented</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.is_oriented" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.is_a1_invariant">
+<span class="sig-name descname"><span class="pre">is_a1_invariant</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.is_a1_invariant" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.has_nisnevich_descent">
+<span class="sig-name descname"><span class="pre">has_nisnevich_descent</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.has_nisnevich_descent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.MotivicHomotopyProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.motivic_homotopy.MotivicHomotopyProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.get_named_motivic_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">get_named_motivic_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.motivic_homotopy.MotivicHomotopyProfile" title="pytop.motivic_homotopy.MotivicHomotopyProfile"><span class="pre">MotivicHomotopyProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.motivic_homotopy.get_named_motivic_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical motivic homotopy theory examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.motivic_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">motivic_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.motivic_homotopy.motivic_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.motivic_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">motivic_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.motivic_homotopy.motivic_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.motivic_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">motivic_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.motivic_homotopy.motivic_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from motivic_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.is_a1_invariant">
+<span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">is_a1_invariant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.motivic_homotopy.is_a1_invariant" title="Link to this definition"></a></dt>
+<dd><p>Check whether the space/theory satisfies A¹-invariance.</p>
+<p>A presheaf F on Sm/k is A¹-invariant if the projection pr: X x A¹ -&gt; X
+induces a weak equivalence F(X) -&gt; F(X x A¹) for every smooth X. This is
+the motivic analogue of homotopy invariance (the interval [0,1] is replaced
+by the affine line A¹ = Spec k[t]).</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit A¹-homotopy or A¹-invariant tags -&gt; true.</p></li>
+<li><p>Known A¹-invariant theories (K-theory, motivic cohomology, MGL) -&gt; true.</p></li>
+<li><p>Known non-A¹-invariant objects (Gm as presheaf, Pic non-invariant cases) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.has_nisnevich_descent">
+<span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">has_nisnevich_descent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.motivic_homotopy.has_nisnevich_descent" title="Link to this definition"></a></dt>
+<dd><p>Check whether the theory satisfies Nisnevich descent (Brown-Gersten property).</p>
+<p>A presheaf F: (Sm/k)^op -&gt; sSet satisfies Nisnevich descent if for every
+elementary distinguished square (p: V -&gt; X étale, Z closed in X, j: U = X Z -&gt; X
+open, p^{-1}(U) ≅ U), the square F(X) -&gt; F(U) x_{F(p^{-1}(U))} F(V) is a
+homotopy pullback in sSet. This is the motivic analogue of Mayer-Vietoris.</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit Nisnevich tags -&gt; true.</p></li>
+<li><p>Known theories satisfying Nisnevich descent (K-theory, motivic cohomology) -&gt; true.</p></li>
+<li><p>Explicit Zariski-only or non-descent failure tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.is_motivic_cohomology_theory">
+<span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">is_motivic_cohomology_theory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.motivic_homotopy.is_motivic_cohomology_theory" title="Link to this definition"></a></dt>
+<dd><p>Check whether the space/theory is (or represents) motivic cohomology.</p>
+<p>Motivic cohomology H^{p,q}(X, Z) is the bigraded cohomology theory represented
+by the motivic Eilenberg-MacLane spectrum HZ in SH(k). It satisfies:
+- H^{2n,n}(X, Z) = CH^n(X) (Chow groups),
+- H^{n,n}(Spec k, Z) = K^M_n(k) (Milnor K-theory),
+- Nisnevich descent, A¹-invariance, transfers.</p>
+<section id="id4">
+<h2>Decision layers<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit motivic cohomology or HZ tags -&gt; true.</p></li>
+<li><p>Chow groups or Milnor K-theory (which are motivic cohomology groups) -&gt; true.</p></li>
+<li><p>Non-motivic-cohomology tags (topological cohomology only, no bigrading) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.has_algebraic_k_theory_structure">
+<span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">has_algebraic_k_theory_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.motivic_homotopy.has_algebraic_k_theory_structure" title="Link to this definition"></a></dt>
+<dd><p>Check whether the space/theory carries algebraic K-theory structure.</p>
+<p>Algebraic K-theory K(X) is the universal additive invariant of exact categories
+(via Quillen’s Q-construction) or stable ∞-categories (via Waldhausen S-construction).
+A theory has algebraic K-theory structure if it is or factors through K-theory:
+satisfies Nisnevich descent (Brown-Gersten), A¹-invariance on smooth schemes,
+and is representable by KGL in SH(k).</p>
+<section id="id5">
+<h2>Decision layers<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit algebraic K-theory or KGL tags -&gt; true.</p></li>
+<li><p>Theories known to factor through K-theory (G-theory for regular, Chow via AHSS) -&gt; true.</p></li>
+<li><p>Theories with no K-theory content -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.classify_motivic">
+<span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">classify_motivic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.motivic_homotopy.classify_motivic" title="Link to this definition"></a></dt>
+<dd><p>Run all motivic analysis functions and return a combined result dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.motivic_homotopy.motivic_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.motivic_homotopy.</span></span><span class="sig-name descname"><span class="pre">motivic_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.motivic_homotopy.motivic_profile" title="Link to this definition"></a></dt>
+<dd><p>Return a comprehensive motivic profile of the space.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

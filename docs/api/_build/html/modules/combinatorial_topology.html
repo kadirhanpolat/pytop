@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Combinatorial Topology &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Combinatorial Topology</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/combinatorial_topology.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.combinatorial_topology">
+<span id="combinatorial-topology"></span><h1>Combinatorial Topology<a class="headerlink" href="#module-pytop.combinatorial_topology" title="Link to this heading"></a></h1>
+<p>Combinatorial topology: simplicial complexes, CW complexes, Euler characteristic,
+simplicial homology, nerve theorem, and collapsibility.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Euler’s formula (1758 / Poincaré generalization): for a finite simplicial complex K
+the Euler characteristic is chi(K) = sum_{k&gt;=0} (-1)^k f_k where f_k is the number
+of k-simplices. For a convex polyhedron: V - E + F = 2. Euler characteristic is a
+homotopy invariant: homeomorphic spaces have equal chi.</p></li>
+<li><p>Simplicial homology: for a finite simplicial complex K with an orientation, the
+k-th chain group C_k(K) is the free abelian group on k-simplices. The boundary
+map partial_k: C_k -&gt; C_{k-1} satisfies partial_{k-1} circ partial_k = 0. The
+k-th homology group is H_k(K) = ker(partial_k) / im(partial_{k+1}). Key invariant:
+the Betti numbers beta_k = rank(H_k) and torsion subgroups.</p></li>
+<li><p>CW complexes: a CW complex X is built inductively — start with a discrete set X^0
+(0-cells), attach 1-cells via maps S^0 -&gt; X^0 to get X^1, then 2-cells via maps
+S^1 -&gt; X^1, etc. The k-th cellular chain group is C_k^{CW} = H_k(X^k, X^{k-1})
+and the cellular boundary maps give the same homology as simplicial. CW complexes
+are far more efficient than triangulations: S^n needs only two cells (one 0-cell,
+one n-cell).</p></li>
+<li><p>Nerve theorem (Borsuk 1948, Leray 1945): let U = {U_i} be a finite open cover of
+a paracompact space X where every nonempty finite intersection U_{i_1} cap … cap
+U_{i_k} is contractible (a ‘good cover’). Then the geometric realization <a href="#id5"><span class="problematic" id="id6">|N(U)|</span></a> of
+the nerve N(U) is homotopy equivalent to X. This connects open covers to combinatorial
+topology and is the foundation of Cech cohomology.</p></li>
+<li><p>Collapsibility and simple homotopy theory (Whitehead 1939): a simplicial complex K
+is collapsible if it can be reduced to a point by a sequence of elementary collapses.
+An elementary collapse removes a free face: a (k-1)-simplex sigma that is a face of
+exactly one k-simplex tau. Collapsible implies contractible; the converse fails
+(Zeeman’s dunce hat: contractible but not collapsible). Contractible but non-collapsible
+complexes detect a subtle homotopy-vs-combinatorial distinction.</p></li>
+<li><p>Alexander duality (1915, simplicial form): for a simplicial complex K triangulating
+S^n and a subcomplex L ⊆ K, there is an isomorphism (with appropriate coefficients)
+H_q(L) ≅ H^{n-q-1}(S^n <a href="#id7"><span class="problematic" id="id8">|L|</span></a>). This is the simplicial version of Alexander’s
+classical theorem linking the topology of a subspace to its complement.</p></li>
+<li><p>Künneth formula: for simplicial complexes K, L with coefficients in a field F,
+H_n(K * L; F) ≅ ⊕_{i+j=n} H_i(K; F) ⊗ H_j(L; F). For the join K * L:
+H_k(K * L) ≅ ⊕_{i+j=k-1} H_i(K) ⊗ H_j(L)  (in the reduced sense).</p></li>
+<li><p>Simplicial approximation theorem: for any continuous map f: <a href="#id9"><span class="problematic" id="id10">|K|</span></a> -&gt; <a href="#id11"><span class="problematic" id="id12">|L|</span></a> between
+geometric realizations of finite simplicial complexes, there exists a subdivision K’
+of K and a simplicial map g: K’ -&gt; L such that <a href="#id13"><span class="problematic" id="id14">|g|</span></a> is homotopic to f. This allows
+homotopy theory to be computed combinatorially.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">CombinatorialProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">complex_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">euler_characteristic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_contractible</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_acyclic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_torsion_in_homology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_collapsible</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">betti_numbers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated combinatorial topology example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.complex_type">
+<span class="sig-name descname"><span class="pre">complex_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.complex_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.euler_characteristic">
+<span class="sig-name descname"><span class="pre">euler_characteristic</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.euler_characteristic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.is_contractible">
+<span class="sig-name descname"><span class="pre">is_contractible</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.is_contractible" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.is_acyclic">
+<span class="sig-name descname"><span class="pre">is_acyclic</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.is_acyclic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.has_torsion_in_homology">
+<span class="sig-name descname"><span class="pre">has_torsion_in_homology</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.has_torsion_in_homology" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.is_collapsible">
+<span class="sig-name descname"><span class="pre">is_collapsible</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.is_collapsible" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.betti_numbers">
+<span class="sig-name descname"><span class="pre">betti_numbers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.betti_numbers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.CombinatorialProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.combinatorial_topology.CombinatorialProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.get_named_combinatorial_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">get_named_combinatorial_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.combinatorial_topology.CombinatorialProfile" title="pytop.combinatorial_topology.CombinatorialProfile"><span class="pre">CombinatorialProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.combinatorial_topology.get_named_combinatorial_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical combinatorial topology examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.combinatorial_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">combinatorial_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.combinatorial_topology.combinatorial_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.combinatorial_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">combinatorial_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.combinatorial_topology.combinatorial_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.combinatorial_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">combinatorial_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.combinatorial_topology.combinatorial_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from complex_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.is_contractible_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">is_contractible_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.combinatorial_topology.is_contractible_complex" title="Link to this definition"></a></dt>
+<dd><p>Check whether the space is contractible (homotopy equivalent to a point).</p>
+<p>A simplicial complex K is contractible if it is homotopy equivalent to a
+one-point space: all homotopy groups vanish (pi_k(K) = 0 for all k &gt;= 0).
+Equivalently, the identity map id: K -&gt; K is homotopic to a constant map.
+Key examples:
+- The standard n-simplex Δ^n and any cone are contractible.
+- Trees (connected, no cycles) are contractible.
+- The dunce hat is contractible but NOT collapsible.
+- Spheres S^n (n &gt;= 1) are NOT contractible.</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘contractible’ or cone/star/tree tag -&gt; true.</p></li>
+<li><p>Not-contractible tags (sphere, manifold, torus) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.is_acyclic_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">is_acyclic_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.combinatorial_topology.is_acyclic_complex" title="Link to this definition"></a></dt>
+<dd><p>Check whether the space is acyclic (trivial reduced homology).</p>
+<p>A space X is acyclic if its reduced homology vanishes: H_k(X) = 0 for all k &gt;= 0.
+Equivalently, the augmented chain complex is exact. Key examples:
+- All contractible spaces are acyclic (but not vice versa: homology spheres</p>
+<blockquote>
+<div><p>that are acyclic exist — e.g., the Poincaré homology sphere with pi_1 = I* but
+H_k = H_k(S^3) — but this is not acyclic).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Acyclic but non-contractible: the Whitehead manifold (open 3-manifold).</p></li>
+<li><p>Spheres S^n are NOT acyclic: H_n(S^n) = Z.</p></li>
+</ul>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘acyclic_homology’ or ‘trivial_reduced_homology’ tag -&gt; true.</p></li>
+<li><p>Contractible tags -&gt; true (contractible implies acyclic).</p></li>
+<li><p>Sphere / closed manifold with known nonzero homology -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.has_torsion_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">has_torsion_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.combinatorial_topology.has_torsion_homology" title="Link to this definition"></a></dt>
+<dd><p>Check whether the homology groups contain torsion elements.</p>
+<p>A simplicial complex K has torsion in homology if some H_k(K; Z) has a
+non-free part: H_k(K; Z) ≅ Z^{b_k} ⊕ (torsion subgroup). Key examples:
+- RP^n: H_k(RP^n; Z) has Z/2Z torsion in odd dimensions 0 &lt; k &lt; n.
+- The Klein bottle: H_1(K; Z) = Z ⊕ Z/2Z.
+- Lens spaces L(p,q): H_1 = Z/pZ.
+- Orientable manifolds: H_n = Z (no torsion in top degree for orientable).
+- Spheres and tori (over Z): no torsion.</p>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘torsion_homology’ or ‘z2_torsion’ tag -&gt; true.</p></li>
+<li><p>Non-orientable closed surface or projective space -&gt; true.</p></li>
+<li><p>Sphere / orientable surface (torus etc.) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.is_collapsible_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">is_collapsible_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.combinatorial_topology.is_collapsible_complex" title="Link to this definition"></a></dt>
+<dd><p>Check whether the complex is collapsible (reducible to a point by elementary collapses).</p>
+<p>A simplicial complex K is collapsible if there exists a sequence of elementary collapses
+reducing K to a single vertex. An elementary collapse removes a free face: a (k-1)-simplex
+sigma contained in exactly one k-simplex tau. Both sigma and tau are removed together.
+Key facts:
+- Collapsible implies contractible (each collapse is a homotopy equivalence).
+- The converse fails: the dunce hat is contractible but not collapsible.
+- Cones are collapsible: cone(L) collapses to the cone point.
+- Shellable complexes are collapsible.
+- The Bing house with two rooms is contractible but non-collapsible.</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘collapsible’ or ‘shellable’ or cone/star tag -&gt; true.</p></li>
+<li><p>Not-collapsible tags (dunce_hat, bing_house) -&gt; false.</p></li>
+<li><p>Non-contractible -&gt; false (collapsible implies contractible).</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.classify_combinatorial">
+<span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">classify_combinatorial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.combinatorial_topology.classify_combinatorial" title="Link to this definition"></a></dt>
+<dd><p>Classify the combinatorial topology type of space.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>combinatorial_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;contractible_collapsible&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;contractible_not_collapsible&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;acyclic&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;torsion&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;free_homology&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_contractible : Result
+is_acyclic : Result
+has_torsion : Result
+is_collapsible : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.combinatorial_topology.combinatorial_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.combinatorial_topology.</span></span><span class="sig-name descname"><span class="pre">combinatorial_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.combinatorial_topology.combinatorial_profile" title="Link to this definition"></a></dt>
+<dd><p>Full combinatorial topology profile combining classification and named examples.</p>
+<section id="id4">
+<h2>Keys<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.combinatorial_topology.classify_combinatorial" title="pytop.combinatorial_topology.classify_combinatorial"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_combinatorial()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[CombinatorialProfile, …]</span></dt><dd><p>Registry of canonical combinatorial topology examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

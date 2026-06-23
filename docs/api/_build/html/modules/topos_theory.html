@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topos Theory &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Operads" href="operads.html" />
+    <link rel="prev" title="Derived Categories" href="derived_categories.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Topos Theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-theorems-implemented">Key theorems implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.ToposProfile"><code class="docutils literal notranslate"><span class="pre">ToposProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.key"><code class="docutils literal notranslate"><span class="pre">ToposProfile.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.display_name"><code class="docutils literal notranslate"><span class="pre">ToposProfile.display_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.topos_type"><code class="docutils literal notranslate"><span class="pre">ToposProfile.topos_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.is_grothendieck"><code class="docutils literal notranslate"><span class="pre">ToposProfile.is_grothendieck</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.is_elementary"><code class="docutils literal notranslate"><span class="pre">ToposProfile.is_elementary</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.is_boolean"><code class="docutils literal notranslate"><span class="pre">ToposProfile.is_boolean</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.is_localic"><code class="docutils literal notranslate"><span class="pre">ToposProfile.is_localic</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.has_natural_number_object"><code class="docutils literal notranslate"><span class="pre">ToposProfile.has_natural_number_object</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.has_enough_points"><code class="docutils literal notranslate"><span class="pre">ToposProfile.has_enough_points</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.presentation_layer"><code class="docutils literal notranslate"><span class="pre">ToposProfile.presentation_layer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.focus"><code class="docutils literal notranslate"><span class="pre">ToposProfile.focus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topos_theory.ToposProfile.chapter_targets"><code class="docutils literal notranslate"><span class="pre">ToposProfile.chapter_targets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.get_named_topos_profiles"><code class="docutils literal notranslate"><span class="pre">get_named_topos_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.topos_layer_summary"><code class="docutils literal notranslate"><span class="pre">topos_layer_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.topos_chapter_index"><code class="docutils literal notranslate"><span class="pre">topos_chapter_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.topos_type_index"><code class="docutils literal notranslate"><span class="pre">topos_type_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.is_grothendieck_topos"><code class="docutils literal notranslate"><span class="pre">is_grothendieck_topos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.is_boolean_topos"><code class="docutils literal notranslate"><span class="pre">is_boolean_topos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.is_localic_topos"><code class="docutils literal notranslate"><span class="pre">is_localic_topos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.has_enough_points_topos"><code class="docutils literal notranslate"><span class="pre">has_enough_points_topos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.classify_topos"><code class="docutils literal notranslate"><span class="pre">classify_topos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.topos_profile"><code class="docutils literal notranslate"><span class="pre">topos_profile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.site_from_finite_topology"><code class="docutils literal notranslate"><span class="pre">site_from_finite_topology()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.sheaf_on_site"><code class="docutils literal notranslate"><span class="pre">sheaf_on_site()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.sheafification_finite"><code class="docutils literal notranslate"><span class="pre">sheafification_finite()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topos_theory.topos_check"><code class="docutils literal notranslate"><span class="pre">topos_check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Topos Theory</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/topos_theory.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.topos_theory">
+<span id="topos-theory"></span><h1>Topos Theory<a class="headerlink" href="#module-pytop.topos_theory" title="Link to this heading"></a></h1>
+<p>Topos theory: Grothendieck toposes, sheaves, geometric morphisms, classifying toposes.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Elementary toposes: a category E is an elementary topos if it has finite limits,
+is cartesian closed (every object X has an exponential Y^X), and has a subobject
+classifier — an object Omega with a monomorphism true: 1 -&gt; Omega such that every
+monomorphism m: A -&gt; X is the pullback of true along a unique characteristic map
+chi_m: X -&gt; Omega. Key examples: Set, Sh(X), [C^op, Set], the effective topos Eff.</p></li>
+<li><p>Giraud’s theorem (1964): a category E is a Grothendieck topos iff it has a small
+generating set, is cocomplete, finite limits commute with filtered colimits
+(coproducts are universal and disjoint), and every equivalence relation is effective.
+Equivalently: E = Sh(C, J) for some small site (C, J).</p></li>
+<li><p>Boolean toposes: a topos E is Boolean if every subobject A ⊆ X has a complement
+A^c with A ∪ A^c = X and A ∩ A^c = emptyset. Equivalently, the subobject classifier
+Omega is a Boolean algebra object (every element satisfies a ∨ ¬a = 1). Boolean
+toposes have classical internal logic (law of excluded middle holds). Key examples:
+Set, [G-Set] for a group G, sheaves on a Boolean space (Stone space).</p></li>
+<li><p>Localic toposes: a Grothendieck topos E is localic if it is equivalent to Sh(L)
+for a locale L (i.e., the site is a locale with the canonical coverage). Localic
+toposes form a full subcategory of Groth-Top equivalent to the category of locales
+(Joyal-Tierney theorem: every Grothendieck topos is bounded over a localic topos).</p></li>
+<li><p>Geometric morphisms: a geometric morphism f: E -&gt; F is an adjoint pair f* -| f_*
+where the inverse image f*: F -&gt; E preserves finite limits. The direct image
+f_*: E -&gt; F is the right adjoint. Key examples: the unique morphism E -&gt; Set
+(giving the ‘global sections’ functor Gamma = (f_*)(1)), and the structure morphisms
+of classifying toposes. An essential geometric morphism has f* with a left adjoint <a href="#id14"><span class="problematic" id="id15">f_</span></a>!.</p></li>
+<li><p>Classifying toposes (Lawvere 1970, Makkai-Reyes 1977): for each coherent (geometric)
+theory T there is a Grothendieck topos B[T] — the classifying topos — such that
+models of T in any Grothendieck topos E correspond to geometric morphisms E -&gt; B[T].
+This makes topos theory a ‘geometry of theories’. Examples: BG classifies G-torsors,
+the Zariski topos classifies local rings, the etale topos classifies strict local rings.</p></li>
+<li><p>The effective topos Eff (Hyland 1982): an elementary topos with a natural number
+object (NNO) that is NOT a Grothendieck topos. Its objects are ‘modest sets’ (sets
+with a realizability structure). The internal logic is intuitionistic. Eff models the
+effective topos of realizability and is the home of the recursive/computable reals.
+Giraud’s theorem fails for Eff: it lacks a small generating set in the sense required.</p></li>
+<li><p>Etale topos of a scheme: for a scheme X, the small etale topos Sh(X_et) consists of
+sheaves on the etale site (etale morphisms U -&gt; X with the etale topology). Its
+cohomology H^n_et(X, F) — etale cohomology — is the foundation of the Weil conjectures
+proof (Grothendieck, Deligne). The etale topos is not Boolean and has a complex internal
+logic reflecting the arithmetic geometry of X.</p></li>
+<li><p>Surjective geometric morphisms (localic surjections): f: E -&gt; F is a surjection if f*
+reflects isomorphisms. The Joyal-Tierney theorem: every Grothendieck topos admits a
+surjective localic geometric morphism from a localic topos — making localic toposes
+‘enough’ to generate all Grothendieck toposes.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">ToposProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">topos_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_grothendieck</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_elementary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_boolean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_localic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_natural_number_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_enough_points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.topos_theory.ToposProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated topos theory example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.topos_type">
+<span class="sig-name descname"><span class="pre">topos_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.topos_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.is_grothendieck">
+<span class="sig-name descname"><span class="pre">is_grothendieck</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.is_grothendieck" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.is_elementary">
+<span class="sig-name descname"><span class="pre">is_elementary</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.is_elementary" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.is_boolean">
+<span class="sig-name descname"><span class="pre">is_boolean</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.is_boolean" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.is_localic">
+<span class="sig-name descname"><span class="pre">is_localic</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.is_localic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.has_natural_number_object">
+<span class="sig-name descname"><span class="pre">has_natural_number_object</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.has_natural_number_object" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.has_enough_points">
+<span class="sig-name descname"><span class="pre">has_enough_points</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.has_enough_points" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topos_theory.ToposProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.topos_theory.ToposProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.get_named_topos_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">get_named_topos_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.topos_theory.ToposProfile" title="pytop.topos_theory.ToposProfile"><span class="pre">ToposProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topos_theory.get_named_topos_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical topos theory examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.topos_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">topos_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topos_theory.topos_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.topos_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">topos_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topos_theory.topos_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.topos_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">topos_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topos_theory.topos_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from topos_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.is_grothendieck_topos">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">is_grothendieck_topos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.topos_theory.is_grothendieck_topos" title="Link to this definition"></a></dt>
+<dd><p>Check whether the topos is a Grothendieck topos (sheaves on a site).</p>
+<p>A Grothendieck topos is a category equivalent to Sh(C, J) — sheaves on a
+small site (C, J). By Giraud’s theorem (1964), E is a Grothendieck topos iff:
+(1) E has a small generating set; (2) E is cocomplete; (3) colimits are
+universal (stable under pullback) and coproducts are disjoint; (4) every
+equivalence relation is effective. Key facts:
+- Set, Sh(X), [C^op, Set], BG are all Grothendieck toposes.
+- The effective topos Eff is elementary but NOT Grothendieck (fails (1)).
+- Every Grothendieck topos is elementary.</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘grothendieck_topos’ or sheaves-on-site tag -&gt; true.</p></li>
+<li><p>Localic / presheaf / classifying topos -&gt; true (all are Grothendieck).</p></li>
+<li><p>Realizability / effective topos -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.is_boolean_topos">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">is_boolean_topos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.topos_theory.is_boolean_topos" title="Link to this definition"></a></dt>
+<dd><p>Check whether the topos has Boolean (classical) internal logic.</p>
+<p>A topos E is Boolean if every subobject A ⊆ X has a complement: a subobject
+B ⊆ X with A ∪ B = X and A ∩ B = 0. Equivalently:
+- The subobject classifier Omega is a Boolean algebra (every element satisfies</p>
+<blockquote>
+<div><p>a ∨ ¬a = 1 in the internal Heyting algebra).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The law of excluded middle holds internally (for every proposition P,
+P ∨ ¬P is provable).</p></li>
+</ul>
+<p>Key facts:
+- Set and all presheaf toposes [C^op, Set] are Boolean.
+- Sh(X) is Boolean iff X is a Boolean (Stone) space (or more generally iff</p>
+<blockquote>
+<div><p>Omega(X) is a Boolean algebra — i.e., X is extremally disconnected).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Etale toposes and general sheaf toposes are NOT Boolean.</p></li>
+<li><p>The effective topos Eff is NOT Boolean (Church-Turing thesis holds internally).</p></li>
+</ul>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘boolean_topos’ or classical-logic tag -&gt; true.</p></li>
+<li><p>Presheaf / Set / G-sets (all Boolean) -&gt; true.</p></li>
+<li><p>Etale / Zariski / effective topos -&gt; false.</p></li>
+<li><p>‘not_boolean_topos’ / intuitionistic tag -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.is_localic_topos">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">is_localic_topos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.topos_theory.is_localic_topos" title="Link to this definition"></a></dt>
+<dd><p>Check whether the topos is localic (equivalent to Sh(L) for a locale L).</p>
+<p>A Grothendieck topos E is localic if it is equivalent to Sh(L) for some locale L.
+Equivalently, E is generated by its subobjects of 1 (the subterminal objects form
+a generating set), or the canonical geometric morphism E -&gt; Sh(Omega_E) (where
+Omega_E is the locale of subterminal objects) is an equivalence. Key facts:
+- Sh(X) for X a topological space is localic: L = Omega(X).
+- Set is localic: L = 1 (the one-element locale).
+- Presheaf toposes [C^op, Set] are NOT localic unless C is a preorder.
+- The Joyal-Tierney theorem: every Grothendieck topos E admits a surjective</p>
+<blockquote>
+<div><p>localic geometric morphism from a localic topos S -&gt; E (localic surjection).</p>
+</div></blockquote>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘localic_topos’ / ‘sheaves_on_locale’ / ‘sheaves_on_space’ tag -&gt; true.</p></li>
+<li><p>Set topos (sheaves on the one-element locale) -&gt; true.</p></li>
+<li><p>Presheaf topos [C^op, Set] (not localic unless C is a preorder) -&gt; false.</p></li>
+<li><p>Etale / classifying topos (not localic in general) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.has_enough_points_topos">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">has_enough_points_topos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.topos_theory.has_enough_points_topos" title="Link to this definition"></a></dt>
+<dd><p>Check whether the topos has enough points.</p>
+<p>A Grothendieck topos E has enough points if the collection of geometric
+morphisms {p: Set -&gt; E} (the ‘points’ of E) jointly reflects isomorphisms:
+a morphism f: X -&gt; Y in E is an iso iff p*(f) is an iso in Set for every
+point p. Key facts:
+- Set, [C^op, Set], BG, and Sh(X) for X sober all have enough points.
+- Barr’s theorem: every Grothendieck topos has a surjective geometric morphism</p>
+<blockquote>
+<div><p>from a Boolean topos with enough points (so every topos is ‘covered’ by one
+with enough points).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The etale topos of an arithmetic scheme may lack enough points (geometric
+points are scarce over number fields).</p></li>
+<li><p>The effective topos Eff has very few points (only the standard model).</p></li>
+</ul>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘enough_points_topos’ tag -&gt; true.</p></li>
+<li><p>Presheaf / Set / G-sets / Sh(sober space) -&gt; true.</p></li>
+<li><p>Effective / realizability topos -&gt; false.</p></li>
+<li><p>‘not_enough_points’ tag -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.classify_topos">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">classify_topos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topos_theory.classify_topos" title="Link to this definition"></a></dt>
+<dd><p>Classify the topos type of space.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>topos_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;set&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;boolean_grothendieck&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;localic&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;grothendieck&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;elementary&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_grothendieck_topos : Result
+is_boolean_topos : Result
+is_localic_topos : Result
+has_enough_points_topos : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.topos_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">topos_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topos_theory.topos_profile" title="Link to this definition"></a></dt>
+<dd><p>Full topos theory profile combining classification and named examples.</p>
+<section id="id4">
+<h2>Keys<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.topos_theory.classify_topos" title="pytop.topos_theory.classify_topos"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_topos()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[ToposProfile, …]</span></dt><dd><p>Registry of canonical topos theory examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.site_from_finite_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">site_from_finite_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">universe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topos_theory.site_from_finite_topology" title="Link to this definition"></a></dt>
+<dd><p>Build a Grothendieck site from a finite topological space.</p>
+<p>Objects = open sets. Morphisms = inclusions U ⊆ V (restriction direction).
+Covering J(U) = the maximal sieve = all open sets V with V ⊆ U.
+Also validates that the input forms a valid topology.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<p>open_sets: list of open sets (each a frozenset of points)
+universe: the total space (= union of all open sets)</p>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">n_objects</span></code>, <code class="docutils literal notranslate"><span class="pre">n_morphisms</span></code>, <code class="docutils literal notranslate"><span class="pre">coverings</span></code>,
+<code class="docutils literal notranslate"><span class="pre">topology_valid</span></code>, <code class="docutils literal notranslate"><span class="pre">objects</span></code>.</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">site</span> <span class="o">=</span> <span class="n">site_from_finite_topology</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})],</span>
+<span class="gp">... </span>    <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">site</span><span class="p">[</span><span class="s2">&quot;n_objects&quot;</span><span class="p">]</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.sheaf_on_site">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">sheaf_on_site</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assignment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topos_theory.sheaf_on_site" title="Link to this definition"></a></dt>
+<dd><p>Check sheaf conditions for a constant presheaf on a finite site.</p>
+<p>The presheaf F assigns a value to each open set. Restriction maps are
+assumed identity (constant presheaf). Checks:
+- Locality: cover values agree → value on U must agree with them.
+- Gluing: cover values are consistent → value on U equals them.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>site: output of <code class="docutils literal notranslate"><span class="pre">site_from_finite_topology</span></code>
+assignment: maps each open set to an integer section value</p>
+</section>
+<section id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">locality_ok</span></code>, <code class="docutils literal notranslate"><span class="pre">gluing_ok</span></code>, <code class="docutils literal notranslate"><span class="pre">is_sheaf</span></code>, <code class="docutils literal notranslate"><span class="pre">failures</span></code>.</p>
+</section>
+<section id="id7">
+<h2>Examples<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>Constant assignment is always a sheaf:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">site</span> <span class="o">=</span> <span class="n">site_from_finite_topology</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})],</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sheaf_on_site</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">site</span><span class="p">[</span><span class="s2">&quot;objects&quot;</span><span class="p">]})[</span><span class="s2">&quot;is_sheaf&quot;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.sheafification_finite">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">sheafification_finite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">presheaf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topos_theory.sheafification_finite" title="Link to this definition"></a></dt>
+<dd><p>Sheafification of a presheaf over a finite site (+ construction).</p>
+<p>For each open U, F^+(U) is computed by taking the value consistent with
+the cover: if the restrictions to all proper opens V ⊆ U agree on a
+value c, then F^+(U) is set to c (overriding any inconsistent value).
+One application of + suffices for finite topological spaces.</p>
+<section id="id8">
+<h2>Parameters<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>site: output of <code class="docutils literal notranslate"><span class="pre">site_from_finite_topology</span></code>
+presheaf: maps each open set to a comparable value</p>
+</section>
+<section id="id9">
+<h2>Returns<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">sheafification</span></code>, <code class="docutils literal notranslate"><span class="pre">already_sheaf</span></code>, <code class="docutils literal notranslate"><span class="pre">n_corrections</span></code>,
+<code class="docutils literal notranslate"><span class="pre">is_sheaf_after</span></code>.</p>
+</section>
+<section id="id10">
+<h2>Examples<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<p>Constant presheaf is already a sheaf:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">site</span> <span class="o">=</span> <span class="n">site_from_finite_topology</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})],</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">sheafification_finite</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="mi">7</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">site</span><span class="p">[</span><span class="s2">&quot;objects&quot;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;already_sheaf&quot;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topos_theory.topos_check">
+<span class="sig-prename descclassname"><span class="pre">pytop.topos_theory.</span></span><span class="sig-name descname"><span class="pre">topos_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">universe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topos_theory.topos_check" title="Link to this definition"></a></dt>
+<dd><p>Verify Giraud axioms for Sh(X) where X is a finite topological space.</p>
+<p>For any topological space (X, τ), Sh(X) is a Grothendieck topos. This
+function checks the concrete conditions for finite X:
+- Terminal object: the sheaf assigning {*} to every U exists.
+- Fiber products: exist when intersections of opens are open.
+- Subobject classifier: Ω(U) = {V open : V ⊆ U} is always a sheaf.</p>
+<section id="id11">
+<h2>Parameters<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<p>open_sets: list of open sets (as frozensets)
+universe: the total space</p>
+</section>
+<section id="id12">
+<h2>Returns<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">has_terminal</span></code>, <code class="docutils literal notranslate"><span class="pre">has_fiber_products</span></code>,
+<code class="docutils literal notranslate"><span class="pre">has_subobject_classifier</span></code>, <code class="docutils literal notranslate"><span class="pre">is_grothendieck_topos</span></code>.</p>
+</section>
+<section id="id13">
+<h2>Examples<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<p>Any valid topology gives a Grothendieck topos:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">topos_check</span><span class="p">([</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})],</span>
+<span class="gp">... </span>            <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}))[</span><span class="s2">&quot;is_grothendieck_topos&quot;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="derived_categories.html" class="btn btn-neutral float-left" title="Derived Categories" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="operads.html" class="btn btn-neutral float-right" title="Operads" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

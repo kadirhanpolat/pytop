@@ -1,0 +1,536 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Derived Categories &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Topos Theory" href="topos_theory.html" />
+    <link rel="prev" title="Experimental Spaces" href="spaces.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Derived Categories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-theorems-and-constructions-implemented">Key theorems and constructions implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile.key"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile.display_name"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile.display_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile.category_type"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile.category_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile.base_category"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile.base_category</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile.has_t_structure"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile.has_t_structure</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile.is_enhanced"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile.is_enhanced</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile.has_semiorthogonal_decomp"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile.has_semiorthogonal_decomp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile.presentation_layer"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile.presentation_layer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile.focus"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile.focus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile.chapter_targets"><code class="docutils literal notranslate"><span class="pre">DerivedCategoryProfile.chapter_targets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.get_named_derived_category_profiles"><code class="docutils literal notranslate"><span class="pre">get_named_derived_category_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.derived_category_layer_summary"><code class="docutils literal notranslate"><span class="pre">derived_category_layer_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.derived_category_chapter_index"><code class="docutils literal notranslate"><span class="pre">derived_category_chapter_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.derived_category_type_index"><code class="docutils literal notranslate"><span class="pre">derived_category_type_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.is_triangulated"><code class="docutils literal notranslate"><span class="pre">is_triangulated()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.has_t_structure"><code class="docutils literal notranslate"><span class="pre">has_t_structure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.has_semiorthogonal_decomposition"><code class="docutils literal notranslate"><span class="pre">has_semiorthogonal_decomposition()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.is_dg_enhanced"><code class="docutils literal notranslate"><span class="pre">is_dg_enhanced()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.classify_derived_category"><code class="docutils literal notranslate"><span class="pre">classify_derived_category()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.derived_category_profile"><code class="docutils literal notranslate"><span class="pre">derived_category_profile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.mapping_cone_complex"><code class="docutils literal notranslate"><span class="pre">mapping_cone_complex()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.derived_functor_h"><code class="docutils literal notranslate"><span class="pre">derived_functor_h()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.derived_categories.triangulated_structure_check"><code class="docutils literal notranslate"><span class="pre">triangulated_structure_check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Derived Categories</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/derived_categories.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.derived_categories">
+<span id="derived-categories"></span><h1>Derived Categories<a class="headerlink" href="#module-pytop.derived_categories" title="Link to this heading"></a></h1>
+<p>Derived categories: triangulated structure, t-structures, semiorthogonal decompositions,
+derived functors, dg-enhancements, and the geometry of D^b(Coh(X)).</p>
+<section id="key-theorems-and-constructions-implemented">
+<h2>Key theorems and constructions implemented<a class="headerlink" href="#key-theorems-and-constructions-implemented" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Derived category D(A) (Grothendieck-Verdier 1963): for an abelian category A, the
+derived category D(A) is the localization of the homotopy category K(A) at the
+multiplicative system of quasi-isomorphisms (morphisms inducing isomorphisms on all
+cohomology groups). Objects of D(A) are cochain complexes of objects in A; morphisms
+are equivalence classes of roofs A &lt;- C -&gt; B where C -&gt; A is a quasi-isomorphism.
+Variants: D^+(A), D^-(A), D^b(A) for complexes bounded below, above, or on both sides.
+The natural functor A -&gt; D(A) embeds A as the full subcategory of complexes concentrated
+in degree 0. Ext^n_A(M, N) = Hom_{D(A)}(M, N[n]) for all n &gt;= 0.</p></li>
+<li><p>Triangulated categories (Verdier 1963, Puppe 1962): an additive category T with an
+autoequivalence [1]: T -&gt; T (the shift or translation functor, with inverse [-1]) and
+a class of distinguished triangles A -&gt; B -&gt; C -&gt; A[1] satisfying:
+(TR1) Every morphism f: A -&gt; B embeds in a distinguished triangle A -&gt; B -&gt; C -&gt; A[1].
+(TR2) Rotation: if A -&gt; B -&gt; C -&gt; A[1] is distinguished, so is B -&gt; C -&gt; A[1] -&gt; B[1].
+(TR3) Morphism of triangles: any commuting square A -&gt; B extends to a morphism of</p>
+<blockquote>
+<div><p>distinguished triangles (not necessarily uniquely).</p>
+</div></blockquote>
+<dl class="simple">
+<dt>(TR4) Octahedral axiom: for A -&gt; B -&gt; C’ -&gt; A[1] and B -&gt; C -&gt; A’ -&gt; B[1], there exists</dt><dd><p>a triangle C’ -&gt; D -&gt; A’ -&gt; C’[1] compatible with both.</p>
+</dd>
+</dl>
+<p>The homotopy category K(A) and the derived category D(A) are the canonical examples.
+The long exact sequence in cohomology arises from a distinguished triangle:
+H^n(A) -&gt; H^n(B) -&gt; H^n(C) -&gt; H^{n+1}(A) -&gt; … for A -&gt; B -&gt; C -&gt; A[1].</p>
+</li>
+<li><p>t-structures (Beilinson-Bernstein-Deligne 1982): a t-structure on a triangulated category
+T is a pair (T^{&lt;=0}, T^{&gt;=0}) of full subcategories satisfying:
+(i) T^{&lt;=0}[1] ⊂ T^{&lt;=0} and T^{&gt;=0}[-1] ⊂ T^{&gt;=0}.
+(ii) Hom(X, Y) = 0 for X ∈ T^{&lt;=0} and Y ∈ T^{&gt;=1} = T^{&gt;=0}[-1].
+(iii) For every A ∈ T there is a distinguished triangle tau^{&lt;=0}A -&gt; A -&gt; tau^{&gt;=1}A -&gt; …</p>
+<blockquote>
+<div><p>(the truncation triangle).</p>
+</div></blockquote>
+<p>The heart C = T^{&lt;=0} ∩ T^{&gt;=0} is an abelian category; the cohomology objects H^n(A) =
+tau^{&gt;=0}tau^{&lt;=0}(A[-n]) ∈ C. The standard t-structure on D(A) has heart ≅ A.
+Perverse t-structure (BBD 1982): on D^b_c(X) for a stratified space X, the perverse
+t-structure has heart = perverse sheaves. The middle extension IC(L) of a local system L
+on a locally closed stratum is the perverse sheaf of intersection cohomology.</p>
+</li>
+<li><p>Derived functors (Grothendieck 1957, Verdier): for a left exact functor F: A -&gt; B between
+abelian categories (with enough injectives in A), the right derived functors R^nF: A -&gt; B
+are defined by R^nF(M) = H^n(F(I^bullet)) where I^bullet is an injective resolution of M.
+In derived category language: RF: D^+(A) -&gt; D^+(B) is the total right derived functor,
+a triangulated functor satisfying RF(M) ≅ F(I^bullet) for any injective resolution.
+Similarly, LF: D^-(A) -&gt; D^-(B) for the left derived functor of a right exact F.
+Key examples: RHom(M, -), - ⊗^L N (derived tensor product), Rf_*(F) (direct image),
+f^!(F) (exceptional inverse image), R Gamma(X, F) (derived global sections).</p></li>
+<li><p>Semiorthogonal decomposition (Bondal 1990): a semiorthogonal decomposition of a
+triangulated category T is a sequence of full triangulated subcategories A_1,…,A_n
+such that: (i) Hom(A_i, A_j) = 0 for i &gt; j (semiorthogonality);
+(ii) T is generated by A_1,…,A_n (every object admits a filtration with associated
+graded pieces in A_1,…,A_n via iterated distinguished triangles).
+Written T = ⟨A_1,…,A_n⟩. The categories A_i are called admissible subcategories
+(their inclusion functors have left and right adjoints).
+Exceptional collections: an object E in T is exceptional if Hom(E, E) = k (the base
+field) and Ext^i(E, E) = 0 for i ≠ 0. A sequence E_1,…,E_n is exceptional if each
+E_i is exceptional and Ext^i(E_p, E_q) = 0 for all i and p &gt; q. The subcategory
+generated by E_1,…,E_n is then semiorthogonal.
+Beilinson’s collection (1978): D^b(Coh(P^n)) = ⟨O, O(1), …, O(n)⟩ — the line bundles
+O(0), O(1), …, O(n) form a full exceptional collection on P^n.</p></li>
+<li><p>Fourier-Mukai transforms (Mukai 1981): for smooth proper varieties X, Y over k and
+an object P ∈ D^b(Coh(X × Y)) (the ‘kernel’), the Fourier-Mukai functor is
+Phi_P: D^b(Coh(X)) -&gt; D^b(Coh(Y)), Phi_P(F) = Rp_{Y*}(P ⊗^L p_X^*(F)).
+Every exact functor between derived categories of smooth proper varieties is a
+Fourier-Mukai functor (Orlov representability theorem 1996).
+Fourier-Mukai equivalences (derived equivalences): Phi_P is an equivalence iff the
+kernel P satisfies certain spanning and orthogonality conditions (Bondal-Orlov criterion).
+Mukai’s original example: the Poincaré bundle on A × A^vee (abelian variety and its dual)
+gives an equivalence D^b(Coh(A)) ≅ D^b(Coh(A^vee)) — the ‘Fourier transform’ on A.</p></li>
+<li><p>dg-enhancements (Bondal-Kapranov 1990): a dg-enhancement of a triangulated category T
+is a pre-triangulated dg-category A with H^0(A) ≅ T. Every algebraic triangulated
+category (triangulated category arising as the homotopy category of a stable model
+category) admits a dg-enhancement (uniqueness: Lunts-Orlov 2010 for D^b(Coh(X)) and
+K^b(A-mod) for smooth proper X). The dg-structure captures the higher Ext groups and
+the A∞-structure of compositions, making the category ‘linear’ over a dg-algebra.</p></li>
+<li><p>Bondal-Orlov reconstruction (1997): a smooth projective variety X is uniquely
+determined (up to isomorphism) by its derived category D^b(Coh(X)) when the canonical
+bundle omega_X is ample or anti-ample. More precisely: if Phi_P: D^b(Coh(X)) -&gt; D^b(Coh(Y))
+is an equivalence and X has ample (anti-)canonical bundle, then X ≅ Y. For K3 surfaces
+and abelian varieties (where omega ≅ O), derived equivalence does NOT imply isomorphism
+(Mukai pairs: D^b(A) ≅ D^b(A^vee) for dual abelian varieties).</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">DerivedCategoryProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_t_structure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_enhanced</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_semiorthogonal_decomp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated derived category theory example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile.category_type">
+<span class="sig-name descname"><span class="pre">category_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile.category_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile.base_category">
+<span class="sig-name descname"><span class="pre">base_category</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile.base_category" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile.has_t_structure">
+<span class="sig-name descname"><span class="pre">has_t_structure</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile.has_t_structure" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile.is_enhanced">
+<span class="sig-name descname"><span class="pre">is_enhanced</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile.is_enhanced" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile.has_semiorthogonal_decomp">
+<span class="sig-name descname"><span class="pre">has_semiorthogonal_decomp</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile.has_semiorthogonal_decomp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.derived_categories.DerivedCategoryProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.derived_categories.DerivedCategoryProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.get_named_derived_category_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">get_named_derived_category_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.derived_categories.DerivedCategoryProfile" title="pytop.derived_categories.DerivedCategoryProfile"><span class="pre">DerivedCategoryProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.derived_categories.get_named_derived_category_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical derived category theory examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.derived_category_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">derived_category_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.derived_categories.derived_category_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.derived_category_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">derived_category_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.derived_categories.derived_category_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.derived_category_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">derived_category_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.derived_categories.derived_category_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from category_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.is_triangulated">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">is_triangulated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.derived_categories.is_triangulated" title="Link to this definition"></a></dt>
+<dd><p>Check whether the category is triangulated.</p>
+<p>A triangulated category has a shift functor [1] and distinguished triangles
+A -&gt; B -&gt; C -&gt; A[1] satisfying axioms TR1-TR4 (rotation, mapping cone existence,
+morphism of triangles, octahedral axiom). Every derived category D(A) and homotopy
+category K(A) is triangulated.</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘triangulated_category’ or ‘distinguished_triangle’ tag -&gt; true.</p></li>
+<li><p>Derived category or homotopy category tags -&gt; true.</p></li>
+<li><p>Non-triangulated (plain abelian, plain additive) tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.has_t_structure">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">has_t_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.derived_categories.has_t_structure" title="Link to this definition"></a></dt>
+<dd><p>Check whether the triangulated category carries a t-structure.</p>
+<p>A t-structure (BBD 1982) on a triangulated category T is a pair of full subcategories
+(T^{&lt;=0}, T^{&gt;=0}) with: (i) T^{&lt;=0}[1] ⊂ T^{&lt;=0}; (ii) Hom(T^{&lt;=0}, T^{&gt;=1}) = 0;
+(iii) every object fits in a truncation triangle tau^{&lt;=0}A -&gt; A -&gt; tau^{&gt;=1}A.
+The heart C = T^{&lt;=0} ∩ T^{&gt;=0} is an abelian category.</p>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘t_structure’ or ‘heart_of_t_structure’ tag -&gt; true.</p></li>
+<li><p>Derived category tags (always have standard t-structure) -&gt; true.</p></li>
+<li><p>Perverse sheaves tags -&gt; true (perverse t-structure).</p></li>
+<li><p>Triangulated-only without t-structure tags -&gt; unknown.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.has_semiorthogonal_decomposition">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">has_semiorthogonal_decomposition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.derived_categories.has_semiorthogonal_decomposition" title="Link to this definition"></a></dt>
+<dd><p>Check whether the derived category admits a semiorthogonal decomposition.</p>
+<p>A SOD T = ⟨A_1,…,A_n⟩ requires semiorthogonality (Hom(A_i, A_j) = 0 for i &gt; j)
+and generation. Smooth varieties with ample or anti-ample canonical bundle often admit
+SODs via exceptional collections. Varieties with trivial canonical bundle (CY, K3,
+abelian) do NOT admit full exceptional collections (by Serre functor rigidity).</p>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘semiorthogonal_decomposition’ or ‘exceptional_collection’ tag -&gt; true.</p></li>
+<li><p>Projective space / Beilinson collection tags -&gt; true.</p></li>
+<li><p>Trivial canonical bundle (CY, K3, abelian variety) -&gt; false (no full SOD).</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.is_dg_enhanced">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">is_dg_enhanced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.derived_categories.is_dg_enhanced" title="Link to this definition"></a></dt>
+<dd><p>Check whether the triangulated category admits a dg-enhancement.</p>
+<p>A dg-enhancement is a pre-triangulated dg-category A with H^0(A) ≅ T. Every
+algebraic triangulated category (arising from a stable model category) admits a
+dg-enhancement. Lunts-Orlov (2010): D^b(Coh(X)) for smooth proper X has a unique
+dg-enhancement. The topological stable homotopy category SH does NOT admit a dg-
+enhancement (it is not algebraic in the sense of Schwede).</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘dg_enhancement’ or ‘dg_category’ tag -&gt; true.</p></li>
+<li><p>Derived category of coherent sheaves or modules (algebraic) -&gt; true.</p></li>
+<li><p>Topological stable homotopy category -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.classify_derived_category">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">classify_derived_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.derived_categories.classify_derived_category" title="Link to this definition"></a></dt>
+<dd><p>Classify the derived category by its structural features.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>derived_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;full_geometric&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;algebraic_enhanced&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;perverse_t&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;triangulated_basic&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;general&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_triangulated : Result
+has_t_structure : Result
+has_semiorthogonal_decomposition : Result
+is_dg_enhanced : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.derived_category_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">derived_category_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.derived_categories.derived_category_profile" title="Link to this definition"></a></dt>
+<dd><p>Full derived category profile combining classification and named examples.</p>
+<section id="id4">
+<h2>Keys<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.derived_categories.classify_derived_category" title="pytop.derived_categories.classify_derived_category"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_derived_category()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[DerivedCategoryProfile, …]</span></dt><dd><p>Registry of canonical derived category theory examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.mapping_cone_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">mapping_cone_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boundaries_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundaries_b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.derived_categories.mapping_cone_complex" title="Link to this definition"></a></dt>
+<dd><p>Mapping cone C(f) for a chain map f: A → B.</p>
+<p>C(f)_n = A_{n-1} ⊕ B_n with boundary matrix:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>∂^C_n = [[-∂^A_{n-1},   0   ],
+         [ f_{n-1},   ∂^B_n  ]]
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">boundaries_a[k]</span></code> is <code class="docutils literal notranslate"><span class="pre">∂^A_k</span> <span class="pre">:</span> <span class="pre">A_k</span> <span class="pre">→</span> <span class="pre">A_{k-1}</span></code>
+(shape <code class="docutils literal notranslate"><span class="pre">dim(A_{k-1})</span> <span class="pre">×</span> <span class="pre">dim(A_k)</span></code>).  <code class="docutils literal notranslate"><span class="pre">chain_map[k]</span></code> is <code class="docutils literal notranslate"><span class="pre">f_k</span> <span class="pre">:</span> <span class="pre">A_k</span> <span class="pre">→</span> <span class="pre">B_k</span></code>.</p>
+<p>Returns boundary matrices of C(f).</p>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Empty inputs yield an empty cone:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mapping_cone_complex</span><span class="p">([],</span> <span class="p">[],</span> <span class="p">[])</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.derived_functor_h">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">derived_functor_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boundaries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.derived_categories.derived_functor_h" title="Link to this definition"></a></dt>
+<dd><p>H_{degree} of a chain complex given by its boundary matrices.</p>
+<p><code class="docutils literal notranslate"><span class="pre">boundaries[k]</span></code> is <code class="docutils literal notranslate"><span class="pre">∂_k</span> <span class="pre">:</span> <span class="pre">C_k</span> <span class="pre">→</span> <span class="pre">C_{k-1}</span></code>
+(shape <code class="docutils literal notranslate"><span class="pre">dim(C_{k-1})</span> <span class="pre">×</span> <span class="pre">dim(C_k)</span></code>).</p>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>dict with keys <code class="docutils literal notranslate"><span class="pre">degree</span></code>, <code class="docutils literal notranslate"><span class="pre">betti_number</span></code>, <code class="docutils literal notranslate"><span class="pre">torsion_coefficients</span></code>,
+<code class="docutils literal notranslate"><span class="pre">rank_in</span></code>, <code class="docutils literal notranslate"><span class="pre">rank_out</span></code>, <code class="docutils literal notranslate"><span class="pre">kernel_dimension</span></code>.</p>
+</section>
+<section id="id5">
+<h2>Examples<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>Single edge (interval): H_0 = ℤ, H_1 = 0:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">derived_functor_h</span><span class="p">([[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]],</span> <span class="mi">0</span><span class="p">)[</span><span class="s2">&quot;betti_number&quot;</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">derived_functor_h</span><span class="p">([[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]],</span> <span class="mi">1</span><span class="p">)[</span><span class="s2">&quot;betti_number&quot;</span><span class="p">]</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.derived_categories.triangulated_structure_check">
+<span class="sig-prename descclassname"><span class="pre">pytop.derived_categories.</span></span><span class="sig-name descname"><span class="pre">triangulated_structure_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boundaries_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundaries_b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundaries_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_mats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_mats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.derived_categories.triangulated_structure_check" title="Link to this definition"></a></dt>
+<dd><p>Check necessary conditions for A -f-&gt; B -g-&gt; C to be a distinguished triangle.</p>
+<p>Verifies g ∘ f = 0 in each degree (necessary for any triangle) and
+whether the mapping cone C(f) has the same Betti numbers as C.</p>
+<section id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">composition_zero</span></code>, <code class="docutils literal notranslate"><span class="pre">degree_checks</span></code>, <code class="docutils literal notranslate"><span class="pre">cone_betti</span></code>,
+<code class="docutils literal notranslate"><span class="pre">c_betti</span></code>, <code class="docutils literal notranslate"><span class="pre">cone_matches_c</span></code>.</p>
+</section>
+<section id="id7">
+<h2>Examples<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>Zero chain map g trivially satisfies g ∘ f = 0:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">triangulated_structure_check</span><span class="p">([],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[[[</span><span class="mi">1</span><span class="p">]]],</span> <span class="p">[[[</span><span class="mi">0</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;composition_zero&quot;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="spaces.html" class="btn btn-neutral float-left" title="Experimental Spaces" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="topos_theory.html" class="btn btn-neutral float-right" title="Topos Theory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

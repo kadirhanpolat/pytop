@@ -1,0 +1,610 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shape Theory &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Graph Planarity" href="graph_planarity.html" />
+    <link rel="prev" title="Surface Word Classification" href="surface_word_classification.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Shape Theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-theorems-implemented">Key theorems implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile"><code class="docutils literal notranslate"><span class="pre">ShapeProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile.key"><code class="docutils literal notranslate"><span class="pre">ShapeProfile.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile.display_name"><code class="docutils literal notranslate"><span class="pre">ShapeProfile.display_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile.shape_type"><code class="docutils literal notranslate"><span class="pre">ShapeProfile.shape_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile.is_anr"><code class="docutils literal notranslate"><span class="pre">ShapeProfile.is_anr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile.is_fanr"><code class="docutils literal notranslate"><span class="pre">ShapeProfile.is_fanr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile.is_movable"><code class="docutils literal notranslate"><span class="pre">ShapeProfile.is_movable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile.is_shape_trivial"><code class="docutils literal notranslate"><span class="pre">ShapeProfile.is_shape_trivial</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile.presentation_layer"><code class="docutils literal notranslate"><span class="pre">ShapeProfile.presentation_layer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile.focus"><code class="docutils literal notranslate"><span class="pre">ShapeProfile.focus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.shape_theory.ShapeProfile.chapter_targets"><code class="docutils literal notranslate"><span class="pre">ShapeProfile.chapter_targets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.get_named_shape_profiles"><code class="docutils literal notranslate"><span class="pre">get_named_shape_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.shape_layer_summary"><code class="docutils literal notranslate"><span class="pre">shape_layer_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.shape_chapter_index"><code class="docutils literal notranslate"><span class="pre">shape_chapter_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.shape_type_index"><code class="docutils literal notranslate"><span class="pre">shape_type_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.is_anr"><code class="docutils literal notranslate"><span class="pre">is_anr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.is_fanr"><code class="docutils literal notranslate"><span class="pre">is_fanr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.is_movable"><code class="docutils literal notranslate"><span class="pre">is_movable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.has_trivial_shape"><code class="docutils literal notranslate"><span class="pre">has_trivial_shape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.cech_cohomology_applicable"><code class="docutils literal notranslate"><span class="pre">cech_cohomology_applicable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.classify_shape"><code class="docutils literal notranslate"><span class="pre">classify_shape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.shape_profile"><code class="docutils literal notranslate"><span class="pre">shape_profile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.link_complex"><code class="docutils literal notranslate"><span class="pre">link_complex()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.is_manifold_triangulation"><code class="docutils literal notranslate"><span class="pre">is_manifold_triangulation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.has_trivial_shape_sc"><code class="docutils literal notranslate"><span class="pre">has_trivial_shape_sc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.shape_theory.shape_anr_check_sc"><code class="docutils literal notranslate"><span class="pre">shape_anr_check_sc()</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Shape Theory</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/shape_theory.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.shape_theory">
+<span id="shape-theory"></span><h1>Shape Theory<a class="headerlink" href="#module-pytop.shape_theory" title="Link to this heading"></a></h1>
+<p>Shape theory: ANR/FANR classification, movability, and Čech invariants.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Borsuk’s ANR theorem: a compact metrizable space X is an ANR iff it is
+locally contractible (every point has a contractible neighbourhood in X).</p></li>
+<li><p>Every compact AR is an ANR; every ANR is an FANR; every FANR is movable.</p></li>
+<li><p>Compact polyhedra and compact manifolds (without boundary) are ANRs.</p></li>
+<li><p>The Warsaw circle is compact, connected, and metrizable, but NOT locally
+contractible at the limit arc, hence not an ANR, not an FANR, and not movable.</p></li>
+<li><p>The dyadic solenoid is compact, connected, metrizable, and not locally
+path-connected, hence not an ANR, not an FANR, and not movable.</p></li>
+<li><p>The Hawaiian earring is a Peano continuum (compact, connected, locally
+path-connected), hence movable by Borsuk’s theorem, but NOT an ANR (local
+contractibility fails at the origin) and NOT an FANR (Čech H_1 is not
+finitely generated — the FANR condition requires shape domination by a
+compact ANR, which forces finitely generated Čech homology).</p></li>
+<li><p>Čech cohomology is a shape invariant: shape equivalent spaces have
+isomorphic Čech cohomology groups in every degree.</p></li>
+<li><p>For compact ANRs, Čech cohomology coincides with singular cohomology.</p></li>
+<li><p>Whitehead’s theorem fails in shape theory: a shape morphism inducing
+isomorphisms on all Čech cohomology groups need not be a shape equivalence
+(the Warsaw circle and the circle share Čech cohomology but differ in shape).</p></li>
+<li><p>A compact metrizable space has trivial shape iff it is a compact AR
+(i.e., contractible and ANR), equivalently iff it is contractible and
+locally contractible.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">ShapeProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_anr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_fanr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_movable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_shape_trivial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated shape-theory example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile.shape_type">
+<span class="sig-name descname"><span class="pre">shape_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile.shape_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile.is_anr">
+<span class="sig-name descname"><span class="pre">is_anr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile.is_anr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile.is_fanr">
+<span class="sig-name descname"><span class="pre">is_fanr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile.is_fanr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile.is_movable">
+<span class="sig-name descname"><span class="pre">is_movable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile.is_movable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile.is_shape_trivial">
+<span class="sig-name descname"><span class="pre">is_shape_trivial</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile.is_shape_trivial" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.shape_theory.ShapeProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.shape_theory.ShapeProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.get_named_shape_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">get_named_shape_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.shape_theory.ShapeProfile" title="pytop.shape_theory.ShapeProfile"><span class="pre">ShapeProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.shape_theory.get_named_shape_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical shape-theory examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.shape_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">shape_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.shape_theory.shape_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.shape_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">shape_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.shape_theory.shape_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.shape_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">shape_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.shape_theory.shape_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from shape_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.is_anr">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">is_anr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.shape_theory.is_anr" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is an absolute neighbourhood retract (ANR).</p>
+<p>A compact metrizable space X is an ANR iff it is locally contractible:
+every point x has a neighbourhood U such that the inclusion U → X is
+null-homotopic (i.e., U contracts to a point within X). Key facts:
+- Compact manifolds, compact polyhedra, and finite CW complexes are ANRs.
+- Every compact AR is an ANR (but not every ANR is an AR).
+- The Warsaw circle is NOT an ANR (not locally contractible at limit arc).
+- The solenoid is NOT an ANR (locally like Cantor × arc, not contractible).
+- The Hawaiian earring is NOT an ANR (not locally contractible at origin).
+- Being an ANR implies being an FANR, which implies being movable.
+- Two compact ANRs are shape equivalent iff they are homotopy equivalent.</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ANR / AR tag -&gt; true.</p></li>
+<li><p>Compact manifold (locally Euclidean, hence locally contractible) -&gt; true.</p></li>
+<li><p>Finite CW complex / compact polyhedron -&gt; true.</p></li>
+<li><p>Locally contractible compact metrizable tag -&gt; true.</p></li>
+<li><p>Not-locally-contractible / Warsaw circle / solenoid / Hawaiian earring -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.is_fanr">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">is_fanr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.shape_theory.is_fanr" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is a fundamental absolute neighbourhood retract (FANR).</p>
+<p>A compact metrizable space X is an FANR if it is shape dominated by a compact
+ANR: there exist shape morphisms f: X → P (P a compact ANR) and g: P → X
+with g ∘ f shape-homotopic to id_X. Key facts:
+- Every ANR is an FANR (take P = X in the definition).
+- Every FANR is movable (domination by an ANR implies movability).
+- An FANR must have finitely generated Čech cohomology and homology groups.
+- The Hawaiian earring is movable but NOT an FANR (Ȟ_1 is not finitely generated).
+- The Warsaw circle and solenoid are neither FANR nor movable.</p>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit FANR / ANR / AR tag -&gt; true.</p></li>
+<li><p>Compact polyhedron or compact manifold (ANRs) -&gt; true.</p></li>
+<li><p>FANR tag -&gt; true.</p></li>
+<li><p>Hawaiian earring, solenoid, Warsaw circle (not FANR) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.is_movable">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">is_movable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.shape_theory.is_movable" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is movable in the sense of Borsuk.</p>
+<p>A compact metrizable space X (embedded in the Hilbert cube Q) is movable if
+for every open neighbourhood U of X in Q there exists an open neighbourhood V
+of X in Q such that the inclusion V → U is null-homotopic in U. Key facts:
+- ANR ⊂ FANR ⊂ movable (the implications are strict).
+- Every Peano continuum (compact connected locally path-connected metrizable space)</p>
+<blockquote>
+<div><p>is movable (Borsuk’s theorem).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The Hawaiian earring is a Peano continuum, hence movable.</p></li>
+<li><p>The Warsaw circle is NOT movable (pro-fundamental group does not stabilise).</p></li>
+<li><p>The dyadic solenoid is NOT movable (pro-homotopy obstruction).</p></li>
+<li><p>Movability is a shape invariant.</p></li>
+</ul>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit movable / FANR / ANR / AR tag -&gt; true.</p></li>
+<li><p>Compact polyhedron / manifold / Lie group (ANRs) -&gt; true.</p></li>
+<li><p>Peano continuum (locally path-connected compact metrizable) -&gt; true.</p></li>
+<li><p>Hawaiian earring (Peano continuum, movable but not ANR/FANR) -&gt; true.</p></li>
+<li><p>Warsaw circle / solenoid (not movable) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.has_trivial_shape">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">has_trivial_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.shape_theory.has_trivial_shape" title="Link to this definition"></a></dt>
+<dd><p>Check whether space has trivial shape (shape equivalent to a point).</p>
+<p>A compact metrizable space X has trivial shape iff X is a compact AR
+(absolute retract), equivalently iff X is contractible and an ANR.
+Key facts:
+- Closed balls D^n, the Hilbert cube [0,1]^omega, and contractible compact</p>
+<blockquote>
+<div><p>polyhedra are compact ARs and have trivial shape.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>A contractible compact polyhedron is an AR (Whitehead’s theorem applies:
+contractible ANR ⟹ AR).</p></li>
+<li><p>The circle S^1 does NOT have trivial shape (Ȟ^1(S^1;Z) ≅ Z ≠ 0).</p></li>
+<li><p>The Warsaw circle has non-trivial shape (same Čech cohomology as S^1).</p></li>
+<li><p>Trivial shape implies all Čech cohomology groups vanish in positive degrees.</p></li>
+</ul>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit AR / contractible AR / single point tag -&gt; true.</p></li>
+<li><p>Convex compact subset of locally convex TVS (Dugundji: compact AR) -&gt; true.</p></li>
+<li><p>Non-trivial Čech cohomology / known non-contractible space -&gt; false.</p></li>
+<li><p>Not locally contractible (not ANR) -&gt; false (non-ANR cannot be AR).</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.cech_cohomology_applicable">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">cech_cohomology_applicable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.shape_theory.cech_cohomology_applicable" title="Link to this definition"></a></dt>
+<dd><p>Check whether Čech cohomology is the appropriate cohomology theory.</p>
+<p>Čech cohomology Ȟ^*(X; G) is defined for any topological space X via the
+direct limit of Čech cochains over open covers. Key facts:
+- Čech cohomology is a shape invariant: shape equivalent spaces have</p>
+<blockquote>
+<div><p>isomorphic Čech cohomology groups.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>For compact ANRs, Čech cohomology coincides with singular cohomology.</p></li>
+<li><p>For compact metrizable spaces, Čech cohomology is computed via an
+inverse system of polyhedra (Čech nerve construction).</p></li>
+<li><p>For paracompact Hausdorff spaces, Čech cohomology agrees with sheaf
+cohomology (with constant coefficients).</p></li>
+<li><p>Čech cohomology distinguishes the Warsaw circle from the circle in
+pro-homotopy, but NOT in Čech cohomology (both have Ȟ^1 ≅ Z).</p></li>
+</ul>
+<section id="id4">
+<h2>Decision layers<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Compact polyhedron / manifold (ANR: Čech = singular) -&gt; true.</p></li>
+<li><p>Compact metrizable / compact Hausdorff -&gt; true.</p></li>
+<li><p>Paracompact Hausdorff / locally compact Hausdorff -&gt; true.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.classify_shape">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">classify_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.shape_theory.classify_shape" title="Link to this definition"></a></dt>
+<dd><p>Classify the shape-theoretic properties of space.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>shape_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;shape_trivial&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;anr&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;fanr&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;movable&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;not_movable&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_anr : Result
+is_fanr : Result
+is_movable : Result
+has_trivial_shape : Result
+cech_applicable : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.shape_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">shape_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.shape_theory.shape_profile" title="Link to this definition"></a></dt>
+<dd><p>Full shape-theory profile combining classification and named examples.</p>
+<section id="id5">
+<h2>Keys<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.shape_theory.classify_shape" title="pytop.shape_theory.classify_shape"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_shape()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[ShapeProfile, …]</span></dt><dd><p>Registry of canonical shape-theory examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.link_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">link_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simplices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.shape_theory.link_complex" title="Link to this definition"></a></dt>
+<dd><p>Return the link of <code class="docutils literal notranslate"><span class="pre">vertex</span></code> in the simplicial complex.</p>
+<p>lk(K, v) = {σ {v} : σ ∈ K, v ∈ σ, <a href="#id15"><span class="problematic" id="id16">|σ|</span></a> ≥ 2}.</p>
+<p>The result is face-closed.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>simplices:</dt><dd><p>List of simplices as vertex lists.</p>
+</dd>
+<dt>vertex:</dt><dd><p>The vertex whose link is computed.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>list[list[Any]]</dt><dd><p>Face-closed simplices of lk(K, v).</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Link of vertex 0 in a filled triangle:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">link_complex</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">]],</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">[[1], [2], [1, 2]]</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.is_manifold_triangulation">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">is_manifold_triangulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simplices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.shape_theory.is_manifold_triangulation" title="Link to this definition"></a></dt>
+<dd><p>Check whether K is a triangulation of a closed n-manifold.</p>
+<p>A compact simplicial complex K triangulates a closed n-manifold iff
+every vertex link lk(K, v) has the homology of S^{n-1}:
+H_{n-1}(lk(v); ℤ) = ℤ and H_k(lk(v); ℤ) = 0 for k ≠ n-1.</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>simplices:</dt><dd><p>List of simplices as vertex lists.</p>
+</dd>
+<dt>n:</dt><dd><p>Expected manifold dimension (≥ 1).</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>bool</p>
+</section>
+<section id="id8">
+<h2>Examples<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>The boundary of a tetrahedron triangulates S²:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bdry</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_manifold_triangulation</span><span class="p">(</span><span class="n">bdry</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.has_trivial_shape_sc">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">has_trivial_shape_sc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simplices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.shape_theory.has_trivial_shape_sc" title="Link to this definition"></a></dt>
+<dd><p>Check whether a finite simplicial complex has trivial shape.</p>
+<p>A compact polyhedron K has trivial shape iff it is contractible:
+H₀(K; ℤ) = ℤ and H_k(K; ℤ) = 0 for k ≥ 1.
+For compact polyhedra (always ANRs), trivial shape equals compact AR.</p>
+<section id="id9">
+<h2>Parameters<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>simplices:</dt><dd><p>List of simplices as vertex lists.</p>
+</dd>
+</dl>
+</section>
+<section id="id10">
+<h2>Returns<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<p>bool</p>
+</section>
+<section id="id11">
+<h2>Examples<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<p>A filled triangle is contractible:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">has_trivial_shape_sc</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>The circle (boundary of triangle) is not contractible:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">has_trivial_shape_sc</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.shape_theory.shape_anr_check_sc">
+<span class="sig-prename descclassname"><span class="pre">pytop.shape_theory.</span></span><span class="sig-name descname"><span class="pre">shape_anr_check_sc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simplices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.shape_theory.shape_anr_check_sc" title="Link to this definition"></a></dt>
+<dd><p>Shape-theoretic classification of a finite simplicial complex.</p>
+<p>Every finite simplicial complex is a compact polyhedron, hence always
+an ANR, FANR, and movable.  The key computed quantity is whether K has
+trivial shape (= K is contractible = K is a compact AR).</p>
+<section id="id12">
+<h2>Parameters<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>simplices:</dt><dd><p>List of simplices as vertex lists.</p>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h2>Returns<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict with keys:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">is_anr</span></code> : bool — always True
+<code class="docutils literal notranslate"><span class="pre">is_fanr</span></code> : bool — always True
+<code class="docutils literal notranslate"><span class="pre">is_movable</span></code> : bool — always True
+<code class="docutils literal notranslate"><span class="pre">has_trivial_shape</span></code> : bool — True iff K is contractible
+<code class="docutils literal notranslate"><span class="pre">shape_class</span></code> : str — <code class="docutils literal notranslate"><span class="pre">&quot;compact_ar&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;anr&quot;</span></code>
+<code class="docutils literal notranslate"><span class="pre">vertex_count</span></code> : int
+<code class="docutils literal notranslate"><span class="pre">max_simplex_dim</span></code> : int</p>
+</dd>
+</dl>
+</section>
+<section id="id14">
+<h2>Examples<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
+<p>A cone is contractible (compact AR):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">shape_anr_check_sc</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;is_anr&#39;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;shape_class&#39;</span><span class="p">]</span>
+<span class="go">(True, &#39;anr&#39;)</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="surface_word_classification.html" class="btn btn-neutral float-left" title="Surface Word Classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="graph_planarity.html" class="btn btn-neutral float-right" title="Graph Planarity" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

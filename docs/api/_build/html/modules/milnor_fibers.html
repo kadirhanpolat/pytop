@@ -1,0 +1,416 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milnor Fibers &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Milnor Fibers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/milnor_fibers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.milnor_fibers">
+<span id="milnor-fibers"></span><h1>Milnor Fibers<a class="headerlink" href="#module-pytop.milnor_fibers" title="Link to this heading"></a></h1>
+<p>Milnor fibers and singularity topology (Phase 15.4).</p>
+<p>For a polynomial f: (ℂ^n, 0) → (ℂ, 0) with an isolated singularity at 0,
+the Milnor fiber F = f⁻¹(ε) ∩ B_δ is a smooth manifold with the homotopy
+type of a finite CW complex.</p>
+<section id="brieskornpham-polynomials">
+<h2>Brieskorn–Pham polynomials<a class="headerlink" href="#brieskornpham-polynomials" title="Link to this heading"></a></h2>
+<p>f(z₀, z₁, z₂) = z₀^a + z₁^b + z₂^c</p>
+<p>The Milnor fiber F of a Brieskorn–Pham singularity is a smooth 4-manifold
+with boundary the Brieskorn sphere Σ(a,b,c).</p>
+<p>Milnor number: μ = (a-1)(b-1)(c-1)
+The Milnor fiber has:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>H₀(F) = ℤ</p></li>
+<li><p>H₂(F) = ℤ^μ</p></li>
+<li><p>H_k(F) = 0 for k ≠ 0, 2  (middle dimension for surface singularities)</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="seifert-form-and-signature">
+<h2>Seifert form and signature<a class="headerlink" href="#seifert-form-and-signature" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>The Seifert form A on H₂(F; ℤ) satisfies:</dt><dd><p>A - Aᵀ = intersection form of F</p>
+</dd>
+</dl>
+<p>The signature σ(A + Aᵀ) = signature of the intersection form of F.</p>
+<dl class="simple">
+<dt>For Brieskorn–Pham singularities, the signature is computed by:</dt><dd><p>σ(a,b,c) = Σ_{i,j,k} sgn(sin(πi/a)·sin(πj/b)·sin(πk/c)·cos(π(i/a+j/b+k/c)))
+where sum is over 0 &lt; i/a + j/b + k/c &lt; 1, 0 &lt; i &lt; a, 0 &lt; j &lt; b, 0 &lt; k &lt; c.</p>
+</dd>
+</dl>
+</section>
+<section id="a-d-e-singularities">
+<h2>A/D/E singularities<a class="headerlink" href="#a-d-e-singularities" title="Link to this heading"></a></h2>
+<p>A_n: f = x² + y² + z^{n+1}; Milnor fiber is a sphere with n handles
+D_n: f = x² + y^{n-1} + yz²
+E_6: f = x² + y³ + z⁴
+E_7: f = x² + y³ + yz³
+E_8: f = x² + y³ + z⁵</p>
+</section>
+<section id="monodromy">
+<h2>Monodromy<a class="headerlink" href="#monodromy" title="Link to this heading"></a></h2>
+<p>The Milnor fibration gives a monodromy operator T: H*(F) → H*(F).
+For isolated singularities, T is quasi-unipotent: (T^m - 1)^k = 0.</p>
+<p>References: Milnor 1968, Brieskorn 1966, Durfee 1978, Dimca 1992.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.MilnorFiber">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">MilnorFiber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">singularity_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">milnor_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">euler_characteristic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">monodromy_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">betti_numbers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intersection_form_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.milnor_fibers.MilnorFiber" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Topology of a Milnor fiber.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>singularity_name<span class="classifier">str</span></dt><dd><p>Name of the singularity (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;A3&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;E8&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Σ(2,3,5)&quot;</span></code>).</p>
+</dd>
+<dt>milnor_number<span class="classifier">int</span></dt><dd><p>μ = dim H_{n-1}(F; ℚ) = number of vanishing cycles.</p>
+</dd>
+<dt>signature<span class="classifier">int</span></dt><dd><p>σ(F) = signature of intersection form on H₂(F).</p>
+</dd>
+<dt>euler_characteristic<span class="classifier">int</span></dt><dd><p>χ(F) = 1 + (-1)^{n-1} μ.</p>
+</dd>
+<dt>monodromy_order<span class="classifier">int</span></dt><dd><p>Order of monodromy in cohomology (for Brieskorn–Pham: lcm(a,b,c)).</p>
+</dd>
+<dt>betti_numbers<span class="classifier">tuple[int, …]</span></dt><dd><p>(b₀, b₁, b₂) for surface singularities (n=3).</p>
+</dd>
+<dt>intersection_form_type<span class="classifier">str</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">&quot;even&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;odd&quot;</span></code> (type of the intersection form).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.MilnorFiber.singularity_name">
+<span class="sig-name descname"><span class="pre">singularity_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.milnor_fibers.MilnorFiber.singularity_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.MilnorFiber.milnor_number">
+<span class="sig-name descname"><span class="pre">milnor_number</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.milnor_fibers.MilnorFiber.milnor_number" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.MilnorFiber.signature">
+<span class="sig-name descname"><span class="pre">signature</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.milnor_fibers.MilnorFiber.signature" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.MilnorFiber.euler_characteristic">
+<span class="sig-name descname"><span class="pre">euler_characteristic</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.milnor_fibers.MilnorFiber.euler_characteristic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.MilnorFiber.monodromy_order">
+<span class="sig-name descname"><span class="pre">monodromy_order</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.milnor_fibers.MilnorFiber.monodromy_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.MilnorFiber.betti_numbers">
+<span class="sig-name descname"><span class="pre">betti_numbers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.milnor_fibers.MilnorFiber.betti_numbers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.MilnorFiber.intersection_form_type">
+<span class="sig-name descname"><span class="pre">intersection_form_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.milnor_fibers.MilnorFiber.intersection_form_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.MilnorFiber.b2">
+<span class="sig-name descname"><span class="pre">b2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.milnor_fibers.MilnorFiber.b2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.milnor_fiber_brieskorn">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">milnor_fiber_brieskorn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.milnor_fibers.MilnorFiber" title="pytop.milnor_fibers.MilnorFiber"><span class="pre">MilnorFiber</span></a></span></span><a class="headerlink" href="#pytop.milnor_fibers.milnor_fiber_brieskorn" title="Link to this definition"></a></dt>
+<dd><p>Milnor fiber of the Brieskorn–Pham singularity z₀^a + z₁^b + z₂^c.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>a, b, c<span class="classifier">int</span></dt><dd><p>Exponents (positive integers).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.milnor_number">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">milnor_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.milnor_fibers.milnor_number" title="Link to this definition"></a></dt>
+<dd><p>Milnor number of Brieskorn–Pham z₀^a + z₁^b + z₂^c.</p>
+<p>μ = (a-1)(b-1)(c-1)</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>a, b, c<span class="classifier">int</span></dt><dd><p>Exponents (positive integers ≥ 2).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.milnor_fiber_signature">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">milnor_fiber_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.milnor_fibers.milnor_fiber_signature" title="Link to this definition"></a></dt>
+<dd><p>Signature σ of the Milnor fiber of z₀^a + z₁^b + z₂^c.</p>
+<dl class="simple">
+<dt>Computed via the formula (Brieskorn 1966, Durfee 1978):</dt><dd><p>σ = Σ_{0&lt;i&lt;a, 0&lt;j&lt;b, 0&lt;k&lt;c} sgn(…)</p>
+</dd>
+<dt>Specifically, using the A’Campo-type formula:</dt><dd><p>σ(a,b,c) = Σ_{(i,j,k)} (-1)^{floor(2(i/a+j/b+k/c))}</p>
+</dd>
+</dl>
+<p>where the sum is over all (i,j,k) with 1≤i&lt;a, 1≤j&lt;b, 1≤k&lt;c.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>a, b, c<span class="classifier">int</span></dt><dd><p>Exponents.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.milnor_fiber_euler">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">milnor_fiber_euler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.milnor_fibers.milnor_fiber_euler" title="Link to this definition"></a></dt>
+<dd><p>Euler characteristic χ(F) = 1 + μ for surface singularities (n=3).</p>
+<dl class="simple">
+<dt>For the Milnor fiber of z₀^a + z₁^b + z₂^c:</dt><dd><p>χ(F) = 1 + μ = 1 + (a-1)(b-1)(c-1)</p>
+</dd>
+</dl>
+<p>(The Milnor fiber has H₀=ℤ, H₂=ℤ^μ, all others 0.)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.seifert_form_trace">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">seifert_form_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.milnor_fibers.seifert_form_trace" title="Link to this definition"></a></dt>
+<dd><p>Trace of the Seifert form A on H₂(F; ℤ).</p>
+<p>For Brieskorn–Pham, the Seifert form is related to the Milnor lattice.
+The trace is: tr(A + Aᵀ) = signature + (rank of radical)</p>
+<p>Simplified: tr(A + Aᵀ) = σ (the signature of F).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.monodromy_order">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">monodromy_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.milnor_fibers.monodromy_order" title="Link to this definition"></a></dt>
+<dd><p>Order of the monodromy of the Milnor fibration = lcm(a, b, c).</p>
+<p>For Brieskorn–Pham z₀^a + z₁^b + z₂^c the monodromy T has order lcm(a, b, c).</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>a, b, c : int</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.milnor_fiber_ade">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">milnor_fiber_ade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">singularity_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.milnor_fibers.MilnorFiber" title="pytop.milnor_fibers.MilnorFiber"><span class="pre">MilnorFiber</span></a></span></span><a class="headerlink" href="#pytop.milnor_fibers.milnor_fiber_ade" title="Link to this definition"></a></dt>
+<dd><p>Milnor fiber data for ADE singularities.</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>singularity_type<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;An&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Dn&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;E6&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;E7&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;E8&quot;</span></code> where n ≥ 1.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>MilnorFiber</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.ade_singularity_data">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">ade_singularity_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">singularity_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></span><a class="headerlink" href="#pytop.milnor_fibers.ade_singularity_data" title="Link to this definition"></a></dt>
+<dd><p>Return invariant data for ADE singularities.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>singularity_type<span class="classifier">str</span></dt><dd><p>E.g., <code class="docutils literal notranslate"><span class="pre">&quot;A3&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;D5&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;E6&quot;</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.characteristic_polynomial_monodromy">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">characteristic_polynomial_monodromy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.milnor_fibers.characteristic_polynomial_monodromy" title="Link to this definition"></a></dt>
+<dd><p>Characteristic polynomial of the monodromy T acting on H₂(F; ℚ).</p>
+<dl class="simple">
+<dt>For Brieskorn–Pham, the characteristic polynomial is:</dt><dd><p>det(tI - T) = Π_{i/a+j/b+k/c ∈ (0,1)} (t - e^{2πi(i/a+j/b+k/c)})</p>
+</dd>
+</dl>
+<p>We return the polynomial as a dict {degree: coefficient} over ℤ.
+For the Alexander polynomial connection:</p>
+<blockquote>
+<div><p>char_poly(T) = Δ_{Σ(a,b,c)}(t)  (Alexander polynomial of the Brieskorn sphere)</p>
+</div></blockquote>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>a, b, c : int</p>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict[int, int]</dt><dd><p>{degree: integer coefficient} of char poly (approximate via cyclotomic).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.zeta_function_monodromy">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">zeta_function_monodromy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.milnor_fibers.zeta_function_monodromy" title="Link to this definition"></a></dt>
+<dd><p>Zeta function of the monodromy (A’Campo’s formula).</p>
+<dl class="simple">
+<dt>ζ_T(t) = Π_k det(I - t·T|_{H_k})^{(-1)^{k+1}}</dt><dd><p>= Π_{d|lcm(a,b,c)} (1 - t^d)^{n_d}</p>
+</dd>
+</dl>
+<p>where n_d = #{lattice points with denominator d}.</p>
+<p>Returns a dict {exponent_in_t: rational_coefficient} for the
+exponent expansion log(ζ) = -Σ tr(T^k)/k · t^k.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.milnor_fibers.brieskorn_fiber_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.milnor_fibers.</span></span><span class="sig-name descname"><span class="pre">brieskorn_fiber_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.milnor_fibers.brieskorn_fiber_homology" title="Link to this definition"></a></dt>
+<dd><p>Betti numbers (b₀, b₁, b₂) of the Milnor fiber of z₀^a + z₁^b + z₂^c.</p>
+<p>F ≃ bouquet of μ 2-spheres → b₀=1, b₁=0, b₂=μ.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

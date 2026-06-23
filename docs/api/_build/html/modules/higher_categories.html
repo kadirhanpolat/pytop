@@ -1,0 +1,515 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Higher Categories &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Noncommutative Topology" href="noncommutative_topology.html" />
+    <link rel="prev" title="Operads" href="operads.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Higher Categories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-theorems-and-constructions-implemented">Key theorems and constructions implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.key"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.display_name"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.display_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.category_type"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.category_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.model_type"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.model_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.is_stable"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.is_stable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.has_all_limits"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.has_all_limits</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.has_all_colimits"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.has_all_colimits</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.is_presentable"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.is_presentable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.has_t_structure"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.has_t_structure</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.presentation_layer"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.presentation_layer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.focus"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.focus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile.chapter_targets"><code class="docutils literal notranslate"><span class="pre">HigherCategoryProfile.chapter_targets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.get_named_higher_category_profiles"><code class="docutils literal notranslate"><span class="pre">get_named_higher_category_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.higher_category_layer_summary"><code class="docutils literal notranslate"><span class="pre">higher_category_layer_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.higher_category_chapter_index"><code class="docutils literal notranslate"><span class="pre">higher_category_chapter_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.higher_category_type_index"><code class="docutils literal notranslate"><span class="pre">higher_category_type_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.is_infinity_categorical"><code class="docutils literal notranslate"><span class="pre">is_infinity_categorical()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.is_stable_infinity_category"><code class="docutils literal notranslate"><span class="pre">is_stable_infinity_category()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.has_all_limits_and_colimits"><code class="docutils literal notranslate"><span class="pre">has_all_limits_and_colimits()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.is_presentable_infinity_category"><code class="docutils literal notranslate"><span class="pre">is_presentable_infinity_category()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.classify_higher_category"><code class="docutils literal notranslate"><span class="pre">classify_higher_category()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.higher_category_profile"><code class="docutils literal notranslate"><span class="pre">higher_category_profile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.nerve_of_category"><code class="docutils literal notranslate"><span class="pre">nerve_of_category()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.kan_fibration_check_sc"><code class="docutils literal notranslate"><span class="pre">kan_fibration_check_sc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.higher_categories.homotopy_type_finite_cat"><code class="docutils literal notranslate"><span class="pre">homotopy_type_finite_cat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Higher Categories</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/higher_categories.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.higher_categories">
+<span id="higher-categories"></span><h1>Higher Categories<a class="headerlink" href="#module-pytop.higher_categories" title="Link to this heading"></a></h1>
+<p>Higher categories: (∞,1)-categories, quasi-categories, Kan complexes, complete Segal spaces,
+stable ∞-categories, ∞-operads, ∞-toposes, enriched categories.</p>
+<section id="key-theorems-and-constructions-implemented">
+<h2>Key theorems and constructions implemented<a class="headerlink" href="#key-theorems-and-constructions-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>(∞,1)-categories: objects, 1-morphisms, k-morphisms for k≥2 all invertible.
+Models include quasi-categories (Joyal), Kan complexes as ∞-groupoids, complete
+Segal spaces (Rezk), Segal categories, and simplicially enriched categories.
+The Quillen equivalences between all these models are encoded in the Bergner model
+structure on simplicial categories and Joyal’s model structure on sSet.</p></li>
+<li><p>Quasi-categories (Joyal 2002, Lurie 2009): a simplicial set X is a quasi-category
+if every inner horn Lambda^n_k -&gt; X (0 &lt; k &lt; n) extends to Delta^n -&gt; X. Objects
+are 0-simplices, morphisms are 1-simplices, and composition is given by filling
+2-horns (Lambda^2_1). The homotopy category hX has objects X_0, morphisms pi_0(X_1),
+and composition is pi_0 of horn fillers. The Joyal model structure on sSet has fibrant
+objects = quasi-categories and weak equivalences = categorical equivalences (equivalences
+of quasi-categories). This is distinct from the classical Kan-Quillen model structure
+(which models homotopy types).</p></li>
+<li><p>Kan complexes and ∞-groupoids: a simplicial set X is a Kan complex if ALL horns
+(including outer horns Lambda^n_0 and Lambda^n_n) extend. Kan complexes model
+∞-groupoids where all morphisms are invertible up to coherent homotopy. The
+Grothendieck homotopy hypothesis states that ∞-groupoids are equivalent to homotopy
+types (topological spaces up to weak homotopy equivalence). Concretely: the singular
+complex functor Sing: Top -&gt; sSet lands in Kan complexes, and geometric realization
+<a href="#id12"><span class="problematic" id="id13">|−|</span></a>: sSet -&gt; Top is its left adjoint; this Quillen adjunction (Kan-Quillen model
+structure) implements the equivalence between Kan complexes and CW-complexes.</p></li>
+<li><p>Complete Segal spaces (Rezk 2001): a bisimplicial set W: Delta^op -&gt; sSet satisfying
+(1) the Segal condition W_n simeq W_1 x_{W_0} … x_{W_0} W_1 (n-fold iterated
+pullback over W_0), meaning composition is essentially unique and associative up to
+homotopy; and (2) the completeness condition: the map W_0 -&gt; W_hoequiv (subspace of
+homotopy equivalences in W_1) is a weak equivalence. This completeness encodes that
+homotopy equivalences in the ∞-category are detected by identity morphisms. The
+Bergner model structure on sSet-categories and Rezk’s model structure on bisimplicial
+sets are Quillen equivalent, as are both to Joyal’s model structure and to Segal
+categories.</p></li>
+<li><p>Lurie’s ∞-categorical machinery (Higher Topos Theory, 2009): the ∞-categorical Yoneda
+lemma holds: for a quasi-category C and an object x, the functor j(x): C^op -&gt; S
+(presheaves of spaces) given by y <a href="#id1"><span class="problematic" id="id2">|</span></a>-&gt; Map_C(y, x) is fully faithful. Limits and
+colimits in a quasi-category C are defined as terminal/initial objects in the
+appropriate slice quasi-categories of functor quasi-categories. An adjunction between
+quasi-categories L: C &lt;-&gt; D: R is given by a unit transformation eta: id -&gt; RL
+satisfying the triangle identities up to coherent homotopy. An ∞-topos is an
+∞-category X that arises as a left exact localization of a presheaf ∞-category P(C)
+= Fun(C^op, S) (or equivalently, satisfies Lurie’s ∞-categorical Giraud axioms:
+colimits are universal, coproducts are disjoint, and groupoid objects are effective).</p></li>
+<li><p>Stable ∞-categories: an ∞-category C is stable if (1) it has a zero object 0
+(both initial and final), (2) every morphism has a fiber and a cofiber (i.e., all
+pushouts and pullbacks exist), and (3) a square is a pushout iff it is a pullback
+(all squares are both bicartesian). Every stable ∞-category has a triangulated
+homotopy category (with suspension Sigma = cofiber of id -&gt; 0). Key examples: the
+∞-category of spectra Sp (the initial stable ∞-category with a unit), the derived
+∞-category D(R) for a ring R (nerves of model categories of chain complexes), and
+the stable ∞-category of A-modules Mod_A for an E_∞-ring spectrum A. A t-structure
+on a stable ∞-category C is a pair (C_{&gt;=0}, C_{&lt;=0}) of full subcategories closed
+under positive/negative shifts satisfying the usual axioms; the heart C^♥ = C_{&gt;=0}
+∩ C_{&lt;=0} is an abelian category.</p></li>
+<li><p>∞-operads and ∞-algebras (Lurie, Higher Algebra 2017): in Lurie’s framework, an
+∞-operad is a functor O^⊗ -&gt; N(Fin_*) satisfying certain Segal conditions, where
+Fin_* is the category of finite pointed sets (with basepoint). An ∞-algebra over an
+∞-operad O in a symmetric monoidal ∞-category (C^⊗ -&gt; N(Fin_*)) is a map of
+∞-operads O^⊗ -&gt; C^⊗ over N(Fin_*). Key examples: the E_n ∞-operad (from the
+operad of little n-disks); E_n-algebras generalize E_1 = A_∞ (associative up to
+all coherences) and E_∞ = commutative algebras. The Ass ∞-operad gives A_∞-algebras.
+Spectra with symmetric monoidal product (smash product of spectra ∧ giving the
+symmetric monoidal ∞-category Sp^⊗) admit E_∞-ring spectra as algebras.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">HigherCategoryProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_stable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_all_limits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_all_colimits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_presentable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_t_structure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated higher category theory example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.category_type">
+<span class="sig-name descname"><span class="pre">category_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.category_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.model_type">
+<span class="sig-name descname"><span class="pre">model_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.model_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.is_stable">
+<span class="sig-name descname"><span class="pre">is_stable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.is_stable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.has_all_limits">
+<span class="sig-name descname"><span class="pre">has_all_limits</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.has_all_limits" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.has_all_colimits">
+<span class="sig-name descname"><span class="pre">has_all_colimits</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.has_all_colimits" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.is_presentable">
+<span class="sig-name descname"><span class="pre">is_presentable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.is_presentable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.has_t_structure">
+<span class="sig-name descname"><span class="pre">has_t_structure</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.has_t_structure" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.higher_categories.HigherCategoryProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.higher_categories.HigherCategoryProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.get_named_higher_category_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">get_named_higher_category_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.higher_categories.HigherCategoryProfile" title="pytop.higher_categories.HigherCategoryProfile"><span class="pre">HigherCategoryProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.higher_categories.get_named_higher_category_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical higher category theory examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.higher_category_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">higher_category_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.higher_categories.higher_category_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.higher_category_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">higher_category_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.higher_categories.higher_category_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.higher_category_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">higher_category_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.higher_categories.higher_category_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from category_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.is_infinity_categorical">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">is_infinity_categorical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.higher_categories.is_infinity_categorical" title="Link to this definition"></a></dt>
+<dd><p>Check whether the space/structure is ∞-categorical (models an (∞,1)-category).</p>
+<p>Quasi-categories, Kan complexes, complete Segal spaces, stable ∞-categories, and
+∞-toposes are all explicit models of (∞,1)-categories. Model categories and
+enriched categories present ∞-categories via localization.</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>QUASI_CATEGORY_TAGS | KAN_COMPLEX_TAGS -&gt; true (explicit ∞-category model).</p></li>
+<li><p>SEGAL_SPACE_TAGS | STABLE_INFINITY_TAGS | INFINITY_TOPOS_TAGS -&gt; true
+(recognized ∞-categorical models).</p></li>
+<li><p>MODEL_CATEGORY_TAGS | ENRICHED_CATEGORY_TAGS -&gt; true (present ∞-categories
+via Dwyer-Kan localization or dg-nerve).</p></li>
+<li><p>Strict 1-categorical tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.is_stable_infinity_category">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">is_stable_infinity_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.higher_categories.is_stable_infinity_category" title="Link to this definition"></a></dt>
+<dd><p>Check whether the structure is a stable ∞-category.</p>
+<p>A stable ∞-category has a zero object, all pushouts/pullbacks, and pushout squares
+are exactly pullback squares. The homotopy category is triangulated.
+Examples: Sp (spectra), D(R) (derived ∞-category), dg-nerve of pretriangulated dg-cats.</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>STABLE_INFINITY_TAGS -&gt; true.</p></li>
+<li><p>Explicit stable structure tags -&gt; true.</p></li>
+<li><p>Tags ruling out stability (∞-toposes, Segal spaces, Kan complexes) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.has_all_limits_and_colimits">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">has_all_limits_and_colimits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.higher_categories.has_all_limits_and_colimits" title="Link to this definition"></a></dt>
+<dd><p>Check whether the ∞-category has all small limits and colimits.</p>
+<p>∞-toposes and presentable ∞-categories have all small limits and colimits.
+Quasi-categories also admit all limits and colimits (as terminal/initial
+objects in slice functor ∞-categories). dg-categories do not in general.</p>
+<section id="id4">
+<h2>Decision layers<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>INFINITY_TOPOS_TAGS | ADJUNCTION_TAGS -&gt; true (∞-toposes and presentable cats).</p></li>
+<li><p>Explicit presentability or quasi-category tags -&gt; true.</p></li>
+<li><p>dg-categories or explicit incompleteness -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.is_presentable_infinity_category">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">is_presentable_infinity_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.higher_categories.is_presentable_infinity_category" title="Link to this definition"></a></dt>
+<dd><p>Check whether the ∞-category is presentable.</p>
+<p>A presentable ∞-category is an accessible ∞-category with all small colimits,
+equivalently an accessible localization of a presheaf ∞-category P(C).
+∞-toposes are presentable. dg-categories and small categories are not.</p>
+<section id="id5">
+<h2>Decision layers<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>INFINITY_TOPOS_TAGS -&gt; true (∞-toposes are presentable).</p></li>
+<li><p>Explicit presentability tags | ADJUNCTION_TAGS -&gt; true.</p></li>
+<li><p>Tags ruling out presentability -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.classify_higher_category">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">classify_higher_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.higher_categories.classify_higher_category" title="Link to this definition"></a></dt>
+<dd><p>Run all higher category analysis functions and return a combined result dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.higher_category_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">higher_category_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.higher_categories.higher_category_profile" title="Link to this definition"></a></dt>
+<dd><p>Return a comprehensive higher category profile of the space.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.nerve_of_category">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">nerve_of_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">morphisms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></span><a class="headerlink" href="#pytop.higher_categories.nerve_of_category" title="Link to this definition"></a></dt>
+<dd><p>Compute the nerve N(C) of a small category C as a simplicial complex.</p>
+<p>N(C)_0 = objects, N(C)_1 = morphisms, N(C)_2 = composable pairs (a→b→c)
+when the composite a→c is also in <code class="docutils literal notranslate"><span class="pre">morphisms</span></code>.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<p>objects: list of object names (hashable)
+morphisms: list of (source, target) pairs; identity morphisms are implicit</p>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>SimplicialComplex capturing N(C) up to dimension 2.</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Chain A → B → C with composite A → C gives a 2-simplex:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="n">nerve_of_category</span><span class="p">([</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="p">],</span>
+<span class="gp">... </span>                       <span class="p">[(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="s2">&quot;B&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">any</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">N</span><span class="o">.</span><span class="n">simplexes</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.kan_fibration_check_sc">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">kan_fibration_check_sc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.higher_categories.kan_fibration_check_sc" title="Link to this definition"></a></dt>
+<dd><p>Check the Kan horn-filling condition for a simplicial complex.</p>
+<p>A simplicial set is a Kan complex if every horn Λⁿₖ → X extends to Δⁿ → X.
+For a simplicial complex (set of simplices), a horn of a missing n-simplex σ
+is present when (n) of its (n+1) faces are in the complex. This function
+checks for unfilled horns up to <code class="docutils literal notranslate"><span class="pre">max_dim</span></code>.</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>sc: SimplicialComplex to check
+max_dim: maximum dimension to check (default 2)</p>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">unfilled_horns</span></code>, <code class="docutils literal notranslate"><span class="pre">n_horns_checked</span></code>, <code class="docutils literal notranslate"><span class="pre">is_kan_complex</span></code>.</p>
+</section>
+<section id="id8">
+<h2>Examples<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>A filled triangle (2-simplex) has all horns filled:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.simplicial_complexes</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimplicialComplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.simplices</span><span class="w"> </span><span class="kn">import</span> <span class="n">Simplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <span class="n">SimplicialComplex</span><span class="p">([</span><span class="n">Simplex</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kan_fibration_check_sc</span><span class="p">(</span><span class="n">sc</span><span class="p">)[</span><span class="s2">&quot;is_kan_complex&quot;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.higher_categories.homotopy_type_finite_cat">
+<span class="sig-prename descclassname"><span class="pre">pytop.higher_categories.</span></span><span class="sig-name descname"><span class="pre">homotopy_type_finite_cat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">morphisms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.higher_categories.homotopy_type_finite_cat" title="Link to this definition"></a></dt>
+<dd><p>Compute the homotopy type of a finite category via its classifying space BC.</p>
+<p>BC = <a href="#id14"><span class="problematic" id="id15">|N(C)|</span></a> (geometric realization of the nerve) has homology groups
+computable from the nerve simplicial complex. A category C is contractible
+iff BC ≃ * (all Betti numbers vanish except β₀ = 1).</p>
+<section id="id9">
+<h2>Parameters<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<p>objects: list of objects in the category
+morphisms: list of (source, target) morphism pairs</p>
+</section>
+<section id="id10">
+<h2>Returns<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">betti_numbers</span></code>, <code class="docutils literal notranslate"><span class="pre">euler_characteristic</span></code>, <code class="docutils literal notranslate"><span class="pre">n_objects</span></code>,
+<code class="docutils literal notranslate"><span class="pre">n_morphisms</span></code>, <code class="docutils literal notranslate"><span class="pre">is_contractible</span></code>, <code class="docutils literal notranslate"><span class="pre">is_connected</span></code>.</p>
+</section>
+<section id="id11">
+<h2>Examples<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<p>A category with one object is contractible:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">homotopy_type_finite_cat</span><span class="p">([</span><span class="s2">&quot;*&quot;</span><span class="p">],</span> <span class="p">[])[</span><span class="s2">&quot;is_contractible&quot;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="operads.html" class="btn btn-neutral float-left" title="Operads" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="noncommutative_topology.html" class="btn btn-neutral float-right" title="Noncommutative Topology" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

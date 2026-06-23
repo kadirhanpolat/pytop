@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Three Manifolds &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Surface Word Classification" href="surface_word_classification.html" />
+    <link rel="prev" title="Concordance" href="concordance.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Three Manifolds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.three_manifolds.AbelianGroup"><code class="docutils literal notranslate"><span class="pre">AbelianGroup</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.AbelianGroup.free_rank"><code class="docutils literal notranslate"><span class="pre">AbelianGroup.free_rank</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.AbelianGroup.torsion"><code class="docutils literal notranslate"><span class="pre">AbelianGroup.torsion</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.AbelianGroup.order"><code class="docutils literal notranslate"><span class="pre">AbelianGroup.order</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.AbelianGroup.is_trivial"><code class="docutils literal notranslate"><span class="pre">AbelianGroup.is_trivial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldInvariantProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.key"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldInvariantProfile.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.manifold_key"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldInvariantProfile.manifold_key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.invariant_kind"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldInvariantProfile.invariant_kind</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.symbolic_signal"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldInvariantProfile.symbolic_signal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.comparison_note"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldInvariantProfile.comparison_note</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.source_section"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldInvariantProfile.source_section</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.teaching_note"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldInvariantProfile.teaching_note</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile.key"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile.display_name"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile.display_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile.model_family"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile.model_family</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile.construction_model"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile.construction_model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile.orientability"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile.orientability</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile.compactness"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile.compactness</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile.primary_invariant_signal"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile.primary_invariant_signal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile.source_section"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile.source_section</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile.teaching_note"><code class="docutils literal notranslate"><span class="pre">ThreeManifoldProfile.teaching_note</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.three_manifolds.get_three_manifold_invariant_profiles"><code class="docutils literal notranslate"><span class="pre">get_three_manifold_invariant_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.three_manifolds.get_three_manifold_profiles"><code class="docutils literal notranslate"><span class="pre">get_three_manifold_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.three_manifolds.lens_space_pi1"><code class="docutils literal notranslate"><span class="pre">lens_space_pi1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.three_manifolds.mapping_torus_h1"><code class="docutils literal notranslate"><span class="pre">mapping_torus_h1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.three_manifolds.three_manifold_family_summary"><code class="docutils literal notranslate"><span class="pre">three_manifold_family_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.three_manifolds.three_manifold_invariant_kind_summary"><code class="docutils literal notranslate"><span class="pre">three_manifold_invariant_kind_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.three_manifolds.three_manifold_profile_registry"><code class="docutils literal notranslate"><span class="pre">three_manifold_profile_registry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Three Manifolds</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/three_manifolds.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.three_manifolds">
+<span id="three-manifolds"></span><h1>Three Manifolds<a class="headerlink" href="#module-pytop.three_manifolds" title="Link to this heading"></a></h1>
+<p>3-manifold profil kayitlari ve hesaplamalı motorlar (MAN-02).</p>
+<p>Profil katmani: Adams &amp; Franzosa Bolum 14.3 icin ogretim odakli kayitlar.
+Hesaplama katmani: mapping torus H₁ (Wang dizisi), lens uzayi π₁.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.three_manifolds.AbelianGroup">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.three_manifolds.</span></span><span class="sig-name descname"><span class="pre">AbelianGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">free_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">torsion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.three_manifolds.AbelianGroup" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A finitely generated abelian group <code class="docutils literal notranslate"><span class="pre">ℤ^{free_rank}</span> <span class="pre">⊕</span> <span class="pre">⊕</span> <span class="pre">ℤ/dᵢ</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">torsion</span></code> lists the invariant factors <code class="docutils literal notranslate"><span class="pre">dᵢ</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> with <code class="docutils literal notranslate"><span class="pre">d₁</span> <span class="pre">|</span> <span class="pre">d₂</span> <span class="pre">|</span> <span class="pre">…</span></code>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.AbelianGroup.free_rank">
+<span class="sig-name descname"><span class="pre">free_rank</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.three_manifolds.AbelianGroup.free_rank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.AbelianGroup.torsion">
+<span class="sig-name descname"><span class="pre">torsion</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></span><a class="headerlink" href="#pytop.three_manifolds.AbelianGroup.torsion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.three_manifolds.AbelianGroup.order">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">order</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.three_manifolds.AbelianGroup.order" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">|G|</span></code> if finite (<code class="docutils literal notranslate"><span class="pre">free_rank</span> <span class="pre">==</span> <span class="pre">0</span></code>), else <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.three_manifolds.AbelianGroup.is_trivial">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_trivial</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.three_manifolds.AbelianGroup.is_trivial" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldInvariantProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.three_manifolds.</span></span><span class="sig-name descname"><span class="pre">ThreeManifoldInvariantProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">manifold_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">invariant_kind</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbolic_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comparison_note</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_section</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">teaching_note</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>3-manifold ailesi icin ogretim amacli invariant profili.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldInvariantProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldInvariantProfile.manifold_key">
+<span class="sig-name descname"><span class="pre">manifold_key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.manifold_key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldInvariantProfile.invariant_kind">
+<span class="sig-name descname"><span class="pre">invariant_kind</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.invariant_kind" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldInvariantProfile.symbolic_signal">
+<span class="sig-name descname"><span class="pre">symbolic_signal</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.symbolic_signal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldInvariantProfile.comparison_note">
+<span class="sig-name descname"><span class="pre">comparison_note</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.comparison_note" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldInvariantProfile.source_section">
+<span class="sig-name descname"><span class="pre">source_section</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.source_section" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldInvariantProfile.teaching_note">
+<span class="sig-name descname"><span class="pre">teaching_note</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile.teaching_note" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.three_manifolds.</span></span><span class="sig-name descname"><span class="pre">ThreeManifoldProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_family</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">construction_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">compactness</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">primary_invariant_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_section</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">teaching_note</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Klasik bir 3-manifold ailesi icin ogretim profili.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldProfile.model_family">
+<span class="sig-name descname"><span class="pre">model_family</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldProfile.model_family" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldProfile.construction_model">
+<span class="sig-name descname"><span class="pre">construction_model</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldProfile.construction_model" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldProfile.orientability">
+<span class="sig-name descname"><span class="pre">orientability</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldProfile.orientability" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldProfile.compactness">
+<span class="sig-name descname"><span class="pre">compactness</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldProfile.compactness" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldProfile.primary_invariant_signal">
+<span class="sig-name descname"><span class="pre">primary_invariant_signal</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldProfile.primary_invariant_signal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldProfile.source_section">
+<span class="sig-name descname"><span class="pre">source_section</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldProfile.source_section" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.three_manifolds.ThreeManifoldProfile.teaching_note">
+<span class="sig-name descname"><span class="pre">teaching_note</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.three_manifolds.ThreeManifoldProfile.teaching_note" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.three_manifolds.get_three_manifold_invariant_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.three_manifolds.</span></span><span class="sig-name descname"><span class="pre">get_three_manifold_invariant_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldInvariantProfile" title="pytop.three_manifolds.ThreeManifoldInvariantProfile"><span class="pre">ThreeManifoldInvariantProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.three_manifolds.get_three_manifold_invariant_profiles" title="Link to this definition"></a></dt>
+<dd><p>MAN-02 icin 3-manifold invariant profillerini dondur.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.three_manifolds.get_three_manifold_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.three_manifolds.</span></span><span class="sig-name descname"><span class="pre">get_three_manifold_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.three_manifolds.ThreeManifoldProfile" title="pytop.three_manifolds.ThreeManifoldProfile"><span class="pre">ThreeManifoldProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.three_manifolds.get_three_manifold_profiles" title="Link to this definition"></a></dt>
+<dd><p>MAN-02 icin temel 3-manifold profillerini dondur.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.three_manifolds.lens_space_pi1">
+<span class="sig-prename descclassname"><span class="pre">pytop.three_manifolds.</span></span><span class="sig-name descname"><span class="pre">lens_space_pi1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="van_kampen.html#pytop.van_kampen.GroupPresentation" title="pytop.van_kampen.GroupPresentation"><span class="pre">GroupPresentation</span></a></span></span><a class="headerlink" href="#pytop.three_manifolds.lens_space_pi1" title="Link to this definition"></a></dt>
+<dd><p>Return a GroupPresentation of π₁(L(p, q)) = ℤ/pℤ.</p>
+<p>The fundamental group of the lens space L(p, q) is ℤ/pℤ, depending
+only on <em>p</em> (independent of <em>q</em> at the group level).  Special cases:</p>
+<ul class="simple">
+<li><p>p = 0 → ℤ  (e.g. S¹ × S²)</p></li>
+<li><p>p = 1 → trivial group  (S³)</p></li>
+</ul>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>p:</dt><dd><p>Non-negative integer; the first parameter of L(p, q).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>GroupPresentation — cyclic group ℤ/pℤ.</p>
+</section>
+<section id="raises">
+<h2>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&lt;</span> <span class="pre">0</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.three_manifolds.mapping_torus_h1">
+<span class="sig-prename descclassname"><span class="pre">pytop.three_manifolds.</span></span><span class="sig-name descname"><span class="pre">mapping_torus_h1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monodromy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="exact_linalg.html#pytop.exact_linalg.AbelianGroup" title="pytop.exact_linalg.AbelianGroup"><span class="pre">AbelianGroup</span></a></span></span><a class="headerlink" href="#pytop.three_manifolds.mapping_torus_h1" title="Link to this definition"></a></dt>
+<dd><p>Compute H₁ of the mapping torus T(φ) via the Wang exact sequence.</p>
+<p>For a surface automorphism φ with monodromy matrix M acting on H₁(Σ),
+the Wang long exact sequence of the fibration Σ → T(φ) → S¹ gives</p>
+<blockquote>
+<div><p>H₁(T(φ)) ≅ coker(M − I) ⊕ ℤ</p>
+</div></blockquote>
+<p>where the ℤ summand comes from the base circle direction.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>monodromy:</dt><dd><p>Square integer matrix M representing φ_* : H₁(Σ) → H₁(Σ).
+For a torus bundle this is a 2×2 matrix in GL(2, ℤ).
+For a genus-g surface bundle this is a 2g×2g symplectic matrix.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>Returns<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>AbelianGroup — H₁(T(φ)) as a finitely generated abelian group.</p>
+</section>
+<section id="id3">
+<h2>Raises<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If <em>monodromy</em> is not a square matrix.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Identity monodromy on T² gives the 3-torus T³ with H₁ = ℤ³:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mapping_torus_h1</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="go">AbelianGroup(free_rank=3, torsion=())</span>
+</pre></div>
+</div>
+<p>Anosov map M = [[2,1],[1,1]] (det=1, <a href="#id4"><span class="problematic" id="id5">|tr|</span></a>&gt;2) gives H₁ = ℤ:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mapping_torus_h1</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="go">AbelianGroup(free_rank=1, torsion=())</span>
+</pre></div>
+</div>
+<p>Dehn twist M = [[1,1],[0,1]] gives H₁ = ℤ²:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mapping_torus_h1</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="go">AbelianGroup(free_rank=2, torsion=())</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.three_manifolds.three_manifold_family_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.three_manifolds.</span></span><span class="sig-name descname"><span class="pre">three_manifold_family_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.three_manifolds.three_manifold_family_summary" title="Link to this definition"></a></dt>
+<dd><p>3-manifold profillerini ailelerine gore grupla.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.three_manifolds.three_manifold_invariant_kind_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.three_manifolds.</span></span><span class="sig-name descname"><span class="pre">three_manifold_invariant_kind_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.three_manifolds.three_manifold_invariant_kind_summary" title="Link to this definition"></a></dt>
+<dd><p>3-manifold invariant profillerini turune gore grupla.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.three_manifolds.three_manifold_profile_registry">
+<span class="sig-prename descclassname"><span class="pre">pytop.three_manifolds.</span></span><span class="sig-name descname"><span class="pre">three_manifold_profile_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.three_manifolds.three_manifold_profile_registry" title="Link to this definition"></a></dt>
+<dd><p>MAN-02 profil ailelerinin kayit sayilarini dondur.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="concordance.html" class="btn btn-neutral float-left" title="Concordance" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="surface_word_classification.html" class="btn btn-neutral float-right" title="Surface Word Classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

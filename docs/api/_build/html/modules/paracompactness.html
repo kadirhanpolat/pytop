@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paracompactness &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Paracompactness</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/paracompactness.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.paracompactness">
+<span id="paracompactness"></span><h1>Paracompactness<a class="headerlink" href="#module-pytop.paracompactness" title="Link to this heading"></a></h1>
+<section id="paracompactness-py">
+<h2>paracompactness.py<a class="headerlink" href="#paracompactness-py" title="Link to this heading"></a></h2>
+<p>Covering properties: paracompactness, full normality, metacompactness,
+locally finite / star refinements, partition-of-unity existence.</p>
+<section id="theorems-encoded">
+<h3>Theorems encoded<a class="headerlink" href="#theorems-encoded" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Stone (1948): metrizable ⟹ paracompact</p></li>
+<li><p>Michael: regular + Lindelöf ⟹ paracompact</p></li>
+<li><p>Dieudonné: paracompact + Hausdorff ⟹ fully normal (⟹ normal)</p></li>
+<li><p>Milnor (1959): CW complexes are paracompact</p></li>
+<li><p>Hereditary for closed sets: closed subspace of paracompact ⟹ paracompact</p></li>
+<li><p>Compact ⟹ paracompact ⟹ metacompact</p></li>
+<li><p>Partition of unity: paracompact Hausdorff admits partitions subordinate to any open cover</p></li>
+<li><p>Smirnov metrization: paracompact + locally metrizable ⟹ metrizable</p></li>
+</ul>
+</section>
+<section id="public-surface">
+<h3>Public surface<a class="headerlink" href="#public-surface" title="Link to this heading"></a></h3>
+<p>is_paracompact(space)                    → Result
+is_fully_normal(space)                   → Result
+is_metacompact(space)                    → Result
+is_locally_finite_refinement(cover, ref) → bool
+is_star_refinement(cover, ref)           → bool
+partition_of_unity_warning()             → str
+paracompact_profile(space)               → dict
+paracompactness_inheritance_profile(space) → dict
+analyze_paracompactness(space)           → Result
+ParacompactnessError                     → exception</p>
+</section>
+</section>
+<dl class="py exception">
+<dt class="sig sig-object py" id="pytop.paracompactness.ParacompactnessError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.paracompactness.</span></span><span class="sig-name descname"><span class="pre">ParacompactnessError</span></span><a class="headerlink" href="#pytop.paracompactness.ParacompactnessError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Raised when a paracompactness operation cannot be completed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.paracompactness.is_paracompact">
+<span class="sig-prename descclassname"><span class="pre">pytop.paracompactness.</span></span><span class="sig-name descname"><span class="pre">is_paracompact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.paracompactness.is_paracompact" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> is paracompact.</p>
+<section id="decision-chain">
+<h2>Decision chain<a class="headerlink" href="#decision-chain" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Negative tag → false</p></li>
+<li><p>Finite space → true (every open cover is finite, hence locally finite)</p></li>
+<li><p>Metrizable → true (Stone’s theorem, 1948)</p></li>
+<li><p>Compact → true (every finite subcover is locally finite)</p></li>
+<li><p>Regular + Lindelöf → true (Michael’s theorem)</p></li>
+<li><p>CW complex → true (Milnor, 1959)</p></li>
+<li><p>Closed subspace of paracompact → true (hereditary for closed sets)</p></li>
+<li><p>Explicit positive tag → true</p></li>
+<li><p>Otherwise → unknown</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.paracompactness.is_fully_normal">
+<span class="sig-prename descclassname"><span class="pre">pytop.paracompactness.</span></span><span class="sig-name descname"><span class="pre">is_fully_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.paracompactness.is_fully_normal" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> is fully normal.</p>
+<p>A space is fully normal when every open cover has an open star-refinement.
+Paracompact + Hausdorff ⟹ fully normal (Dieudonné).  Metrizable spaces
+satisfy both conditions.</p>
+<section id="id1">
+<h2>Decision chain<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Metrizable → true directly</p></li>
+<li><p>Paracompact + Hausdorff → true (Dieudonné)</p></li>
+<li><p>Finite → true (finite T₁ is normal; paracompact + Hausdorff holds)</p></li>
+<li><p>Explicit tag → true / false</p></li>
+<li><p>Otherwise → unknown</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.paracompactness.is_metacompact">
+<span class="sig-prename descclassname"><span class="pre">pytop.paracompactness.</span></span><span class="sig-name descname"><span class="pre">is_metacompact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.paracompactness.is_metacompact" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> is metacompact.</p>
+<p>A space is metacompact when every open cover has a point-finite open
+refinement (each point belongs to only finitely many sets of the
+refinement).  Metacompactness is weaker than paracompactness:</p>
+<blockquote>
+<div><p>paracompact ⟹ metacompact
+compact ⟹ metacompact</p>
+</div></blockquote>
+<section id="id2">
+<h2>Decision chain<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Negative tag → false</p></li>
+<li><p>Finite → true</p></li>
+<li><p>Paracompact → true (paracompact ⟹ metacompact)</p></li>
+<li><p>Compact → true</p></li>
+<li><p>Explicit tag → true</p></li>
+<li><p>Otherwise → unknown</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.paracompactness.is_locally_finite_refinement">
+<span class="sig-prename descclassname"><span class="pre">pytop.paracompactness.</span></span><span class="sig-name descname"><span class="pre">is_locally_finite_refinement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cover</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">refinement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.paracompactness.is_locally_finite_refinement" title="Link to this definition"></a></dt>
+<dd><p>Return True if <em>refinement</em> is a locally finite collection.</p>
+<p>A collection of sets is locally finite when every point has a
+neighbourhood that meets only finitely many members.  For any <em>finite</em>
+collection this holds automatically.  When the refinement has no
+computable length the function returns False (cannot determine).</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<p>cover : iterable of sets (unused — kept for API symmetry)
+refinement : iterable whose local finiteness is checked</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.paracompactness.is_star_refinement">
+<span class="sig-prename descclassname"><span class="pre">pytop.paracompactness.</span></span><span class="sig-name descname"><span class="pre">is_star_refinement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cover</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">refinement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.paracompactness.is_star_refinement" title="Link to this definition"></a></dt>
+<dd><p>Return True if <em>refinement</em> is a star-refinement of <em>cover</em>.</p>
+<dl class="simple">
+<dt>For each V in <em>refinement</em>, compute</dt><dd><p>St(V, refinement) = ⋃{W ∈ refinement : W ∩ V ≠ ∅}</p>
+</dd>
+</dl>
+<p>and check that St(V, refinement) ⊆ some U ∈ cover.</p>
+<p>Both arguments must be iterables of iterables (sets of points).
+Returns False when the inputs cannot be coerced to sets or when the
+star-refinement condition fails for any member.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.paracompactness.partition_of_unity_warning">
+<span class="sig-prename descclassname"><span class="pre">pytop.paracompactness.</span></span><span class="sig-name descname"><span class="pre">partition_of_unity_warning</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.paracompactness.partition_of_unity_warning" title="Link to this definition"></a></dt>
+<dd><p>Return the standard partition-of-unity existence note.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.paracompactness.paracompact_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.paracompactness.</span></span><span class="sig-name descname"><span class="pre">paracompact_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.paracompactness.paracompact_profile" title="Link to this definition"></a></dt>
+<dd><p>Return a comprehensive paracompactness profile for <em>space</em>.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<p>is_paracompact_result      : Result
+is_fully_normal_result     : Result
+is_metacompact_result      : Result
+partition_of_unity         : str
+locally_finite_covers      : str
+key_theorems               : list[str]
+counterexamples            : list[str]
+representation             : str</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.paracompactness.paracompactness_inheritance_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.paracompactness.</span></span><span class="sig-name descname"><span class="pre">paracompactness_inheritance_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.paracompactness.paracompactness_inheritance_profile" title="Link to this definition"></a></dt>
+<dd><p>Summarise what paracompactness implies for <em>space</em> and how it is inherited.</p>
+<p>Returns a dict with keys:
+- <code class="docutils literal notranslate"><span class="pre">paracompact</span></code>        : bool | None
+- <code class="docutils literal notranslate"><span class="pre">implies_normal</span></code>     : bool | None  (paracompact + Hausdorff → normal)
+- <code class="docutils literal notranslate"><span class="pre">implies_metrizable</span></code> : bool | None  (paracompact + locally metrizable → metrizable)
+- <code class="docutils literal notranslate"><span class="pre">inherited_by_closed</span></code>: bool         (always True: closed subspaces inherit)
+- <code class="docutils literal notranslate"><span class="pre">preserved_products</span></code> : str          (generally fails; notes exception)
+- <code class="docutils literal notranslate"><span class="pre">criterion</span></code>          : str          (which rule fired for paracompactness)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.paracompactness.analyze_paracompactness">
+<span class="sig-prename descclassname"><span class="pre">pytop.paracompactness.</span></span><span class="sig-name descname"><span class="pre">analyze_paracompactness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.paracompactness.analyze_paracompactness" title="Link to this definition"></a></dt>
+<dd><p>Single-call facade: full paracompactness analysis.</p>
+<p>Returns a Result whose <code class="docutils literal notranslate"><span class="pre">value</span></code> is the full <code class="docutils literal notranslate"><span class="pre">paracompact_profile</span></code> dict.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

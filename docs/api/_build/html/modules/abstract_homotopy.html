@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abstract Homotopy &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Abstract Homotopy</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/abstract_homotopy.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.abstract_homotopy">
+<span id="abstract-homotopy"></span><h1>Abstract Homotopy<a class="headerlink" href="#module-pytop.abstract_homotopy" title="Link to this heading"></a></h1>
+<p>Abstract homotopy theory: model categories, homotopy pushouts/pullbacks,
+and infinity-categories.</p>
+<section id="key-theorems-and-constructions-implemented">
+<h2>Key theorems and constructions implemented<a class="headerlink" href="#key-theorems-and-constructions-implemented" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Model category axioms (Quillen 1967): a category M with three distinguished classes
+of morphisms — weak equivalences W, fibrations F, cofibrations C — satisfying:
+(M1) M has all small limits and colimits.
+(M2) 2-of-3: if two of f, g, gf are weak equivalences, so is the third.
+(M3) W, F, C are closed under retracts.
+(M4) Lifting: acyclic cofibrations have the LLP w.r.t. fibrations; cofibrations</p>
+<blockquote>
+<div><p>have the LLP w.r.t. acyclic fibrations (acyclic = weak equivalence ∩ fibration).</p>
+</div></blockquote>
+<dl class="simple">
+<dt>(M5) Factorization: every morphism factors as (i) acyclic cofibration then fibration,</dt><dd><p>and (ii) cofibration then acyclic fibration.</p>
+</dd>
+</dl>
+<p>The homotopy category Ho(M) = M[W^{-1}] inverts all weak equivalences.</p>
+</li>
+<li><p>Quillen adjunction (Quillen 1967): an adjunction L: M ⇌ N :R between model categories
+where L preserves cofibrations and acyclic cofibrations (equivalently, R preserves
+fibrations and acyclic fibrations). The derived functors LF: Ho(M) -&gt; Ho(N) and
+RG: Ho(N) -&gt; Ho(M) are well-defined. A Quillen adjunction is a Quillen equivalence
+if LF and RG are inverse equivalences of homotopy categories.</p></li>
+<li><p>Homotopy pushout (Mather 1976): the homotopy pushout of a span A &lt;- C -&gt; B is the
+pushout of a diagram in which C is replaced by a cofibrant resolution (cofibrant
+replacement). Concretely: replace C -&gt; A by a cofibration C’ -&gt; A’ (cofibrant
+replacement of C), then form the ordinary pushout A’ ∪_{C’} B. The result is
+homotopy-invariant: it depends only on the homotopy types of A, B, C and the
+homotopy classes of the maps. The homotopy pushout fits into the Mayer-Vietoris
+long exact sequence and is the derived functor of the pushout.
+Homotopy pullback: dual — replace A -&gt; C &lt;- B by fibrant resolutions.</p></li>
+<li><p>Proper model categories: M is left proper if pushouts along cofibrations preserve
+weak equivalences; M is right proper if pullbacks along fibrations preserve weak
+equivalences. Properness is needed for the gluing lemma and for Bousfield localization.
+Top (Quillen) and sSet (Kan-Quillen) are both left and right proper.</p></li>
+<li><p>Bousfield localization (Bousfield 1975, Hirschhorn 2003): for a left proper, cellular
+or combinatorial model category M and a set of maps S, the left Bousfield localization
+L_S M has the same cofibrations as M but more weak equivalences (the S-local equivalences:
+maps that induce weak equivalences on S-local objects). The fibrant objects of L_S M are
+the S-local fibrant objects of M. Left Bousfield localization exists under mild conditions
+(cellular or combinatorial M, left proper M).</p></li>
+<li><p>Quasi-categories (Boardman-Vogt 1973, Joyal 2002): a quasi-category is a simplicial
+set X satisfying the inner horn filling condition: every inner horn Lambda^n_k -&gt; X
+(0 &lt; k &lt; n) extends to Delta^n -&gt; X. Quasi-categories are the fibrant objects in the
+Joyal model structure on sSet. The category of quasi-categories is equivalent (as an
+∞-category) to the category of (∞,1)-categories. The Joyal model structure presents
+the homotopy theory of (∞,1)-categories.</p></li>
+<li><p>Stable model categories (Hovey 1999): a pointed model category M is stable if the
+suspension functor Sigma: Ho(M) -&gt; Ho(M) (left adjoint to the loop functor Omega) is
+an equivalence of categories. The homotopy category Ho(M) of a stable model category
+is naturally triangulated (with distinguished triangles from the cofiber sequences).
+Examples: spectra (Bousfield-Friedlander), chain complexes over a ring, modules over
+an Eilenberg-MacLane ring spectrum.</p></li>
+<li><p>Brown representability (Brown 1962): on Ho(M) for a stable model category satisfying
+mild conditions, every cohomological functor is representable. Applies to the stable
+homotopy category SH and gives the Adams spectral sequence as the tool for computing
+maps between spectra.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">AbstractHomotopyProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">category_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weak_equivalences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fibrations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cofibrations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_proper</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_stable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">admits_localization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated abstract homotopy theory example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.category_type">
+<span class="sig-name descname"><span class="pre">category_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.category_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.weak_equivalences">
+<span class="sig-name descname"><span class="pre">weak_equivalences</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.weak_equivalences" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.fibrations">
+<span class="sig-name descname"><span class="pre">fibrations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.fibrations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.cofibrations">
+<span class="sig-name descname"><span class="pre">cofibrations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.cofibrations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.is_proper">
+<span class="sig-name descname"><span class="pre">is_proper</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.is_proper" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.is_stable">
+<span class="sig-name descname"><span class="pre">is_stable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.is_stable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.admits_localization">
+<span class="sig-name descname"><span class="pre">admits_localization</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.admits_localization" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.AbstractHomotopyProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.abstract_homotopy.AbstractHomotopyProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.get_named_abstract_homotopy_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">get_named_abstract_homotopy_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.abstract_homotopy.AbstractHomotopyProfile" title="pytop.abstract_homotopy.AbstractHomotopyProfile"><span class="pre">AbstractHomotopyProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.abstract_homotopy.get_named_abstract_homotopy_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical abstract homotopy theory examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.abstract_homotopy_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">abstract_homotopy_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.abstract_homotopy.abstract_homotopy_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.abstract_homotopy_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">abstract_homotopy_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.abstract_homotopy.abstract_homotopy_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.abstract_homotopy_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">abstract_homotopy_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.abstract_homotopy.abstract_homotopy_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from category_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.is_proper_model_category">
+<span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">is_proper_model_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.abstract_homotopy.is_proper_model_category" title="Link to this definition"></a></dt>
+<dd><p>Check whether the model category is both left and right proper.</p>
+<p>A model category M is left proper if pushouts of weak equivalences along
+cofibrations are weak equivalences. It is right proper if pullbacks of weak
+equivalences along fibrations are weak equivalences. Properness is essential
+for the gluing lemma, for Bousfield localization, and for many other constructions.</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘proper_model’ or ‘left_proper’ + ‘right_proper’ tags -&gt; true.</p></li>
+<li><p>Recognized proper structures (Top, sSet, Ch(R)) tags -&gt; true.</p></li>
+<li><p>Not-proper tag -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.has_homotopy_limits">
+<span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">has_homotopy_limits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.abstract_homotopy.has_homotopy_limits" title="Link to this definition"></a></dt>
+<dd><p>Check whether the category admits all homotopy limits and homotopy colimits.</p>
+<p>A model category M has all homotopy limits and colimits because it has all small
+limits and colimits (axiom M1) and these can be derived (replaced by homotopy-invariant
+versions via cofibrant/fibrant replacement of diagram categories). The homotopy limit
+of a diagram D: I -&gt; M is computed by fibrantly replacing D in the diagram category
+M^I (with the injective model structure) and taking the ordinary limit.</p>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘homotopy_limit’ or ‘homotopy_colimit’ tags -&gt; true.</p></li>
+<li><p>Model category tags -&gt; true (all model categories have homotopy limits).</p></li>
+<li><p>Not-a-model-category tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.is_stable_model_category">
+<span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">is_stable_model_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.abstract_homotopy.is_stable_model_category" title="Link to this definition"></a></dt>
+<dd><p>Check whether the model category is stable.</p>
+<p>A pointed model category M is stable if the suspension functor
+Sigma: Ho(M) -&gt; Ho(M) is an equivalence of categories (with inverse the
+loop functor Omega). The homotopy category Ho(M) of a stable model category
+is canonically triangulated with cofiber sequences as distinguished triangles.</p>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘stable_model_category’ or ‘suspension_equivalence’ tag -&gt; true.</p></li>
+<li><p>Known stable categories (spectra, chain complexes) tags -&gt; true.</p></li>
+<li><p>Known unstable categories (Top, sSet) tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.admits_bousfield_localization">
+<span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">admits_bousfield_localization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.abstract_homotopy.admits_bousfield_localization" title="Link to this definition"></a></dt>
+<dd><p>Check whether the model category admits left Bousfield localization.</p>
+<p>Left Bousfield localization L_S M at a set S of maps exists when M is left proper
+AND either cellular (Hirschhorn 2003) or combinatorial (Smith 2001 / Dugger 2001).
+Combinatorial model categories are locally presentable categories with a cofibrantly
+generated model structure. Cellular model categories have a slightly weaker condition
+(based on smallness of the generating sets).</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘bousfield_localization’ or ‘left_bousfield_localization’ tag -&gt; true.</p></li>
+<li><p>Combinatorial + left proper -&gt; true.</p></li>
+<li><p>Cellular + left proper -&gt; true.</p></li>
+<li><p>Not-left-proper or not-cellular/combinatorial -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.classify_abstract_homotopy">
+<span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">classify_abstract_homotopy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.abstract_homotopy.classify_abstract_homotopy" title="Link to this definition"></a></dt>
+<dd><p>Classify the abstract homotopy type of the model/homotopy structure.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>homotopy_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;stable_proper&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;stable_localizable&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unstable_proper&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;infinity_categorical&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;basic_model&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_proper_model_category : Result
+has_homotopy_limits : Result
+is_stable_model_category : Result
+admits_bousfield_localization : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.abstract_homotopy.abstract_homotopy_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.abstract_homotopy.</span></span><span class="sig-name descname"><span class="pre">abstract_homotopy_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.abstract_homotopy.abstract_homotopy_profile" title="Link to this definition"></a></dt>
+<dd><p>Full abstract homotopy profile combining classification and named examples.</p>
+<section id="id4">
+<h2>Keys<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.abstract_homotopy.classify_abstract_homotopy" title="pytop.abstract_homotopy.classify_abstract_homotopy"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_abstract_homotopy()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[AbstractHomotopyProfile, …]</span></dt><dd><p>Registry of canonical abstract homotopy theory examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

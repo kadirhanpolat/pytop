@@ -1,0 +1,974 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Named Spaces &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Named Spaces</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/named_spaces.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.named_spaces">
+<span id="named-spaces"></span><h1>Named Spaces<a class="headerlink" href="#module-pytop.named_spaces" title="Link to this heading"></a></h1>
+<p>Named topological spaces — canonical constructors for well-known examples.</p>
+<p>Each function returns a TopologicalSpace (or subclass) instance whose tags and
+metadata encode the known topological properties of the space.  Functions that
+accept parameters (e.g. carrier size, distinguished point) are noted explicitly.</p>
+<p>Batch 1 (v0.5.33): 20 classical spaces.
+Batch 2 (v0.5.34): 12 additional spaces.
+Batch 3 (v0.5.35): 12 additional spaces.
+Batch 4 (v0.5.36): 12 additional spaces.
+Batch 5 (v0.5.37): 12 additional spaces.
+Batch 6 (v0.5.38): 12 additional spaces.
+Batch 7 (v0.5.39): 12 additional spaces.
+Batch 8 (v0.5.40): 12 additional spaces.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.sierpinski_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">sierpinski_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.sierpinski_space" title="Link to this definition"></a></dt>
+<dd><p>Sierpiński space: {0, 1} with topology {∅, {1}, {0,1}}.</p>
+<p>The unique (up to homeomorphism) non-trivial two-point T0 space.
+pi-base: S000003.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.particular_point_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">particular_point_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.particular_point_topology" title="Link to this definition"></a></dt>
+<dd><p>Particular point topology on {0, …, n-1} with distinguished point p.</p>
+<p>τ = {∅} ∪ {U ⊆ X : p ∈ U}.
+Hyperconnected, T0, not T1.  Parameterized; for the infinite version see
+<a class="reference internal" href="#pytop.named_spaces.particular_point_topology_on_naturals" title="pytop.named_spaces.particular_point_topology_on_naturals"><code class="xref py py-func docutils literal notranslate"><span class="pre">particular_point_topology_on_naturals()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.excluded_point_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">excluded_point_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.excluded_point_topology" title="Link to this definition"></a></dt>
+<dd><p>Excluded point topology on {0, …, n-1} with excluded point p.</p>
+<p>τ = {U ⊆ X : p ∉ U} ∪ {X}.
+Connected, T0, not T1.  Parameterized.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.cofinite_topology_on_naturals">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">cofinite_topology_on_naturals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.CofiniteSpace" title="pytop.infinite_spaces.CofiniteSpace"><span class="pre">CofiniteSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.cofinite_topology_on_naturals" title="Link to this definition"></a></dt>
+<dd><p>Cofinite topology on ω = {0, 1, 2, …}: U open iff U=∅ or ω∖U finite.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.cofinite_topology_on_reals">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">cofinite_topology_on_reals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.CofiniteSpace" title="pytop.infinite_spaces.CofiniteSpace"><span class="pre">CofiniteSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.cofinite_topology_on_reals" title="Link to this definition"></a></dt>
+<dd><p>Cofinite topology on R: U open iff U=∅ or R∖U finite.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.cocountable_topology_on_reals">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">cocountable_topology_on_reals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.CocountableSpace" title="pytop.infinite_spaces.CocountableSpace"><span class="pre">CocountableSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.cocountable_topology_on_reals" title="Link to this definition"></a></dt>
+<dd><p>Cocountable topology on R: U open iff U=∅ or R∖U countable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.real_line">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">real_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.real_line" title="Link to this definition"></a></dt>
+<dd><p>Real line R with the standard Euclidean topology (open intervals basis).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.sorgenfrey_line">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">sorgenfrey_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.SorgenfreyLikeSpace" title="pytop.infinite_spaces.SorgenfreyLikeSpace"><span class="pre">SorgenfreyLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.sorgenfrey_line" title="Link to this definition"></a></dt>
+<dd><p>Sorgenfrey line: R with lower limit topology, basis {[a, b) : a &lt; b}.</p>
+<p>Lindelöf, separable, first countable, normal, totally disconnected.
+Not second countable, not metrizable, not locally compact.
+pi-base: S000009.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.rational_numbers">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">rational_numbers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.rational_numbers" title="Link to this definition"></a></dt>
+<dd><p>Rational numbers Q with subspace topology from R.</p>
+<p>Metric, separable, second countable, totally disconnected.
+Not locally compact, not complete, not sigma-compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.irrational_numbers">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">irrational_numbers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.irrational_numbers" title="Link to this definition"></a></dt>
+<dd><p>Irrational numbers R∖Q with subspace topology from R.</p>
+<p>Metric, separable, second countable, zero-dimensional, homeomorphic to ω^ω.
+Not locally compact, not sigma-compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.cantor_set">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">cantor_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.cantor_set" title="Link to this definition"></a></dt>
+<dd><p>Cantor set: closed nowhere-dense perfect subset of [0, 1].</p>
+<p>Compact, totally disconnected, zero-dimensional.
+Universal compact metrizable zero-dimensional space.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.hilbert_cube">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">hilbert_cube</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.hilbert_cube" title="Link to this definition"></a></dt>
+<dd><p>Hilbert cube [0, 1]^ω: countably infinite product of [0, 1].</p>
+<p>Compact, connected, metrizable.  Universal compact metrizable space.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.long_line">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">long_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.long_line" title="Link to this definition"></a></dt>
+<dd><p>Long line: ω₁ × [0, 1) with lexicographic order topology.</p>
+<p>Connected, locally Euclidean, first countable.
+Not second countable, not metrizable, not paracompact, not Lindelöf.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.topologists_sine_curve">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">topologists_sine_curve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.topologists_sine_curve" title="Link to this definition"></a></dt>
+<dd><p>Closed topologist’s sine curve: cl({(x, sin(1/x)) : x &gt; 0}) in R².</p>
+<p>Connected but not path-connected, not locally connected.
+Compact, metrizable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.comb_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">comb_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.comb_space" title="Link to this definition"></a></dt>
+<dd><p>Comb space: [0,1]×{0} ∪ {0}×[0,1] ∪ ({1/n : n≥1}×[0,1]).</p>
+<p>Connected, compact, not locally connected at (0, y) for y &gt; 0.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.warsaw_circle">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">warsaw_circle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.warsaw_circle" title="Link to this definition"></a></dt>
+<dd><p>Warsaw circle: closed topologist’s sine curve joined by an arc.</p>
+<p>Compact, connected, not locally connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.infinite_broom">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">infinite_broom</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.infinite_broom" title="Link to this definition"></a></dt>
+<dd><p>Infinite broom: segments from origin to (1, 1/n) for n ≥ 1, plus segment to (1, 0).</p>
+<p>Connected, path-connected from interior, not locally connected at (0, 0).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.moore_plane">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">moore_plane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.moore_plane" title="Link to this definition"></a></dt>
+<dd><p>Moore plane (Niemytzki plane): upper half-plane with tangent-disk basis.</p>
+<p>Hausdorff, separable, first countable, regular.
+Not normal, not second countable, not Lindelöf, not metrizable.
+pi-base: S000008.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.arens_fort_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">arens_fort_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.arens_fort_space" title="Link to this definition"></a></dt>
+<dd><p>Arens-Fort space: N×N where only (0,0) is non-isolated.</p>
+<p>(0,0) neighborhoods must be cofinite in each column.
+Hausdorff, separable, zero-dimensional.
+Not first countable, not sequential, not compact.
+pi-base: S000007.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.fort_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">fort_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.fort_space" title="Link to this definition"></a></dt>
+<dd><p>Fort space: N ∪ {∞} — one-point compactification of discrete N.</p>
+<p>Hausdorff, compact, second countable, metrizable.
+Homeomorphic to {0} ∪ {1/n : n ≥ 1} ⊆ R.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.discrete_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">discrete_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.discrete_space" title="Link to this definition"></a></dt>
+<dd><p>Discrete topology on {0, …, n-1}: every subset is open.</p>
+<p>For n=1 the space is trivially discrete and connected.
+For n≥2: totally disconnected, Hausdorff, zero-dimensional.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.indiscrete_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">indiscrete_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.indiscrete_space" title="Link to this definition"></a></dt>
+<dd><p>Indiscrete topology on {0, …, n-1}: only ∅ and X are open.</p>
+<p>For n=1 trivially everything. For n≥2: not T0, hyperconnected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.discrete_countable_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">discrete_countable_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.discrete_countable_space" title="Link to this definition"></a></dt>
+<dd><p>Countably infinite discrete space ℕ.</p>
+<p>Metrizable, locally compact, zero-dimensional, not compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.particular_point_topology_on_naturals">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">particular_point_topology_on_naturals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.particular_point_topology_on_naturals" title="Link to this definition"></a></dt>
+<dd><p>Particular point topology on ℕ with distinguished point 0.</p>
+<p>τ = {∅} ∪ {U ⊆ ℕ : 0 ∈ U}.
+Hyperconnected, T0, not T1.  Infinite version of <a class="reference internal" href="#pytop.named_spaces.particular_point_topology" title="pytop.named_spaces.particular_point_topology"><code class="xref py py-func docutils literal notranslate"><span class="pre">particular_point_topology()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.excluded_point_topology_on_naturals">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">excluded_point_topology_on_naturals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.excluded_point_topology_on_naturals" title="Link to this definition"></a></dt>
+<dd><p>Excluded point topology on ℕ with excluded point 0.</p>
+<p>τ = {U ⊆ ℕ : 0 ∉ U} ∪ {ℕ}.
+Connected, T0, not T1.  Infinite version of <a class="reference internal" href="#pytop.named_spaces.excluded_point_topology" title="pytop.named_spaces.excluded_point_topology"><code class="xref py py-func docutils literal notranslate"><span class="pre">excluded_point_topology()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.double_origin_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">double_origin_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.double_origin_topology" title="Link to this definition"></a></dt>
+<dd><p>Double origin topology: ℝ with two copies of 0, denoted 0 and 0’.</p>
+<p>Neighborhoods of 0 (resp. 0’) exclude 0’ (resp. 0); all other points
+are standard.  Hausdorff but not regular.
+pi-base: S000010.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.michael_line">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">michael_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.michael_line" title="Link to this definition"></a></dt>
+<dd><p>Michael line: ℝ with irrationals isolated (singleton open sets).</p>
+<p>Open sets: U ∪ S where U is standard-open in ℝ and S ⊆ ℝℚ.
+Normal, first countable, not Lindelöf, not separable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.tychonoff_plank">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">tychonoff_plank</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.tychonoff_plank" title="Link to this definition"></a></dt>
+<dd><p>Tychonoff plank: (ω₁+1)×(ω+1) with the product order topology.</p>
+<p>Compact, Hausdorff, normal (compact Hausdorff ⇒ normal).
+Not first countable at the corner (ω₁, ω), not separable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.deleted_tychonoff_plank">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">deleted_tychonoff_plank</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.deleted_tychonoff_plank" title="Link to this definition"></a></dt>
+<dd><p>Deleted Tychonoff plank: Tychonoff plank minus the corner point (ω₁, ω).</p>
+<p>Classic example of a Hausdorff space that is NOT normal:
+the sets {ω₁}×ω and ω₁×{ω} are disjoint closed sets with no separating open sets.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.stone_cech_compactification_of_N">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">stone_cech_compactification_of_N</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.stone_cech_compactification_of_N" title="Link to this definition"></a></dt>
+<dd><p>Stone-Čech compactification βN of the discrete space ℕ.</p>
+<p>Compact, Hausdorff, extremally disconnected, separable (ℕ dense), zero-dimensional.
+Not metrizable, not first countable at points of βNN.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.furstenberg_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">furstenberg_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.furstenberg_topology" title="Link to this definition"></a></dt>
+<dd><p>Furstenberg topology on ℤ: basis of arithmetic progressions {a + bℤ : b ≥ 1}.</p>
+<p>Every arithmetic progression is clopen.  Used in Furstenberg’s topological
+proof that there are infinitely many primes.
+Hausdorff, metrizable, zero-dimensional, not compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.pseudo_arc">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">pseudo_arc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.pseudo_arc" title="Link to this definition"></a></dt>
+<dd><p>Pseudo-arc: hereditarily indecomposable chainable continuum.</p>
+<p>Compact, connected, metrizable.  Homogeneous among continua.
+Not locally connected, not path-connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.real_plane">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">real_plane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.real_plane" title="Link to this definition"></a></dt>
+<dd><p>Real plane ℝ² with the standard Euclidean topology.</p>
+<p>Connected, simply connected, locally compact, not compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.punctured_plane">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">punctured_plane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.punctured_plane" title="Link to this definition"></a></dt>
+<dd><p>Punctured plane ℝ² {0}: plane with the origin removed.</p>
+<p>Connected, not simply connected (π₁ = ℤ).  Homotopy equivalent to S¹.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.two_sphere">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">two_sphere</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.two_sphere" title="Link to this definition"></a></dt>
+<dd><p>2-sphere S² = {x ∈ ℝ³ : <a href="#id1"><span class="problematic" id="id2">|x|</span></a> = 1}.</p>
+<p>Compact, simply connected (π₁(S²) = 0, π₂(S²) = ℤ).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.three_sphere">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">three_sphere</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.three_sphere" title="Link to this definition"></a></dt>
+<dd><p>3-sphere S³ = {x ∈ ℝ⁴ : <a href="#id3"><span class="problematic" id="id4">|x|</span></a> = 1}.</p>
+<p>Compact, simply connected (π₁(S³) = 0).  Carries a Lie group structure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.n_sphere">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">n_sphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.n_sphere" title="Link to this definition"></a></dt>
+<dd><p>n-sphere S^n = {x ∈ ℝ^(n+1) : <a href="#id5"><span class="problematic" id="id6">|x|</span></a> = 1}.</p>
+<p>Compact, connected (n≥1), path-connected (n≥1).
+Simply connected for n≥2; π₁(S¹) = ℤ.
+For n=0: discrete two-point space.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.sierpinski_carpet">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">sierpinski_carpet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.sierpinski_carpet" title="Link to this definition"></a></dt>
+<dd><p>Sierpiński carpet: fractal subset of [0, 1]² obtained by repeatedly
+removing open middle thirds.</p>
+<p>Compact, connected, locally connected, metrizable.
+Universal compact planar 1-dimensional continuum.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.menger_curve">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">menger_curve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.menger_curve" title="Link to this definition"></a></dt>
+<dd><p>Menger curve (Menger sponge boundary): compact 1-dimensional universal curve.</p>
+<p>Every compact metrizable 1-dimensional locally connected space embeds in the
+Menger curve.  Compact, locally connected, path-connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.open_cylinder">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">open_cylinder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.open_cylinder" title="Link to this definition"></a></dt>
+<dd><p>Open cylinder ℝ × S¹.</p>
+<p>Connected, not simply connected (π₁ = ℤ), not compact.
+Locally compact, locally Euclidean (2-manifold without boundary).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.tube">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">tube</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.tube" title="Link to this definition"></a></dt>
+<dd><p>Tube (closed cylinder) S¹ × [0, 1].</p>
+<p>Compact, connected, not simply connected (π₁ = ℤ).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.open_topologists_sine_curve">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">open_topologists_sine_curve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.open_topologists_sine_curve" title="Link to this definition"></a></dt>
+<dd><p>Open topologist’s sine curve: {(x, sin(1/x)) : x &gt; 0}.</p>
+<p>The graph of sin(1/x) on (0,∞).  Homeomorphic to ℝ (hence simply connected,
+path-connected).  Contrast with its closure (<a class="reference internal" href="#pytop.named_spaces.topologists_sine_curve" title="pytop.named_spaces.topologists_sine_curve"><code class="xref py py-func docutils literal notranslate"><span class="pre">topologists_sine_curve()</span></code></a>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.erdos_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">erdos_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.erdos_space" title="Link to this definition"></a></dt>
+<dd><p>Erdős space ℰ = {x ∈ ℓ² : x_n ∈ ℚ for all n}.</p>
+<p>Totally disconnected but NOT zero-dimensional (dim ℰ = 1).
+Metrizable, separable, not locally compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.complete_erdos_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">complete_erdos_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.complete_erdos_space" title="Link to this definition"></a></dt>
+<dd><p>Complete Erdős space ℰ_c = {x ∈ ℓ² : x_n ∈ ℝℚ for all n}.</p>
+<p>Completely metrizable, totally disconnected, not zero-dimensional (dim = 1).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.half_open_interval">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">half_open_interval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.half_open_interval" title="Link to this definition"></a></dt>
+<dd><p>Half-open interval [0, 1) with subspace topology from ℝ.</p>
+<p>Connected, locally compact, not compact.
+Homeomorphic to [0, ∞) and to ℝ × {0} in a product.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.open_interval">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">open_interval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.open_interval" title="Link to this definition"></a></dt>
+<dd><p>Open unit interval (0, 1) with subspace topology from ℝ.</p>
+<p>Homeomorphic to ℝ.  Connected, locally compact, not compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.half_open_real_line">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">half_open_real_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.half_open_real_line" title="Link to this definition"></a></dt>
+<dd><p>Half-open real line [0, ∞) with subspace topology from ℝ.</p>
+<p>Connected, locally compact, contractible, not compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.real_projective_plane">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">real_projective_plane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.real_projective_plane" title="Link to this definition"></a></dt>
+<dd><p>Real projective plane RP²: S² with antipodal points identified.</p>
+<p>Compact, connected, non-orientable 2-manifold.
+π₁(RP²) = ℤ/2ℤ.  Not simply connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.klein_bottle">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">klein_bottle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.klein_bottle" title="Link to this definition"></a></dt>
+<dd><p>Klein bottle K: compact non-orientable surface without boundary.</p>
+<p>π₁(K) = ⟨a, b | abab⁻¹ = 1⟩.  Not embeddable in ℝ³.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.mobius_band">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">mobius_band</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.mobius_band" title="Link to this definition"></a></dt>
+<dd><p>Möbius band: compact non-orientable surface with boundary.</p>
+<p>Boundary is a single circle.  Retracts onto its core circle S¹.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.dunce_hat">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">dunce_hat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.dunce_hat" title="Link to this definition"></a></dt>
+<dd><p>Dunce hat: quotient of a triangle by identifying boundary edges a·a·a⁻¹.</p>
+<p>Contractible but not locally contractible at the singular vertex.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.hawaiian_earring">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">hawaiian_earring</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.hawaiian_earring" title="Link to this definition"></a></dt>
+<dd><p>Hawaiian earring: countably infinite bouquet of circles of radii 1/n.</p>
+<p>Compact, path-connected, not semi-locally simply connected at the origin.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.omega_1">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">omega_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.omega_1" title="Link to this definition"></a></dt>
+<dd><p>First uncountable ordinal space [0, ω₁) with the order topology.</p>
+<p>Connected, locally compact, first countable, normal.
+Not compact, not separable, not second countable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.omega_1_plus_1">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">omega_1_plus_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.omega_1_plus_1" title="Link to this definition"></a></dt>
+<dd><p>Extended ordinal space [0, ω₁] = ω₁ + 1 with the order topology.</p>
+<p>Compact, connected, normal (compact Hausdorff).
+Not first countable at ω₁ (uncountable cofinality).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.stone_cech_remainder">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">stone_cech_remainder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.stone_cech_remainder" title="Link to this definition"></a></dt>
+<dd><p>Stone-Čech remainder N* = βN N.</p>
+<p>Compact, Hausdorff, normal, zero-dimensional.
+Not separable, not metrizable, not first countable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.one_point_compactification_of_Q">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">one_point_compactification_of_Q</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.one_point_compactification_of_Q" title="Link to this definition"></a></dt>
+<dd><p>One-point compactification ℚ ∪ {∞} of the rational numbers.</p>
+<p>Compact, T1, connected.
+NOT Hausdorff (ℚ is not locally compact, so the compactification fails Hausdorff).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.unit_interval">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">unit_interval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.unit_interval" title="Link to this definition"></a></dt>
+<dd><p>Closed unit interval [0, 1] with subspace topology from ℝ.</p>
+<p>The standard compact connected metric space; universal separable metrizable
+compact space (Hahn-Mazurkiewicz theorem).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.unit_circle">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">unit_circle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.unit_circle" title="Link to this definition"></a></dt>
+<dd><p>Unit circle S¹ = {(x,y) ∈ ℝ² : x² + y² = 1}.</p>
+<p>Compact, connected, path-connected, locally Euclidean (1-manifold).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.closed_unit_disk">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">closed_unit_disk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.closed_unit_disk" title="Link to this definition"></a></dt>
+<dd><p>Closed unit disk D² = {(x,y) ∈ ℝ² : x² + y² ≤ 1}.</p>
+<p>Compact, contractible, simply connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.torus">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">torus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.torus" title="Link to this definition"></a></dt>
+<dd><p>Torus T² = S¹ × S¹ with the product topology.</p>
+<p>Compact, connected, path-connected.  Fundamental group ℤ × ℤ.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.cantor_cube">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">cantor_cube</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.cantor_cube" title="Link to this definition"></a></dt>
+<dd><p>Cantor cube {0, 1}^ω: countable product of the discrete two-point space.</p>
+<p>Compact, Hausdorff, zero-dimensional.  Homeomorphic to the Cantor set.
+Universal compact metrizable zero-dimensional perfect space.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.baire_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">baire_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.baire_space" title="Link to this definition"></a></dt>
+<dd><p>Baire space ω^ω: countable product of the discrete space ℕ.</p>
+<p>Completely metrizable, zero-dimensional.  Homeomorphic to the irrationals.
+Not locally compact, not sigma-compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.lexicographic_square">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">lexicographic_square</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.lexicographic_square" title="Link to this definition"></a></dt>
+<dd><p>Lexicographic square: [0, 1]² with the lexicographic order topology.</p>
+<p>Compact, connected (ordered continuum), first countable.
+Not separable (uncountably many disjoint open sets), not metrizable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.one_point_compactification_of_reals">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">one_point_compactification_of_reals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.one_point_compactification_of_reals" title="Link to this definition"></a></dt>
+<dd><p>One-point compactification ℝ ∪ {∞}: the real projective circle.</p>
+<p>Compact, connected, metrizable (homeomorphic to S¹).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.cantor_fan">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">cantor_fan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.cantor_fan" title="Link to this definition"></a></dt>
+<dd><p>Cantor fan: cone over the Cantor set — (C × [0, 1]) / (C × {0}).</p>
+<p>Compact, path-connected, not locally connected at non-apex points.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.knaster_kuratowski_fan">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">knaster_kuratowski_fan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.knaster_kuratowski_fan" title="Link to this definition"></a></dt>
+<dd><p>Knaster-Kuratowski fan (Cantor’s teepee): connected space that becomes
+totally disconnected when the apex is removed.</p>
+<p>Connected, not locally connected, not compact, metrizable (subspace of ℝ²).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.hilbert_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">hilbert_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.hilbert_space" title="Link to this definition"></a></dt>
+<dd><p>Separable Hilbert space ℓ²: square-summable real sequences with ℓ² norm.</p>
+<p>Completely metrizable, separable, connected.
+Not locally compact (closed unit ball not compact).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.p_adic_integers">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">p_adic_integers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.p_adic_integers" title="Link to this definition"></a></dt>
+<dd><p>p-adic integers ℤ_p with the p-adic topology.</p>
+<p>Compact, zero-dimensional, metrizable.  Homeomorphic to the Cantor set.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.real_n_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">real_n_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.real_n_space" title="Link to this definition"></a></dt>
+<dd><p>Euclidean n-space ℝ^n with the standard topology.</p>
+<p>Simply connected, locally compact, not compact.
+For n=1 homeomorphic to <a class="reference internal" href="#pytop.named_spaces.real_line" title="pytop.named_spaces.real_line"><code class="xref py py-func docutils literal notranslate"><span class="pre">real_line()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.sorgenfrey_plane">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">sorgenfrey_plane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.sorgenfrey_plane" title="Link to this definition"></a></dt>
+<dd><p>Sorgenfrey plane S_ℓ × S_ℓ: product of two Sorgenfrey lines.</p>
+<p>Separable (ℚ×ℚ is dense), Hausdorff, regular, NOT normal (Jones’s lemma).
+The anti-diagonal {(x, −x) : x ∈ ℝ} is a closed discrete uncountable subspace.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.one_point_compactification_of_N">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">one_point_compactification_of_N</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.one_point_compactification_of_N" title="Link to this definition"></a></dt>
+<dd><p>One-point compactification of ℕ: the convergent sequence space.</p>
+<p>Realized as {0} ∪ {1/n : n ≥ 1} ⊂ ℝ.  Homeomorphic to ω+1.
+Compact, metrizable, second countable, totally disconnected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.omega_plus_1">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">omega_plus_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.omega_plus_1" title="Link to this definition"></a></dt>
+<dd><p>Ordinal space ω+1 = {0, 1, 2, …, ω} with the order topology.</p>
+<p>Finite ordinals are isolated; ω is the unique accumulation point.
+Compact, metrizable (homeomorphic to {0}∪{1/n : n≥1}).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.rational_sequence_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">rational_sequence_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.rational_sequence_topology" title="Link to this definition"></a></dt>
+<dd><p>Rational sequence topology on ℝ.</p>
+<p>Each irrational x has a fixed rational sequence converging to it; neighborhoods
+of x are sets containing x and a tail of that sequence.  Rationals keep their
+standard interval neighborhoods.  T2 (Hausdorff) but NOT regular.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.particular_point_topology_on_R">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">particular_point_topology_on_R</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.particular_point_topology_on_R" title="Link to this definition"></a></dt>
+<dd><p>Particular point topology on ℝ with distinguished point 0.</p>
+<p>τ = {∅} ∪ {U ⊆ ℝ : 0 ∈ U}.  Uncountable analogue of
+<a class="reference internal" href="#pytop.named_spaces.particular_point_topology_on_naturals" title="pytop.named_spaces.particular_point_topology_on_naturals"><code class="xref py py-func docutils literal notranslate"><span class="pre">particular_point_topology_on_naturals()</span></code></a>.
+Hyperconnected, T0, not T1.  {0} alone is a dense subset.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.excluded_point_topology_on_R">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">excluded_point_topology_on_R</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.excluded_point_topology_on_R" title="Link to this definition"></a></dt>
+<dd><p>Excluded point topology on ℝ with excluded point 0.</p>
+<p>τ = {U ⊆ ℝ : 0 ∉ U} ∪ {ℝ}.  Uncountable analogue of
+<a class="reference internal" href="#pytop.named_spaces.excluded_point_topology_on_naturals" title="pytop.named_spaces.excluded_point_topology_on_naturals"><code class="xref py py-func docutils literal notranslate"><span class="pre">excluded_point_topology_on_naturals()</span></code></a>.
+Connected, T0, not T1.  Every dense subset must contain all non-zero reals.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.divisor_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">divisor_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.divisor_topology" title="Link to this definition"></a></dt>
+<dd><p>Divisor topology on ℕ+ = {1, 2, 3, …}.</p>
+<p>U ⊆ ℕ+ is open iff it is downward-closed under divisibility:
+n ∈ U and d | n implies d ∈ U.  Smallest open set containing n is
+div(n) = {d : d | n}.  T0, not T1 (1 lies in every non-empty open set).
+Connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.uncountable_discrete_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">uncountable_discrete_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.uncountable_discrete_space" title="Link to this definition"></a></dt>
+<dd><p>Uncountable discrete space: an uncountable set with the discrete topology.</p>
+<p>Metrizable (discrete metric), locally compact (each singleton is open and compact).
+Not compact, not separable, not second countable, not Lindelöf.
+Realized as ℝ with the discrete topology.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.double_arrow_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">double_arrow_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.double_arrow_space" title="Link to this definition"></a></dt>
+<dd><p>Double arrow space: [0, 1] × {0, 1} with the lexicographic order topology.</p>
+<p>Homeomorphic to the Cantor set.
+Compact, perfect, zero-dimensional, second countable, metrizable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.annulus">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">annulus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.annulus" title="Link to this definition"></a></dt>
+<dd><p>Closed annulus A = {(x, y) ∈ ℝ² : 1/4 ≤ x² + y² ≤ 1}.</p>
+<p>Compact, connected, not simply connected (π₁(A) = ℤ).
+Deformation retracts onto S¹.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.wedge_sum_of_circles">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">wedge_sum_of_circles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.wedge_sum_of_circles" title="Link to this definition"></a></dt>
+<dd><p>Wedge sum of n circles S¹ ∨ … ∨ S¹ (n ≥ 1).</p>
+<p>Compact, path-connected.  Fundamental group is the free group on n generators.
+Not simply connected for all n ≥ 1 (π₁(S¹) = ℤ, free group on n gens for n≥2).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.upper_half_plane">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">upper_half_plane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.upper_half_plane" title="Link to this definition"></a></dt>
+<dd><p>Upper half-plane ℍ = {(x, y) ∈ ℝ² : y &gt; 0}.</p>
+<p>Open 2-manifold homeomorphic to ℝ².
+Simply connected, locally compact, not compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.closed_upper_half_plane">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">closed_upper_half_plane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.closed_upper_half_plane" title="Link to this definition"></a></dt>
+<dd><p>Closed upper half-plane ℍ̄ = {(x, y) ∈ ℝ² : y ≥ 0}.</p>
+<p>2-manifold with boundary (∂ = ℝ × {0}).
+Contractible (hence simply connected), locally compact, not compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.p_adic_numbers">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">p_adic_numbers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.p_adic_numbers" title="Link to this definition"></a></dt>
+<dd><p>p-adic number field ℚ_p with the p-adic metric topology.</p>
+<p>Locally compact, totally disconnected, zero-dimensional.
+Not compact (unlike ℤ_p).  Completion of ℚ w.r.t. the p-adic absolute value.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.sierpinski_triangle">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">sierpinski_triangle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.sierpinski_triangle" title="Link to this definition"></a></dt>
+<dd><p>Sierpiński triangle (gasket): self-similar fractal compact continuum.</p>
+<p>Constructed by repeatedly removing open middle triangles from [0,1]².
+Compact, path-connected, locally connected.  Not simply connected
+(infinitely many holes; fundamental group is complicated).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.real_projective_n_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">real_projective_n_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.real_projective_n_space" title="Link to this definition"></a></dt>
+<dd><p>Real projective n-space RP^n = S^n / (x ~ −x).</p>
+<p>Compact n-manifold.  For n=1 homeomorphic to S¹.
+π₁(RP^n) = ℤ for n=1, ℤ/2ℤ for n≥2 — not simply connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.cofinite_topology_on_integers">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">cofinite_topology_on_integers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.CofiniteSpace" title="pytop.infinite_spaces.CofiniteSpace"><span class="pre">CofiniteSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.cofinite_topology_on_integers" title="Link to this definition"></a></dt>
+<dd><p>Cofinite topology on ℤ: open sets are ∅ and all cofinite subsets.</p>
+<p>Homeomorphic to <a class="reference internal" href="#pytop.named_spaces.cofinite_topology_on_naturals" title="pytop.named_spaces.cofinite_topology_on_naturals"><code class="xref py py-func docutils literal notranslate"><span class="pre">cofinite_topology_on_naturals()</span></code></a>.
+T1, compact, connected (hyperconnected), not Hausdorff.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.long_ray">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">long_ray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.long_ray" title="Link to this definition"></a></dt>
+<dd><p>Long ray L = [0, ω₁) × [0, 1) with the lexicographic order topology.</p>
+<p>The “positive half” of the long line.  A connected locally compact
+1-manifold with boundary that is not second countable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.knaster_continuum">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">knaster_continuum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.knaster_continuum" title="Link to this definition"></a></dt>
+<dd><p>Knaster continuum (bucket handle): arc-like indecomposable continuum.</p>
+<p>Constructed from the Cantor set by attaching semicircular arcs over the
+removed intervals.  Compact, connected, metrizable, NOT locally connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.complex_projective_plane">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">complex_projective_plane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.complex_projective_plane" title="Link to this definition"></a></dt>
+<dd><p>Complex projective plane ℂP²: the space of complex lines through the
+origin in ℂ³.</p>
+<p>Compact 4-manifold (real dimension 4), simply connected.
+π₁(ℂP²) = 0, π₂(ℂP²) = ℤ.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.infinite_product_of_reals">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">infinite_product_of_reals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.infinite_product_of_reals" title="Link to this definition"></a></dt>
+<dd><p>Countable infinite product ℝ^ω = ∏_{n≥1} ℝ with the product topology.</p>
+<p>Metrizable (by d(x,y) = ∑ 2^{-n} min(<a href="#id7"><span class="problematic" id="id8">|x_n − y_n|</span></a>, 1)),
+separable (ℚ^ω is dense), second countable.  Contractible.
+NOT locally compact (closed unit ball is not compact in infinite dimensions).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.n_torus">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">n_torus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.n_torus" title="Link to this definition"></a></dt>
+<dd><p>n-torus T^n = S¹ × … × S¹ (n factors).</p>
+<p>Compact n-manifold.  π₁(T^n) = ℤ^n — not simply connected for n≥1.
+For n=1 homeomorphic to S¹; for n=2 homeomorphic to <a class="reference internal" href="#pytop.named_spaces.torus" title="pytop.named_spaces.torus"><code class="xref py py-func docutils literal notranslate"><span class="pre">torus()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.open_unit_disk">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">open_unit_disk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.open_unit_disk" title="Link to this definition"></a></dt>
+<dd><p>Open unit disk B² = {(x, y) ∈ ℝ² : x² + y² &lt; 1}.</p>
+<p>Simply connected, homeomorphic to ℝ² and to the upper half-plane.
+Locally compact, not compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.genus_g_surface">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">genus_g_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.genus_g_surface" title="Link to this definition"></a></dt>
+<dd><p>Closed orientable surface Σ_g of genus g ≥ 0.</p>
+<p>Σ_0 = S², Σ_1 = torus, Σ_g (g ≥ 2) = connected sum of g tori.
+π₁ is trivial for g = 0; has 2g generators for g ≥ 1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.n_ball">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">n_ball</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.n_ball" title="Link to this definition"></a></dt>
+<dd><p>Closed n-ball D^n = {x ∈ ℝ^n : <a href="#id9"><span class="problematic" id="id10">|x|</span></a> ≤ 1}.</p>
+<p>Compact, contractible, simply connected. Boundary is S^(n-1).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.k_topology_on_R">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">k_topology_on_R</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.k_topology_on_R" title="Link to this definition"></a></dt>
+<dd><p>K-topology on ℝ: standard open intervals plus sets (a, b) K where K = {1/n : n ∈ ℕ⁺}.</p>
+<p>Strictly finer than the standard topology. Hausdorff (T2) but not regular (T3).
+Connected, second countable, separable, not compact, not metrizable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.solenoid">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">solenoid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.solenoid" title="Link to this definition"></a></dt>
+<dd><p>Dyadic solenoid: inverse limit of S¹ under the doubling map x ↦ 2x (mod 1).</p>
+<p>Compact, connected, metrizable. Neither locally connected nor path-connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.extended_real_line">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">extended_real_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.extended_real_line" title="Link to this definition"></a></dt>
+<dd><p>Extended real line [-∞, +∞] = ℝ ∪ {-∞, +∞} with the order topology.</p>
+<p>Compact, connected, path-connected. Homeomorphic to the closed unit interval [0, 1].</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.uncountable_product_of_two_point_spaces">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">uncountable_product_of_two_point_spaces</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.uncountable_product_of_two_point_spaces" title="Link to this definition"></a></dt>
+<dd><p>{0, 1}^c — product of c = <a href="#id11"><span class="problematic" id="id12">|ℝ|</span></a> many copies of the two-point discrete space.</p>
+<p>Compact (Tychonoff) and Hausdorff. Separable (HMP theorem).
+Not metrizable, not first countable, totally disconnected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.wedge_of_two_spheres">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">wedge_of_two_spheres</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.wedge_of_two_spheres" title="Link to this definition"></a></dt>
+<dd><p>Wedge sum S² ∨ S²: two 2-spheres identified at a single basepoint.</p>
+<p>Simply connected (π₁ = 1 by van Kampen), compact, path-connected.
+π₂ ≅ ℤ ⊕ ℤ; not contractible.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.suspension_of_cantor_set">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">suspension_of_cantor_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.suspension_of_cantor_set" title="Link to this definition"></a></dt>
+<dd><p>Suspension of the Cantor set SC = (C × [0,1]) / (C×{0} ~ pt, C×{1} ~ pt).</p>
+<p>Compact, path-connected. Not locally connected away from the two suspension vertices.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.quarter_plane">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">quarter_plane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.quarter_plane" title="Link to this definition"></a></dt>
+<dd><p>Closed quarter-plane [0, ∞) × [0, ∞) with the subspace topology from ℝ².</p>
+<p>Contractible, simply connected, locally compact. Not compact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.punctured_torus">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">punctured_torus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.MetricLikeSpace" title="pytop.infinite_spaces.MetricLikeSpace"><span class="pre">MetricLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.named_spaces.punctured_torus" title="Link to this definition"></a></dt>
+<dd><p>Torus with one point removed: T² {pt}.</p>
+<p>Homotopy equivalent to S¹ ∨ S¹; π₁ = free group on 2 generators.
+Locally compact, not compact, not simply connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.discrete_sum_of_circles">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">discrete_sum_of_circles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.discrete_sum_of_circles" title="Link to this definition"></a></dt>
+<dd><p>Countable disjoint union ⊔_{n ≥ 1} S¹ of circles.</p>
+<p>Locally compact, sigma-compact, metrizable, second countable.
+Not compact (infinitely many components), not connected.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.named_spaces.lens_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.named_spaces.</span></span><span class="sig-name descname"><span class="pre">lens_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TopologicalSpace</span></span></span><a class="headerlink" href="#pytop.named_spaces.lens_space" title="Link to this definition"></a></dt>
+<dd><p>Lens space L(p, q): compact 3-manifold obtained as S³ / (ℤ/pℤ).</p>
+<p>π₁ = ℤ/pℤ for p ≥ 2; L(1, q) ≅ S³ (simply connected).</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Symplectic Topology &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Symplectic Topology</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/symplectic_topology.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.symplectic_topology">
+<span id="symplectic-topology"></span><h1>Symplectic Topology<a class="headerlink" href="#module-pytop.symplectic_topology" title="Link to this heading"></a></h1>
+<p>Symplectic topology: symplectic manifolds, Darboux theorem, Hamiltonian dynamics,
+Lagrangian submanifolds, symplectomorphisms, Moser stability, Gromov non-squeezing.</p>
+<section id="key-theorems-and-constructions-implemented">
+<h2>Key theorems and constructions implemented<a class="headerlink" href="#key-theorems-and-constructions-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Symplectic manifold (M, omega): a smooth even-dimensional manifold M^{2n} equipped
+with a closed (d omega = 0) and non-degenerate 2-form omega. Non-degeneracy means
+omega^n = omega ^ … ^ omega (n-fold wedge) is a volume form (never zero). The pair
+(M, omega) is a symplectic manifold; omega is the symplectic form.
+Examples: (R^{2n}, omega_0) with omega_0 = sum_{i=1}^n dx_i ^ dp_i; cotangent bundle
+T*M with canonical form; Kahler manifolds; coadjoint orbits of Lie groups.
+Note: symplectic manifolds must be even-dimensional (omega^n != 0 requires 2n) and
+orientable. Compact symplectic manifolds without boundary: [omega]^n != 0 in H^{2n}(M).</p></li>
+<li><p>Darboux theorem (Darboux 1882): every point of a symplectic manifold (M^{2n}, omega)
+has a coordinate neighborhood (U; x_1,…,x_n, p_1,…,p_n) in which
+omega|_U = sum_{i=1}^n dx_i ^ dp_i.
+Consequence: there are no local invariants of symplectic structure — all symplectic
+manifolds of the same dimension are locally identical. This is in sharp contrast with
+Riemannian geometry, where curvature is a local invariant.
+Proof sketch (Moser’s argument): use the isotopy method. Given two symplectic forms
+omega_0, omega_1 with [omega_0] = [omega_1], write omega_t = (1-t)omega_0 + t*omega_1.
+Solve the ODE d/dt(phi_t* omega_t) = 0 for a family of diffeomorphisms phi_t; this
+requires inverting omega_t to find a vector field X_t, which is possible because omega_t
+is non-degenerate for all t (both forms define the same cohomology class near a point).</p></li>
+<li><p>Hamiltonian vector fields and Hamiltonian dynamics: given (M, omega) and a smooth
+function H: M -&gt; R (the Hamiltonian), the Hamiltonian vector field X_H is uniquely
+defined by i_{X_H} omega = -dH (or equivalently omega(X_H, .) = -dH(.)). The flow
+phi_t of X_H consists of symplectomorphisms (phi_t* omega = omega). The Poisson bracket
+{f, g} = omega(X_f, X_g) = X_g(f) = -X_f(g) makes C^inf(M) a Poisson algebra.
+Noether’s theorem: if H is invariant under a Lie group action with moment map mu, then
+the components of mu are conserved quantities along the Hamiltonian flow.
+Liouville’s theorem: the volume form omega^n is preserved by Hamiltonian flow, i.e.,
+phi_t* (omega^n) = omega^n. This is the symplectic version of Liouville’s theorem.</p></li>
+<li><p>Lagrangian submanifolds: a submanifold L^n of (M^{2n}, omega) is Lagrangian if
+omega|_L = 0 and dim L = n (half the dimension of M). Equivalently, TL = (TL)^perp
+with respect to omega. Every cotangent fiber T*_x M is Lagrangian in T*M (the zero
+section is also Lagrangian). The graph of a diffeomorphism f: M -&gt; M is Lagrangian in
+(M x M, omega_1 - omega_2) iff f is a symplectomorphism. Arnold’s Maslov index and
+the Lagrangian Grassmannian are key tools in Floer theory and quantum mechanics.
+Weinstein’s Lagrangian neighborhood theorem: every Lagrangian L in (M, omega) has a
+neighborhood symplectomorphic to a neighborhood of the zero section in T*L.</p></li>
+<li><p>Symplectomorphism group: Symp(M, omega) = {f: M -&gt; M diffeomorphism : f* omega = omega}.
+This is a group under composition and an infinite-dimensional Lie group. The Lie algebra
+is the space of symplectic vector fields (L_X omega = 0, or equivalently d(i_X omega) = 0).
+Hamiltonian vector fields form a sub-Lie-algebra; H^1(M; R) measures the discrepancy.
+Ham(M, omega) = connected component of the identity in Symp_0(M, omega) (for simply
+connected M, Symp_0 = Ham).</p></li>
+<li><p>Moser stability theorem (Moser 1965): if omega_t is a smooth family of cohomologous
+symplectic forms on a compact manifold M (i.e., d/dt [omega_t] = 0 in H^2(M; R)),
+then there exists a smooth family of diffeomorphisms phi_t with phi_t* omega_t = omega_0.
+Consequence: the symplectic structure on a compact manifold depends only on the
+cohomology class [omega] in H^2(M; R) (up to diffeomorphism); deformations within a
+fixed cohomology class are all equivalent.</p></li>
+<li><p>Gromov non-squeezing theorem (Gromov 1985): the closed ball B^{2n}(r) = {z in R^{2n} :
+<a href="#id6"><span class="problematic" id="id7">|z|</span></a> &lt;= r} cannot be symplectically embedded into B^2(R) x R^{2n-2} if r &gt; R, even
+though it can be embedded volumetrically (when 2n &gt;= 4). This is the first rigidity
+result distinguishing symplectomorphisms from volume-preserving maps. The proof uses
+J-holomorphic curves (pseudoholomorphic curves), a technique introduced by Gromov.
+The symplectic width (Gromov width) of a domain U is the supremum of radii r such that
+B^{2n}(r) symplectically embeds in U. It is a genuine symplectic invariant.</p></li>
+<li><p>Cotangent bundle T*M: for any smooth manifold M, the cotangent bundle T*M carries a
+canonical symplectic form omega = -d lambda, where lambda = sum p_i dq_i is the
+tautological (Liouville) 1-form. The zero section of T*M is a Lagrangian submanifold.
+Every fiber T*_x M is also Lagrangian. The cotangent bundle is the canonical example
+of an exact symplectic manifold (omega = d(-lambda) is exact).</p></li>
+<li><p>Kahler manifolds: a Kahler manifold is a complex manifold (M, J) with a Hermitian
+metric g compatible with J and whose Kahler form omega(X,Y) = g(JX, Y) is closed.
+Every Kahler manifold is symplectic; the converse is false (there exist symplectic
+manifolds with no compatible complex structure). Complex projective space CP^n with the
+Fubini-Study form is the fundamental example. For Kahler manifolds, the Hodge numbers
+h^{p,q} and the hard Lefschetz theorem (L^{n-k}: H^k -&gt; H^{2n-k} is an isomorphism)
+give strong topological constraints not shared by all symplectic manifolds.</p></li>
+<li><p>Coadjoint orbits (Kirillov-Kostant-Souriau): for a Lie group G with Lie algebra g,
+the coadjoint representation Ad*: G -&gt; GL(g*) gives G-orbits O_mu = {Ad*_g mu : g in G}
+in g*. Each orbit carries a canonical KKS symplectic form omega^{KKS}_{mu}(ad*_X mu,
+ad*_Y mu) = mu([X, Y]). For G = SU(2), the coadjoint orbits are 2-spheres of radius r
+with omega = r * area form, recovering symplectic S^2. The coadjoint orbit is the
+phase space of a particle in a magnetic field (via geometric quantization).</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">SymplecticProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">symplectic_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">manifold_dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_exact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_kahler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_compact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_lagrangian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_monotone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated symplectic topology example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.symplectic_type">
+<span class="sig-name descname"><span class="pre">symplectic_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.symplectic_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.manifold_dimension">
+<span class="sig-name descname"><span class="pre">manifold_dimension</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.manifold_dimension" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.is_exact">
+<span class="sig-name descname"><span class="pre">is_exact</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.is_exact" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.is_kahler">
+<span class="sig-name descname"><span class="pre">is_kahler</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.is_kahler" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.is_compact">
+<span class="sig-name descname"><span class="pre">is_compact</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.is_compact" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.has_lagrangian">
+<span class="sig-name descname"><span class="pre">has_lagrangian</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.has_lagrangian" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.is_monotone">
+<span class="sig-name descname"><span class="pre">is_monotone</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.is_monotone" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.SymplecticProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.symplectic_topology.SymplecticProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.get_named_symplectic_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">get_named_symplectic_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.symplectic_topology.SymplecticProfile" title="pytop.symplectic_topology.SymplecticProfile"><span class="pre">SymplecticProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.symplectic_topology.get_named_symplectic_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical symplectic topology examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.symplectic_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">symplectic_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.symplectic_topology.symplectic_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.symplectic_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">symplectic_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.symplectic_topology.symplectic_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.symplectic_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">symplectic_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.symplectic_topology.symplectic_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from symplectic_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.is_symplectic_manifold">
+<span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">is_symplectic_manifold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.symplectic_topology.is_symplectic_manifold" title="Link to this definition"></a></dt>
+<dd><p>Check whether a space carries a symplectic structure.</p>
+<p>A symplectic manifold is a smooth even-dimensional manifold (M^{2n}, omega)
+where omega is a closed (d omega = 0) and non-degenerate 2-form.
+Non-degeneracy: omega^n != 0 (equivalently, the map TM -&gt; T*M, v <a href="#id1"><span class="problematic" id="id2">|</span></a>-&gt; i_v omega,
+is an isomorphism).</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘symplectic_manifold’ or Darboux/Hamiltonian tags -&gt; true.</p></li>
+<li><p>Known symplectic structures (cotangent bundle, Kahler, coadjoint orbit) -&gt; true.</p></li>
+<li><p>Known non-symplectic (odd-dimensional, non-closed form) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.is_lagrangian_submanifold">
+<span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">is_lagrangian_submanifold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.symplectic_topology.is_lagrangian_submanifold" title="Link to this definition"></a></dt>
+<dd><p>Check whether the space is a Lagrangian submanifold.</p>
+<p>A Lagrangian submanifold of (M^{2n}, omega) is a submanifold L^n with
+omega|_L = 0 and dim L = n (half the ambient dimension). Equivalently,
+TL = (TL)^{omega-perp} — each tangent space is its own omega-annihilator.</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘lagrangian_submanifold’ or Maslov/Floer tags -&gt; true.</p></li>
+<li><p>Known Lagrangian structures (zero section, cotangent fiber, RP^n) -&gt; true.</p></li>
+<li><p>Known non-Lagrangian (symplectic submanifold, co-isotropic only) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.has_hamiltonian_structure">
+<span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">has_hamiltonian_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.symplectic_topology.has_hamiltonian_structure" title="Link to this definition"></a></dt>
+<dd><p>Check whether the space admits a Hamiltonian structure.</p>
+<p>A Hamiltonian system is a triple (M, omega, H) where (M, omega) is symplectic
+and H: M -&gt; R is the Hamiltonian function. The Hamiltonian vector field X_H is
+defined by i_{X_H} omega = -dH (equivalently omega(X_H, .) = -dH(.)).
+The flow of X_H preserves omega (Liouville’s theorem).</p>
+<section id="id4">
+<h2>Decision layers<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit Hamiltonian or Poisson tags -&gt; true.</p></li>
+<li><p>Symplectic manifold tags (all symplectic manifolds admit Hamiltonian functions) -&gt; true.</p></li>
+<li><p>Non-symplectic obstructions -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.admits_kahler_structure">
+<span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">admits_kahler_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.symplectic_topology.admits_kahler_structure" title="Link to this definition"></a></dt>
+<dd><p>Check whether the space admits a Kahler structure.</p>
+<p>A Kahler manifold is a complex manifold (M, J) with a Hermitian metric g such
+that the Kahler form omega(X,Y) = g(JX,Y) is closed. A Kahler manifold is
+automatically symplectic. The converse fails: there exist symplectic manifolds
+(e.g., Kodaira-Thurston manifold) with no compatible complex structure.</p>
+<section id="id5">
+<h2>Decision layers<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit Kahler tags -&gt; true.</p></li>
+<li><p>Known Kahler manifolds (CP^n, Riemann surfaces, Kahler tori, coadjoint orbits) -&gt; true.</p></li>
+<li><p>Explicit non-Kahler tags (symplectic non-Kahler, odd Betti numbers) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.classify_symplectic">
+<span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">classify_symplectic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.symplectic_topology.classify_symplectic" title="Link to this definition"></a></dt>
+<dd><p>Run all symplectic analysis functions and return a combined result dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.symplectic_topology.symplectic_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.symplectic_topology.</span></span><span class="sig-name descname"><span class="pre">symplectic_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.symplectic_topology.symplectic_profile" title="Link to this definition"></a></dt>
+<dd><p>Return a comprehensive symplectic profile of the space.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

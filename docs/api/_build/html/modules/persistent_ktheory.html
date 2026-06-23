@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Persistent Ktheory &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Persistent Ktheory</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/persistent_ktheory.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.persistent_ktheory">
+<span id="persistent-ktheory"></span><h1>Persistent Ktheory<a class="headerlink" href="#module-pytop.persistent_ktheory" title="Link to this heading"></a></h1>
+<p>Persistent K-theory for filtrations of finite simplicial complexes (Phase 12.2).</p>
+<p>Rational K-theory via the Atiyah-Hirzebruch spectral sequence (AHSS).
+For a finite CW complex X, the AHSS degenerates rationally (Atiyah 1962),
+giving:</p>
+<blockquote>
+<div><p>K⁰(X) ⊗ ℚ ≅ ⊕_{k even} H_k(X; ℚ)
+K¹(X) ⊗ ℚ ≅ ⊕_{k odd}  H_k(X; ℚ)</p>
+</div></blockquote>
+<p>For integer K-theory the AHSS has potential differentials d_3, d_5, …
+(all odd), but for all spaces in the test suite these vanish and the
+integral Betti numbers of K⁰, K¹ coincide with the rational ranks above.</p>
+<p>Persistent K-theory barcode:
+Given a filtration K₀ ⊆ K₁ ⊆ … ⊆ Kₙ, we run the Twist persistent
+homology algorithm to obtain all persistence pairs (b, d, dim), then
+partition by dimension parity:</p>
+<blockquote>
+<div><p>K⁰-barcode = { (b, d) : dim even }
+K¹-barcode = { (b, d) : dim odd  }</p>
+</div></blockquote>
+<p>The K⁰-barcode tracks when K-theory classes represented by even-dimensional
+cycles are born and die across the filtration.  The virtual K-Euler
+characteristic satisfies χ_K = rank K⁰ − rank K¹ = χ (the topological
+Euler characteristic), consistent with the standard relation between K-theory
+and homology via the Chern character.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KTheoryGroups">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.persistent_ktheory.</span></span><span class="sig-name descname"><span class="pre">KTheoryGroups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k0_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k0_rational</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1_rational</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">betti_numbers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.persistent_ktheory.KTheoryGroups" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Rational K-theory groups of a finite simplicial complex.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>k0_rank:</dt><dd><p>Rank of K⁰(X) ⊗ ℚ = sum of even Betti numbers.</p>
+</dd>
+<dt>k1_rank:</dt><dd><p>Rank of K¹(X) ⊗ ℚ = sum of odd Betti numbers.</p>
+</dd>
+<dt>k0_rational:</dt><dd><p>Human-readable string for K⁰(X) ⊗ ℚ (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;ℚ^2&quot;</span></code>).</p>
+</dd>
+<dt>k1_rational:</dt><dd><p>Human-readable string for K¹(X) ⊗ ℚ.</p>
+</dd>
+<dt>betti_numbers:</dt><dd><p>Tuple (β₀, β₁, …, β_{dim}) of all Betti numbers of X.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KTheoryGroups.k0_rank">
+<span class="sig-name descname"><span class="pre">k0_rank</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.persistent_ktheory.KTheoryGroups.k0_rank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KTheoryGroups.k1_rank">
+<span class="sig-name descname"><span class="pre">k1_rank</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.persistent_ktheory.KTheoryGroups.k1_rank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KTheoryGroups.k0_rational">
+<span class="sig-name descname"><span class="pre">k0_rational</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.persistent_ktheory.KTheoryGroups.k0_rational" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KTheoryGroups.k1_rational">
+<span class="sig-name descname"><span class="pre">k1_rational</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.persistent_ktheory.KTheoryGroups.k1_rational" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KTheoryGroups.betti_numbers">
+<span class="sig-name descname"><span class="pre">betti_numbers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.persistent_ktheory.KTheoryGroups.betti_numbers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KBarcode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.persistent_ktheory.</span></span><span class="sig-name descname"><span class="pre">KBarcode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k0_pairs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1_pairs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_pairs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.persistent_ktheory.KBarcode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Persistent K-theory barcode of a filtered simplicial complex.</p>
+<section id="id1">
+<h2>Attributes<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>k0_pairs:</dt><dd><p>Persistence pairs from even-dimensional homology (the K⁰ barcode).</p>
+</dd>
+<dt>k1_pairs:</dt><dd><p>Persistence pairs from odd-dimensional homology (the K¹ barcode).</p>
+</dd>
+<dt>all_pairs:</dt><dd><p>All persistence pairs before parity filtering.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KBarcode.k0_pairs">
+<span class="sig-name descname"><span class="pre">k0_pairs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.persistent_ktheory.KBarcode.k0_pairs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KBarcode.k1_pairs">
+<span class="sig-name descname"><span class="pre">k1_pairs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.persistent_ktheory.KBarcode.k1_pairs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KBarcode.all_pairs">
+<span class="sig-name descname"><span class="pre">all_pairs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.persistent_ktheory.KBarcode.all_pairs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KBarcode.k0_betti_at">
+<span class="sig-name descname"><span class="pre">k0_betti_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.persistent_ktheory.KBarcode.k0_betti_at" title="Link to this definition"></a></dt>
+<dd><p>Number of active K⁰ bars at <em>scale</em> (bars with birth ≤ scale &lt; death).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KBarcode.k1_betti_at">
+<span class="sig-name descname"><span class="pre">k1_betti_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.persistent_ktheory.KBarcode.k1_betti_at" title="Link to this definition"></a></dt>
+<dd><p>Number of active K¹ bars at <em>scale</em>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.KBarcode.euler_characteristic_at">
+<span class="sig-name descname"><span class="pre">euler_characteristic_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.persistent_ktheory.KBarcode.euler_characteristic_at" title="Link to this definition"></a></dt>
+<dd><p>Virtual K-Euler characteristic χ_K = rank K⁰ − rank K¹ at <em>scale</em>.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.k0_simplicial">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_ktheory.</span></span><span class="sig-name descname"><span class="pre">k0_simplicial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.persistent_ktheory.k0_simplicial" title="Link to this definition"></a></dt>
+<dd><p>Return rank K⁰(X) ⊗ ℚ = sum of even Betti numbers of <em>complex_obj</em>.</p>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.homology</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimplicialComplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k0_simplicial</span><span class="p">(</span><span class="n">SimplicialComplex</span><span class="p">([(</span><span class="mi">0</span><span class="p">,)]))</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.k1_simplicial">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_ktheory.</span></span><span class="sig-name descname"><span class="pre">k1_simplicial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.persistent_ktheory.k1_simplicial" title="Link to this definition"></a></dt>
+<dd><p>Return rank K¹(X) ⊗ ℚ = sum of odd Betti numbers of <em>complex_obj</em>.</p>
+<section id="id2">
+<h2>Examples<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.homology</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimplicialComplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S1</span> <span class="o">=</span> <span class="n">SimplicialComplex</span><span class="p">([(</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k1_simplicial</span><span class="p">(</span><span class="n">S1</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.k_theory_groups">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_ktheory.</span></span><span class="sig-name descname"><span class="pre">k_theory_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.persistent_ktheory.KTheoryGroups" title="pytop.persistent_ktheory.KTheoryGroups"><span class="pre">KTheoryGroups</span></a></span></span><a class="headerlink" href="#pytop.persistent_ktheory.k_theory_groups" title="Link to this definition"></a></dt>
+<dd><p>Compute rational K-theory groups of a simplicial complex via AHSS.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>complex_obj:</dt><dd><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">SimplicialComplex</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="#pytop.persistent_ktheory.KTheoryGroups" title="pytop.persistent_ktheory.KTheoryGroups"><code class="xref py py-class docutils literal notranslate"><span class="pre">KTheoryGroups</span></code></a> with ranks and human-readable descriptions.</p>
+</section>
+<section id="id3">
+<h2>Examples<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>Circle S¹ (β₀ = 1, β₁ = 1) → K⁰ rank = 1, K¹ rank = 1:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.homology</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimplicialComplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S1</span> <span class="o">=</span> <span class="n">SimplicialComplex</span><span class="p">([(</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">k_theory_groups</span><span class="p">(</span><span class="n">S1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">k0_rank</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">k1_rank</span>
+<span class="go">(1, 1)</span>
+</pre></div>
+</div>
+<p>Point (β₀ = 1) → K⁰ rank = 1, K¹ rank = 0:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span> <span class="o">=</span> <span class="n">SimplicialComplex</span><span class="p">([(</span><span class="mi">0</span><span class="p">,)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">k_theory_groups</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">k0_rank</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">k1_rank</span>
+<span class="go">(1, 0)</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.k_barcode">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_ktheory.</span></span><span class="sig-name descname"><span class="pre">k_barcode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><span class="pre">FilteredComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.persistent_ktheory.KBarcode" title="pytop.persistent_ktheory.KBarcode"><span class="pre">KBarcode</span></a></span></span><a class="headerlink" href="#pytop.persistent_ktheory.k_barcode" title="Link to this definition"></a></dt>
+<dd><p>Compute the persistent K-theory barcode of a filtered simplicial complex.</p>
+<p>Runs the Twist persistent homology algorithm on <em>filtered</em> and partitions
+the resulting bars by their homological dimension parity:</p>
+<ul class="simple">
+<li><p><strong>K⁰-barcode</strong>: bars from H₀, H₂, H₄, …</p></li>
+<li><p><strong>K¹-barcode</strong>: bars from H₁, H₃, H₅, …</p></li>
+</ul>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>filtered:</dt><dd><p>A <a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">FilteredComplex</span></code></a>.</p>
+</dd>
+<dt>max_dimension:</dt><dd><p>Highest homological dimension to include.  Defaults to the maximum
+simplex dimension in <em>filtered</em>.</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="#pytop.persistent_ktheory.KBarcode" title="pytop.persistent_ktheory.KBarcode"><code class="xref py py-class docutils literal notranslate"><span class="pre">KBarcode</span></code></a>.</p>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<p>The relation χ_K(scale) = rank K⁰(scale) − rank K¹(scale) equals the
+topological Euler characteristic of the sub-complex at <em>scale</em>.</p>
+</section>
+<section id="id6">
+<h2>Examples<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>Eight-point circle: one long K⁰ bar (from H₀), one long K¹ bar (from H₁):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.persistent_homology</span><span class="w"> </span><span class="kn">import</span> <span class="n">vietoris_rips_filtration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">_C</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">carrier</span> <span class="o">=</span> <span class="p">[(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">8</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">8</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+<span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">distance_between</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kb</span> <span class="o">=</span> <span class="n">k_barcode</span><span class="p">(</span><span class="n">vietoris_rips_filtration</span><span class="p">(</span><span class="n">_C</span><span class="p">(),</span> <span class="n">max_dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">kb</span><span class="o">.</span><span class="n">k0_pairs</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">kb</span><span class="o">.</span><span class="n">k1_pairs</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_ktheory.k_betti_numbers">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_ktheory.</span></span><span class="sig-name descname"><span class="pre">k_betti_numbers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.persistent_ktheory.k_betti_numbers" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">(rank</span> <span class="pre">K⁰,</span> <span class="pre">rank</span> <span class="pre">K¹)</span></code> for <em>complex_obj</em>.</p>
+<p>The K-Euler characteristic satisfies χ_K = rank K⁰ − rank K¹ = χ(X).</p>
+<section id="id7">
+<h2>Examples<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>Torus T² (β₀=1, β₁=2, β₂=1) → K⁰ rank = 2, K¹ rank = 2:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.homology</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimplicialComplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># minimal 7-vertex torus triangulation via Heawood construction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.simplicial_filtration</span><span class="w"> </span><span class="kn">import</span> <span class="n">torus_filtration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filt</span> <span class="o">=</span> <span class="n">torus_filtration</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torus</span> <span class="o">=</span> <span class="n">SimplicialComplex</span><span class="p">(</span><span class="n">filt</span><span class="o">.</span><span class="n">simplices</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k_betti_numbers</span><span class="p">(</span><span class="n">torus</span><span class="p">)</span>
+<span class="go">(2, 2)</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

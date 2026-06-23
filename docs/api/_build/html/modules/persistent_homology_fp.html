@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Persistent Homology Fp &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Persistent Homology Fp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/persistent_homology_fp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.persistent_homology_fp">
+<span id="persistent-homology-fp"></span><h1>Persistent Homology Fp<a class="headerlink" href="#module-pytop.persistent_homology_fp" title="Link to this heading"></a></h1>
+<p>Persistent homology over Z/p for arbitrary prime p.</p>
+<p>Implements the standard column-reduction algorithm with coefficients in the
+finite field F_p = Z/pZ.  For p = 2 this is equivalent to the XOR-based
+reduction in <a class="reference internal" href="persistent_homology.html#module-pytop.persistent_homology" title="pytop.persistent_homology"><code class="xref py py-mod docutils literal notranslate"><span class="pre">persistent_homology</span></code></a>; for p &gt; 2 it tracks explicit
+coefficients and uses modular inverses (Fermat’s little theorem) to eliminate
+pivots.</p>
+<p>The output <code class="docutils literal notranslate"><span class="pre">PersistencePair</span></code> objects are identical in type to those produced
+by all other pytop persistence pipelines, so the result is directly compatible
+with barcode, diagram, and distance utilities.</p>
+<section id="when-to-prefer-different-primes">
+<h2>When to prefer different primes<a class="headerlink" href="#when-to-prefer-different-primes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>p = 2 (default): fastest, always correct for orientable manifolds.</p></li>
+<li><p>p = 3, 5, 7, …: detects torsion in H_*(X; Z) that is invisible over F_2
+(e.g., RP² has H_1(RP²; Z/2) = Z/2 but H_1(RP²; Z/3) = 0).</p></li>
+<li><p>Comparing barcodes across multiple primes gives information about
+Z-homology torsion subgroups.</p></li>
+</ul>
+</section>
+<section id="public-api">
+<h2>Public API<a class="headerlink" href="#public-api" title="Link to this heading"></a></h2>
+<p>persistence_pairs_fp   — filtration + prime → barcode over F_p
+is_prime               — small primality helper</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_homology_fp.is_prime">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_homology_fp.</span></span><span class="sig-name descname"><span class="pre">is_prime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.persistent_homology_fp.is_prime" title="Link to this definition"></a></dt>
+<dd><p>Return True iff n is a prime number.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_homology_fp.persistence_pairs_fp">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_homology_fp.</span></span><span class="sig-name descname"><span class="pre">persistence_pairs_fp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><span class="pre">FilteredComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">prime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_zero_persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.persistent_homology_fp.persistence_pairs_fp" title="Link to this definition"></a></dt>
+<dd><p>Compute persistence pairs of <code class="docutils literal notranslate"><span class="pre">filtered</span></code> over the field F_p = Z/pZ.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>filtered:</dt><dd><p>A <a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">FilteredComplex</span></code></a> (from any pytop filtration builder).</p>
+</dd>
+<dt>prime:</dt><dd><p>The characteristic of the coefficient field.  Must be a prime integer
+≥ 2.  Default is 2, which matches the output of
+<a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.persistence_pairs" title="pytop.persistent_homology.persistence_pairs"><code class="xref py py-func docutils literal notranslate"><span class="pre">persistence_pairs()</span></code></a> exactly.</p>
+</dd>
+<dt>include_zero_persistence:</dt><dd><p>Whether to include pairs where birth == death.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>tuple[PersistencePair, …]</dt><dd><p>Persistence pairs sorted by (dimension, birth, death).  Essential
+classes have <code class="docutils literal notranslate"><span class="pre">death</span> <span class="pre">=</span> <span class="pre">math.inf</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h2>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">prime</span></code> is not a prime integer ≥ 2.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Klein bottle has torsion H_1(K; Z) = Z ⊕ Z/2, so:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.persistent_homology</span><span class="w"> </span><span class="kn">import</span> <span class="n">FilteredComplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compare p=2 vs p=3 barcodes to detect torsion (see tests for detail)</span>
+</pre></div>
+</div>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<p>Complexity: O(m³) in the number of simplices m, same as the Z/2 algorithm.
+For p = 2 the reduction is identical to standard XOR-based persistence
+(the symmetric difference of sets).</p>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

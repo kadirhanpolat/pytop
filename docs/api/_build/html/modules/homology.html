@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homology &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Persistent Homology" href="persistent_homology.html" />
+    <link rel="prev" title="pytop API Reference" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Homology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#orientation-convention">Orientation convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.homology.HomologyResult"><code class="docutils literal notranslate"><span class="pre">HomologyResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.homology.HomologyResult.degree"><code class="docutils literal notranslate"><span class="pre">HomologyResult.degree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.homology.HomologyResult.betti"><code class="docutils literal notranslate"><span class="pre">HomologyResult.betti</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.homology.HomologyResult.torsion"><code class="docutils literal notranslate"><span class="pre">HomologyResult.torsion</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.homology.HomologyResult.is_free"><code class="docutils literal notranslate"><span class="pre">HomologyResult.is_free</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.homology.HomologyResult.describe"><code class="docutils literal notranslate"><span class="pre">HomologyResult.describe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.homology.boundary_matrix"><code class="docutils literal notranslate"><span class="pre">boundary_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.homology.simplicial_homology"><code class="docutils literal notranslate"><span class="pre">simplicial_homology()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.homology.homology_groups"><code class="docutils literal notranslate"><span class="pre">homology_groups()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.homology.betti_numbers"><code class="docutils literal notranslate"><span class="pre">betti_numbers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.homology.reduced_homology"><code class="docutils literal notranslate"><span class="pre">reduced_homology()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.homology.euler_characteristic_via_homology"><code class="docutils literal notranslate"><span class="pre">euler_characteristic_via_homology()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Homology</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/homology.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.homology">
+<span id="homology"></span><h1>Homology<a class="headerlink" href="#module-pytop.homology" title="Link to this heading"></a></h1>
+<p>Constructive integer simplicial homology for finite complexes.</p>
+<p>This module turns a finite <a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimplicialComplex</span></code></a>
+into genuine homological invariants computed from its combinatorial data:</p>
+<ul class="simple">
+<li><p>oriented boundary matrices <code class="docutils literal notranslate"><span class="pre">partial_k</span> <span class="pre">:</span> <span class="pre">C_k</span> <span class="pre">-&gt;</span> <span class="pre">C_{k-1}</span></code> over the integers,</p></li>
+<li><p>the Smith normal form of those matrices,</p></li>
+<li><p>the integral homology groups <code class="docutils literal notranslate"><span class="pre">H_k(K;</span> <span class="pre">Z)</span> <span class="pre">=</span> <span class="pre">ker(partial_k)</span> <span class="pre">/</span> <span class="pre">im(partial_{k+1})</span></code>,
+decomposed into a free part (the Betti number <code class="docutils literal notranslate"><span class="pre">b_k</span></code>) and a torsion part
+(the invariant factors greater than one).</p></li>
+</ul>
+<p>Unlike the descriptive profiles elsewhere in the package, nothing here is
+hardcoded: the Betti numbers and torsion coefficients are derived from the
+boundary operators. The implementation is dependency-free and follows the
+package convention of consistent vertex ordering by <code class="docutils literal notranslate"><span class="pre">repr</span></code>.</p>
+<section id="orientation-convention">
+<h2>Orientation convention<a class="headerlink" href="#orientation-convention" title="Link to this heading"></a></h2>
+<p>For a <code class="docutils literal notranslate"><span class="pre">k</span></code>-simplex with vertices ordered <code class="docutils literal notranslate"><span class="pre">v_0</span> <span class="pre">&lt;</span> <span class="pre">v_1</span> <span class="pre">&lt;</span> <span class="pre">...</span> <span class="pre">&lt;</span> <span class="pre">v_k</span></code> (by
+<code class="docutils literal notranslate"><span class="pre">repr</span></code>), the boundary is the alternating sum</p>
+<blockquote>
+<div><p>partial(sigma) = sum_i (-1)^i (v_0, …, hat(v_i), …, v_k)</p>
+</div></blockquote>
+<p>so <code class="docutils literal notranslate"><span class="pre">partial_{k-1}</span> <span class="pre">.</span> <span class="pre">partial_k</span> <span class="pre">=</span> <span class="pre">0</span></code> holds matrix-wise.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.homology.HomologyResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.homology.</span></span><span class="sig-name descname"><span class="pre">HomologyResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">betti</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">torsion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.homology.HomologyResult" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The integral homology group <code class="docutils literal notranslate"><span class="pre">H_k(K;</span> <span class="pre">Z)</span></code> in degree <code class="docutils literal notranslate"><span class="pre">degree</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">betti</span></code> is the rank of the free part; <code class="docutils literal notranslate"><span class="pre">torsion</span></code> is the tuple of
+invariant factors greater than one (so <code class="docutils literal notranslate"><span class="pre">H_k</span> <span class="pre">=</span> <span class="pre">Z^betti</span> <span class="pre">(+)</span> <span class="pre">(+)_d</span> <span class="pre">Z/d</span></code>).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.homology.HomologyResult.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.homology.HomologyResult.degree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.homology.HomologyResult.betti">
+<span class="sig-name descname"><span class="pre">betti</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.homology.HomologyResult.betti" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.homology.HomologyResult.torsion">
+<span class="sig-name descname"><span class="pre">torsion</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></span><a class="headerlink" href="#pytop.homology.HomologyResult.torsion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.homology.HomologyResult.is_free">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_free</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.homology.HomologyResult.is_free" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.homology.HomologyResult.describe">
+<span class="sig-name descname"><span class="pre">describe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.homology.HomologyResult.describe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.homology.boundary_matrix">
+<span class="sig-prename descclassname"><span class="pre">pytop.homology.</span></span><span class="sig-name descname"><span class="pre">boundary_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.homology.boundary_matrix" title="Link to this definition"></a></dt>
+<dd><p>Return the integer boundary matrix <code class="docutils literal notranslate"><span class="pre">partial_k</span></code> of <code class="docutils literal notranslate"><span class="pre">complex_obj</span></code>.</p>
+<p>Rows are indexed by the <code class="docutils literal notranslate"><span class="pre">(k-1)</span></code>-simplices and columns by the
+<code class="docutils literal notranslate"><span class="pre">k</span></code>-simplices, both in canonical order. For <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">&lt;=</span> <span class="pre">0</span></code> or out-of-range
+degrees the matrix has no rows (<code class="docutils literal notranslate"><span class="pre">partial_0</span></code> is the zero map to <code class="docutils literal notranslate"><span class="pre">C_{-1}</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.homology.simplicial_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.homology.</span></span><span class="sig-name descname"><span class="pre">simplicial_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span></span><a class="headerlink" href="#pytop.homology.simplicial_homology" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">H_degree(complex_obj;</span> <span class="pre">Z)</span></code> as a <a class="reference internal" href="#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">HomologyResult</span></code></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">betti</span> <span class="pre">=</span> <span class="pre">nullity(partial_degree)</span> <span class="pre">-</span> <span class="pre">rank(partial_{degree+1})</span></code> and the
+torsion coefficients are the invariant factors greater than one of
+<code class="docutils literal notranslate"><span class="pre">partial_{degree+1}</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.homology.homology_groups">
+<span class="sig-prename descclassname"><span class="pre">pytop.homology.</span></span><span class="sig-name descname"><span class="pre">homology_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.homology.homology_groups" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">H_0,</span> <span class="pre">...,</span> <span class="pre">H_dim</span></code> of <code class="docutils literal notranslate"><span class="pre">complex_obj</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.homology.betti_numbers">
+<span class="sig-prename descclassname"><span class="pre">pytop.homology.</span></span><span class="sig-name descname"><span class="pre">betti_numbers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.homology.betti_numbers" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">(b_0,</span> <span class="pre">...,</span> <span class="pre">b_dim)</span></code>, the ranks of the integral homology groups.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.homology.reduced_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.homology.</span></span><span class="sig-name descname"><span class="pre">reduced_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span></span><a class="headerlink" href="#pytop.homology.reduced_homology" title="Link to this definition"></a></dt>
+<dd><p>Return reduced homology <code class="docutils literal notranslate"><span class="pre">tilde</span> <span class="pre">H_degree(complex_obj;</span> <span class="pre">Z)</span></code>.</p>
+<p>This agrees with ordinary homology except in degree zero, where the rank is
+reduced by one (so a connected complex has <code class="docutils literal notranslate"><span class="pre">tilde</span> <span class="pre">H_0</span> <span class="pre">=</span> <span class="pre">0</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.homology.euler_characteristic_via_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.homology.</span></span><span class="sig-name descname"><span class="pre">euler_characteristic_via_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.homology.euler_characteristic_via_homology" title="Link to this definition"></a></dt>
+<dd><p>Return the Euler characteristic as the alternating sum of Betti numbers.</p>
+<p>By the Euler-Poincare theorem this equals the combinatorial alternating sum
+of face counts (<code class="docutils literal notranslate"><span class="pre">SimplicialComplex.euler_characteristic</span></code>); the equality is
+a useful cross-check that the homology computation is consistent.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="pytop API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="persistent_homology.html" class="btn btn-neutral float-right" title="Persistent Homology" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

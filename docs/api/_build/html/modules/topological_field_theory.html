@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topological Field Theory &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Noncommutative Topology" href="noncommutative_topology.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Topological Field Theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-constructions-and-theorems">Key constructions and theorems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile"><code class="docutils literal notranslate"><span class="pre">TFTProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.key"><code class="docutils literal notranslate"><span class="pre">TFTProfile.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.display_name"><code class="docutils literal notranslate"><span class="pre">TFTProfile.display_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.tft_type"><code class="docutils literal notranslate"><span class="pre">TFTProfile.tft_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.dimension"><code class="docutils literal notranslate"><span class="pre">TFTProfile.dimension</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.is_extended"><code class="docutils literal notranslate"><span class="pre">TFTProfile.is_extended</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.has_frobenius_structure"><code class="docutils literal notranslate"><span class="pre">TFTProfile.has_frobenius_structure</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.is_oriented"><code class="docutils literal notranslate"><span class="pre">TFTProfile.is_oriented</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.has_anomaly"><code class="docutils literal notranslate"><span class="pre">TFTProfile.has_anomaly</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.admits_higher_categorical_formulation"><code class="docutils literal notranslate"><span class="pre">TFTProfile.admits_higher_categorical_formulation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.presentation_layer"><code class="docutils literal notranslate"><span class="pre">TFTProfile.presentation_layer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.focus"><code class="docutils literal notranslate"><span class="pre">TFTProfile.focus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile.chapter_targets"><code class="docutils literal notranslate"><span class="pre">TFTProfile.chapter_targets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.get_named_tft_profiles"><code class="docutils literal notranslate"><span class="pre">get_named_tft_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.tft_summary"><code class="docutils literal notranslate"><span class="pre">tft_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.tft_type_registry"><code class="docutils literal notranslate"><span class="pre">tft_type_registry()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.tft_dimension_registry"><code class="docutils literal notranslate"><span class="pre">tft_dimension_registry()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.is_extended_tft"><code class="docutils literal notranslate"><span class="pre">is_extended_tft()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.satisfies_atiyah_segal_axioms"><code class="docutils literal notranslate"><span class="pre">satisfies_atiyah_segal_axioms()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.has_frobenius_algebra_structure"><code class="docutils literal notranslate"><span class="pre">has_frobenius_algebra_structure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.admits_higher_categorical_formulation"><code class="docutils literal notranslate"><span class="pre">admits_higher_categorical_formulation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.classify_tft"><code class="docutils literal notranslate"><span class="pre">classify_tft()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.tft_profile_report"><code class="docutils literal notranslate"><span class="pre">tft_profile_report()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.cobordism_from_handles"><code class="docutils literal notranslate"><span class="pre">cobordism_from_handles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.tqft_dimension_2d"><code class="docutils literal notranslate"><span class="pre">tqft_dimension_2d()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.topological_field_theory.handle_signature_tft"><code class="docutils literal notranslate"><span class="pre">handle_signature_tft()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Topological Field Theory</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/topological_field_theory.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.topological_field_theory">
+<span id="topological-field-theory"></span><h1>Topological Field Theory<a class="headerlink" href="#module-pytop.topological_field_theory" title="Link to this heading"></a></h1>
+<p>Topological Field Theory (TFT): Atiyah-Segal axioms, cobordism hypothesis, Frobenius algebras,
+Chern-Simons theory, Donaldson theory, factorization algebras, topological strings.</p>
+<section id="key-constructions-and-theorems">
+<h2>Key constructions and theorems<a class="headerlink" href="#key-constructions-and-theorems" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Atiyah-Segal TFT axioms (Atiyah 1988, Segal 1988): a TFT of dimension n is a symmetric
+monoidal functor Z: Cob_n -&gt; Vect_k from the cobordism category Cob_n (objects = closed
+(n-1)-manifolds, morphisms = cobordisms modulo diffeomorphism) to vector spaces over k.
+The gluing axiom (locality) encodes cutting and pasting: if M = M_1 cup_Sigma M_2 then
+Z(M) = Z(M_1) circ Z(M_2). State spaces Z(Sigma) are finite-dimensional by the
+compactness of Sigma. The partition function Z(M) in k for a closed n-manifold M is
+the primary invariant.</p></li>
+<li><p>2D TFT leftrightarrow Commutative Frobenius algebras (Abrams 1996, Kock 2004): every
+2-dimensional TFT is equivalent to a commutative Frobenius algebra A = Z(S^1). The
+Frobenius structure (multiplication mu: A otimes A to A, unit eta: k to A,
+comultiplication delta: A to A otimes A, counit epsilon: A to k) satisfies the
+Frobenius relation: (mu otimes 1) circ (1 otimes delta) = delta circ mu =
+(1 otimes mu) circ (delta otimes 1). Handle decomposition of cobordisms corresponds
+to the pair-of-pants decomposition (genus-g surface from Frobenius operations).</p></li>
+<li><p>Cobordism hypothesis (Baez-Dolan 1995, Lurie 2009): a fully extended framed TFT of
+dimension n is determined by its value on the point, which must be a fully dualizable
+object in the target symmetric monoidal (infty,n)-category C. The O(n) action on
+fully dualizable objects simeq the space of fully extended framed TFTs. This is the
+infty-categorical classification theorem that subsumes all lower-dimensional TFT
+classification results.</p></li>
+<li><p>Chern-Simons theory (Witten 1989): a 3-dimensional TFT with gauge group G, action
+S_{CS}(A) = (k/4pi) int_M Tr(A wedge dA + (2/3) A wedge A wedge A). The
+partition function Z(M, k) is a topological invariant of 3-manifolds. Link invariants
+arise from Wilson loop operators W_R(gamma) = Tr_R <a href="#id7"><span class="problematic" id="id8">Hol_</span></a>gamma(A). For G = SU(2) and
+R = fundamental representation, Chern-Simons theory computes the Jones polynomial.
+The state space Z(S^2) carries modular tensor category structure via WZW model.</p></li>
+<li><p>Donaldson theory (Donaldson 1983): a 4-dimensional TFT counting anti-self-dual
+instantons of Yang-Mills connections on 4-manifolds. Donaldson invariants
+D_k(M) in mathbb{Z} are defined by integrating cohomology classes over the moduli
+space mathcal{M}_k of ASD connections. Witten’s reformulation (1988) as a TFT
+uses twisted N=2 supersymmetric Yang-Mills. Seiberg-Witten invariants (1994) give
+simpler invariants detecting the same smooth structure information.</p></li>
+<li><p>Factorization algebras (Costello-Gwilliam 2016): a framework for perturbative QFT on
+manifolds M. A prefactorization algebra F assigns a cochain complex F(U) to each open
+U subset M, with structure maps F(U_1) otimes … otimes F(U_k) to F(V) for
+disjoint U_i subset V, satisfying locality (Weiss cosheaf condition on the Ran space
+of finite subsets). Perturbative quantum field theories produce factorization algebras
+of quantum observables via the BV/BD formalism. Lurie’s (infty,1)-categorical
+factorization algebras correspond to E_n-algebras on mathbb{R}^n.</p></li>
+<li><p>Topological string theories (Witten 1988, 1991): the A-model TFT (Gromov-Witten
+invariants, quantum cohomology, counts of holomorphic curves in a symplectic manifold)
+and B-model TFT (variations of Hodge structure, holomorphic geometry of Calabi-Yau
+manifolds). Mirror symmetry exchanges A-model on X with B-model on the mirror X^vee.
+The topological vertex (Aganagic-Klemm-Marino-Vafa) computes all-genus Gromov-Witten
+invariants of toric Calabi-Yau 3-folds. Genus expansion: F = sum_g lambda^{2g-2} F_g.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">TFTProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tft_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_extended</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_frobenius_structure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_oriented</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_anomaly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">admits_higher_categorical_formulation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated topological field theory profile.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.tft_type">
+<span class="sig-name descname"><span class="pre">tft_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.tft_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.dimension">
+<span class="sig-name descname"><span class="pre">dimension</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.dimension" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.is_extended">
+<span class="sig-name descname"><span class="pre">is_extended</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.is_extended" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.has_frobenius_structure">
+<span class="sig-name descname"><span class="pre">has_frobenius_structure</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.has_frobenius_structure" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.is_oriented">
+<span class="sig-name descname"><span class="pre">is_oriented</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.is_oriented" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.has_anomaly">
+<span class="sig-name descname"><span class="pre">has_anomaly</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.has_anomaly" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.admits_higher_categorical_formulation">
+<span class="sig-name descname"><span class="pre">admits_higher_categorical_formulation</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.admits_higher_categorical_formulation" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.TFTProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.topological_field_theory.TFTProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.get_named_tft_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">get_named_tft_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile" title="pytop.topological_field_theory.TFTProfile"><span class="pre">TFTProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topological_field_theory.get_named_tft_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of 8 canonical topological field theory profiles.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.tft_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">tft_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topological_field_theory.tft_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a high-level summary of all named TFT profiles.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.tft_type_registry">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">tft_type_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topological_field_theory.tft_type_registry" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from tft_type -&gt; list of profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.tft_dimension_registry">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">tft_dimension_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topological_field_theory.tft_dimension_registry" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from dimension -&gt; list of profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.is_extended_tft">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">is_extended_tft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'symbolic'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.topological_field_theory.is_extended_tft" title="Link to this definition"></a></dt>
+<dd><p>Determine whether a description corresponds to an extended TFT.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.satisfies_atiyah_segal_axioms">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">satisfies_atiyah_segal_axioms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'symbolic'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.topological_field_theory.satisfies_atiyah_segal_axioms" title="Link to this definition"></a></dt>
+<dd><p>Determine whether a description satisfies Atiyah-Segal TFT axioms.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.has_frobenius_algebra_structure">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">has_frobenius_algebra_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'symbolic'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.topological_field_theory.has_frobenius_algebra_structure" title="Link to this definition"></a></dt>
+<dd><p>Determine whether a description admits Frobenius algebra structure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.admits_higher_categorical_formulation">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">admits_higher_categorical_formulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'symbolic'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.topological_field_theory.admits_higher_categorical_formulation" title="Link to this definition"></a></dt>
+<dd><p>Determine whether a description admits a higher categorical formulation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.classify_tft">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">classify_tft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'symbolic'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topological_field_theory.classify_tft" title="Link to this definition"></a></dt>
+<dd><p>Classify a TFT description across all four analysis dimensions.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.tft_profile_report">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">tft_profile_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.topological_field_theory.TFTProfile" title="pytop.topological_field_theory.TFTProfile"><span class="pre">TFTProfile</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'symbolic'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topological_field_theory.tft_profile_report" title="Link to this definition"></a></dt>
+<dd><p>Generate a full analysis report for a TFTProfile.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.cobordism_from_handles">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">cobordism_from_handles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_zero_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_one_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_two_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topological_field_theory.cobordism_from_handles" title="Link to this definition"></a></dt>
+<dd><p>Build a 2D cobordism from its handle decomposition.</p>
+<p>A 2D handlebody: 0-handles = disks, 1-handles = bands, 2-handles = caps.
+χ(M) = n₀ - n₁ + n₂ and genus g = (2 - χ) / 2 for closed orientable surfaces.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<p>n_zero_handles, n_one_handles, n_two_handles: handle counts by index</p>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">euler_characteristic</span></code>, <code class="docutils literal notranslate"><span class="pre">genus</span></code> (None if non-orientable/non-closed),
+<code class="docutils literal notranslate"><span class="pre">handle_counts</span></code>, <code class="docutils literal notranslate"><span class="pre">is_closed</span></code>, <code class="docutils literal notranslate"><span class="pre">is_connected</span></code>.</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Sphere S²: one 0-handle + one 2-handle:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cobordism_from_handles</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="s2">&quot;euler_characteristic&quot;</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cobordism_from_handles</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="s2">&quot;genus&quot;</span><span class="p">]</span>  <span class="c1"># torus T²</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.tqft_dimension_2d">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">tqft_dimension_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">genus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_boundary_components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topological_field_theory.tqft_dimension_2d" title="Link to this definition"></a></dt>
+<dd><p>State space dimensions for 2D TFTs associated to Frobenius algebras.</p>
+<p>2D TFT ↔ commutative Frobenius algebra A. The state space of the surface
+Σ_{g,b} (genus g, b boundary circles) is A^{⊗b} modulo genus insertions.
+For small Frobenius algebras:
+- Boolean TFT: A = ℤ/2, dim(A) = 1 → Z(Σ) = 1 for all Σ.
+- A₂ TFT: A = ℂ[x]/(x²), dim(A) = 2 → Z(Σ_0) = 2, Z(Σ_1) = 1, Z(Σ_g) = 0 for g≥2.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>genus: genus of the surface Σ_g
+n_boundary_components: number of boundary circles</p>
+</section>
+<section id="id2">
+<h2>Returns<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">euler_characteristic</span></code>, <code class="docutils literal notranslate"><span class="pre">dim_boolean_tft</span></code>, <code class="docutils literal notranslate"><span class="pre">dim_A2_tft</span></code>.</p>
+</section>
+<section id="id3">
+<h2>Examples<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>Sphere (genus=0): Z(S²) = dim(A) for 1-dim TFT:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tqft_dimension_2d</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="s2">&quot;dim_boolean_tft&quot;</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tqft_dimension_2d</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="s2">&quot;dim_A2_tft&quot;</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.topological_field_theory.handle_signature_tft">
+<span class="sig-prename descclassname"><span class="pre">pytop.topological_field_theory.</span></span><span class="sig-name descname"><span class="pre">handle_signature_tft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_zero_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_one_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_two_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_three_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_four_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.topological_field_theory.handle_signature_tft" title="Link to this definition"></a></dt>
+<dd><p>Compute TFT invariants from a 4-manifold handle decomposition.</p>
+<p>χ(M) = Σ (-1)^k n_k. For simply-connected 4-manifolds, H₂(M) has rank n₂,
+and the signature σ(M) = b₂⁺ - b₂⁻ (requires the intersection form;
+this function describes it symbolically).</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>n_zero_handles, n_one_handles, n_two_handles, n_three_handles, n_four_handles:</dt><dd><p>Handle counts by index 0–4</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">euler_characteristic</span></code>, <code class="docutils literal notranslate"><span class="pre">betti_numbers</span></code> (b₀–b₄),
+<code class="docutils literal notranslate"><span class="pre">signature_description</span></code>, <code class="docutils literal notranslate"><span class="pre">is_simply_connected</span></code>.</p>
+</section>
+<section id="id6">
+<h2>Examples<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>CP²: one 0-, one 2-, one 4-handle; χ = 3, b₂ = 1:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">handle_signature_tft</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="s2">&quot;euler_characteristic&quot;</span><span class="p">]</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">handle_signature_tft</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="s2">&quot;betti_numbers&quot;</span><span class="p">][</span><span class="s2">&quot;b2&quot;</span><span class="p">]</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="noncommutative_topology.html" class="btn btn-neutral float-left" title="Noncommutative Topology" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

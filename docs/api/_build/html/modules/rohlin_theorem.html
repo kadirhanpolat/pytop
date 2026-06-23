@@ -1,0 +1,442 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rohlin Theorem &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Rohlin Theorem</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/rohlin_theorem.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.rohlin_theorem">
+<span id="rohlin-theorem"></span><h1>Rohlin Theorem<a class="headerlink" href="#module-pytop.rohlin_theorem" title="Link to this heading"></a></h1>
+<p>Rohlin’s theorem and spin structures on 4-manifolds (Phase 15.5).</p>
+<section id="rohlin-s-theorem-1952">
+<h2>Rohlin’s Theorem (1952)<a class="headerlink" href="#rohlin-s-theorem-1952" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>If X is a smooth closed simply-connected oriented spin 4-manifold, then</dt><dd><p>σ(X) ≡ 0 (mod 16)</p>
+</dd>
+</dl>
+<p>where σ(X) is the signature of the intersection form.</p>
+<dl class="simple">
+<dt>Recall:</dt><dd><ul class="simple">
+<li><p>X is <strong>spin</strong> iff w₂(X) = 0 iff the intersection form Q_X is <em>even</em>
+(Q_X(x,x) ≡ 0 mod 2 for all x ∈ H₂(X; ℤ)).</p></li>
+<li><p>σ(X) = number of positive - negative eigenvalues of Q_X.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The theorem is optimal: the K3 surface has σ = -16, and there is no smooth
+closed spin 4-manifold with σ = ±8 (e.g., the E₈ manifold is not smoothable).</p>
+<dl>
+<dt>Equivalence with Casson invariant:</dt><dd><dl class="simple">
+<dt>For a spin rational homology sphere M³, the Rohlin invariant</dt><dd><p>μ(M) = λ(M) mod 2 ∈ ℤ/2</p>
+</dd>
+</dl>
+</dd>
+<dt>Kirby–Siebenmann obstruction:</dt><dd><p>A topological 4-manifold has a smooth structure iff the Kirby–Siebenmann
+invariant ks(X) ∈ H⁴(X; ℤ/2) vanishes.  For spin manifolds, ks(X) = σ/8 mod 2.</p>
+</dd>
+<dt>Donaldson–Rohlin combination:</dt><dd><ul class="simple">
+<li><p>Definite smooth 4-manifolds must have diagonal intersection form (Donaldson).</p></li>
+<li><p>Spin manifolds have even intersection form.</p></li>
+<li><p>Combining: no smooth spin 4-manifold with definite non-standard form.</p></li>
+</ul>
+</dd>
+<dt>Freedman’s theorem (contrast):</dt><dd><p>Every symmetric bilinear form over ℤ is realized by a <em>topological</em>
+simply-connected closed 4-manifold:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Even form → unique topological manifold.</p></li>
+<li><p>Odd form → two topological manifolds (one spin, one not).</p></li>
+</ul>
+</div></blockquote>
+<p>The E₈ manifold exists <em>topologically</em> but not <em>smoothly</em>.</p>
+</dd>
+</dl>
+</section>
+<section id="spin-structures">
+<h2>Spin structures<a class="headerlink" href="#spin-structures" title="Link to this heading"></a></h2>
+<p>A spin structure on X is a lift of the frame bundle from SO(4) to Spin(4).
+It exists iff w₂(X) = 0.  On a simply-connected manifold, the number of
+spin structures is <a href="#id11"><span class="problematic" id="id12">|H¹(X; ℤ/2)|</span></a> = 1 (unique, since π₁ = 1).</p>
+<p>References: Rohlin 1952, Milnor 1958, Kirby–Siebenmann 1977, Freedman 1982,
+Donaldson 1983.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.SpinStructureResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.rohlin_theorem.</span></span><span class="sig-name descname"><span class="pre">SpinStructureResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_spin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_spin_structures</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">w2_vanishes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.rohlin_theorem.SpinStructureResult" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Result of spin structure analysis.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>is_spin<span class="classifier">bool</span></dt><dd><p>True iff w₂ = 0 (intersection form is even).</p>
+</dd>
+<dt>form_type<span class="classifier">str</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">&quot;even&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;odd&quot;</span></code>.</p>
+</dd>
+<dt>n_spin_structures<span class="classifier">int</span></dt><dd><p>Number of distinct spin structures (= <a href="#id13"><span class="problematic" id="id14">|H¹(X; ℤ/2)|</span></a>).</p>
+</dd>
+<dt>w2_vanishes<span class="classifier">bool</span></dt><dd><p>Whether the second Stiefel–Whitney class vanishes.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.SpinStructureResult.is_spin">
+<span class="sig-name descname"><span class="pre">is_spin</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.SpinStructureResult.is_spin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.SpinStructureResult.form_type">
+<span class="sig-name descname"><span class="pre">form_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.SpinStructureResult.form_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.SpinStructureResult.n_spin_structures">
+<span class="sig-name descname"><span class="pre">n_spin_structures</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.SpinStructureResult.n_spin_structures" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.SpinStructureResult.w2_vanishes">
+<span class="sig-name descname"><span class="pre">w2_vanishes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.SpinStructureResult.w2_vanishes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.RohlinCheck">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.rohlin_theorem.</span></span><span class="sig-name descname"><span class="pre">RohlinCheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifold_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_spin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rohlin_satisfied</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">obstruction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ks_obstruction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">freedman_realizable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_possible</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.rohlin_theorem.RohlinCheck" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Result of Rohlin’s theorem check.</p>
+<section id="id1">
+<h2>Attributes<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>manifold_description : str
+signature : int</p>
+<blockquote>
+<div><p>σ(X).</p>
+</div></blockquote>
+<dl class="simple">
+<dt>is_spin<span class="classifier">bool</span></dt><dd><p>Whether the manifold is spin.</p>
+</dd>
+<dt>rohlin_satisfied<span class="classifier">bool</span></dt><dd><p>True iff σ ≡ 0 (mod 16), or the manifold is not spin.</p>
+</dd>
+<dt>obstruction<span class="classifier">str</span></dt><dd><p>Description of any violation.</p>
+</dd>
+<dt>ks_obstruction<span class="classifier">int</span></dt><dd><p>Kirby–Siebenmann obstruction (σ/8 mod 2 for spin manifolds).</p>
+</dd>
+<dt>freedman_realizable<span class="classifier">bool</span></dt><dd><p>Whether the form is realizable by a topological manifold (Freedman).</p>
+</dd>
+<dt>smooth_possible<span class="classifier">bool</span></dt><dd><p>Whether a smooth structure is possible (Donaldson + Rohlin).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.RohlinCheck.manifold_description">
+<span class="sig-name descname"><span class="pre">manifold_description</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.RohlinCheck.manifold_description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.RohlinCheck.signature">
+<span class="sig-name descname"><span class="pre">signature</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.RohlinCheck.signature" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.RohlinCheck.is_spin">
+<span class="sig-name descname"><span class="pre">is_spin</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.RohlinCheck.is_spin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.RohlinCheck.rohlin_satisfied">
+<span class="sig-name descname"><span class="pre">rohlin_satisfied</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.RohlinCheck.rohlin_satisfied" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.RohlinCheck.obstruction">
+<span class="sig-name descname"><span class="pre">obstruction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.RohlinCheck.obstruction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.RohlinCheck.ks_obstruction">
+<span class="sig-name descname"><span class="pre">ks_obstruction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.RohlinCheck.ks_obstruction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.RohlinCheck.freedman_realizable">
+<span class="sig-name descname"><span class="pre">freedman_realizable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.RohlinCheck.freedman_realizable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.RohlinCheck.smooth_possible">
+<span class="sig-name descname"><span class="pre">smooth_possible</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.rohlin_theorem.RohlinCheck.smooth_possible" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.check_rohlin_theorem">
+<span class="sig-prename descclassname"><span class="pre">pytop.rohlin_theorem.</span></span><span class="sig-name descname"><span class="pre">check_rohlin_theorem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="intersection_forms.html#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">manifold_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'X'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h1_z2_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.rohlin_theorem.RohlinCheck" title="pytop.rohlin_theorem.RohlinCheck"><span class="pre">RohlinCheck</span></a></span></span><a class="headerlink" href="#pytop.rohlin_theorem.check_rohlin_theorem" title="Link to this definition"></a></dt>
+<dd><p>Check whether a smooth 4-manifold satisfies Rohlin’s theorem.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>form<span class="classifier">IntersectionForm</span></dt><dd><p>Intersection form of the (simply-connected) 4-manifold.</p>
+</dd>
+<dt>manifold_description<span class="classifier">str</span></dt><dd><p>Human-readable name.</p>
+</dd>
+<dt>h1_z2_rank<span class="classifier">int</span></dt><dd><p>Rank of H¹(X; ℤ/2) (0 for simply-connected).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>RohlinCheck</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.is_spin_manifold">
+<span class="sig-prename descclassname"><span class="pre">pytop.rohlin_theorem.</span></span><span class="sig-name descname"><span class="pre">is_spin_manifold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="intersection_forms.html#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.rohlin_theorem.is_spin_manifold" title="Link to this definition"></a></dt>
+<dd><p>Determine if a 4-manifold is spin from its intersection form.</p>
+<p>X is spin iff w₂(X) = 0 iff Q_X is <em>even</em>
+(Q_X(x,x) ≡ 0 mod 2 for all x in the lattice).</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>form : IntersectionForm</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.kirby_siebenmann_obstruction">
+<span class="sig-prename descclassname"><span class="pre">pytop.rohlin_theorem.</span></span><span class="sig-name descname"><span class="pre">kirby_siebenmann_obstruction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="intersection_forms.html#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.rohlin_theorem.kirby_siebenmann_obstruction" title="Link to this definition"></a></dt>
+<dd><p>Kirby–Siebenmann obstruction ks(X) ∈ ℤ/2.</p>
+<p>For spin manifolds: ks(X) = σ(X)/8 mod 2.
+For non-spin: ks(X) is defined but harder to compute from Q alone.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>form : IntersectionForm</p>
+</section>
+<section id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>int</dt><dd><p>0 or 1.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.n_spin_structures">
+<span class="sig-prename descclassname"><span class="pre">pytop.rohlin_theorem.</span></span><span class="sig-name descname"><span class="pre">n_spin_structures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h1_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.rohlin_theorem.n_spin_structures" title="Link to this definition"></a></dt>
+<dd><p>Number of spin structures on a manifold with H¹(X; ℤ/2) of given rank.</p>
+<p>A spin structure is a lift of the structure group from SO(n) to Spin(n).
+The set of spin structures is a torsor for H¹(X; ℤ/2).
+For simply-connected X: H¹(X; ℤ/2) = 0 → unique spin structure.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>h1_rank<span class="classifier">int</span></dt><dd><p>Rank of H¹(X; ℤ/2) as an ℤ/2 vector space.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.check_freedman_realization">
+<span class="sig-prename descclassname"><span class="pre">pytop.rohlin_theorem.</span></span><span class="sig-name descname"><span class="pre">check_freedman_realization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="intersection_forms.html#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.rohlin_theorem.check_freedman_realization" title="Link to this definition"></a></dt>
+<dd><p>Check Freedman’s realization theorem.</p>
+<p>Every symmetric bilinear form over ℤ arises as Q_X for some closed
+simply-connected topological 4-manifold X (Freedman 1982).</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>form : IntersectionForm</p>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict with:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">&quot;realizable_topologically&quot;</span></code>: always True.
+<code class="docutils literal notranslate"><span class="pre">&quot;n_topological_realizations&quot;</span></code>: 1 (even form) or 2 (odd form).
+<code class="docutils literal notranslate"><span class="pre">&quot;smoothable&quot;</span></code>: whether a smooth structure is possible.
+<code class="docutils literal notranslate"><span class="pre">&quot;description&quot;</span></code>: explanation.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.rohlin_invariant_from_signature">
+<span class="sig-prename descclassname"><span class="pre">pytop.rohlin_theorem.</span></span><span class="sig-name descname"><span class="pre">rohlin_invariant_from_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.rohlin_theorem.rohlin_invariant_from_signature" title="Link to this definition"></a></dt>
+<dd><p>Rohlin invariant μ = σ/8 mod 2 for a spin manifold.</p>
+<section id="id8">
+<h2>Parameters<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>signature<span class="classifier">int</span></dt><dd><p>Signature of the spin 4-manifold (must be divisible by 8 by parity).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.spin_cobordism_group">
+<span class="sig-prename descclassname"><span class="pre">pytop.rohlin_theorem.</span></span><span class="sig-name descname"><span class="pre">spin_cobordism_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.rohlin_theorem.spin_cobordism_group" title="Link to this definition"></a></dt>
+<dd><p>Description of the spin cobordism group Ω^Spin_n.</p>
+<section id="id9">
+<h2>Parameters<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dimension<span class="classifier">int</span></dt><dd><p>The dimension n.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.rohlin_theorem.spin_structure_result">
+<span class="sig-prename descclassname"><span class="pre">pytop.rohlin_theorem.</span></span><span class="sig-name descname"><span class="pre">spin_structure_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="intersection_forms.html#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">h1_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.rohlin_theorem.SpinStructureResult" title="pytop.rohlin_theorem.SpinStructureResult"><span class="pre">SpinStructureResult</span></a></span></span><a class="headerlink" href="#pytop.rohlin_theorem.spin_structure_result" title="Link to this definition"></a></dt>
+<dd><p>Compute spin structure data for a 4-manifold with given form.</p>
+<section id="id10">
+<h2>Parameters<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<p>form : IntersectionForm
+h1_rank : int</p>
+<blockquote>
+<div><p>Rank of H¹(X; ℤ/2).</p>
+</div></blockquote>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

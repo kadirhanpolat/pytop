@@ -1,0 +1,605 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coarse Geometry &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Coarse Geometry</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/coarse_geometry.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.coarse_geometry">
+<span id="coarse-geometry"></span><h1>Coarse Geometry<a class="headerlink" href="#module-pytop.coarse_geometry" title="Link to this heading"></a></h1>
+<p>Coarse geometry: quasi-isometries, asymptotic dimension, ends, and Property A.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Quasi-isometry: a map f: X -&gt; Y between metric spaces is a (L,C)-quasi-isometry
+if (1/L)*d_X(x,x’) - C &lt;= d_Y(f(x),f(x’)) &lt;= L*d_X(x,x’) + C for all x,x’ in X
+and every y in Y is within distance C of f(X). Quasi-isometry is the fundamental
+equivalence relation of large-scale (coarse) geometry.</p></li>
+<li><p>Gromov’s theorem: a finitely generated group has polynomial growth if and only
+if it is virtually nilpotent. Polynomial growth groups are QI to their asymptotic
+cones (nilpotent Lie groups with Carnot-Caratheodory metric).</p></li>
+<li><p>Virtually abelian groups are quasi-isometric to R^n (for appropriate n).
+Non-abelian nilpotent groups have polynomial growth but are NOT QI to R^n:
+the Heisenberg group H_3(Z) has polynomial growth of degree 4 but its asymptotic
+cone is the Carnot group, not R^4.</p></li>
+<li><p>Asymptotic dimension (Gromov 1993): asdim(X) &lt;= n if for every R &gt; 0 there
+exists a cover of X by uniformly bounded sets of multiplicity &lt;= n+1.
+Key values: asdim(Z^n) = n, asdim(free group) = 1, asdim(H^n) = n.</p></li>
+<li><p>Stallings’ theorem: a finitely generated group has more than one end iff it
+splits (non-trivially) over a finite subgroup. Exactly:
+0 ends: finite groups; 1 end: most infinite groups; 2 ends: virtually Z groups;
+infinitely many ends: amalgamated products/HNN extensions over finite groups.</p></li>
+<li><p>Property A (Yu 2000): a coarse analogue of amenability for metric spaces.
+Property A implies coarse embeddability into a Hilbert space, which implies the
+coarse Baum-Connes conjecture (Kasparov-Yu). Key facts:
+- Amenable groups have Property A.
+- Hyperbolic groups have Property A (Yu 2000).
+- Linear groups have Property A (Guentner-Higson-Weinberger).
+- Expander graph families do NOT have Property A; they do not coarsely embed</p>
+<blockquote>
+<div><p>into any Hilbert space (Gromov).</p>
+</div></blockquote>
+</li>
+<li><p>The Hopf-Rinow theorem fails in general metric spaces: completeness and local
+compactness together do not imply geodesic completeness (unlike Riemannian manifolds).</p></li>
+<li><p>Gromov hyperbolicity: a geodesic metric space X is delta-hyperbolic if every
+geodesic triangle is delta-slim (each side lies in the delta-neighbourhood of
+the other two). Key examples: H^n (hyperbolic space), trees (delta=0), free groups
+(Cayley graph with standard generators), and CAT(-1) spaces.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">CoarseGeometryProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">asymptotic_dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_ends</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_property_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_gromov_hyperbolic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_quasi_isometric_to_euclidean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated coarse geometry example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.geometry_type">
+<span class="sig-name descname"><span class="pre">geometry_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.geometry_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.asymptotic_dimension">
+<span class="sig-name descname"><span class="pre">asymptotic_dimension</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.asymptotic_dimension" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.number_of_ends">
+<span class="sig-name descname"><span class="pre">number_of_ends</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.number_of_ends" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.has_property_a">
+<span class="sig-name descname"><span class="pre">has_property_a</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.has_property_a" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.is_gromov_hyperbolic">
+<span class="sig-name descname"><span class="pre">is_gromov_hyperbolic</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.is_gromov_hyperbolic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.is_quasi_isometric_to_euclidean">
+<span class="sig-name descname"><span class="pre">is_quasi_isometric_to_euclidean</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.is_quasi_isometric_to_euclidean" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.CoarseGeometryProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.coarse_geometry.CoarseGeometryProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.get_named_coarse_geometry_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">get_named_coarse_geometry_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.coarse_geometry.CoarseGeometryProfile" title="pytop.coarse_geometry.CoarseGeometryProfile"><span class="pre">CoarseGeometryProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.coarse_geometry.get_named_coarse_geometry_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical coarse geometry examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.coarse_geometry_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">coarse_geometry_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.coarse_geometry.coarse_geometry_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.coarse_geometry_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">coarse_geometry_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.coarse_geometry.coarse_geometry_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.coarse_geometry_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">coarse_geometry_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.coarse_geometry.coarse_geometry_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from geometry_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.has_finite_asymptotic_dimension">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">has_finite_asymptotic_dimension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.coarse_geometry.has_finite_asymptotic_dimension" title="Link to this definition"></a></dt>
+<dd><p>Check whether space has finite asymptotic dimension.</p>
+<p>The asymptotic dimension asdim(X) of a metric space X is the smallest n
+such that for every R &gt; 0 there exists a cover of X by uniformly bounded
+sets with multiplicity &lt;= n+1. Key values:
+- asdim(finite group) = 0.
+- asdim(Z) = asdim(R) = asdim(tree) = 1.
+- asdim(Z^n) = asdim(R^n) = asdim(H^n) = n.
+- asdim(hyperbolic group) &lt; infinity (Bell-Dranishnikov 2001).
+- asdim(free group F_n) = 1 (Cayley graph is a tree).
+- Expander families: each finite component has asdim = 1, but the</p>
+<blockquote>
+<div><p>disjoint union has infinite asdim (no uniform control).</p>
+</div></blockquote>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit finite asdim / virtually abelian / nilpotent tag -&gt; true.</p></li>
+<li><p>Hyperbolic group (Bell-Dranishnikov theorem) -&gt; true.</p></li>
+<li><p>Free group (Cayley graph is a tree, asdim = 1) -&gt; true.</p></li>
+<li><p>Right-angled Artin group or Coxeter group -&gt; true.</p></li>
+<li><p>Expander family (infinite disjoint union: no finite asdim) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.has_property_a">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">has_property_a</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.coarse_geometry.has_property_a" title="Link to this definition"></a></dt>
+<dd><p>Check whether space has Property A (coarse amenability).</p>
+<p>Property A (Yu 2000) is a coarse analogue of amenability for metric spaces:
+X has Property A if for every eps &gt; 0 and R &gt; 0 there exist maps A_x: X -&gt; Fin(X x N)
+such that <a href="#id15"><span class="problematic" id="id16">|A_x delta A_y|</span></a> / <a href="#id17"><span class="problematic" id="id18">|A_x ∩ A_y|</span></a> &lt; eps whenever d(x,y) &lt;= R and
+the support of A_x is within radius S (depending on eps, R) of x.
+Key facts:
+- Amenable groups have Property A.
+- All hyperbolic groups have Property A (Yu 2000).
+- Linear groups have Property A (Guentner-Higson-Weinberger 2005).
+- Property A implies coarse embeddability into a Hilbert space.
+- Coarse embeddability implies the coarse Baum-Connes conjecture.
+- Expander families do NOT have Property A (Gromov).
+- The Gromov ‘monster’ groups (containing expanders as subgraphs) also lack Property A.</p>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit Property A tag -&gt; true.</p></li>
+<li><p>Amenable group (amenable =&gt; Property A) -&gt; true.</p></li>
+<li><p>Hyperbolic group (Yu 2000: all hyperbolic groups have Property A) -&gt; true.</p></li>
+<li><p>Linear group (Guentner-Higson-Weinberger) -&gt; true.</p></li>
+<li><p>Expander family / Gromov monster -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.is_gromov_hyperbolic">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">is_gromov_hyperbolic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.coarse_geometry.is_gromov_hyperbolic" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is Gromov (delta-)hyperbolic.</p>
+<p>A geodesic metric space X is delta-hyperbolic (Gromov 1987) if every geodesic
+triangle in X is delta-slim: each side lies in the delta-neighbourhood of the
+union of the other two. Key facts:
+- Trees are 0-hyperbolic (every geodesic triangle degenerates to a tripod).
+- H^n is delta-hyperbolic with delta = log(1 + sqrt(2)) (all ideal triangles</p>
+<blockquote>
+<div><p>have the same inscribed radius).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>CAT(-1) spaces are delta-hyperbolic.</p></li>
+<li><p>Free groups (Cayley graph = tree) are 0-hyperbolic.</p></li>
+<li><p>Z^n for n &gt;= 2 is NOT hyperbolic: ‘fat’ quadrilaterals exist.</p></li>
+<li><p>Gromov’s theorem: a finitely generated group is hyperbolic iff all asymptotic
+cones are R-trees (real trees).</p></li>
+</ul>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit hyperbolic / delta-hyperbolic / CAT(-1) tag -&gt; true.</p></li>
+<li><p>Free group (Cayley graph = tree, 0-hyperbolic) -&gt; true.</p></li>
+<li><p>Hyperbolic space H^n -&gt; true.</p></li>
+<li><p>Euclidean lattice Z^n (n &gt;= 2) or Heisenberg group -&gt; false.</p></li>
+<li><p>Expander family -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.is_quasi_isometric_to_euclidean">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">is_quasi_isometric_to_euclidean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.coarse_geometry.is_quasi_isometric_to_euclidean" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is quasi-isometric to R^n for some n.</p>
+<p>Two metric spaces X and Y are quasi-isometric if there exist (L,C)-quasi-
+isometries f: X -&gt; Y and g: Y -&gt; X (not necessarily inverses). Key facts:
+- Z^n is QI to R^n (inclusion Z^n -&gt; R^n is a quasi-isometry).
+- A finitely generated group G is QI to R^n iff G is virtually Z^n</p>
+<blockquote>
+<div><p>(Gromov + Stallings + Wolf).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Non-abelian nilpotent groups (Heisenberg) are NOT QI to any R^n:
+asymptotic cones of non-abelian nilpotent groups are Carnot groups,
+not Euclidean.</p></li>
+<li><p>Hyperbolic groups with exponential growth are NOT QI to any R^n.</p></li>
+<li><p>The Milnor-Svarc lemma: if a group G acts geometrically (properly,
+coboundedly, by isometries) on a geodesic space X, then G is QI to X.</p></li>
+</ul>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicitly euclidean / virtually abelian / Z^n tag -&gt; true.</p></li>
+<li><p>Free group or hyperbolic group (exponential growth) -&gt; false.</p></li>
+<li><p>Non-abelian nilpotent / Heisenberg group -&gt; false.</p></li>
+<li><p>Expander family -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.coarsely_embeds_in_hilbert">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">coarsely_embeds_in_hilbert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.coarse_geometry.coarsely_embeds_in_hilbert" title="Link to this definition"></a></dt>
+<dd><p>Check whether space coarsely embeds into a Hilbert space.</p>
+<p>A metric space X coarsely embeds into a Hilbert space H if there exist
+non-decreasing functions <a href="#id25"><span class="problematic" id="id26">rho_</span></a>-, rho_+: [0,inf) -&gt; [0,inf) with <a href="#id27"><span class="problematic" id="id28">rho_</span></a>-(t) -&gt; inf
+as t -&gt; inf and a map f: X -&gt; H with <a href="#id29"><span class="problematic" id="id30">rho_</span></a>-(d(x,y)) &lt;= ||f(x)-f(y)|| &lt;= rho_+(d(x,y)).
+Key facts:
+- Property A implies coarse embeddability into Hilbert space (Yu 2000).
+- Coarse embeddability implies the coarse Baum-Connes conjecture.
+- Hyperbolic groups coarsely embed into Hilbert space.
+- Expander families do NOT coarsely embed into any Hilbert space (Gromov):</p>
+<blockquote>
+<div><p>the spectral gap creates a bottleneck that prevents coarse embedding.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Amenable groups coarsely embed into Hilbert space.</p></li>
+</ul>
+<section id="id4">
+<h2>Decision layers<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Property A (Property A =&gt; coarse embeddability) -&gt; true.</p></li>
+<li><p>Amenable / hyperbolic / linear group -&gt; true.</p></li>
+<li><p>Expander family / Gromov monster -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.classify_coarse_geometry">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">classify_coarse_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.coarse_geometry.classify_coarse_geometry" title="Link to this definition"></a></dt>
+<dd><p>Classify the coarse geometry of space.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>geometry_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;hyperbolic&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;euclidean&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;nilpotent&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;expander&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>has_finite_asymptotic_dimension : Result
+has_property_a : Result
+is_gromov_hyperbolic : Result
+is_quasi_isometric_to_euclidean : Result
+coarsely_embeds_in_hilbert : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.coarse_geometry_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">coarse_geometry_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.coarse_geometry.coarse_geometry_profile" title="Link to this definition"></a></dt>
+<dd><p>Full coarse geometry profile combining classification and named examples.</p>
+<section id="id5">
+<h2>Keys<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.coarse_geometry.classify_coarse_geometry" title="pytop.coarse_geometry.classify_coarse_geometry"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_coarse_geometry()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[CoarseGeometryProfile, …]</span></dt><dd><p>Registry of canonical coarse geometry examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.growth_function_graph">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">growth_function_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.coarse_geometry.growth_function_graph" title="Link to this definition"></a></dt>
+<dd><p>Compute the growth function b(r) = <a href="#id19"><span class="problematic" id="id20">|B(source, r)|</span></a> of a graph.</p>
+<p>b(r) counts vertices within graph distance r from source.
+Key values: b(r) ~ r^n for ℤ^n (polynomial, degree n);
+b(r) ~ c^r for free groups (exponential). By Gromov’s theorem,
+polynomial growth characterises virtually nilpotent groups.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>adj:</dt><dd><p>Undirected adjacency dict <code class="docutils literal notranslate"><span class="pre">{v:</span> <span class="pre">[neighbors]}</span></code>.</p>
+</dd>
+<dt>source:</dt><dd><p>Starting vertex.</p>
+</dd>
+<dt>max_radius:</dt><dd><p>Maximum radius to compute.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict[int, int]</dt><dd><p><code class="docutils literal notranslate"><span class="pre">{r:</span> <span class="pre">b(r)}</span></code> for r in <code class="docutils literal notranslate"><span class="pre">range(max_radius</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Path graph P_4: linear growth.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="mi">3</span><span class="p">:[</span><span class="mi">2</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">growth_function_graph</span><span class="p">(</span><span class="n">adj</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">{0: 1, 1: 3, 2: 4, 3: 4}</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.geodesic_distance_graph">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">geodesic_distance_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.coarse_geometry.geodesic_distance_graph" title="Link to this definition"></a></dt>
+<dd><p>Return the geodesic distance from u to v in the graph.</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>adj:</dt><dd><p>Undirected adjacency dict.</p>
+</dd>
+<dt>u, v:</dt><dd><p>Vertices.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>int</dt><dd><p>Shortest path length, or -1 if v is unreachable from u.</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h2>Examples<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="mi">3</span><span class="p">:[</span><span class="mi">2</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">geodesic_distance_graph</span><span class="p">(</span><span class="n">adj</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.is_tree_graph">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">is_tree_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.coarse_geometry.is_tree_graph" title="Link to this definition"></a></dt>
+<dd><p>Check whether the graph is a tree.</p>
+<p>A connected graph G is a tree iff <a href="#id21"><span class="problematic" id="id22">|E|</span></a> = <a href="#id23"><span class="problematic" id="id24">|V|</span></a> - 1 (equivalently, acyclic).
+Trees are 0-Gromov-hyperbolic (every triangle degenerates to a tripod).
+The Cayley graph of a free group is a regular tree with infinitely many ends.</p>
+<section id="id9">
+<h2>Parameters<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>adj:</dt><dd><p>Undirected adjacency dict.</p>
+</dd>
+</dl>
+</section>
+<section id="id10">
+<h2>Returns<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<p>bool</p>
+</section>
+<section id="id11">
+<h2>Examples<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_tree_graph</span><span class="p">({</span><span class="mi">0</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="mi">1</span><span class="p">:[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">:[</span><span class="mi">0</span><span class="p">]})</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_tree_graph</span><span class="p">({</span><span class="mi">0</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="mi">1</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]})</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.coarse_geometry.classify_graph_coarse_growth">
+<span class="sig-prename descclassname"><span class="pre">pytop.coarse_geometry.</span></span><span class="sig-name descname"><span class="pre">classify_graph_coarse_growth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.coarse_geometry.classify_graph_coarse_growth" title="Link to this definition"></a></dt>
+<dd><p>Classify the coarse growth type of a graph.</p>
+<p>Estimates whether growth is polynomial (virtually nilpotent by Gromov’s
+theorem) or exponential (free groups, hyperbolic groups).</p>
+<section id="id12">
+<h2>Parameters<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>adj:</dt><dd><p>Undirected adjacency dict.</p>
+</dd>
+<dt>source:</dt><dd><p>Root vertex for BFS.</p>
+</dd>
+<dt>max_radius:</dt><dd><p>Depth of BFS exploration.</p>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h2>Returns<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict with keys:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">growth</span></code> : dict[int, int] — b(r) for each r
+<code class="docutils literal notranslate"><span class="pre">is_tree</span></code> : bool — True iff G is a tree (0-hyperbolic)
+<code class="docutils literal notranslate"><span class="pre">growth_type</span></code> : str — <code class="docutils literal notranslate"><span class="pre">&quot;exponential&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;polynomial&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>
+<code class="docutils literal notranslate"><span class="pre">polynomial_degree</span></code> : int | None — estimated degree for polynomial growth
+<code class="docutils literal notranslate"><span class="pre">connected</span></code> : bool
+<code class="docutils literal notranslate"><span class="pre">vertex_count</span></code> : int
+<code class="docutils literal notranslate"><span class="pre">edge_count</span></code> : int</p>
+</dd>
+</dl>
+</section>
+<section id="id14">
+<h2>Examples<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
+<p>A path graph has linear (polynomial degree 1) growth:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adj</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">adj</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">classify_graph_coarse_growth</span><span class="p">(</span><span class="n">adj</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">max_radius</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;growth_type&#39;</span><span class="p">]</span>
+<span class="go">&#39;polynomial&#39;</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

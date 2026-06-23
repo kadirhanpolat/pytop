@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intersection Forms &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Intersection Forms</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/intersection_forms.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.intersection_forms">
+<span id="intersection-forms"></span><h1>Intersection Forms<a class="headerlink" href="#module-pytop.intersection_forms" title="Link to this heading"></a></h1>
+<p>Intersection forms on 4-manifolds (Phase 15.1).</p>
+<p>The intersection form of a closed oriented 4-manifold X is the symmetric
+bilinear form</p>
+<blockquote>
+<div><p>Q_X : H_2(X; ℤ) × H_2(X; ℤ) → ℤ</p>
+</div></blockquote>
+<p>obtained by algebraically counting intersection points of transverse surfaces.</p>
+<section id="key-invariants">
+<h2>Key invariants<a class="headerlink" href="#key-invariants" title="Link to this heading"></a></h2>
+<p>Rank r: rank of H_2(X; ℤ) (ignoring torsion).
+Signature σ: signature of Q_X (number of positive minus negative eigenvalues).
+Type:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Even (Type II): Q_X(x,x) ≡ 0 (mod 2) for all x.  Equivalently Q is
+even, i.e. all diagonal entries are even.  This holds iff w_2(X) = 0
+(X is spin).</p></li>
+<li><p>Odd (Type I): some Q_X(x,x) is odd.</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>Definiteness:</dt><dd><ul class="simple">
+<li><p>Positive definite: all eigenvalues &gt; 0.</p></li>
+<li><p>Negative definite: all eigenvalues &lt; 0.</p></li>
+<li><p>Indefinite: both positive and negative eigenvalues.</p></li>
+</ul>
+</dd>
+<dt>Classification (indefinite, over ℤ):</dt><dd><p>Odd: Q ≅ ⟨1⟩^p ⊕ ⟨-1⟩^q  (p+q = rank, p-q = signature)
+Even: Q ≅ p·E_8 ⊕ q·H      (H = [[0,1],[1,0]] hyperbolic pair)
+This is the theorem of Serre (indefinite case) / Milnor.</p>
+</dd>
+<dt>Standard forms:</dt><dd><p>E_8 lattice: the unique positive-definite even unimodular form of rank 8.
+H (hyperbolic): rank 2, signature 0, even.
+⟨1⟩, ⟨-1⟩: rank 1, odd.</p>
+</dd>
+</dl>
+<p>References: Milnor–Husemoller, Kirby 1989, Donaldson–Kronheimer 1990.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">IntersectionForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_unimodular</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">definiteness</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">classification</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Symmetric bilinear form over ℤ.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>matrix<span class="classifier">tuple[tuple[int,…],…]</span></dt><dd><p>The Gram matrix in some basis.</p>
+</dd>
+</dl>
+<p>rank : int
+signature : int</p>
+<blockquote>
+<div><p>p - q  (positive minus negative eigenvalues).</p>
+</div></blockquote>
+<dl class="simple">
+<dt>form_type<span class="classifier">str</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">&quot;even&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;odd&quot;</span></code>.</p>
+</dd>
+<dt>is_unimodular<span class="classifier">bool</span></dt><dd><p>True iff <a href="#id6"><span class="problematic" id="id7">|det(Q)|</span></a> = 1.</p>
+</dd>
+<dt>definiteness<span class="classifier">str</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">&quot;positive_definite&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;negative_definite&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;indefinite&quot;</span></code>.</p>
+</dd>
+<dt>classification<span class="classifier">str</span></dt><dd><p>Isomorphism class name (indefinite case only).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm.matrix">
+<span class="sig-name descname"><span class="pre">matrix</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm.matrix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm.rank">
+<span class="sig-name descname"><span class="pre">rank</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm.rank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm.signature">
+<span class="sig-name descname"><span class="pre">signature</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm.signature" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm.form_type">
+<span class="sig-name descname"><span class="pre">form_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm.form_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm.is_unimodular">
+<span class="sig-name descname"><span class="pre">is_unimodular</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm.is_unimodular" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm.definiteness">
+<span class="sig-name descname"><span class="pre">definiteness</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm.definiteness" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm.classification">
+<span class="sig-name descname"><span class="pre">classification</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm.classification" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm.b2_plus">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">b2_plus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm.b2_plus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm.b2_minus">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">b2_minus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm.b2_minus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.intersection_forms.IntersectionForm.euler_contribution">
+<span class="sig-name descname"><span class="pre">euler_contribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.IntersectionForm.euler_contribution" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.intersection_form">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">intersection_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.intersection_form" title="Link to this definition"></a></dt>
+<dd><p>Compute all invariants of an intersection form.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>matrix<span class="classifier">Matrix</span></dt><dd><p>Integer symmetric Gram matrix Q.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>IntersectionForm</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.form_rank">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">form_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.form_rank" title="Link to this definition"></a></dt>
+<dd><p>Rank of the intersection form (ignoring torsion).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.form_signature">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">form_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.form_signature" title="Link to this definition"></a></dt>
+<dd><p>Signature of the intersection form: n_pos - n_neg.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.form_type">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">form_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.form_type" title="Link to this definition"></a></dt>
+<dd><p>Determine if the form is <code class="docutils literal notranslate"><span class="pre">&quot;even&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;odd&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.is_unimodular">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">is_unimodular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.is_unimodular" title="Link to this definition"></a></dt>
+<dd><p>Return True iff <a href="#id8"><span class="problematic" id="id9">|det(Q)|</span></a> = 1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.is_definite">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">is_definite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.is_definite" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">&quot;positive_definite&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;negative_definite&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;indefinite&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.classify_indefinite_form">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">classify_indefinite_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.classify_indefinite_form" title="Link to this definition"></a></dt>
+<dd><p>Classify an indefinite unimodular form (Serre’s theorem).</p>
+<p>Returns a string like <code class="docutils literal notranslate"><span class="pre">&quot;p&lt;1&gt;</span> <span class="pre">+</span> <span class="pre">q&lt;-1&gt;&quot;</span></code> (odd type) or
+<code class="docutils literal notranslate"><span class="pre">&quot;aE8</span> <span class="pre">+</span> <span class="pre">bH&quot;</span></code> (even type).</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>matrix<span class="classifier">Matrix</span></dt><dd><p>Integer Gram matrix of a unimodular indefinite form.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.e8_form">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">e8_form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.e8_form" title="Link to this definition"></a></dt>
+<dd><p>The E_8 lattice intersection form (rank 8, even, positive definite, unimodular).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.hyperbolic_form">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">hyperbolic_form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.hyperbolic_form" title="Link to this definition"></a></dt>
+<dd><p>The hyperbolic form H = [[0,1],[1,0]] (rank 2, even, indefinite, unimodular).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.diagonal_form">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">diagonal_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.diagonal_form" title="Link to this definition"></a></dt>
+<dd><p>Diagonal intersection form with given entries.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>entries<span class="classifier">list[int]</span></dt><dd><p>Diagonal entries (typically ±1).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.connected_sum_form">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">connected_sum_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></span><a class="headerlink" href="#pytop.intersection_forms.connected_sum_form" title="Link to this definition"></a></dt>
+<dd><p>Intersection form of the connected sum X1 # X2.</p>
+<p>Q_{X1#X2} = Q_{X1} ⊕ Q_{X2} (block diagonal sum).</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>Q1, Q2 : IntersectionForm</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.intersection_forms.donaldson_theorem">
+<span class="sig-prename descclassname"><span class="pre">pytop.intersection_forms.</span></span><span class="sig-name descname"><span class="pre">donaldson_theorem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.intersection_forms.IntersectionForm" title="pytop.intersection_forms.IntersectionForm"><span class="pre">IntersectionForm</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.intersection_forms.donaldson_theorem" title="Link to this definition"></a></dt>
+<dd><p>Apply Donaldson’s theorem to the given form.</p>
+<p>Donaldson’s theorem (1983): If X is a smooth simply-connected closed
+4-manifold with a <em>positive-definite</em> intersection form, then Q_X is
+diagonalizable over ℤ (i.e., isomorphic to n·⟨1⟩).</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>form : IntersectionForm</p>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl>
+<dt>dict with keys:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">&quot;is_standard&quot;</span></code>: bool — True iff form satisfies Donaldson constraint.
+<code class="docutils literal notranslate"><span class="pre">&quot;verdict&quot;</span></code>: str — explanation.
+<code class="docutils literal notranslate"><span class="pre">&quot;exotic_obstruction&quot;</span></code>: bool — True iff form is definite but non-diagonal,</p>
+<blockquote>
+<div><p>implying no smooth structure (exotic obstruction).</p>
+</div></blockquote>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

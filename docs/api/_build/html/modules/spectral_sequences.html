@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spectral Sequences &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Spectral Sequences</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/spectral_sequences.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.spectral_sequences">
+<span id="spectral-sequences"></span><h1>Spectral Sequences<a class="headerlink" href="#module-pytop.spectral_sequences" title="Link to this heading"></a></h1>
+<p>Spectral sequences: Serre, Adams, Eilenberg-Moore, Atiyah-Hirzebruch, Leray-Hirsch,
+Lyndon-Hochschild-Serre, Bockstein, Grothendieck; convergence, differentials, filtrations.</p>
+<section id="key-theorems-and-constructions-implemented">
+<h2>Key theorems and constructions implemented<a class="headerlink" href="#key-theorems-and-constructions-implemented" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Spectral sequence definition: a spectral sequence is a collection {E_r^{p,q}, d_r}_{r&gt;=2}
+where d_r: E_r^{p,q} -&gt; E_r^{p+r, q-r+1} (cohomological convention) with d_r^2 = 0,
+and E_{r+1}^{p,q} = H^{p,q}(E_r, d_r) = ker(d_r) / im(d_r). Convergence: a spectral
+sequence converges to H^n (written E_r =&gt; H^n) means there is a filtration
+F^0 H^n supset F^1 H^n supset … supset F^{n+1} H^n = 0 (complete and bounded) such
+that E_infty^{p,q} = gr^p H^{p+q} = F^p H^{p+q} / F^{p+1} H^{p+q} for all p, q.
+Strong convergence: E_r =&gt; H^n strongly when F^p H^n = 0 for p &gt;&gt; 0 and
+union_{p} F^p H^n = H^n (Hausdorff + complete filtration). Conditional convergence
+(Boardman): allows lim^1 obstructions; the Adams spectral sequence is conditionally
+but not always strongly convergent.</p></li>
+<li><p>Serre spectral sequence (Serre 1951): for a fibration F -&gt; E -&gt; B with B simply
+connected (pi_1(B) = 0), the Serre spectral sequence has E_2^{p,q} = H^p(B; H^q(F))
+(cohomology of B with local coefficients H^q(F)) converging strongly to H^{p+q}(E).
+Multiplicative structure: the Serre SS is a spectral sequence of algebras; the product
+on E_2 is the cup product on H^*(B) tensor H^*(F), and the spectral sequence converges
+to the filtered algebra H^*(E). Key applications:
+- Path-loop fibration: Omega X -&gt; PX -&gt; X (PX contractible), so E_2^{p,q} =</p>
+<blockquote>
+<div><p>H^p(X; H^q(Omega X)) =&gt; H^{p+q}(PX) = Z in degree 0. This allows computation
+of H^*(Omega X) from H^*(X) by induction using the transgression d_r.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Gysin sequence: for a sphere bundle S^k -&gt; E -&gt; B, the Serre SS gives the Gysin
+long exact sequence … -&gt; H^n(E) -&gt; H^{n-k}(B) -&gt; H^n(B) -&gt; H^{n+1}(E) -&gt; …
+involving the Euler class e in H^{k+1}(B).</p></li>
+<li><p>Edge homomorphisms: E_2^{p,0} -&gt; H^p(E) (base edge) and H^n(E) -&gt; E_infty^{0,n}
+-&gt; E_2^{0,n} = H^n(F) (fiber edge) are natural maps arising from the spectral
+sequence filtration.</p></li>
+<li><p>Cohomology of CP^infty: using S^1 -&gt; S^infty -&gt; CP^infty with S^infty contractible,
+the Serre SS gives H^*(CP^infty) = Z[x] with <a href="#id9"><span class="problematic" id="id10">|x|</span></a> = 2.</p></li>
+</ul>
+</li>
+<li><p>Adams spectral sequence (Adams 1958): for a p-local spectrum X, the Adams spectral
+sequence has E_2^{s,t} = Ext^{s,t}_{A}(H^*(X; F_p), F_p) where A is the Steenrod
+algebra, converging conditionally to pi_{t-s}(X)_p^hat (p-completed stable homotopy
+groups). For X = S^0: E_2 = Ext^{s,t}_A(F_p, F_p) =&gt; pi_{t-s}^s(S^0)_p^hat.
+Key properties:
+- The Adams resolution: an A-free resolution 0 -&gt; F_p -&gt; C^0 -&gt; C^1 -&gt; … of</p>
+<blockquote>
+<div><p>H^*(X; F_p) as A-modules gives the E_2 page via Ext groups.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The d_2 differential: d_2: E_2^{s,t} -&gt; E_2^{s+2,t+1} is related to the
+secondary cohomology operations.</p></li>
+<li><p>Hopf invariant one: the Adams spectral sequence detects elements h_j in
+Ext^{1,2^j} corresponding to Hopf invariant one maps; Adams’ theorem states
+that only h_1, h_2, h_3 (corresponding to dimensions 2, 4, 8: complex numbers,
+quaternions, octonions) survive to give non-trivial elements in pi_*^s(S^0).</p></li>
+<li><p>Stem computations: the chart of Ext_A(F_2, F_2) encodes the 2-primary stable
+homotopy groups of spheres, with the rho, nu, sigma, eta generators visible.</p></li>
+</ul>
+</li>
+<li><p>Eilenberg-Moore spectral sequence: for a pullback diagram X = E x_B PB (fiber
+product of E -&gt; B with the path fibration PB -&gt; B), the Eilenberg-Moore spectral
+sequence has E_2^{-s,t} = Tor^{-s,t}_{H^*(B)}(H^*(E), k) converging to H^*(X)
+when B is simply connected. Special case: for E = {b_0} a point,
+E_2 = Tor_{H^*(B)}(k, k) =&gt; H^*(Omega B). The bar construction B(H^*(B)) computes
+these Tor groups and serves as the E_1 page of the bar spectral sequence. The EM SS
+is multiplicative and converges in the second quadrant (s &gt;= 0, arbitrary t).</p></li>
+<li><p>Atiyah-Hirzebruch spectral sequence (AHSS): for a generalized cohomology theory h^*
+and a CW-complex X, the AHSS has E_2^{p,q} = H^p(X; h^q(pt)) converging to
+h^{p+q}(X). For h^* = K^* (complex K-theory): E_2^{p,q} = H^p(X; Z) for q even
+(using K^0(pt) = Z) and 0 for q odd (using K^1(pt) = 0), converging to K^{p+q}(X).
+The first non-trivial differential d_3 = Sq^3 (the Steenrod operation composed with
+the Bockstein). For h^* = MU^* (complex cobordism): the AHSS has
+E_2^{p,q} = H^p(X; MU^q(pt)) =&gt; MU^{p+q}(X). For CP^n: the AHSS for K-theory
+collapses at E_2 because all differentials vanish (degree reasons), giving
+K^*(CP^n) directly from H^*(CP^n; Z) via the Chern character isomorphism
+ch: K^0(CP^n) tensor Q -&gt; H^{ev}(CP^n; Q).</p></li>
+<li><p>Leray-Serre theorem / Leray-Hirsch: if a fibration F -&gt; E -&gt; B has the property
+that H^*(F; k) is a free k-module and there exist global cohomology classes in
+H^*(E; k) restricting to a basis of H^*(F; k) at every fiber (the Leray-Hirsch
+condition), then H^*(E; k) = H^*(B; k) tensor_k H^*(F; k) as H^*(B; k)-modules
+and the Serre spectral sequence collapses at the E_2 page. Applications: principal
+bundles with contractible structure groups, sphere bundles over simply connected
+bases satisfying the orientation condition, and K-theory of CP^n.</p></li>
+<li><p>Lyndon-Hochschild-Serre (LHS) spectral sequence: for a group extension
+1 -&gt; N -&gt; G -&gt; Q -&gt; 1 and a G-module M, the LHS spectral sequence has
+E_2^{p,q} = H^p(Q; H^q(N; M)) converging to H^{p+q}(G; M). The 5-term exact
+sequence extracted from the LHS SS: 0 -&gt; H^1(Q; M^N) -&gt; H^1(G; M) -&gt; H^1(N; M)^Q
+-&gt; H^2(Q; M^N) -&gt; H^2(G; M) is the inflation-restriction exact sequence in group
+cohomology. Applications: computing group cohomology of semidirect products,
+p-groups, and central extensions.</p></li>
+<li><p>Convergence theory: strong convergence of a spectral sequence {E_r, d_r} to H^*
+means (1) for all (p,q), d_r^{p,q} = 0 for r &gt;&gt; 0 (the sequence stabilizes to
+E_infty^{p,q}), and (2) H^n has a complete Hausdorff filtration with
+gr^p H^{p+q} = E_infty^{p,q}. A first-quadrant spectral sequence (E_2^{p,q} = 0
+for p &lt; 0 or q &lt; 0) converges strongly automatically when the differentials
+eventually vanish. Conditionally convergent spectral sequences (Boardman) require
+additional conditions (like Re-indexing or Milnor lim^1 = 0) to ensure the map
+E_infty -&gt; gr H^* is an isomorphism.</p></li>
+<li><p>Bockstein spectral sequence: associated to a short exact sequence of coefficient
+groups 0 -&gt; Z -p-&gt; Z -&gt; Z/p -&gt; 0, the Bockstein spectral sequence has E_1 = H^*(X; Z/p)
+with d_1 = beta (the Bockstein operation, i.e., the connecting homomorphism of the
+long exact sequence in cohomology). E_2 detects the Z/p-free part of H^*(X; Z),
+and the spectral sequence converges to H^*(X; Z) tensor Z/p. Collapses at E_2
+iff H^*(X; Z) has no p-torsion.</p></li>
+<li><p>Grothendieck spectral sequence: for a composition of left-exact functors F, G:
+A -&gt; B -&gt; C (abelian categories, G taking injectives to F-acyclics), the Grothendieck
+spectral sequence has E_2^{p,q} = (R^p F)(R^q G)(A) converging to R^{p+q}(FG)(A).
+Gives a systematic construction of long exact sequences from short ones via derived
+functors. The Leray spectral sequence for a map f: X -&gt; Y is the special case
+F = Gamma(Y, -), G = f_* (direct image sheaf): E_2^{p,q} = H^p(Y; R^q f_*(F))
+=&gt; H^{p+q}(X; F).</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">SpectralSequenceProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cohomology_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">converges_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_multiplicative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_first_quadrant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapses_at_e2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_conditionally_convergent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated spectral sequence theory example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.sequence_type">
+<span class="sig-name descname"><span class="pre">sequence_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.sequence_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.cohomology_type">
+<span class="sig-name descname"><span class="pre">cohomology_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.cohomology_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.converges_to">
+<span class="sig-name descname"><span class="pre">converges_to</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.converges_to" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.is_multiplicative">
+<span class="sig-name descname"><span class="pre">is_multiplicative</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.is_multiplicative" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.is_first_quadrant">
+<span class="sig-name descname"><span class="pre">is_first_quadrant</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.is_first_quadrant" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.collapses_at_e2">
+<span class="sig-name descname"><span class="pre">collapses_at_e2</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.collapses_at_e2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.is_conditionally_convergent">
+<span class="sig-name descname"><span class="pre">is_conditionally_convergent</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.is_conditionally_convergent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralSequenceProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralSequenceProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.get_named_spectral_sequence_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">get_named_spectral_sequence_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.spectral_sequences.SpectralSequenceProfile" title="pytop.spectral_sequences.SpectralSequenceProfile"><span class="pre">SpectralSequenceProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.get_named_spectral_sequence_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical spectral sequence examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.spectral_sequence_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">spectral_sequence_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.spectral_sequence_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.spectral_sequence_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">spectral_sequence_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.spectral_sequence_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.spectral_sequence_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">spectral_sequence_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.spectral_sequence_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from sequence_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.is_multiplicative_spectral_sequence">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">is_multiplicative_spectral_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.spectral_sequences.is_multiplicative_spectral_sequence" title="Link to this definition"></a></dt>
+<dd><p>Check whether the spectral sequence is multiplicative.</p>
+<p>A multiplicative spectral sequence is a spectral sequence of algebras:
+each E_r^{<em>,</em>} is a bigraded algebra, the differentials d_r are derivations
+(d_r(xy) = d_r(x)y + (-1)^{<a href="#id11"><span class="problematic" id="id12">|x|</span></a>} x d_r(y)), and the product on E_{r+1} is
+induced from that on E_r via the isomorphism E_{r+1} = H(E_r, d_r).
+Examples: Serre, Adams, AHSS, Leray-Hirsch spectral sequences.</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit multiplicative tags or Serre/Adams tags -&gt; true.</p></li>
+<li><p>AHSS or Leray SS tags -&gt; true (both are multiplicative).</p></li>
+<li><p>Known non-multiplicative spectral sequences (Bockstein, explicit tags) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.converges_strongly">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">converges_strongly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.spectral_sequences.converges_strongly" title="Link to this definition"></a></dt>
+<dd><p>Check whether the spectral sequence converges strongly.</p>
+<p>Strong convergence E_r =&gt; H^n means: for all (p,q), d_r^{p,q} = 0 for r &gt;&gt; 0
+(the pages stabilize to E_infty^{p,q}), and H^n admits a complete Hausdorff
+filtration with gr^p H^{p+q} = E_infty^{p,q}. First-quadrant spectral sequences
+always converge strongly.</p>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit strong convergence or first_quadrant_ss tags -&gt; true.</p></li>
+<li><p>Known strongly convergent types by tag (Serre, AHSS, Leray, LHS) -&gt; true.</p></li>
+<li><p>Known conditionally (not strongly) convergent (Adams, EM) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.has_collapse_at_e2">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">has_collapse_at_e2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.spectral_sequences.has_collapse_at_e2" title="Link to this definition"></a></dt>
+<dd><p>Check whether the spectral sequence collapses at the E_2 page.</p>
+<p>A spectral sequence collapses at E_2 if all differentials d_r = 0 for r &gt;= 2,
+so E_infty = E_2. This gives a direct formula H^n = direct_sum_{p+q=n} E_2^{p,q}
+(no extension problems), and for multiplicative SS it means H^*(E) = H^*(B) tensor H^*(F).
+The Leray-Hirsch theorem gives a sufficient condition for collapse.</p>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit collapse tags (collapses_at_e2, e2_degeneration) -&gt; true.</p></li>
+<li><p>Leray-Hirsch type tags (leray_hirsch, trivial_fibration) -&gt; true.</p></li>
+<li><p>Known non-collapsing types (d3_differential, Adams, EM) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.is_first_quadrant_spectral_sequence">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">is_first_quadrant_spectral_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.spectral_sequences.is_first_quadrant_spectral_sequence" title="Link to this definition"></a></dt>
+<dd><p>Check whether the spectral sequence is a first-quadrant spectral sequence.</p>
+<p>A first-quadrant SS has E_r^{p,q} = 0 for p &lt; 0 or q &lt; 0. These always converge
+strongly and have finite E_infty pages in each total degree. Examples: Serre,
+AHSS, Leray, LHS, Grothendieck. The Adams and EM spectral sequences occupy
+the upper half-plane or second quadrant respectively.</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit first_quadrant_ss tag or CONVERGENCE_TAGS -&gt; true.</p></li>
+<li><p>Known first-quadrant types (Serre, AHSS, Leray, LHS tags) -&gt; true.</p></li>
+<li><p>Known non-first-quadrant (Adams upper half, EM second quadrant) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.classify_spectral_sequence">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">classify_spectral_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.classify_spectral_sequence" title="Link to this definition"></a></dt>
+<dd><p>Run all spectral sequence analysis functions and return a combined result dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.spectral_sequence_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">spectral_sequence_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.spectral_sequence_profile" title="Link to this definition"></a></dt>
+<dd><p>Return a comprehensive spectral sequence profile of the space.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">SpectralPage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A single E^r page of a bigraded spectral sequence.</p>
+<p>Entries E^r_{p,q} are finitely generated abelian groups stored as
+(betti, torsion) pairs where <code class="docutils literal notranslate"><span class="pre">betti</span></code> is the free rank and <code class="docutils literal notranslate"><span class="pre">torsion</span></code>
+is a tuple of invariant factors &gt; 1.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>page_number<span class="classifier">int</span></dt><dd><p>The page index r (r ≥ 1).</p>
+</dd>
+<dt>groups<span class="classifier">dict[tuple[int,int], tuple[int, tuple[int,…]]]</span></dt><dd><p>Maps <code class="docutils literal notranslate"><span class="pre">(p,</span> <span class="pre">q)</span></code> → <code class="docutils literal notranslate"><span class="pre">(betti,</span> <span class="pre">torsion)</span></code>.  Missing entries = zero group.</p>
+</dd>
+<dt>max_p<span class="classifier">int</span></dt><dd><p>Largest filtration degree p with a nonzero entry (for display).</p>
+</dd>
+<dt>max_total<span class="classifier">int</span></dt><dd><p>Largest total degree n = p + q with a nonzero entry.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage.page_number">
+<span class="sig-name descname"><span class="pre">page_number</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage.page_number" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage.groups" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage.max_p">
+<span class="sig-name descname"><span class="pre">max_p</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage.max_p" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage.max_total">
+<span class="sig-name descname"><span class="pre">max_total</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage.max_total" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage.get" title="Link to this definition"></a></dt>
+<dd><p>Return E^r_{p,q} as (betti, torsion), defaulting to (0, ()).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage.betti">
+<span class="sig-name descname"><span class="pre">betti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage.betti" title="Link to this definition"></a></dt>
+<dd><p>Free rank of E^r_{p,q}.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage.torsion">
+<span class="sig-name descname"><span class="pre">torsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage.torsion" title="Link to this definition"></a></dt>
+<dd><p>Torsion invariant factors of E^r_{p,q}.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage.total_rank">
+<span class="sig-name descname"><span class="pre">total_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage.total_rank" title="Link to this definition"></a></dt>
+<dd><p>Sum of Betti numbers ⊕_{p+q=n} E^r_{p,q}.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage.is_zero">
+<span class="sig-name descname"><span class="pre">is_zero</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage.is_zero" title="Link to this definition"></a></dt>
+<dd><p>True if all entries are the zero group.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.SpectralPage.nonzero_positions">
+<span class="sig-name descname"><span class="pre">nonzero_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.SpectralPage.nonzero_positions" title="Link to this definition"></a></dt>
+<dd><p>List of (p,q) positions with nonzero groups.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.FilteredChainComplex">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">FilteredChainComplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_degrees</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_filtration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">generators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.spectral_sequences.FilteredChainComplex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A chain complex together with a filtration by integer degree.</p>
+<section id="id4">
+<h2>Attributes<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>num_degrees<span class="classifier">int</span></dt><dd><p>Homological degrees run from 0 to <code class="docutils literal notranslate"><span class="pre">num_degrees</span> <span class="pre">−</span> <span class="pre">1</span></code>.</p>
+</dd>
+<dt>num_filtration<span class="classifier">int</span></dt><dd><p>Filtration levels 0, 1, …, <code class="docutils literal notranslate"><span class="pre">num_filtration</span> <span class="pre">−</span> <span class="pre">1</span></code>.</p>
+</dd>
+<dt>generators<span class="classifier">dict[int, list[tuple[int, int]]]</span></dt><dd><p>Maps k → list of <code class="docutils literal notranslate"><span class="pre">(filtration_p,</span> <span class="pre">local_index)</span></code> for each C_k generator,
+sorted by filtration_p (non-decreasing).</p>
+</dd>
+<dt>boundary<span class="classifier">dict[int, _Matrix]</span></dt><dd><p>Maps k → integer boundary matrix ∂_k: C_k → C_{k−1}.
+Rows indexed by (k−1)-generators, columns by k-generators in the same
+order as <code class="docutils literal notranslate"><span class="pre">generators[k]</span></code>.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.FilteredChainComplex.num_degrees">
+<span class="sig-name descname"><span class="pre">num_degrees</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.FilteredChainComplex.num_degrees" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.FilteredChainComplex.num_filtration">
+<span class="sig-name descname"><span class="pre">num_filtration</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.spectral_sequences.FilteredChainComplex.num_filtration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.FilteredChainComplex.generators">
+<span class="sig-name descname"><span class="pre">generators</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.spectral_sequences.FilteredChainComplex.generators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.FilteredChainComplex.boundary">
+<span class="sig-name descname"><span class="pre">boundary</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.spectral_sequences.FilteredChainComplex.boundary" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.filtered_chain_complex_from_simplices">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">filtered_chain_complex_from_simplices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simplices_by_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.spectral_sequences.FilteredChainComplex" title="pytop.spectral_sequences.FilteredChainComplex"><span class="pre">FilteredChainComplex</span></a></span></span><a class="headerlink" href="#pytop.spectral_sequences.filtered_chain_complex_from_simplices" title="Link to this definition"></a></dt>
+<dd><p>Build a FilteredChainComplex from explicitly graded simplices.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>simplices_by_degree<span class="classifier">dict</span></dt><dd><p>Maps homological degree k → list of <code class="docutils literal notranslate"><span class="pre">(filtration_p,</span> <span class="pre">simplex_vertices)</span></code>
+where <code class="docutils literal notranslate"><span class="pre">simplex_vertices</span></code> is a sorted tuple of non-negative integer
+vertex indices.  The list order within each degree defines the column
+order of the boundary matrix.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>FilteredChainComplex</dt><dd><p>With boundary matrices computed from the standard oriented simplicial
+boundary formula: ∂(v₀,…,vₖ) = Σᵢ (−1)ⁱ (v₀,…,v̂ᵢ,…,vₖ).</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Build the filtered complex for the interval [0,1] with filtration 0:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fcc</span> <span class="o">=</span> <span class="n">filtered_chain_complex_from_simplices</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="mi">0</span><span class="p">:</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))],</span>
+<span class="gp">... </span>    <span class="mi">1</span><span class="p">:</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))],</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fcc</span><span class="o">.</span><span class="n">num_degrees</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.differential_d_r">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">differential_d_r</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.spectral_sequences.SpectralPage" title="pytop.spectral_sequences.SpectralPage"><span class="pre">SpectralPage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.differential_d_r" title="Link to this definition"></a></dt>
+<dd><p>Return the bidegree and rank of d^r at position (p, q).</p>
+<p>d^r: E^r_{p,q} → E^r_{p−r, q+r−1}  (bidegree (−r, r−1)).</p>
+<p>For a spectral sequence presented by Betti numbers (free abelian groups),
+the differential is represented by its rank — the maximum number of
+generators that can map nontrivially to the target.</p>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict</dt><dd><p><code class="docutils literal notranslate"><span class="pre">{(p</span> <span class="pre">−</span> <span class="pre">r,</span> <span class="pre">q</span> <span class="pre">+</span> <span class="pre">r</span> <span class="pre">−</span> <span class="pre">1):</span> <span class="pre">rank}</span></code> if both source and target are nonzero,
+else an empty dict.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>Examples<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>On the E^2 page of a product spectral sequence (Künneth), all
+differentials d^2, d^3, … are zero, so this returns <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.spectral_sequences.converges_to">
+<span class="sig-prename descclassname"><span class="pre">pytop.spectral_sequences.</span></span><span class="sig-name descname"><span class="pre">converges_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fcc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.spectral_sequences.FilteredChainComplex" title="pytop.spectral_sequences.FilteredChainComplex"><span class="pre">FilteredChainComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.spectral_sequences.SpectralPage" title="pytop.spectral_sequences.SpectralPage"><span class="pre">SpectralPage</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.spectral_sequences.SpectralPage" title="pytop.spectral_sequences.SpectralPage"><span class="pre">SpectralPage</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.spectral_sequences.converges_to" title="Link to this definition"></a></dt>
+<dd><p>Compute all pages of the spectral sequence until convergence (E^∞).</p>
+<p>Starts from E^1, then iterates d^r page-turns until the page stabilises.
+Each step computes E^{r+1}_{p,q} = ker(d^r_{p,q}) / im(d^r_{p+r, q−r+1}).</p>
+<section id="id7">
+<h2>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>fcc<span class="classifier">FilteredChainComplex</span></dt><dd><p>A finite filtered chain complex built by
+<code class="docutils literal notranslate"><span class="pre">filtered_chain_complex_from_simplices</span></code> or supplied directly.</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h2>Returns<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>(e_inf, pages)</dt><dd><p><code class="docutils literal notranslate"><span class="pre">e_inf</span></code> — the stabilised E^∞ page.
+<code class="docutils literal notranslate"><span class="pre">pages</span></code> — list [E^1, E^2, …] of all computed pages.</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<p>Convergence: E^∞_{p,q} ≅ Gr^p H_{p+q}(C_*).
+For a product filtration: sequence degenerates at E^2 (Künneth formula).
+For a Serre fibration: E^2_{p,q} = H_p(B; H_q(F)) ⇒ H_{p+q}(E).</p>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

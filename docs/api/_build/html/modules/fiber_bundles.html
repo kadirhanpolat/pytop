@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fiber Bundles &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Fiber Bundles</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/fiber_bundles.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.fiber_bundles">
+<span id="fiber-bundles"></span><h1>Fiber Bundles<a class="headerlink" href="#module-pytop.fiber_bundles" title="Link to this heading"></a></h1>
+<p>Fiber bundles: local triviality, vector bundles, principal bundles, and sections.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Every fiber bundle pi: E -&gt; B with fiber F is locally trivial: each point b in B
+has a neighbourhood U such that pi^{-1}(U) is homeomorphic to U x F over U.</p></li>
+<li><p>A vector bundle is a fiber bundle whose fiber is a vector space R^n (or C^n)
+with transition functions in GL(n,R) (or GL(n,C)).</p></li>
+<li><p>The zero section sigma_0: B -&gt; E (b <a href="#id1"><span class="problematic" id="id2">|</span></a>-&gt; 0_b) always exists for any vector bundle.</p></li>
+<li><p>Hairy ball theorem: the tangent bundle TS^{2n} has no nowhere-zero section.
+Equivalently, every continuous vector field on S^{2n} vanishes somewhere.
+This follows from the Poincare-Hopf theorem: chi(S^{2n}) = 2 != 0, so the
+Euler class e(TS^{2n}) != 0, obstructing a nowhere-zero section.</p></li>
+<li><p>Odd-dimensional spheres S^{2n-1} admit a nowhere-zero tangent vector field
+(rotate each tangent vector by 90 degrees in the fibre), since chi(S^{2n-1}) = 0.</p></li>
+<li><p>S^n is parallelizable (TS^n trivial) only for n = 1, 3, 7 (Adams’ theorem via
+K-theory and Adams operations).</p></li>
+<li><p>The Mobius band is the total space of the non-trivial real line bundle over S^1.
+It has no nowhere-zero section: a non-vanishing section would yield a continuous
+map S^1 -&gt; R{0} that changes sign after one full loop — contradicting continuity.</p></li>
+<li><p>The Hopf fibration eta: S^3 -&gt; S^2 with fibre S^1 is a principal U(1)-bundle.
+Its Hopf invariant equals 1 and it represents the generator of pi_3(S^2) ≅ Z.</p></li>
+<li><p>Every principal GL(n)-bundle (frame bundle of a smooth manifold) admits a
+reduction of structure group to O(n): pick a Riemannian metric via partition of unity.</p></li>
+<li><p>A fiber bundle over a contractible base is trivial (homotopy lifting property).</p></li>
+<li><p>Classification: principal G-bundles over a paracompact space X are classified by
+homotopy classes [X, BG], where BG is the classifying space of G.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">FiberBundleProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bundle_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_locally_trivial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_vector_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_principal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_trivial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_nowhere_zero_section</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_orientable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated fiber bundle example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.bundle_type">
+<span class="sig-name descname"><span class="pre">bundle_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.bundle_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.is_locally_trivial">
+<span class="sig-name descname"><span class="pre">is_locally_trivial</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.is_locally_trivial" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.is_vector_bundle">
+<span class="sig-name descname"><span class="pre">is_vector_bundle</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.is_vector_bundle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.is_principal">
+<span class="sig-name descname"><span class="pre">is_principal</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.is_principal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.is_trivial">
+<span class="sig-name descname"><span class="pre">is_trivial</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.is_trivial" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.has_nowhere_zero_section">
+<span class="sig-name descname"><span class="pre">has_nowhere_zero_section</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.has_nowhere_zero_section" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.is_orientable">
+<span class="sig-name descname"><span class="pre">is_orientable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.is_orientable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.FiberBundleProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.fiber_bundles.FiberBundleProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.get_named_fiber_bundle_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">get_named_fiber_bundle_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.fiber_bundles.FiberBundleProfile" title="pytop.fiber_bundles.FiberBundleProfile"><span class="pre">FiberBundleProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.fiber_bundles.get_named_fiber_bundle_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical fiber bundle examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.fiber_bundle_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">fiber_bundle_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.fiber_bundles.fiber_bundle_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.fiber_bundle_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">fiber_bundle_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.fiber_bundles.fiber_bundle_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.fiber_bundle_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">fiber_bundle_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.fiber_bundles.fiber_bundle_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from bundle_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.is_locally_trivial">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">is_locally_trivial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.fiber_bundles.is_locally_trivial" title="Link to this definition"></a></dt>
+<dd><p>Check whether space carries a locally trivial fiber bundle structure.</p>
+<p>A map pi: E -&gt; B is a fiber bundle with fiber F if every point b in B has
+a neighbourhood U and a homeomorphism phi: pi^{-1}(U) -&gt; U x F with
+pi = proj_U o phi. All vector bundles and principal G-bundles are locally trivial.
+Key facts:
+- Every vector bundle is locally trivial by definition.
+- Every principal G-bundle is locally trivial.
+- Locally trivial does NOT imply globally trivial (Mobius band, Hopf fibration).
+- A fiber bundle over a contractible base IS trivial (homotopy lifting).</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit fiber_bundle / locally_trivial tag -&gt; true.</p></li>
+<li><p>Vector bundle tag (rank-n, line bundle, tangent/cotangent) -&gt; true.</p></li>
+<li><p>Principal bundle tag -&gt; true.</p></li>
+<li><p>Trivial / product bundle -&gt; true.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.is_vector_bundle">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">is_vector_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.fiber_bundles.is_vector_bundle" title="Link to this definition"></a></dt>
+<dd><p>Check whether space is a vector bundle.</p>
+<p>A vector bundle pi: E -&gt; B of rank k is a fiber bundle with fiber R^k (or C^k)
+such that each fibre E_b = pi^{-1}(b) is a k-dimensional vector space and the
+transition functions lie in GL(k,R) (or GL(k,C)). Key facts:
+- The zero section sigma_0: B -&gt; E (b <a href="#id3"><span class="problematic" id="id4">|</span></a>-&gt; 0_b) exists for every vector bundle.
+- A nowhere-zero section exists iff the bundle has Euler class zero (rank = dim(B))</p>
+<blockquote>
+<div><p>or is of lower rank than the base dimension.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The tangent and cotangent bundles of any smooth manifold are vector bundles.</p></li>
+<li><p>Complex vector bundles have canonical orientations (Chern classes live in H^{2k}).</p></li>
+<li><p>Principal G-bundles are NOT vector bundles in general (Hopf fibration: G = U(1)).</p></li>
+</ul>
+<section id="id5">
+<h2>Decision layers<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit vector_bundle / line_bundle / rank_n_bundle tag -&gt; true.</p></li>
+<li><p>Tangent / cotangent / normal / tautological bundle -&gt; true.</p></li>
+<li><p>Mobius band (line bundle, but check separately) -&gt; true.</p></li>
+<li><p>Principal bundle (not a vector bundle unless G = GL(n)) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.is_trivial_bundle">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">is_trivial_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.fiber_bundles.is_trivial_bundle" title="Link to this definition"></a></dt>
+<dd><p>Check whether the bundle is globally trivial (isomorphic to a product).</p>
+<p>A bundle pi: E -&gt; B is trivial if there exists a homeomorphism E ≅ B x F
+over B. Key facts:
+- Any bundle over a contractible base is trivial (homotopy lifting property).
+- A rank-k vector bundle over B is trivial iff it admits k everywhere-linearly-</p>
+<blockquote>
+<div><p>independent global sections (a global frame).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>S^n is parallelizable (TS^n trivial) only for n = 1, 3, 7 (Adams’ theorem).</p></li>
+<li><p>The Mobius band, Hopf fibration, and tautological bundles are non-trivial.</p></li>
+<li><p>Classification: principal G-bundles over X are classified by [X, BG]; a bundle
+is trivial iff the classifying map f: X -&gt; BG is null-homotopic.</p></li>
+</ul>
+<section id="id6">
+<h2>Decision layers<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit trivial / product bundle tag -&gt; true.</p></li>
+<li><p>Contractible base (homotopy lifting) -&gt; true.</p></li>
+<li><p>Parallelizable manifold tangent bundle -&gt; true.</p></li>
+<li><p>Mobius band / Hopf bundle / tautological bundle -&gt; false.</p></li>
+<li><p>Non-parallelizable manifold tangent bundle -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.has_nowhere_zero_section">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">has_nowhere_zero_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.fiber_bundles.has_nowhere_zero_section" title="Link to this definition"></a></dt>
+<dd><p>Check whether the vector bundle has a nowhere-zero global section.</p>
+<p>A nowhere-zero section of a vector bundle E -&gt; B is a continuous map
+s: B -&gt; E with pi o s = id_B and s(b) != 0_b for all b in B. Key facts:
+- The zero section always exists but is NOT nowhere-zero.
+- Hairy ball theorem: TS^{2n} has no nowhere-zero section (chi(S^{2n}) = 2 != 0).
+- TS^{2n-1} has a nowhere-zero section (chi(S^{2n-1}) = 0).
+- The Mobius band (line bundle over S^1) has no nowhere-zero section (w_1 != 0).
+- Trivial bundles always have nowhere-zero sections (constant sections).
+- Poincare-Hopf: a vector field on a compact manifold has a zero iff chi(M) != 0.
+- A rank-k vector bundle over an n-manifold (k &gt; n) always has a nowhere-zero</p>
+<blockquote>
+<div><p>section (by dimensional reasons; general position argument).</p>
+</div></blockquote>
+<section id="id7">
+<h2>Decision layers<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Trivial / product bundle / parallelizable -&gt; true.</p></li>
+<li><p>Odd sphere tangent bundle (chi = 0 -&gt; nowhere-zero field) -&gt; true.</p></li>
+<li><p>Explicit nowhere-zero section tag -&gt; true.</p></li>
+<li><p>Even sphere tangent bundle (hairy ball theorem) -&gt; false.</p></li>
+<li><p>Mobius band / non-orientable line bundle (w_1 != 0) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.is_orientable_bundle">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">is_orientable_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.fiber_bundles.is_orientable_bundle" title="Link to this definition"></a></dt>
+<dd><p>Check whether the vector bundle is orientable.</p>
+<p>A real vector bundle pi: E -&gt; B of rank k is orientable if its first
+Stiefel-Whitney class w_1(E) in H^1(B; Z/2) vanishes, equivalently if
+the structure group reduces from GL(k,R) to GL^+(k,R) (matrices with
+positive determinant). Key facts:
+- Every complex vector bundle is orientable (complex structure -&gt; canonical orientation).
+- Every trivial real bundle is orientable (constant positive frame).
+- The tangent bundle TM is orientable iff M is an orientable manifold.
+- The Mobius band (line bundle over S^1) is NOT orientable: w_1 != 0.
+- Tautological real line bundle over RP^n is NOT orientable.
+- The Hopf bundle (S^3 -&gt; S^2, principal U(1)-bundle) is not a vector bundle</p>
+<blockquote>
+<div><p>(principal bundles need not carry a natural orientation notion).</p>
+</div></blockquote>
+<section id="id8">
+<h2>Decision layers<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Complex vector bundle (canonical orientation from complex structure) -&gt; true.</p></li>
+<li><p>Trivial / product real bundle -&gt; true.</p></li>
+<li><p>Tangent bundle of orientable manifold -&gt; true.</p></li>
+<li><p>Explicit orientable bundle tag -&gt; true.</p></li>
+<li><p>Mobius band / w_1 != 0 tag -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.classify_bundle">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">classify_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.fiber_bundles.classify_bundle" title="Link to this definition"></a></dt>
+<dd><p>Classify the fiber bundle properties of space.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>bundle_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;trivial&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;vector_bundle&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;principal&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;locally_trivial&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_locally_trivial : Result
+is_vector_bundle : Result
+is_trivial_bundle : Result
+has_nowhere_zero_section : Result
+is_orientable_bundle : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.fiber_bundles.fiber_bundle_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.fiber_bundles.</span></span><span class="sig-name descname"><span class="pre">fiber_bundle_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.fiber_bundles.fiber_bundle_profile" title="Link to this definition"></a></dt>
+<dd><p>Full fiber bundle profile combining classification and named examples.</p>
+<section id="id9">
+<h2>Keys<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.fiber_bundles.classify_bundle" title="pytop.fiber_bundles.classify_bundle"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_bundle()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[FiberBundleProfile, …]</span></dt><dd><p>Registry of canonical fiber bundle examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

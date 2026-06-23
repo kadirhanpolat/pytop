@@ -1,0 +1,394 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sheaf Cohomology &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Sheaf Cohomology</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/sheaf_cohomology.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.sheaf_cohomology">
+<span id="sheaf-cohomology"></span><h1>Sheaf Cohomology<a class="headerlink" href="#module-pytop.sheaf_cohomology" title="Link to this heading"></a></h1>
+<p>Čech sheaf cohomology on finite topological spaces (Phase 12.1).</p>
+<p>For a finite topological space X with topology τ and a sheaf F of
+finitely generated free ℤ-modules, the Čech cohomology</p>
+<blockquote>
+<div><p>H^p(X; F)  (p = 0, 1, 2, …)</p>
+</div></blockquote>
+<p>is computed from the Čech cochain complex with respect to an explicit
+open cover U = {U₀, …, Uₙ}:</p>
+<blockquote>
+<div><p>C^p(U, F) = ⊕_{i₀ &lt; … &lt; iₚ, ∩U_{iₖ} ≠ ∅} F(∩U_{iₖ})</p>
+<p>δ^p: C^p → C^{p+1},  (δ^p s)_J = ∑_k (−1)^k res_{∩U_I → ∩U_J}(s_I)</p>
+<p>H^p = ker δ^p / im δ^{p−1}  (computed via Smith normal form)</p>
+</div></blockquote>
+<p>Key results encoded in this module:
+- Constant sheaf ℤ, cover = all non-empty opens: H^0 = ℤ^c where c is the</p>
+<blockquote>
+<div><p>number of connected components.  For acyclic covers (Leray’s theorem),
+the Čech cohomology equals the derived-functor sheaf cohomology.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Skyscraper sheaf at a point: H^0 = ℤ (the stalk), H^p = 0 for p &gt; 0.</p></li>
+<li><p>The coboundary formula is the standard alternating-sum formula for Čech
+cochains; signs are (−1)^k where k is the position of the omitted index
+in the ordered multi-index.</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.FiniteSheaf">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.sheaf_cohomology.</span></span><span class="sig-name descname"><span class="pre">FiniteSheaf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'F'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.sheaf_cohomology.FiniteSheaf" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A sheaf of finitely generated free ℤ-modules on a finite topological space.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>open_sets:</dt><dd><p>All open sets of the space (tuple of frozensets, ordered canonically).</p>
+</dd>
+<dt>sections:</dt><dd><p>Maps each open set U to its ℤ-rank, i.e. rank of F(U).
+By convention sections[frozenset()] = 0 (empty stalk).</p>
+</dd>
+<dt>restrictions:</dt><dd><p>Maps each pair (U, V) with V ⊊ U (V ≠ U) to the integer matrix
+res_{U→V}: ℤ^{rank U} → ℤ^{rank V} stored as a list of rows, each
+of length rank U, giving a matrix of shape rank(V) × rank(U).</p>
+</dd>
+<dt>name:</dt><dd><p>Human-readable label (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;ℤ&quot;</span></code> for the constant sheaf).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.FiniteSheaf.open_sets">
+<span class="sig-name descname"><span class="pre">open_sets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.sheaf_cohomology.FiniteSheaf.open_sets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.FiniteSheaf.sections">
+<span class="sig-name descname"><span class="pre">sections</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.sheaf_cohomology.FiniteSheaf.sections" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.FiniteSheaf.restrictions">
+<span class="sig-name descname"><span class="pre">restrictions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.sheaf_cohomology.FiniteSheaf.restrictions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.FiniteSheaf.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'F'</span></span><a class="headerlink" href="#pytop.sheaf_cohomology.FiniteSheaf.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.FiniteSheaf.section_rank">
+<span class="sig-name descname"><span class="pre">section_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.sheaf_cohomology.FiniteSheaf.section_rank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.FiniteSheaf.restrict">
+<span class="sig-name descname"><span class="pre">restrict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">big</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">small</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.sheaf_cohomology.FiniteSheaf.restrict" title="Link to this definition"></a></dt>
+<dd><p>Restriction matrix res_{big → small}.  Returns identity if big == small.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.constant_sheaf">
+<span class="sig-prename descclassname"><span class="pre">pytop.sheaf_cohomology.</span></span><span class="sig-name descname"><span class="pre">constant_sheaf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ℤ'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sheaf_cohomology.FiniteSheaf" title="pytop.sheaf_cohomology.FiniteSheaf"><span class="pre">FiniteSheaf</span></a></span></span><a class="headerlink" href="#pytop.sheaf_cohomology.constant_sheaf" title="Link to this definition"></a></dt>
+<dd><p>The constant sheaf ℤ: F(U) = ℤ for U ≠ ∅, F(∅) = 0.</p>
+<p>Restriction maps are all the identity map ℤ → ℤ (constant sections restrict
+to constant sections).</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>open_sets:</dt><dd><p>All open sets of the finite topological space, including ∅.</p>
+</dd>
+<dt>name:</dt><dd><p>Label for the sheaf (default <code class="docutils literal notranslate"><span class="pre">&quot;ℤ&quot;</span></code>).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="#pytop.sheaf_cohomology.FiniteSheaf" title="pytop.sheaf_cohomology.FiniteSheaf"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteSheaf</span></code></a> representing the constant ℤ-sheaf.</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">opens</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span> <span class="o">=</span> <span class="n">constant_sheaf</span><span class="p">(</span><span class="n">opens</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="o">.</span><span class="n">section_rank</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="o">.</span><span class="n">section_rank</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">())</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.skyscraper_sheaf">
+<span class="sig-prename descclassname"><span class="pre">pytop.sheaf_cohomology.</span></span><span class="sig-name descname"><span class="pre">skyscraper_sheaf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stalk_open</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sky'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sheaf_cohomology.FiniteSheaf" title="pytop.sheaf_cohomology.FiniteSheaf"><span class="pre">FiniteSheaf</span></a></span></span><a class="headerlink" href="#pytop.sheaf_cohomology.skyscraper_sheaf" title="Link to this definition"></a></dt>
+<dd><p>The skyscraper sheaf with stalk ℤ^rank supported at <em>stalk_open</em>.</p>
+<p>F(U) = ℤ^rank if stalk_open ⊆ U, else 0.  Restriction maps are the
+identity on ℤ^rank between open sets that both contain the stalk point.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>open_sets:</dt><dd><p>All open sets of the finite topological space.</p>
+</dd>
+<dt>stalk_open:</dt><dd><p>The open set on which the sheaf is concentrated (its stalk).</p>
+</dd>
+<dt>rank:</dt><dd><p>ℤ-rank of the stalk (default 1).</p>
+</dd>
+<dt>name:</dt><dd><p>Label for the sheaf.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>Returns<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="#pytop.sheaf_cohomology.FiniteSheaf" title="pytop.sheaf_cohomology.FiniteSheaf"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteSheaf</span></code></a>.</p>
+</section>
+<section id="id3">
+<h2>Examples<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">opens</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span> <span class="o">=</span> <span class="n">skyscraper_sheaf</span><span class="p">(</span><span class="n">opens</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="o">.</span><span class="n">section_rank</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="o">.</span><span class="n">section_rank</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}))</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.cech_cohomology">
+<span class="sig-prename descclassname"><span class="pre">pytop.sheaf_cohomology.</span></span><span class="sig-name descname"><span class="pre">cech_cohomology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cover</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheaf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.sheaf_cohomology.FiniteSheaf" title="pytop.sheaf_cohomology.FiniteSheaf"><span class="pre">FiniteSheaf</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="exact_linalg.html#pytop.exact_linalg.AbelianGroup" title="pytop.exact_linalg.AbelianGroup"><span class="pre">AbelianGroup</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.sheaf_cohomology.cech_cohomology" title="Link to this definition"></a></dt>
+<dd><p>Compute Čech cohomology H^p(cover, F) for p = 0, …, max_degree.</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>cover:</dt><dd><p>Non-empty open sets forming an open cover of X.  Intersections are
+computed automatically.  The empty set is silently dropped.</p>
+</dd>
+<dt>sheaf:</dt><dd><p>A <a class="reference internal" href="#pytop.sheaf_cohomology.FiniteSheaf" title="pytop.sheaf_cohomology.FiniteSheaf"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteSheaf</span></code></a> on the same topological space.</p>
+</dd>
+<dt>max_degree:</dt><dd><p>Highest cohomology degree to compute.  Defaults to <code class="docutils literal notranslate"><span class="pre">len(cover)</span> <span class="pre">−</span> <span class="pre">1</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>dict mapping p → <code class="xref py py-class docutils literal notranslate"><span class="pre">AbelianGroup</span></code>.</p>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<p>The Betti number formula is:</p>
+<blockquote>
+<div><p>β^p = (rank C^p − rank δ^p) − rank δ^{p−1}</p>
+</div></blockquote>
+<p>Torsion is extracted from the invariant factors of δ^{p−1} via SNF.</p>
+</section>
+<section id="id6">
+<h2>Examples<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>Sierpiński space (contractible) with constant sheaf ℤ:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">opens</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span> <span class="o">=</span> <span class="n">constant_sheaf</span><span class="p">(</span><span class="n">opens</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cover</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">cech_cohomology</span><span class="p">(</span><span class="n">cover</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">&#39;Z&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">free_rank</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sheaf_cohomology.sheaf_cohomology">
+<span class="sig-prename descclassname"><span class="pre">pytop.sheaf_cohomology.</span></span><span class="sig-name descname"><span class="pre">sheaf_cohomology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">universe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheaf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.sheaf_cohomology.FiniteSheaf" title="pytop.sheaf_cohomology.FiniteSheaf"><span class="pre">FiniteSheaf</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.sheaf_cohomology.sheaf_cohomology" title="Link to this definition"></a></dt>
+<dd><p>Compute Čech sheaf cohomology on a finite topological space.</p>
+<p>Uses the <strong>minimal open neighborhood cover</strong> {U_x : x ∈ X} as the
+Čech cover.  This is a Leray cover for the constant sheaf on any finite
+T₀ space (McCord 1966), so the result equals the sheaf-theoretic
+(derived-functor) cohomology in that case.</p>
+<section id="id7">
+<h2>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>open_sets:</dt><dd><p>All open sets of X (should include ∅ and <em>universe</em>).</p>
+</dd>
+<dt>universe:</dt><dd><p>The total space X (a frozenset of points).</p>
+</dd>
+<dt>sheaf:</dt><dd><p>A <a class="reference internal" href="#pytop.sheaf_cohomology.FiniteSheaf" title="pytop.sheaf_cohomology.FiniteSheaf"><code class="xref py py-class docutils literal notranslate"><span class="pre">FiniteSheaf</span></code></a> on X.</p>
+</dd>
+<dt>max_degree:</dt><dd><p>Highest degree to compute.  Defaults to <code class="docutils literal notranslate"><span class="pre">|X|</span> <span class="pre">−</span> <span class="pre">1</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h2>Returns<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>dict with keys:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;cohomology&quot;</span></code> : dict[int, <code class="xref py py-class docutils literal notranslate"><span class="pre">AbelianGroup</span></code>]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;betti_numbers&quot;</span></code> : list[int]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;euler_characteristic&quot;</span></code> : int  (alternating sum of Betti numbers)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;cover_size&quot;</span></code> : int  (number of minimal open neighborhoods used)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;sheaf&quot;</span></code> : str  (name of the sheaf)</p></li>
+</ul>
+</section>
+<section id="id9">
+<h2>Examples<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<p>Constant sheaf ℤ on a 2-point discrete space (two connected components):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">opens</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span> <span class="o">=</span> <span class="n">constant_sheaf</span><span class="p">(</span><span class="n">opens</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">sheaf_cohomology</span><span class="p">(</span><span class="n">opens</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}),</span> <span class="n">F</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;betti_numbers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>Constant sheaf on the Sierpiński space (contractible):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">opens2</span> <span class="o">=</span> <span class="p">[</span><span class="nb">frozenset</span><span class="p">(),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">}),</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F2</span> <span class="o">=</span> <span class="n">constant_sheaf</span><span class="p">(</span><span class="n">opens2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r2</span> <span class="o">=</span> <span class="n">sheaf_cohomology</span><span class="p">(</span><span class="n">opens2</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}),</span> <span class="n">F2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r2</span><span class="p">[</span><span class="s2">&quot;betti_numbers&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

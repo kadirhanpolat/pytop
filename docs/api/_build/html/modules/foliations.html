@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foliations &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Foliations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/foliations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.foliations">
+<span id="foliations"></span><h1>Foliations<a class="headerlink" href="#module-pytop.foliations" title="Link to this heading"></a></h1>
+<p>Foliation theory: foliations of manifolds, Frobenius integrability, leaf spaces,
+holonomy, taut foliations, and the Godbillon-Vey invariant.</p>
+<section id="key-theorems-and-constructions-implemented">
+<h2>Key theorems and constructions implemented<a class="headerlink" href="#key-theorems-and-constructions-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Foliation (Ehresmann 1950, Reeb 1952): a codimension-q foliation F of a smooth
+n-manifold M is a maximal atlas of charts {(U_i, phi_i)} with phi_i: U_i -&gt; R^n
+such that the transition maps phi_j ∘ phi_i^{-1} have the block form
+(x, y) <a href="#id1"><span class="problematic" id="id2">|</span></a>-&gt; (f(x,y), g(y)) — they preserve the horizontal slices R^k × {y}
+(here k = n - q = leaf dimension). The leaves are the maximal connected submanifolds
+locally modeled on the R^k slices; they are immersed submanifolds of dimension k.
+Locally M looks like the product R^k × R^q, but globally leaves can be dense,
+non-compact, or have complicated topology.</p></li>
+<li><p>Frobenius theorem (Frobenius 1877): a smooth rank-k distribution D ⊂ TM (a smooth
+field of k-dimensional subspaces of the tangent bundle) is integrable (i.e., is the
+tangent distribution of a codimension-(n-k) foliation) if and only if D is involutive:
+for all smooth vector fields X, Y with X_p, Y_p ∈ D_p, the Lie bracket [X,Y]_p ∈ D_p.
+Equivalently (Cartan’s formulation): a codimension-q distribution defined locally by
+1-forms omega_1, …, omega_q is integrable iff d(omega_i) ≡ 0 mod {omega_1,…,omega_q}
+for each i (i.e., d(omega_i) ∧ omega_1 ∧ … ∧ omega_q = 0).
+The Frobenius theorem reduces integrability (a global geometric condition) to involutivity
+(a pointwise algebraic condition on the Lie bracket).</p></li>
+<li><p>Reeb foliation of S^3 (Reeb 1952): the canonical example of a codimension-1 foliation
+of S^3. Construction: write S^3 = D^2 × S^1 ∪_{T^2} S^1 × D^2 (Heegaard splitting).
+On D^2 × S^1 define a foliation with leaves the graphs of f(r,theta) = exp(1/(1-r^2))
+(which all accumulate on the boundary torus T^2 = ∂D^2 × S^1). The boundary torus is
+the unique compact leaf; all other leaves are diffeomorphic to R^2 and spiral toward T^2.
+Novikov’s theorem (1965): every codimension-1 C^2 foliation of S^3 has a compact leaf.
+The Reeb foliation shows this is tight: there is exactly one compact leaf (the torus).</p></li>
+<li><p>Leaf space (holonomy groupoid): the quotient space M/F = {leaves of F} with the
+quotient topology is in general non-Hausdorff and non-locally-compact (e.g., for the
+Kronecker foliation of T^2 with irrational slope, M/F is indiscrete). The correct
+object is the holonomy groupoid (Winkelnkemper 1983) or the C*-algebra C*(M,F)
+(Connes 1979), which provides a ‘noncommutative leaf space’ amenable to K-theory.
+Morita equivalence of groupoids captures when two foliations have equivalent transverse
+structures.</p></li>
+<li><p>Holonomy (Ehresmann 1950): for a leaf L of F and a loop gamma: [0,1] -&gt; L (gamma(0)
+= gamma(1) = x), the holonomy of gamma is a germ of diffeomorphism of a transversal T_x
+at x. The holonomy group Hol(L, x) = {germs of holonomy diffeomorphisms} is a group of
+germs; it measures how nearby leaves ‘return’ after following gamma. A leaf has trivial
+holonomy if Hol(L, x) = {id}. All leaves of a Riemannian foliation have trivial
+holonomy (Molino’s theorem). A foliation is without holonomy iff the holonomy groupoid
+is equivalent to the fundamental groupoid of the leaf space.</p></li>
+<li><p>Taut foliations (Thurston 1986, Gabai 1983): a codimension-1 foliation F of a closed
+3-manifold M is taut if every leaf of F meets a closed transversal (a loop in M
+transverse to F). Equivalently (Sullivan 1976): F is taut iff there exists a closed
+2-form omega on M such that omega|_L is a positive area form on each leaf L.
+Gabai proved that every fibered knot complement admits a taut foliation; taut foliations
+imply the leaves are volume-minimizing in their homology class. Thurston norm: the
+Thurston norm on H_2(M,∂M;Z) measures the minimal complexity of surfaces representing
+a homology class; taut foliations are the leaf-wise minimizers.</p></li>
+<li><p>Godbillon-Vey invariant (Godbillon-Vey 1971): for a codimension-1 C^2 foliation F
+defined by a 1-form omega (locally: ker(omega)), the 1-form eta satisfying
+d(omega) = eta ∧ omega is not unique but eta ∧ d(eta) is a closed 3-form independent
+of the choice of eta. Its cohomology class gv(F) = [eta ∧ d(eta)] ∈ H^3(M; R) is the
+Godbillon-Vey invariant, the first and most studied secondary characteristic class.
+For codimension-q foliations: the Godbillon-Vey class lives in H^{2q+1}(M; R) and is
+defined via the Bott connection. Thurston (1972) showed gv can be any real number for
+foliations of S^3; in particular, gv is not determined by the topology of M alone.
+Brooks-Goldman theorem: for foliations of compact 3-manifolds, gv depends only on the
+foliation (not the representing form), confirming it is a genuine foliation invariant.</p></li>
+<li><p>Riemannian foliations (Reinhart 1959): a foliation F is Riemannian if there is a
+holonomy-invariant Riemannian metric on the transverse bundle Q = TM/TF. All leaves of
+a Riemannian foliation have trivial holonomy; leaves are locally equidistant (the
+distance between leaves is locally constant). Molino’s theorem (1988): the closure of
+leaves of a Riemannian foliation on a compact manifold are the fibers of a fiber bundle,
+and locally the foliation decomposes as a product of a Riemannian foliation and a
+connected Lie group orbit (the ‘Molino sheaf’). Riemannian foliations are the
+‘tamest’ class: their transverse geometry is classical Riemannian geometry.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">FoliationProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">foliation_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">codimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">leaf_dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_compact_leaf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_taut</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">holonomy_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.foliations.FoliationProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated foliation theory example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.foliation_type">
+<span class="sig-name descname"><span class="pre">foliation_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.foliation_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.codimension">
+<span class="sig-name descname"><span class="pre">codimension</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.codimension" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.leaf_dimension">
+<span class="sig-name descname"><span class="pre">leaf_dimension</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.leaf_dimension" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.has_compact_leaf">
+<span class="sig-name descname"><span class="pre">has_compact_leaf</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.has_compact_leaf" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.is_taut">
+<span class="sig-name descname"><span class="pre">is_taut</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.is_taut" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.holonomy_type">
+<span class="sig-name descname"><span class="pre">holonomy_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.holonomy_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.foliations.FoliationProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.foliations.FoliationProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.foliations.get_named_foliation_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">get_named_foliation_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.foliations.FoliationProfile" title="pytop.foliations.FoliationProfile"><span class="pre">FoliationProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.foliations.get_named_foliation_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical foliation theory examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.foliations.foliation_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">foliation_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.foliations.foliation_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.foliations.foliation_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">foliation_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.foliations.foliation_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.foliations.foliation_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">foliation_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.foliations.foliation_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from foliation_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.foliations.is_frobenius_integrable">
+<span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">is_frobenius_integrable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.foliations.is_frobenius_integrable" title="Link to this definition"></a></dt>
+<dd><p>Check whether a distribution satisfies the Frobenius integrability condition.</p>
+<p>The Frobenius theorem (1877): a distribution D ⊂ TM is integrable (i.e., is the
+tangent distribution of a foliation) iff it is involutive: [X,Y] ∈ D for all
+X, Y ∈ Gamma(D). In Cartan’s formulation, the defining forms omega_i satisfy
+d(omega_i) ∧ omega_1 ∧ … ∧ omega_q = 0 for each i.</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘frobenius_theorem’ or ‘integrable_distribution’ tag -&gt; true.</p></li>
+<li><p>Known integrable structures (foliation, taut, Riemannian foliation) -&gt; true.</p></li>
+<li><p>Non-integrable (contact distribution) tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.foliations.has_compact_leaf">
+<span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">has_compact_leaf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.foliations.has_compact_leaf" title="Link to this definition"></a></dt>
+<dd><p>Check whether the foliation has at least one compact leaf.</p>
+<p>Novikov’s theorem (1965): every codimension-1 C^2 foliation of S^3 has a compact
+leaf (diffeomorphic to T^2). For general 3-manifolds this is false. Compact leaves
+exist in Reeb foliations (the boundary torus) and in foliations of fiber bundles
+(all fibers are compact). For irrational Kronecker foliations of T^2, no compact
+leaf exists.</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘compact_leaf’ or ‘closed_leaf’ tag -&gt; true.</p></li>
+<li><p>Reeb foliation or Novikov tags -&gt; true.</p></li>
+<li><p>Kronecker (irrational) or dense-leaf tags -&gt; false.</p></li>
+<li><p>Taut foliation (often no compact leaf in 3-manifold context) -&gt; unknown.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.foliations.is_taut_foliation">
+<span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">is_taut_foliation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.foliations.is_taut_foliation" title="Link to this definition"></a></dt>
+<dd><p>Check whether the foliation is taut.</p>
+<p>A codimension-1 foliation F is taut if every leaf meets a closed transversal.
+Equivalently (Sullivan 1976): F is taut iff there exists a closed 2-form omega
+with omega|_L &gt; 0 on every leaf L. Taut foliations are Reeb-free.</p>
+<section id="id4">
+<h2>Decision layers<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘taut_foliation’ or ‘sullivan_taut’ tag -&gt; true.</p></li>
+<li><p>Gabai/fibered knot tags -&gt; true.</p></li>
+<li><p>Reeb foliation or Reeb component tags -&gt; false (Reeb foliations are not taut).</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.foliations.has_trivial_holonomy">
+<span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">has_trivial_holonomy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.foliations.has_trivial_holonomy" title="Link to this definition"></a></dt>
+<dd><p>Check whether all leaves have trivial holonomy.</p>
+<p>A leaf L has trivial holonomy if every loop gamma in L has trivial holonomy germ
+(the local return map near L is the identity). Riemannian foliations have all
+trivial holonomy (Molino). Taut foliations often have trivial holonomy. Reeb
+foliations have non-trivial holonomy on the compact torus leaf.</p>
+<section id="id5">
+<h2>Decision layers<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘trivial_holonomy’ tag -&gt; true.</p></li>
+<li><p>Riemannian foliation tags -&gt; true (Molino’s theorem).</p></li>
+<li><p>Kronecker/linear foliation -&gt; true.</p></li>
+<li><p>Non-trivial holonomy or Reeb foliation -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.foliations.classify_foliation">
+<span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">classify_foliation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.foliations.classify_foliation" title="Link to this definition"></a></dt>
+<dd><p>Classify the foliation type based on its structural properties.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>foliation_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;taut_trivial_holonomy&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;riemannian&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;reeb_type&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;compact_leaf_nontrivial&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;general_foliation&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_frobenius_integrable : Result
+has_compact_leaf : Result
+is_taut_foliation : Result
+has_trivial_holonomy : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.foliations.foliation_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.foliations.</span></span><span class="sig-name descname"><span class="pre">foliation_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.foliations.foliation_profile" title="Link to this definition"></a></dt>
+<dd><p>Full foliation profile combining classification and named examples.</p>
+<section id="id6">
+<h2>Keys<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.foliations.classify_foliation" title="pytop.foliations.classify_foliation"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_foliation()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[FoliationProfile, …]</span></dt><dd><p>Registry of canonical foliation theory examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

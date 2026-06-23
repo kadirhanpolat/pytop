@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Persistence Distances &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mapper" href="mapper.html" />
+    <link rel="prev" title="Discrete Morse" href="discrete_morse.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Persistence Distances</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#public-api">Public API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.persistence_distances.bottleneck_distance"><code class="docutils literal notranslate"><span class="pre">bottleneck_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.persistence_distances.wasserstein_distance"><code class="docutils literal notranslate"><span class="pre">wasserstein_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.persistence_distances.persistence_entropy"><code class="docutils literal notranslate"><span class="pre">persistence_entropy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.persistence_distances.PersistenceLandscape"><code class="docutils literal notranslate"><span class="pre">PersistenceLandscape</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.persistence_distances.PersistenceLandscape.grid"><code class="docutils literal notranslate"><span class="pre">PersistenceLandscape.grid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.persistence_distances.PersistenceLandscape.layers"><code class="docutils literal notranslate"><span class="pre">PersistenceLandscape.layers</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.persistence_distances.PersistenceLandscape.num_layers"><code class="docutils literal notranslate"><span class="pre">PersistenceLandscape.num_layers</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.persistence_distances.PersistenceLandscape.grid_size"><code class="docutils literal notranslate"><span class="pre">PersistenceLandscape.grid_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.persistence_distances.PersistenceLandscape.layer"><code class="docutils literal notranslate"><span class="pre">PersistenceLandscape.layer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.persistence_distances.persistence_landscape"><code class="docutils literal notranslate"><span class="pre">persistence_landscape()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Persistence Distances</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/persistence_distances.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.persistence_distances">
+<span id="persistence-distances"></span><h1>Persistence Distances<a class="headerlink" href="#module-pytop.persistence_distances" title="Link to this heading"></a></h1>
+<p>Persistence diagram distances and statistics.</p>
+<p>Computes distances between persistence diagrams and summary statistics.</p>
+<p>All functions accept the output of <code class="docutils literal notranslate"><span class="pre">persistence_pairs</span></code>,
+<code class="docutils literal notranslate"><span class="pre">persistence_pairs_twist</span></code>, or <code class="docutils literal notranslate"><span class="pre">persistence_pairs_cohomology</span></code> directly as
+<code class="docutils literal notranslate"><span class="pre">tuple[PersistencePair,</span> <span class="pre">...]</span></code>.</p>
+<section id="public-api">
+<h2>Public API<a class="headerlink" href="#public-api" title="Link to this heading"></a></h2>
+<p>bottleneck_distance   — d_B(D1, D2): min-max L∞ matching cost
+wasserstein_distance  — d_W^p(D1, D2): p-Wasserstein distance (p≥1)
+persistence_entropy   — Shannon entropy of the finite-bar persistence distribution
+persistence_landscape — k-th landscape function sampled on a uniform time grid</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<p>Cohen-Steiner, D., Edelsbrunner, H., &amp; Harer, J. (2007). Stability of
+persistence diagrams. <em>Discrete &amp; Computational Geometry</em>, 37(1), 103–120.</p>
+<p>Bubenik, P. (2015). Statistical topological data analysis using persistence
+landscapes. <em>Journal of Machine Learning Research</em>, 16(1), 77–102.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistence_distances.bottleneck_distance">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistence_distances.</span></span><span class="sig-name descname"><span class="pre">bottleneck_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pairs1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pairs2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pytop.persistence_distances.bottleneck_distance" title="Link to this definition"></a></dt>
+<dd><p>Compute the bottleneck distance between two persistence diagrams.</p>
+<p>The bottleneck distance is:</p>
+<blockquote>
+<div><p>d_B(D_1, D_2) = inf_{η} sup_{p ∈ D_1} ‖p − η(p)‖_∞</p>
+</div></blockquote>
+<p>where η ranges over all bijections from D_1 ∪ Δ to D_2 ∪ Δ (Δ = diagonal).
+Essential (infinite lifetime) bars are excluded.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>pairs1, pairs2:</dt><dd><p>Persistence pairs from <code class="docutils literal notranslate"><span class="pre">persistence_pairs</span></code> or similar.</p>
+</dd>
+<dt>degree:</dt><dd><p>If given, restrict to homological degree <code class="docutils literal notranslate"><span class="pre">degree</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>float</dt><dd><p>The bottleneck distance d_B(D_1, D_2) ≥ 0.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistence_distances.wasserstein_distance">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistence_distances.</span></span><span class="sig-name descname"><span class="pre">wasserstein_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pairs1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pairs2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pytop.persistence_distances.wasserstein_distance" title="Link to this definition"></a></dt>
+<dd><p>Compute the p-Wasserstein distance between two persistence diagrams.</p>
+<p>The p-Wasserstein distance is:</p>
+<blockquote>
+<div><p>d_W^p(D_1, D_2) = inf_{η} (Σ_{x ∈ D_1} ‖x − η(x)‖_∞^p)^{1/p}</p>
+</div></blockquote>
+<p>Essential bars are excluded.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>pairs1, pairs2:</dt><dd><p>Persistence pairs.</p>
+</dd>
+<dt>p:</dt><dd><p>Wasserstein exponent p ≥ 1.  <code class="docutils literal notranslate"><span class="pre">p=1</span></code> gives the 1-Wasserstein (earth
+mover’s distance); <code class="docutils literal notranslate"><span class="pre">p=2</span></code> gives the 2-Wasserstein.</p>
+</dd>
+<dt>degree:</dt><dd><p>If given, restrict to homological degree <code class="docutils literal notranslate"><span class="pre">degree</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>Returns<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>float</dt><dd><p>The Wasserstein distance ≥ 0.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistence_distances.persistence_entropy">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistence_distances.</span></span><span class="sig-name descname"><span class="pre">persistence_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pairs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pytop.persistence_distances.persistence_entropy" title="Link to this definition"></a></dt>
+<dd><p>Compute the persistence entropy of a persistence diagram.</p>
+<p>Persistence entropy is the Shannon entropy of the normalised persistence
+distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="o">-</span><span class="n">Σ_i</span> <span class="p">(</span><span class="n">p_i</span> <span class="o">/</span> <span class="n">L</span><span class="p">)</span> <span class="n">log</span><span class="p">(</span><span class="n">p_i</span> <span class="o">/</span> <span class="n">L</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where p_i = death_i − birth_i is the bar length and L = Σ p_i is the
+total persistence.  Essential bars are excluded.</p>
+<p>Returns 0.0 for an empty or single-bar diagram.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>pairs:</dt><dd><p>Persistence pairs.</p>
+</dd>
+<dt>degree:</dt><dd><p>If given, restrict to homological degree <code class="docutils literal notranslate"><span class="pre">degree</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>float</dt><dd><p>Persistence entropy H ≥ 0.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.persistence_distances.PersistenceLandscape">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.persistence_distances.</span></span><span class="sig-name descname"><span class="pre">PersistenceLandscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.persistence_distances.PersistenceLandscape" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Sampled persistence landscape functions.</p>
+<p><code class="docutils literal notranslate"><span class="pre">grid</span></code> is the 1-D time grid; <code class="docutils literal notranslate"><span class="pre">layers[k][i]</span></code> is λ_{k+1}(grid[i])
+(1-indexed landscape layers, 0-indexed in the array).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistence_distances.PersistenceLandscape.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.persistence_distances.PersistenceLandscape.grid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistence_distances.PersistenceLandscape.layers">
+<span class="sig-name descname"><span class="pre">layers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.persistence_distances.PersistenceLandscape.layers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.persistence_distances.PersistenceLandscape.num_layers">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">num_layers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.persistence_distances.PersistenceLandscape.num_layers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.persistence_distances.PersistenceLandscape.grid_size">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">grid_size</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.persistence_distances.PersistenceLandscape.grid_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.persistence_distances.PersistenceLandscape.layer">
+<span class="sig-name descname"><span class="pre">layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.persistence_distances.PersistenceLandscape.layer" title="Link to this definition"></a></dt>
+<dd><p>Return the k-th landscape layer (1-indexed, k ≥ 1).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistence_distances.persistence_landscape">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistence_distances.</span></span><span class="sig-name descname"><span class="pre">persistence_landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pairs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_grid_points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.persistence_distances.PersistenceLandscape" title="pytop.persistence_distances.PersistenceLandscape"><span class="pre">PersistenceLandscape</span></a></span></span><a class="headerlink" href="#pytop.persistence_distances.persistence_landscape" title="Link to this definition"></a></dt>
+<dd><p>Compute the persistence landscape of a persistence diagram.</p>
+<p>For each bar (b, d) define a tent function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>λ_{b,d}(t) = max(0, min(t − b, d − t))
+</pre></div>
+</div>
+<p>The k-th landscape function λ_k(t) is the k-th largest value of
+{λ_{b,d}(t)} over all bars.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>pairs:</dt><dd><p>Persistence pairs.</p>
+</dd>
+<dt>degree:</dt><dd><p>If given, restrict to homological degree <code class="docutils literal notranslate"><span class="pre">degree</span></code>.</p>
+</dd>
+<dt>num_layers:</dt><dd><p>Number of landscape layers to compute.</p>
+</dd>
+<dt>num_grid_points:</dt><dd><p>Number of sample points on the time grid.</p>
+</dd>
+<dt>t_min, t_max:</dt><dd><p>Time range.  Defaults to the span of all finite bar endpoints.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>PersistenceLandscape</dt><dd><p>Sampled landscape functions.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="discrete_morse.html" class="btn btn-neutral float-left" title="Discrete Morse" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mapper.html" class="btn btn-neutral float-right" title="Mapper" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

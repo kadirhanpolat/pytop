@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uniform Convergence &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Uniform Convergence</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/uniform_convergence.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.uniform_convergence">
+<span id="uniform-convergence"></span><h1>Uniform Convergence<a class="headerlink" href="#module-pytop.uniform_convergence" title="Link to this heading"></a></h1>
+<p>Uniform convergence: pointwise vs uniform limits, equicontinuity, Arzelà-Ascoli theorem,
+Dini’s theorem, and the topology of uniform convergence on function spaces.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Pointwise vs uniform convergence: a sequence (f_n) of functions X -&gt; Y converges
+pointwise to f if for every x in X: lim_{n-&gt;infty} f_n(x) = f(x). It converges
+uniformly if for every epsilon &gt; 0 there exists N such that n &gt;= N implies
+d(f_n(x), f(x)) &lt; epsilon for ALL x in X simultaneously. Uniform convergence is
+strictly stronger: the modulus of continuity N(epsilon) does not depend on x.
+Key example where they differ: f_n(x) = x^n on [0,1] converges pointwise to the
+indicator of {1} but NOT uniformly (the supremum ||f_n - f||_infty = 1 for all n).</p></li>
+<li><p>Uniform limit theorem: if (f_n) is a sequence of continuous functions f_n: X -&gt; Y
+(Y metric) converging uniformly to f, then f is continuous. The converse fails:
+pointwise limits of continuous functions can be discontinuous. Proof: for epsilon &gt; 0,
+choose N so that d(f_n(x), f(x)) &lt; epsilon/3 for all x, then use continuity of f_N
+at x_0 to control d(f_N(x), f_N(x_0)) &lt; epsilon/3, then combine by triangle inequality.</p></li>
+<li><p>Dini’s theorem (1878): let (f_n) be a sequence of continuous functions on a compact
+space X, converging pointwise to a continuous function f. If the convergence is
+monotone (f_1 &gt;= f_2 &gt;= … &gt;= f, or f_1 &lt;= f_2 &lt;= … &lt;= f), then it is uniform.
+Key hypotheses: compactness of X, continuity of the limit f, and monotonicity — all
+three are necessary (counterexamples exist if any one is dropped).</p></li>
+<li><p>Equicontinuity (Ascoli 1883): a family F of functions X -&gt; Y is equicontinuous at
+x_0 if for every epsilon &gt; 0 there exists delta &gt; 0 such that d_X(x, x_0) &lt; delta
+implies d_Y(f(x), f(x_0)) &lt; epsilon for ALL f in F simultaneously. F is
+equicontinuous (globally) if equicontinuous at every x_0. Equicontinuity means the
+family shares a uniform modulus of continuity. Key examples:
+- Lipschitz families with uniform constant: <a href="#id5"><span class="problematic" id="id6">|f(x)-f(y)|</span></a> &lt;= L·d(x,y) for all f in F.
+- Uniformly bounded families of C^1 functions with uniformly bounded derivative.
+- Solutions to an ODE with uniformly bounded right-hand side (Euler equicontinuity).</p></li>
+<li><p>Arzelà-Ascoli theorem (1883-1895): let X be a compact metric space (or compact
+Hausdorff space) and (f_n) a sequence of functions X -&gt; R (or R^k). If (f_n) is:
+(1) uniformly bounded: there exists M such that <a href="#id7"><span class="problematic" id="id8">|f_n(x)|</span></a> &lt;= M for all n, x;
+(2) equicontinuous;
+then (f_n) has a uniformly convergent subsequence.
+In functional-analytic terms: A ⊆ C(X) is relatively compact in the uniform norm
+topology iff A is uniformly bounded and equicontinuous. The Arzelà-Ascoli theorem
+is the compactness criterion for C(X) — the analogue of Heine-Borel for function
+spaces. Key applications: existence of solutions to ODEs (Peano theorem), existence
+of harmonic functions (Montel’s theorem in complex analysis), and compactness
+arguments in PDE theory.</p></li>
+<li><p>Uniform convergence topology on C(X, Y): for compact X and metric Y, the sup-norm
+d(f,g) = sup_{x in X} d_Y(f(x), g(x)) makes C(X,Y) a metric space. The induced
+topology is the topology of uniform convergence (= compact-open topology when X is
+compact). C(X) = C(X,R) with the sup norm is a Banach space (complete normed space).
+For X compact Hausdorff: C(X) is a commutative unital C*-algebra (Gelfand duality).</p></li>
+<li><p>Stone-Weierstrass theorem (1885 / 1937): let X be a compact Hausdorff space and A
+a subalgebra of C(X,R) that: (1) separates points (for x ≠ y, exists f in A with
+f(x) ≠ f(y)); (2) contains the constant functions. Then A is dense in C(X,R) in
+the uniform norm. Weierstrass’s original theorem: polynomials are dense in C([a,b]).
+Complex version: A must also be closed under complex conjugation.</p></li>
+<li><p>Compact-open topology: on C(X,Y) for topological spaces X, Y, the compact-open
+topology has subbasis sets V(K, U) = {f : f(K) ⊆ U} for K ⊆ X compact, U ⊆ Y open.
+For X locally compact Hausdorff and Y metric, the compact-open topology equals the
+topology of uniform convergence on compact subsets. For X compact and Y metric, the
+compact-open topology equals the uniform topology. The exponential law: if X, Y, Z
+are locally compact Hausdorff, then C(X × Y, Z) ≅ C(X, C(Y, Z)) homeomorphically.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">UniformConvergenceProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">convergence_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_uniform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_equicontinuous</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_is_continuous</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_relatively_compact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">satisfies_dini</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated uniform convergence / function space example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.convergence_type">
+<span class="sig-name descname"><span class="pre">convergence_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.convergence_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.is_uniform">
+<span class="sig-name descname"><span class="pre">is_uniform</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.is_uniform" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.is_equicontinuous">
+<span class="sig-name descname"><span class="pre">is_equicontinuous</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.is_equicontinuous" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.limit_is_continuous">
+<span class="sig-name descname"><span class="pre">limit_is_continuous</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.limit_is_continuous" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.is_relatively_compact">
+<span class="sig-name descname"><span class="pre">is_relatively_compact</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.is_relatively_compact" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.satisfies_dini">
+<span class="sig-name descname"><span class="pre">satisfies_dini</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.satisfies_dini" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.UniformConvergenceProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.uniform_convergence.UniformConvergenceProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.get_named_uniform_convergence_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">get_named_uniform_convergence_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.uniform_convergence.UniformConvergenceProfile" title="pytop.uniform_convergence.UniformConvergenceProfile"><span class="pre">UniformConvergenceProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.uniform_convergence.get_named_uniform_convergence_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical uniform convergence examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.uniform_convergence_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">uniform_convergence_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.uniform_convergence.uniform_convergence_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.uniform_convergence_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">uniform_convergence_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.uniform_convergence.uniform_convergence_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.uniform_convergence_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">uniform_convergence_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.uniform_convergence.uniform_convergence_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from convergence_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.is_uniformly_convergent">
+<span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">is_uniformly_convergent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.uniform_convergence.is_uniformly_convergent" title="Link to this definition"></a></dt>
+<dd><p>Check whether the function sequence / family converges uniformly.</p>
+<p>A sequence (f_n) converges uniformly to f if:
+for every epsilon &gt; 0, exists N such that n &gt;= N implies
+d(f_n(x), f(x)) &lt; epsilon for ALL x simultaneously.
+Key facts:
+- Uniform convergence implies pointwise convergence; the converse fails.
+- Uniform limits of continuous functions are continuous.
+- Dominated convergence (Weierstrass M-test): if <a href="#id9"><span class="problematic" id="id10">|f_n(x)|</span></a> &lt;= M_n and sum M_n &lt; infty,</p>
+<blockquote>
+<div><p>then sum f_n converges uniformly and absolutely.</p>
+</div></blockquote>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘uniform_convergence’ or sup-norm tag -&gt; true.</p></li>
+<li><p>Dini condition (monotone + compact + continuous limit) -&gt; true.</p></li>
+<li><p>Arzelà-Ascoli compact family -&gt; true (subsequential uniform convergence).</p></li>
+<li><p>Pointwise-only or not-uniform tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.is_equicontinuous">
+<span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">is_equicontinuous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.uniform_convergence.is_equicontinuous" title="Link to this definition"></a></dt>
+<dd><p>Check whether the function family is equicontinuous.</p>
+<p>A family F of functions X -&gt; Y is equicontinuous at x_0 if for every epsilon &gt; 0
+there exists delta &gt; 0 (independent of f in F) such that d(x, x_0) &lt; delta implies
+d(f(x), f(x_0)) &lt; epsilon for ALL f in F. Key examples:
+- Lipschitz families with uniform constant are equicontinuous.
+- Solutions to y’ = g(x,y) with <a href="#id11"><span class="problematic" id="id12">|g|</span></a> &lt;= M are M-Lipschitz, hence equicontinuous.
+- The power sequence f_n(x) = x^n on [0,1] is NOT equicontinuous at x=1.</p>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘equicontinuous’ or Lipschitz-family tag -&gt; true.</p></li>
+<li><p>Not-equicontinuous or pointwise-only tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.satisfies_arzela_ascoli">
+<span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">satisfies_arzela_ascoli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.uniform_convergence.satisfies_arzela_ascoli" title="Link to this definition"></a></dt>
+<dd><p>Check whether the function family satisfies the Arzelà-Ascoli conditions.</p>
+<p>The Arzelà-Ascoli theorem states that F ⊆ C(X) is relatively compact iff:
+(1) F is uniformly bounded (exists M: <a href="#id13"><span class="problematic" id="id14">|f(x)|</span></a> &lt;= M for all f in F, x in X);
+(2) F is equicontinuous.
+When these hold, every sequence in F has a uniformly convergent subsequence.</p>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘arzela_ascoli’ or ‘uniformly_bounded_equicontinuous’ tag -&gt; true.</p></li>
+<li><p>Lipschitz family on compact domain (bounded + equicontinuous) -&gt; true.</p></li>
+<li><p>Not-equicontinuous or not-relatively-compact tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.satisfies_dini">
+<span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">satisfies_dini</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.uniform_convergence.satisfies_dini" title="Link to this definition"></a></dt>
+<dd><p>Check whether Dini’s theorem applies (monotone pointwise → uniform).</p>
+<p>Dini’s theorem: (f_n) ⊆ C(X), X compact, f_n -&gt; f pointwise with f in C(X),
+and convergence is monotone (f_n &gt;= f_{n+1} &gt;= f, or &lt;=) implies f_n -&gt; f uniformly.
+All three conditions (compactness, continuity of f, monotonicity) are necessary.</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘dini_theorem’ or ‘monotone_convergence_compact’ tag -&gt; true.</p></li>
+<li><p>Discontinuous limit or non-compact domain -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.classify_uniform_convergence">
+<span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">classify_uniform_convergence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.uniform_convergence.classify_uniform_convergence" title="Link to this definition"></a></dt>
+<dd><p>Classify the convergence type of the function sequence / family.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>convergence_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;uniform&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;dini&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;arzela_ascoli&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;equicontinuous_only&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;pointwise_only&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_uniformly_convergent : Result
+is_equicontinuous : Result
+satisfies_arzela_ascoli : Result
+satisfies_dini : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.uniform_convergence.uniform_convergence_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.uniform_convergence.</span></span><span class="sig-name descname"><span class="pre">uniform_convergence_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.uniform_convergence.uniform_convergence_profile" title="Link to this definition"></a></dt>
+<dd><p>Full uniform convergence profile combining classification and named examples.</p>
+<section id="id4">
+<h2>Keys<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.uniform_convergence.classify_uniform_convergence" title="pytop.uniform_convergence.classify_uniform_convergence"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_uniform_convergence()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[UniformConvergenceProfile, …]</span></dt><dd><p>Registry of canonical uniform convergence examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morse Complex &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Morse Complex</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/morse_complex.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.morse_complex">
+<span id="morse-complex"></span><h1>Morse Complex<a class="headerlink" href="#module-pytop.morse_complex" title="Link to this heading"></a></h1>
+<p>Morse complex from a discrete gradient vector field.</p>
+<p>P7.6 milestone — three public objects:</p>
+<p>MorseChainComplex     : chain complex built from critical simplices
+morse_chain_complex   : construct MorseChainComplex from a MorseMatching
+morse_boundary_operator : boundary matrix ∂^M_k: C^M_k → C^M_{k-1}
+morse_homology         : H_*(C^M; Z) and cross-validation against H_*(K; Z)</p>
+<section id="mathematical-background">
+<h2>Mathematical background<a class="headerlink" href="#mathematical-background" title="Link to this heading"></a></h2>
+<p>Given a discrete Morse matching M on a simplicial complex K (Forman 1998),
+the <strong>Morse chain complex</strong> is</p>
+<blockquote>
+<div><p>C^M_k = ⊕_{σ critical k-simplex} Z · σ</p>
+</div></blockquote>
+<p>with boundary operator ∂^M: C^M_k → C^M_{k-1} defined by:</p>
+<blockquote>
+<div><p>∂^M(σ) = Σ_{τ critical} n(σ, τ) · τ</p>
+</div></blockquote>
+<p>where n(σ, τ) is the algebraic count of <strong>gradient V-paths</strong> from σ to τ.</p>
+<p>A gradient V-path from a critical k-simplex σ to a critical (k-1)-simplex τ
+is a sequence σ = c₀, f₁, c₁, f₂, …, f_r, cᵣ where:
+- fᵢ is a (k-1)-face of cᵢ₋₁
+- (fᵢ, cᵢ) is a Morse pair for i &lt; r  (fᵢ pairs with the next k-simplex cᵢ)
+- fᵣ = τ is critical</p>
+<p>The sign of a V-path is the product of incidence numbers along the path:</p>
+<blockquote>
+<div><p>sign = ε(c₀, f₁) × Π_{i=1}^{r-1} [-ε(cᵢ, fᵢ) · ε(cᵢ, fᵢ₊₁)]</p>
+</div></blockquote>
+<p>where ε(σ, τ) = (-1)^i when τ is the face of σ obtained by removing the i-th
+vertex (in canonical order).</p>
+<p><strong>Morse homology theorem</strong>: H_*(C^M; Z) ≅ H_*(K; Z) for any acyclic matching M.</p>
+<p>Path counting uses DFS on the gradient graph.  The DFS is guaranteed to
+terminate because the matching is acyclic.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Forman, R. (1998). Morse theory for cell complexes.</dt><dd><p><em>Advances in Mathematics</em>, 134(1), 90–145.</p>
+</dd>
+</dl>
+<p>Scoville, N. (2019). <em>Discrete Morse Theory</em>. AMS Student Mathematical Library.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseChainComplex">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.morse_complex.</span></span><span class="sig-name descname"><span class="pre">MorseChainComplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">matching</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="discrete_morse.html#pytop.discrete_morse.MorseMatching" title="pytop.discrete_morse.MorseMatching"><span class="pre">MorseMatching</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">critical_simplices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary_matrices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.morse_complex.MorseChainComplex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The chain complex C^M_* built from critical simplices.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>complex_obj<span class="classifier">SimplicialComplex</span></dt><dd><p>The original simplicial complex K.</p>
+</dd>
+<dt>matching<span class="classifier">MorseMatching</span></dt><dd><p>The discrete gradient matching M on K.</p>
+</dd>
+<dt>critical_simplices<span class="classifier">dict[int, list[tuple]]</span></dt><dd><p>Maps dimension k → list of critical k-simplices as sorted vertex tuples
+(in canonical order by repr).</p>
+</dd>
+<dt>boundary_matrices<span class="classifier">dict[int, Matrix]</span></dt><dd><p>Maps k → ∂^M_k matrix (rows = critical (k-1)-simplices, columns =
+critical k-simplices, same order as <code class="docutils literal notranslate"><span class="pre">critical_simplices</span></code>).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseChainComplex.complex_obj">
+<span class="sig-name descname"><span class="pre">complex_obj</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span><a class="headerlink" href="#pytop.morse_complex.MorseChainComplex.complex_obj" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseChainComplex.matching">
+<span class="sig-name descname"><span class="pre">matching</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="discrete_morse.html#pytop.discrete_morse.MorseMatching" title="pytop.discrete_morse.MorseMatching"><span class="pre">MorseMatching</span></a></span><a class="headerlink" href="#pytop.morse_complex.MorseChainComplex.matching" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseChainComplex.critical_simplices">
+<span class="sig-name descname"><span class="pre">critical_simplices</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.morse_complex.MorseChainComplex.critical_simplices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseChainComplex.boundary_matrices">
+<span class="sig-name descname"><span class="pre">boundary_matrices</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.morse_complex.MorseChainComplex.boundary_matrices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseChainComplex.num_critical">
+<span class="sig-name descname"><span class="pre">num_critical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.morse_complex.MorseChainComplex.num_critical" title="Link to this definition"></a></dt>
+<dd><p>Number of critical k-simplices.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseChainComplex.morse_vector">
+<span class="sig-name descname"><span class="pre">morse_vector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.morse_complex.MorseChainComplex.morse_vector" title="Link to this definition"></a></dt>
+<dd><p>Tuple (m_0, m_1, …, m_d) of critical cell counts.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseHomologyResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.morse_complex.</span></span><span class="sig-name descname"><span class="pre">MorseHomologyResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.morse_complex.MorseHomologyResult" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Homology of the Morse complex, with cross-validation.</p>
+<section id="id1">
+<h2>Attributes<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>groups<span class="classifier">list[HomologyResult]</span></dt><dd><p>H_k(C^M; Z) for k = 0, 1, …, max_degree.</p>
+</dd>
+<dt>validates<span class="classifier">bool</span></dt><dd><p>True if H_k(C^M) matches H_k(K) for all k (Morse homology theorem).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseHomologyResult.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.morse_complex.MorseHomologyResult.groups" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseHomologyResult.validates">
+<span class="sig-name descname"><span class="pre">validates</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.morse_complex.MorseHomologyResult.validates" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.morse_complex.MorseHomologyResult.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span></span><a class="headerlink" href="#pytop.morse_complex.MorseHomologyResult.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.morse_complex.morse_boundary_operator">
+<span class="sig-prename descclassname"><span class="pre">pytop.morse_complex.</span></span><span class="sig-name descname"><span class="pre">morse_boundary_operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">matching</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="discrete_morse.html#pytop.discrete_morse.MorseMatching" title="pytop.discrete_morse.MorseMatching"><span class="pre">MorseMatching</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.morse_complex.morse_boundary_operator" title="Link to this definition"></a></dt>
+<dd><p>Compute the Morse boundary matrix ∂^M_k: C^M_k → C^M_{k-1}.</p>
+<p>Rows are indexed by critical (k-1)-simplices, columns by critical
+k-simplices (both in canonical repr order).</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>complex_obj<span class="classifier">SimplicialComplex</span></dt><dd><p>The simplicial complex K.</p>
+</dd>
+<dt>matching<span class="classifier">MorseMatching</span></dt><dd><p>A (valid) acyclic Morse matching on K.</p>
+</dd>
+<dt>k<span class="classifier">int</span></dt><dd><p>Chain degree k (k ≥ 1).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Matrix</dt><dd><p>Integer matrix of size <code class="docutils literal notranslate"><span class="pre">|crit_{k-1}|</span> <span class="pre">×</span> <span class="pre">|crit_k|</span></code>.  Empty when
+either set of critical simplices is empty.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>On the circle S¹ with matching leaving one vertex and one edge critical,
+∂^M_1 is the 1×1 zero matrix (the edge is the H_1 generator):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># (See test file for a concrete example.)</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.morse_complex.morse_chain_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.morse_complex.</span></span><span class="sig-name descname"><span class="pre">morse_chain_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">matching</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="discrete_morse.html#pytop.discrete_morse.MorseMatching" title="pytop.discrete_morse.MorseMatching"><span class="pre">MorseMatching</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.morse_complex.MorseChainComplex" title="pytop.morse_complex.MorseChainComplex"><span class="pre">MorseChainComplex</span></a></span></span><a class="headerlink" href="#pytop.morse_complex.morse_chain_complex" title="Link to this definition"></a></dt>
+<dd><p>Build the Morse chain complex C^M_* from a discrete gradient matching.</p>
+<p>Computes the critical simplices and all Morse boundary matrices via the
+gradient path-counting algorithm.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>complex_obj<span class="classifier">SimplicialComplex</span></dt><dd><p>The simplicial complex K.</p>
+</dd>
+<dt>matching<span class="classifier">MorseMatching</span></dt><dd><p>A valid acyclic Morse matching on K (use <code class="docutils literal notranslate"><span class="pre">is_valid_morse_matching</span></code>
+to verify before calling).</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h2>Returns<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>MorseChainComplex</dt><dd><p>Containing critical simplices (by dimension) and boundary matrices.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>Examples<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.simplices</span><span class="w"> </span><span class="kn">import</span> <span class="n">Simplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.simplicial_complexes</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimplicialComplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.discrete_morse</span><span class="w"> </span><span class="kn">import</span> <span class="n">discrete_gradient_matching</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">circle</span> <span class="o">=</span> <span class="n">SimplicialComplex</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="n">Simplex</span><span class="p">([</span><span class="mi">0</span><span class="p">]),</span> <span class="n">Simplex</span><span class="p">([</span><span class="mi">1</span><span class="p">]),</span> <span class="n">Simplex</span><span class="p">([</span><span class="mi">2</span><span class="p">]),</span>
+<span class="gp">... </span>    <span class="n">Simplex</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="n">Simplex</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]),</span> <span class="n">Simplex</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]),</span>
+<span class="gp">... </span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">discrete_gradient_matching</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cc</span> <span class="o">=</span> <span class="n">morse_chain_complex</span><span class="p">(</span><span class="n">circle</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cc</span><span class="o">.</span><span class="n">morse_vector</span><span class="p">()</span>
+<span class="go">(1, 1)</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.morse_complex.morse_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.morse_complex.</span></span><span class="sig-name descname"><span class="pre">morse_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">complex_obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">matching</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="discrete_morse.html#pytop.discrete_morse.MorseMatching" title="pytop.discrete_morse.MorseMatching"><span class="pre">MorseMatching</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.morse_complex.MorseHomologyResult" title="pytop.morse_complex.MorseHomologyResult"><span class="pre">MorseHomologyResult</span></a></span></span><a class="headerlink" href="#pytop.morse_complex.morse_homology" title="Link to this definition"></a></dt>
+<dd><p>Compute H_*(C^M; Z) and cross-validate against H_*(K; Z).</p>
+<p>Applies Smith Normal Form to the Morse boundary matrices and verifies
+the Morse homology theorem: H_*(C^M) ≅ H_*(K).</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>complex_obj<span class="classifier">SimplicialComplex</span></dt><dd><p>The simplicial complex K.</p>
+</dd>
+<dt>matching<span class="classifier">MorseMatching</span></dt><dd><p>A valid acyclic Morse matching.</p>
+</dd>
+<dt>max_degree<span class="classifier">int | None</span></dt><dd><p>Maximum degree to compute.  Defaults to the complex dimension + 1.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>MorseHomologyResult</dt><dd><p>With <code class="docutils literal notranslate"><span class="pre">groups</span></code> and a boolean <code class="docutils literal notranslate"><span class="pre">validates</span></code> flag.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h2>Examples<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>For the circle with a Morse matching giving 1 vertex and 1 edge critical,
+the Morse complex has H_0 = Z and H_1 = Z:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># morse_homology(circle, M).groups[1].betti == 1  # ✓</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

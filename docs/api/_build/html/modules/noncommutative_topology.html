@@ -1,0 +1,567 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noncommutative Topology &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Topological Field Theory" href="topological_field_theory.html" />
+    <link rel="prev" title="Higher Categories" href="higher_categories.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Noncommutative Topology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-theorems-implemented">Key theorems implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.key"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.display_name"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.display_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.algebra_type"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.algebra_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.is_commutative"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.is_commutative</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.is_nuclear"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.is_nuclear</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.is_simple"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.is_simple</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.has_classical_gelfand_dual"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.has_classical_gelfand_dual</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.has_spectral_triple"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.has_spectral_triple</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.k0_group"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.k0_group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.k1_group"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.k1_group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.presentation_layer"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.presentation_layer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.focus"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.focus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile.chapter_targets"><code class="docutils literal notranslate"><span class="pre">NoncommutativeProfile.chapter_targets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.get_named_noncommutative_profiles"><code class="docutils literal notranslate"><span class="pre">get_named_noncommutative_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.noncommutative_layer_summary"><code class="docutils literal notranslate"><span class="pre">noncommutative_layer_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.noncommutative_chapter_index"><code class="docutils literal notranslate"><span class="pre">noncommutative_chapter_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.noncommutative_type_index"><code class="docutils literal notranslate"><span class="pre">noncommutative_type_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.is_commutative_cstar"><code class="docutils literal notranslate"><span class="pre">is_commutative_cstar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.is_nuclear_cstar"><code class="docutils literal notranslate"><span class="pre">is_nuclear_cstar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.is_simple_cstar"><code class="docutils literal notranslate"><span class="pre">is_simple_cstar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.has_gelfand_dual"><code class="docutils literal notranslate"><span class="pre">has_gelfand_dual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.has_spectral_triple"><code class="docutils literal notranslate"><span class="pre">has_spectral_triple()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.classify_noncommutative"><code class="docutils literal notranslate"><span class="pre">classify_noncommutative()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.noncommutative_profile"><code class="docutils literal notranslate"><span class="pre">noncommutative_profile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.k0_group_matrix_algebra"><code class="docutils literal notranslate"><span class="pre">k0_group_matrix_algebra()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.spectral_dimension_finite"><code class="docutils literal notranslate"><span class="pre">spectral_dimension_finite()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.noncommutative_topology.k1_group_matrix_algebra"><code class="docutils literal notranslate"><span class="pre">k1_group_matrix_algebra()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Noncommutative Topology</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/noncommutative_topology.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.noncommutative_topology">
+<span id="noncommutative-topology"></span><h1>Noncommutative Topology<a class="headerlink" href="#module-pytop.noncommutative_topology" title="Link to this heading"></a></h1>
+<p>Noncommutative topology: C*-algebras, Gelfand duality, K-theory, spectral triples,
+and the noncommutative geometry programme of Connes.</p>
+<section id="key-theorems-implemented">
+<h2>Key theorems implemented<a class="headerlink" href="#key-theorems-implemented" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Gelfand duality (1943): there is a contravariant equivalence of categories between
+compact Hausdorff spaces and commutative unital C*-algebras, given by X <a href="#id1"><span class="problematic" id="id2">|</span></a>-&gt; C(X)
+(continuous complex-valued functions) and A <a href="#id3"><span class="problematic" id="id4">|</span></a>-&gt; Spec(A) (maximal ideal space /
+character space). Under this duality: points of X &lt;-&gt; characters chi: A -&gt; C;
+open sets of X &lt;-&gt; closed ideals of C(X); continuous maps f: X -&gt; Y &lt;-&gt;
+<em>-homomorphisms f</em>: C(Y) -&gt; C(X). A noncommutative C*-algebra is thus a
+‘noncommutative topological space’. Key examples: C(S^1) = commutative (S^1 is
+classical); M_n(C) = noncommutative (n x n matrices, no classical Gelfand dual).</p></li>
+<li><p>Gelfand-Naimark theorem (1943): every C*-algebra A is isometrically <em>-isomorphic
+to a closed *-subalgebra of B(H), the bounded operators on some Hilbert space H.
+Commutative case: A ≅ C_0(X) for locally compact Hausdorff X = Spec(A). This
+justifies calling noncommutative C</em>-algebras ‘noncommutative spaces’.</p></li>
+<li><p>K-theory for C*-algebras (Atiyah 1964 / Hirzebruch): for a C*-algebra A, K_0(A)
+is the Grothendieck group of Murray-von Neumann equivalence classes of projections
+in M_infty(A). K_1(A) = K_0(SA) where SA = C_0((0,1)) tensor A is the suspension.
+The six-term exact sequence and Bott periodicity K_{n+2}(A) ≅ K_n(A) are the
+main computational tools. For commutative A = C(X): K_0(C(X)) = K^0(X) (topological
+K-theory), K_1(C(X)) = K^1(X) (Atiyah-Hirzebruch). Key example: K_0(M_n(C)) = Z,
+K_1(M_n(C)) = 0 (matrix algebras).</p></li>
+<li><p>Connes’ spectral triple (A, H, D) (1994): a spectral triple (also called an
+unbounded Fredholm module) consists of a <a href="#id5"><span class="problematic" id="id6">*</span></a>-algebra A represented on a Hilbert space
+H, and a self-adjoint operator D (‘Dirac operator’) with compact resolvent, such
+that [D, a] is bounded for all a in A. The spectral triple encodes a noncommutative
+Riemannian geometry: the metric on the state space S(A) is d(phi, psi) =
+sup{<a href="#id20"><span class="problematic" id="id21">|phi(a) - psi(a)|</span></a> : ||[D,a]|| &lt;= 1}. For commutative A = C^infty(M): take
+H = L^2(M, S) (spinor bundle), D = Dirac operator — recovers classical Riemannian
+geometry. The spectral triple is even (graded) if H has a Z/2Z grading chi with
+chi·D = -D·chi, modelling the chirality of the Dirac operator.</p></li>
+<li><p>Morita equivalence: two C*-algebras A and B are Morita equivalent if there is an
+A-B imprimitivity bimodule — a full Hilbert bimodule. Morita equivalent algebras
+have the same K-theory and representation theory. Key fact: M_n(A) is Morita
+equivalent to A for all n &gt;= 1 (the Morita invariance of K-theory). The
+noncommutative torus A_theta is Morita equivalent to A_{theta’} when theta and
+theta’ are related by a modular transformation in PSL(2,Z).</p></li>
+<li><p>Noncommutative torus A_theta (Rieffel 1981): for theta in [0,1], the noncommutative
+torus A_theta is the universal C*-algebra generated by unitaries U, V with
+VU = e^{2 pi i theta} UV. For theta = 0: A_0 = C(T^2) (commutative). For theta
+irrational: A_theta is a simple C*-algebra. K_0(A_theta) = Z^2, K_1(A_theta) = Z^2
+(same as C(T^2) by Pimsner-Voiculescu). The noncommutative torus is the paradigm
+example of a noncommutative manifold and models the quantum Hall effect.</p></li>
+<li><p>Nuclear C*-algebras: A is nuclear if there is a unique C*-cross-norm on A tensor B
+for every C*-algebra B (equivalently, the minimal and maximal tensor products agree).
+Commutative C*-algebras, AF-algebras, and the CAR algebra are nuclear. The Connes
+embedding problem (resolved negatively, Ji-Natarajan-Vidick-Wright-Yuen 2020):
+not every II_1 factor embeds in the ultrapower of the hyperfinite II_1 factor R.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">NoncommutativeProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">algebra_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_commutative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_nuclear</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_simple</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_classical_gelfand_dual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_spectral_triple</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k0_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated noncommutative topology / geometry example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.algebra_type">
+<span class="sig-name descname"><span class="pre">algebra_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.algebra_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.is_commutative">
+<span class="sig-name descname"><span class="pre">is_commutative</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.is_commutative" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.is_nuclear">
+<span class="sig-name descname"><span class="pre">is_nuclear</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.is_nuclear" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.is_simple">
+<span class="sig-name descname"><span class="pre">is_simple</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.is_simple" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.has_classical_gelfand_dual">
+<span class="sig-name descname"><span class="pre">has_classical_gelfand_dual</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.has_classical_gelfand_dual" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.has_spectral_triple">
+<span class="sig-name descname"><span class="pre">has_spectral_triple</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.has_spectral_triple" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.k0_group">
+<span class="sig-name descname"><span class="pre">k0_group</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.k0_group" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.k1_group">
+<span class="sig-name descname"><span class="pre">k1_group</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.k1_group" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.NoncommutativeProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.noncommutative_topology.NoncommutativeProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.get_named_noncommutative_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">get_named_noncommutative_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.noncommutative_topology.NoncommutativeProfile" title="pytop.noncommutative_topology.NoncommutativeProfile"><span class="pre">NoncommutativeProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.noncommutative_topology.get_named_noncommutative_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical noncommutative topology examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.noncommutative_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">noncommutative_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.noncommutative_topology.noncommutative_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.noncommutative_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">noncommutative_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.noncommutative_topology.noncommutative_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.noncommutative_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">noncommutative_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.noncommutative_topology.noncommutative_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from algebra_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.is_commutative_cstar">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">is_commutative_cstar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.noncommutative_topology.is_commutative_cstar" title="Link to this definition"></a></dt>
+<dd><p>Check whether the C*-algebra is commutative (has a classical Gelfand dual).</p>
+<p>By Gelfand’s theorem (1943), a commutative C*-algebra A is isomorphic to C_0(X)
+where X = Spec(A) is the locally compact Hausdorff space of characters. A is unital
+iff X is compact. Key facts:
+- C(X) for compact Hausdorff X is the archetypal commutative C*-algebra.
+- Group C*-algebra C*(G) is commutative iff G is abelian.
+- All commutative C*-algebras are nuclear.
+- Matrix algebras M_n(C) (n &gt;= 2) and the noncommutative torus are NOT commutative.</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘commutative_cstar’ or ‘abelian_cstar’ or ‘c_of_x’ tag -&gt; true.</p></li>
+<li><p>Gelfand dual / character space tag -&gt; true.</p></li>
+<li><p>Noncommutative tags (matrix, noncommutative_torus, cuntz, compact_operators) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.is_nuclear_cstar">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">is_nuclear_cstar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.noncommutative_topology.is_nuclear_cstar" title="Link to this definition"></a></dt>
+<dd><p>Check whether the C*-algebra is nuclear.</p>
+<p>A C*-algebra A is nuclear if the minimal (spatial) tensor product A tensor_min B
+equals the maximal tensor product A tensor_max B for every C*-algebra B. Key facts:
+- All commutative C*-algebras are nuclear.
+- All finite-dimensional C*-algebras (matrix algebras, direct sums) are nuclear.
+- AF-algebras, Cuntz algebras, and the noncommutative torus are nuclear.
+- B(H) (all bounded operators) is NOT nuclear for dim(H) = infty.
+- C*(G) is nuclear iff G is amenable (Day’s theorem).
+- Nuclear = amenable in the C*-algebra sense (Connes, Haagerup).</p>
+<section id="id7">
+<h2>Decision layers<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘nuclear_cstar’ or nuclear-inducing tags -&gt; true.</p></li>
+<li><p>Non-nuclear tags (full group algebra of non-amenable group, B(H)) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.is_simple_cstar">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">is_simple_cstar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.noncommutative_topology.is_simple_cstar" title="Link to this definition"></a></dt>
+<dd><p>Check whether the C*-algebra is simple (no proper closed two-sided ideals).</p>
+<p>A C*-algebra A is simple if its only closed two-sided ideals are {0} and A itself.
+Key facts:
+- M_n(C) is simple for all n &gt;= 1.
+- A_theta (irrational rotation algebra) is simple for theta irrational.
+- Cuntz algebras O_n are purely infinite simple.
+- K(H) is simple (as a non-unital C*-algebra).
+- C(X) is simple iff X is a single point.
+- AF-algebras are generically NOT simple (unless they are the CAR algebra or similar).</p>
+<section id="id8">
+<h2>Decision layers<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘simple_cstar’ or known simple classes -&gt; true.</p></li>
+<li><p>Commutative algebra over non-trivial space, or AF-algebra -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.has_gelfand_dual">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">has_gelfand_dual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.noncommutative_topology.has_gelfand_dual" title="Link to this definition"></a></dt>
+<dd><p>Check whether the C*-algebra has a classical Gelfand dual (is commutative).</p>
+<p>By Gelfand duality, a C*-algebra A has a classical Hausdorff space as its
+‘noncommutative space’ iff A is commutative. The Gelfand dual is Spec(A) = the
+space of characters (unital <a href="#id9"><span class="problematic" id="id10">*</span></a>-homomorphisms A -&gt; C). For noncommutative A, Spec(A)
+is empty or trivial, and the ‘space’ is purely virtual (noncommutative geometry).</p>
+<section id="id11">
+<h2>Decision layers<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘gelfand_dual’ or commutative tags -&gt; true.</p></li>
+<li><p>Noncommutative or no-Gelfand tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.has_spectral_triple">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">has_spectral_triple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.noncommutative_topology.has_spectral_triple" title="Link to this definition"></a></dt>
+<dd><p>Check whether the algebra carries a spectral triple (Connes’ noncommutative geometry).</p>
+<p>A spectral triple (A, H, D) encodes a noncommutative Riemannian geometry:
+- A: a <em>-algebra (or C</em>-algebra) acting on a Hilbert space H
+- D: an unbounded self-adjoint operator on H (the ‘Dirac operator’) with compact</p>
+<blockquote>
+<div><p>resolvent (1+D^2)^{-1} in K(H), and [D, a] bounded for all a in A.</p>
+</div></blockquote>
+<p>The spectral triple is even if there is a grading operator chi with chi^2 = 1,
+chi D = -D chi, chi a = a chi. Key examples:
+- (C^infty(M), L^2(M, S), D_M): the classical Dirac operator on a spin^c manifold M.
+- (A_theta, L^2(A_theta)^2, D): the noncommutative torus spectral triple.
+- (M_n(C), C^n, D): finite spectral triples encoding finite metric spaces.</p>
+<section id="id12">
+<h2>Decision layers<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit ‘spectral_triple’ or Dirac operator tag -&gt; true.</p></li>
+<li><p>Known classes (spin^c manifold, noncommutative torus, matrix algebra) -&gt; true.</p></li>
+<li><p>No-spectral-triple or purely-infinite algebras -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.classify_noncommutative">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">classify_noncommutative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.noncommutative_topology.classify_noncommutative" title="Link to this definition"></a></dt>
+<dd><p>Classify the noncommutative topology type of the C*-algebra.</p>
+<section id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>algebra_class<span class="classifier">str</span></dt><dd><p>One of <code class="docutils literal notranslate"><span class="pre">&quot;commutative&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;simple_nuclear&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;nuclear&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;simple&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;general&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unknown&quot;</span></code>.</p>
+</dd>
+</dl>
+<p>is_commutative : Result
+is_nuclear : Result
+is_simple : Result
+has_gelfand_dual : Result
+has_spectral_triple : Result
+key_properties : list[str]
+representation : str
+tags : list[str]</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.noncommutative_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">noncommutative_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.noncommutative_topology.noncommutative_profile" title="Link to this definition"></a></dt>
+<dd><p>Full noncommutative topology profile combining classification and named examples.</p>
+<section id="id13">
+<h2>Keys<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>classification<span class="classifier">dict</span></dt><dd><p>Output of <a class="reference internal" href="#pytop.noncommutative_topology.classify_noncommutative" title="pytop.noncommutative_topology.classify_noncommutative"><code class="xref py py-func docutils literal notranslate"><span class="pre">classify_noncommutative()</span></code></a>.</p>
+</dd>
+<dt>named_profiles<span class="classifier">tuple[NoncommutativeProfile, …]</span></dt><dd><p>Registry of canonical noncommutative topology examples.</p>
+</dd>
+<dt>layer_summary<span class="classifier">dict[str, int]</span></dt><dd><p>Profile count by presentation_layer.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.k0_group_matrix_algebra">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">k0_group_matrix_algebra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.noncommutative_topology.k0_group_matrix_algebra" title="Link to this definition"></a></dt>
+<dd><p>K₀ group of the matrix algebra M_n(ℚ).</p>
+<p>By Morita invariance of K-theory: K₀(M_n(ℚ)) ≅ K₀(ℚ) ≅ ℤ.
+The generator is [P₁], the class of a rank-1 projection in M_n(ℚ).
+The identity [I_n] = n · [P₁] in K₀(M_n(ℚ)).</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<p>n: matrix size (n ≥ 1)</p>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">K0_rank</span></code>, <code class="docutils literal notranslate"><span class="pre">generator_class</span></code>, <code class="docutils literal notranslate"><span class="pre">identity_class</span></code>,
+<code class="docutils literal notranslate"><span class="pre">morita_equivalent_to_Q</span></code>, <code class="docutils literal notranslate"><span class="pre">description</span></code>.</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">k0_group_matrix_algebra</span><span class="p">(</span><span class="mi">3</span><span class="p">)[</span><span class="s2">&quot;identity_class&quot;</span><span class="p">]</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k0_group_matrix_algebra</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="s2">&quot;K0_rank&quot;</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.spectral_dimension_finite">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">spectral_dimension_finite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eigenvalues</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.noncommutative_topology.spectral_dimension_finite" title="Link to this definition"></a></dt>
+<dd><p>Estimate spectral dimension d_s from eigenvalue growth of a Dirac operator.</p>
+<p>The spectral dimension satisfies Tr(e^{-tD²}) ~ t^{-d_s/2} as t → 0⁺.
+By Karamata’s theorem this is equivalent to the eigenvalue counting function
+N(λ) ~ C · λ^{d_s/2}, so we fit d_s via log-log linear regression on
+{(log λ_k, log k)} pairs (positive eigenvalues only).</p>
+<section id="id14">
+<h2>Parameters<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
+<p>eigenvalues: non-negative eigenvalues of <a href="#id22"><span class="problematic" id="id23">|D|</span></a> or D² (need not be sorted)
+threshold: eigenvalues below this are considered zero and excluded</p>
+</section>
+<section id="id15">
+<h2>Returns<a class="headerlink" href="#id15" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">spectral_dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">n_positive_eigenvalues</span></code>, <code class="docutils literal notranslate"><span class="pre">slope</span></code>.</p>
+</section>
+<section id="id16">
+<h2>Examples<a class="headerlink" href="#id16" title="Link to this heading"></a></h2>
+<p>Flat torus (2D): Weyl law gives N(λ) ~ λ, so d_s ≈ 2:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">evs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">abs</span><span class="p">(</span><span class="n">spectral_dimension_finite</span><span class="p">(</span><span class="n">evs</span><span class="p">)[</span><span class="s2">&quot;spectral_dimension&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.5</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.noncommutative_topology.k1_group_matrix_algebra">
+<span class="sig-prename descclassname"><span class="pre">pytop.noncommutative_topology.</span></span><span class="sig-name descname"><span class="pre">k1_group_matrix_algebra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.noncommutative_topology.k1_group_matrix_algebra" title="Link to this definition"></a></dt>
+<dd><p>K₁ group of the matrix algebra M_n(ℚ).</p>
+<p>By Morita invariance: K₁(M_n(ℚ)) ≅ K₁(ℚ) ≅ GL₁(ℚ)^{ab} = ℚ*.
+The abelian group ℚ* ≅ ℤ/2 × ⊕_p ℤ  (sign × p-adic valuations).
+The determinant det: GL_n(ℚ)^{ab} → ℚ* is an isomorphism (Whitehead lemma).</p>
+<section id="id17">
+<h2>Parameters<a class="headerlink" href="#id17" title="Link to this heading"></a></h2>
+<p>n: matrix size (n ≥ 1)</p>
+</section>
+<section id="id18">
+<h2>Returns<a class="headerlink" href="#id18" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">K1_description</span></code>, <code class="docutils literal notranslate"><span class="pre">torsion_part</span></code>, <code class="docutils literal notranslate"><span class="pre">free_part_description</span></code>,
+<code class="docutils literal notranslate"><span class="pre">determinant_isomorphism</span></code>, <code class="docutils literal notranslate"><span class="pre">morita_invariant</span></code>, <code class="docutils literal notranslate"><span class="pre">description</span></code>.</p>
+</section>
+<section id="id19">
+<h2>Examples<a class="headerlink" href="#id19" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">k1_group_matrix_algebra</span><span class="p">(</span><span class="mi">2</span><span class="p">)[</span><span class="s2">&quot;torsion_part&quot;</span><span class="p">]</span>
+<span class="go">&#39;ℤ/2&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k1_group_matrix_algebra</span><span class="p">(</span><span class="mi">5</span><span class="p">)[</span><span class="s2">&quot;morita_invariant&quot;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="higher_categories.html" class="btn btn-neutral float-left" title="Higher Categories" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="topological_field_theory.html" class="btn btn-neutral float-right" title="Topological Field Theory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

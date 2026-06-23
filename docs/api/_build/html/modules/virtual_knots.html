@@ -1,0 +1,484 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Knots &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Virtual Knots</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/virtual_knots.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.virtual_knots">
+<span id="virtual-knots"></span><h1>Virtual Knots<a class="headerlink" href="#module-pytop.virtual_knots" title="Link to this heading"></a></h1>
+<p>Virtual knot theory and invariants (Phase 14.5).</p>
+<p>Virtual knot theory (Kauffman 1999) extends classical knot theory to knots
+in thickened surfaces.  A <em>virtual knot diagram</em> has two types of crossings:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Classical crossings (positive or negative, as in classical knot theory)</p></li>
+<li><p>Virtual crossings (circled ×, no over/under distinction)</p></li>
+</ul>
+</div></blockquote>
+<p>A virtual knot is an equivalence class of virtual diagrams under the extended
+Reidemeister moves:</p>
+<blockquote>
+<div><p>Classical: R1, R2, R3 (unchanged from classical theory)
+Virtual:  VR1, VR2, VR3 (virtual versions of R1, R2, R3)
+Mixed:    VR4 (one virtual and one classical crossing)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>The <em>parity</em> of a classical crossing c in a Gauss code:</dt><dd><p>c is <em>odd</em> if the number of classical crossings encountered between the two
+occurrences of c in the Gauss code is odd; otherwise <em>even</em>.</p>
+</dd>
+</dl>
+<section id="key-invariants">
+<h2>Key invariants<a class="headerlink" href="#key-invariants" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Odd writhe J(K):</dt><dd><p>J(K) = Σ_{c odd} sign(c)   (sum of signs over odd classical crossings)
+J is a virtual knot invariant (a genuine integer, not just mod something).
+J(K) = 0 for all classical knots (no virtual crossings present means all
+crossings are even in the Gauss code).</p>
+</dd>
+<dt>Arrow polynomial (Dye–Kauffman 2009):</dt><dd><p>A generalization of the bracket polynomial for virtual knots.
+Uses virtual crossings to create “arrows” on strands.
+Gives stronger invariants than the standard Kauffman bracket.</p>
+</dd>
+<dt>Virtual crossing number:</dt><dd><p>The minimum number of virtual crossings over all diagrams of the virtual knot.
+For classical knots: 0.</p>
+</dd>
+<dt>Genus of the virtual knot:</dt><dd><p>The minimum genus surface Σ such that the knot lives in Σ × [0,1].
+For classical knots: 0 (they live in S² × [0,1]).</p>
+</dd>
+<dt>Parity bracket (Manturov 2010):</dt><dd><p>A refinement of the Kauffman bracket that uses the parity structure.</p>
+</dd>
+<dt>Gauss code representation:</dt><dd><p>A virtual knot can be encoded as a Gauss code: a sequence of signed crossing
+labels with an additional bit for each crossing occurrence (over/under).
+Example: Gauss code of the virtual trefoil: O1+U2+O3+U1+O2+U3+ (schematic)</p>
+</dd>
+</dl>
+<p>References: Kauffman 1999, Dye–Kauffman 2009, Manturov 2010.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualKnotDiagram">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">VirtualKnotDiagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauss_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.virtual_knots.GaussCode" title="pytop.virtual_knots.GaussCode"><span class="pre">GaussCode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">writhe_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">odd_writhe_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.virtual_knots.VirtualKnotDiagram" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A virtual knot diagram via crossing data.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<p>gauss_code : GaussCode
+writhe : int</p>
+<blockquote>
+<div><p>Algebraic sum of classical crossing signs.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>odd_writhe<span class="classifier">int</span></dt><dd><p>J(K): sum of signs over odd classical crossings.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualKnotDiagram.gauss_code">
+<span class="sig-name descname"><span class="pre">gauss_code</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pytop.virtual_knots.GaussCode" title="pytop.virtual_knots.GaussCode"><span class="pre">GaussCode</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualKnotDiagram.gauss_code" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualKnotDiagram.writhe_value">
+<span class="sig-name descname"><span class="pre">writhe_value</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualKnotDiagram.writhe_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualKnotDiagram.odd_writhe_value">
+<span class="sig-name descname"><span class="pre">odd_writhe_value</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualKnotDiagram.odd_writhe_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualKnotDiagram.name">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualKnotDiagram.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.virtual_knots.GaussCode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">GaussCode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crossings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_virtual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.virtual_knots.GaussCode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A Gauss code representation of a virtual knot.</p>
+<p>A Gauss code is a cyclic sequence of crossing labels, each with:
+- A label (positive integer)
+- A sign (+1 or -1)
+- A flag (O=over or U=under)</p>
+<section id="id1">
+<h2>Attributes<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>crossings<span class="classifier">tuple[tuple[int, int, str], …]</span></dt><dd><p>Each entry is (label, sign, “O”/”U”).</p>
+</dd>
+<dt>n_classical<span class="classifier">int</span></dt><dd><p>Number of classical crossings.</p>
+</dd>
+<dt>n_virtual<span class="classifier">int</span></dt><dd><p>Number of virtual crossings (if embedded).</p>
+</dd>
+</dl>
+<p>name : str</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.GaussCode.crossings">
+<span class="sig-name descname"><span class="pre">crossings</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.virtual_knots.GaussCode.crossings" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.GaussCode.n_classical">
+<span class="sig-name descname"><span class="pre">n_classical</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.virtual_knots.GaussCode.n_classical" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.GaussCode.n_virtual">
+<span class="sig-name descname"><span class="pre">n_virtual</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#pytop.virtual_knots.GaussCode.n_virtual" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.GaussCode.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#pytop.virtual_knots.GaussCode.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.virtual_knots.GaussCode.length">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">length</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.virtual_knots.GaussCode.length" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.virtual_knots.GaussCode.labels">
+<span class="sig-name descname"><span class="pre">labels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.virtual_knots.GaussCode.labels" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.virtual_knots.GaussCode.signs">
+<span class="sig-name descname"><span class="pre">signs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.virtual_knots.GaussCode.signs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualInvariants">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">VirtualInvariants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">odd_writhe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">writhe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_virtual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">genus_lower_bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_classical_knot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrow_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.virtual_knots.VirtualInvariants" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Collection of virtual knot invariants.</p>
+<section id="id2">
+<h2>Attributes<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>name : str
+odd_writhe : int</p>
+<blockquote>
+<div><p>J(K) — odd writhe.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>writhe<span class="classifier">int</span></dt><dd><p>w(K) — total writhe.</p>
+</dd>
+<dt>n_classical<span class="classifier">int</span></dt><dd><p>Number of classical crossings.</p>
+</dd>
+<dt>n_virtual<span class="classifier">int</span></dt><dd><p>Number of virtual crossings in this diagram.</p>
+</dd>
+<dt>genus_lower_bound<span class="classifier">int</span></dt><dd><p>Lower bound on virtual genus from crossing data.</p>
+</dd>
+<dt>is_classical_knot<span class="classifier">bool</span></dt><dd><p>True iff J(K) = 0 and the Gauss code satisfies classical realizability.</p>
+</dd>
+<dt>arrow_poly<span class="classifier">dict[tuple[int,…], int]</span></dt><dd><p>Coefficients of the arrow polynomial.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualInvariants.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualInvariants.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualInvariants.odd_writhe">
+<span class="sig-name descname"><span class="pre">odd_writhe</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualInvariants.odd_writhe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualInvariants.writhe">
+<span class="sig-name descname"><span class="pre">writhe</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualInvariants.writhe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualInvariants.n_classical">
+<span class="sig-name descname"><span class="pre">n_classical</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualInvariants.n_classical" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualInvariants.n_virtual">
+<span class="sig-name descname"><span class="pre">n_virtual</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualInvariants.n_virtual" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualInvariants.genus_lower_bound">
+<span class="sig-name descname"><span class="pre">genus_lower_bound</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualInvariants.genus_lower_bound" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualInvariants.is_classical_knot">
+<span class="sig-name descname"><span class="pre">is_classical_knot</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.virtual_knots.VirtualInvariants.is_classical_knot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.virtual_knots.VirtualInvariants.arrow_poly">
+<span class="sig-name descname"><span class="pre">arrow_poly</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.virtual_knots.VirtualInvariants.arrow_poly" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.virtual_knots.gauss_code_from_string">
+<span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">gauss_code_from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.virtual_knots.GaussCode" title="pytop.virtual_knots.GaussCode"><span class="pre">GaussCode</span></a></span></span><a class="headerlink" href="#pytop.virtual_knots.gauss_code_from_string" title="Link to this definition"></a></dt>
+<dd><p>Parse a Gauss code string.</p>
+<p>Format: alternating O/U labels with signs, e.g. “O1+U2-O3+U1-O2+U3-”
+Each crossing appears exactly twice: once as O (over) and once as U (under).</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>code<span class="classifier">str</span></dt><dd><p>Gauss code string.</p>
+</dd>
+</dl>
+<p>name : str</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.virtual_knots.odd_writhe">
+<span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">odd_writhe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauss_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.virtual_knots.GaussCode" title="pytop.virtual_knots.GaussCode"><span class="pre">GaussCode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.virtual_knots.odd_writhe" title="Link to this definition"></a></dt>
+<dd><p>Compute the odd writhe J(K) of a virtual knot.</p>
+<p>J(K) = Σ sign(c) over all odd classical crossings c.</p>
+<p>For any classical knot (embeddable in S²), J(K) = 0.
+For virtual knots, J(K) is a genuine integer invariant.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>gauss_code : GaussCode</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.virtual_knots.writhe">
+<span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">writhe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauss_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.virtual_knots.GaussCode" title="pytop.virtual_knots.GaussCode"><span class="pre">GaussCode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.virtual_knots.writhe" title="Link to this definition"></a></dt>
+<dd><p>Compute the total writhe w(K) = Σ sign(c) over all crossings.</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>gauss_code : GaussCode</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.virtual_knots.parity_of_crossing">
+<span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">parity_of_crossing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauss_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.virtual_knots.GaussCode" title="pytop.virtual_knots.GaussCode"><span class="pre">GaussCode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.virtual_knots.parity_of_crossing" title="Link to this definition"></a></dt>
+<dd><p>Determine the parity of a classical crossing in the Gauss code.</p>
+<p>A crossing with label <cite>label</cite> is <em>odd</em> if the number of other crossing
+labels that appear an <em>odd</em> number of times between the two occurrences
+of <cite>label</cite> in the Gauss code is odd.</p>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">&quot;odd&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;even&quot;</span></code>.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>label<span class="classifier">int</span></dt><dd><p>Crossing label to test.</p>
+</dd>
+</dl>
+<p>gauss_code : GaussCode</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.virtual_knots.virtual_genus_lower_bound">
+<span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">virtual_genus_lower_bound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauss_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.virtual_knots.GaussCode" title="pytop.virtual_knots.GaussCode"><span class="pre">GaussCode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.virtual_knots.virtual_genus_lower_bound" title="Link to this definition"></a></dt>
+<dd><p>Lower bound on the virtual genus from the Gauss code.</p>
+<dl class="simple">
+<dt>The virtual genus satisfies:</dt><dd><p>γ(K) ≥ ceil(<a href="#id8"><span class="problematic" id="id9">|J(K)|</span></a> / crossing_number)  (rough bound)</p>
+</dd>
+<dt>A better bound uses the number of odd crossings:</dt><dd><p>γ(K) ≥ #{odd crossings} / 2  (since each handle can resolve ≤2 odd crossings)</p>
+</dd>
+</dl>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>int</dt><dd><p>Lower bound on the virtual genus.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.virtual_knots.arrow_polynomial_bracket">
+<span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">arrow_polynomial_bracket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauss_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.virtual_knots.GaussCode" title="pytop.virtual_knots.GaussCode"><span class="pre">GaussCode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.virtual_knots.arrow_polynomial_bracket" title="Link to this definition"></a></dt>
+<dd><p>Compute a simplified version of the arrow polynomial bracket.</p>
+<p>The arrow polynomial A(K) ∈ ℤ[A, A^{-1}, K_1, K_2, …] is a refinement
+of the Kauffman bracket that uses the parity to introduce extra variables K_i.</p>
+<dl class="simple">
+<dt>Here we return a simplified version:</dt><dd><ul class="simple">
+<li><p>When a crossing is smoothed, odd crossings contribute a K_n factor
+while even crossings contribute the standard ±A^{±1} factors.</p></li>
+</ul>
+</dd>
+</dl>
+<p>For a full implementation, one needs to track the “arrow” structure
+during the state-sum expansion.  Here we return:</p>
+<blockquote>
+<div><p>{(a_exp, k1_pow, k2_pow, …): coefficient}</p>
+</div></blockquote>
+<p>For the purposes of this module we compute the leading terms only.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.virtual_knots.virtual_knot_invariants">
+<span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">virtual_knot_invariants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauss_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.virtual_knots.GaussCode" title="pytop.virtual_knots.GaussCode"><span class="pre">GaussCode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.virtual_knots.VirtualInvariants" title="pytop.virtual_knots.VirtualInvariants"><span class="pre">VirtualInvariants</span></a></span></span><a class="headerlink" href="#pytop.virtual_knots.virtual_knot_invariants" title="Link to this definition"></a></dt>
+<dd><p>Compute all implemented virtual knot invariants.</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>gauss_code : GaussCode</p>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>VirtualInvariants</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.virtual_knots.is_classical">
+<span class="sig-prename descclassname"><span class="pre">pytop.virtual_knots.</span></span><span class="sig-name descname"><span class="pre">is_classical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gauss_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.virtual_knots.GaussCode" title="pytop.virtual_knots.GaussCode"><span class="pre">GaussCode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.virtual_knots.is_classical" title="Link to this definition"></a></dt>
+<dd><p>Check if the Gauss code is realizable as a classical knot diagram.</p>
+<p>Necessary condition: J(K) = 0 (odd writhe vanishes).
+The sufficient condition (classical realizability) is more complex.</p>
+<p>Returns True iff J(K) = 0 (necessary condition for classicality).</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

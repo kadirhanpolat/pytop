@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eilenberg Maclane &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Eilenberg Maclane</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/eilenberg_maclane.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.eilenberg_maclane">
+<span id="eilenberg-maclane"></span><h1>Eilenberg Maclane<a class="headerlink" href="#module-pytop.eilenberg_maclane" title="Link to this heading"></a></h1>
+<p>Eilenberg–MacLane spaces and asphericity (Phase 13.2).</p>
+<p>An Eilenberg–MacLane space K(G, n) is a topological space with a single
+non-trivial homotopy group: π_n(K(G,n)) = G and π_k(K(G,n)) = 0 for k ≠ n.</p>
+<section id="key-results-implemented">
+<h2>Key results implemented<a class="headerlink" href="#key-results-implemented" title="Link to this heading"></a></h2>
+<p>Integral homology of K(G, 1) for standard groups G:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>K(ℤ, 1) = S¹:</dt><dd><p>H_0 = ℤ, H_1 = ℤ, H_k = 0 for k ≥ 2.</p>
+</dd>
+<dt>K(ℤ/m, 1) (lens space / classifying space of ℤ/m), m ≥ 2:</dt><dd><p>Periodic homology via the bar resolution.
+H_0 = ℤ,
+H_{2k-1} = ℤ/m  (k ≥ 1, odd degrees),
+H_{2k}   = 0    (k ≥ 1, even degrees &gt; 0).</p>
+</dd>
+<dt>K(F_r, 1) = ∨_r S¹  (wedge of r circles):</dt><dd><p>H_0 = ℤ, H_1 = ℤ^r, H_k = 0 for k ≥ 2.</p>
+</dd>
+<dt>K(ℤ^r, 1) = T^r  (r-torus):</dt><dd><p>H_k = ℤ^C(r,k)  (binomial coefficient), H_k = 0 for k &gt; r.</p>
+</dd>
+<dt>K(ℤ, 2) = CP^∞:</dt><dd><p>H_{2k} = ℤ, H_{2k+1} = 0 for all k ≥ 0.</p>
+</dd>
+<dt>K(ℤ, n) for n ≥ 1 (rational homology):</dt><dd><p>H_k(K(ℤ,n); ℚ) = ℚ for k = 0, n (and 2n-1 if n even); else 0.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Asphericity recognition:</dt><dd><p>A simplicial complex K is aspherical (K(π₁,1)) iff H_k(K̃; ℤ) = 0
+for all k ≥ 2, where K̃ is the universal cover.  For small complexes
+we check homological asphericity: H_k(K) = 0 for k ≥ 2 and π₁ is
+“compatible” with the homology (necessary but not sufficient in general).</p>
+</dd>
+</dl>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.KGnHomology">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.eilenberg_maclane.</span></span><span class="sig-name descname"><span class="pre">KGnHomology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">betti</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torsion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.eilenberg_maclane.KGnHomology" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Integral homology groups H_k(K(G,n); ℤ) up to <code class="docutils literal notranslate"><span class="pre">max_degree</span></code>.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>group_name<span class="classifier">str</span></dt><dd><p>Human-readable name of G (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;ℤ/6&quot;</span></code>).</p>
+</dd>
+<dt>n_space<span class="classifier">int</span></dt><dd><p>The n in K(G, n).</p>
+</dd>
+<dt>betti<span class="classifier">tuple[int, …]</span></dt><dd><p>Free ranks β_k = rank H_k for k = 0, 1, …, max_degree.</p>
+</dd>
+<dt>torsion<span class="classifier">tuple[tuple[int, …], …]</span></dt><dd><p>Torsion invariant factors of H_k (sorted).</p>
+</dd>
+</dl>
+<p>max_degree : int</p>
+</section>
+<section id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>describe(k)</dt><dd><p>Human-readable string for H_k.</p>
+</dd>
+<dt>euler_characteristic()</dt><dd><p>Alternating sum of Betti numbers (only well-defined when
+H_k = 0 for large k — use with care for K(G,1) spaces).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.KGnHomology.group_name">
+<span class="sig-name descname"><span class="pre">group_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.eilenberg_maclane.KGnHomology.group_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.KGnHomology.n_space">
+<span class="sig-name descname"><span class="pre">n_space</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.eilenberg_maclane.KGnHomology.n_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.KGnHomology.betti">
+<span class="sig-name descname"><span class="pre">betti</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.KGnHomology.betti" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.KGnHomology.torsion">
+<span class="sig-name descname"><span class="pre">torsion</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.KGnHomology.torsion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.KGnHomology.max_degree">
+<span class="sig-name descname"><span class="pre">max_degree</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.eilenberg_maclane.KGnHomology.max_degree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.KGnHomology.describe">
+<span class="sig-name descname"><span class="pre">describe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.KGnHomology.describe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.KGnHomology.euler_characteristic">
+<span class="sig-name descname"><span class="pre">euler_characteristic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.KGnHomology.euler_characteristic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.km_homology_cyclic">
+<span class="sig-prename descclassname"><span class="pre">pytop.eilenberg_maclane.</span></span><span class="sig-name descname"><span class="pre">km_homology_cyclic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.eilenberg_maclane.KGnHomology" title="pytop.eilenberg_maclane.KGnHomology"><span class="pre">KGnHomology</span></a></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.km_homology_cyclic" title="Link to this definition"></a></dt>
+<dd><p>H_*(K(ℤ/m, 1); ℤ) for m ≥ 1, computed up to degree max_degree.</p>
+<p>For m = 1 (trivial group): K(1,1) = <a href="#id1"><span class="problematic" id="id2">*</span></a>, all H_k = 0 for k ≥ 1.
+For m ≥ 2: periodic bar-complex homology.</p>
+<p>H_0 = ℤ
+H_{2k-1} = ℤ/m   (k ≥ 1)
+H_{2k}   = 0     (k ≥ 1)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.km_homology_free">
+<span class="sig-prename descclassname"><span class="pre">pytop.eilenberg_maclane.</span></span><span class="sig-name descname"><span class="pre">km_homology_free</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.eilenberg_maclane.KGnHomology" title="pytop.eilenberg_maclane.KGnHomology"><span class="pre">KGnHomology</span></a></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.km_homology_free" title="Link to this definition"></a></dt>
+<dd><p>H_*(K(F_r, 1); ℤ) = H_*(∨ r S¹; ℤ) up to max_degree.</p>
+<p>H_0 = ℤ,  H_1 = ℤ^r,  H_k = 0 for k ≥ 2.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.km_homology_free_abelian">
+<span class="sig-prename descclassname"><span class="pre">pytop.eilenberg_maclane.</span></span><span class="sig-name descname"><span class="pre">km_homology_free_abelian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.eilenberg_maclane.KGnHomology" title="pytop.eilenberg_maclane.KGnHomology"><span class="pre">KGnHomology</span></a></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.km_homology_free_abelian" title="Link to this definition"></a></dt>
+<dd><p>H_*(K(ℤ^r, 1); ℤ) = H_*(T^r; ℤ) up to max_degree.</p>
+<p>H_k(T^r; ℤ) = ℤ^C(r,k) (binomial coefficient), 0 for k &gt; r.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.km_homology_z">
+<span class="sig-prename descclassname"><span class="pre">pytop.eilenberg_maclane.</span></span><span class="sig-name descname"><span class="pre">km_homology_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.eilenberg_maclane.KGnHomology" title="pytop.eilenberg_maclane.KGnHomology"><span class="pre">KGnHomology</span></a></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.km_homology_z" title="Link to this definition"></a></dt>
+<dd><p>H_*(K(ℤ, n); ℤ) up to max_degree.</p>
+<dl class="simple">
+<dt>Known values (integral):</dt><dd><p>n = 1 (= S¹): H_0 = H_1 = ℤ, else 0.
+n = 2 (= CP^∞): H_{2k} = ℤ, H_{2k+1} = 0.
+n = 3: H_0=ℤ, H_3=ℤ, H_5=ℤ/2, H_7=ℤ/3, H_9=ℤ/2⊕ℤ/2, … (complicated).
+n ≥ 2 exact integral homology beyond small degrees uses Serre spectral
+sequences and is only partially computable here.</p>
+</dd>
+</dl>
+<p>For n = 1 and n = 2 exact values are returned.
+For n ≥ 3 only degree 0 and n (both ℤ) are guaranteed; higher degrees
+are returned as 0 with a note that the computation is incomplete.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.km_homology_z2">
+<span class="sig-prename descclassname"><span class="pre">pytop.eilenberg_maclane.</span></span><span class="sig-name descname"><span class="pre">km_homology_z2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.eilenberg_maclane.KGnHomology" title="pytop.eilenberg_maclane.KGnHomology"><span class="pre">KGnHomology</span></a></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.km_homology_z2" title="Link to this definition"></a></dt>
+<dd><p>H_*(K(ℤ/2, n); ℤ) up to max_degree.</p>
+<p>n = 1: K(ℤ/2, 1) = RP^∞.  H_0=ℤ, H_{2k-1}=ℤ/2 (k≥1), H_{2k}=0 (k≥1).
+n = 2: H_0=ℤ, H_2=ℤ/2, H_3=ℤ/2, H_4=ℤ/4, H_5=ℤ/2, … (Steenrod squares</p>
+<blockquote>
+<div><p>govern the pattern; only n=1 exact here, n≥2 partially).</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.km_homology_rational">
+<span class="sig-prename descclassname"><span class="pre">pytop.eilenberg_maclane.</span></span><span class="sig-name descname"><span class="pre">km_homology_rational</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.km_homology_rational" title="Link to this definition"></a></dt>
+<dd><p>Rational Betti numbers β_k(K(G,n); ℚ) for standard groups.</p>
+<p>Returns a dict {k: β_k} for k = 0, …, max_degree.</p>
+<dl>
+<dt>Handles:</dt><dd><p>group = “Z” (ℤ), n = 1: β_0=β_1=1, else 0.
+group = “Z” (ℤ), n = 2: β_{2k}=1 for all k (K(ℤ,2)=CP^∞ rationally).
+group = “Z” (ℤ), n odd ≥ 3: β_0=β_n=1, else 0.
+group = “Z” (ℤ), n even ≥ 4: β_0=β_n=β_{2n-1}=1, else 0.
+group = “Zr” (ℤ^r), n = 1: β_k = C(r,k), else 0.
+group = “Zm” (finite), any n: β_0=1, β_k=0 for k≥1 (finite groups have</p>
+<blockquote>
+<div><p>trivial rational homology in positive degrees).</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.is_aspherical_by_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.eilenberg_maclane.</span></span><span class="sig-name descname"><span class="pre">is_aspherical_by_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">betti</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">torsion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi1_betti_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi1_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'unknown'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.is_aspherical_by_homology" title="Link to this definition"></a></dt>
+<dd><p>Test homological asphericity (K(π₁, 1) recognition heuristic).</p>
+<p>Two calling conventions are supported:</p>
+<ul class="simple">
+<li><p><strong>Simplicial complex</strong> — <code class="docutils literal notranslate"><span class="pre">is_aspherical_by_homology(K)</span></code> computes the
+integral homology of <code class="docutils literal notranslate"><span class="pre">K</span></code> and returns a plain <code class="docutils literal notranslate"><span class="pre">bool</span></code>: <code class="docutils literal notranslate"><span class="pre">True</span></code> if the
+necessary homological conditions for asphericity hold (<code class="docutils literal notranslate"><span class="pre">H_k(K)</span> <span class="pre">=</span> <span class="pre">0</span></code> for
+all <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">≥</span> <span class="pre">2</span></code>), <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p></li>
+<li><p><strong>Explicit homology</strong> — <code class="docutils literal notranslate"><span class="pre">is_aspherical_by_homology(betti,</span> <span class="pre">torsion,</span>
+<span class="pre">pi1_betti_1,</span> <span class="pre">pi1_type)</span></code> returns a <code class="docutils literal notranslate"><span class="pre">(verdict,</span> <span class="pre">reason)</span></code> tuple where the
+verdict is <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">False</span></code>/<code class="docutils literal notranslate"><span class="pre">None</span></code> (undecidable).</p></li>
+</ul>
+<p>A necessary condition for <code class="docutils literal notranslate"><span class="pre">K</span></code> to be aspherical is that its homology
+matches that of <code class="docutils literal notranslate"><span class="pre">K(π₁(K),</span> <span class="pre">1)</span></code>:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">H_k(K)</span> <span class="pre">=</span> <span class="pre">0</span></code> for all <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">≥</span> <span class="pre">2</span></code> (no higher homology).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">β_1(K)</span> <span class="pre">=</span> <span class="pre">rank(π₁^{ab})</span></code> — first Betti number matches the π₁^{ab} rank.</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.eilenberg_maclane.km_euler_characteristic">
+<span class="sig-prename descclassname"><span class="pre">pytop.eilenberg_maclane.</span></span><span class="sig-name descname"><span class="pre">km_euler_characteristic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.eilenberg_maclane.km_euler_characteristic" title="Link to this definition"></a></dt>
+<dd><p>Euler characteristic χ(K(G,n)) using rational Betti numbers, truncated.</p>
+<p>Only meaningful when H_k = 0 for k &gt; truncation (e.g. for K(ℤ^r,1)=T^r).</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>group_name<span class="classifier">str</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">&quot;Z&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Z^r&quot;</span></code> (abelian), or <code class="docutils literal notranslate"><span class="pre">&quot;Z/m&quot;</span></code> (cyclic finite).</p>
+</dd>
+<dt>n<span class="classifier">int</span></dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">n</span></code> in K(G, n).</p>
+</dd>
+<dt>truncation<span class="classifier">int</span></dt><dd><p>Compute χ using β_k for k = 0, …, truncation.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

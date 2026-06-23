@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local Compactness &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Local Compactness</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/local_compactness.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.local_compactness">
+<span id="local-compactness"></span><h1>Local Compactness<a class="headerlink" href="#module-pytop.local_compactness" title="Link to this heading"></a></h1>
+<p>Local compactness and compactification helpers — Cilt III v0.1.56 corridor.</p>
+<p>This module provides durable public helpers for local compactness, one-point
+(Alexandroff) compactification, and related structural checks.  The design
+principle is the same as for <code class="docutils literal notranslate"><span class="pre">separation</span></code> and <code class="docutils literal notranslate"><span class="pre">compactness</span></code>: return
+structured <code class="docutils literal notranslate"><span class="pre">Result</span></code> objects that distinguish exact finite answers from
+theorem-level inferences and explicitly flag the unknown case instead of
+guessing.</p>
+<section id="public-surface-cilt-iii-durable-api">
+<h2>Public surface (Cilt III durable API)<a class="headerlink" href="#public-surface-cilt-iii-durable-api" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">is_locally_compact(space)</span></code></dt><dd><p>Conservative local-compactness check. Exact for finite spaces with an
+explicit topology; theorem-level for tagged/known spaces.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">one_point_compactification(space)</span></code></dt><dd><p>Construct the Alexandroff one-point extension of a locally compact
+Hausdorff finite space, returning a new <code class="docutils literal notranslate"><span class="pre">FiniteTopologicalSpace</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">alexandroff_point_check(space)</span></code></dt><dd><p>Report whether the given space could serve as the base of an Alexandroff
+compactification (i.e. is locally compact Hausdorff and non-compact).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">local_compactness_profile(space)</span></code></dt><dd><p>Return a dict with <code class="docutils literal notranslate"><span class="pre">is_locally_compact</span></code>, <code class="docutils literal notranslate"><span class="pre">is_hausdorff</span></code>,
+<code class="docutils literal notranslate"><span class="pre">is_compact</span></code>, and <code class="docutils literal notranslate"><span class="pre">alexandroff_eligible</span></code> as <code class="docutils literal notranslate"><span class="pre">Result</span></code> values.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">analyze_local_compactness(space)</span></code></dt><dd><p>Return a structured <code class="docutils literal notranslate"><span class="pre">Result</span></code> with all profile fields folded into
+metadata — a single-call facade for notebooks and manuscripts.</p>
+</dd>
+</dl>
+</section>
+<dl class="py exception">
+<dt class="sig sig-object py" id="pytop.local_compactness.LocalCompactnessError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.local_compactness.</span></span><span class="sig-name descname"><span class="pre">LocalCompactnessError</span></span><a class="headerlink" href="#pytop.local_compactness.LocalCompactnessError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a></p>
+<p>Raised for invalid input to local compactness helpers.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.local_compactness.is_locally_compact">
+<span class="sig-prename descclassname"><span class="pre">pytop.local_compactness.</span></span><span class="sig-name descname"><span class="pre">is_locally_compact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.local_compactness.is_locally_compact" title="Link to this definition"></a></dt>
+<dd><p>Return a structured result for local compactness.</p>
+<p>Exact for finite spaces; theorem-level for well-known tagged spaces;
+unknown otherwise.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.local_compactness.one_point_compactification">
+<span class="sig-prename descclassname"><span class="pre">pytop.local_compactness.</span></span><span class="sig-name descname"><span class="pre">one_point_compactification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'∞'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.local_compactness.one_point_compactification" title="Link to this definition"></a></dt>
+<dd><p>Construct the Alexandroff one-point compactification.</p>
+<p>The input space must be a locally compact Hausdorff finite space.  The
+new point <code class="docutils literal notranslate"><span class="pre">point_label</span></code> (default <code class="docutils literal notranslate"><span class="pre">'∞'</span></code>) is added; open sets of the
+extension are:</p>
+<ul class="simple">
+<li><p>every open set of the original space, and</p></li>
+<li><p>sets of the form <code class="docutils literal notranslate"><span class="pre">{point_label}</span> <span class="pre">∪</span> <span class="pre">(X</span> <span class="pre">\</span> <span class="pre">K)</span></code> where <code class="docutils literal notranslate"><span class="pre">K</span></code> is a compact
+(here: any) closed subset of the original space.</p></li>
+</ul>
+<p>For finite spaces every subset is compact, so the second family gives
+<code class="docutils literal notranslate"><span class="pre">{point_label}</span> <span class="pre">∪</span> <span class="pre">(X</span> <span class="pre">\</span> <span class="pre">C)</span></code> for every closed <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>space:</dt><dd><p>A <code class="docutils literal notranslate"><span class="pre">FiniteTopologicalSpace</span></code>.  Local compactness and Hausdorff checks
+are advisory here; the construction is always well-defined on finite
+data.</p>
+</dd>
+<dt>point_label:</dt><dd><p>Label for the new point.  Defaults to <code class="docutils literal notranslate"><span class="pre">'∞'</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>FiniteTopologicalSpace</dt><dd><p>The Alexandroff extension with one extra point.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.local_compactness.alexandroff_point_check">
+<span class="sig-prename descclassname"><span class="pre">pytop.local_compactness.</span></span><span class="sig-name descname"><span class="pre">alexandroff_point_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.local_compactness.alexandroff_point_check" title="Link to this definition"></a></dt>
+<dd><p>Report whether <code class="docutils literal notranslate"><span class="pre">space</span></code> is eligible as the base of an Alexandroff compactification.</p>
+<p>Eligibility requires:
+* locally compact,
+* Hausdorff,
+* non-compact.</p>
+<p>Returns a structured <code class="docutils literal notranslate"><span class="pre">Result</span></code>.  For finite spaces the compact condition
+always holds (finite spaces are compact), so the result is always
+<code class="docutils literal notranslate"><span class="pre">false</span></code> with an explanation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.local_compactness.local_compactness_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.local_compactness.</span></span><span class="sig-name descname"><span class="pre">local_compactness_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.local_compactness.local_compactness_profile" title="Link to this definition"></a></dt>
+<dd><p>Return a structured profile covering local compactness, Hausdorff, compactness, and Alexandroff eligibility.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.local_compactness.analyze_local_compactness">
+<span class="sig-prename descclassname"><span class="pre">pytop.local_compactness.</span></span><span class="sig-name descname"><span class="pre">analyze_local_compactness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.local_compactness.analyze_local_compactness" title="Link to this definition"></a></dt>
+<dd><p>Single-call facade: local compactness result with full profile in metadata.</p>
+<p>This is the main entry point for notebooks and manuscript API-bridge remarks.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

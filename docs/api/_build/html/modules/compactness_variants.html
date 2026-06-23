@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compactness Variants &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Compactness Variants</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/compactness_variants.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.compactness_variants">
+<span id="compactness-variants"></span><h1>Compactness Variants<a class="headerlink" href="#module-pytop.compactness_variants" title="Link to this heading"></a></h1>
+<section id="compactness-variants-py-cilt-iii-v0-1-61">
+<h2>compactness_variants.py — Cilt III v0.1.61<a class="headerlink" href="#compactness-variants-py-cilt-iii-v0-1-61" title="Link to this heading"></a></h2>
+<p>Durable API for advanced compactness variants.</p>
+<section id="variants-covered">
+<h3>Variants covered<a class="headerlink" href="#variants-covered" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Countable compactness</p></li>
+<li><p>Sequential compactness</p></li>
+<li><p>Pseudocompactness</p></li>
+<li><p>ω-compactness (Lindelöf property)</p></li>
+<li><p>Compactness itself (for comparison)</p></li>
+</ul>
+</section>
+<section id="public-surface">
+<h3>Public surface<a class="headerlink" href="#public-surface" title="Link to this heading"></a></h3>
+<p>is_countably_compact(space)       → Result
+is_sequentially_compact(space)    → Result
+is_pseudocompact(space)           → Result
+is_lindelof(space)                → Result
+compactness_variant_profile(space) → dict
+analyze_compactness_variants(space) → Result
+CompactnessVariantError            → exception class</p>
+</section>
+</section>
+<dl class="py exception">
+<dt class="sig sig-object py" id="pytop.compactness_variants.CompactnessVariantError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">CompactnessVariantError</span></span><a class="headerlink" href="#pytop.compactness_variants.CompactnessVariantError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Raised when a compactness-variant operation cannot be completed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.compactness_variants.is_countably_compact">
+<span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">is_countably_compact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.compactness_variants.is_countably_compact" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> is countably compact.</p>
+<p>A space X is countably compact if every countable open cover has a
+finite subcover (equivalently: every infinite subset has an ω-accumulation
+point; equivalently: every sequence has a cluster point).</p>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>Result with status “true”/”false”/”unknown”</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.compactness_variants.is_sequentially_compact">
+<span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">is_sequentially_compact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.compactness_variants.is_sequentially_compact" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> is sequentially compact.</p>
+<p>A space X is sequentially compact if every sequence in X has a
+convergent subsequence.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.compactness_variants.is_pseudocompact">
+<span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">is_pseudocompact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.compactness_variants.is_pseudocompact" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> is pseudocompact.</p>
+<p>A Tychonoff space X is pseudocompact if every continuous real-valued
+function on X is bounded.  Equivalent (for Tychonoff spaces) to:
+every locally finite open cover is finite.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.compactness_variants.is_feebly_compact">
+<span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">is_feebly_compact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.compactness_variants.is_feebly_compact" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> is feebly compact.</p>
+<p>A space X is feebly compact if every locally finite open cover is finite
+(equivalently: every sequence of nonempty open sets has an accumulation
+point).  Every pseudocompact Tychonoff space is feebly compact; for
+non-Tychonoff spaces feebly compact is strictly weaker than pseudocompact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.compactness_variants.is_metacompact">
+<span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">is_metacompact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.compactness_variants.is_metacompact" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> is metacompact.</p>
+<p>A space X is metacompact if every open cover has a point-finite open
+refinement (one in which each point belongs to only finitely many members).
+Compact ⟹ metacompact; paracompact ⟹ metacompact; metrizable ⟹ metacompact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.compactness_variants.is_relatively_compact">
+<span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">is_relatively_compact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.compactness_variants.is_relatively_compact" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> has compact closure (is relatively compact in
+some ambient space).</p>
+<p>For a finite space every subspace is relatively compact. For infinite
+spaces a tag of ‘relatively_compact’ or ‘compact’ is decisive. A
+bounded subset of a metric space is relatively compact iff it is
+totally bounded.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.compactness_variants.is_sigma_compact">
+<span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">is_sigma_compact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.compactness_variants.is_sigma_compact" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> is σ-compact.</p>
+<p>A space X is σ-compact if it can be written as a countable union of
+compact subsets.  Compact ⟹ σ-compact; locally compact + second-countable
+⟹ σ-compact; σ-compact ⟹ Lindelöf for locally compact Hausdorff spaces.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.compactness_variants.is_lindelof">
+<span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">is_lindelof</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.compactness_variants.is_lindelof" title="Link to this definition"></a></dt>
+<dd><p>Determine whether <em>space</em> has the Lindelöf property.</p>
+<p>A space X is Lindelöf if every open cover has a countable subcover.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.compactness_variants.compactness_variant_profile">
+<span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">compactness_variant_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.compactness_variants.compactness_variant_profile" title="Link to this definition"></a></dt>
+<dd><p>Return all four variant results for <em>space</em> as a single dict.</p>
+<section id="id1">
+<h2>Returns<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict with keys:</dt><dd><p>representation, countably_compact, sequentially_compact,
+pseudocompact, lindelof</p>
+</dd>
+</dl>
+<p>Each value is a Result object.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.compactness_variants.analyze_compactness_variants">
+<span class="sig-prename descclassname"><span class="pre">pytop.compactness_variants.</span></span><span class="sig-name descname"><span class="pre">analyze_compactness_variants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.compactness_variants.analyze_compactness_variants" title="Link to this definition"></a></dt>
+<dd><p>Single-call facade: analyse all compactness variants for <em>space</em>.</p>
+<p>Returns a Result whose <code class="docutils literal notranslate"><span class="pre">value</span></code> is the <code class="docutils literal notranslate"><span class="pre">compactness_variant_profile</span></code>
+dict and whose justification summarises each variant’s verdict.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

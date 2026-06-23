@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experimental - Convergence_Spaces &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Experimental - Convergence_Spaces</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/experimental_convergence_spaces.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.experimental.convergence_spaces">
+<span id="experimental-convergence-spaces"></span><h1>Experimental - Convergence_Spaces<a class="headerlink" href="#module-pytop.experimental.convergence_spaces" title="Link to this heading"></a></h1>
+<p>Finite convergence spaces: the “royal road” generalization of topology.</p>
+<p>A convergence space specifies which filters converge to which points, with no
+requirement that the convergence come from a topology. This is the framework of
+Dolecki’s <em>A Royal Road to Topology</em> (2024) and the classical convergence-space
+school (Choquet, Kowalsky, Kent).</p>
+<p>On a <strong>finite</strong> carrier every filter is principal, so a filter is determined by
+its kernel (the intersection of its members), a nonempty subset <code class="docutils literal notranslate"><span class="pre">S</span></code> of the
+carrier. We therefore model a convergence structure as a relation between
+kernels <code class="docutils literal notranslate"><span class="pre">S</span></code> and points <code class="docutils literal notranslate"><span class="pre">x</span></code> – “the principal filter at <code class="docutils literal notranslate"><span class="pre">S</span></code> converges to
+<code class="docutils literal notranslate"><span class="pre">x</span></code>”. This makes the whole hierarchy computable:</p>
+<ul class="simple">
+<li><p><strong>convergence space</strong> – the principal filter at <code class="docutils literal notranslate"><span class="pre">x</span></code> converges to <code class="docutils literal notranslate"><span class="pre">x</span></code>
+(centered) and finer filters keep converging (isotone);</p></li>
+<li><p><strong>pretopology</strong> – the coarsest filter converging to <code class="docutils literal notranslate"><span class="pre">x</span></code> (its neighborhood
+filter) also converges to <code class="docutils literal notranslate"><span class="pre">x</span></code>;</p></li>
+<li><p><strong>pseudotopology</strong> – a filter converges to <code class="docutils literal notranslate"><span class="pre">x</span></code> whenever every finer
+ultrafilter does (on a finite carrier ultrafilters are the point filters, so
+this coincides with the pretopology condition);</p></li>
+<li><p><strong>topology</strong> – a pretopology whose minimal neighborhoods are open, i.e. the
+neighborhood assignment is transitive.</p></li>
+</ul>
+<p>Bridges between finite topologies and convergence structures are provided, and
+they are mutually inverse on topological convergences.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.ConvergenceSpace">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.experimental.convergence_spaces.</span></span><span class="sig-name descname"><span class="pre">ConvergenceSpace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convergences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.experimental.convergence_spaces.ConvergenceSpace" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A finite convergence space.</p>
+<p><code class="docutils literal notranslate"><span class="pre">points</span></code> is the carrier; <code class="docutils literal notranslate"><span class="pre">convergences</span></code> is the set of <code class="docutils literal notranslate"><span class="pre">(kernel,</span> <span class="pre">point)</span></code>
+pairs meaning “the principal filter with kernel <code class="docutils literal notranslate"><span class="pre">kernel</span></code> converges to
+<code class="docutils literal notranslate"><span class="pre">point</span></code>”. Kernels are nonempty subsets of <code class="docutils literal notranslate"><span class="pre">points</span></code>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.ConvergenceSpace.points">
+<span class="sig-name descname"><span class="pre">points</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.ConvergenceSpace.points" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.ConvergenceSpace.convergences">
+<span class="sig-name descname"><span class="pre">convergences</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.ConvergenceSpace.convergences" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.ConvergenceSpace.converges">
+<span class="sig-name descname"><span class="pre">converges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.ConvergenceSpace.converges" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.ConvergenceSpace.kernels_converging_to">
+<span class="sig-name descname"><span class="pre">kernels_converging_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.14)"><span class="pre">set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.ConvergenceSpace.kernels_converging_to" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.ConvergenceSpace.neighborhood_kernel">
+<span class="sig-name descname"><span class="pre">neighborhood_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.ConvergenceSpace.neighborhood_kernel" title="Link to this definition"></a></dt>
+<dd><p>Return the kernel of the neighborhood filter at <code class="docutils literal notranslate"><span class="pre">limit</span></code>.</p>
+<p>This is the union of all kernels converging to <code class="docutils literal notranslate"><span class="pre">limit</span></code> (the kernel of
+the coarsest such filter). Empty if nothing converges to <code class="docutils literal notranslate"><span class="pre">limit</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.is_convergence_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.experimental.convergence_spaces.</span></span><span class="sig-name descname"><span class="pre">is_convergence_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.experimental.convergence_spaces.ConvergenceSpace" title="pytop.experimental.convergence_spaces.ConvergenceSpace"><span class="pre">ConvergenceSpace</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.is_convergence_space" title="Link to this definition"></a></dt>
+<dd><p>Check the centered and isotone axioms.</p>
+<ul class="simple">
+<li><p>centered: the point filter <code class="docutils literal notranslate"><span class="pre">{x}</span></code> converges to <code class="docutils literal notranslate"><span class="pre">x</span></code> for every <code class="docutils literal notranslate"><span class="pre">x</span></code>;</p></li>
+<li><p>isotone: if a filter converges to <code class="docutils literal notranslate"><span class="pre">x</span></code> then every finer filter (smaller
+kernel) also converges to <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.is_pretopology">
+<span class="sig-prename descclassname"><span class="pre">pytop.experimental.convergence_spaces.</span></span><span class="sig-name descname"><span class="pre">is_pretopology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.experimental.convergence_spaces.ConvergenceSpace" title="pytop.experimental.convergence_spaces.ConvergenceSpace"><span class="pre">ConvergenceSpace</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.is_pretopology" title="Link to this definition"></a></dt>
+<dd><p>A convergence space is a pretopology iff each neighborhood filter converges.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.is_pseudotopology">
+<span class="sig-prename descclassname"><span class="pre">pytop.experimental.convergence_spaces.</span></span><span class="sig-name descname"><span class="pre">is_pseudotopology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.experimental.convergence_spaces.ConvergenceSpace" title="pytop.experimental.convergence_spaces.ConvergenceSpace"><span class="pre">ConvergenceSpace</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.is_pseudotopology" title="Link to this definition"></a></dt>
+<dd><p>A convergence space is a pseudotopology iff filters whose every finer
+ultrafilter converges to <code class="docutils literal notranslate"><span class="pre">x</span></code> themselves converge to <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<p>On a finite carrier the ultrafilters are the point filters, so this is the
+condition that every nonempty subset of <code class="docutils literal notranslate"><span class="pre">{p</span> <span class="pre">:</span> <span class="pre">{p}</span> <span class="pre">-&gt;</span> <span class="pre">x}</span></code> converges to
+<code class="docutils literal notranslate"><span class="pre">x</span></code> – equivalent to the pretopology condition.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.is_topological">
+<span class="sig-prename descclassname"><span class="pre">pytop.experimental.convergence_spaces.</span></span><span class="sig-name descname"><span class="pre">is_topological</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.experimental.convergence_spaces.ConvergenceSpace" title="pytop.experimental.convergence_spaces.ConvergenceSpace"><span class="pre">ConvergenceSpace</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.is_topological" title="Link to this definition"></a></dt>
+<dd><p>A pretopology is topological iff its minimal neighborhoods are transitive.</p>
+<p>Concretely: for every point <code class="docutils literal notranslate"><span class="pre">x</span></code> and every <code class="docutils literal notranslate"><span class="pre">y</span></code> in its neighborhood kernel
+<code class="docutils literal notranslate"><span class="pre">U_x</span></code>, the neighborhood kernel <code class="docutils literal notranslate"><span class="pre">U_y</span></code> is contained in <code class="docutils literal notranslate"><span class="pre">U_x</span></code> (so <code class="docutils literal notranslate"><span class="pre">U_x</span></code>
+is open). This is the finite/Alexandrov topology condition.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.convergence_from_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.experimental.convergence_spaces.</span></span><span class="sig-name descname"><span class="pre">convergence_from_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.experimental.convergence_spaces.ConvergenceSpace" title="pytop.experimental.convergence_spaces.ConvergenceSpace"><span class="pre">ConvergenceSpace</span></a></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.convergence_from_topology" title="Link to this definition"></a></dt>
+<dd><p>Build the convergence space of a finite topology.</p>
+<p><code class="docutils literal notranslate"><span class="pre">opens</span></code> is the family of open sets. The minimal neighborhood of <code class="docutils literal notranslate"><span class="pre">x</span></code> is
+<code class="docutils literal notranslate"><span class="pre">U_x</span> <span class="pre">=</span> <span class="pre">intersection</span> <span class="pre">of</span> <span class="pre">all</span> <span class="pre">opens</span> <span class="pre">containing</span> <span class="pre">x</span></code>; a filter with kernel <code class="docutils literal notranslate"><span class="pre">S</span></code>
+converges to <code class="docutils literal notranslate"><span class="pre">x</span></code> iff <code class="docutils literal notranslate"><span class="pre">S</span></code> is contained in <code class="docutils literal notranslate"><span class="pre">U_x</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.topology_from_convergence">
+<span class="sig-prename descclassname"><span class="pre">pytop.experimental.convergence_spaces.</span></span><span class="sig-name descname"><span class="pre">topology_from_convergence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.experimental.convergence_spaces.ConvergenceSpace" title="pytop.experimental.convergence_spaces.ConvergenceSpace"><span class="pre">ConvergenceSpace</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.topology_from_convergence" title="Link to this definition"></a></dt>
+<dd><p>Recover the open sets of a topological convergence space.</p>
+<p>A set <code class="docutils literal notranslate"><span class="pre">O</span></code> is open iff it is a neighborhood of each of its points, i.e.
+<code class="docutils literal notranslate"><span class="pre">U_x</span></code> is contained in <code class="docutils literal notranslate"><span class="pre">O</span></code> for every <code class="docutils literal notranslate"><span class="pre">x</span></code> in <code class="docutils literal notranslate"><span class="pre">O</span></code>. Raises if <code class="docutils literal notranslate"><span class="pre">space</span></code>
+is not topological.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.is_continuous_convergence_map">
+<span class="sig-prename descclassname"><span class="pre">pytop.experimental.convergence_spaces.</span></span><span class="sig-name descname"><span class="pre">is_continuous_convergence_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.experimental.convergence_spaces.ConvergenceSpace" title="pytop.experimental.convergence_spaces.ConvergenceSpace"><span class="pre">ConvergenceSpace</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">codomain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.experimental.convergence_spaces.ConvergenceSpace" title="pytop.experimental.convergence_spaces.ConvergenceSpace"><span class="pre">ConvergenceSpace</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.is_continuous_convergence_map" title="Link to this definition"></a></dt>
+<dd><p>Check continuity: convergent filters map to convergent filters.</p>
+<p><code class="docutils literal notranslate"><span class="pre">f</span></code> is continuous iff for every <code class="docutils literal notranslate"><span class="pre">(S,</span> <span class="pre">x)</span></code> converging in the domain, the
+pushed-forward filter (principal at <code class="docutils literal notranslate"><span class="pre">f(S)</span></code>) converges to <code class="docutils literal notranslate"><span class="pre">f(x)</span></code> in the
+codomain.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.experimental.convergence_spaces.grill_of_filter">
+<span class="sig-prename descclassname"><span class="pre">pytop.experimental.convergence_spaces.</span></span><span class="sig-name descname"><span class="pre">grill_of_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carrier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.experimental.convergence_spaces.grill_of_filter" title="Link to this definition"></a></dt>
+<dd><p>Return the grill of the principal filter with the given <code class="docutils literal notranslate"><span class="pre">kernel</span></code>.</p>
+<p>The grill of a filter <code class="docutils literal notranslate"><span class="pre">F</span></code> is <code class="docutils literal notranslate"><span class="pre">{A</span> <span class="pre">:</span> <span class="pre">A</span> <span class="pre">meets</span> <span class="pre">every</span> <span class="pre">member</span> <span class="pre">of</span> <span class="pre">F}</span></code>. For a
+principal filter the smallest member is the kernel, so the grill is exactly
+the sets that intersect the kernel. The grill is the order-dual notion to a
+filter and underlies the convergence-theoretic treatment of closure.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

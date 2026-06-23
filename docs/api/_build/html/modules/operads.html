@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operads &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Higher Categories" href="higher_categories.html" />
+    <link rel="prev" title="Topos Theory" href="topos_theory.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Operads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-theorems-and-constructions-implemented">Key theorems and constructions implemented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.OperadProfile"><code class="docutils literal notranslate"><span class="pre">OperadProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.key"><code class="docutils literal notranslate"><span class="pre">OperadProfile.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.display_name"><code class="docutils literal notranslate"><span class="pre">OperadProfile.display_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.operad_type"><code class="docutils literal notranslate"><span class="pre">OperadProfile.operad_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.algebra_type"><code class="docutils literal notranslate"><span class="pre">OperadProfile.algebra_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.is_koszul"><code class="docutils literal notranslate"><span class="pre">OperadProfile.is_koszul</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.has_koszul_dual"><code class="docutils literal notranslate"><span class="pre">OperadProfile.has_koszul_dual</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.is_binary_quadratic"><code class="docutils literal notranslate"><span class="pre">OperadProfile.is_binary_quadratic</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.is_self_dual"><code class="docutils literal notranslate"><span class="pre">OperadProfile.is_self_dual</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.admits_infinity_version"><code class="docutils literal notranslate"><span class="pre">OperadProfile.admits_infinity_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.presentation_layer"><code class="docutils literal notranslate"><span class="pre">OperadProfile.presentation_layer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.focus"><code class="docutils literal notranslate"><span class="pre">OperadProfile.focus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.operads.OperadProfile.chapter_targets"><code class="docutils literal notranslate"><span class="pre">OperadProfile.chapter_targets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.get_named_operad_profiles"><code class="docutils literal notranslate"><span class="pre">get_named_operad_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.operad_layer_summary"><code class="docutils literal notranslate"><span class="pre">operad_layer_summary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.operad_chapter_index"><code class="docutils literal notranslate"><span class="pre">operad_chapter_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.operad_type_index"><code class="docutils literal notranslate"><span class="pre">operad_type_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.is_koszul_operad"><code class="docutils literal notranslate"><span class="pre">is_koszul_operad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.has_infinity_algebra_structure"><code class="docutils literal notranslate"><span class="pre">has_infinity_algebra_structure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.admits_koszul_dual"><code class="docutils literal notranslate"><span class="pre">admits_koszul_dual()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.is_binary_quadratic_operad"><code class="docutils literal notranslate"><span class="pre">is_binary_quadratic_operad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.classify_operad"><code class="docutils literal notranslate"><span class="pre">classify_operad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.operad_profile_report"><code class="docutils literal notranslate"><span class="pre">operad_profile_report()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.associahedron_complex"><code class="docutils literal notranslate"><span class="pre">associahedron_complex()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.operad_composition_check"><code class="docutils literal notranslate"><span class="pre">operad_composition_check()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.operads.bar_construction_sc"><code class="docutils literal notranslate"><span class="pre">bar_construction_sc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Operads</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/operads.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.operads">
+<span id="operads"></span><h1>Operads<a class="headerlink" href="#module-pytop.operads" title="Link to this heading"></a></h1>
+<p>Operads: symmetric/non-symmetric operads, Koszul duality, bar-cobar constructions,
+A-infinity/L-infinity/E-infinity algebras, little disks operads, tree compositions.</p>
+<section id="key-theorems-and-constructions-implemented">
+<h2>Key theorems and constructions implemented<a class="headerlink" href="#key-theorems-and-constructions-implemented" title="Link to this heading"></a></h2>
+<ul>
+<li><p>Operad (symmetric): a symmetric operad P is a collection {P(n)}_{n&gt;=0} of S_n-modules
+(right modules over the symmetric group S_n) together with composition maps:
+gamma: P(k) tensor P(n_1) tensor … tensor P(n_k) -&gt; P(n_1 + … + n_k),
+a unit 1 in P(1), subject to associativity, unity, and equivariance axioms.
+Equivalently, P is a monoid in the category (Seq, tensor_circ, I) of symmetric sequences
+with respect to the composition product: (P circ Q)(n) = direct_sum_{k&gt;=0} P(k)
+tensor_{S_k} Q^{tensor k}(n). An algebra over P is a vector space (or object) A
+together with maps P(n) tensor_{S_n} A^{tensor n} -&gt; A satisfying unit and
+associativity with respect to the operad structure. Key examples:
+- Ass: the associative operad with Ass(n) = k[S_n] (free S_n-module of rank 1);</p>
+<blockquote>
+<div><p>Ass-algebras are exactly associative algebras.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Com: the commutative operad with Com(n) = k (trivial S_n-module of rank 1);
+Com-algebras are exactly commutative associative algebras.</p></li>
+<li><p>Lie: the Lie operad encoding the Lie bracket; Lie-algebras are Lie algebras.</p></li>
+</ul>
+<p>Non-symmetric (planar) operad: same as above but without the S_n-action; algebras
+are algebras with ordered inputs. Non-symmetric Ass encodes associative algebras;
+non-symmetric Com does not make sense (commutativity requires the transposition).</p>
+</li>
+<li><p>Koszul duality for operads (Ginzburg-Kapranov, 1994): a binary quadratic operad P
+(generated by binary operations with quadratic relations) has a Koszul dual operad P^!.
+A quadratic operad P = (E, R) is presented by generators E in arity 2 and quadratic
+relations R in E circ E. The Koszul dual: P^! = (E^*, R^perp) where E^* = Hom(E, k)
+with twisted S_2-action, and R^perp is the orthogonal complement of R under the
+natural pairing. Fundamental examples:
+- Com^! = Lie, Lie^! = Com (Com and Lie are Koszul dual to each other).
+- Ass^! = Ass (associative operad is self-dual up to twist).
+Koszul operads: P is Koszul if the augmentation epsilon: B(P^!) -&gt; k is a
+quasi-isomorphism, where B denotes the bar construction. Equivalently, the Koszul
+complex P^! circ_kappa P is acyclic (quasi-isomorphic to the unit operad I).
+Consequence: if P is Koszul, then P^{infty} = Omega(P^!) (bar-cobar construction)
+is the minimal resolution of P, whose algebras are P-algebras up to homotopy
+(P_infty-algebras). The main theorem: Ass, Com, and Lie are all Koszul operads.</p></li>
+<li><p>Bar-cobar constructions: for an augmented operad P (with augmentation P -&gt; I), the
+bar construction B(P) is a cooperad (graded, with a differential making it a dg-cooperad)
+with B(P) = T^c(s P_+) (cofree cooperad on the suspension of the augmentation ideal).
+The cobar construction Omega(C) of an augmented cooperad C is the operad
+Omega(C) = T(s^{-1} C_+) with differential induced by the coproduct of C.
+Adjunction: (Omega, B) form an adjoint pair between dg-operads and dg-cooperads.
+The counit Omega(B(P)) -&gt; P is a quasi-isomorphism for augmented operads (always),
+and the unit P^! -&gt; B(P)/relations is a quasi-isomorphism iff P is Koszul.
+Applications: the bar construction B(P) is used to define P-infinity algebras
+(via their Maurer-Cartan elements), and the Koszul complex is the twisted composite.</p></li>
+<li><p>A-infinity algebras (Stasheff, 1963): an A-infinity algebra (A_infty-algebra) is a
+graded vector space A with a collection of multilinear maps {m_n: A^{tensor n} -&gt; A}_{n&gt;=1}
+of degree 2-n satisfying the A_infty-relations:
+sum_{n=r+s+t} (-1)^{rs+t} m_{r+1+t}(id^r tensor m_s tensor id^t) = 0 for all n&gt;=1.
+For n=1: m_1 circ m_1 = 0 (m_1 is a differential);
+for n=2: m_1 m_2 = m_2(m_1 tensor 1 + 1 tensor m_1) (derivation condition);
+for n=3: the failure of m_2 to be associative is controlled by m_3 (homotopy).
+If m_n = 0 for n&gt;=3: A_infty reduces to a dg-algebra (differential graded associative).
+If additionally m_1 = 0: A_infty reduces to a graded associative algebra.
+A_infty-algebras are the algebras over the A_infty operad = Omega(Ass^!).
+Homotopy transfer theorem: any A_infty algebra structure on a complex (A, d) can be
+transferred to any homotopy retract of A, producing an A_infty structure on the
+cohomology H^*(A). This is fundamental in homological perturbation theory.</p></li>
+<li><p>L-infinity algebras: an L_infty-algebra (L_infty = strong homotopy Lie algebra) is a
+graded vector space L with maps {l_n: Lambda^n L -&gt; L}_{n&gt;=1} (alternating, degree 2-n)
+satisfying generalized Jacobi identities:
+sum_{i+j=n+1} sum_{sigma} (-1)^sigma (-1)^{i(j-1)} l_j(l_i(x_{sigma(1)},…), …) = 0.
+For n=1: l_1^2 = 0 (differential); for n=2: Jacobi up to homotopy controlled by l_3.
+L_infty-algebras are the algebras over L_infty = Omega(Lie^!) = Omega(Com).
+Applications: formal deformation theory (Maurer-Cartan elements of a dgla control
+deformations), derived geometry (L_infty-algebras arise as tangent complexes of
+derived stacks), and string field theory (L_infty-structure on closed string field theory).
+Homotopy transfer: L_infty structures transfer along homotopy retracts; every
+dg-Lie algebra is L_infty-quasi-isomorphic to its cohomology (with transferred structure).</p></li>
+<li><p>Little disks operads E_n (Boardman-Vogt, May): the little n-disks operad D_n has
+D_n(k) = space of k disjoint little n-dimensional disks embedded in the unit disk D^n
+(rectilinearly, i.e., affine embeddings). Composition: substitute little disks into disks.
+E_n = D_n as an operad in topological spaces (or its homology H_*(D_n)).
+Key properties:
+- E_1 ≃ Ass (over k, H_*(E_1) ≅ Ass): E_1-algebras ≅ A_infty-algebras.
+- E_infty = colim_n E_n ≃ Com (over k): E_infty-algebras ≅ strictly commutative algebras up to homotopy.
+- E_n-algebras interpolate between A_infty (n=1) and E_infty (n=infty).
+Cohomology of configuration spaces: H_*(D_n(k)) = Poisson_n(k) operad (for n&gt;=2).
+Recognition principle (May): a connected (n-1)-fold loop space Omega^{n-1}X is
+group-complete E_n-algebra. The delooping machine: E_n-algebras are equivalent (up
+to group completion) to n-fold loop spaces.
+Factorization homology (Ayala-Francis): for M an n-manifold, the factorization homology
+int_M A of an E_n-algebra A is a topological invariant, generalizing Hochschild homology.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">OperadProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">operad_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">algebra_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_koszul</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_koszul_dual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_binary_quadratic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_self_dual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">admits_infinity_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">presentation_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chapter_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.operads.OperadProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A curated operad theory example.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.operad_type">
+<span class="sig-name descname"><span class="pre">operad_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.operad_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.algebra_type">
+<span class="sig-name descname"><span class="pre">algebra_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.algebra_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.is_koszul">
+<span class="sig-name descname"><span class="pre">is_koszul</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.is_koszul" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.has_koszul_dual">
+<span class="sig-name descname"><span class="pre">has_koszul_dual</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.has_koszul_dual" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.is_binary_quadratic">
+<span class="sig-name descname"><span class="pre">is_binary_quadratic</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.is_binary_quadratic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.is_self_dual">
+<span class="sig-name descname"><span class="pre">is_self_dual</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.is_self_dual" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.admits_infinity_version">
+<span class="sig-name descname"><span class="pre">admits_infinity_version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.admits_infinity_version" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.presentation_layer">
+<span class="sig-name descname"><span class="pre">presentation_layer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.presentation_layer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.focus">
+<span class="sig-name descname"><span class="pre">focus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.operads.OperadProfile.focus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.operads.OperadProfile.chapter_targets">
+<span class="sig-name descname"><span class="pre">chapter_targets</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.operads.OperadProfile.chapter_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.get_named_operad_profiles">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">get_named_operad_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.operads.OperadProfile" title="pytop.operads.OperadProfile"><span class="pre">OperadProfile</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.operads.get_named_operad_profiles" title="Link to this definition"></a></dt>
+<dd><p>Return the registry of canonical operad theory examples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.operad_layer_summary">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">operad_layer_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.operads.operad_layer_summary" title="Link to this definition"></a></dt>
+<dd><p>Return a count of profiles by presentation_layer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.operad_chapter_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">operad_chapter_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.operads.operad_chapter_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from chapter number to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.operad_type_index">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">operad_type_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.operads.operad_type_index" title="Link to this definition"></a></dt>
+<dd><p>Return a mapping from operad_type to profile keys.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.is_koszul_operad">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">is_koszul_operad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.operads.is_koszul_operad" title="Link to this definition"></a></dt>
+<dd><p>Check whether the operad is Koszul.</p>
+<p>An augmented quadratic operad P is Koszul if the Koszul complex
+P^! circ_kappa P is acyclic (quasi-isomorphic to the unit operad I).
+Equivalently, the bar construction B(P) is quasi-isomorphic to the
+Koszul dual cooperad P^!. Key Koszul operads: Ass, Com, Lie, E_n.</p>
+<section id="decision-layers">
+<h2>Decision layers<a class="headerlink" href="#decision-layers" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit Koszul tags -&gt; true.</p></li>
+<li><p>Known Koszul operads (Ass, Com, Lie, E_n by name/tag) -&gt; true.</p></li>
+<li><p>Non-quadratic or known non-Koszul operads -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.has_infinity_algebra_structure">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">has_infinity_algebra_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.operads.has_infinity_algebra_structure" title="Link to this definition"></a></dt>
+<dd><p>Check whether the space admits a homotopy algebra structure.</p>
+<p>A P_infty-algebra (A_infty, L_infty, C_infty, E_infty, …) is an algebra over
+the minimal resolution P_infty = Omega(P^!) of a Koszul operad P. Key cases:
+A_infty (homotopy associative), L_infty (homotopy Lie), E_infty (commutative
+up to all higher homotopy coherence).</p>
+<section id="id1">
+<h2>Decision layers<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit infinity-algebra tags (a_infinity, l_infinity, …) -&gt; true.</p></li>
+<li><p>Bar-cobar construction tags (which produce minimal resolutions) -&gt; true.</p></li>
+<li><p>Strictly algebras over Koszul operads (which have infinity versions) -&gt; true.</p></li>
+<li><p>Strict (non-homotopy) only tags -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.admits_koszul_dual">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">admits_koszul_dual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.operads.admits_koszul_dual" title="Link to this definition"></a></dt>
+<dd><p>Check whether the operad has a well-defined Koszul dual.</p>
+<p>The Koszul dual P^! of a binary quadratic operad P = F(E)/(R) is defined as
+P^! = F(E^*[1])/(R^perp). The Koszul dual is well-defined for binary quadratic
+operads. Examples: Com^! = Lie, Lie^! = Com, Ass^! = Ass (up to twist).</p>
+<section id="id2">
+<h2>Decision layers<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit Koszul duality tags -&gt; true.</p></li>
+<li><p>Known binary quadratic operads (Ass, Com, Lie) -&gt; true.</p></li>
+<li><p>Non-quadratic / colored / modular operads (no standard Koszul dual) -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.is_binary_quadratic_operad">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">is_binary_quadratic_operad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="result.html#pytop.result.Result" title="pytop.result.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#pytop.operads.is_binary_quadratic_operad" title="Link to this definition"></a></dt>
+<dd><p>Check whether the operad is binary quadratic.</p>
+<p>A binary quadratic operad is generated by binary operations (arity-2 generators E)
+with quadratic relations (R subset E circ E, involving two binary operations composed
+in arity 3). This class includes Ass, Com, Lie, Poisson, pre-Lie, and many others.
+Binary quadratic operads are the natural input for Koszul duality.</p>
+<section id="id3">
+<h2>Decision layers<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Explicit binary quadratic or tree composition tags -&gt; true.</p></li>
+<li><p>Known binary quadratic operads (Ass, Com, Lie) -&gt; true.</p></li>
+<li><p>Higher arity, colored, or modular operads -&gt; false.</p></li>
+<li><p>Unknown otherwise.</p></li>
+</ol>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.classify_operad">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">classify_operad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.operads.classify_operad" title="Link to this definition"></a></dt>
+<dd><p>Run all operad analysis functions and return a combined result dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.operad_profile_report">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">operad_profile_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.operads.operad_profile_report" title="Link to this definition"></a></dt>
+<dd><p>Return a comprehensive operad profile of the space.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.associahedron_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">associahedron_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></span><a class="headerlink" href="#pytop.operads.associahedron_complex" title="Link to this definition"></a></dt>
+<dd><p>Stasheff associahedron K_n as a simplicial complex.</p>
+<p>Vertices = full binary trees with n leaves (Catalan number C_{n-1}).
+1-simplices = pairs connected by one tree rotation.
+K₃ = interval (2 vertices, 1 edge).
+K₄ = pentagon (5 vertices, 5 edges, homeomorphic to S¹).</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<p>n: number of leaves (n ≥ 2)</p>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>SimplicialComplex whose 1-skeleton is the rotation graph of K_n.</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">K4</span> <span class="o">=</span> <span class="n">associahedron_complex</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">K4</span><span class="o">.</span><span class="n">simplexes</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 5 vertices</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.operad_composition_check">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">operad_composition_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.operads.operad_composition_check" title="Link to this definition"></a></dt>
+<dd><p>Verify the operad associativity axiom for a binary composition map.</p>
+<p>The composition µ: A ⊗ A → A (given as a matrix µ[i][j] = index of µ(eᵢ, eⱼ))
+must satisfy the associativity pentagon: µ(µ(a,b), c) = µ(a, µ(b,c)).</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>mu: square n×n matrix of non-negative integers (&lt; n); mu[i][j] is the</dt><dd><p>index of µ(eᵢ, eⱼ) in the basis</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>dict with <code class="docutils literal notranslate"><span class="pre">associative</span></code>, <code class="docutils literal notranslate"><span class="pre">n_violations</span></code>, <code class="docutils literal notranslate"><span class="pre">is_operad_composition</span></code>.</p>
+</section>
+<section id="id6">
+<h2>Examples<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>Constant composition µ(i,j) = 0 is trivially associative:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">operad_composition_check</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])[</span><span class="s2">&quot;associative&quot;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.operads.bar_construction_sc">
+<span class="sig-prename descclassname"><span class="pre">pytop.operads.</span></span><span class="sig-name descname"><span class="pre">bar_construction_sc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_generators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_relations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></span><a class="headerlink" href="#pytop.operads.bar_construction_sc" title="Link to this definition"></a></dt>
+<dd><p>Bar construction B(A) of an algebra with given generators and relations.</p>
+<p>The bar complex B(A) has B(A)_k = A^{⊗k+2}. Its 1-skeleton over the
+generators produces a complete graph; relations introduce 2-simplices.</p>
+<section id="id7">
+<h2>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>n_generators: number of algebra generators (= dimension of A)
+n_relations: number of relations (introduces 2-simplices for the first</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">n_relations</span></code> consecutive generator triples)</p>
+</div></blockquote>
+</section>
+<section id="id8">
+<h2>Returns<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>SimplicialComplex with n_generators vertices, edges for each pair,
+and 2-simplices for compatible relation triples.</p>
+</section>
+<section id="id9">
+<h2>Examples<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<p>Free algebra on 2 generators (no relations):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <span class="n">bar_construction_sc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sc</span><span class="o">.</span><span class="n">simplexes</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="topos_theory.html" class="btn btn-neutral float-left" title="Topos Theory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="higher_categories.html" class="btn btn-neutral float-right" title="Higher Categories" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

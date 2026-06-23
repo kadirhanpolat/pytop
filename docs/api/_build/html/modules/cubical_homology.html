@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cubical Homology &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cubical Homology</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/cubical_homology.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.cubical_homology">
+<span id="cubical-homology"></span><h1>Cubical Homology<a class="headerlink" href="#module-pytop.cubical_homology" title="Link to this heading"></a></h1>
+<p>Cubical homology and persistent homology for cubical complexes.</p>
+<section id="mathematical-background">
+<h2>Mathematical background<a class="headerlink" href="#mathematical-background" title="Link to this heading"></a></h2>
+<p>A <strong>cubical complex</strong> in ℤⁿ is a finite collection of <em>elementary cubes</em>
+(products of elementary intervals) that is closed under taking faces.  An
+<em>elementary interval</em> is either a degenerate point [k, k] or a unit segment
+[k, k+1] for some integer k.  An <em>elementary cube</em> of dimension d is a
+product I₁ × ⋯ × Iₙ where exactly d of the Iᵢ are non-degenerate.</p>
+</section>
+<section id="boundary-operator-over-with-signs">
+<h2>Boundary operator (over ℤ, with signs)<a class="headerlink" href="#boundary-operator-over-with-signs" title="Link to this heading"></a></h2>
+<p>For Q = I₁ × ⋯ × Iₙ with non-degenerate intervals at positions p₁ &lt; ⋯ &lt; pₖ:</p>
+<blockquote>
+<div><p>∂Q = Σⱼ₌₀^{k-1} (-1)^j  ×  [right-face at pⱼ  −  left-face at pⱼ]</p>
+</div></blockquote>
+<p>where the right/left face at position p replaces Iₚ = [a, a+1] with [a+1, a+1]
+/ [a, a] respectively.  This satisfies ∂² = 0.</p>
+</section>
+<section id="id1">
+<h2>Cubical homology<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">cubical_homology(cx)</span></code> computes H₀, H₁, …, Hₙ of a static
+<code class="docutils literal notranslate"><span class="pre">CubicalComplex</span></code> using the same Smith Normal Form engine as simplicial
+homology.</p>
+</section>
+<section id="image-persistence-lower-star-cubical-filtration">
+<h2>Image persistence (lower-star cubical filtration)<a class="headerlink" href="#image-persistence-lower-star-cubical-filtration" title="Link to this heading"></a></h2>
+<p>Given a 2-D array of pixel values <code class="docutils literal notranslate"><span class="pre">values[i][j]</span></code>:</p>
+<ul class="simple">
+<li><p>Each pixel (i, j) is a 2-cube [i, i+1] × [j, j+1] with birth = values[i][j].</p></li>
+<li><p>Faces (edges / vertices) are assigned birth = min of all adjacent pixel
+values.  This guarantees f(face) ≤ f(coface) — a valid filtration — and
+means that a face enters the filtration as soon as the <em>cheapest</em> pixel
+adjacent to it enters.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">bitmap_to_cubical_filtration(values)</span></code> builds a <code class="docutils literal notranslate"><span class="pre">CubicalFiltration</span></code>.
+<code class="docutils literal notranslate"><span class="pre">persistent_homology_bitmap(values)</span></code> is a one-call convenience that returns
+the persistence pairs using the Twist+Clearing algorithm.</p>
+</section>
+<section id="public-api">
+<h2>Public API<a class="headerlink" href="#public-api" title="Link to this heading"></a></h2>
+<p>Interval                        type alias for tuple[int, int]
+Cube                            type alias for tuple[Interval, …]
+cube_dim(cube)                  → int
+cube_faces_z2(cube)             → list[Cube]
+cube_faces_signed(cube)         → list[tuple[int, Cube]]
+CubicalComplex                  dataclass (cubes, dimension, k_cubes, …)
+make_cubical_complex(top_cubes) → CubicalComplex  (closure under faces)
+cubical_boundary_matrix(cx, k)  → list[list[int]]
+cubical_homology(cx)            → tuple[HomologyResult, …]
+interval_complex(n)             → [0, n] as a cubical complex
+circle_cubical(n)               → S¹ as n-square loop
+disk_cubical()                  → D² = unit square
+CubicalFiltration               dataclass
+bitmap_to_cubical_filtration    → CubicalFiltration from 2-D image
+persistence_pairs_cubical       → tuple[PersistencePair, …]
+persistent_homology_bitmap      → tuple[PersistencePair, …]</p>
+</section>
+<dl class="py data">
+<dt class="sig sig-object py" id="pytop.cubical_homology.Interval">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><a class="headerlink" href="#pytop.cubical_homology.Interval" title="Link to this definition"></a></dt>
+<dd><p>An elementary interval: (k, k) degenerate or (k, k+1) non-degenerate.</p>
+<p>alias of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pytop.cubical_homology.Cube">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">Cube</span></span><a class="headerlink" href="#pytop.cubical_homology.Cube" title="Link to this definition"></a></dt>
+<dd><p>An elementary cube: product of elementary intervals, one per axis.</p>
+<p>alias of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>], …]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.cube_dim">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">cube_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cube</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.cubical_homology.cube_dim" title="Link to this definition"></a></dt>
+<dd><p>Return the dimension of <em>cube</em> (number of non-degenerate intervals).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.cube_faces_signed">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">cube_faces_signed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cube</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.cubical_homology.cube_faces_signed" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">(coefficient,</span> <span class="pre">face)</span></code> pairs for all faces of <em>cube</em> (over ℤ).</p>
+<p>Uses the sign convention ∂Q = Σⱼ (-1)ʲ [right_face - left_face] where j
+counts non-degenerate intervals to the left of the current one.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.cube_faces_z2">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">cube_faces_z2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cube</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.cubical_homology.cube_faces_z2" title="Link to this definition"></a></dt>
+<dd><p>Return all faces of <em>cube</em> as a list (over Z/2, no signs).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.cubical_homology.CubicalComplex">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">CubicalComplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cubes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.cubical_homology.CubicalComplex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A finite cubical complex: a set of elementary cubes closed under faces.</p>
+<p>Construct via <a class="reference internal" href="#pytop.cubical_homology.make_cubical_complex" title="pytop.cubical_homology.make_cubical_complex"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_cubical_complex()</span></code></a>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.cubical_homology.CubicalComplex.cubes">
+<span class="sig-name descname"><span class="pre">cubes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#frozenset" title="(in Python v3.14)"><span class="pre">frozenset</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.cubical_homology.CubicalComplex.cubes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.cubical_homology.CubicalComplex.dimension">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dimension</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.cubical_homology.CubicalComplex.dimension" title="Link to this definition"></a></dt>
+<dd><p>Maximum dimension of any cube in the complex (−1 if empty).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.cubical_homology.CubicalComplex.k_cubes">
+<span class="sig-name descname"><span class="pre">k_cubes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.cubical_homology.CubicalComplex.k_cubes" title="Link to this definition"></a></dt>
+<dd><p>Return the k-dimensional cubes in canonical (sorted) order.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.cubical_homology.CubicalComplex.euler_characteristic">
+<span class="sig-name descname"><span class="pre">euler_characteristic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.cubical_homology.CubicalComplex.euler_characteristic" title="Link to this definition"></a></dt>
+<dd><p>Alternating sum of cube counts by dimension.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.make_cubical_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">make_cubical_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top_cubes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cubical_homology.CubicalComplex" title="pytop.cubical_homology.CubicalComplex"><span class="pre">CubicalComplex</span></a></span></span><a class="headerlink" href="#pytop.cubical_homology.make_cubical_complex" title="Link to this definition"></a></dt>
+<dd><p>Build a <a class="reference internal" href="#pytop.cubical_homology.CubicalComplex" title="pytop.cubical_homology.CubicalComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">CubicalComplex</span></code></a> as the face-closure of <em>top_cubes</em>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.cubical_boundary_matrix">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">cubical_boundary_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.cubical_homology.CubicalComplex" title="pytop.cubical_homology.CubicalComplex"><span class="pre">CubicalComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.cubical_homology.cubical_boundary_matrix" title="Link to this definition"></a></dt>
+<dd><p>Return the integer boundary matrix ∂_k of <em>cx</em>.</p>
+<p>Rows are indexed by (k−1)-cubes, columns by k-cubes, both in canonical
+order.  Returns an empty matrix when k ≤ 0 or no k-cubes exist.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function allocates a dense integer matrix of size
+<code class="docutils literal notranslate"><span class="pre">#(k−1)-cubes</span> <span class="pre">×</span> <span class="pre">#k-cubes</span></code>.  For large cubical complexes derived
+from images (m×n &gt; ~50×50 pixels), this can require hundreds of
+millions of entries and exhaust available memory.  For large images,
+consider using <code class="docutils literal notranslate"><span class="pre">persistence_pairs_cubical</span></code> (or
+<code class="docutils literal notranslate"><span class="pre">persistent_homology_bitmap</span></code>) which avoids the full boundary matrix
+and runs the Twist+Clearing algorithm on sparse Z/2 columns instead.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.cubical_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">cubical_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.cubical_homology.CubicalComplex" title="pytop.cubical_homology.CubicalComplex"><span class="pre">CubicalComplex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.cubical_homology.cubical_homology" title="Link to this definition"></a></dt>
+<dd><p>Compute H₀, H₁, …, H_d of <em>cx</em> over ℤ using Smith Normal Form.</p>
+<p>Returns one <a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">HomologyResult</span></code></a> per degree from 0 to
+<code class="docutils literal notranslate"><span class="pre">cx.dimension</span></code>.  The algorithm is identical to simplicial homology: SNF
+of ∂_k and ∂_{k+1} determines rank and torsion of H_k.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Internally calls <a class="reference internal" href="#pytop.cubical_homology.cubical_boundary_matrix" title="pytop.cubical_homology.cubical_boundary_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">cubical_boundary_matrix()</span></code></a>, which allocates
+dense integer matrices.  For cubical complexes built from images larger
+than approximately 50×50 pixels, memory usage can become prohibitive
+(on the order of hundreds of millions of entries).  For large images,
+prefer <code class="docutils literal notranslate"><span class="pre">persistence_pairs_cubical</span></code> or <code class="docutils literal notranslate"><span class="pre">persistent_homology_bitmap</span></code>
+which use a sparse Twist+Clearing algorithm and avoid the full boundary
+matrix.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.interval_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">interval_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cubical_homology.CubicalComplex" title="pytop.cubical_homology.CubicalComplex"><span class="pre">CubicalComplex</span></a></span></span><a class="headerlink" href="#pytop.cubical_homology.interval_complex" title="Link to this definition"></a></dt>
+<dd><p>Return the interval [0, n] as a 1D cubical complex.</p>
+<p>H₀ = ℤ, H₁ = 0 (contractible).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.circle_cubical">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">circle_cubical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cubical_homology.CubicalComplex" title="pytop.cubical_homology.CubicalComplex"><span class="pre">CubicalComplex</span></a></span></span><a class="headerlink" href="#pytop.cubical_homology.circle_cubical" title="Link to this definition"></a></dt>
+<dd><p>Return S¹ as an axis-aligned rectangular loop in the cubical grid.</p>
+<p>Builds the boundary of the rectangle [0, h] × [0, 1] where
+h = max(1, (n − 2) // 2).  This gives 2h + 2 unit edges.  For n = 4 this
+is the unit square; for larger n the rectangle grows horizontally.  In all
+cases the result is homeomorphic to S¹, so H₀ = ℤ, H₁ = ℤ.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>n<span class="classifier">int</span></dt><dd><p>Approximate number of edges (n ≥ 4).  The actual edge count is
+2 * max(1, (n − 2) // 2) + 2, equal to n for even n ≥ 4.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.disk_cubical">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">disk_cubical</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cubical_homology.CubicalComplex" title="pytop.cubical_homology.CubicalComplex"><span class="pre">CubicalComplex</span></a></span></span><a class="headerlink" href="#pytop.cubical_homology.disk_cubical" title="Link to this definition"></a></dt>
+<dd><p>Return D² as the filled unit square [0,1] × [0,1].</p>
+<p>H₀ = ℤ, H₁ = 0, H₂ = 0 (contractible).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.sphere_cubical_1d">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">sphere_cubical_1d</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cubical_homology.CubicalComplex" title="pytop.cubical_homology.CubicalComplex"><span class="pre">CubicalComplex</span></a></span></span><a class="headerlink" href="#pytop.cubical_homology.sphere_cubical_1d" title="Link to this definition"></a></dt>
+<dd><p>Alias for <a class="reference internal" href="#pytop.cubical_homology.circle_cubical" title="pytop.cubical_homology.circle_cubical"><code class="xref py py-func docutils literal notranslate"><span class="pre">circle_cubical()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.cubical_homology.CubicalFiltration">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">CubicalFiltration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cubes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">births</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.cubical_homology.CubicalFiltration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A filtration of elementary cubes ordered by birth value.</p>
+<p>Constructed by <a class="reference internal" href="#pytop.cubical_homology.bitmap_to_cubical_filtration" title="pytop.cubical_homology.bitmap_to_cubical_filtration"><code class="xref py py-func docutils literal notranslate"><span class="pre">bitmap_to_cubical_filtration()</span></code></a>.  Passed to
+<a class="reference internal" href="#pytop.cubical_homology.persistence_pairs_cubical" title="pytop.cubical_homology.persistence_pairs_cubical"><code class="xref py py-func docutils literal notranslate"><span class="pre">persistence_pairs_cubical()</span></code></a>.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>cubes<span class="classifier">tuple[Cube, …]</span></dt><dd><p>Cubes in filtration order (birth non-decreasing, faces before cofaces
+at equal birth).</p>
+</dd>
+<dt>births<span class="classifier">tuple[float, …]</span></dt><dd><p>Filtration value (birth time) of each cube.</p>
+</dd>
+<dt>dimensions<span class="classifier">tuple[int, …]</span></dt><dd><p>Dimension of each cube.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.cubical_homology.CubicalFiltration.cubes">
+<span class="sig-name descname"><span class="pre">cubes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.cubical_homology.CubicalFiltration.cubes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.cubical_homology.CubicalFiltration.births">
+<span class="sig-name descname"><span class="pre">births</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.cubical_homology.CubicalFiltration.births" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.cubical_homology.CubicalFiltration.dimensions">
+<span class="sig-name descname"><span class="pre">dimensions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.cubical_homology.CubicalFiltration.dimensions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.cubical_homology.CubicalFiltration.size">
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.cubical_homology.CubicalFiltration.size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.bitmap_to_cubical_filtration">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">bitmap_to_cubical_filtration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.cubical_homology.CubicalFiltration" title="pytop.cubical_homology.CubicalFiltration"><span class="pre">CubicalFiltration</span></a></span></span><a class="headerlink" href="#pytop.cubical_homology.bitmap_to_cubical_filtration" title="Link to this definition"></a></dt>
+<dd><p>Build the lower-star cubical filtration of a 2-D pixel array.</p>
+<p>Each pixel <code class="docutils literal notranslate"><span class="pre">values[i][j]</span></code> becomes the 2-cube [i, i+1] × [j, j+1].
+The filtration value of any face Q is the <em>minimum</em> value among all pixels
+of which Q is a face.  This ensures f(face) ≤ f(coface) and means Q
+enters as soon as its cheapest adjacent pixel enters.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>values:</dt><dd><p>A 2-D sequence of shape (m, n) with m ≥ 1, n ≥ 1.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>CubicalFiltration</dt><dd><p>Cubes sorted by (birth, dimension) so faces always precede cofaces at
+equal birth.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.persistence_pairs_cubical">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">persistence_pairs_cubical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filtration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.cubical_homology.CubicalFiltration" title="pytop.cubical_homology.CubicalFiltration"><span class="pre">CubicalFiltration</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_zero_persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.cubical_homology.persistence_pairs_cubical" title="Link to this definition"></a></dt>
+<dd><p>Compute persistence pairs of a <a class="reference internal" href="#pytop.cubical_homology.CubicalFiltration" title="pytop.cubical_homology.CubicalFiltration"><code class="xref py py-class docutils literal notranslate"><span class="pre">CubicalFiltration</span></code></a> over Z/2.</p>
+<p>Uses the Twist+Clearing algorithm — the same shared kernel as
+<a class="reference internal" href="persistent_homology_optimized.html#pytop.persistent_homology_optimized.persistence_pairs_twist" title="pytop.persistent_homology_optimized.persistence_pairs_twist"><code class="xref py py-func docutils literal notranslate"><span class="pre">persistence_pairs_twist()</span></code></a>.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>filtration:</dt><dd><p>Output of <a class="reference internal" href="#pytop.cubical_homology.bitmap_to_cubical_filtration" title="pytop.cubical_homology.bitmap_to_cubical_filtration"><code class="xref py py-func docutils literal notranslate"><span class="pre">bitmap_to_cubical_filtration()</span></code></a> or a custom
+<a class="reference internal" href="#pytop.cubical_homology.CubicalFiltration" title="pytop.cubical_homology.CubicalFiltration"><code class="xref py py-class docutils literal notranslate"><span class="pre">CubicalFiltration</span></code></a>.</p>
+</dd>
+<dt>include_zero_persistence:</dt><dd><p>Whether to include bars with birth = death.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>tuple[PersistencePair, …]</dt><dd><p>Sorted by <code class="docutils literal notranslate"><span class="pre">(dimension,</span> <span class="pre">birth,</span> <span class="pre">death)</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.cubical_homology.persistent_homology_bitmap">
+<span class="sig-prename descclassname"><span class="pre">pytop.cubical_homology.</span></span><span class="sig-name descname"><span class="pre">persistent_homology_bitmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_zero_persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.cubical_homology.persistent_homology_bitmap" title="Link to this definition"></a></dt>
+<dd><p>One-call convenience: 2-D bitmap → cubical filtration → Twist persistence.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>values:</dt><dd><p>A 2-D array of pixel values with shape (m, n), m ≥ 1, n ≥ 1.</p>
+</dd>
+<dt>include_zero_persistence:</dt><dd><p>Whether to include zero-length bars.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>tuple[PersistencePair, …]</dt><dd><p>Persistence pairs sorted by <code class="docutils literal notranslate"><span class="pre">(dimension,</span> <span class="pre">birth,</span> <span class="pre">death)</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pairs</span> <span class="o">=</span> <span class="n">persistent_homology_bitmap</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">any</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">dimension</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">is_essential</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

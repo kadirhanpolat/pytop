@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surgery Theory &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Surgery Theory</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/surgery_theory.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.surgery_theory">
+<span id="surgery-theory"></span><h1>Surgery Theory<a class="headerlink" href="#module-pytop.surgery_theory" title="Link to this heading"></a></h1>
+<p>Handle decompositions and surgery theory.</p>
+<p>P7.5 milestone — three public objects:</p>
+<p>handle_attachment  : attach a k-handle to a simplicial complex
+trace_cobordism    : build the trace W of a surgery on a simplicial complex
+trace_homology     : compute H_*(W; Z) via Mayer–Vietoris for the trace</p>
+<section id="mathematical-background">
+<h2>Mathematical background<a class="headerlink" href="#mathematical-background" title="Link to this heading"></a></h2>
+<p><strong>Handle decomposition</strong> (Morse theory / surgery):  Given an n-manifold M with
+boundary, attaching a k-handle means gluing Dᵏ × D^{n−k} along Sᵏ⁻¹ × D^{n−k}
+in the boundary ∂M.  The effect on the homotopy type is equivalent to attaching
+a k-cell.  Here we work simplicially:</p>
+<blockquote>
+<div><p>handle_attachment(K, attaching_sphere) → K ∪_f Dᵏ</p>
+</div></blockquote>
+<p>where <code class="docutils literal notranslate"><span class="pre">attaching_sphere</span></code> is a sub-complex homeomorphic to Sᵏ⁻¹ and Dᵏ is
+the cone over it.  The result is K with the cone CL appended, where the
+cone apex is the core of the handle.</p>
+<p><strong>Surgery</strong> on a knot/manifold replaces a tubular neighbourhood N(K) ≅ Sᵏ⁻¹ × Dⁿ⁻ᵏ
+with Dᵏ × Sⁿ⁻ᵏ⁻¹.  The <strong>trace cobordism</strong> W of the surgery is the manifold with</p>
+<blockquote>
+<div><p>∂W = M ⊔ M’</p>
+</div></blockquote>
+<p>where M is the original manifold and M’ is the result after surgery.  Simplicially,
+the trace is built as the mapping cylinder of the attaching map:</p>
+<blockquote>
+<div><p>W = (M × I) ∪_{Sᵏ⁻¹ × {1}} (Dᵏ attachment)</p>
+</div></blockquote>
+<p>We represent W as a pair (W_complex, M_complex, M_prime_complex) and compute
+its homology via the Mayer–Vietoris sequence for the decomposition</p>
+<blockquote>
+<div><p>W = (M × I) ∪ (handle)    with    (M × I) ∩ (handle) ≅ Sᵏ⁻¹</p>
+</div></blockquote>
+</section>
+<section id="cross-validation">
+<h2>Cross-validation<a class="headerlink" href="#cross-validation" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>For Dehn surgery on the unknot in S³:</dt><dd><p>M = S³,  surgery along unknot = S¹ × D²,  M’ = S² × S¹ or L(p,q)
+H_*(trace W) verifiable against SnapPy (see test_snappy_oracle.py).</p>
+</dd>
+</dl>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.surgery_theory.SurgeryTrace">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.surgery_theory.</span></span><span class="sig-name descname"><span class="pre">SurgeryTrace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">attaching_sphere</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.surgery_theory.SurgeryTrace" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Result of attaching a handle to a simplicial complex.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>original<span class="classifier">SimplicialComplex</span></dt><dd><p>The original complex M before surgery.</p>
+</dd>
+<dt>handle<span class="classifier">SimplicialComplex</span></dt><dd><p>The cone Dᵏ attached along the attaching sphere.</p>
+</dd>
+<dt>trace<span class="classifier">SimplicialComplex</span></dt><dd><p>The trace W = M ∪ Dᵏ (union along the attaching sphere).</p>
+</dd>
+<dt>attaching_sphere<span class="classifier">SimplicialComplex</span></dt><dd><p>The sub-complex Sᵏ⁻¹ ⊆ ∂M along which the handle is glued.</p>
+</dd>
+<dt>handle_index<span class="classifier">int</span></dt><dd><p>The handle index k (dimension of the core Dᵏ).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.surgery_theory.SurgeryTrace.original">
+<span class="sig-name descname"><span class="pre">original</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span><a class="headerlink" href="#pytop.surgery_theory.SurgeryTrace.original" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.surgery_theory.SurgeryTrace.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span><a class="headerlink" href="#pytop.surgery_theory.SurgeryTrace.handle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.surgery_theory.SurgeryTrace.trace">
+<span class="sig-name descname"><span class="pre">trace</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span><a class="headerlink" href="#pytop.surgery_theory.SurgeryTrace.trace" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.surgery_theory.SurgeryTrace.attaching_sphere">
+<span class="sig-name descname"><span class="pre">attaching_sphere</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span><a class="headerlink" href="#pytop.surgery_theory.SurgeryTrace.attaching_sphere" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.surgery_theory.SurgeryTrace.handle_index">
+<span class="sig-name descname"><span class="pre">handle_index</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.surgery_theory.SurgeryTrace.handle_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.surgery_theory.handle_attachment">
+<span class="sig-prename descclassname"><span class="pre">pytop.surgery_theory.</span></span><span class="sig-name descname"><span class="pre">handle_attachment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">attaching_sphere</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">apex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'_h'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.surgery_theory.SurgeryTrace" title="pytop.surgery_theory.SurgeryTrace"><span class="pre">SurgeryTrace</span></a></span></span><a class="headerlink" href="#pytop.surgery_theory.handle_attachment" title="Link to this definition"></a></dt>
+<dd><p>Attach a k-handle to K along an attaching sphere.</p>
+<p>Computes the cone CDᵏ = cone(attaching_sphere) with apex vertex <code class="docutils literal notranslate"><span class="pre">apex</span></code>
+and glues it to K along the attaching sphere.  The result is the
+simplicial complex</p>
+<blockquote>
+<div><p>W = K ∪_{attaching_sphere} cone(attaching_sphere)</p>
+</div></blockquote>
+<p>which has the homotopy type of K with a k-cell attached.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>K<span class="classifier">SimplicialComplex</span></dt><dd><p>The base complex (manifold with boundary, or any complex).</p>
+</dd>
+<dt>attaching_sphere<span class="classifier">SimplicialComplex</span></dt><dd><p>A sub-complex of K homeomorphic to Sᵏ⁻¹.  Every simplex of
+<code class="docutils literal notranslate"><span class="pre">attaching_sphere</span></code> must already appear in K.</p>
+</dd>
+<dt>apex<span class="classifier">Any</span></dt><dd><p>Label for the cone apex (core of the handle).  Must not be in K.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>SurgeryTrace</dt><dd><p>With <code class="docutils literal notranslate"><span class="pre">trace</span> <span class="pre">=</span> <span class="pre">K</span> <span class="pre">∪</span> <span class="pre">cone(attaching_sphere)</span></code> and <code class="docutils literal notranslate"><span class="pre">handle_index</span> <span class="pre">=</span> <span class="pre">k</span></code>
+where k = attaching_sphere.dimension + 1.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h2>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">attaching_sphere</span></code> is not a sub-complex of K, or apex is in K.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Attaching a 1-handle to two disjoint points (= connecting them with an arc):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.simplices</span><span class="w"> </span><span class="kn">import</span> <span class="n">Simplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.simplicial_complexes</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimplicialComplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">SimplicialComplex</span><span class="p">([</span><span class="n">Simplex</span><span class="p">([</span><span class="mi">0</span><span class="p">]),</span> <span class="n">Simplex</span><span class="p">([</span><span class="mi">1</span><span class="p">])])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S0</span> <span class="o">=</span> <span class="n">K</span>  <span class="c1"># S⁰ = two points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">handle_attachment</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">S0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">handle_index</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.surgery_theory.trace_cobordism">
+<span class="sig-prename descclassname"><span class="pre">pytop.surgery_theory.</span></span><span class="sig-name descname"><span class="pre">trace_cobordism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">attaching_sphere</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">apex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'_h'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.surgery_theory.SurgeryTrace" title="pytop.surgery_theory.SurgeryTrace"><span class="pre">SurgeryTrace</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.surgery_theory.trace_cobordism" title="Link to this definition"></a></dt>
+<dd><p>Build the trace cobordism of a surgery on K.</p>
+<p>The trace cobordism W is the result of attaching a handle to K:</p>
+<blockquote>
+<div><p>W = K ∪_{Sᵏ⁻¹} Dᵏ</p>
+</div></blockquote>
+<p>and the boundary ∂W = K ⊔ K’ where K’ is obtained from K by surgery
+(removing the attaching sphere neighbourhood and replacing with the dual
+disk boundary).</p>
+<p>For the simplicial model:
+- <code class="docutils literal notranslate"><span class="pre">W</span></code> = handle_attachment(K, attaching_sphere)
+- <code class="docutils literal notranslate"><span class="pre">K'</span></code> = K with the attaching sphere filled in</p>
+<blockquote>
+<div><p>(since surgery kills [Sᵏ⁻¹] and introduces a new Dᵏ)</p>
+</div></blockquote>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>K : SimplicialComplex
+attaching_sphere : SimplicialComplex</p>
+<blockquote>
+<div><p>Sub-complex of K ≅ Sᵏ⁻¹.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>apex<span class="classifier">Any</span></dt><dd><p>Apex for the cone.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>Returns<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>(surgery_trace, result_complex)</dt><dd><p><code class="docutils literal notranslate"><span class="pre">surgery_trace</span></code> is the SurgeryTrace of the handle attachment.
+<code class="docutils literal notranslate"><span class="pre">result_complex</span></code> is K’ = K ∪ cone(attaching_sphere) with the
+attaching sphere contractible — i.e., the manifold after surgery
+(same as the trace since we work simplicially without removing anything).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.surgery_theory.TraceHomology">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.surgery_theory.</span></span><span class="sig-name descname"><span class="pre">TraceHomology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">euler_characteristic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.surgery_theory.TraceHomology" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Homology groups of the surgery trace W.</p>
+<section id="id3">
+<h2>Attributes<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>groups<span class="classifier">list[HomologyResult]</span></dt><dd><p>Homology groups H_k(W; Z) for k = 0, 1, …, max_degree.</p>
+</dd>
+<dt>handle_index<span class="classifier">int</span></dt><dd><p>The handle index k of the surgery.</p>
+</dd>
+<dt>euler_characteristic<span class="classifier">int</span></dt><dd><p>χ(W) = Σ (−1)^k β_k(W).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.surgery_theory.TraceHomology.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.surgery_theory.TraceHomology.groups" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.surgery_theory.TraceHomology.handle_index">
+<span class="sig-name descname"><span class="pre">handle_index</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.surgery_theory.TraceHomology.handle_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.surgery_theory.TraceHomology.euler_characteristic">
+<span class="sig-name descname"><span class="pre">euler_characteristic</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.surgery_theory.TraceHomology.euler_characteristic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.surgery_theory.TraceHomology.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span></span><a class="headerlink" href="#pytop.surgery_theory.TraceHomology.get" title="Link to this definition"></a></dt>
+<dd><p>Return H_degree(W; Z), or trivial group if degree out of range.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.surgery_theory.trace_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.surgery_theory.</span></span><span class="sig-name descname"><span class="pre">trace_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surgery_trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.surgery_theory.SurgeryTrace" title="pytop.surgery_theory.SurgeryTrace"><span class="pre">SurgeryTrace</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.surgery_theory.TraceHomology" title="pytop.surgery_theory.TraceHomology"><span class="pre">TraceHomology</span></a></span></span><a class="headerlink" href="#pytop.surgery_theory.trace_homology" title="Link to this definition"></a></dt>
+<dd><p>Compute the homology of the surgery trace W via direct simplicial homology.</p>
+<p>For a handle attachment W = K ∪_{Sᵏ⁻¹} Dᵏ the homology satisfies
+(by Mayer–Vietoris for the decomposition W = K ∪ Dᵏ along Sᵏ⁻¹):</p>
+<blockquote>
+<div><p>⋯ → H_n(Sᵏ⁻¹) → H_n(K) ⊕ H_n(Dᵏ) → H_n(W) → H_{n-1}(Sᵏ⁻¹) → ⋯</p>
+</div></blockquote>
+<p>Since Dᵏ is contractible and Sᵏ⁻¹ is the attaching sphere, this gives:</p>
+<blockquote>
+<div><p>H_n(W) ≅ H_n(K)          for n ≠ k−1, k
+H_{k-1}(W): kills the [Sᵏ⁻¹] class
+H_k(W): creates a new generator from the handle core</p>
+</div></blockquote>
+<p>The homology is computed directly on the trace complex (no approximation).</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>surgery_trace : SurgeryTrace
+max_degree : int | None</p>
+<blockquote>
+<div><p>Compute up to this degree.  Defaults to trace.dimension + 1.</p>
+</div></blockquote>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>TraceHomology</dt><dd><p>With groups H_k(W) for k = 0, …, max_degree.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

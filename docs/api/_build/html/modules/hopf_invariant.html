@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hopf Invariant &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Hopf Invariant</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/hopf_invariant.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.hopf_invariant">
+<span id="hopf-invariant"></span><h1>Hopf Invariant<a class="headerlink" href="#module-pytop.hopf_invariant" title="Link to this heading"></a></h1>
+<p>Hopf invariant and related homotopy invariants (Phase 13.4).</p>
+<p>The Hopf invariant of a map f: S^{2n-1} → S^n is an integer H(f) ∈ ℤ
+that measures the linking of the preimages of two regular values.</p>
+<dl class="simple">
+<dt>Algebraic definition (via mapping cone):</dt><dd><p>Let C(f) = S^n ∪_f e^{2n} be the mapping cone of f.
+H*(C(f); ℤ) has generators ι_n ∈ H^n and ι_{2n} ∈ H^{2n}.
+The cup product ι_n ∪ ι_n = H(f) · ι_{2n}.
+The Hopf invariant is the coefficient H(f) ∈ ℤ.</p>
+</dd>
+</dl>
+<section id="key-results">
+<h2>Key results<a class="headerlink" href="#key-results" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Hopf fibrations (maps of Hopf invariant 1):</dt><dd><p>η₁: S¹ → S¹   (n=1, H=1)  — identity / degree 1
+η₂: S³ → S²   (n=2, H=1)  — classical Hopf fibration, C(η₂) = CP²
+η₄: S⁷ → S⁴   (n=4, H=1)  — quaternionic Hopf fibration, C(η₄) = HP²
+η₈: S¹⁵ → S⁸  (n=8, H=1)  — octonionic Hopf fibration, C(η₈) = OP²</p>
+</dd>
+</dl>
+<p>Adams theorem (1960): Maps of Hopf invariant 1 exist only for n = 1, 2, 4, 8.</p>
+<dl class="simple">
+<dt>Composition:</dt><dd><p>H(f ∘ g) = deg(g)² · H(f)    (when g: S^{4n-1} → S^{2n-1})
+H(f₁ + f₂) = H(f₁) + H(f₂)  (in the stable range)</p>
+</dd>
+<dt>Linking number formula (n = 2):</dt><dd><p>For f: S³ → S², H(f) = lk(f^{-1}(p), f^{-1}(q)) for regular values p, q.
+This is the preimage-linking-number interpretation.</p>
+</dd>
+</dl>
+<p>π₃(S²) = ℤ, generated by the Hopf fibration η₂ with H(η₂) = 1.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.HopfInvariant">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.hopf_invariant.</span></span><span class="sig-name descname"><span class="pre">HopfInvariant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_sphere</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_sphere</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">hopf_invariant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping_cone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cup_product</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.hopf_invariant.HopfInvariant" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The Hopf invariant of a map f: S^{2n-1} → S^n.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>source_sphere<span class="classifier">int</span></dt><dd><p>2n-1 (source sphere dimension).</p>
+</dd>
+<dt>target_sphere<span class="classifier">int</span></dt><dd><p>n (target sphere dimension).</p>
+</dd>
+<dt>hopf_invariant<span class="classifier">int</span></dt><dd><p>H(f) ∈ ℤ.</p>
+</dd>
+<dt>name<span class="classifier">str</span></dt><dd><p>Human-readable name (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;Hopf</span> <span class="pre">fibration</span> <span class="pre">η₂&quot;</span></code>).</p>
+</dd>
+<dt>mapping_cone<span class="classifier">str</span></dt><dd><p>Description of the mapping cone C(f).</p>
+</dd>
+<dt>cup_product<span class="classifier">str</span></dt><dd><p>How the cup product ι_n ∪ ι_n relates to ι_{2n}.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.HopfInvariant.source_sphere">
+<span class="sig-name descname"><span class="pre">source_sphere</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.hopf_invariant.HopfInvariant.source_sphere" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.HopfInvariant.target_sphere">
+<span class="sig-name descname"><span class="pre">target_sphere</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.hopf_invariant.HopfInvariant.target_sphere" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.HopfInvariant.hopf_invariant">
+<span class="sig-name descname"><span class="pre">hopf_invariant</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.hopf_invariant.HopfInvariant.hopf_invariant" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.HopfInvariant.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.hopf_invariant.HopfInvariant.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.HopfInvariant.mapping_cone">
+<span class="sig-name descname"><span class="pre">mapping_cone</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.hopf_invariant.HopfInvariant.mapping_cone" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.HopfInvariant.cup_product">
+<span class="sig-name descname"><span class="pre">cup_product</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.hopf_invariant.HopfInvariant.cup_product" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.HopfInvariant.n">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">n</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.hopf_invariant.HopfInvariant.n" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.HopfInvariant.is_hopf_invariant_one">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_hopf_invariant_one</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.hopf_invariant.HopfInvariant.is_hopf_invariant_one" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.HopfInvariant.describe">
+<span class="sig-name descname"><span class="pre">describe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.hopf_invariant.HopfInvariant.describe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.hopf_invariant_from_linking">
+<span class="sig-prename descclassname"><span class="pre">pytop.hopf_invariant.</span></span><span class="sig-name descname"><span class="pre">hopf_invariant_from_linking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linking_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.hopf_invariant.HopfInvariant" title="pytop.hopf_invariant.HopfInvariant"><span class="pre">HopfInvariant</span></a></span></span><a class="headerlink" href="#pytop.hopf_invariant.hopf_invariant_from_linking" title="Link to this definition"></a></dt>
+<dd><p>Compute the Hopf invariant of a map S³ → S² from the linking number.</p>
+<p>For n = 2 and f: S³ → S², the Hopf invariant equals the linking
+number of f^{-1}(p) and f^{-1}(q) for generic regular values p, q.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>linking_number<span class="classifier">int</span></dt><dd><p>The linking number lk(f^{-1}(p), f^{-1}(q)).</p>
+</dd>
+<dt>n<span class="classifier">int</span></dt><dd><p>Must be 2 for this formula.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.hopf_invariant_from_cup">
+<span class="sig-prename descclassname"><span class="pre">pytop.hopf_invariant.</span></span><span class="sig-name descname"><span class="pre">hopf_invariant_from_cup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cup_coefficient</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.hopf_invariant.hopf_invariant_from_cup" title="Link to this definition"></a></dt>
+<dd><p>Compute the Hopf invariant from the cup product structure in C(f).</p>
+<p>Given H*(C(f); ℤ) = ℤ[ι_n, ι_{2n}]/(ι_n² = H(f)·ι_{2n}, ι_{2n}² = 0),
+the Hopf invariant H(f) is exactly the coefficient of ι_{2n} in ι_n ∪ ι_n.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>cup_coefficient<span class="classifier">int</span></dt><dd><p>The integer k such that ι_n ∪ ι_n = k · ι_{2n}.</p>
+</dd>
+<dt>n<span class="classifier">int</span></dt><dd><p>Target sphere dimension (unused; kept for API symmetry).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>int</dt><dd><p>The Hopf invariant H(f) = <code class="docutils literal notranslate"><span class="pre">cup_coefficient</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.hopf_fibration">
+<span class="sig-prename descclassname"><span class="pre">pytop.hopf_invariant.</span></span><span class="sig-name descname"><span class="pre">hopf_fibration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.hopf_invariant.HopfInvariant" title="pytop.hopf_invariant.HopfInvariant"><span class="pre">HopfInvariant</span></a></span></span><a class="headerlink" href="#pytop.hopf_invariant.hopf_fibration" title="Link to this definition"></a></dt>
+<dd><p>Return the classical Hopf fibration data for target sphere S^n.</p>
+<p>Valid for n = 1, 2, 4, 8 (Adams theorem).</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>n<span class="classifier">int</span></dt><dd><p>Target sphere dimension: 1, 2, 4, or 8.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h2>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If n is not 1, 2, 4, or 8.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.all_hopf_fibrations">
+<span class="sig-prename descclassname"><span class="pre">pytop.hopf_invariant.</span></span><span class="sig-name descname"><span class="pre">all_hopf_fibrations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.hopf_invariant.HopfInvariant" title="pytop.hopf_invariant.HopfInvariant"><span class="pre">HopfInvariant</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.hopf_invariant.all_hopf_fibrations" title="Link to this definition"></a></dt>
+<dd><p>Return all four classical Hopf fibrations (n = 1, 2, 4, 8).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.adams_hopf_invariant_one">
+<span class="sig-prename descclassname"><span class="pre">pytop.hopf_invariant.</span></span><span class="sig-name descname"><span class="pre">adams_hopf_invariant_one</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.hopf_invariant.adams_hopf_invariant_one" title="Link to this definition"></a></dt>
+<dd><p>Adams theorem: does there exist a map S^{2n-1} → S^n with H(f) = 1?</p>
+<p>Returns True iff n ∈ {1, 2, 4, 8} (the only dimensions admitting
+maps of Hopf invariant one, by J.F. Adams 1960 using secondary
+cohomology operations / K-theory).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.pi3_s2">
+<span class="sig-prename descclassname"><span class="pre">pytop.hopf_invariant.</span></span><span class="sig-name descname"><span class="pre">pi3_s2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.hopf_invariant.pi3_s2" title="Link to this definition"></a></dt>
+<dd><p>Return the computation of π₃(S²) = ℤ.</p>
+<p>The third homotopy group of S² is generated by the Hopf fibration
+η₂: S³ → S² with Hopf invariant H(η₂) = 1.</p>
+<p>Every element of π₃(S²) is of the form n·[η₂] with Hopf invariant n².</p>
+<p>Wait: actually π₃(S²) ≅ ℤ and the Hopf invariant H: π₃(S²) → ℤ is an
+isomorphism.  If [f] = n·[η₂] in π₃(S²), then H(f) = n.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.hopf_invariant.hopf_invariant_composition">
+<span class="sig-prename descclassname"><span class="pre">pytop.hopf_invariant.</span></span><span class="sig-name descname"><span class="pre">hopf_invariant_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hopf_f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree_g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.hopf_invariant.hopf_invariant_composition" title="Link to this definition"></a></dt>
+<dd><p>Hopf invariant of f ∘ g under suitable conditions.</p>
+<p>If f: S^{2n-1} → S^n has Hopf invariant H(f) and
+g: S^{4n-1} → S^{2n-1} has degree deg(g), then
+H(f ∘ g) = deg(g)² · H(f).</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>hopf_f<span class="classifier">int</span></dt><dd><p>Hopf invariant of f.</p>
+</dd>
+<dt>degree_g<span class="classifier">int</span></dt><dd><p>Degree of g (viewed as a self-map of a sphere).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

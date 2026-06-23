@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knot Invariants &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Concordance" href="concordance.html" />
+    <link rel="prev" title="Tda Pipeline" href="tda_pipeline.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Knot Invariants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#diagram-conventions">Diagram conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.Laurent"><code class="docutils literal notranslate"><span class="pre">Laurent</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.Laurent.coeffs"><code class="docutils literal notranslate"><span class="pre">Laurent.coeffs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.Laurent.monomial"><code class="docutils literal notranslate"><span class="pre">Laurent.monomial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.Laurent.zero"><code class="docutils literal notranslate"><span class="pre">Laurent.zero()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.Laurent.one"><code class="docutils literal notranslate"><span class="pre">Laurent.one()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.Laurent.scaled"><code class="docutils literal notranslate"><span class="pre">Laurent.scaled()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.Laurent.is_zero"><code class="docutils literal notranslate"><span class="pre">Laurent.is_zero()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.Laurent.substitute_variable_power"><code class="docutils literal notranslate"><span class="pre">Laurent.substitute_variable_power()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.KnotDiagram"><code class="docutils literal notranslate"><span class="pre">KnotDiagram</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.KnotDiagram.pd"><code class="docutils literal notranslate"><span class="pre">KnotDiagram.pd</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.KnotDiagram.signs"><code class="docutils literal notranslate"><span class="pre">KnotDiagram.signs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.KnotDiagram.components"><code class="docutils literal notranslate"><span class="pre">KnotDiagram.components</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.KnotDiagram.crossing_number"><code class="docutils literal notranslate"><span class="pre">KnotDiagram.crossing_number</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram"><code class="docutils literal notranslate"><span class="pre">LinkDiagram</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram.crossings"><code class="docutils literal notranslate"><span class="pre">LinkDiagram.crossings</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram.signs"><code class="docutils literal notranslate"><span class="pre">LinkDiagram.signs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram.n_components"><code class="docutils literal notranslate"><span class="pre">LinkDiagram.n_components</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram.component_map"><code class="docutils literal notranslate"><span class="pre">LinkDiagram.component_map</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram.from_knot"><code class="docutils literal notranslate"><span class="pre">LinkDiagram.from_knot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram.components"><code class="docutils literal notranslate"><span class="pre">LinkDiagram.components</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.writhe"><code class="docutils literal notranslate"><span class="pre">writhe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.linking_number"><code class="docutils literal notranslate"><span class="pre">linking_number()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.linking_matrix"><code class="docutils literal notranslate"><span class="pre">linking_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.multivariable_alexander"><code class="docutils literal notranslate"><span class="pre">multivariable_alexander()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.kauffman_bracket"><code class="docutils literal notranslate"><span class="pre">kauffman_bracket()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.jones_polynomial"><code class="docutils literal notranslate"><span class="pre">jones_polynomial()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.reduced_burau"><code class="docutils literal notranslate"><span class="pre">reduced_burau()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.alexander_polynomial_from_braid"><code class="docutils literal notranslate"><span class="pre">alexander_polynomial_from_braid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.knot_invariants.is_valid_pd_code"><code class="docutils literal notranslate"><span class="pre">is_valid_pd_code()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Knot Invariants</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/knot_invariants.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.knot_invariants">
+<span id="knot-invariants"></span><h1>Knot Invariants<a class="headerlink" href="#module-pytop.knot_invariants" title="Link to this heading"></a></h1>
+<p>Constructive knot and link invariants from diagram data.</p>
+<p>This module computes genuine invariants from a combinatorial description of a
+knot/link diagram, complementing the descriptive profiles in <a class="reference internal" href="knots.html#module-pytop.knots" title="pytop.knots"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pytop.knots</span></code></a>:</p>
+<ul class="simple">
+<li><p>the <strong>writhe</strong> and <strong>linking number</strong> from signed crossing data,</p></li>
+<li><p>the <strong>Kauffman bracket</strong> and <strong>Jones polynomial</strong> from a planar-diagram (PD)
+code via the state-sum (smoothing) expansion,</p></li>
+<li><p>the <strong>Alexander polynomial</strong> from a braid word via the reduced Burau
+representation,</p></li>
+<li><p>a light <strong>Reidemeister move</strong> well-formedness check.</p></li>
+<li><p><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram" title="pytop.knot_invariants.LinkDiagram"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinkDiagram</span></code></a> — a multi-component link diagram with component labels,</p></li>
+<li><p><a class="reference internal" href="#pytop.knot_invariants.linking_number" title="pytop.knot_invariants.linking_number"><code class="xref py py-func docutils literal notranslate"><span class="pre">linking_number()</span></code></a> and <a class="reference internal" href="#pytop.knot_invariants.linking_matrix" title="pytop.knot_invariants.linking_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">linking_matrix()</span></code></a> — integer linking invariants,</p></li>
+<li><p><a class="reference internal" href="#pytop.knot_invariants.multivariable_alexander" title="pytop.knot_invariants.multivariable_alexander"><code class="xref py py-func docutils literal notranslate"><span class="pre">multivariable_alexander()</span></code></a> — multivariable Alexander polynomial of a link
+diagram (Wirtinger + Fox calculus; see <a class="reference internal" href="multivariable_alexander.html#module-pytop.multivariable_alexander" title="pytop.multivariable_alexander"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pytop.multivariable_alexander</span></code></a>).</p></li>
+</ul>
+<p>Everything is dependency-free and exact (integer / rational arithmetic). A small
+<a class="reference internal" href="#pytop.knot_invariants.Laurent" title="pytop.knot_invariants.Laurent"><code class="xref py py-class docutils literal notranslate"><span class="pre">Laurent</span></code></a> value type carries the polynomials.</p>
+<section id="diagram-conventions">
+<h2>Diagram conventions<a class="headerlink" href="#diagram-conventions" title="Link to this heading"></a></h2>
+<p>A diagram is given as a PD code: a list of crossings, each a 4-tuple of edge
+labels <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b,</span> <span class="pre">c,</span> <span class="pre">d)</span></code> listed counterclockwise, with the understrand running
+<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">-&gt;</span> <span class="pre">c</span></code>. The A-smoothing joins <code class="docutils literal notranslate"><span class="pre">a-b</span></code> and <code class="docutils literal notranslate"><span class="pre">c-d</span></code>; the B-smoothing joins
+<code class="docutils literal notranslate"><span class="pre">a-d</span></code> and <code class="docutils literal notranslate"><span class="pre">b-c</span></code>. Crossing signs (for the writhe) are supplied separately
+because they require an orientation.</p>
+<p>Sign convention. PD sign conventions differ between sources; in this module the
+writhe normalization is fixed so that the right-handed trefoil (Jones polynomial
+<code class="docutils literal notranslate"><span class="pre">-t^-4</span> <span class="pre">+</span> <span class="pre">t^-3</span> <span class="pre">+</span> <span class="pre">t^-1</span></code>) is encoded with three negative crossings,
+<code class="docutils literal notranslate"><span class="pre">signs=(-1,</span> <span class="pre">-1,</span> <span class="pre">-1)</span></code>, and its mirror with three positive crossings.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.knot_invariants.Laurent">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">Laurent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coeffs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.knot_invariants.Laurent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A Laurent polynomial in one variable with rational exponents.</p>
+<p>Exponents may be <a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fraction</span></code></a> (needed for the Jones
+polynomial of links, whose powers are half-integers); coefficients are
+integers. Stored sparsely; zero coefficients are dropped.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.knot_invariants.Laurent.coeffs">
+<span class="sig-name descname"><span class="pre">coeffs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.knot_invariants.Laurent.coeffs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.knot_invariants.Laurent.monomial">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">monomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exponent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">coefficient</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.knot_invariants.Laurent" title="pytop.knot_invariants.Laurent"><span class="pre">Laurent</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.Laurent.monomial" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.knot_invariants.Laurent.zero">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">zero</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.knot_invariants.Laurent" title="pytop.knot_invariants.Laurent"><span class="pre">Laurent</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.Laurent.zero" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.knot_invariants.Laurent.one">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">one</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.knot_invariants.Laurent" title="pytop.knot_invariants.Laurent"><span class="pre">Laurent</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.Laurent.one" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.knot_invariants.Laurent.scaled">
+<span class="sig-name descname"><span class="pre">scaled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.knot_invariants.Laurent" title="pytop.knot_invariants.Laurent"><span class="pre">Laurent</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.Laurent.scaled" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.knot_invariants.Laurent.is_zero">
+<span class="sig-name descname"><span class="pre">is_zero</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.Laurent.is_zero" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.knot_invariants.Laurent.substitute_variable_power">
+<span class="sig-name descname"><span class="pre">substitute_variable_power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiplier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.knot_invariants.Laurent" title="pytop.knot_invariants.Laurent"><span class="pre">Laurent</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.Laurent.substitute_variable_power" title="Link to this definition"></a></dt>
+<dd><p>Return the polynomial with every exponent <code class="docutils literal notranslate"><span class="pre">e</span></code> mapped to <code class="docutils literal notranslate"><span class="pre">e*multiplier</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.knot_invariants.KnotDiagram">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">KnotDiagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">signs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.knot_invariants.KnotDiagram" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A knot/link diagram as a PD code plus per-crossing signs.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pd</span></code> is a tuple of 4-tuples of edge labels (counterclockwise, understrand
+first). <code class="docutils literal notranslate"><span class="pre">signs</span></code> is a tuple of +1/-1 crossing signs aligned with <code class="docutils literal notranslate"><span class="pre">pd</span></code>
+(used for the writhe); if omitted, all crossings are taken positive.
+<code class="docutils literal notranslate"><span class="pre">components</span></code> optionally records how many link components there are.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.knot_invariants.KnotDiagram.pd">
+<span class="sig-name descname"><span class="pre">pd</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.knot_invariants.KnotDiagram.pd" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.knot_invariants.KnotDiagram.signs">
+<span class="sig-name descname"><span class="pre">signs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></span><a class="headerlink" href="#pytop.knot_invariants.KnotDiagram.signs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.knot_invariants.KnotDiagram.components">
+<span class="sig-name descname"><span class="pre">components</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#pytop.knot_invariants.KnotDiagram.components" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.knot_invariants.KnotDiagram.crossing_number">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">crossing_number</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.knot_invariants.KnotDiagram.crossing_number" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.knot_invariants.LinkDiagram">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">LinkDiagram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crossings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">component_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.knot_invariants.LinkDiagram" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A multi-component link diagram as a PD code with component labels.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>crossings:</dt><dd><p>PD code — list of 4-tuples <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b,</span> <span class="pre">c,</span> <span class="pre">d)</span></code> (counterclockwise,
+understrand <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">-&gt;</span> <span class="pre">c</span></code>).  Same format as <a class="reference internal" href="#pytop.knot_invariants.KnotDiagram" title="pytop.knot_invariants.KnotDiagram"><code class="xref py py-class docutils literal notranslate"><span class="pre">KnotDiagram</span></code></a>.</p>
+</dd>
+<dt>signs:</dt><dd><p>Per-crossing sign: <code class="docutils literal notranslate"><span class="pre">+1</span></code> (positive crossing) or <code class="docutils literal notranslate"><span class="pre">-1</span></code> (negative).</p>
+</dd>
+<dt>n_components:</dt><dd><p>Number of link components.</p>
+</dd>
+<dt>component_map:</dt><dd><p>Maps each arc index to a component index (0-based).  The length must
+equal the number of distinct arc labels that appear in <em>crossings</em>.
+Arc label <code class="docutils literal notranslate"><span class="pre">k</span></code> (0-based) belongs to component <code class="docutils literal notranslate"><span class="pre">component_map[k]</span></code>.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.knot_invariants.LinkDiagram.crossings">
+<span class="sig-name descname"><span class="pre">crossings</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.knot_invariants.LinkDiagram.crossings" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.knot_invariants.LinkDiagram.signs">
+<span class="sig-name descname"><span class="pre">signs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.knot_invariants.LinkDiagram.signs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.knot_invariants.LinkDiagram.n_components">
+<span class="sig-name descname"><span class="pre">n_components</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.knot_invariants.LinkDiagram.n_components" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.knot_invariants.LinkDiagram.component_map">
+<span class="sig-name descname"><span class="pre">component_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.knot_invariants.LinkDiagram.component_map" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.knot_invariants.LinkDiagram.from_knot">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_knot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.knot_invariants.KnotDiagram" title="pytop.knot_invariants.KnotDiagram"><span class="pre">KnotDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram" title="pytop.knot_invariants.LinkDiagram"><span class="pre">LinkDiagram</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.LinkDiagram.from_knot" title="Link to this definition"></a></dt>
+<dd><p>Convert a single-component <a class="reference internal" href="#pytop.knot_invariants.KnotDiagram" title="pytop.knot_invariants.KnotDiagram"><code class="xref py py-class docutils literal notranslate"><span class="pre">KnotDiagram</span></code></a> to a <a class="reference internal" href="#pytop.knot_invariants.LinkDiagram" title="pytop.knot_invariants.LinkDiagram"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinkDiagram</span></code></a>.</p>
+<p>All arcs are assigned to component 0.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.knot_invariants.LinkDiagram.components">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">components</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.14)"><span class="pre">set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.knot_invariants.LinkDiagram.components" title="Link to this definition"></a></dt>
+<dd><p>Return, for each component, the set of arc indices it contains.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.knot_invariants.writhe">
+<span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">writhe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.knot_invariants.KnotDiagram" title="pytop.knot_invariants.KnotDiagram"><span class="pre">KnotDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.writhe" title="Link to this definition"></a></dt>
+<dd><p>Return the writhe: the sum of the signed crossings.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.knot_invariants.linking_number">
+<span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">linking_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link_or_signs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram" title="pytop.knot_invariants.LinkDiagram"><span class="pre">LinkDiagram</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/fractions.html#fractions.Fraction" title="(in Python v3.14)"><span class="pre">Fraction</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.linking_number" title="Link to this definition"></a></dt>
+<dd><p>Return the linking number between two link components.</p>
+<p><strong>Two-argument form (legacy):</strong> <code class="docutils literal notranslate"><span class="pre">linking_number(inter_component_signs)</span></code>
+accepts a sequence of <code class="docutils literal notranslate"><span class="pre">+1</span></code>/<code class="docutils literal notranslate"><span class="pre">-1</span></code> crossing signs between two specific
+components and returns <code class="docutils literal notranslate"><span class="pre">Fraction(sum(signs),</span> <span class="pre">2)</span></code>.  This form is kept for
+backward compatibility.</p>
+<p><strong>Three-argument form:</strong> <code class="docutils literal notranslate"><span class="pre">linking_number(link,</span> <span class="pre">i,</span> <span class="pre">j)</span></code> accepts a
+<a class="reference internal" href="#pytop.knot_invariants.LinkDiagram" title="pytop.knot_invariants.LinkDiagram"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinkDiagram</span></code></a> and two component indices and returns an <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
+<p>For the negative Hopf link <code class="docutils literal notranslate"><span class="pre">linking_number(hopf,</span> <span class="pre">0,</span> <span class="pre">1)</span> <span class="pre">==</span> <span class="pre">-1</span></code>.
+For the unlink <code class="docutils literal notranslate"><span class="pre">linking_number(unlink,</span> <span class="pre">0,</span> <span class="pre">1)</span> <span class="pre">==</span> <span class="pre">0</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.knot_invariants.linking_matrix">
+<span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">linking_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.knot_invariants.LinkDiagram" title="pytop.knot_invariants.LinkDiagram"><span class="pre">LinkDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.knot_invariants.linking_matrix" title="Link to this definition"></a></dt>
+<dd><p>Return the n×n symmetric linking matrix for an n-component link.</p>
+<p><code class="docutils literal notranslate"><span class="pre">result[i][j]</span> <span class="pre">=</span> <span class="pre">linking_number(link,</span> <span class="pre">i,</span> <span class="pre">j)</span></code> for <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">≠</span> <span class="pre">j</span></code>; diagonal
+entries are 0.  For a knot (single component) returns <code class="docutils literal notranslate"><span class="pre">[[0]]</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.knot_invariants.multivariable_alexander">
+<span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">multivariable_alexander</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.knot_invariants.multivariable_alexander" title="Link to this definition"></a></dt>
+<dd><p>Return the multivariable Alexander polynomial of a link diagram.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>link:</dt><dd><p>A <a class="reference internal" href="#pytop.knot_invariants.LinkDiagram" title="pytop.knot_invariants.LinkDiagram"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinkDiagram</span></code></a> (or any object exposing
+<code class="docutils literal notranslate"><span class="pre">crossings</span></code>, <code class="docutils literal notranslate"><span class="pre">signs</span></code> and <code class="docutils literal notranslate"><span class="pre">n_components</span></code>).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict[tuple[int, …], int]</dt><dd><p>Coefficients of <code class="docutils literal notranslate"><span class="pre">Δ_L(t₁,</span> <span class="pre">…,</span> <span class="pre">tₙ)</span></code> keyed by exponent tuples of length
+<code class="docutils literal notranslate"><span class="pre">n</span></code> (the number of components), normalised up to units.  A knot gives
+length-1 tuples; the unknot gives <code class="docutils literal notranslate"><span class="pre">{(0,):</span> <span class="pre">1}</span></code>; a split link / unlink
+gives the empty dict (<code class="docutils literal notranslate"><span class="pre">Δ</span> <span class="pre">=</span> <span class="pre">0</span></code>).</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<p>Exact, dependency-free, and pure Python.  The determinant is exponential in
+the crossing number in the worst case; intended for small tabulated
+diagrams.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.knot_invariants.kauffman_bracket">
+<span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">kauffman_bracket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.knot_invariants.KnotDiagram" title="pytop.knot_invariants.KnotDiagram"><span class="pre">KnotDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.knot_invariants.Laurent" title="pytop.knot_invariants.Laurent"><span class="pre">Laurent</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.kauffman_bracket" title="Link to this definition"></a></dt>
+<dd><p>Return the Kauffman bracket polynomial in the variable <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+<p>Uses the state sum <code class="docutils literal notranslate"><span class="pre">&lt;L&gt;</span> <span class="pre">=</span> <span class="pre">sum_states</span> <span class="pre">A^(#A</span> <span class="pre">-</span> <span class="pre">#B)</span> <span class="pre">*</span> <span class="pre">delta^(loops</span> <span class="pre">-</span> <span class="pre">1)</span></code> with
+<code class="docutils literal notranslate"><span class="pre">delta</span> <span class="pre">=</span> <span class="pre">-A^2</span> <span class="pre">-</span> <span class="pre">A^-2</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.knot_invariants.jones_polynomial">
+<span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">jones_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.knot_invariants.KnotDiagram" title="pytop.knot_invariants.KnotDiagram"><span class="pre">KnotDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.knot_invariants.Laurent" title="pytop.knot_invariants.Laurent"><span class="pre">Laurent</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.jones_polynomial" title="Link to this definition"></a></dt>
+<dd><p>Return the Jones polynomial <code class="docutils literal notranslate"><span class="pre">V_L(t)</span></code> from the diagram.</p>
+<p>Computed as <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">=</span> <span class="pre">(-A^3)^(-w)</span> <span class="pre">&lt;L&gt;</span></code> followed by the substitution
+<code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">A^-4</span></code> (so an <code class="docutils literal notranslate"><span class="pre">A</span></code>-power <code class="docutils literal notranslate"><span class="pre">k</span></code> becomes a <code class="docutils literal notranslate"><span class="pre">t</span></code>-power <code class="docutils literal notranslate"><span class="pre">-k/4</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.knot_invariants.reduced_burau">
+<span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">reduced_burau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">braid_word</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_strands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.knot_invariants.Laurent" title="pytop.knot_invariants.Laurent"><span class="pre">Laurent</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.knot_invariants.reduced_burau" title="Link to this definition"></a></dt>
+<dd><p>Return the reduced Burau matrix of a braid word.</p>
+<p><code class="docutils literal notranslate"><span class="pre">braid_word</span></code> is a sequence of nonzero integers; <code class="docutils literal notranslate"><span class="pre">+i</span></code> is the generator
+<code class="docutils literal notranslate"><span class="pre">sigma_i</span></code> and <code class="docutils literal notranslate"><span class="pre">-i</span></code> is <code class="docutils literal notranslate"><span class="pre">sigma_i^-1</span></code> (1-based strand index).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.knot_invariants.alexander_polynomial_from_braid">
+<span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">alexander_polynomial_from_braid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">braid_word</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_strands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.knot_invariants.Laurent" title="pytop.knot_invariants.Laurent"><span class="pre">Laurent</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.alexander_polynomial_from_braid" title="Link to this definition"></a></dt>
+<dd><p>Return the Alexander polynomial of the closure of a braid.</p>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">Delta(t)</span> <span class="pre">=</span> <span class="pre">det(reduced_Burau(beta)</span> <span class="pre">-</span> <span class="pre">I)</span> <span class="pre">*</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">t)</span> <span class="pre">/</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">t^n)</span></code> up to
+units, then normalizes to the symmetric representative.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.knot_invariants.is_valid_pd_code">
+<span class="sig-prename descclassname"><span class="pre">pytop.knot_invariants.</span></span><span class="sig-name descname"><span class="pre">is_valid_pd_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.knot_invariants.KnotDiagram" title="pytop.knot_invariants.KnotDiagram"><span class="pre">KnotDiagram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.knot_invariants.is_valid_pd_code" title="Link to this definition"></a></dt>
+<dd><p>Return whether each edge label appears exactly twice in the PD code.</p>
+<p>A well-formed planar-diagram code has every arc shared by exactly two
+crossing corners; this is a necessary structural condition.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tda_pipeline.html" class="btn btn-neutral float-left" title="Tda Pipeline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="concordance.html" class="btn btn-neutral float-right" title="Concordance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

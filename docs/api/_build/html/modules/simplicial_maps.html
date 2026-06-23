@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simplicial Maps &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Simplicial Maps</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/simplicial_maps.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.simplicial_maps">
+<span id="simplicial-maps"></span><h1>Simplicial Maps<a class="headerlink" href="#module-pytop.simplicial_maps" title="Link to this heading"></a></h1>
+<p>Simplicial maps and induced chain-level homomorphisms.</p>
+<p>P7.2 milestone — five public objects:</p>
+<p>SimplicialMap          : validated dataclass for a simplicial map f: K → L
+chain_map_matrix       : integer matrix of f#_k: C_k(K) → C_k(L)
+induced_map_on_homology: InducedHomologyMap with f_*: H_k(K) → H_k(L)
+cone_complex           : CK = K * {apex}, always contractible
+suspension_complex     : ΣK = K * S⁰, satisfies Σ(Sⁿ) ≃ Sⁿ⁺¹</p>
+<section id="mathematical-background">
+<h2>Mathematical background<a class="headerlink" href="#mathematical-background" title="Link to this heading"></a></h2>
+<p>A simplicial map f: K → L is a vertex map v ↦ f(v) such that for every simplex
+σ = {v₀,…,vₖ} ∈ K the image {f(v₀),…,f(vₖ)} spans a simplex in L (vertices
+may collapse when f(vᵢ) = f(vⱼ), producing a lower-dimensional image).</p>
+<dl class="simple">
+<dt>The chain-level map f#_k: C_k(K) → C_k(L) is:</dt><dd><p>f#_k([v₀,…,vₖ]) = 0                     if any images coincide (degenerate)
+f#_k([v₀,…,vₖ]) = sign(π) · [f(v_π(0)),…,f(v_π(k))]   otherwise</p>
+</dd>
+</dl>
+<p>where π is the permutation sorting {f(v₀),…,f(vₖ)} into canonical (repr) order.</p>
+<p>f# commutes with boundary (∂_L ∘ f# = f# ∘ ∂_K), so it induces f_* on homology.</p>
+<p>The induced map on H_k uses extended Smith Normal Form to obtain cycle
+representatives (via the shared <code class="docutils literal notranslate"><span class="pre">_compute_homology_data</span></code> machinery from
+<code class="docutils literal notranslate"><span class="pre">mayer_vietoris</span></code>) and expresses the chain-level image in H_k(L) coordinates.</p>
+</section>
+<section id="cone-and-suspension">
+<h2>Cone and suspension<a class="headerlink" href="#cone-and-suspension" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>cone_complex(K, apex) adds an apex vertex and joins it to every simplex:</dt><dd><p>CK = K ∪ {σ ∪ {apex} : σ ∈ K} ∪ {{apex}}</p>
+</dd>
+</dl>
+<p>CK is contractible: H_0(CK) = Z, H_k(CK) = 0 for k &gt; 0.</p>
+<dl class="simple">
+<dt>suspension_complex(K, s, n) is the double cone K * S⁰:</dt><dd><p>ΣK = K ∪ {σ ∪ {s} : σ ∈ K} ∪ {σ ∪ {n} : σ ∈ K} ∪ {{s},{n}}</p>
+</dd>
+</dl>
+<p>For Sⁿ triangulated as K:  Σ(Sⁿ) ≃ Sⁿ⁺¹.</p>
+</section>
+<dl class="py exception">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.SimplicialMapError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.simplicial_maps.</span></span><span class="sig-name descname"><span class="pre">SimplicialMapError</span></span><a class="headerlink" href="#pytop.simplicial_maps.SimplicialMapError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a></p>
+<p>Raised when a simplicial map fails validation.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.SimplicialMap">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.simplicial_maps.</span></span><span class="sig-name descname"><span class="pre">SimplicialMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">codomain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertex_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.simplicial_maps.SimplicialMap" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A simplicial map f: K → L between finite simplicial complexes.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>domain<span class="classifier">SimplicialComplex</span></dt><dd><p>Source complex K.</p>
+</dd>
+<dt>codomain<span class="classifier">SimplicialComplex</span></dt><dd><p>Target complex L.</p>
+</dd>
+<dt>vertex_map<span class="classifier">dict</span></dt><dd><p>Maps every vertex of <code class="docutils literal notranslate"><span class="pre">domain</span></code> to a vertex of <code class="docutils literal notranslate"><span class="pre">codomain</span></code>.
+The map is valid if for every simplex {v₀,…,vₖ} ∈ K the image
+{f(v₀),…,f(vₖ)} is a simplex in L (collapsing is allowed).</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h2>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>SimplicialMapError</dt><dd><p>If any domain vertex lacks an image, any image is outside the codomain,
+or any simplex fails to map into a codomain simplex.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.SimplicialMap.domain">
+<span class="sig-name descname"><span class="pre">domain</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span><a class="headerlink" href="#pytop.simplicial_maps.SimplicialMap.domain" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.SimplicialMap.codomain">
+<span class="sig-name descname"><span class="pre">codomain</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span><a class="headerlink" href="#pytop.simplicial_maps.SimplicialMap.codomain" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.SimplicialMap.vertex_map">
+<span class="sig-name descname"><span class="pre">vertex_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.simplicial_maps.SimplicialMap.vertex_map" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.InducedHomologyMap">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.simplicial_maps.</span></span><span class="sig-name descname"><span class="pre">InducedHomologyMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_homology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">codomain_homology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.simplicial_maps.InducedHomologyMap" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The induced map f_*: H_k(K;Z) → H_k(L;Z) on integral homology.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>degree<span class="classifier">int</span></dt><dd><p>Homological degree k.</p>
+</dd>
+<dt>domain_homology<span class="classifier">HomologyResult</span></dt><dd><p>H_k(K;Z) summary.</p>
+</dd>
+<dt>codomain_homology<span class="classifier">HomologyResult</span></dt><dd><p>H_k(L;Z) summary.</p>
+</dd>
+<dt>matrix<span class="classifier">Matrix</span></dt><dd><p>Integer matrix (rows = L generators, columns = K generators).
+Entry (i, j) is the H_k(L) coordinate of f_*(gⱼ) along generator gᵢ.
+Torsion generators come first, then free generators (matching the
+ordering used by <code class="docutils literal notranslate"><span class="pre">_HomologyData.cycle_rep</span></code>).</p>
+</dd>
+<dt>chain_matrix<span class="classifier">Matrix</span></dt><dd><p>The chain-level map f#_k: C_k(K) → C_k(L) as an integer matrix
+(rows = L k-simplices, columns = K k-simplices, canonical order).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.InducedHomologyMap.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.simplicial_maps.InducedHomologyMap.degree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.InducedHomologyMap.domain_homology">
+<span class="sig-name descname"><span class="pre">domain_homology</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span><a class="headerlink" href="#pytop.simplicial_maps.InducedHomologyMap.domain_homology" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.InducedHomologyMap.codomain_homology">
+<span class="sig-name descname"><span class="pre">codomain_homology</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="homology.html#pytop.homology.HomologyResult" title="pytop.homology.HomologyResult"><span class="pre">HomologyResult</span></a></span><a class="headerlink" href="#pytop.simplicial_maps.InducedHomologyMap.codomain_homology" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.InducedHomologyMap.matrix">
+<span class="sig-name descname"><span class="pre">matrix</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.simplicial_maps.InducedHomologyMap.matrix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.InducedHomologyMap.chain_matrix">
+<span class="sig-name descname"><span class="pre">chain_matrix</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.simplicial_maps.InducedHomologyMap.chain_matrix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.chain_map_matrix">
+<span class="sig-prename descclassname"><span class="pre">pytop.simplicial_maps.</span></span><span class="sig-name descname"><span class="pre">chain_map_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.simplicial_maps.SimplicialMap" title="pytop.simplicial_maps.SimplicialMap"><span class="pre">SimplicialMap</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.simplicial_maps.chain_map_matrix" title="Link to this definition"></a></dt>
+<dd><p>Integer matrix of the chain map f#_k: C_k(K) → C_k(L).</p>
+<p>Rows are indexed by <code class="docutils literal notranslate"><span class="pre">codomain</span></code>’s k-simplices in canonical order;
+columns by <code class="docutils literal notranslate"><span class="pre">domain</span></code>’s k-simplices in canonical order.</p>
+<p>For each domain k-simplex σ = (v₀,…,vₖ):
+- If any two images coincide (degenerate): column is all zeros.
+- Otherwise: entry ±1 in the row corresponding to the sorted image,</p>
+<blockquote>
+<div><p>where the sign is the parity of the sorting permutation.</p>
+</div></blockquote>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>sim_map : SimplicialMap
+degree : int</p>
+<blockquote>
+<div><p>Chain degree k (≥ 0).</p>
+</div></blockquote>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Matrix</dt><dd><p><code class="docutils literal notranslate"><span class="pre">len(L_k)</span> <span class="pre">×</span> <span class="pre">len(K_k)</span></code> integer matrix, or an empty matrix when
+either complex has no k-simplices.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.induced_map_on_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.simplicial_maps.</span></span><span class="sig-name descname"><span class="pre">induced_map_on_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.simplicial_maps.SimplicialMap" title="pytop.simplicial_maps.SimplicialMap"><span class="pre">SimplicialMap</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.simplicial_maps.InducedHomologyMap" title="pytop.simplicial_maps.InducedHomologyMap"><span class="pre">InducedHomologyMap</span></a></span></span><a class="headerlink" href="#pytop.simplicial_maps.induced_map_on_homology" title="Link to this definition"></a></dt>
+<dd><p>Compute f_*: H_k(K;Z) → H_k(L;Z) induced by a simplicial map.</p>
+<p>Uses extended Smith Normal Form (via the shared <code class="docutils literal notranslate"><span class="pre">mayer_vietoris</span></code> machinery)
+to obtain cycle representatives for H_k(K) and express their chain-level
+images in the H_k(L) coordinate system.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>sim_map<span class="classifier">SimplicialMap</span></dt><dd><p>A valid simplicial map f: K → L.</p>
+</dd>
+<dt>degree<span class="classifier">int</span></dt><dd><p>Homological degree k (≥ 0).</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h2>Returns<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>InducedHomologyMap</dt><dd><p>Contains the homology summaries, the chain-level matrix, and the
+integer matrix of the induced map on integral homology generators.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Identity map on S¹ (boundary of triangle) induces the identity on H₁ = Z:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.simplicial_complexes</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimplicialComplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pytop.simplices</span><span class="w"> </span><span class="kn">import</span> <span class="n">Simplex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S1</span> <span class="o">=</span> <span class="n">SimplicialComplex</span><span class="p">([</span><span class="n">Simplex</span><span class="p">([</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span> <span class="o">+</span>
+<span class="gp">... </span>                       <span class="p">[</span><span class="n">Simplex</span><span class="p">([</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vm</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">SimplicialMap</span><span class="p">(</span><span class="n">S1</span><span class="p">,</span> <span class="n">S1</span><span class="p">,</span> <span class="n">vm</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">induced_map_on_homology</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">matrix</span>
+<span class="go">[[1]]</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.cone_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.simplicial_maps.</span></span><span class="sig-name descname"><span class="pre">cone_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">apex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'c'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></span><a class="headerlink" href="#pytop.simplicial_maps.cone_complex" title="Link to this definition"></a></dt>
+<dd><p>Return the cone CK = K ∗ {apex} over K.</p>
+<p>For every simplex σ ∈ K, adds σ ∪ {apex}.  The result is always
+contractible: H₀(CK) = Z, H_k(CK) = 0 for k &gt; 0.</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>K : SimplicialComplex
+apex : Any</p>
+<blockquote>
+<div><p>Label for the new apex vertex.  Must not already appear in K.</p>
+</div></blockquote>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>SimplicialComplex</dt><dd><p>Face-closed complex with <code class="docutils literal notranslate"><span class="pre">|K|</span> <span class="pre">+</span> <span class="pre">(|K|</span> <span class="pre">+</span> <span class="pre">1)</span></code> simplices
+(original + one cone simplex per original simplex + apex).</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>Raises<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">apex</span></code> is already a vertex of K.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.simplicial_maps.suspension_complex">
+<span class="sig-prename descclassname"><span class="pre">pytop.simplicial_maps.</span></span><span class="sig-name descname"><span class="pre">suspension_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">south</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">north</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'n'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="simplicial_complexes.html#pytop.simplicial_complexes.SimplicialComplex" title="pytop.simplicial_complexes.SimplicialComplex"><span class="pre">SimplicialComplex</span></a></span></span><a class="headerlink" href="#pytop.simplicial_maps.suspension_complex" title="Link to this definition"></a></dt>
+<dd><p>Return the unreduced suspension ΣK = K ∗ S⁰ (double cone).</p>
+<p>Adds two new vertices <code class="docutils literal notranslate"><span class="pre">south</span></code> (s) and <code class="docutils literal notranslate"><span class="pre">north</span></code> (n) and for every
+simplex σ ∈ K adds σ ∪ {s} and σ ∪ {n}.  The suspension satisfies
+Σ(Sⁿ) ≃ Sⁿ⁺¹.</p>
+<section id="id7">
+<h2>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>K : SimplicialComplex
+south, north : Any</p>
+<blockquote>
+<div><p>Labels for the suspension vertices.  Both must be absent from K and
+must be distinct from each other.</p>
+</div></blockquote>
+</section>
+<section id="id8">
+<h2>Returns<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>SimplicialComplex</dt><dd><p>Face-closed complex: original K plus two cone copies (south and
+north) plus the two suspension points.</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h2>Raises<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">south</span></code> or <code class="docutils literal notranslate"><span class="pre">north</span></code> already appear in K, or if they are equal.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khovanov &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Khovanov</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/khovanov.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.khovanov">
+<span id="khovanov"></span><h1>Khovanov<a class="headerlink" href="#module-pytop.khovanov" title="Link to this heading"></a></h1>
+<p>Khovanov homology — the categorification of the Jones polynomial.</p>
+<p>For a link diagram with <code class="docutils literal notranslate"><span class="pre">n</span></code> crossings, Khovanov homology <code class="docutils literal notranslate"><span class="pre">Kh^{i,j}(L)</span></code> is a
+bigraded abelian group whose <em>graded Euler characteristic</em> is the unnormalised
+Jones polynomial <code class="docutils literal notranslate"><span class="pre">Ĵ_L(q)</span></code> (with <code class="docutils literal notranslate"><span class="pre">Ĵ_unknot</span> <span class="pre">=</span> <span class="pre">q</span> <span class="pre">+</span> <span class="pre">q⁻¹</span></code>):</p>
+<blockquote>
+<div><p>Σ_{i,j} (−1)^i · q^j · rank Kh^{i,j}(L) = Ĵ_L(q).</p>
+</div></blockquote>
+<p>In pytop’s crossing-sign convention this cross-checks against
+<a class="reference internal" href="knot_invariants.html#pytop.knot_invariants.jones_polynomial" title="pytop.knot_invariants.jones_polynomial"><code class="xref py py-func docutils literal notranslate"><span class="pre">pytop.knot_invariants.jones_polynomial()</span></code></a> as
+<code class="docutils literal notranslate"><span class="pre">Ĵ_L(q)</span> <span class="pre">=</span> <span class="pre">(−1)^{c−1}</span> <span class="pre">(q</span> <span class="pre">+</span> <span class="pre">q⁻¹)</span> <span class="pre">·</span> <span class="pre">V_L(t</span> <span class="pre">=</span> <span class="pre">q²)</span></code> for a <code class="docutils literal notranslate"><span class="pre">c</span></code>-component link.</p>
+<section id="construction-khovanov-2000-bar-natan-2002">
+<h2>Construction (Khovanov 2000, Bar-Natan 2002)<a class="headerlink" href="#construction-khovanov-2000-bar-natan-2002" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Cube of resolutions.</strong>  Each crossing is given a <code class="docutils literal notranslate"><span class="pre">0</span></code>-smoothing
+(Kauffman A) or a <code class="docutils literal notranslate"><span class="pre">1</span></code>-smoothing (Kauffman B); the <code class="docutils literal notranslate"><span class="pre">2ⁿ</span></code> vertices of
+<code class="docutils literal notranslate"><span class="pre">{0,1}ⁿ</span></code> are complete resolutions, each a disjoint union of circles.</p></li>
+<li><p><strong>Frobenius algebra.</strong>  To a resolution with <code class="docutils literal notranslate"><span class="pre">k</span></code> circles assign
+<code class="docutils literal notranslate"><span class="pre">V^{⊗k}</span></code> where <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">=</span> <span class="pre">ℤ⟨1,</span> <span class="pre">X⟩</span></code>, <code class="docutils literal notranslate"><span class="pre">deg</span> <span class="pre">1</span> <span class="pre">=</span> <span class="pre">+1</span></code>, <code class="docutils literal notranslate"><span class="pre">deg</span> <span class="pre">X</span> <span class="pre">=</span> <span class="pre">−1</span></code>, with
+multiplication <code class="docutils literal notranslate"><span class="pre">m</span></code> (<code class="docutils literal notranslate"><span class="pre">1·1=1,</span> <span class="pre">1·X=X·1=X,</span> <span class="pre">X·X=0</span></code>) and comultiplication
+<code class="docutils literal notranslate"><span class="pre">Δ</span></code> (<code class="docutils literal notranslate"><span class="pre">Δ1</span> <span class="pre">=</span> <span class="pre">1⊗X</span> <span class="pre">+</span> <span class="pre">X⊗1,</span> <span class="pre">ΔX</span> <span class="pre">=</span> <span class="pre">X⊗X</span></code>).</p></li>
+<li><p><strong>Differential.</strong>  An edge of the cube (one <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">→</span> <span class="pre">1</span></code>) merges two circles
+(apply <code class="docutils literal notranslate"><span class="pre">m</span></code>) or splits one (apply <code class="docutils literal notranslate"><span class="pre">Δ</span></code>), with the Khovanov sign
+<code class="docutils literal notranslate"><span class="pre">(−1)^{#1's</span> <span class="pre">before</span> <span class="pre">the</span> <span class="pre">flipped</span> <span class="pre">crossing}</span></code>.  This makes <code class="docutils literal notranslate"><span class="pre">d²</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
+<li><p><strong>Gradings.</strong>  With <code class="docutils literal notranslate"><span class="pre">n₊</span></code>/<code class="docutils literal notranslate"><span class="pre">n₋</span></code> positive/negative crossings, a generator
+in a vertex of weight <code class="docutils literal notranslate"><span class="pre">r</span> <span class="pre">=</span> <span class="pre">Σ</span></code> (number of 1-smoothings) has homological
+degree <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">r</span> <span class="pre">−</span> <span class="pre">n₋</span></code> and quantum degree
+<code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">(#1</span> <span class="pre">−</span> <span class="pre">#X)</span> <span class="pre">+</span> <span class="pre">r</span> <span class="pre">+</span> <span class="pre">n₊</span> <span class="pre">−</span> <span class="pre">2n₋</span></code>.</p></li>
+<li><p><strong>Homology.</strong>  <code class="docutils literal notranslate"><span class="pre">d</span></code> preserves <code class="docutils literal notranslate"><span class="pre">j</span></code>; for each quantum grading the complex is
+reduced over ℤ by Smith normal form, giving free ranks <em>and torsion</em>
+(e.g. the right-handed trefoil’s <code class="docutils literal notranslate"><span class="pre">ℤ/2</span></code> at <code class="docutils literal notranslate"><span class="pre">(i,j)</span> <span class="pre">=</span> <span class="pre">(3,7)</span></code>).</p></li>
+</ol>
+<p>Pure Python, exact integer arithmetic, no dependencies.  The total dimension is
+exponential in the crossing number; this is intended for the small diagrams of
+the knot tables, not large-scale computation.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.khovanov.KhovanovHomology">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.khovanov.</span></span><span class="sig-name descname"><span class="pre">KhovanovHomology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.khovanov.KhovanovHomology" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Bigraded Khovanov homology.</p>
+<p><code class="docutils literal notranslate"><span class="pre">groups</span></code> maps each <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j)</span></code> with nonzero homology to a pair
+<code class="docutils literal notranslate"><span class="pre">(free_rank,</span> <span class="pre">torsion)</span></code>, where <code class="docutils literal notranslate"><span class="pre">torsion</span></code> lists invariant factors
+<code class="docutils literal notranslate"><span class="pre">d</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> (<code class="docutils literal notranslate"><span class="pre">d₁</span> <span class="pre">|</span> <span class="pre">d₂</span> <span class="pre">|</span> <span class="pre">…</span></code>).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.khovanov.KhovanovHomology.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.khovanov.KhovanovHomology.groups" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.khovanov.KhovanovHomology.free_rank">
+<span class="sig-name descname"><span class="pre">free_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.khovanov.KhovanovHomology.free_rank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.khovanov.KhovanovHomology.torsion">
+<span class="sig-name descname"><span class="pre">torsion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.khovanov.KhovanovHomology.torsion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.khovanov.KhovanovHomology.total_rank">
+<span class="sig-name descname"><span class="pre">total_rank</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.khovanov.KhovanovHomology.total_rank" title="Link to this definition"></a></dt>
+<dd><p>Total free rank over all bidegrees (the unreduced Betti number).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.khovanov.KhovanovHomology.graded_euler_characteristic">
+<span class="sig-name descname"><span class="pre">graded_euler_characteristic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.khovanov.KhovanovHomology.graded_euler_characteristic" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">{j:</span> <span class="pre">Σ_i</span> <span class="pre">(−1)^i</span> <span class="pre">rank</span> <span class="pre">Kh^{i,j}}</span></code> — the unnormalised Jones
+polynomial as a Laurent polynomial in <code class="docutils literal notranslate"><span class="pre">q</span></code> (keyed by <code class="docutils literal notranslate"><span class="pre">q</span></code>-power).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.khovanov.khovanov_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.khovanov.</span></span><span class="sig-name descname"><span class="pre">khovanov_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="knot_invariants.html#pytop.knot_invariants.KnotDiagram" title="pytop.knot_invariants.KnotDiagram"><span class="pre">KnotDiagram</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.khovanov.KhovanovHomology" title="pytop.khovanov.KhovanovHomology"><span class="pre">KhovanovHomology</span></a></span></span><a class="headerlink" href="#pytop.khovanov.khovanov_homology" title="Link to this definition"></a></dt>
+<dd><p>Return the Khovanov homology <code class="docutils literal notranslate"><span class="pre">Kh^{i,j}</span></code> of a knot/link diagram.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>diagram:</dt><dd><p>A <a class="reference internal" href="knot_invariants.html#pytop.knot_invariants.KnotDiagram" title="pytop.knot_invariants.KnotDiagram"><code class="xref py py-class docutils literal notranslate"><span class="pre">KnotDiagram</span></code></a> (PD code with crossing
+signs).  The signs fix only the <code class="docutils literal notranslate"><span class="pre">(n₊,</span> <span class="pre">n₋)</span></code> grading shift.</p>
+</dd>
+<dt>parallel:</dt><dd><p>When <em>True</em> the per-quantum-grading SNF calls are submitted to a
+<a class="reference external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThreadPoolExecutor</span></code></a>.  With the pure-Python
+backend this yields modest gains (GIL limits true parallelism); with
+the optional <code class="docutils literal notranslate"><span class="pre">python-flint</span></code> backend (which releases the GIL) the
+speedup can be significant for diagrams with many quantum gradings.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>KhovanovHomology</p>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

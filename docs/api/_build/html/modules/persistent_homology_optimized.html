@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Persistent Homology Optimized &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Persistent Homology Optimized</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/persistent_homology_optimized.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.persistent_homology_optimized">
+<span id="persistent-homology-optimized"></span><h1>Persistent Homology Optimized<a class="headerlink" href="#module-pytop.persistent_homology_optimized" title="Link to this heading"></a></h1>
+<p>Optimized persistent homology: Twist algorithm with the Clearing Lemma.</p>
+<p>Standard column reduction (left-to-right sweep over Z/2) runs in O(n³) worst
+case.  The Twist algorithm (Chen–Kerber 2011) processes boundary columns
+dimension by dimension from highest to lowest.  As each finite persistence
+pair (creator σ, destroyer τ) is discovered, the creator’s column is
+immediately <em>cleared</em> — the Clearing Lemma guarantees it reduces to zero so
+no column operations on it are ever needed.</p>
+<section id="clearing-lemma-chenkerber-2011-lemma-1">
+<h2>Clearing Lemma  (Chen–Kerber 2011, Lemma 1)<a class="headerlink" href="#clearing-lemma-chenkerber-2011-lemma-1" title="Link to this heading"></a></h2>
+<p>Let D be the boundary matrix and R = D·V its column-reduced form (over Z/2).
+If low(R[j]) = i — meaning simplex j kills the class born at simplex i — then
+column R[i] reduces to zero without any column operations.</p>
+<p>Consequence: processing dimensions top-down lets us identify creators
+<em>before</em> we would normally reduce them, so we skip those reductions entirely.
+On Vietoris–Rips filtrations of circle- or torus-like data, this eliminates
+a large fraction of column additions.</p>
+<p>Correctness guarantee: <cite>persistence_pairs_twist</cite> produces results identical to
+<cite>persistence_pairs</cite> (the standard left-to-right reduction) on every input.
+The unit tests enforce this via cross-validation.</p>
+</section>
+<section id="public-api">
+<h2>Public API<a class="headerlink" href="#public-api" title="Link to this heading"></a></h2>
+<p>ReductionStats                    — statistics from one reduction run
+persistence_pairs_twist           — Twist reduction (same signature / output as</p>
+<blockquote>
+<div><p>persistence_pairs)</p>
+</div></blockquote>
+<p>persistence_pairs_twist_with_stats — same but also returns ReductionStats
+persistent_homology_optimized     — convenience: VR filtration → Twist reduction</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.ReductionStats">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.persistent_homology_optimized.</span></span><span class="sig-name descname"><span class="pre">ReductionStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_simplices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cleared</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_column_additions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_finite_pairs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_essential</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.persistent_homology_optimized.ReductionStats" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Statistics from one run of the Twist reduction.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>n_simplices<span class="classifier">int</span></dt><dd><p>Total number of simplices in the filtered complex.</p>
+</dd>
+<dt>n_cleared<span class="classifier">int</span></dt><dd><p>Columns skipped thanks to the Clearing Lemma.</p>
+</dd>
+<dt>n_column_additions<span class="classifier">int</span></dt><dd><p>Number of XOR operations (column additions over Z/2) performed.</p>
+</dd>
+<dt>n_finite_pairs<span class="classifier">int</span></dt><dd><p>Finite persistence pairs (b &lt; d &lt; ∞) found.</p>
+</dd>
+<dt>n_essential<span class="classifier">int</span></dt><dd><p>Essential (infinite) persistence pairs found.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.ReductionStats.n_simplices">
+<span class="sig-name descname"><span class="pre">n_simplices</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.persistent_homology_optimized.ReductionStats.n_simplices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.ReductionStats.n_cleared">
+<span class="sig-name descname"><span class="pre">n_cleared</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.persistent_homology_optimized.ReductionStats.n_cleared" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.ReductionStats.n_column_additions">
+<span class="sig-name descname"><span class="pre">n_column_additions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.persistent_homology_optimized.ReductionStats.n_column_additions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.ReductionStats.n_finite_pairs">
+<span class="sig-name descname"><span class="pre">n_finite_pairs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.persistent_homology_optimized.ReductionStats.n_finite_pairs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.ReductionStats.n_essential">
+<span class="sig-name descname"><span class="pre">n_essential</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.persistent_homology_optimized.ReductionStats.n_essential" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.ReductionStats.clearing_ratio">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">clearing_ratio</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pytop.persistent_homology_optimized.ReductionStats.clearing_ratio" title="Link to this definition"></a></dt>
+<dd><p>Fraction of columns skipped by clearing (0.0 – 1.0).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.ReductionStats.n_pairs">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">n_pairs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.persistent_homology_optimized.ReductionStats.n_pairs" title="Link to this definition"></a></dt>
+<dd><p>Total persistence pairs (finite + essential).</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.persistence_pairs_twist">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_homology_optimized.</span></span><span class="sig-name descname"><span class="pre">persistence_pairs_twist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><span class="pre">FilteredComplex</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_zero_persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.persistent_homology_optimized.persistence_pairs_twist" title="Link to this definition"></a></dt>
+<dd><p>Compute persistence pairs via the Twist algorithm (Chen–Kerber 2011).</p>
+<p>Produces results identical to <a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.persistence_pairs" title="pytop.persistent_homology.persistence_pairs"><code class="xref py py-func docutils literal notranslate"><span class="pre">persistence_pairs()</span></code></a>
+but processes dimensions from high to low and applies the Clearing Lemma to
+skip creator columns whose reduction is guaranteed to be zero.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>filtered:</dt><dd><p>Output of <a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.vietoris_rips_filtration" title="pytop.persistent_homology.vietoris_rips_filtration"><code class="xref py py-func docutils literal notranslate"><span class="pre">vietoris_rips_filtration()</span></code></a>
+or any <a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">FilteredComplex</span></code></a>.</p>
+</dd>
+<dt>include_zero_persistence:</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, include pairs with <code class="docutils literal notranslate"><span class="pre">birth</span> <span class="pre">==</span> <span class="pre">death</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>tuple[PersistencePair, …]</dt><dd><p>Sorted by <code class="docutils literal notranslate"><span class="pre">(dimension,</span> <span class="pre">birth,</span> <span class="pre">death)</span></code>.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.persistence_pairs_twist_with_stats">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_homology_optimized.</span></span><span class="sig-name descname"><span class="pre">persistence_pairs_twist_with_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><span class="pre">FilteredComplex</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_zero_persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#pytop.persistent_homology_optimized.ReductionStats" title="pytop.persistent_homology_optimized.ReductionStats"><span class="pre">ReductionStats</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.persistent_homology_optimized.persistence_pairs_twist_with_stats" title="Link to this definition"></a></dt>
+<dd><p>Twist reduction with Clearing; also returns <a class="reference internal" href="#pytop.persistent_homology_optimized.ReductionStats" title="pytop.persistent_homology_optimized.ReductionStats"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReductionStats</span></code></a>.</p>
+<p>Same output as <a class="reference internal" href="#pytop.persistent_homology_optimized.persistence_pairs_twist" title="pytop.persistent_homology_optimized.persistence_pairs_twist"><code class="xref py py-func docutils literal notranslate"><span class="pre">persistence_pairs_twist()</span></code></a> plus a <a class="reference internal" href="#pytop.persistent_homology_optimized.ReductionStats" title="pytop.persistent_homology_optimized.ReductionStats"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReductionStats</span></code></a>
+instance reporting how many columns were cleared and how many column
+additions were performed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.persistence_pairs_cohomology">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_homology_optimized.</span></span><span class="sig-name descname"><span class="pre">persistence_pairs_cohomology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><span class="pre">FilteredComplex</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_zero_persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.persistent_homology_optimized.persistence_pairs_cohomology" title="Link to this definition"></a></dt>
+<dd><p>Compute persistence pairs via the dual (persistent cohomology) algorithm.</p>
+<p>Produces results identical to
+<a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.persistence_pairs" title="pytop.persistent_homology.persistence_pairs"><code class="xref py py-func docutils literal notranslate"><span class="pre">persistence_pairs()</span></code></a> and
+<a class="reference internal" href="#pytop.persistent_homology_optimized.persistence_pairs_twist" title="pytop.persistent_homology_optimized.persistence_pairs_twist"><code class="xref py py-func docutils literal notranslate"><span class="pre">persistence_pairs_twist()</span></code></a>, but via persistent cohomology (de Silva–
+Morozov–Vejdemo-Johansson 2011) — far fewer column operations on Vietoris–Rips
+filtrations.  See <a class="reference internal" href="#pytop.persistent_homology_optimized.persistence_pairs_cohomology_with_stats" title="pytop.persistent_homology_optimized.persistence_pairs_cohomology_with_stats"><code class="xref py py-func docutils literal notranslate"><span class="pre">persistence_pairs_cohomology_with_stats()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.persistence_pairs_cohomology_with_stats">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_homology_optimized.</span></span><span class="sig-name descname"><span class="pre">persistence_pairs_cohomology_with_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.FilteredComplex" title="pytop.persistent_homology.FilteredComplex"><span class="pre">FilteredComplex</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_zero_persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#pytop.persistent_homology_optimized.ReductionStats" title="pytop.persistent_homology_optimized.ReductionStats"><span class="pre">ReductionStats</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.persistent_homology_optimized.persistence_pairs_cohomology_with_stats" title="Link to this definition"></a></dt>
+<dd><p>Persistent <strong>cohomology</strong> via the incremental algorithm; also returns stats.</p>
+<p>The dual algorithm of de Silva–Morozov–Vejdemo-Johansson (2011): instead of
+reducing the boundary matrix column by column, it processes the simplices in
+filtration order while maintaining the live <strong>cocycles</strong> (Z/2 cochains).  When
+a new simplex <code class="docutils literal notranslate"><span class="pre">σ</span></code> is added, the cocycles <code class="docutils literal notranslate"><span class="pre">z</span></code> with <code class="docutils literal notranslate"><span class="pre">⟨z,</span> <span class="pre">∂σ⟩</span> <span class="pre">=</span> <span class="pre">1</span></code> are
+exactly those whose class <code class="docutils literal notranslate"><span class="pre">σ</span></code> cobounds; the youngest of them dies (a finite
+pair) and the rest are updated by adding the dying cochain.  Cocycles that are
+never killed are the essential classes.</p>
+<p>An inverted index <code class="docutils literal notranslate"><span class="pre">containing[s]</span></code> (the live cocycles whose cochain contains
+simplex <code class="docutils literal notranslate"><span class="pre">s</span></code>) means each new simplex is only compared against the cocycles
+sharing one of its facets — so on Vietoris–Rips filtrations, where almost all
+pairs are <em>apparent</em>, the number of cochain additions is tiny compared with the
+boundary reduction (often hundreds vs hundreds of thousands), giving the same
+barcode faster.</p>
+<p>Returns the persistence pairs (identical to
+<a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.persistence_pairs" title="pytop.persistent_homology.persistence_pairs"><code class="xref py py-func docutils literal notranslate"><span class="pre">persistence_pairs()</span></code></a>) and a
+<a class="reference internal" href="#pytop.persistent_homology_optimized.ReductionStats" title="pytop.persistent_homology_optimized.ReductionStats"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReductionStats</span></code></a> whose <code class="docutils literal notranslate"><span class="pre">n_column_additions</span></code> counts the cochain
+additions performed (<code class="docutils literal notranslate"><span class="pre">n_cleared</span></code> is not applicable here and is <code class="docutils literal notranslate"><span class="pre">0</span></code>).</p>
+<section id="complexity">
+<h2>Complexity<a class="headerlink" href="#complexity" title="Link to this heading"></a></h2>
+<p>Output-sensitive: dominated by the cochain additions, which is small on
+structured (Rips-like) inputs. See <code class="docutils literal notranslate"><span class="pre">docs/COMPLEXITY.md</span></code>.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.persistent_homology_optimized.persistent_homology_optimized">
+<span class="sig-prename descclassname"><span class="pre">pytop.persistent_homology_optimized.</span></span><span class="sig-name descname"><span class="pre">persistent_homology_optimized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_zero_persistence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.PersistencePair" title="pytop.persistent_homology.PersistencePair"><span class="pre">PersistencePair</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.persistent_homology_optimized.persistent_homology_optimized" title="Link to this definition"></a></dt>
+<dd><p>Vietoris–Rips filtration followed by Twist reduction.</p>
+<p>Convenience wrapper equivalent to calling
+<a class="reference internal" href="persistent_homology.html#pytop.persistent_homology.vietoris_rips_filtration" title="pytop.persistent_homology.vietoris_rips_filtration"><code class="xref py py-func docutils literal notranslate"><span class="pre">vietoris_rips_filtration()</span></code></a> then
+<a class="reference internal" href="#pytop.persistent_homology_optimized.persistence_pairs_twist" title="pytop.persistent_homology_optimized.persistence_pairs_twist"><code class="xref py py-func docutils literal notranslate"><span class="pre">persistence_pairs_twist()</span></code></a>.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>space:</dt><dd><p>Any object exposing <code class="docutils literal notranslate"><span class="pre">carrier</span></code> and <code class="docutils literal notranslate"><span class="pre">distance_between</span></code>.</p>
+</dd>
+<dt>max_dimension:</dt><dd><p>Maximum simplex dimension to include (default 1 → edges only).</p>
+</dd>
+<dt>max_scale:</dt><dd><p>If given, simplices with birth &gt; max_scale are excluded.</p>
+</dd>
+<dt>include_zero_persistence:</dt><dd><p>Whether to include zero-length bars.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

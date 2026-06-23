@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dehn Surgery &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Dehn Surgery</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/dehn_surgery.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.dehn_surgery">
+<span id="dehn-surgery"></span><h1>Dehn Surgery<a class="headerlink" href="#module-pytop.dehn_surgery" title="Link to this heading"></a></h1>
+<p>First homology of Dehn surgery on a framed link (rational coefficients).</p>
+<p>Given a link <code class="docutils literal notranslate"><span class="pre">L</span> <span class="pre">=</span> <span class="pre">L₁</span> <span class="pre">∪</span> <span class="pre">…</span> <span class="pre">∪</span> <span class="pre">Lₙ</span></code> and a surgery coefficient <code class="docutils literal notranslate"><span class="pre">pᵢ/qᵢ</span></code> on each
+component, the surgered 3-manifold <code class="docutils literal notranslate"><span class="pre">M</span></code> has</p>
+<blockquote>
+<div><p>H₁(M; ℤ) = coker(A),    A_{ii} = pᵢ,   A_{ij} = qᵢ · lk(Lᵢ, Lⱼ)  (i ≠ j),</p>
+</div></blockquote>
+<p>because <code class="docutils literal notranslate"><span class="pre">H₁</span></code> of the link complement is freely generated by the meridians
+<code class="docutils literal notranslate"><span class="pre">μ₁,</span> <span class="pre">…,</span> <span class="pre">μₙ</span></code>, the longitude <code class="docutils literal notranslate"><span class="pre">λᵢ</span> <span class="pre">=</span> <span class="pre">Σ_{j≠i}</span> <span class="pre">lk(Lᵢ,</span> <span class="pre">Lⱼ)</span> <span class="pre">μⱼ</span></code>, and each surgery
+kills the curve <code class="docutils literal notranslate"><span class="pre">pᵢ</span> <span class="pre">μᵢ</span> <span class="pre">+</span> <span class="pre">qᵢ</span> <span class="pre">λᵢ</span></code>.  The cokernel is read off the Smith normal
+form of <code class="docutils literal notranslate"><span class="pre">A</span></code> (reused from <a class="reference internal" href="homology.html#module-pytop.homology" title="pytop.homology"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pytop.homology</span></code></a>).</p>
+<p>For <strong>integral</strong> surgery (<code class="docutils literal notranslate"><span class="pre">qᵢ</span> <span class="pre">=</span> <span class="pre">1</span></code>) this is the symmetric linking matrix with
+the framings on the diagonal, and <code class="docutils literal notranslate"><span class="pre">|H₁|</span> <span class="pre">=</span> <span class="pre">|det</span> <span class="pre">A|</span></code> whenever <code class="docutils literal notranslate"><span class="pre">A</span></code> is
+non-singular.</p>
+<p>This module also classifies <strong>lens spaces</strong> <code class="docutils literal notranslate"><span class="pre">L(p,</span> <span class="pre">q)</span> <span class="pre">=</span> <span class="pre">(p/q)</span></code>-surgery on the
+unknot: homeomorphism (<code class="docutils literal notranslate"><span class="pre">q'</span> <span class="pre">≡</span> <span class="pre">±q^{±1}</span> <span class="pre">mod</span> <span class="pre">p</span></code>) and homotopy equivalence
+(<code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">q'</span> <span class="pre">≡</span> <span class="pre">±n²</span> <span class="pre">mod</span> <span class="pre">p</span></code>) — both elementary, exact computations.</p>
+<p>Pure Python, exact integer arithmetic, no dependencies.</p>
+<section id="worked-checks">
+<h2>Worked checks<a class="headerlink" href="#worked-checks" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(p/q)</span></code> surgery on the unknot → <code class="docutils literal notranslate"><span class="pre">L(p,</span> <span class="pre">q)</span></code>, <code class="docutils literal notranslate"><span class="pre">H₁</span> <span class="pre">=</span> <span class="pre">ℤ/p</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>-surgery on the unknot → <code class="docutils literal notranslate"><span class="pre">S¹</span> <span class="pre">×</span> <span class="pre">S²</span></code>, <code class="docutils literal notranslate"><span class="pre">H₁</span> <span class="pre">=</span> <span class="pre">ℤ</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">±1</span></code>-surgery on any knot → integral homology sphere, <code class="docutils literal notranslate"><span class="pre">H₁</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>-surgery on the Borromean rings → <code class="docutils literal notranslate"><span class="pre">T³</span></code>, <code class="docutils literal notranslate"><span class="pre">H₁</span> <span class="pre">=</span> <span class="pre">ℤ³</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">E₈</span></code> plumbing (eight <code class="docutils literal notranslate"><span class="pre">−2</span></code>-framed unknots) → Poincaré homology sphere,
+<code class="docutils literal notranslate"><span class="pre">H₁</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.FirstHomology">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.dehn_surgery.</span></span><span class="sig-name descname"><span class="pre">FirstHomology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">free_rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">torsion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.dehn_surgery.FirstHomology" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The first homology group <code class="docutils literal notranslate"><span class="pre">H₁</span> <span class="pre">=</span> <span class="pre">ℤ^{free_rank}</span> <span class="pre">⊕</span> <span class="pre">⊕</span> <span class="pre">ℤ/dᵢ</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">torsion</span></code> lists the invariant factors <code class="docutils literal notranslate"><span class="pre">dᵢ</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> with <code class="docutils literal notranslate"><span class="pre">d₁</span> <span class="pre">|</span> <span class="pre">d₂</span> <span class="pre">|</span> <span class="pre">…</span></code>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.FirstHomology.free_rank">
+<span class="sig-name descname"><span class="pre">free_rank</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.dehn_surgery.FirstHomology.free_rank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.FirstHomology.torsion">
+<span class="sig-name descname"><span class="pre">torsion</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></span><a class="headerlink" href="#pytop.dehn_surgery.FirstHomology.torsion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.FirstHomology.order">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">order</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.dehn_surgery.FirstHomology.order" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">|H₁|</span></code> if finite, else <code class="docutils literal notranslate"><span class="pre">None</span></code> (infinite, i.e. positive rank).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.FirstHomology.is_homology_sphere">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_homology_sphere</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.dehn_surgery.FirstHomology.is_homology_sphere" title="Link to this definition"></a></dt>
+<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">H₁</span> <span class="pre">=</span> <span class="pre">0</span></code> (an integral homology sphere when <code class="docutils literal notranslate"><span class="pre">M</span></code> is closed).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.FirstHomology.is_rational_homology_sphere">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_rational_homology_sphere</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.dehn_surgery.FirstHomology.is_rational_homology_sphere" title="Link to this definition"></a></dt>
+<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">H₁</span></code> is finite (<code class="docutils literal notranslate"><span class="pre">b₁</span> <span class="pre">=</span> <span class="pre">0</span></code>).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.first_homology_of_surgery">
+<span class="sig-prename descclassname"><span class="pre">pytop.dehn_surgery.</span></span><span class="sig-name descname"><span class="pre">first_homology_of_surgery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coefficients</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linking_numbers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.dehn_surgery.FirstHomology" title="pytop.dehn_surgery.FirstHomology"><span class="pre">FirstHomology</span></a></span></span><a class="headerlink" href="#pytop.dehn_surgery.first_homology_of_surgery" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">H₁</span></code> of the manifold obtained by surgery on a framed link.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>coefficients:</dt><dd><p>One surgery coefficient per component: an integer framing <code class="docutils literal notranslate"><span class="pre">f</span></code>
+(meaning <code class="docutils literal notranslate"><span class="pre">f/1</span></code>) or a pair <code class="docutils literal notranslate"><span class="pre">(p,</span> <span class="pre">q)</span></code> for rational <code class="docutils literal notranslate"><span class="pre">p/q</span></code> surgery.</p>
+</dd>
+<dt>linking_numbers:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">×</span> <span class="pre">n</span></code> matrix of pairwise linking numbers <code class="docutils literal notranslate"><span class="pre">lk(Lᵢ,</span> <span class="pre">Lⱼ)</span></code>; the
+diagonal is ignored (the framing comes from <code class="docutils literal notranslate"><span class="pre">coefficients</span></code>).  Defaults
+to all zeros (an unlink), so single-component surgery needs no matrix.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>FirstHomology</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.first_homology_of_link_surgery">
+<span class="sig-prename descclassname"><span class="pre">pytop.dehn_surgery.</span></span><span class="sig-name descname"><span class="pre">first_homology_of_link_surgery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">coefficients</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.dehn_surgery.FirstHomology" title="pytop.dehn_surgery.FirstHomology"><span class="pre">FirstHomology</span></a></span></span><a class="headerlink" href="#pytop.dehn_surgery.first_homology_of_link_surgery" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">H₁</span></code> of surgery on a <a class="reference internal" href="knot_invariants.html#pytop.knot_invariants.LinkDiagram" title="pytop.knot_invariants.LinkDiagram"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinkDiagram</span></code></a>.</p>
+<p>The pairwise linking numbers are read from the diagram via
+<a class="reference internal" href="knot_invariants.html#pytop.knot_invariants.linking_matrix" title="pytop.knot_invariants.linking_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">pytop.knot_invariants.linking_matrix()</span></code></a>; the diagonal (which that
+function sets to <code class="docutils literal notranslate"><span class="pre">0</span></code>) is replaced by the supplied framings.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.lens_space_first_homology">
+<span class="sig-prename descclassname"><span class="pre">pytop.dehn_surgery.</span></span><span class="sig-name descname"><span class="pre">lens_space_first_homology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.dehn_surgery.FirstHomology" title="pytop.dehn_surgery.FirstHomology"><span class="pre">FirstHomology</span></a></span></span><a class="headerlink" href="#pytop.dehn_surgery.lens_space_first_homology" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">H₁(L(p,</span> <span class="pre">q))</span> <span class="pre">=</span> <span class="pre">ℤ/p</span></code> (<code class="docutils literal notranslate"><span class="pre">ℤ</span></code> when <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">0</span></code>: <code class="docutils literal notranslate"><span class="pre">S¹</span> <span class="pre">×</span> <span class="pre">S²</span></code>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">L(p,</span> <span class="pre">q)</span></code> is <code class="docutils literal notranslate"><span class="pre">(p/q)</span></code>-surgery on the unknot.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.are_lens_spaces_homeomorphic">
+<span class="sig-prename descclassname"><span class="pre">pytop.dehn_surgery.</span></span><span class="sig-name descname"><span class="pre">are_lens_spaces_homeomorphic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.dehn_surgery.are_lens_spaces_homeomorphic" title="Link to this definition"></a></dt>
+<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">L(p,</span> <span class="pre">q₁)</span> <span class="pre">≅</span> <span class="pre">L(p,</span> <span class="pre">q₂)</span></code> (orientation-preservingly).</p>
+<p>Reidemeister’s classification: a homeomorphism exists iff
+<code class="docutils literal notranslate"><span class="pre">q₂</span> <span class="pre">≡</span> <span class="pre">±q₁^{±1}</span> <span class="pre">(mod</span> <span class="pre">p)</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.dehn_surgery.are_lens_spaces_homotopy_equivalent">
+<span class="sig-prename descclassname"><span class="pre">pytop.dehn_surgery.</span></span><span class="sig-name descname"><span class="pre">are_lens_spaces_homotopy_equivalent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.dehn_surgery.are_lens_spaces_homotopy_equivalent" title="Link to this definition"></a></dt>
+<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">L(p,</span> <span class="pre">q₁)</span> <span class="pre">≃</span> <span class="pre">L(p,</span> <span class="pre">q₂)</span></code> (homotopy equivalence).</p>
+<p>Classification: <code class="docutils literal notranslate"><span class="pre">L(p,</span> <span class="pre">q₁)</span> <span class="pre">≃</span> <span class="pre">L(p,</span> <span class="pre">q₂)</span></code> iff <code class="docutils literal notranslate"><span class="pre">q₁</span> <span class="pre">q₂</span> <span class="pre">≡</span> <span class="pre">±n²</span> <span class="pre">(mod</span> <span class="pre">p)</span></code> for some
+<code class="docutils literal notranslate"><span class="pre">n</span></code>.  (<code class="docutils literal notranslate"><span class="pre">L(7,</span> <span class="pre">1)</span></code> and <code class="docutils literal notranslate"><span class="pre">L(7,</span> <span class="pre">2)</span></code> are homotopy equivalent but not
+homeomorphic — the standard example.)</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

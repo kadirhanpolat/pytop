@@ -1,0 +1,460 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concordance &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Three Manifolds" href="three_manifolds.html" />
+    <link rel="prev" title="Knot Invariants" href="knot_invariants.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Concordance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-concordance-invariants">Key concordance invariants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-values">Known values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.knot_name"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.knot_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.tau"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.tau</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.s"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.s</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.signature"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.signature</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.seifert_genus"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.seifert_genus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.slice_genus_lower_bound"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.slice_genus_lower_bound</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.alexander_poly"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.alexander_poly</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.is_fibered"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.is_fibered</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.s_invariant"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.s_invariant</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.tau_s_agree"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.tau_s_agree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants.describe"><code class="docutils literal notranslate"><span class="pre">ConcordanceInvariants.describe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.concordance.tau_torus_knot"><code class="docutils literal notranslate"><span class="pre">tau_torus_knot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.concordance.s_invariant_torus_knot"><code class="docutils literal notranslate"><span class="pre">s_invariant_torus_knot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.concordance.tristram_levine_signature"><code class="docutils literal notranslate"><span class="pre">tristram_levine_signature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.concordance.signature_torus_knot"><code class="docutils literal notranslate"><span class="pre">signature_torus_knot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.concordance.concordance_data"><code class="docutils literal notranslate"><span class="pre">concordance_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.concordance.is_algebraically_slice"><code class="docutils literal notranslate"><span class="pre">is_algebraically_slice()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.concordance.concordance_order"><code class="docutils literal notranslate"><span class="pre">concordance_order()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.concordance.is_concordant_to_unknot"><code class="docutils literal notranslate"><span class="pre">is_concordant_to_unknot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytop.concordance.tau_from_alexander_degree"><code class="docutils literal notranslate"><span class="pre">tau_from_alexander_degree()</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Concordance</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/concordance.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.concordance">
+<span id="concordance"></span><h1>Concordance<a class="headerlink" href="#module-pytop.concordance" title="Link to this heading"></a></h1>
+<p>Concordance invariants of knots (Phase 14.3).</p>
+<p>Two knots K₀, K₁ ⊂ S³ are <em>concordant</em> if there is a smoothly embedded
+cylinder S¹ × [0,1] ⊂ S³ × [0,1] connecting them.  Concordance is an
+equivalence relation; the concordance classes form the <em>knot concordance group</em>
+𝒞 under connected sum.</p>
+<section id="key-concordance-invariants">
+<h2>Key concordance invariants<a class="headerlink" href="#key-concordance-invariants" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>τ-invariant (Ozsváth–Szabó 2003, Rasmussen 2003):</dt><dd><p>τ(K) ∈ ℤ is derived from the knot Floer homology HFK̂(K).
+It satisfies <a href="#id4"><span class="problematic" id="id5">|τ(K)|</span></a> ≤ g(K) (genus bound) and <a href="#id6"><span class="problematic" id="id7">|τ(K)|</span></a> ≤ g_*(K) (slice genus).
+τ(T(p,q)) = (p-1)(q-1)/2 for torus knots.
+τ(K#J) = τ(K) + τ(J), τ(-K) = -τ(K) (where -K = mirror with reversed orientation).</p>
+</dd>
+<dt>s-invariant (Rasmussen 2004):</dt><dd><p>s(K) ∈ 2ℤ is derived from Khovanov homology over ℚ.
+<a href="#id8"><span class="problematic" id="id9">|s(K)|</span></a> ≤ 2·g_*(K) (twice the smooth slice genus bound).
+s(T(p,q)) = (p-1)(q-1) for torus knots.
+s(K#J) = s(K) + s(J), s(-K) = -s(K).</p>
+</dd>
+<dt>Concordance from Alexander polynomial (Tristram-Levine):</dt><dd><p>The Tristram-Levine signature σ_ω(K) ∈ ℤ for ω ∈ S¹ {1} is a
+concordance invariant family.  σ_ω(K) = signature of (1-ω)A + (1-ω̄)A^T
+where A is any Seifert matrix.
+The classical knot signature σ(K) = σ_{-1}(K).</p>
+</dd>
+<dt>Algebraic concordance:</dt><dd><p>The Witt class [A + A^T] of a Seifert matrix (over ℤ) is an algebraic
+concordance invariant.  The algebraic concordance group 𝒞_alg ≅ ℤ^∞ ⊕ (ℤ/2)^∞ ⊕ (ℤ/4)^∞.</p>
+</dd>
+</dl>
+</section>
+<section id="known-values">
+<h2>Known values<a class="headerlink" href="#known-values" title="Link to this heading"></a></h2>
+<p>Unknot (U):        τ=0, s=0, σ=0
+Trefoil T(2,3):    τ=1, s=2, σ=-2
+T(2,5):            τ=2, s=4, σ=-4
+T(2,2k+1):         τ=k, s=2k
+Figure-8 knot (4₁): τ=0, s=0, σ=0 (algebraically slice, not slice)
+T(p,q) in general: τ=(p-1)(q-1)/2, s=(p-1)(q-1)</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.concordance.</span></span><span class="sig-name descname"><span class="pre">ConcordanceInvariants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">knot_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seifert_genus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_genus_lower_bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alexander_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_fibered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Collection of concordance invariants for a knot.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<p>knot_name : str
+tau : int | None</p>
+<blockquote>
+<div><p>Ozsváth–Szabó–Rasmussen τ invariant.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>s<span class="classifier">int | None</span></dt><dd><p>Rasmussen s invariant (always even).</p>
+</dd>
+<dt>signature<span class="classifier">int</span></dt><dd><p>Classical knot signature σ(K) = σ_{-1}(K).</p>
+</dd>
+<dt>seifert_genus<span class="classifier">int | None</span></dt><dd><p>Seifert genus g(K) if known.</p>
+</dd>
+<dt>slice_genus_lower_bound<span class="classifier">int</span></dt><dd><p>Lower bound on smooth 4-ball genus from τ and s.</p>
+</dd>
+<dt>alexander_poly<span class="classifier">dict[int, int]</span></dt><dd><p>Alexander polynomial coefficients {k: coeff of t^k}.</p>
+</dd>
+<dt>is_fibered<span class="classifier">bool | None</span></dt><dd><p>Whether K is a fibered knot (if known).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.knot_name">
+<span class="sig-name descname"><span class="pre">knot_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.knot_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.tau">
+<span class="sig-name descname"><span class="pre">tau</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.tau" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.s">
+<span class="sig-name descname"><span class="pre">s</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.s" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.signature">
+<span class="sig-name descname"><span class="pre">signature</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.signature" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.seifert_genus">
+<span class="sig-name descname"><span class="pre">seifert_genus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.seifert_genus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.slice_genus_lower_bound">
+<span class="sig-name descname"><span class="pre">slice_genus_lower_bound</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.slice_genus_lower_bound" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.alexander_poly">
+<span class="sig-name descname"><span class="pre">alexander_poly</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.alexander_poly" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.is_fibered">
+<span class="sig-name descname"><span class="pre">is_fibered</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.is_fibered" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.s_invariant">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">s_invariant</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.s_invariant" title="Link to this definition"></a></dt>
+<dd><p>Alias for the Rasmussen s invariant (<code class="docutils literal notranslate"><span class="pre">s</span></code>).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.tau_s_agree">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">tau_s_agree</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.tau_s_agree" title="Link to this definition"></a></dt>
+<dd><p>True iff τ(K) = s(K)/2 (they always agree for L-space knots).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.concordance.ConcordanceInvariants.describe">
+<span class="sig-name descname"><span class="pre">describe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.concordance.ConcordanceInvariants.describe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.concordance.tau_torus_knot">
+<span class="sig-prename descclassname"><span class="pre">pytop.concordance.</span></span><span class="sig-name descname"><span class="pre">tau_torus_knot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.concordance.tau_torus_knot" title="Link to this definition"></a></dt>
+<dd><p>τ invariant of the torus knot T(p, q).</p>
+<p>τ(T(p,q)) = (p-1)(q-1)/2  for p, q ≥ 2 coprime.</p>
+<p>This follows from the L-space property of torus knots combined with
+the fact that τ = g_s(K) = g(K) = (p-1)(q-1)/2 for torus knots.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>p, q<span class="classifier">int</span></dt><dd><p>Coprime positive integers ≥ 2.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.concordance.s_invariant_torus_knot">
+<span class="sig-prename descclassname"><span class="pre">pytop.concordance.</span></span><span class="sig-name descname"><span class="pre">s_invariant_torus_knot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.concordance.s_invariant_torus_knot" title="Link to this definition"></a></dt>
+<dd><p>Rasmussen s invariant of the torus knot T(p, q).</p>
+<p>s(T(p,q)) = (p-1)(q-1)  for p, q ≥ 2 coprime.</p>
+<p>Note: s is always even; here s = 2τ for torus knots (they are L-space knots).</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>p, q<span class="classifier">int</span></dt><dd><p>Coprime positive integers ≥ 2.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.concordance.tristram_levine_signature">
+<span class="sig-prename descclassname"><span class="pre">pytop.concordance.</span></span><span class="sig-name descname"><span class="pre">tristram_levine_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seifert_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><span class="pre">complex</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.concordance.tristram_levine_signature" title="Link to this definition"></a></dt>
+<dd><p>Tristram-Levine signature σ_ω(K) for a unitary complex number ω.</p>
+<p>σ_ω(K) = signature of the Hermitian form (1-ω)A + (1-ω̄)Aᵀ
+where A is a Seifert matrix for K.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>seifert_matrix<span class="classifier">list[list[int]]</span></dt><dd><p>A Seifert matrix for the knot.</p>
+</dd>
+<dt>omega<span class="classifier">complex</span></dt><dd><p>A unit complex number (<a href="#id10"><span class="problematic" id="id11">|ω|</span></a> = 1, ω ≠ 1).</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>int</dt><dd><p>Signature of the Hermitian form.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.concordance.signature_torus_knot">
+<span class="sig-prename descclassname"><span class="pre">pytop.concordance.</span></span><span class="sig-name descname"><span class="pre">signature_torus_knot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.concordance.signature_torus_knot" title="Link to this definition"></a></dt>
+<dd><p>Classical knot signature of the torus knot T(p, q).</p>
+<dl class="simple">
+<dt>The formula (Gordon-Litherland 1978 via Brieskorn):</dt><dd><p>σ(T(p,q)) = -2·#{(i,j) : 0 &lt; i &lt; p, 0 &lt; j &lt; q, iq/p &lt; j &lt; (i+1)q/p + 1/p}</p>
+</dd>
+<dt>equivalently:</dt><dd><dl class="simple">
+<dt>σ(T(p,q)) = -2·(number of lattice points strictly below the line y = q/p·x</dt><dd><p>in the rectangle (0,p)×(0,q) and above the diagonal)</p>
+</dd>
+</dl>
+</dd>
+<dt>Simpler formula for the signature sum:</dt><dd><p>σ(T(p,q)) = Σ_{k=1}^{p-1} Σ_{j=1}^{q-1} sign(sin(πkj/p) · sin(πkj/q)) …</p>
+</dd>
+<dt>For small values, we use the known formula:</dt><dd><p><a href="#id12"><span class="problematic" id="id13">|σ(T(p,q))|</span></a> = (p-1)(q-1) - 2·g_*(T(p,q)) … no, that’s not right.</p>
+</dd>
+</dl>
+<p>We use: σ(T(2, 2k+1)) = -2k (alternating formula).
+For general T(p,q) the signature equals -((p-1)(q-1) - 2·defect) where
+defect counts specific lattice points.</p>
+<p>For T(2, q): σ(T(2,q)) = -(q-1) for q odd.
+For T(3, q): we sum Dedekind-like sums.</p>
+<p>We implement the exact formula for T(2,q) and T(3,q), and an approximation
+for general T(p,q).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.concordance.concordance_data">
+<span class="sig-prename descclassname"><span class="pre">pytop.concordance.</span></span><span class="sig-name descname"><span class="pre">concordance_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">knot_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants" title="pytop.concordance.ConcordanceInvariants"><span class="pre">ConcordanceInvariants</span></a></span></span><a class="headerlink" href="#pytop.concordance.concordance_data" title="Link to this definition"></a></dt>
+<dd><p>Return concordance invariants for a named knot.</p>
+<p>Known knots: “unknot”, “trefoil”, “figure_eight”, “T_2_3”, “T_2_5”,
+“T_2_7”, “T_3_4”, “T_3_5”.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>knot_name<span class="classifier">str</span></dt><dd><p>Name of the knot (case-insensitive, underscores normalized).</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h2>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>KeyError</dt><dd><p>If the knot is not in the database.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.concordance.is_algebraically_slice">
+<span class="sig-prename descclassname"><span class="pre">pytop.concordance.</span></span><span class="sig-name descname"><span class="pre">is_algebraically_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invariants</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants" title="pytop.concordance.ConcordanceInvariants"><span class="pre">ConcordanceInvariants</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.concordance.is_algebraically_slice" title="Link to this definition"></a></dt>
+<dd><p>Necessary condition for K to be algebraically slice.</p>
+<p>A knot is algebraically slice iff its Witt class in the algebraic
+concordance group is trivial.  Necessary conditions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>τ(K) = 0</p></li>
+<li><p>σ(K) = 0 (classical signature)</p></li>
+</ul>
+</div></blockquote>
+<p>These are necessary but not sufficient (e.g. the figure-eight is
+algebraically slice and topologically slice, but not smoothly slice).</p>
+<p>Accepts either a <a class="reference internal" href="#pytop.concordance.ConcordanceInvariants" title="pytop.concordance.ConcordanceInvariants"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConcordanceInvariants</span></code></a> object or the pair
+<code class="docutils literal notranslate"><span class="pre">(tau,</span> <span class="pre">signature)</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.concordance.concordance_order">
+<span class="sig-prename descclassname"><span class="pre">pytop.concordance.</span></span><span class="sig-name descname"><span class="pre">concordance_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invariants</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.concordance.ConcordanceInvariants" title="pytop.concordance.ConcordanceInvariants"><span class="pre">ConcordanceInvariants</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.concordance.concordance_order" title="Link to this definition"></a></dt>
+<dd><p>Estimate the concordance order of K from its invariants.</p>
+<p>Returns one of <code class="docutils literal notranslate"><span class="pre">&quot;slice&quot;</span></code> (τ = s = σ = 0), <code class="docutils literal notranslate"><span class="pre">&quot;finite&quot;</span></code> (σ ≠ 0 but
+τ = s = 0 — possibly order 2), or <code class="docutils literal notranslate"><span class="pre">&quot;infinite&quot;</span></code> (τ ≠ 0 or s ≠ 0).</p>
+<p>Accepts either a <a class="reference internal" href="#pytop.concordance.ConcordanceInvariants" title="pytop.concordance.ConcordanceInvariants"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConcordanceInvariants</span></code></a> object or the explicit
+triple <code class="docutils literal notranslate"><span class="pre">(tau,</span> <span class="pre">s,</span> <span class="pre">signature)</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.concordance.is_concordant_to_unknot">
+<span class="sig-prename descclassname"><span class="pre">pytop.concordance.</span></span><span class="sig-name descname"><span class="pre">is_concordant_to_unknot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.concordance.is_concordant_to_unknot" title="Link to this definition"></a></dt>
+<dd><p>Necessary condition for K to be concordant to the unknot (= slice).</p>
+<dl class="simple">
+<dt>K is smoothly slice iff [K] = 0 in 𝒞.  Necessary:</dt><dd><p>τ(K) = 0,  s(K) = 0,  σ(K) = 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.concordance.tau_from_alexander_degree">
+<span class="sig-prename descclassname"><span class="pre">pytop.concordance.</span></span><span class="sig-name descname"><span class="pre">tau_from_alexander_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alexander_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pytop.concordance.tau_from_alexander_degree" title="Link to this definition"></a></dt>
+<dd><p>Estimate τ from the Alexander polynomial degree (lower bound only).</p>
+<dl class="simple">
+<dt>deg(Δ_K) ≤ g(K) ≤ max(<a href="#id14"><span class="problematic" id="id15">|τ(K)|</span></a>, …).  This gives a lower bound:</dt><dd><p><a href="#id16"><span class="problematic" id="id17">|τ(K)|</span></a> ≥ deg(Δ_K) / 2  is NOT in general true.</p>
+</dd>
+<dt>A better lower bound (when K is fibered or alternating):</dt><dd><p>g_s(K) = deg(Δ_K)  for fibered knots, and τ(K) = g_s(K) for L-space knots.</p>
+</dd>
+</dl>
+<p>For alternating knots: τ(K) = σ(K)/2  and g(K) = deg(Δ_K).</p>
+<p>Returns None if the polynomial is empty or trivially 1.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="knot_invariants.html" class="btn btn-neutral float-left" title="Knot Invariants" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="three_manifolds.html" class="btn btn-neutral float-right" title="Three Manifolds" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

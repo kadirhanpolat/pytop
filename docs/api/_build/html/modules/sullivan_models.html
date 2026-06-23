@@ -1,0 +1,486 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sullivan Models &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Sullivan Models</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/sullivan_models.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.sullivan_models">
+<span id="sullivan-models"></span><h1>Sullivan Models<a class="headerlink" href="#module-pytop.sullivan_models" title="Link to this heading"></a></h1>
+<p>Sullivan minimal models for formal spaces (Phase 13.5).</p>
+<p>A Sullivan algebra (ΛV, d) over ℚ is a free commutative graded algebra
+on a graded vector space V = ⊕_{n≥1} V^n, equipped with a decomposable
+differential d: ΛV → ΛV (d(V^n) ⊆ Λ⁺V · Λ⁺V = (ΛV)^{≥2} in low degrees).</p>
+<p>A Sullivan algebra is <em>minimal</em> if d(V^n) ⊆ Λ(V^{&lt;n}) (the image of d
+involves only generators of strictly smaller degree).</p>
+<p>A space X is <em>formal</em> if its minimal Sullivan model can be connected to
+(H*(X;ℚ), 0) by a zig-zag of quasi-isomorphisms of cdgas (commutative
+differential graded algebras).  For formal spaces the minimal model is
+determined by the cohomology ring alone.</p>
+<section id="key-minimal-sullivan-models">
+<h2>Key minimal Sullivan models<a class="headerlink" href="#key-minimal-sullivan-models" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>S^n (n odd):</dt><dd><p>ΛV = Λ(e_n),  d(e_n) = 0.
+H*(ΛV, d) = ℚ ⊕ ℚ[-n].  Formal.</p>
+</dd>
+<dt>S^n (n even):</dt><dd><p>ΛV = Λ(e_n, f_{2n-1}),  <a href="#id1"><span class="problematic" id="id2">|</span></a>e_n|=n, <a href="#id3"><span class="problematic" id="id4">|</span></a>f_{2n-1}|=2n-1,
+d(e_n)=0,  d(f_{2n-1})=e_n².
+H*(ΛV, d) = ℚ[e_n]/(e_n²) ⊕ ℚ[-n] (top class).  Formal.</p>
+</dd>
+<dt>T^r (r-torus):</dt><dd><p>ΛV = Λ(x_1, …, x_r),  <a href="#id5"><span class="problematic" id="id6">|</span></a>x_i|=1,  d=0.
+H*(ΛV) = Λ(x_1,…,x_r) = ∧^*(ℚ^r).  Formal (all Massey products vanish).</p>
+</dd>
+<dt>CP^n:</dt><dd><p>ΛV = Λ(e_2, f_{2n+1}),  <a href="#id7"><span class="problematic" id="id8">|</span></a>e_2|=2, <a href="#id9"><span class="problematic" id="id10">|</span></a>f_{2n+1}|=2n+1,
+d(e_2)=0, d(f_{2n+1})=e_2^{n+1}.
+H*(ΛV) = ℚ[e_2]/(e_2^{n+1}).  Formal.</p>
+</dd>
+<dt>CP^∞ = K(ℤ, 2):</dt><dd><p>ΛV = ℚ[e_2],  <a href="#id11"><span class="problematic" id="id12">|</span></a>e_2|=2,  d=0 (polynomial in even degree).
+H*(ΛV) = ℚ[e_2] (power series in cohomological sense).  Formal.</p>
+</dd>
+<dt>K(ℤ, 1) = S¹:</dt><dd><p>ΛV = Λ(e_1),  d=0.  Same as S¹ = S^1 (n=1 odd).</p>
+</dd>
+<dt>Rational homotopy groups from Sullivan models:</dt><dd><p>π_n(X) ⊗ ℚ = (V^n)* for the minimal Sullivan model (ΛV, d) of X.
+The generators in degree n give the rational n-th homotopy group.</p>
+</dd>
+</dl>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanGenerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">SullivanGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">differential</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">differential_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.sullivan_models.SullivanGenerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A single generator of a Sullivan algebra.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>name<span class="classifier">str</span></dt><dd><p>Symbol (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;e_2&quot;</span></code>).</p>
+</dd>
+<dt>degree<span class="classifier">int</span></dt><dd><p>Cohomological degree <a href="#id28"><span class="problematic" id="id29">|x|</span></a> ≥ 1.</p>
+</dd>
+<dt>parity<span class="classifier">str</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">&quot;even&quot;</span></code> if degree is even (polynomial generator),
+<code class="docutils literal notranslate"><span class="pre">&quot;odd&quot;</span></code> if degree is odd (exterior generator).</p>
+</dd>
+<dt>differential<span class="classifier">str</span></dt><dd><p>Human-readable expression for d(x) (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;e_2^2&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;0&quot;</span></code>).</p>
+</dd>
+<dt>differential_degree<span class="classifier">int</span></dt><dd><p>Degree of d(x) = degree + 1.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanGenerator.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.sullivan_models.SullivanGenerator.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanGenerator.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.sullivan_models.SullivanGenerator.degree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanGenerator.parity">
+<span class="sig-name descname"><span class="pre">parity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.sullivan_models.SullivanGenerator.parity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanGenerator.differential">
+<span class="sig-name descname"><span class="pre">differential</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.sullivan_models.SullivanGenerator.differential" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanGenerator.differential_degree">
+<span class="sig-name descname"><span class="pre">differential_degree</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.sullivan_models.SullivanGenerator.differential_degree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanGenerator.make">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">make</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">differential</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'0'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sullivan_models.SullivanGenerator" title="pytop.sullivan_models.SullivanGenerator"><span class="pre">SullivanGenerator</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.SullivanGenerator.make" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanModel">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">SullivanModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">generators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.sullivan_models.SullivanGenerator" title="pytop.sullivan_models.SullivanGenerator"><span class="pre">SullivanGenerator</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_formal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cohomology_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rational_homotopy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.sullivan_models.SullivanModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A minimal Sullivan model (ΛV, d) over ℚ.</p>
+<section id="id13">
+<h2>Attributes<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>space_name<span class="classifier">str</span></dt><dd><p>Name of the space this models (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;S²&quot;</span></code>).</p>
+</dd>
+<dt>generators<span class="classifier">tuple[SullivanGenerator, …]</span></dt><dd><p>Ordered generators of V, by increasing degree.</p>
+</dd>
+<dt>is_formal<span class="classifier">bool</span></dt><dd><p>True iff this is a formal space (cohomology determines model).</p>
+</dd>
+<dt>cohomology_description<span class="classifier">str</span></dt><dd><p>Description of H*(X; ℚ).</p>
+</dd>
+<dt>rational_homotopy<span class="classifier">dict[int, int]</span></dt><dd><p>Rank of π_n(X) ⊗ ℚ = #{generators in degree n} for each n.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanModel.space_name">
+<span class="sig-name descname"><span class="pre">space_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.sullivan_models.SullivanModel.space_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanModel.generators">
+<span class="sig-name descname"><span class="pre">generators</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.sullivan_models.SullivanGenerator" title="pytop.sullivan_models.SullivanGenerator"><span class="pre">SullivanGenerator</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.sullivan_models.SullivanModel.generators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanModel.is_formal">
+<span class="sig-name descname"><span class="pre">is_formal</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pytop.sullivan_models.SullivanModel.is_formal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanModel.cohomology_description">
+<span class="sig-name descname"><span class="pre">cohomology_description</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.sullivan_models.SullivanModel.cohomology_description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanModel.rational_homotopy">
+<span class="sig-name descname"><span class="pre">rational_homotopy</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.sullivan_models.SullivanModel.rational_homotopy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanModel.describe">
+<span class="sig-name descname"><span class="pre">describe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.SullivanModel.describe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanModel.generator_names">
+<span class="sig-name descname"><span class="pre">generator_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.sullivan_models.SullivanModel.generator_names" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pytop.sullivan_models.SullivanModel.generators_in_degree">
+<span class="sig-name descname"><span class="pre">generators_in_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pytop.sullivan_models.SullivanGenerator" title="pytop.sullivan_models.SullivanGenerator"><span class="pre">SullivanGenerator</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.sullivan_models.SullivanModel.generators_in_degree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.sullivan_sphere">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">sullivan_sphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.sullivan_sphere" title="Link to this definition"></a></dt>
+<dd><p>Minimal Sullivan model of S^n.</p>
+<p>S^n (n odd): ΛV = Λ(e_n), d=0.  π_n⊗ℚ = ℚ, π_k⊗ℚ = 0 for k ≠ n.</p>
+<dl class="simple">
+<dt>S^n (n even, n ≥ 2): ΛV = Λ(e_n, f_{2n-1}), d(e_n)=0, d(f)=e_n².</dt><dd><p>π_n⊗ℚ = π_{2n-1}⊗ℚ = ℚ, others 0.</p>
+</dd>
+</dl>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>n<span class="classifier">int</span></dt><dd><p>Sphere dimension, n ≥ 1.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.sullivan_torus">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">sullivan_torus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.sullivan_torus" title="Link to this definition"></a></dt>
+<dd><p>Minimal Sullivan model of the r-torus T^r = (S¹)^r.</p>
+<p>ΛV = Λ(x_1, …, x_r), <a href="#id14"><span class="problematic" id="id15">|</span></a>x_i|=1, d=0.
+H*(T^r; ℚ) = ∧^*(ℚ^r) with β_k = C(r,k).
+π_1⊗ℚ = ℚ^r, π_k⊗ℚ = 0 for k ≥ 2 (T^r = K(ℤ^r,1) is formal).</p>
+<section id="id16">
+<h2>Parameters<a class="headerlink" href="#id16" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>r<span class="classifier">int</span></dt><dd><p>Number of circle factors, r ≥ 0.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.sullivan_complex_projective">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">sullivan_complex_projective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.sullivan_complex_projective" title="Link to this definition"></a></dt>
+<dd><p>Minimal Sullivan model of CP^n (complex projective n-space).</p>
+<p>ΛV = Λ(e_2, f_{2n+1}), <a href="#id17"><span class="problematic" id="id18">|</span></a>e_2|=2, <a href="#id19"><span class="problematic" id="id20">|</span></a>f|=2n+1.
+d(e_2)=0, d(f_{2n+1})=e_2^{n+1}.
+H*(CP^n; ℚ) = ℚ[e_2]/(e_2^{n+1}).
+π_2⊗ℚ = ℚ, π_{2n+1}⊗ℚ = ℚ, others 0.
+Formal (Kähler manifold).</p>
+<section id="id21">
+<h2>Parameters<a class="headerlink" href="#id21" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>n<span class="classifier">int</span></dt><dd><p>Complex dimension, n ≥ 1.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.sullivan_cp_infinity">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">sullivan_cp_infinity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.sullivan_cp_infinity" title="Link to this definition"></a></dt>
+<dd><p>Minimal Sullivan model of CP^∞ = K(ℤ, 2).</p>
+<p>ΛV = ℚ[e_2], <a href="#id22"><span class="problematic" id="id23">|</span></a>e_2|=2, d=0.  (Polynomial algebra on one even generator.)
+H*(CP^∞; ℚ) = ℚ[e_2].
+π_2⊗ℚ = ℚ, π_k⊗ℚ = 0 for k ≠ 2.
+Formal (it is K(ℤ,2) hence a K(G,n) space).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.sullivan_k_z1">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">sullivan_k_z1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.sullivan_k_z1" title="Link to this definition"></a></dt>
+<dd><p>Minimal Sullivan model of K(ℤ, 1) = S¹.</p>
+<p>Same as sullivan_sphere(1).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.sullivan_wedge_circles">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">sullivan_wedge_circles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.sullivan_wedge_circles" title="Link to this definition"></a></dt>
+<dd><p>Minimal Sullivan model of ∨_r S¹ = K(F_r, 1).</p>
+<p>ΛV = Λ(x_1, …, x_r, y_{12}, y_{13}, …),  d=0 for generators.
+In fact the Sullivan model of a wedge of circles is more complex
+because H_2 ≠ 0 in general (it contains the commutators).</p>
+<p>For r = 1: same as S¹.
+For r ≥ 2: the minimal Sullivan model requires generators in all degrees
+(it is not finite-dimensional): x_1,…,x_r in degree 1 and infinitely many
+generators in higher degrees for the Massey products / iterated brackets.
+Here we return the <em>truncated</em> model keeping only degree-1 generators and
+noting the infinite structure.</p>
+<section id="id24">
+<h2>Parameters<a class="headerlink" href="#id24" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>r<span class="classifier">int</span></dt><dd><p>Number of circles in the wedge.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.sullivan_product">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">sullivan_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">M2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.sullivan_product" title="Link to this definition"></a></dt>
+<dd><p>Sullivan model of the product space M1 × M2.</p>
+<p>(ΛV₁ ⊗ ΛV₂, d₁ ⊗ 1 + 1 ⊗ d₂): generators are the union of
+generators of M1 and M2 (with d unchanged).
+Formality is preserved under products.</p>
+<section id="id25">
+<h2>Parameters<a class="headerlink" href="#id25" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>M1, M2<span class="classifier">SullivanModel</span></dt><dd><p>Sullivan models of two spaces.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.pi_rational">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">pi_rational</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.pi_rational" title="Link to this definition"></a></dt>
+<dd><p>Rank of π_n(X) ⊗ ℚ from the Sullivan model.</p>
+<p>For the minimal Sullivan model (ΛV, d): rank(π_n(X) ⊗ ℚ) = dim V^n.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.euler_characteristic_sullivan">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">euler_characteristic_sullivan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.euler_characteristic_sullivan" title="Link to this definition"></a></dt>
+<dd><p>Euler characteristic from the Sullivan model.</p>
+<p>χ(X) = Σ (-1)^n β_n where β_n = dim H^n(X; ℚ).  We compute the Hilbert
+series of the cohomology ring directly from the free graded-commutative
+algebra (ΛV, d):</p>
+<ul class="simple">
+<li><p>an <em>odd</em>-degree generator contributes an exterior factor (1 + t^|x|);</p></li>
+<li><p>an <em>even</em>-degree generator contributes a polynomial factor 1/(1 - t^|x|),
+truncated at the relation imposed by a differential d(f) = x^k
+(so the polynomial ℚ[x] becomes ℚ[x]/(x^k));</p></li>
+<li><p>a generator that <em>is</em> such a differential’s source (its differential is
+non-trivial) is acyclic and contributes nothing on its own.</p></li>
+</ul>
+<p>This gives the exact Betti numbers for the standard formal models:
+χ(T^r) = 0 (any odd generator forces a (1 + (-1))=0 factor),
+χ(S^{2k}) = 2, χ(S^{2k+1}) = 0, χ(CP^n) = n + 1.</p>
+<section id="id26">
+<h2>Parameters<a class="headerlink" href="#id26" title="Link to this heading"></a></h2>
+<p>model : SullivanModel
+max_degree : int</p>
+<blockquote>
+<div><p>Truncate the Hilbert series at this cohomological degree.</p>
+</div></blockquote>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.poincare_series_sullivan">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">poincare_series_sullivan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.sullivan_models.poincare_series_sullivan" title="Link to this definition"></a></dt>
+<dd><p>Poincaré polynomial (rational Betti numbers) of the Sullivan model.</p>
+<p>Returns {n: β_n} for n = 0, …, max_degree using the number of generators
+in each degree (exact for zero-differential Sullivan models).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.is_pure_sullivan">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">is_pure_sullivan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.is_pure_sullivan" title="Link to this definition"></a></dt>
+<dd><p>Return True iff the model is <em>pure</em>: all generators are in even degree.</p>
+<p>Pure Sullivan algebras correspond to rationally elliptic spaces with only
+even-dimensional cells (e.g. CP^n, HP^n, Sp(n)).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.sullivan_models.sullivan_from_betti">
+<span class="sig-prename descclassname"><span class="pre">pytop.sullivan_models.</span></span><span class="sig-name descname"><span class="pre">sullivan_from_betti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">betti</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'X'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.sullivan_models.SullivanModel" title="pytop.sullivan_models.SullivanModel"><span class="pre">SullivanModel</span></a></span></span><a class="headerlink" href="#pytop.sullivan_models.sullivan_from_betti" title="Link to this definition"></a></dt>
+<dd><p>Construct the Sullivan model of a formal space from its Betti numbers.</p>
+<p>For a formal space with cohomology H*(X;ℚ) described by Betti numbers
+β_0, β_1, …, the minimal Sullivan model has:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>β_n generators in degree n with d = 0  (for n = 1, or n odd)</p></li>
+<li><p>Additional generators to kill even-degree classes (d ≠ 0) for n even</p></li>
+</ul>
+</div></blockquote>
+<p>This function returns the simplest model consistent with the Betti
+numbers, assuming zero differential (valid for formal spaces where the
+generators represent actual cohomology classes).</p>
+<section id="id27">
+<h2>Parameters<a class="headerlink" href="#id27" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>betti<span class="classifier">list[int]</span></dt><dd><p>Betti numbers β_0, β_1, β_2, … (β_0 should equal 1 for connected).</p>
+</dd>
+<dt>space_name<span class="classifier">str</span></dt><dd><p>Name of the space.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

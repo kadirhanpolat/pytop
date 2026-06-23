@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.examples">
+<span id="examples"></span><h1>Examples<a class="headerlink" href="#module-pytop.examples" title="Link to this heading"></a></h1>
+<p>Small ready-to-use examples for finite and infinite topology.</p>
+<p>The examples in this module are deliberately modest. They are designed to be
+useful for notebooks, classroom experiments, and quick internal tests.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.empty_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">empty_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.empty_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.singleton_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">singleton_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.singleton_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.two_point_discrete_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">two_point_discrete_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.two_point_discrete_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.two_point_indiscrete_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">two_point_indiscrete_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.two_point_indiscrete_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.sierpinski_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">sierpinski_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.sierpinski_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.finite_chain_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">finite_chain_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.finite_chain_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.partition_space">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">partition_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blocks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="finite_spaces.html#pytop.finite_spaces.FiniteTopologicalSpace" title="pytop.finite_spaces.FiniteTopologicalSpace"><span class="pre">FiniteTopologicalSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.partition_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.finite_examples_catalog">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">finite_examples_catalog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.examples.finite_examples_catalog" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.examples_catalog">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">examples_catalog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.examples.examples_catalog" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.naturals_discrete">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">naturals_discrete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.DiscreteInfiniteSpace" title="pytop.infinite_spaces.DiscreteInfiniteSpace"><span class="pre">DiscreteInfiniteSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.naturals_discrete" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.integers_discrete">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">integers_discrete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.DiscreteInfiniteSpace" title="pytop.infinite_spaces.DiscreteInfiniteSpace"><span class="pre">DiscreteInfiniteSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.integers_discrete" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.naturals_cofinite">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">naturals_cofinite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.CofiniteSpace" title="pytop.infinite_spaces.CofiniteSpace"><span class="pre">CofiniteSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.naturals_cofinite" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.reals_indiscrete">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">reals_indiscrete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.IndiscreteInfiniteSpace" title="pytop.infinite_spaces.IndiscreteInfiniteSpace"><span class="pre">IndiscreteInfiniteSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.reals_indiscrete" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.reals_cocountable">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">reals_cocountable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.CocountableSpace" title="pytop.infinite_spaces.CocountableSpace"><span class="pre">CocountableSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.reals_cocountable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.real_line_metric">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">real_line_metric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metric_spaces.html#pytop.metric_spaces.SymbolicMetricSpace" title="pytop.metric_spaces.SymbolicMetricSpace"><span class="pre">SymbolicMetricSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.real_line_metric" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.real_line_order_topology">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">real_line_order_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metric_spaces.html#pytop.metric_spaces.SymbolicMetricSpace" title="pytop.metric_spaces.SymbolicMetricSpace"><span class="pre">SymbolicMetricSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.real_line_order_topology" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.rationals_metric">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">rationals_metric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metric_spaces.html#pytop.metric_spaces.SymbolicMetricSpace" title="pytop.metric_spaces.SymbolicMetricSpace"><span class="pre">SymbolicMetricSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.rationals_metric" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.closed_unit_interval_metric">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">closed_unit_interval_metric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metric_spaces.html#pytop.metric_spaces.SymbolicMetricSpace" title="pytop.metric_spaces.SymbolicMetricSpace"><span class="pre">SymbolicMetricSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.closed_unit_interval_metric" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.real_plane_metric">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">real_plane_metric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metric_spaces.html#pytop.metric_spaces.SymbolicMetricSpace" title="pytop.metric_spaces.SymbolicMetricSpace"><span class="pre">SymbolicMetricSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.real_plane_metric" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.lower_limit_line_like">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">lower_limit_line_like</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.SorgenfreyLikeSpace" title="pytop.infinite_spaces.SorgenfreyLikeSpace"><span class="pre">SorgenfreyLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.lower_limit_line_like" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.upper_limit_line_like">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">upper_limit_line_like</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.SorgenfreyLikeSpace" title="pytop.infinite_spaces.SorgenfreyLikeSpace"><span class="pre">SorgenfreyLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.upper_limit_line_like" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.sorgenfrey_line_like">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">sorgenfrey_line_like</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.SorgenfreyLikeSpace" title="pytop.infinite_spaces.SorgenfreyLikeSpace"><span class="pre">SorgenfreyLikeSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.sorgenfrey_line_like" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.examples.basis_defined_second_countable">
+<span class="sig-prename descclassname"><span class="pre">pytop.examples.</span></span><span class="sig-name descname"><span class="pre">basis_defined_second_countable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="infinite_spaces.html#pytop.infinite_spaces.BasisDefinedSpace" title="pytop.infinite_spaces.BasisDefinedSpace"><span class="pre">BasisDefinedSpace</span></a></span></span><a class="headerlink" href="#pytop.examples.basis_defined_second_countable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

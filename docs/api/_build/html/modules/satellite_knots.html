@@ -1,0 +1,533 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Satellite Knots &mdash; pytop 1.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=72d88caf"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pytop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homology.html">Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistent_homology.html">Persistent Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cellular_homology.html">Cellular Homology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cohomology.html">Cohomology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mayer_vietoris.html">Mayer Vietoris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="van_kampen.html">Van Kampen</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topological Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cech_complex.html">Cech Complex</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Computational Topology</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discrete_morse.html">Discrete Morse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence_distances.html">Persistence Distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mapper.html">Mapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tda_pipeline.html">Tda Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Knot Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knot_invariants.html">Knot Invariants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concordance.html">Concordance</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Manifolds &amp; Surfaces</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="three_manifolds.html">Three Manifolds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surface_word_classification.html">Surface Word Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape_theory.html">Shape Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Graph &amp; Cardinal Functions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graph_planarity.html">Graph Planarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cardinal_functions.html">Cardinal Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimension_theory.html">Dimension Theory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Experimental (Point-Set Topology)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spaces.html">Experimental Spaces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Algebra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="derived_categories.html">Derived Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topos_theory.html">Topos Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operads.html">Operads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="higher_categories.html">Higher Categories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noncommutative_topology.html">Noncommutative Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topological_field_theory.html">Topological Field Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Satellite Knots</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/satellite_knots.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pytop.satellite_knots">
+<span id="satellite-knots"></span><h1>Satellite Knots<a class="headerlink" href="#module-pytop.satellite_knots" title="Link to this heading"></a></h1>
+<p>Satellite knots and cable operations (Phase 14.4).</p>
+<dl class="simple">
+<dt>A <em>satellite knot</em> S(P, K) is constructed from:</dt><dd><ul class="simple">
+<li><p>A <em>companion knot</em> K ⊂ S³ (the “axis”)</p></li>
+<li><p>A <em>pattern</em> P ⊂ V = S¹ × D² (a knot in the solid torus)</p></li>
+</ul>
+</dd>
+</dl>
+<p>The satellite is obtained by embedding the solid torus V into a tubular
+neighborhood of K (via the Seifert framing) and taking the image of P.</p>
+<p>The <em>winding number</em> w(P) = algebraic intersection of P with a disk D² × {pt}.</p>
+<section id="key-invariants-of-satellite-knots">
+<h2>Key invariants of satellite knots<a class="headerlink" href="#key-invariants-of-satellite-knots" title="Link to this heading"></a></h2>
+<dl>
+<dt>Alexander polynomial (Morton 1978):</dt><dd><dl class="simple">
+<dt>If P has winding number w in V, then:</dt><dd><p>Δ_{S(P,K)}(t) = Δ_P(t) · Δ_K(t^w)</p>
+</dd>
+</dl>
+<p>Here Δ_P is the Alexander polynomial of P as a knot in S³ (image of P
+under the standard embedding V ↪ S³), and Δ_K(t^w) is the Alexander
+polynomial of K evaluated at t^w.</p>
+</dd>
+<dt>Seifert genus (Gabai):</dt><dd><p>g(S(P,K)) = g(P in V) + w(P)·g(K)</p>
+<p>where g(P in V) is the genus of P in the solid torus (i.e. the genus of
+a minimal Seifert surface for P in V after bounding a disk there).</p>
+</dd>
+<dt>Cable knots C(K; p, q) — (p,q)-cable:</dt><dd><p>The pattern P = T(p,q) (torus knot on ∂V = T², winding number p).
+The (p,q)-cable ties p strands around K with q twists total.</p>
+<p>Δ_{C(K;p,q)}(t) = Δ_{T(p,q)}(t) · Δ_K(t^p)</p>
+<p>where Δ_{T(p,q)}(t) is the Alexander polynomial of the torus knot T(p,q).</p>
+<p>Seifert genus: g(C(K;p,q)) = p·g(K) + g(T(p,q)) = p·g(K) + (p-1)(q-1)/2.</p>
+<dl class="simple">
+<dt>For the (p,1)-cable (longitude):</dt><dd><p>C(K; p, 1) has Δ(t) = Δ_K(t^p)·(t^{p/2} - t^{-p/2})/(t^{1/2}-t^{-1/2})
+… actually Δ_{T(p,1)}(t) = 1 (torus knot T(p,1) is the unknot),
+so Δ_{C(K;p,1)}(t) = Δ_K(t^p).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Whitehead doubles and Bing doubles are important special cases.</p>
+<p>References: Morton 1978, Seifert 1950 (cables), Gabai 1986 (genus).</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.satellite_knots.SatelliteKnot">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">SatelliteKnot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">companion_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">winding_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alexander_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seifert_genus_lower</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">companion_genus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern_genus_in_solid_torus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.satellite_knots.SatelliteKnot" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A satellite knot S(P, K).</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>companion_name<span class="classifier">str</span></dt><dd><p>Name of the companion knot K.</p>
+</dd>
+<dt>pattern_name<span class="classifier">str</span></dt><dd><p>Name of the pattern P (as a knot in the solid torus).</p>
+</dd>
+<dt>winding_number<span class="classifier">int</span></dt><dd><p>Algebraic winding number of P in V.</p>
+</dd>
+<dt>alexander_poly<span class="classifier">dict[int, int]</span></dt><dd><p>Alexander polynomial of S(P,K).</p>
+</dd>
+<dt>seifert_genus_lower<span class="classifier">int | None</span></dt><dd><p>Lower bound on Seifert genus from Gabai’s formula.</p>
+</dd>
+<dt>companion_genus<span class="classifier">int | None</span></dt><dd><p>Seifert genus of K (if known).</p>
+</dd>
+<dt>pattern_genus_in_solid_torus<span class="classifier">int | None</span></dt><dd><p>Genus of P in V.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.SatelliteKnot.companion_name">
+<span class="sig-name descname"><span class="pre">companion_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.satellite_knots.SatelliteKnot.companion_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.SatelliteKnot.pattern_name">
+<span class="sig-name descname"><span class="pre">pattern_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.satellite_knots.SatelliteKnot.pattern_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.SatelliteKnot.winding_number">
+<span class="sig-name descname"><span class="pre">winding_number</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.satellite_knots.SatelliteKnot.winding_number" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.SatelliteKnot.alexander_poly">
+<span class="sig-name descname"><span class="pre">alexander_poly</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.satellite_knots.SatelliteKnot.alexander_poly" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.SatelliteKnot.seifert_genus_lower">
+<span class="sig-name descname"><span class="pre">seifert_genus_lower</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.satellite_knots.SatelliteKnot.seifert_genus_lower" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.SatelliteKnot.companion_genus">
+<span class="sig-name descname"><span class="pre">companion_genus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.satellite_knots.SatelliteKnot.companion_genus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.SatelliteKnot.pattern_genus_in_solid_torus">
+<span class="sig-name descname"><span class="pre">pattern_genus_in_solid_torus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.satellite_knots.SatelliteKnot.pattern_genus_in_solid_torus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.satellite_knots.SatelliteKnot.seifert_genus">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">seifert_genus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.satellite_knots.SatelliteKnot.seifert_genus" title="Link to this definition"></a></dt>
+<dd><p>Best available Seifert genus (the Gabai lower bound).</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pytop.satellite_knots.CableKnot">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">CableKnot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">companion_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alexander_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seifert_genus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytop.satellite_knots.CableKnot" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A (p,q)-cable satellite knot C(K; p, q).</p>
+<section id="id1">
+<h2>Attributes<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>companion_name : str
+p : int</p>
+<blockquote>
+<div><p>Longitudinal winding (number of strands).</p>
+</div></blockquote>
+<dl class="simple">
+<dt>q<span class="classifier">int</span></dt><dd><p>Meridional winding (twists).</p>
+</dd>
+</dl>
+<p>alexander_poly : dict[int, int]
+seifert_genus : int | None
+tau : int | None</p>
+<blockquote>
+<div><p>τ invariant of C(K; p, q) (computable for torus-knot companions).</p>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.CableKnot.companion_name">
+<span class="sig-name descname"><span class="pre">companion_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.satellite_knots.CableKnot.companion_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.CableKnot.p">
+<span class="sig-name descname"><span class="pre">p</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.satellite_knots.CableKnot.p" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.CableKnot.q">
+<span class="sig-name descname"><span class="pre">q</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pytop.satellite_knots.CableKnot.q" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.CableKnot.alexander_poly">
+<span class="sig-name descname"><span class="pre">alexander_poly</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pytop.satellite_knots.CableKnot.alexander_poly" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.CableKnot.seifert_genus">
+<span class="sig-name descname"><span class="pre">seifert_genus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.satellite_knots.CableKnot.seifert_genus" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pytop.satellite_knots.CableKnot.tau">
+<span class="sig-name descname"><span class="pre">tau</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pytop.satellite_knots.CableKnot.tau" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pytop.satellite_knots.CableKnot.name">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pytop.satellite_knots.CableKnot.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.satellite_knots.satellite_alexander_poly">
+<span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">satellite_alexander_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">companion_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">winding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.satellite_knots.satellite_alexander_poly" title="Link to this definition"></a></dt>
+<dd><p>Alexander polynomial of the satellite knot S(P, K).</p>
+<dl class="simple">
+<dt>Morton’s formula:</dt><dd><p>Δ_{S(P,K)}(t) = Δ_P(t) · Δ_K(t^w)</p>
+</dd>
+</dl>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>pattern_poly<span class="classifier">dict[int, int]</span></dt><dd><p>Alexander polynomial of the pattern P (as a knot in S³).</p>
+</dd>
+<dt>companion_poly<span class="classifier">dict[int, int]</span></dt><dd><p>Alexander polynomial of the companion K.</p>
+</dd>
+<dt>winding<span class="classifier">int</span></dt><dd><p>Algebraic winding number w(P).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.satellite_knots.cable_alexander_poly">
+<span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">cable_alexander_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">companion_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.satellite_knots.cable_alexander_poly" title="Link to this definition"></a></dt>
+<dd><p>Alexander polynomial of the (p,q)-cable C(K; p, q).</p>
+<p>Δ_{C(K;p,q)}(t) = Δ_{T(p,q)}(t) · Δ_K(t^p)</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>companion_poly<span class="classifier">dict[int, int]</span></dt><dd><p>Alexander polynomial of the companion knot K.</p>
+</dd>
+<dt>p, q<span class="classifier">int</span></dt><dd><p>Cable parameters; gcd(p,q) = 1.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.satellite_knots.cable_genus">
+<span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">cable_genus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seifert_genus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.satellite_knots.cable_genus" title="Link to this definition"></a></dt>
+<dd><p>Seifert genus of the (p,q)-cable C(K; p, q).</p>
+<p>g(C(K;p,q)) = p·g(K) + (p-1)(q-1)/2  (Gabai 1986 + torus knot genus).</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>seifert_genus<span class="classifier">int</span></dt><dd><p>Seifert genus g(K) of the companion.</p>
+</dd>
+<dt>p, q<span class="classifier">int</span></dt><dd><p>Cable parameters (p ≥ 1, q ≥ 1, gcd(p,q) = 1).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.satellite_knots.cable_tau">
+<span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">cable_tau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">companion_tau</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.satellite_knots.cable_tau" title="Link to this definition"></a></dt>
+<dd><p>τ invariant of the (p,q)-cable C(K; p, q).</p>
+<dl class="simple">
+<dt>The Hedden formula (2009) for the τ invariant of cables:</dt><dd><dl class="simple">
+<dt>τ(C(K;p,q)) = p·τ(K) + τ(T(p,q))   if q/p &gt; 2τ(K)</dt><dd><p>= p·τ(K)               if q/p = 2τ(K)
+= p·τ(K) + (q-1)(p-1)/2 - (p-1)  if q/p &lt; 2τ(K)</p>
+</dd>
+</dl>
+</dd>
+<dt>Simplified (standard formula):</dt><dd><p>τ(C(K;p,q)) = p·τ(K) + max(0, floor((q - 2τ(K)·p) / (2p)) + …)</p>
+</dd>
+<dt>We use the formula from Hedden (2009):</dt><dd><dl class="simple">
+<dt>τ(C(K;p,q)) = p·τ(K) + τ(T(p,q))  when q &gt; p·2τ(K)</dt><dd><p>= p·τ(K) + (τ(T(p,q)) or variation)  otherwise.</p>
+</dd>
+</dl>
+</dd>
+<dt>For simplicity we implement the case q &gt; 0 (positive cables):</dt><dd><p>τ(C(K;p,q)) = p·τ(K) + (p-1)(q-1)/2  for q/p &gt; 2τ(K)/1</p>
+</dd>
+</dl>
+<p>(torus knot formula when the companion contributes τ(T(p,q)) = (p-1)(q-1)/2)</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>companion_tau<span class="classifier">int</span></dt><dd><p>τ(K) of the companion knot K.</p>
+</dd>
+<dt>p, q<span class="classifier">int</span></dt><dd><p>Cable parameters.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.satellite_knots.cable_signature">
+<span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">cable_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">companion_signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pytop.satellite_knots.cable_signature" title="Link to this definition"></a></dt>
+<dd><p>Knot signature of the (p,q)-cable C(K; p, q).</p>
+<p>σ(C(K;p,q)) = p·σ(K) + σ(T(p,q))  (signature is linear for satellites
+when winding number = p and the pattern is the torus knot T(p,q)).</p>
+<p>This uses the additivity of the signature under satellite operations
+(Litherland 1979):</p>
+<blockquote>
+<div><p>σ(S(P,K)) = σ(P_S³) + w(P)²·σ(K)   for certain satellite formulas.</p>
+</div></blockquote>
+<p>For (p,q)-cables: σ(C(K;p,q)) = σ(T(p,q)) + p²·σ(K)… not quite right.
+The correct formula (Litherland):</p>
+<blockquote>
+<div><p>σ(C(K;p,q)) = σ(T(p,q)) + p·σ(K)  (for the standard cable where w=p).</p>
+</div></blockquote>
+<p>We use: σ(cable) = σ(T(p,q)) + p·σ(K).
+For T(2,q): σ(T(2,q)) = -(q-1) for q odd.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.satellite_knots.whitehead_double">
+<span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">whitehead_double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">companion_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">companion_genus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">companion_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'K'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">framing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.satellite_knots.SatelliteKnot" title="pytop.satellite_knots.SatelliteKnot"><span class="pre">SatelliteKnot</span></a></span></span><a class="headerlink" href="#pytop.satellite_knots.whitehead_double" title="Link to this definition"></a></dt>
+<dd><p>Whitehead double of a knot K.</p>
+<dl class="simple">
+<dt>The Whitehead double Wh(K) uses the Whitehead pattern (untwisted):</dt><dd><ul class="simple">
+<li><p>Pattern P = Whitehead link component in V</p></li>
+<li><p>Winding number w(P) = 0</p></li>
+<li><p>Δ_{Wh(K)}(t) = Δ_P(t) · Δ_K(t^0) = Δ_P(t) · 1</p></li>
+</ul>
+</dd>
+<dt>For the (untwisted) Whitehead double:</dt><dd><p>Δ_{Wh(K)}(t) = 1  (always!)</p>
+</dd>
+</dl>
+<p>This is because Δ_P(t) = 1 for the Whitehead pattern.</p>
+<dl class="simple">
+<dt>For twisted Whitehead doubles with framing n:</dt><dd><p>Δ_{Wh_n(K)}(t) = 1  (still trivial Alexander polynomial!)</p>
+</dd>
+<dt>The interesting invariants are τ and s:</dt><dd><p>τ(Wh(K)) = 0  if τ(K) = 0 (Hedden)
+<a href="#id9"><span class="problematic" id="id10">|τ(Wh(K))|</span></a> ≤ 1  in general</p>
+</dd>
+</dl>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>companion_poly<span class="classifier">dict[int, int]</span></dt><dd><p>Alexander polynomial of K.</p>
+</dd>
+<dt>companion_genus<span class="classifier">int</span></dt><dd><p>Genus of K.</p>
+</dd>
+</dl>
+<p>companion_name : str
+framing : int</p>
+<blockquote>
+<div><p>Blackboard framing (0 = untwisted).</p>
+</div></blockquote>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.satellite_knots.torus_knot_alexander_poly">
+<span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">torus_knot_alexander_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pytop.satellite_knots.torus_knot_alexander_poly" title="Link to this definition"></a></dt>
+<dd><p>Alexander polynomial of the torus knot T(p, q).</p>
+<p>Δ_{T(p,q)}(t) = (t^{pq} - 1)(t - 1) / ((t^p - 1)(t^q - 1))</p>
+<p>For the (p,q)-torus knot with p, q ≥ 2 coprime.</p>
+<p>The result is expressed as a Laurent polynomial centered at degree 0
+(symmetrized form with Δ(t) = Δ(t^{-1})).</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>p, q<span class="classifier">int</span></dt><dd><p>Coprime positive integers.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>dict[int, int]</dt><dd><p>{degree: coefficient} for the symmetrized Alexander polynomial.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.satellite_knots.satellite_data">
+<span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">satellite_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">companion_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">companion_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">companion_genus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">winding_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern_genus_v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.satellite_knots.SatelliteKnot" title="pytop.satellite_knots.SatelliteKnot"><span class="pre">SatelliteKnot</span></a></span></span><a class="headerlink" href="#pytop.satellite_knots.satellite_data" title="Link to this definition"></a></dt>
+<dd><p>Build complete satellite knot data, or look one up by name.</p>
+<p>Two calling conventions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">satellite_data(name)</span></code> — look up a known satellite knot in the
+built-in <code class="xref py py-data docutils literal notranslate"><span class="pre">SATELLITE_KNOT_DATA</span></code> database.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">satellite_data(companion_name,</span> <span class="pre">companion_poly,</span> <span class="pre">companion_genus,</span>
+<span class="pre">pattern_name,</span> <span class="pre">pattern_poly,</span> <span class="pre">winding_number,</span> <span class="pre">pattern_genus_v)</span></code> — build
+the data explicitly.</p></li>
+</ul>
+<section id="id7">
+<h2>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>companion_name, companion_poly, companion_genus :</dt><dd><p>Data for the companion knot K.  When only <code class="docutils literal notranslate"><span class="pre">companion_name</span></code> is given
+it is treated as a database key.</p>
+</dd>
+<dt>pattern_name, pattern_poly, winding_number :</dt><dd><p>Data for the pattern P.</p>
+</dd>
+<dt>pattern_genus_v<span class="classifier">int | None</span></dt><dd><p>Genus of P in the solid torus V (if known).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pytop.satellite_knots.longitudinal_cable">
+<span class="sig-prename descclassname"><span class="pre">pytop.satellite_knots.</span></span><span class="sig-name descname"><span class="pre">longitudinal_cable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">companion_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">companion_genus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">companion_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'K'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pytop.satellite_knots.CableKnot" title="pytop.satellite_knots.CableKnot"><span class="pre">CableKnot</span></a></span></span><a class="headerlink" href="#pytop.satellite_knots.longitudinal_cable" title="Link to this definition"></a></dt>
+<dd><p>Build the (p,1)-cable (longitudinal cable) of K.</p>
+<p>C(K; p, 1) has Δ_{C(K;p,1)}(t) = Δ_K(t^p) · Δ_{T(p,1)}(t) = Δ_K(t^p)
+since T(p,1) is the unknot (Δ=1).</p>
+<section id="id8">
+<h2>Parameters<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>companion_poly<span class="classifier">dict[int, int]</span></dt><dd><p>Alexander polynomial of K.</p>
+</dd>
+</dl>
+<p>companion_genus : int
+p : int</p>
+<blockquote>
+<div><p>Number of strands.</p>
+</div></blockquote>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Kadirhan Polat.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
