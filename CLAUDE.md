@@ -287,13 +287,15 @@ Validate computational results against established external systems and curated 
 
 Profiling-driven optimization and parallel scaling.
 
-| Milestone | Module | Description |
-|-----------|--------|-------------|
-| **P17.1** | `profiling_infrastructure` | cProfile + flamegraph hooks. Memory tracking via `tracemalloc`. Identify hotspots in SNF, persistent_homology, khovanov_homology per dataset. Report: top 5 bottlenecks with call graphs in `docs/PERFORMANCE.md`. |
-| **P17.2** | `algorithm_optimization` | Sparse matrix CSR format for boundary operators. Cache-aware column traversal. Clearing Lemma threshold auto-tuning (empirical sweep 0.1–0.9). Before/after: 5 large test cases (>10K simplices). Target: 2–5× speedup on sparse inputs. |
-| **P17.3** | `parallel_scaling` | Multi-process homology (ProcessPoolExecutor per dimension). GPU cohomology optional (CuPy + `[gpu]` extra): streaming reduction on device. Benchmark: scaling plots (1–16 cores, memory overhead vs wall-clock) on Rips n=100–500. |
+| Milestone | Module | Description | Status |
+|-----------|--------|-------------|--------|
+| **P17.1** ✅ | `profiling_infrastructure` | cProfile + flamegraph hooks. Memory tracking via `tracemalloc`. Identify hotspots in SNF, persistent_homology, khovanov_homology per dataset. Report: top 5 bottlenecks with call graphs in `docs/PERFORMANCE.md`. | **Complete:** `@profile_call` decorator + `context_profile` context manager, ProfileStats/ProfileReport dataclasses, `generate_markdown_report()` + `generate_json_report()`, pytest fixtures w/ ProfileCollector, benchmark_runner CLI, 8 homology/persistence/knot benchmarks, 86 comprehensive tests (ruff/mypy clean), `docs/PROFILING.md` user guide + `docs/PERFORMANCE.md` baseline snapshot. Commits: ee6c420, 4572aa7, 1552d31, fdd037a, be84a1b, 93cf786, 96e56a4. **Next:** P17.2 algorithm optimization (sparse CSR, clearing lemma tuning, 2–5× speedup target). |
+| **P17.2** | `algorithm_optimization` | Sparse matrix CSR format for boundary operators. Cache-aware column traversal. Clearing Lemma threshold auto-tuning (empirical sweep 0.1–0.9). Before/after: 5 large test cases (>10K simplices). Target: 2–5× speedup on sparse inputs. |  |
+| **P17.3** | `parallel_scaling` | Multi-process homology (ProcessPoolExecutor per dimension). GPU cohomology optional (CuPy + `[gpu]` extra): streaming reduction on device. Benchmark: scaling plots (1–16 cores, memory overhead vs wall-clock) on Rips n=100–500. |  |
 
 **Target:** Rips n=500 in <1s (current ~5s), memory linear in simplex count.
+
+**Phase 17 P17.1 Status (2026-06-23):** All deliverables complete. Infrastructure foundation ready for P17.2 optimization work.
 
 ### Phase 18: Documentation & Pedagogy ✅
 
