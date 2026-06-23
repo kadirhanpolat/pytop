@@ -7,7 +7,7 @@
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.6.1-dev**, pytop ships **20 phases in progress** with 11,896 tests passing. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, statistical validation, and **P16.2 oracle parity now wired** — pytop's persistent Betti numbers cross-checked against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures). **Phase 17** 🔄 **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 🚧** scaling — **inductive Vietoris–Rips construction shipped (~14–19× filtration-build speedup, byte-identical output)**; the Z/2 reduction is now the dominant cost for dense high-n. **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** 🔄 **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** 🔄 **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 🚧** PyPI publishing; **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates).
+As of **v1.6.0** (released; development continues at `1.6.1.dev0`), pytop ships **20 phases** with 11,896 tests passing on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, statistical validation, and **P16.2 oracle parity now wired** — pytop's persistent Betti numbers cross-checked against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures). **Phase 17** 🔄 **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 🚧** scaling — **inductive Vietoris–Rips construction shipped (~14–19× filtration-build speedup, byte-identical output)**; the Z/2 reduction is now the dominant cost for dense high-n. **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** 🔄 **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** 🔄 **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 🚧** PyPI publishing; **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates).
 
 ## Installation
 
@@ -199,7 +199,7 @@ and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
 
-## What's New in v1.6.1-dev
+## What's New in v1.6.0
 
 **P16.2 — Oracle parity, now wired to GUDHI.** The persistent-Betti cross-check
 that was previously framework-only is now a real, passing comparison. Added
@@ -228,7 +228,11 @@ decorator (`pytop._deprecation`) emitting consistent WHY-HOW-THEN
 registry). API naming/consistency audit in `docs/API_DESIGN.md`. Rewritten
 `CONTRIBUTING.md` and GitHub issue/PR templates.
 
-## What's New in v1.6.0
+**Maintenance — clean baseline.** Repo-wide lint/type debt cleared: `src/pytop`
+is ruff-clean **and** mypy-clean (244 files) and the whole `src/`+`tests/` tree
+passes ruff (was 236 ruff + 12 mypy errors; a latent `_gpu_backend` crash fixed
+along the way). Version handling reconciled (`pyproject` ↔ `__version__` in sync);
+backfilled the missing `v1.4.0`/`v1.5.0` release tags and tagged `v1.6.0`.
 
 **Phase 16 — Empirical Validation & Oracle Ecosystem (P16.1–P16.3 complete)**
 
