@@ -45,6 +45,26 @@ Türev kümesi & $A' = d(A)$ & $A$'nın birikme noktaları kümesi \\
 \noindent\textbf{Birikme noktası:} $x \in A'$ $\iff$ her $U \ni x$ açık için
 $U \cap (A \setminus \{x\}) \neq \emptyset$.
 
+\begin{sezgi}
+Bir $A$ kümesini, $X$ üzerinde duran bir ``boya lekesi'' gibi düşünün.
+\textbf{İç} $A^\circ$, lekenin tamamen içine sığabildiğiniz açık bir
+komşuluğunuzun olduğu noktalardır --- ``rahatça içerideyim'' bölgesi.
+\textbf{Kapanış} $\mathrm{cl}(A)$, lekeye dokunan her noktayı ekler:
+leke artı onun ``gölgesi''. \textbf{Sınır} $\partial A$ ise tam kenardır:
+her açık komşuluğu hem $A$'dan hem $X\setminus A$'dan kesen noktalar.
+Bu üçlü, $X$'i ayrık üç parçaya böler: iç, sınır ve \textbf{dış}
+$\mathrm{ext}(A) = (X\setminus A)^\circ$.
+\end{sezgi}
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch05_ic_kapanis_sinir.tikz}
+  \caption{$A=\{1,2,3\}$ için iç $A^\circ=\{1,2\}$ (yeşil), sınır
+    $\partial A=\{3\}$ (turuncu) ve dış $\mathrm{ext}(A)=\{4,5\}$ (mavi);
+    kapanış $\mathrm{cl}(A)$ kırmızı çerçevedir. $X$ bu üç parçaya ayrık olarak bölünür.}
+  \label{fig:ch05:ic_kapanis_sinir}
+\end{figure}
+
 \subsection{Komşuluk Sistemi}
 
 \begin{definition}[Komşuluk Sistemi]
@@ -78,6 +98,25 @@ $\mathrm{cl}: \mathcal{P}(X) \to \mathcal{P}(X)$ operatörü şu dört özelliğ
 Bu dört özelliği sağlayan her operatör bir topoloji tanımlar.
 \end{theorem}
 
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch05_kuratowski.tikz}
+  \caption{Kuratowski aksiyomları K1--K4 ve sonucu: bu dördünü sağlayan her
+    $\mathrm{cl}$ operatörü tek bir topoloji belirler.}
+  \label{fig:ch05:kuratowski}
+\end{figure}
+
+\begin{proof}[İspat eskizi]
+Kapanış, $A$'yı içeren tüm kapalı kümelerin kesişimidir:
+$\mathrm{cl}(A) = \bigcap\{C : C \text{ kapalı},\, A\subseteq C\}$.
+\textbf{(K1)} $\emptyset$ zaten kapalı, en küçük kapalı üst-küme kendisidir.
+\textbf{(K2)} her $C\supseteq A$ içerdiğinden $A\subseteq \mathrm{cl}(A)$.
+\textbf{(K3)} $\mathrm{cl}(A)$ kapalıdır; kapalı bir kümenin kapanışı kendisidir
+(idempotentlik). \textbf{(K4)} $\subseteq$ yönü monotonluktan, $\supseteq$ yönü
+$\mathrm{cl}(A)\cup\mathrm{cl}(B)$'nin $A\cup B$'yi içeren kapalı bir küme olmasından gelir.
+Sonlu uzaylarda dördü de \texttt{kuratowski\_closure\_check} ile doğrulanır (Örnek~2).
+\end{proof}
+
 \begin{theorem}[İç-Kapanış Dualitesi]
 \label{thm:interior_closure_duality}
 Her $A \subseteq X$ için:
@@ -87,11 +126,29 @@ Her $A \subseteq X$ için:
 \]
 \end{theorem}
 
+\begin{proof}[İspat eskizi]
+$A^\circ$ tanım gereği $A$'ya dahil \emph{en büyük açık} kümedir; $\mathrm{cl}(B)$ ise
+$B$'yi içeren \emph{en küçük kapalı} kümedir. Tümleme alma açık~$\leftrightarrow$~kapalı
+ve ``en büyük''~$\leftrightarrow$~``en küçük'' ile $\subseteq$ ilişkisini ters çevirir.
+$B=X\setminus A$ alın: $X\setminus A$'yı içeren en küçük kapalı kümenin tümleyeni,
+$A$'ya dahil en büyük açık kümedir; yani $A^\circ = X\setminus\mathrm{cl}(X\setminus A)$.
+İkinci eşitlik $A\mapsto X\setminus A$ ikamesiyle simetrik olarak çıkar.
+\end{proof}
+
 \begin{theorem}[Komşuluk Sistemi Round-Trip]
 \label{thm:neighborhood_round_trip}
 N1--N4'ü sağlayan her $\{N(x)\}_{x \in X}$ ailesi,
 $\tau = \{U : \forall x \in U, U \in N(x)\}$ şeklinde tek bir topolojiyi geri üretir.
 \end{theorem}
+
+\begin{proof}[İspat eskizi]
+İleri yön: $\tau$'dan $N(x)=\{N : \exists U\in\tau,\, x\in U\subseteq N\}$ tanımlayın.
+(N1) $x\in U\subseteq N$ olduğundan $x\in N$. (N2) $X\in\tau$ her noktayı içerir.
+(N3) $U_1\cap U_2\in\tau$ açık olduğundan kesişim de komşuluktur. (N4) üst-küme almak
+tanımı bozmaz. Geri yön: $\tau=\{U : \forall x\in U,\, U\in N(x)\}$ ailesinin topoloji
+aksiyomlarını sağladığı ve başlangıç sistemini geri verdiği doğrulanır; teklik bu
+eşleşmenin tersinir olmasından gelir.
+\end{proof}
 
 %% ============================================================
 \section{Algoritmalar}
@@ -240,6 +297,92 @@ chi(1) = 2
 $N(0) = \{X\}$: $0$ yalnızca $X$'te açık. $N(1) = \{\{1\}, X\}$: yerel baz büyüklükleri
 $\chi(0)=1$, $\chi(1)=2$.
 
+\subsection{Örnek 4: İç / Kapanış / Sınır / Dış Parçalanışı}
+
+\begin{lstlisting}[language=Python]
+from pytop import (make_topology, interior_of_subset, closure_of_subset,
+                   boundary_of_subset, exterior_of_subset)
+
+sp = make_topology({1, 2, 3, 4, 5}, {1, 2}, {4, 5}, {1, 2, 4, 5})
+A = {1, 2, 3}
+print("int(A) =", interior_of_subset(sp, A).value)
+print("cl(A)  =", closure_of_subset(sp, A).value)
+print("bd(A)  =", boundary_of_subset(sp, A).value)
+print("ext(A) =", exterior_of_subset(sp, A).value)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+int(A) = frozenset({1, 2})
+cl(A)  = frozenset({1, 2, 3})
+bd(A)  = frozenset({3})
+ext(A) = frozenset({4, 5})
+\end{lstlisting}
+
+İç $\{1,2\}$, sınır $\{3\}$ ve dış $\{4,5\}$ birlikte $X$'i ayrık olarak kaplar:
+$X = A^\circ \cup \partial A \cup \mathrm{ext}(A)$ (Şekil~\ref{fig:ch05:ic_kapanis_sinir}).
+
+\subsection{Örnek 5: Kuratowski Aksiyomlarının Doğrulanması}
+
+\begin{lstlisting}[language=Python]
+from pytop import finite_chain_space, kuratowski_closure_check
+
+s = finite_chain_space(3)
+report = kuratowski_closure_check(list(s.carrier), list(s.topology))
+for k in sorted(report):
+    print(f"{k:<13}= {report[k]}")
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+all          = True
+empty        = True
+extensive    = True
+finite_union = True
+idempotent   = True
+\end{lstlisting}
+
+\texttt{empty}~$\to$~(K1), \texttt{extensive}~$\to$~(K2), \texttt{idempotent}~$\to$~(K3),
+\texttt{finite\_union}~$\to$~(K4); \texttt{all} hepsinin sağlandığını özetler
+(Şekil~\ref{fig:ch05:kuratowski}).
+
+\subsection{Örnek 6: Yoğun Nokta ve Birikme Kümesi}
+
+\begin{lstlisting}[language=Python]
+from pytop import finite_chain_space, closure_of_subset, is_dense_subset, derived_set_of_subset
+
+c = finite_chain_space(4)
+print("cl({1})    =", closure_of_subset(c, {1}).value)
+print("{1} dense? =", is_dense_subset(c, {1}).status)
+print("d({3})     =", derived_set_of_subset(c, {3}).value)
+print("cl({4})    =", closure_of_subset(c, {4}).value)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Çıktı}]
+cl({1})    = frozenset({1, 2, 3, 4})
+{1} dense? = true
+d({3})     = frozenset({4})
+cl({4})    = frozenset({4})
+\end{lstlisting}
+
+$1$ jeneriktir ($\mathrm{cl}(\{1\})=X$, yoğun), $4$ kapalı bir noktadır
+($\mathrm{cl}(\{4\})=\{4\}$); Şekil~\ref{fig:ch05:yogunluk}.
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch05_yogunluk.tikz}
+  \caption{\texttt{finite\_chain\_space(4)} zincirinde özelleşme oku: $1$ jenerik
+    (yoğun) noktadır, $\mathrm{cl}(\{1\})=X$; $4$ ise kapalı noktadır, $\mathrm{cl}(\{4\})=\{4\}$.}
+  \label{fig:ch05:yogunluk}
+\end{figure}
+
+\begin{karsiornek}
+``İç küme her zaman kapalıdır'' yanılgısı. Örnek~4'te $A^\circ=\{1,2\}$ açıktır ama
+\textbf{kapalı değildir} ($X\setminus\{1,2\}=\{3,4,5\}$ açık değil). İç ve dış daima
+açıktır; kapanış ve sınır daima kapalıdır --- bu iki aileyi karıştırmak en sık yapılan
+hatadır. Ayrıca $\partial A=\emptyset$ ancak ve ancak $A$ clopen ise olur: Örnek~``Sınır
+Hesabı''nda açık $\{1\}$ için $\partial\{1\}=\emptyset$, fakat clopen olmayan $\{1,2\}$
+için sınır boş değildir.
+\end{karsiornek}
+
 %% ============================================================
 \section{Alıştırmalar}
 %% ============================================================
@@ -251,6 +394,13 @@ $\chi(0)=1$, $\chi(1)=2$.
         $\mathrm{bd}(\{1,2,3\})$ ve $\mathrm{cl}(\{1,2,3\})$ hesaplayın.
   \item \texttt{finite\_chain\_space(4)} zincirinde $\{1,2\}$'nin iç, kapanış ve sınır
         kümelerini bulun.
+  \item \texttt{make\_topology(\{1,2,3,4,5\}, \{1,2\}, \{4,5\}, \{1,2,4,5\})} uzayında
+        $A=\{1,2,3\}$ için \texttt{interior\_of\_subset}, \texttt{boundary\_of\_subset} ve
+        \texttt{exterior\_of\_subset} çalıştırıp $X = A^\circ \cup \partial A \cup
+        \mathrm{ext}(A)$ ayrık parçalanışını doğrulayın.
+  \item \texttt{finite\_chain\_space(4)} için \texttt{kuratowski\_closure\_check} çağırıp
+        \texttt{all} alanının \texttt{True} döndüğünü gösterin; ardından $\{1\}$'in yoğun
+        olduğunu \texttt{is\_dense\_subset} ile teyit edin.
 \end{enumerate}
 
 \subsection*{Teori Alıştırmaları}
@@ -259,4 +409,9 @@ $\chi(0)=1$, $\chi(1)=2$.
         aksiyomlarını kullanarak kanıtlayın.
   \item $A$'nın yoğun olması için gerek ve yeter koşulun $\mathrm{cl}(A) = X$ olduğunu
         gösterin.
+  \item Her $A \subseteq X$ için $X = A^\circ \cup \partial A \cup \mathrm{ext}(A)$
+        olduğunu ve üç kümenin ikişer ikişer ayrık olduğunu ispatlayın.
+        \ipucu{$\mathrm{ext}(A)=(X\setminus A)^\circ$ ve $\partial A=\mathrm{cl}(A)\setminus A^\circ$.}
+  \item $A^\circ$ kümesinin daima açık olduğunu, fakat genel olarak kapalı
+        \textbf{olmadığını} gösteren bir karşı-örnek verin. \ipucu{Örnek~4'teki $\{1,2\}$.}
 \end{enumerate}

@@ -1,0 +1,25 @@
+\begin{tikzpicture}[font=\small,
+    nokta/.style={circle, draw, minimum size=7mm, inner sep=1pt, fill=gray!8},
+    yogun/.style={circle, draw, minimum size=7mm, inner sep=1pt, fill=green!22}]
+  % finite_chain_space(4): acik kumeler {1} subset {1,2} subset {1,2,3} subset X
+  % cl({1}) = X  -> 1 yogun nokta;  cl({4}) = {4} -> 4 kapali nokta
+  \node[yogun] (n1) at (0,0)   {$1$};
+  \node[nokta] (n2) at (2,0)   {$2$};
+  \node[nokta] (n3) at (4,0)   {$3$};
+  \node[nokta] (n4) at (6,0)   {$4$};
+
+  \foreach \a/\b in {n1/n2, n2/n3, n3/n4}
+    \draw[-{Stealth[length=2.4mm]}, thick] (\a) -- (\b);
+
+  \node[font=\scriptsize] at (1,0.45) {özelleşme};
+
+  % cl({1}) = X kapanis cercevesi
+  \draw[green!55!black, thick, rounded corners]
+    ($(n1.north west)+(-0.25,0.95)$) rectangle ($(n4.south east)+(0.25,-0.3)$);
+  \node[green!45!black, font=\scriptsize] at (3,1.25) {$\mathrm{cl}(\{1\})=X$ — $\{1\}$ yoğun};
+
+  \node[font=\scriptsize, align=center] at (6,-0.95)
+    {$\mathrm{cl}(\{4\})=\{4\}$\\ kapalı nokta};
+  \node[font=\scriptsize, align=center] at (0,-0.95)
+    {jenerik\\ (yoğun)};
+\end{tikzpicture}

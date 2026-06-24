@@ -1,0 +1,16 @@
+\begin{tikzpicture}[font=\small, node distance=7mm,
+    aks/.style={draw, rounded corners, fill=blue!6, inner sep=6pt,
+                text width=4.6cm, align=center}]
+  \node[aks] (k1) {\textbf{(K1)}\\ $\mathrm{cl}(\emptyset)=\emptyset$};
+  \node[aks, right=of k1] (k2) {\textbf{(K2)}\\ $A \subseteq \mathrm{cl}(A)$};
+  \node[aks, below=of k1] (k3) {\textbf{(K3)}\\ $\mathrm{cl}(\mathrm{cl}(A))=\mathrm{cl}(A)$};
+  \node[aks, below=of k2] (k4) {\textbf{(K4)}\\ $\mathrm{cl}(A\cup B)=\mathrm{cl}(A)\cup \mathrm{cl}(B)$};
+
+  \node[draw, rounded corners, fill=green!10, inner sep=6pt,
+        below=10mm of $(k3)!0.5!(k4)$, text width=7.2cm, align=center] (sonuc)
+    {Bu dört aksiyomu sağlayan her $\mathrm{cl}$ operatörü\\
+     \emph{tek bir} topoloji belirler: $\tau=\{X\setminus \mathrm{cl}(A)\}$.};
+
+  \draw[-{Stealth[length=2.4mm]}, thick] (k3.south) -- (k3.south |- sonuc.north);
+  \draw[-{Stealth[length=2.4mm]}, thick] (k4.south) -- (k4.south |- sonuc.north);
+\end{tikzpicture}
