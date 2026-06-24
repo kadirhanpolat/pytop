@@ -101,6 +101,7 @@ from pytop import (
     discrete_topology,
     indiscrete_topology,
     make_set,
+    make_topology,
     empty_set,
 )
 ```
