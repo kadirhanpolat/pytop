@@ -6,6 +6,23 @@ kaba (coarsest) topolojidir. \textbf{Son topoloji} (final topology), verilen har
 sürekli kılan en ince (finest) topolojidir. Altuzay ve çarpım topolojileri başlangıç
 topolojisinin; bölüm topolojisi ise son topolojisinin özel halleridir.
 
+\begin{sezgi}
+Başlangıç topolojisini, $X$'e ``tam yeterince'' açık küme koyan bir ayar düğmesi
+gibi düşünün. Çok az açık koyarsanız $f_\alpha$ haritaları sürekli olmaz; çok fazla
+koyarsanız gereksizdir. Geri çekme $f_\alpha^{-1}(U)$ ile üretilen alt-baz,
+haritaları sürekli kılan \emph{en küçük} (en kaba) açık-küme koleksiyonudur. Son
+topoloji ise tam tersi yönde çalışır: $Y$'ye en çok açık kümeyi koyar, ama her
+$g_i$'yi sürekli bozmadan.
+\end{sezgi}
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch13_baslangic.tikz}
+\caption{Başlangıç topolojisi: bir harita ailesini sürekli kılan en kaba topoloji,
+geri çekme $f_\alpha^{-1}(U)$ ile üretilen alt-bazdan doğar.}
+\label{fig:ch13_baslangic}
+\end{figure}
+
 % -----------------------------------------------------------------------
 \section{Başlangıç Topolojisi}
 \label{sec:initial}
@@ -42,6 +59,23 @@ olduğundan $\langle\mathcal{S}\rangle \subseteq \tau'$; yani $\tau_{\mathrm{ini
 $h: Z \to (X, \tau_{\mathrm{ini}})$ süreklidir ancak ve ancak $f_\alpha \circ h$ her
 $\alpha$ için sürekli olduğunda.
 \end{theorem}
+
+\begin{proof}[İspat eskizi]
+($\Rightarrow$) $h$ sürekli ve $f_\alpha$ sürekli ise bileşke $f_\alpha \circ h$
+süreklidir. ($\Leftarrow$) $\tau_{\mathrm{ini}}$'nin bir alt-baz elemanı
+$f_\alpha^{-1}(U)$ biçimindedir ve ön-görüntüsü
+$h^{-1}(f_\alpha^{-1}(U)) = (f_\alpha \circ h)^{-1}(U)$, ki bu $f_\alpha \circ h$
+sürekli olduğundan $Z$'de açıktır. Süreklilik alt-bazda denetlenebildiğinden $h$
+süreklidir.
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch13_evrensel.tikz}
+\caption{Evrensel özellik: $h$ sürekli $\iff$ her $f_\alpha\circ h$ sürekli;
+$\tau_{\mathrm{ini}}$ bu faktörizasyonu mümkün kılan tek topolojidir.}
+\label{fig:ch13_evrensel}
+\end{figure}
 
 \begin{theorem}[Özel Haller]
 \label{thm:initial_special}
@@ -108,17 +142,20 @@ from pytop.finite_map_analysis import FiniteMap
 from pytop import (
     initial_topology_from_maps,
     generic_quotient_space_from_map,
+    discrete_topology,
+    indiscrete_topology,
+    make_topology,
+    sierpinski_space,
+    finite_subspace,
+    binary_product,
+    is_continuous_finite_map,
+    is_t0,
+    is_t2,
 )
 
 # FiniteMap dogrudan veri sinifi olarak kullanilir (make_function degil)
-f = FiniteMap(domain=domain_space, codomain=codomain_space,
-              name="f", mapping={...})
-
-# Baslangic topolojisi
-tau_ini = initial_topology_from_maps(carrier, [f1, f2, ...])
-
-# Son topoloji (bolum ozel hali)
-quot = generic_quotient_space_from_map(q_map)
+# tau_ini = initial_topology_from_maps(carrier, [f1, f2, ...])
+# quot    = generic_quotient_space_from_map(q_map)   # son topoloji, bolum ozel hali
 \end{lstlisting}
 
 \textbf{Önemli:} \texttt{pytop.quotient\_space\_from\_map} sembolik motoru kullanır;
@@ -257,6 +294,90 @@ Bolum topolojisi: [[], [0], [0, 1]]
 Son topoloji ile esit: True
 \end{lstlisting}
 
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch13_son.tikz}
+\caption{Son topoloji: kaynak uzayları ortak bir hedefe iten en ince topoloji;
+bölüm topolojisi tek surjektif haritanın son topolojisidir.}
+\label{fig:ch13_son}
+\end{figure}
+
+\subsection{Yeni Örnek — ``En Kaba'' Olmanın Doğrudan Doğrulanması}
+
+Başlangıç topolojisinin tanımı \emph{en kaba} olmaktır: $f$'yi sürekli kılar, ama
+ondan daha kaba hiçbir topoloji kılamaz. Bunu süreklilik yüklemiyle doğrulayalım.
+
+\begin{lstlisting}[language=Python]
+ini      = [set(u) for u in tau_f.topology]
+codom    = [set(u) for u in Y_d.topology]
+coarser  = [set(), set(X_carrier)]   # indiscrete: tau_ini'den daha kaba
+
+print("f, tau_ini'ye gore surekli mi:",
+      is_continuous_finite_map(X_carrier, ini, list(Y_d.carrier), codom, f.mapping))
+print("f, daha kaba (indiscrete) topolojiye gore surekli mi:",
+      is_continuous_finite_map(X_carrier, coarser, list(Y_d.carrier), codom, f.mapping))
+print("tau_ini eleman sayisi:", len(tau_f.topology))
+\end{lstlisting}
+
+\begin{lstlisting}[style=output]
+f, tau_ini'ye gore surekli mi: True
+f, daha kaba (indiscrete) topolojiye gore surekli mi: False
+tau_ini eleman sayisi: 4
+\end{lstlisting}
+
+$\tau_{\mathrm{ini}}$ ile $f$ sürekli; aynı $f$ indiscrete topolojiyle sürekli
+\textbf{değil} — çünkü $f^{-1}(\{0\})=\{0,1\}$ orada açık değildir. $\tau_{\mathrm{ini}}$
+tam da bu açık kümeyi ekleyecek kadar incedir, fazlası değil.
+
+\begin{karsiornek}
+``Daha çok açık küme her zaman daha iyidir'' sanmayın. Discrete topoloji de $f$'yi
+sürekli kılar (16 açık küme), ama \emph{en kaba} değildir — başlangıç topolojisi
+yalnızca süreklilik için gereken 4 açık kümeyi koyar. Gereğinden ince bir topoloji
+evrensel özelliği bozar: $\tau_{\mathrm{ini}}$'den daha ince bir $\tau'$ seçerseniz,
+$f_\alpha\circ h$ sürekli olduğu hâlde $h$ sürekli olmayan bir $h$ bulunabilir.
+\end{karsiornek}
+
+\subsection{Yeni Örnek — Evrensel Özelliğin Doğrulanması}
+
+İki harita $f,g: X \to \mathrm{discrete}(\{0,1\})$ ile $X=\{a,b\}$ üzerinde başlangıç
+topolojisini kurar, ardından $h: Z \to X$ sürekliliğinin her bileşenin sürekliliğine
+denk olduğunu gösteririz.
+
+\begin{lstlisting}[language=Python]
+Xc   = ["a", "b"]
+Xph  = make_topology(Xc, set(), set(Xc))
+Yd2  = discrete_topology(0, 1)
+fA   = FiniteMap(domain=Xph, codomain=Yd2, name="fA", mapping={"a": 0, "b": 1})
+gA   = FiniteMap(domain=Xph, codomain=Yd2, name="gA", mapping={"a": 1, "b": 0})
+
+tau_X  = initial_topology_from_maps(Xc, [fA, gA])
+Xopens = [set(u) for u in tau_X.topology]
+Yopens = [set(u) for u in Yd2.topology]
+
+Zc, Zopens = ["p", "q"], [set(), {"p"}, {"q"}, {"p", "q"}]
+h  = {"p": "a", "q": "b"}
+fh = {z: fA.mapping[h[z]] for z in Zc}     # fA . h
+gh = {z: gA.mapping[h[z]] for z in Zc}     # gA . h
+
+c_fh = is_continuous_finite_map(Zc, Zopens, list(Yd2.carrier), Yopens, fh)
+c_gh = is_continuous_finite_map(Zc, Zopens, list(Yd2.carrier), Yopens, gh)
+c_h  = is_continuous_finite_map(Zc, Zopens, Xc, Xopens, h)
+
+print("tau_ini(X) eleman sayisi:", len(tau_X.topology))
+print("fA.h surekli:", c_fh, "| gA.h surekli:", c_gh, "| h surekli:", c_h)
+print("Evrensel ozellik saglaniyor mu:", c_h == (c_fh and c_gh))
+\end{lstlisting}
+
+\begin{lstlisting}[style=output]
+tau_ini(X) eleman sayisi: 4
+fA.h surekli: True | gA.h surekli: True | h surekli: True
+Evrensel ozellik saglaniyor mu: True
+\end{lstlisting}
+
+$\tau_{\mathrm{ini}}(X)$ discrete$(\{a,b\})$'ye eşittir; $h$ süreklidir ancak ve ancak
+hem $f_A\circ h$ hem $g_A\circ h$ sürekli olduğunda. Yüklem bu denkliği
+\texttt{c\_h == (c\_fh and c\_gh)} ile doğrular.
+
 % -----------------------------------------------------------------------
 \section{Alıştırmalar}
 \label{sec:initial_exercises}
@@ -277,4 +398,20 @@ Son topoloji ile esit: True
 
   \item \textit{(Teori)} $\tau_{\mathrm{fin}}$'den daha ince hiçbir topoloji her
         $g_i$'yi sürekli kılamaz; bunu tanımdaki en-ince koşulundan türetin.
+
+  \item \texttt{initial\_topology\_from\_maps} ile bir
+        $f: \{0,1,2,3\} \to \mathrm{discrete}(\{0,1\})$, $f(\{0,1\})=0$,
+        $f(\{2,3\})=1$ haritası için $\tau_{\mathrm{ini}}$ kurun. Sonra
+        \texttt{is\_continuous\_finite\_map} ile $f$'nin $\tau_{\mathrm{ini}}$'ye göre
+        sürekli ama indiscrete topolojiye göre sürekli olmadığını doğrulayın. Aynı
+        $f$ discrete topolojiyle de sürekli midir? Bu, ``en kaba'' iddiasını nasıl
+        destekler?
+
+  \item \textit{(Evrensel özellik)} $X=\{a,b\}$ üzerinde
+        $f(a)=0,f(b)=1$ ve $g(a)=1,g(b)=0$ (kodomen \texttt{discrete(\{0,1\})}) için
+        $\tau_{\mathrm{ini}}$'yi hesaplayın. $Z=\mathrm{discrete}(\{p,q\})$,
+        $h(p)=a$, $h(q)=b$ alın. \texttt{is\_continuous\_finite\_map} ile
+        $f\circ h$, $g\circ h$ ve $h$ sürekliliklerini hesaplayıp $h$'nin
+        sürekliliğinin bileşenlerin sürekliliğine denk olduğunu
+        (\texttt{c\_h == (c\_fh and c\_gh)}) gösterin.
 \end{enumerate}

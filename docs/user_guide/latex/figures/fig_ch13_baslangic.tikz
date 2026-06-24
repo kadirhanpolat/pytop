@@ -1,0 +1,35 @@
+\begin{tikzpicture}[font=\small]
+  % Domain X (left)
+  \draw[rounded corners=6pt, thick] (-0.6,-1.5) rectangle (1.9,1.6);
+  \node at (0.65,1.85) {$X$ (taşıyıcı, topolojisiz)};
+  \draw[blue!70!black, thick, fill=blue!10]
+    (0.65,0.55) ellipse [x radius=0.78, y radius=0.42];
+  \node[blue!70!black, font=\scriptsize] at (0.65,0.55) {$f_1^{-1}(U_1)$};
+  \draw[red!70!black, thick, fill=red!10]
+    (0.65,-0.7) ellipse [x radius=0.78, y radius=0.42];
+  \node[red!70!black, font=\scriptsize] at (0.65,-0.7) {$f_2^{-1}(U_2)$};
+
+  % Codomain Y_1 (top right)
+  \draw[rounded corners=6pt, thick] (5.4,0.5) rectangle (7.6,1.9);
+  \node at (6.5,2.15) {$(Y_1,\tau_1)$};
+  \draw[blue!70!black, thick, fill=blue!12]
+    (6.5,1.2) ellipse [x radius=0.55, y radius=0.32];
+  \node[blue!70!black, font=\scriptsize] at (6.5,1.2) {$U_1$};
+
+  % Codomain Y_2 (bottom right)
+  \draw[rounded corners=6pt, thick] (5.4,-1.9) rectangle (7.6,-0.5);
+  \node at (6.5,-2.2) {$(Y_2,\tau_2)$};
+  \draw[red!70!black, thick, fill=red!12]
+    (6.5,-1.2) ellipse [x radius=0.55, y radius=0.32];
+  \node[red!70!black, font=\scriptsize] at (6.5,-1.2) {$U_2$};
+
+  % Maps
+  \draw[blue!70!black, -{Stealth[length=2.4mm]}, thick]
+    (1.5,0.55) to[bend left=12] node[above, font=\scriptsize, pos=0.55] {$f_1$} (5.95,1.2);
+  \draw[red!70!black, -{Stealth[length=2.4mm]}, thick]
+    (1.5,-0.7) to[bend right=12] node[below, font=\scriptsize, pos=0.55] {$f_2$} (5.95,-1.2);
+
+  \node[font=\scriptsize, align=center] at (3.0,-3.0)
+    {Alt-baz $\mathcal{S}=\{f_\alpha^{-1}(U)\}$ geri çekme ile üretilir;\\
+     $\tau_{\mathrm{ini}}=\langle\mathcal{S}\rangle$ her $f_\alpha$'yı sürekli kılan \emph{en kaba} topoloji.};
+\end{tikzpicture}
