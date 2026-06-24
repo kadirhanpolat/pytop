@@ -70,6 +70,8 @@ Tersi genel olarak doğru değildir.
 $X$ normal ise ve $C, D$ disjoint kapalı kümeler ise, $f: X \to [0,1]$ sürekli bir fonksiyon
 vardır: $f|_C \equiv 0$, $f|_D \equiv 1$.
 
+> **İspat eskizi.** Normallikle $C \subseteq U_{1/2}$, $\overline{U_{1/2}} \cap D = \emptyset$ olan açık $U_{1/2}$ seç. Aynı adımı tekrarlayıp her ikili kesir $q = k/2^n \in [0,1]$ için, $p < q \Rightarrow \overline{U_p} \subseteq U_q$ koşulunu sağlayan iç-içe açıklar $\{U_q\}$ ailesi kur (normallik her ekleme adımını mümkün kılar). Sonra $f(x) = \inf\{q : x \in U_q\}$ (hiç içermiyorsa $1$) tanımla; iç-içe geçme süreklilik verir, $C$ üzerinde $0$, $D$ üzerinde $1$ alınır. ∎
+
 ![Urysohn fonksiyonu: C üzerinde 0, D üzerinde 1 değerini alan sürekli f](../assets/ch06/fig_ch06_urysohn.png)
 
 **Teorem 2.3 (Tietze Genişleme Teoremi).**
@@ -78,6 +80,8 @@ tüm $X$'e sürekli genişletilebilir.
 
 **Teorem 2.4 (Tychonoff Karakterizasyonu).**
 $X$, T3.5'tir $\iff$ $X$, bir küp $[0,1]^I$'nın içine homeomorf gömülebilir.
+
+> **İspat eskizi.** ($\Leftarrow$) $[0,1]^I$ bir kompakt Hausdorff çarpımdır, dolayısıyla T3.5'tir; T3.5 kalıtsaldır, alt-uzaya geçer. ($\Rightarrow$) $X$ tam regüler ise $I = C(X,[0,1])$ (tüm sürekli $[0,1]$-değerli fonksiyonlar) indeks kümesini al; değerlendirme gömmesi $e(x) = (f(x))_{f\in I}$ tanımla. Tam regülerlik $e$'nin birebir ve homeomorfik bir gömme olmasını sağlar — her nokta–kapalı çift bir $f$ ile ayrıldığından. ∎
 
 **Teorem 2.5 (Sonlu T1 ⟺ Ayrık).**
 Sonlu bir uzayda T1 $\iff$ ayrık topoloji.
@@ -89,6 +93,13 @@ Sonlu bir uzayda T1 $\iff$ ayrık topoloji.
 4. (⇐) Ayrık topolojide her $\{x\}$ açıktır; $x\neq y$ çifti $\{x\}$ ve $\{y\}$ ile iki yönlü ayrılır.
 
 Sonsuzlukta 2. adım çöker: sonsuz birleşim kapalılığı korumaz — kosonlu $\mathbb{N}$ tam bu nedenle T1 olup ayrık değildir.
+
+**Teorem 2.6 (Kompakt + Hausdorff $\Rightarrow$ T4).**
+Her kompakt Hausdorff uzay normaldir (T4).
+
+> **İspat eskizi.** Önce "kompakt Hausdorff $\Rightarrow$ regüler"i kur: $x \notin C$ (kapalı, dolayısıyla kompakt) ise, her $c \in C$ için Hausdorff ayrık $U_c \ni x$, $V_c \ni c$ verir; $\{V_c\}$ $C$'yi örter, kompaktlıkla sonlu alt-örtü $V_{c_1},\dots,V_{c_n}$ al. $U = \bigcap U_{c_i}$ ve $V = \bigcup V_{c_i}$ aradığın ayrık açıkları verir. Sonra aynı argümanı bir nokta yerine ikinci bir kapalı (kompakt) $D$ kümesine uygula: her $d \in D$ için yukarıdaki regülerlik ayrık $U_d \supseteq C$, $W_d \ni d$ verir; $D$ kompakt olduğundan sonlu alt-örtüyle $C$ ve $D$ ayrık açıklara konur — normallik tam budur. ∎
+
+Bu, Bölüm 7'deki "kompakt + Hausdorff $\Rightarrow$ T4" teoreminin ayrılma-aksiyomu tarafıdır; kompaktlık, sonsuz Hausdorff ayrımlarını *sonlu* sayıya indirgeyerek normalliği mümkün kılar.
 
 ---
 
@@ -317,6 +328,58 @@ Sierpinski T0?       : true
 **Çıktı Açıklaması:** `analyze_separation(space, property)` tek bir aksiyom için sorgu yapar.
 Varsayılan `'hausdorff'`'tur. `status='true'` → uzay o aksiyomu sağlar; sonuçlar "Neden önemli?" kutusundaki `Result` türüyle döner.
 
+### Örnek 5.7 — Dışlanan-Nokta Topolojisi: İkinci Bir "T0'da Takılan"
+
+Sierpiński, T0-olup-T1-olmayan tek örnek değildir. $X = \{0,1,2\}$ üzerinde
+**dışlanan-nokta topolojisi** ($0$ dışlanır): bir küme, ya $0$'ı içermez ya da
+$X$'in kendisidir.
+
+```python
+from pytop import excluded_point_topology, is_t0, is_t1, separation_chain
+
+ep = excluded_point_topology(3, 0)   # X = {0,1,2}, dışlanan nokta 0
+print("T0:", is_t0(ep).status, "| T1:", is_t1(ep).status)
+for prop, result in separation_chain(ep).items():
+    print(f"  {prop:20s}: {result.status}")
+```
+
+```text
+T0: true | T1: false
+  t0                  : true
+  t1                  : false
+  hausdorff           : false
+  urysohn             : false
+  t3                  : false
+  tychonoff           : false
+  t4                  : false
+  completely_normal   : false
+  perfectly_normal    : false
+```
+
+**Ne oldu?** `T0: true` — $1$ ve $2$, $\{1\}$ / $\{2\}$ gibi $0$-içermeyen açıklarla iki yönlü ayrılır; $0$ ile herhangi bir nokta arasında ise $0$'ı dışlayan açık tek yönlü ayrım verir. `T1: false` — $0$'ı içeren tek açık $X$'tir, dolayısıyla $0$'ı içerip başka noktayı dışlayan açık yoktur: $\{0\}$ kapalı değildir. Sierpiński'den farklı bir mekanizmayla yine zincir T0'da takılır.
+
+### Örnek 5.8 — Metrik Uzaylar: Zincirin Tepesine Kadar
+
+Her metrik uzay normaldir (T4) ve dolayısıyla zincirin tüm üst basamaklarını
+sağlar. Bunu $\mathbb{R}$ ve $[0,1]$ üzerinde gözlemleyelim.
+
+```python
+from pytop import real_line_metric, closed_unit_interval_metric
+from pytop import is_t2, is_urysohn, is_t3, is_t4
+
+rl = real_line_metric()
+ui = closed_unit_interval_metric()
+print("R         t2/urysohn/t3/t4:", is_t2(rl).status, is_urysohn(rl).status, is_t3(rl).status, is_t4(rl).status)
+print("[0,1]     t2/urysohn/t3/t4:", is_t2(ui).status, is_urysohn(ui).status, is_t3(ui).status, is_t4(ui).status)
+```
+
+```text
+R         t2/urysohn/t3/t4: true true true true
+[0,1]     t2/urysohn/t3/t4: true true true true
+```
+
+**Ne oldu?** Metrik mesafenin kendisi bir ayırıcıdır: ayrık kapalı kümeler $C, D$ için $f(x) = d(x,C) / (d(x,C) + d(x,D))$ sürekli Urysohn fonksiyonunu doğrudan verir — yani metrik uzaylar yalnız T2 değil, T4'e kadar her aksiyomu sağlar (Teorem 2.2'nin metrik durumda elle yazılabilen tanığı). Bu, ayrılma zincirinin "sonlu/sembolik" örneklerle "metrik" örnekler arasındaki keskin farkını gösterir.
+
 ---
 
 ## 6. Alıştırmalar
@@ -335,6 +398,10 @@ Varsayılan `'hausdorff'`'tur. `status='true'` → uzay o aksiyomu sağlar; sonu
 *İpucu: Tek boş olmayan açık $X$ iken herhangi bir çift nasıl ayrılabilir?*
 *(Çözüm: [solutions.md](solutions.md) → Bölüm 6 / K3)*
 
+**K4.** `excluded_point_topology(4, 0)` (yani $X=\{0,1,2,3\}$, dışlanan nokta $0$) üzerinde `separation_chain` çalıştırın; sağlanan en yüksek aksiyomu belirleyin ve neden T1'in düştüğünü açıklayın.
+*İpucu: $0$'ı içeren tek açık $X$'tir; $\{0\}$ kapalı mı?*
+*(Çözüm: [_solutions_ch06.md](_solutions_ch06.md) → Bölüm 6 (ek) / K4)*
+
 ### Teori Alıştırmaları
 
 **T1.** T2 $\Rightarrow$ T1 $\Rightarrow$ T0 implikasyonlarını kanıtlayın.
@@ -344,3 +411,7 @@ Varsayılan `'hausdorff'`'tur. `status='true'` → uzay o aksiyomu sağlar; sonu
 **T2.** Sonlu uzayda T1 ⟺ ayrık topoloji olduğunu gösterin.
 *İpucu: T1 ⇒ tekiller kapalı ⇒ (sonlu birleşim) her alt küme kapalı ⇒ her alt küme açık.*
 *(Çözüm: [solutions.md](solutions.md) → Bölüm 6 / T2)*
+
+**T3.** Her metrik uzayın normal (T4) olduğunu kanıtlayın.
+*İpucu: Ayrık kapalı $C, D$ için $f(x) = d(x,C)/(d(x,C)+d(x,D))$ sürekli Urysohn fonksiyonunu yazın; $f^{-1}([0,\tfrac12))$ ve $f^{-1}((\tfrac12,1])$ aradığınız ayrık açıklardır.*
+*(Çözüm: [_solutions_ch06.md](_solutions_ch06.md) → Bölüm 6 (ek) / T3)*

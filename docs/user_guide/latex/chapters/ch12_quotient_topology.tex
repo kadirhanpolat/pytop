@@ -22,6 +22,33 @@ U \subseteq X/{\sim} \text{ açıktır} \iff q^{-1}(U) \in \tau.
 Bu, $q$'yu sürekli kılan en ince topolojidir.
 \end{definition}
 
+\begin{sezgi}
+Bölüm topolojisini bir ``katlama'' gibi düşünün. Elinizde bir kâğıt şerit
+($[0,1]$) varsa ve iki ucunu birbirine yapıştırırsanız bir çember ($S^1$) elde
+edersiniz. Yapıştırma kuralı bir denklik bağıntısıdır ($0 \sim 1$); bölüm
+topolojisi ise ``kâğıdı yırtmadan'' yapılan bu katlamanın doğal topolojisidir.
+$q$ haritası her noktayı yapıştırma sonrası bulunduğu konuma gönderir; bir
+kümenin yapıştırılmış uzayda açık olması, ön-görüntüsünün orijinal kâğıtta açık
+olmasına bağlıdır.
+\end{sezgi}
+
+\begin{definition}[Doymuş Küme]
+Bir $A \subseteq X$ kümesi \textbf{doymuştur} (saturated), eğer her $x \in A$
+için $x$'in tüm denklik sınıfı $[x]$ yine $A$ içinde kalıyorsa, yani
+$A = q^{-1}(q(A))$ ise. Bölüm topolojisinin açık kümeleri tam olarak $X$'in
+doymuş açık kümelerine karşılık gelir:
+\[
+q(A)\ X/{\sim}\ \text{içinde açık} \iff A\ \text{doymuş ve}\ X\ \text{içinde açık.}
+\]
+\end{definition}
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch12_cember_yapistirma.tikz}
+\caption{$[0,1]$ şeridinin uçları yapıştırılarak çember $S^1$ elde edilir;
+$q$ haritası her noktayı denklik sınıfına gönderir.}
+\end{figure}
+
 \begin{table}[h]
 \centering
 \begin{tabular}{ll}
@@ -37,6 +64,25 @@ T1 & $\sim$ kapalı bağıntı ise korunur \\
 \caption{Topolojik özelliklerin bölüm altında korunumu}
 \end{table}
 
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch12_denklik_siniflari.tikz}
+\caption{Denklik sınıfları bölüm uzayında birer noktaya çöker: dört nokta
+$\{a,b\}, \{c\}, \{d\}$ sınıflarıyla üç noktaya iner.}
+\end{figure}
+
+\begin{karsiornek}
+Hausdorff özelliği bölüm altında korunmaz. $\mathbb{R}$ üzerinde
+``$x \sim y \iff x - y \in \mathbb{Q}$'' bağıntısını alın. Bölüm uzayı
+$\mathbb{R}/\mathbb{Q}$ kaba (indiscrete) bir uzaydır: tek açık kümeler
+$\emptyset$ ve tüm uzaydır, çünkü $\mathbb{Q}$ ile öteleme altında doymuş tek
+açık küme boş küme ve $\mathbb{R}$'dir. Dolayısıyla iki farklı nokta hiçbir
+zaman ayrık komşuluklarla ayrılamaz --- $\mathbb{R}$ Hausdorff olmasına rağmen
+$\mathbb{R}/\mathbb{Q}$ T1 bile değildir. Sonlu modelde de aynı tuzak geçerlidir:
+doymamış açık kümeler yapıştırma sonrası ``kaybolur'' ve ayırma aksiyomlarını
+bozabilir.
+\end{karsiornek}
+
 %-------------------------------------------------------------------
 \section{Teoremler}
 
@@ -47,12 +93,26 @@ $q: X \to X/{\sim}$ her zaman süreklidir.
 \begin{theorem}[Evrensel Özellik]
 $g: X/{\sim} \to Z$ olsun.
 $g$ süreklidir $\Longleftrightarrow g \circ q: X \to Z$ süreklidir.
+\begin{proof}[İspat eskizi]
+($\Rightarrow$) $g$ sürekli ve $q$ sürekli (Teorem~1) olduğundan, iki sürekli
+haritanın bileşkesi $g \circ q$ süreklidir.
+($\Leftarrow$) $g \circ q$'nun sürekli olduğunu varsayalım. $Z$'de bir $V$ açık
+kümesi alın; $g^{-1}(V) \subseteq X/{\sim}$ kümesinin bölüm topolojisinde açık
+olduğunu göstermeliyiz. Tanım gereği bu, $q^{-1}(g^{-1}(V))$ kümesinin $X$'te
+açık olmasına denktir. Fakat
+$q^{-1}(g^{-1}(V)) = (g \circ q)^{-1}(V)$ ve $g \circ q$ sürekli olduğundan bu
+küme $X$'te açıktır. Dolayısıyla $g^{-1}(V)$ açıktır ve $g$ süreklidir. Bu
+özellik, bölüm uzayından çıkan sürekli haritaların kontrolünü $X$ üzerindeki
+haritaların kontrolüne indirger ve bölüm topolojisini evrensel bir nesne olarak
+karakterize eder.
+\end{proof}
 \end{theorem}
 
 \begin{theorem}[Kompaktlık Korunumu]
 $X$ kompakt $\Rightarrow X/{\sim}$ kompakttır.
-\begin{proof}[Kanıt İskeleti]
-$q$ sürekli ve surjektif; kompakt kümenin sürekli görüntüsü kompakttır.
+\begin{proof}[İspat eskizi]
+$q$ sürekli ve örtendir; kompakt bir kümenin sürekli görüntüsü kompakt olduğundan
+$X/{\sim} = q(X)$ kompakttır.
 \end{proof}
 \end{theorem}
 
@@ -96,11 +156,20 @@ $X/{\sim}$ Hausdorff $\Longleftrightarrow$ $\sim$ grafiği $X \times X$'te kapal
 
 \begin{lstlisting}[language=Python]
 from pytop import (
-    quotient_set,               # denklik bagintisinden bolum kumesi
+    quotient_set,               # denklik bagintisindan bolum kumesi
     finite_quotient_contract,   # boluntuden insaat sozlesmesi
     finite_quotient_summary,    # kisa ozet dizesi
     make_quotient_map,          # QuotientMap nesnesi
     is_quotient_map,            # Result: harita bolum haritasi mi?
+    equivalence_class,          # bir noktanin denklik sinifi
+    partition_from_equivalence, # denklik bagintisi -> boluntu
+    is_equivalence_relation,    # baginti denklik bagintisi mi?
+    equivalence_from_partition, # boluntu -> denklik bagintisi
+    equivalence_from_classes,   # sinif bloklarindan denklik bagintisi
+    canonical_projection_from_equivalence,  # q haritasini sozluk olarak
+    discrete_topology,          # ayrik topoloji
+    sierpinski_space,           # Sierpinski uzayi
+    make_topology,              # tasiyici + aciklardan FiniteTopologicalSpace
 )
 \end{lstlisting}
 
@@ -113,6 +182,14 @@ from pytop import (
 \texttt{make\_quotient\_map(domain, codomain)} $\to$ \texttt{QuotientMap}
 
 \texttt{is\_quotient\_map(map\_obj)} $\to$ \texttt{Result}
+
+\texttt{equivalence\_from\_partition(universe, partition)} $\to$ \texttt{set[tuple]}
+
+\texttt{partition\_from\_equivalence(carrier, relation)} $\to$ \texttt{set[frozenset]}
+
+\texttt{equivalence\_class(carrier, relation, point)} $\to$ \texttt{set}
+
+\texttt{canonical\_projection\_from\_equivalence(carrier, relation)} $\to$ \texttt{dict}
 
 %-------------------------------------------------------------------
 \section{Örnekler}
@@ -197,6 +274,86 @@ is_quotient_map status: true
 Justification: Map tag 'quotient' is explicitly present.
 \end{verbatim}
 
+\subsection*{Örnek 5.5 — [0,1] Uçlarını Yapıştırarak Çember $S^1$}
+
+$[0,1]$ aralığını $5$ noktayla modelliyoruz. İki ucu ($0$ ve $4$)
+özdeşleştirmek, şeridi bir çembere yapıştırmaya karşılık gelir.
+
+\begin{lstlisting}[language=Python]
+ring = [0, 1, 2, 3, 4]
+ring_classes = [[0, 4], [1], [2], [3]]
+ring_rel = equivalence_from_partition(ring, ring_classes)
+print("Denklik mi?", is_equivalence_relation(ring, ring_rel))
+print("Bolum kumesi boyutu:", len(quotient_set(ring, ring_rel)))
+print("Ozet:", finite_quotient_summary(ring, ring_classes))
+print("0'in sinifi:", sorted(equivalence_class(ring, ring_rel, 0)))
+print("4'un sinifi:", sorted(equivalence_class(ring, ring_rel, 4)))
+\end{lstlisting}
+
+\begin{verbatim}
+Denklik mi? True
+Bolum kumesi boyutu: 4
+Ozet: quotient: status=true, carrier=5, blocks=4
+0'in sinifi: [0, 4]
+4'un sinifi: [0, 4]
+\end{verbatim}
+
+Uçlar tek bir sınıfta birleşti: $5$ noktalı şerit, $4$ noktalı çembere indi.
+
+\subsection*{Örnek 5.6 — Doymuş Kümeler ve Kanonik İzdüşüm}
+
+Kanonik izdüşüm $q$ her noktayı denklik sınıfına gönderir. Bir kümenin
+\textbf{doymuş} olması, içerdiği her noktanın sınıfını da tamamen içermesi
+demektir.
+
+\begin{lstlisting}[language=Python]
+sat_carrier = ['a', 'b', 'c', 'd']
+sat_part = [['a', 'b'], ['c'], ['d']]
+sat_rel = equivalence_from_partition(sat_carrier, sat_part)
+proj = canonical_projection_from_equivalence(sat_carrier, sat_rel)
+for pt in sat_carrier:
+    print(f"q({pt}) =", sorted(proj[pt]))
+cls_a = equivalence_class(sat_carrier, sat_rel, 'a')
+A = {'a', 'b'}
+print("{a,b} doymus mu?",
+      all(equivalence_class(sat_carrier, sat_rel, p) <= A for p in A))
+print("{a} doymus mu?", cls_a <= {'a'})
+\end{lstlisting}
+
+\begin{verbatim}
+q(a) = ['a', 'b']
+q(b) = ['a', 'b']
+q(c) = ['c']
+q(d) = ['d']
+{a,b} doymus mu? True
+{a} doymus mu? False
+\end{verbatim}
+
+$\{a, b\}$ doymuştur, ama $\{a\}$ doymuş değildir: sınıf arkadaşı $b$'yi
+içermez. Bölüm topolojisinin açık kümeleri ancak doymuş açık kümelerden gelir.
+
+\subsection*{Örnek 5.7 — Sınıflardan Noktalara: Round-Trip}
+
+\texttt{equivalence\_from\_classes} sınıf bloklarından denklik bağıntısı kurar;
+\texttt{partition\_from\_equivalence} bağıntıyı tekrar bölüntüye çevirir.
+
+\begin{lstlisting}[language=Python]
+rt_blocks = equivalence_from_classes([1, 2], [3], [4, 5])
+print("Denklik mi?", is_equivalence_relation([1, 2, 3, 4, 5], rt_blocks))
+rt_part = partition_from_equivalence([1, 2, 3, 4, 5], rt_blocks)
+print("Blok sayisi:", len(rt_part))
+print("Bloklar:", sorted(sorted(b) for b in rt_part))
+\end{lstlisting}
+
+\begin{verbatim}
+Denklik mi? True
+Blok sayisi: 3
+Bloklar: [[1, 2], [3], [4, 5]]
+\end{verbatim}
+
+Sınıflardan kurulan bağıntı, bölüntüye çevrilip geri okunduğunda aynı üç bloğu
+verir: bölüm uzayının $3$ noktası, tam olarak $3$ denklik sınıfına karşılık gelir.
+
 %-------------------------------------------------------------------
 \section{Alıştırmalar}
 
@@ -210,6 +367,14 @@ Justification: Map tag 'quotient' is explicitly present.
       \texttt{finite\_quotient\_summary} çağırın ve çıktıyı yorumlayın.
 \item \texttt{make\_topology([1,2,3,4], set(), \{1,2\}, \{3,4\}, \{1,2,3,4\})} üzerinde
       \texttt{[[1,2],[3,4]]} ve \texttt{[[1],[2],[3],[4]]} bölüntülerini karşılaştırın.
+\item \texttt{[0,1,2,3,4,5]} taşıyıcısı üzerinde \texttt{[[0,5],[1],[2],[3],[4]]}
+      bölüntüsünü \texttt{equivalence\_from\_partition} ile denklik bağıntısına
+      çevirin; \texttt{is\_equivalence\_relation} ile doğrulayın ve $0$ ile $5$'in
+      \texttt{equivalence\_class} çıktılarının aynı olduğunu gösterin.
+\item \texttt{['x','y','z']} taşıyıcısı ve \texttt{[['x','y'],['z']]} bölüntüsü için
+      \texttt{canonical\_projection\_from\_equivalence} çağırıp her noktanın
+      görüntüsünü yazdırın; \texttt{\{'x','y'\}} kümesinin doymuş,
+      \texttt{\{'x'\}} kümesinin doymuş olmadığını gösterin.
 \end{enumerate}
 
 \subsection*{Teori}
@@ -219,4 +384,11 @@ Justification: Map tag 'quotient' is explicitly present.
       her zaman sürekli olduğunu ispatlayın.
 \item $X$ bağlantılı $\Rightarrow X/{\sim}$ bağlantılı olduğunu ispatlayın.
       ($q$ sürekli ve surjektif; bağlantılı kümenin sürekli görüntüsü bağlantılıdır.)
+\item Bölüm haritasının \textbf{evrensel özelliğini} ispatlayın:
+      $g: X/{\sim} \to Z$ için $g$ sürekli $\iff g \circ q$ sürekli.
+      \ipucu{$(g \circ q)^{-1}(V) = q^{-1}(g^{-1}(V))$ eşitliğini bölüm
+      topolojisinin tanımıyla birleştirin.}
+\item $A \subseteq X$ doymuş ($A = q^{-1}(q(A))$) ise $q(A)$'nın bölüm uzayında
+      açık olması için $A$'nın $X$'te açık olmasının yeterli ve gerekli olduğunu
+      gösterin. Doymamış bir $A$ için bu yazışmanın neden bozulduğunu açıklayın.
 \end{enumerate}

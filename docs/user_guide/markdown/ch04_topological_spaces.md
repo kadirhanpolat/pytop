@@ -379,6 +379,67 @@ Etiketler: ['complete', 'connected', 'first_countable', 'hausdorff', 'infinite',
 
 **Ne oldu?** `Tasiyici: R` satırı taşıyıcının *simgesel* olduğunu söyler: gerçek doğrunun noktaları bellekte tutulmaz, `topology=None`'dır. Tüm topolojik bilgi etiketlerde kodlanmıştır. Sonlu uzaylardaki "hesapla ve doğrula" yaklaşımının yerini burada "bilinen teoremleri etiketle" yaklaşımı alır.
 
+### Örnek 5.7 — Aksiyom Denetimi ve Kapalı Kümeler
+
+Bir açık küme ailesinin gerçekten topoloji *olup olmadığını* `is_topology` doğrudan denetler; bir topolojinin **kapalı** kümeleri (tümleyenleri açık olanlar) `closed_sets_from_topology` ile çıkarılır.
+
+```python
+from pytop import is_topology, make_topology, closed_sets_from_topology
+
+X = {1, 2, 3}
+gecerli = [set(), {1}, {2, 3}, {1, 2, 3}]
+gecersiz = [set(), {1}, {2}, {1, 2, 3}]   # {1} U {2} = {1,2} eksik -> (T3) ihlal
+print("gecerli aile  :", is_topology(X, gecerli))
+print("gecersiz aile :", is_topology(X, gecersiz))
+
+sp = make_topology({1, 2, 3}, {1}, {2, 3})
+kapali = closed_sets_from_topology(sp.carrier, sp.topology)
+print("Acik  :", sorted(sorted(t) for t in sp.topology))
+print("Kapali:", sorted(sorted(c) for c in kapali))
+```
+
+```text
+gecerli aile  : True
+gecersiz aile : False
+Acik  : [[], [1], [1, 2, 3], [2, 3]]
+Kapali: [[], [1], [1, 2, 3], [2, 3]]
+```
+
+**Ne oldu?** İlk iki satır, "Karşı-örnek" kutusundaki aileyi makineyle doğrular: `gecersiz` ailede $\{1\}\cup\{2\}=\{1,2\}$ eksik olduğundan (T3) düşer ve `is_topology` `False` döner. Son iki satırda her açık kümenin tümleyeni alınır: $\emptyset$ ile $X$ daima birbirinin tümleyenidir; $\{1\}$ ve $\{2,3\}$ de birbirinin tümleyeni olduğundan bu uzayda açık kümeler ailesi ile kapalı kümeler ailesi *çakışır*. Hem açık hem kapalı olan kümelere **clopen** denir — buradaki dört kümenin tümü clopen'dir. Kapanış/iç hesabı Bölüm 5'te bu temele oturur.
+
+### Örnek 5.8 — Dışlanan-Nokta Topolojisi ve Komşuluk Karakteri
+
+`excluded_point_topology(n, p)`, $\{0,1,\dots,n-1\}$ üzerinde $p$ noktasını *dışlayan* topolojiyi kurar: bir küme açıktır ⟺ ya $p$'yi içermez ya da tüm uzaydır. `analyze_neighborhood_system` ise bir noktanın komşuluk sistemini ve **karakterini** (en küçük komşuluk tabanının boyutu) verir.
+
+```python
+from pytop import excluded_point_topology, make_topology, analyze_neighborhood_system
+
+ep = excluded_point_topology(3, 0)   # X = {0,1,2}, 0 noktasi dislanir
+print("Tasiyici:", sorted(ep.carrier))
+print("|tau| =", len(ep.topology))
+print("Acik:", sorted(sorted(t) for t in ep.topology))
+print("Etiketler:", sorted(ep.tags))
+
+s = make_topology({1, 2, 3}, {1}, {1, 2})
+r = analyze_neighborhood_system(list(s.carrier), list(s.topology), point=1)
+print("1'in komsuluk sayisi:", r.value["neighborhood_count"])
+print("1'in karakteri      :", r.value["character"])
+```
+
+```text
+Tasiyici: [0, 1, 2]
+|tau| = 5
+Acik: [[], [0, 1, 2], [1], [1, 2], [2]]
+Etiketler: ['compact', 'connected', 'finite', 'first_countable', 'not_hausdorff', 'not_t1', 'second_countable', 'separable', 't0']
+```
+
+```text
+1'in komsuluk sayisi: 4
+1'in karakteri      : 3
+```
+
+**Ne oldu?** İlk blok dışlanan-nokta topolojisini gösterir: $0$ noktası yalnız tüm uzay $X$'te göründüğünden, $0$'ı içeren *tek* açık küme $X$'tir; $\{1\},\{2\},\{1,2\}$ açıktır ama $\{0\}$ açık değildir. Etiketlerde `t0` var ve `not_t1` var — yani uzay T0'dır ama T1 değildir (Sierpiński ile aynı asimetri, üç noktaya genişlemiş hali). İkinci blok `analyze_neighborhood_system` çıktısıdır: $1$ noktasını içeren açık kümeler $\{1\},\{1,2\},\{1,2,3\}$ olduğundan `neighborhood_count` $=4$ (bu üç açığın ürettiği komşuluklar) ve **karakter** $=3$ — bir noktanın "yerel karmaşıklığını" sayan ilk kardinal işlevdir (Bölüm 16'da derinleşir).
+
 ---
 
 ## 6. Alıştırmalar
@@ -397,6 +458,10 @@ Etiketler: ['complete', 'connected', 'first_countable', 'hausdorff', 'infinite',
 *İpucu: Açıklar önek yapısındadır; "en açık" nokta her boş olmayan açıkta bulunandır.*
 *(Çözüm: [solutions.md](solutions.md) → Bölüm 4 / K3)*
 
+**K4.** `count_topologies_on_n_points(n)` fonksiyonunu $n=0,1,2,3,4$ için çalıştırın. T1 alıştırmasındaki "$X=\{1,2,3\}$ üzerinde 29 topoloji" iddiasını çıktıyla doğrulayın; $n=4$ değerinin neden $2^{2^4}=65536$'dan çok küçük olduğunu bir cümleyle açıklayın.
+*İpucu: Dizi 1, 1, 4, 29, 355 (OEIS A000798); aksiyom denetimi adayların ezici çoğunluğunu eler.*
+*(Çözüm: [_solutions_ch04.md](_solutions_ch04.md) → Bölüm 4 (ek) / K4)*
+
 ### Teori Alıştırmaları
 
 **T1.** $X=\{1,2,3\}$ üzerinde kaç farklı topoloji tanımlanabilir? Baz teoremini doğrudan saymak yerine neden kullanmak pratiktir?
@@ -406,3 +471,7 @@ Etiketler: ['complete', 'connected', 'first_countable', 'hausdorff', 'infinite',
 **T2.** Ayrık topolojinin her zaman en ince, indirgenmiş topolojinin en kaba olduğunu T1–T3 aksiyomlarını kullanarak kanıtlayın.
 *İpucu: Ayrıklık için aksiyom gerekmez ($\tau\subseteq\mathcal{P}(X)$ tanım gereğidir); indirgenmişlik için yalnız (T1) yeter.*
 *(Çözüm: [solutions.md](solutions.md) → Bölüm 4 / T2)*
+
+**T3.** `excluded_point_topology(3, 0)` uzayının `t0` taşıyıp `not_t1` taşımasını (yani T0 olup T1 olmamasını) kanıtlayın. Hangi nokta çifti hangi yönden ayrılamaz? Bu uzayı Sierpiński uzayıyla karşılaştırın.
+*İpucu: $0$'ı içeren tek açık $X$'tir; $0$ ile herhangi bir $y\neq 0$ noktasını "0 içeren ama y içermeyen açık" yönünde ayıramazsınız, ters yön ($\{y\}$) ise işe yarar — bu tam olarak T0-ama-T1-değil tanımıdır.*
+*(Çözüm: [_solutions_ch04.md](_solutions_ch04.md) → Bölüm 4 (ek) / T3)*
