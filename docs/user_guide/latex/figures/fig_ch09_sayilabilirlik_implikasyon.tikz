@@ -1,0 +1,15 @@
+\begin{tikzpicture}[font=\small, node distance=10mm,
+    aks/.style={draw, rounded corners, fill=blue!6, inner sep=5pt, align=center}]
+  \node[aks] (sc) {2.\ sayılabilir\\ (sayılabilir baz)};
+  \node[aks, above right=10mm and 16mm of sc] (fc) {1.\ sayılabilir\\ (sayılabilir yerel baz)};
+  \node[aks, right=24mm of sc] (sep) {ayrılabilir\\ (yoğun say.\ alt küme)};
+  \node[aks, below right=10mm and 16mm of sc] (lin) {Lindelöf\\ (say.\ alt-örtü)};
+  \draw[-{Stealth[length=2.6mm]}, thick] (sc) -- (fc);
+  \draw[-{Stealth[length=2.6mm]}, thick] (sc) -- (sep);
+  \draw[-{Stealth[length=2.6mm]}, thick] (sc) -- (lin);
+  \node[aks, fill=green!7, left=22mm of sc, align=center] (met) {metrik\\ uzay};
+  \draw[-{Stealth[length=2.6mm]}, thick] (met) -- (fc.west);
+  \draw[red!70!black, -{Stealth[length=2.2mm]}, dashed]
+    (fc.east) to[bend left=22] node[right=2pt, font=\scriptsize, align=center]
+    {tersi geçmez:\\ Sorgenfrey doğrusu\\ (1., ayrıl., Lindelöf\\ ama 2.\ sayılabilir değil)} (sep.east);
+\end{tikzpicture}
