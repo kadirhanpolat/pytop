@@ -1,0 +1,24 @@
+\begin{tikzpicture}[font=\small, node distance=6mm,
+    kat/.style={draw, rounded corners, minimum width=78mm, minimum height=15mm,
+                align=center, inner sep=5pt},
+    kut/.style={draw, rounded corners, fill=white, inner sep=3pt,
+                align=center, font=\scriptsize}]
+  \node[kat, fill=green!8] (desc) {};
+  \node[anchor=north west, font=\bfseries] at (desc.north west) {Betimsel katman};
+  \node[anchor=south east, font=\scriptsize\itshape] at (desc.south east) {bilir, hesaplamaz};
+  \node[kut, below=2mm of desc.north, yshift=-4mm] (d1) {\texttt{*Profile} kayitlari};
+  \node[kut, right=4mm of d1] (d2) {\texttt{get\_*\_profiles()}};
+  \node[kut, left=4mm of d1] (d0) {unlu uzay/teorem};
+
+  \node[kat, fill=blue!8, below=14mm of desc] (cons) {};
+  \node[anchor=north west, font=\bfseries] at (cons.north west) {Yapici katman};
+  \node[anchor=south east, font=\scriptsize\itshape] at (cons.south east) {ham girdiden hesaplar};
+  \node[kut, below=2mm of cons.north, yshift=-4mm] (c1) {\texttt{simplicial\_homology}};
+  \node[kut, right=4mm of c1] (c2) {\texttt{persistent\_homology}};
+  \node[kut, left=4mm of c1] (c0) {\texttt{jones\_polynomial}};
+
+  \draw[-{Stealth[length=2.6mm]}, thick]
+    (cons.north) -- (desc.south)
+    node[midway, right=1mm, font=\scriptsize, align=left]
+    {hesaplanan sonuc\\ kayitlari dogrular};
+\end{tikzpicture}
