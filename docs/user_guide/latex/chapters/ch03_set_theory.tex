@@ -12,6 +12,44 @@ $A \subseteq B \Longleftrightarrow \forall a \in A,\, a \in B$.
 $|\mathcal{P}(A)| = 2^{|A|}$.
 \end{definition}
 
+İki kümenin işlemleri Venn şemasıyla görselleştirilir: $A\cup B$ üç bölgenin
+tamamı, $A\cap B$ ortadaki örtüşen bölge, $A\setminus B$ ise $A$'nın $B$'den
+ayrık kalan kısmıdır.
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch03_venn.tikz}
+\caption{İki küme için $A\cup B$, $A\cap B$ ve $A\setminus B$ bölgeleri.}
+\end{figure}
+
+\begin{sezgi}
+Tümleyen her zaman bir \textbf{evrene} ($X$) göre tanımlıdır; ``$A^c$'' tek
+başına anlamsızdır. pytop bunu \texttt{complement(subset, universe)} imzasıyla
+zorunlu kılar.
+\end{sezgi}
+
+\begin{karsiornek}
+``$A\cup B$ her zaman $A$'dan büyüktür'' yanlıştır: $B\subseteq A$ ise
+$A\cup B = A$. Örneğin $A=\{1,2,3\}$, $B=\{2\}$ için $|A\cup B|=|A|=3$.
+\end{karsiornek}
+
+\begin{definition}[Kartezyen Çarpım]
+$A \times B = \{(a,b) : a\in A,\ b\in B\}$ ve $|A\times B| = |A|\cdot|B|$.
+$A$ üzerinde bir bağıntı $R \subseteq A\times A$.
+\end{definition}
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch03_kartezyen.tikz}
+\caption{$A\times B$ kartezyen çarpım ızgarası ($|A\times B|=6$).}
+\end{figure}
+
+\begin{karsiornek}
+Kartezyen çarpım değişmeli değildir: $A\times B \ne B\times A$ (genel olarak).
+$(a,1)\in A\times B$ ama $(a,1)\notin B\times A$, çünkü $B\times A$'nın ikilileri
+$(1,a)$ biçimindedir.
+\end{karsiornek}
+
 \begin{definition}[Denklik Bağıntısı]
 $A$ üzerinde $R \subseteq A \times A$ bağıntısı \textbf{denklik bağıntısıdır} iff:
 yansımalı ($\forall a,(a,a)\in R$), simetrik ($(a,b)\in R\Rightarrow(b,a)\in R$),
@@ -35,9 +73,24 @@ $f: A \to B$ için:
 $(A \cup B)^c = A^c \cap B^c$ ve $(A \cap B)^c = A^c \cup B^c$.
 \end{theorem}
 
+\begin{proof}[İspat eskizi]
+Çift kapsama ile: $x \in (A\cup B)^c \Leftrightarrow x \notin A\cup B
+\Leftrightarrow x\notin A \text{ ve } x\notin B \Leftrightarrow x\in A^c\cap B^c$.
+Her adım çift yönlü olduğundan iki küme aynı elemanlara sahiptir. İkinci eşitlik
+``veya''nın değillemesiyle simetrik biçimde elde edilir.
+\end{proof}
+
 \begin{theorem}[Güç Kümesi Boyutu]
 $|A| = n \Rightarrow |\mathcal{P}(A)| = 2^n$.
 \end{theorem}
+
+\begin{proof}[İspat eskizi]
+Her $S\subseteq A$, $A$'nın $n$ elemanının her biri için ``$S$ içinde mi?''
+sorusuna evet/hayır cevabı veren bir ikili dizgiyle birebir eşleşir. $n$
+bağımsız ikili seçim olduğundan toplam $2^n$. Tümevarımla: $|A|=0$ için
+$|\mathcal{P}|=1=2^0$; bir eleman eklendiğinde her eski alt küme hem eleman-sız
+hem eleman-lı sayılır, miktar ikiye katlanır.
+\end{proof}
 
 \begin{theorem}[Denklik Sınıfları Bölüntü Oluşturur]
 $\sim$ denklik bağıntısı ise $\{[a] : a \in A\}$ $A$'nın bir bölüntüsüdür:
@@ -89,14 +142,17 @@ $f^{-1}(S_1 \cap S_2) = f^{-1}(S_1) \cap f^{-1}(S_2)$.
 
 \begin{lstlisting}[language=Python]
 from pytop import (
-    make_set, power_set,
-    set_union, set_intersection, set_difference,
+    make_set, power_set, empty_set,
+    set_union, set_intersection, set_difference, complement,
+    cartesian_product, indexed_union, indexed_intersection,
     is_subset, is_proper_subset, equal_sets,
     make_relation, is_equivalence_relation,
-    identity_relation, inverse_relation, relation_profile,
+    identity_relation, inverse_relation, compose_relations,
+    relation_profile,
+    equivalence_class, partition_from_equivalence,
+    total_order_from_list, is_partial_order, is_total_order,
     normalize_finite_map_data,
-    is_injective_finite_map, is_surjective_finite_map,
-    is_bijective_finite_map,
+    is_injective_finite_map, is_surjective_finite_map, is_bijective_finite_map,
     image_of_subset_finite, preimage_of_subset_finite,
 )
 \end{lstlisting}
@@ -104,6 +160,12 @@ from pytop import (
 \texttt{make\_set(*elements)} $\to$ \texttt{frozenset}
 
 \texttt{power\_set(values)} $\to$ \texttt{set[frozenset]}
+
+\texttt{complement(subset, universe)} $\to$ \texttt{set} — evrene göre $A^c$
+
+\texttt{cartesian\_product(left, right)} $\to$ \texttt{set[tuple]} — $A\times B$
+
+\texttt{indexed\_union(family)} / \texttt{indexed\_intersection(family)} $\to$ \texttt{set}
 
 \texttt{make\_relation(carrier, *pairs)} $\to$ \texttt{set[tuple]}
 
@@ -202,6 +264,53 @@ f({1,2}): ['a', 'b']
 f^-1({b,c}): [2, 3]
 \end{verbatim}
 
+\subsection*{Örnek 5.6 — De Morgan Yasaları (Tümleyenle)}
+
+\begin{lstlisting}[language=Python]
+X = make_set(1, 2, 3, 4, 5, 6)
+A = make_set(1, 2, 3)
+B = make_set(3, 4, 5)
+lhs1 = complement(set_union(A, B), X)
+rhs1 = set_intersection(complement(A, X), complement(B, X))
+print("(A u B)^c:", sorted(lhs1), "==", sorted(rhs1))
+lhs2 = complement(set_intersection(A, B), X)
+rhs2 = set_union(complement(A, X), complement(B, X))
+print("(A n B)^c:", sorted(lhs2), "==", sorted(rhs2))
+\end{lstlisting}
+
+\begin{verbatim}
+(A u B)^c: [6] == [6]
+(A n B)^c: [1, 2, 4, 5, 6] == [1, 2, 4, 5, 6]
+\end{verbatim}
+
+\subsection*{Örnek 5.7 — Kartezyen Çarpım}
+
+\begin{lstlisting}[language=Python]
+P = make_set('a', 'b')
+Q = make_set(1, 2, 3)
+prod = cartesian_product(P, Q)
+print("|PxQ| =", len(prod))  # 2*3 = 6
+print(sorted(prod, key=lambda t: (t[0], t[1])))
+\end{lstlisting}
+
+\begin{verbatim}
+|PxQ| = 6
+[('a', 1), ('a', 2), ('a', 3), ('b', 1), ('b', 2), ('b', 3)]
+\end{verbatim}
+
+\subsection*{Örnek 5.8 — İndeksli Aile}
+
+\begin{lstlisting}[language=Python]
+fam = {0: [1, 2, 3], 1: [2, 3, 4], 2: [3, 4, 5]}
+print("birlesim:", sorted(indexed_union(fam)))
+print("kesisim :", sorted(indexed_intersection(fam)))
+\end{lstlisting}
+
+\begin{verbatim}
+birlesim: [1, 2, 3, 4, 5]
+kesisim : [3]
+\end{verbatim}
+
 %-------------------------------------------------------------------
 \section{Alıştırmalar}
 
@@ -213,6 +322,11 @@ f^-1({b,c}): [2, 3]
 \item $\{1,2,3,4\}$ için güç kümesini üretin; $|\mathcal{P}|=16$ olduğunu doğrulayın.
 \item $R = \{(i,j): 0\le i,j \le 2\}$ (tam çarpım) üzerinde \texttt{relation\_profile}
       çalıştırın ve denklik olduğunu gösterin.
+\item $X=\{1,\dots,8\}$, $A=\{1,2,3,4\}$, $B=\{3,4,5,6\}$ için \texttt{complement}
+      ile her iki De Morgan eşitliğini doğrulayın.
+\item $P=\{x,y,z\}$, $Q=\{0,1\}$ için \texttt{cartesian\_product} ile $P\times Q$
+      ve $Q\times P$ üretin; boyutların eşit ama kümelerin farklı olduğunu
+      \texttt{equal\_sets} ile gösterin.
 \end{enumerate}
 
 \subsection*{Teori}

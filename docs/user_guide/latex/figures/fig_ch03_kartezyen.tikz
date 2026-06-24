@@ -1,0 +1,20 @@
+\begin{tikzpicture}[scale=1.2, font=\small]
+  % 2 (yatay, A) x 3 (dikey, B) izgara
+  \draw[gray!40] (0,0) grid (2,3);
+  % A ekseni (yatay): a, b
+  \node[blue!70!black] at (0.5,-0.4) {$a$};
+  \node[blue!70!black] at (1.5,-0.4) {$b$};
+  \node[blue!70!black] at (1.0,-0.95) {$A=\{a,b\}$};
+  % B ekseni (dikey): 1, 2, 3
+  \node[violet!80!black] at (-0.4,0.5) {$1$};
+  \node[violet!80!black] at (-0.4,1.5) {$2$};
+  \node[violet!80!black] at (-0.4,2.5) {$3$};
+  \node[violet!80!black, rotate=90] at (-1.0,1.5) {$B=\{1,2,3\}$};
+  % carpim noktalari (a,1)...(b,3)
+  \foreach \x/\xl in {0.5/a, 1.5/b}
+    \foreach \y/\yl in {0.5/1, 1.5/2, 2.5/3} {
+      \fill[red!70!black] (\x,\y) circle (2.2pt);
+      \node[anchor=south west, font=\scriptsize] at (\x+0.07,\y+0.05) {$(\xl,\yl)$};
+    }
+  \node at (1.0,-1.6) {$|A\times B| = |A|\cdot|B| = 2\cdot 3 = 6$};
+\end{tikzpicture}
