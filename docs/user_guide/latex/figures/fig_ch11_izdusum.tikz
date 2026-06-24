@@ -1,0 +1,22 @@
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % Product box X x Y in the middle-top
+  \draw[violet!70!black, thick, fill=violet!10] (2.0,1.6) rectangle (5.2,3.6);
+  \node[violet!75!black] at (3.6,3.9) {$X \times Y$};
+  \fill (3.6,2.6) circle (1.8pt);
+  \node[font=\scriptsize, above right=0pt] at (3.6,2.6) {$(x,y)$};
+  % X line bottom-left
+  \draw[blue!70!black, thick, fill=blue!8] (-0.4,-0.4) rectangle (2.6,0.4);
+  \node[blue!70!black] at (2.3,0.55) {$X$};
+  \fill (1.1,0.0) circle (1.8pt) node[below=2pt, font=\scriptsize] {$x$};
+  % Y line bottom-right
+  \draw[red!70!black, thick, fill=red!8] (4.6,-0.4) rectangle (7.6,0.4);
+  \node[red!70!black] at (4.9,0.55) {$Y$};
+  \fill (6.1,0.0) circle (1.8pt) node[below=2pt, font=\scriptsize] {$y$};
+  % projection arrows
+  \draw[blue!70!black, -{Stealth}, thick]
+    (3.2,1.5) to[bend right=18] node[left, font=\scriptsize, pos=0.55] {$\pi_X$} (1.0,0.55);
+  \draw[red!70!black, -{Stealth}, thick]
+    (4.2,1.5) to[bend left=18] node[right, font=\scriptsize, pos=0.55] {$\pi_Y$} (6.2,0.55);
+  \node[font=\scriptsize, align=center] at (3.6,-1.15)
+    {$\pi_X(x,y)=x,\quad \pi_Y(x,y)=y$ \; (her ikisi sürekli)};
+\end{tikzpicture}

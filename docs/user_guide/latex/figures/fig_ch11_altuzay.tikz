@@ -1,0 +1,22 @@
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % Ambient space X
+  \draw[rounded corners=10pt, thick] (-0.5,-1.6) rectangle (6.7,2.2);
+  \node at (6.25,1.85) {$X$};
+  % Open set U of X
+  \draw[blue!70!black, thick, fill=blue!8]
+    plot[smooth cycle, tension=0.8] coordinates
+    {(0.5,-0.4) (2.6,-1.0) (4.9,-0.2) (4.6,1.5) (2.5,1.9) (0.6,1.2)};
+  \node[blue!70!black] at (4.25,1.45) {$U \in \tau$};
+  % Subset A (a horizontal strip)
+  \draw[red!70!black, thick, fill=red!7]
+    (-0.2,-0.9) rectangle (6.4,0.1);
+  \node[red!70!black] at (-0.05,-1.25) {$A$};
+  % Intersection U cap A highlighted
+  \draw[violet!70!black, very thick, fill=violet!22, fill opacity=0.7]
+    (0.55,-0.9) -- (4.75,-0.9) -- (4.7,0.1) -- (0.62,0.1) -- cycle;
+  \node[violet!75!black, align=center] at (2.65,-0.4)
+    {$U \cap A$};
+  \node[align=left, anchor=west, font=\scriptsize] at (7.0,0.3)
+    {Alt uzay topolojisi:\\ $\tau_A = \{\,U \cap A : U \in \tau\,\}$.\\[2pt]
+     $A$'nın açıkları, $X$'in\\ açıklarını $A$ ile kesmekle doğar.};
+\end{tikzpicture}
