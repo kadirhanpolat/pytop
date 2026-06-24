@@ -97,3 +97,10 @@ Never remove or rename a public symbol without a deprecation. Use the
 Use the issue templates (bug / feature / docs). A minimal reproducible example
 and the expected-vs-actual result make everything faster. For open-ended
 questions, use GitHub Discussions.
+
+## First time here?
+
+New contributors: see [`docs/GOOD_FIRST_ISSUES.md`](docs/GOOD_FIRST_ISSUES.md)
+for a curated backlog of small, self-contained tasks — each grounded in a real
+file with a concrete acceptance check. On GitHub these carry the
+`good first issue` label.

@@ -60,9 +60,12 @@ not yet changed** (changes are deferred to the v2.0 window via `DEPRECATIONS.md`
    the rule is *consistency within a domain*, not one universal name.
 
 3. **`persistent_homology` vs `persistent_homology_optimized`.** The base function
-   already routes to the twist method by default, so `_optimized` is effectively a
-   historical alias. *Recommendation:* candidate for a soft deprecation note in a
-   future minor release (not urgent; both produce identical results).
+   already routes to the twist method by default (and to the size-aware `"auto"`
+   router since P17.3), so `_optimized` is effectively a historical alias.
+   *Resolution:* a soft-deprecation note now lives on the wrapper's docstring and
+   in `DEPRECATIONS.md` → *Candidates* (no `DeprecationWarning` yet; both produce
+   identical results). It graduates to an active `@deprecated` when the 1.7.0 line
+   opens.
 
 ## Rules for new public API
 

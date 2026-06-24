@@ -260,6 +260,15 @@ def persistent_homology_optimized(
     :func:`~pytop.persistent_homology.vietoris_rips_filtration` then
     :func:`persistence_pairs_twist`.
 
+    .. note::
+       Soft-deprecation candidate (see ``DEPRECATIONS.md`` and
+       ``docs/API_DESIGN.md`` finding #3). Since :func:`persistent_homology`
+       already routes to the twist method by default — and to the size-aware
+       ``"auto"`` router as of P17.3 — this wrapper is effectively a historical
+       alias. Prefer ``persistent_homology(space, method="auto")`` in new code.
+       No behavior change and no ``DeprecationWarning`` yet; both produce
+       identical barcodes.
+
     Parameters
     ----------
     space:

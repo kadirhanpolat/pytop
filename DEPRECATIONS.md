@@ -69,6 +69,17 @@ from pytop import preservation_tables
 table = preservation_tables.preservation_table()        # direct table/dict access
 ```
 
+## Candidates (soft deprecations)
+
+Symbols flagged for a *future* deprecation but **not yet** emitting a
+`DeprecationWarning`. They carry only a docstring note pointing at the preferred
+entry point. They graduate to **Active deprecations** (with `@deprecated`,
+`since="1.7.0"`) once the 1.7.0 line opens. No behavior change in the meantime.
+
+| Symbol | Module | Preferred | Rationale |
+|--------|--------|-----------|-----------|
+| `persistent_homology_optimized` | `pytop.persistent_homology_optimized` | `persistent_homology(space, method="auto")` | `persistent_homology` already defaults to twist and, since P17.3, to the size-aware `"auto"` router; the wrapper is a historical alias (`docs/API_DESIGN.md` finding #3). Identical barcodes. |
+
 ## Removed
 
 _None yet._ Symbols removed in a major release are listed here with the version
