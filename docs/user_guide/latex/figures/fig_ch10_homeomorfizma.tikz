@@ -1,0 +1,16 @@
+\begin{tikzpicture}[font=\small]
+  % --- space X ---
+  \draw[blue!70!black, thick, fill=blue!8] (0,0) ellipse [x radius=1.2, y radius=0.95];
+  \node[blue!70!black] at (0,1.3) {$(X,\tau_X)$};
+  % --- space Y ---
+  \draw[violet!80!black, thick, fill=violet!8] (5.0,0) ellipse [x radius=1.2, y radius=0.95];
+  \node[violet!80!black] at (5.0,1.3) {$(Y,\tau_Y)$};
+  % --- two arrows ---
+  \draw[-{Stealth}, thick] (1.3,0.35) to[bend left=22]
+    node[above, pos=0.5] {$f$ sürekli} (3.7,0.35);
+  \draw[-{Stealth}, thick] (3.7,-0.35) to[bend left=22]
+    node[below, pos=0.5] {$f^{-1}$ sürekli} (1.3,-0.35);
+  % --- caption ---
+  \node[font=\scriptsize, align=center] at (2.5,-1.7)
+    {bijektif, iki yön de sürekli $\Rightarrow (X,\tau_X)\cong(Y,\tau_Y)$};
+\end{tikzpicture}

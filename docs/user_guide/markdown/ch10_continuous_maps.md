@@ -8,11 +8,15 @@ topolojik yapıyı tam olarak koruyan bijektif sürekli fonksiyondur.
 
 ## 1. Konu
 
+> **💡 Sezgi:** Sürekliliği "açıklığın geri taşınması" gibi düşünün: hedef uzayda hangi açık kümeye bakarsanız bakın, onun *geri çekimi* (preimage) kaynak uzayda yine açık olmalı. Analizden bildiğiniz "ε–δ" tanımı bunun metrik özelidir; topolojide ε–δ yerine doğrudan açık kümelerin dilini kullanırız. Homeomorfizma ise bu taşımanın *iki yönde* de bozulmadan işlemesi — yani iki uzayın topolojik olarak "aynı" olmasıdır.
+
 ### Süreklilik Tanımı
 
 f: (X, τ_X) → (Y, τ_Y) fonksiyonu **sürekli** ise:
 
     ∀ V ∈ τ_Y: f⁻¹(V) ∈ τ_X
+
+![Süreklilik: açık V'nin geri çekimi f⁻¹(V) açıktır](../assets/ch10/fig_ch10_sureklilik.png)
 
 Eşdeğer koşullar:
 - Her kapalı F ⊆ Y için f⁻¹(F) kapalıdır.
@@ -27,10 +31,14 @@ Eşdeğer koşullar:
 | **Bileşke** | f, g sürekli ⟹ g∘f sürekli |
 | **Homeomorfizma** | Bijektif, f ve f⁻¹ sürekli |
 
+![Homeomorfizma: bijektif, iki yönde de sürekli eşleme](../assets/ch10/fig_ch10_homeomorfizma.png)
+
 ### Görüntü ve Geri Çekim
 
 - **Görüntü:** f(A) = {f(x) : x ∈ A}
 - **Geri çekim:** f⁻¹(B) = {x ∈ X : f(x) ∈ B}
+
+> **🚫 Karşı-örnek:** Süreklilik *yöne duyarlıdır*. Aynı taşıyıcı küme `{0,1}` üzerinde özdeşlik fonksiyonunu düşünün: ayrık topolojiden (ince) Sierpiński'ye (kaba) **sürekli**, ama Sierpiński'den ayrığa **sürekli değil** — çünkü ayrıktaki açık `{0}`'ın geri çekimi Sierpiński'de açık değildir. Yani "kaba → ince" yönünde özdeşlik genelde süreklilik kaybeder. (Örnek 5.8'de doğrulanır.)
 
 > **Neden bu konu?** Süreklilik topolojinin temel kavramı; homeomorfizma yapı-koruma denkliğidir.
 
@@ -51,7 +59,13 @@ Eşdeğer koşullar:
 
 **Teorem 2.2.** f: X → Y ve g: Y → Z sürekli ⟹ g∘f sürekli.
 
+> **İspat eskizi.** W ⊆ Z açık olsun. g sürekli olduğundan g⁻¹(W) ⊆ Y açıktır. f sürekli olduğundan f⁻¹(g⁻¹(W)) ⊆ X açıktır. Ama (g∘f)⁻¹(W) = f⁻¹(g⁻¹(W)) olduğundan g∘f'in her açık kümenin geri çekimi açıktır — yani g∘f süreklidir.
+
+![Bileşke süreklilik: f ve g sürekli ise g∘f süreklidir](../assets/ch10/fig_ch10_bileske.png)
+
 **Teorem 2.3.** f: X → Y sürekli, X kompakt ⟹ f(X) kompakttır.
+
+> **İspat eskizi.** f(X)'in bir açık örtüsü `{V_α}` verilsin (Y'nin açıklarıyla). f sürekli olduğundan her f⁻¹(V_α) X'te açıktır ve bunlar X'i örter. X kompakt olduğundan sonlu bir alt-örtü f⁻¹(V_{α₁}), …, f⁻¹(V_{αₙ}) vardır. O zaman V_{α₁}, …, V_{αₙ} f(X)'i örter: süreklilik açık örtüyü geri çeker, kompaktlık sonlu alt-örtü verir, görüntüye geri itilir. Demek ki f(X) kompakttır.
 
 **Teorem 2.4.** f: X → Y sürekli, X bağlantılı ⟹ f(X) bağlantılıdır.
 
@@ -199,6 +213,61 @@ print("2-3 swap surekli mi:", is_continuous_finite_map(X, tau_X, X, tau_X, f_23s
 2-3 swap surekli mi: True
 ```
 
+### Örnek 5.7 — Bileşke Süreklilik: g∘f
+
+Üç zincir topolojisi `{∅, {α}, {α,β}, X}` üzerinde zinciri koruyan iki sürekli
+fonksiyonun bileşkesi de süreklidir (Teorem 2.2'nin sayısal doğrulaması).
+
+```python
+TX = make_topology(make_set(1, 2, 3), make_set(1), make_set(1, 2))
+TY = make_topology(make_set('a', 'b', 'c'), make_set('a'), make_set('a', 'b'))
+TZ = make_topology(make_set('p', 'q', 'r'), make_set('p'), make_set('p', 'q'))
+X_pts, X_topo = list(TX.carrier), list(TX.topology)
+Y_pts, Y_topo = list(TY.carrier), list(TY.topology)
+Z_pts, Z_topo = list(TZ.carrier), list(TZ.topology)
+
+f = {1: 'a', 2: 'b', 3: 'c'}
+g = {'a': 'p', 'b': 'q', 'c': 'r'}
+gof = {x: g[f[x]] for x in X_pts}
+
+print("f continuous:    ", is_continuous_finite_map(X_pts, X_topo, Y_pts, Y_topo, f))
+print("g continuous:    ", is_continuous_finite_map(Y_pts, Y_topo, Z_pts, Z_topo, g))
+print("g of f continuous:", is_continuous_finite_map(X_pts, X_topo, Z_pts, Z_topo, gof))
+```
+
+```text
+f continuous:     True
+g continuous:     True
+g of f continuous: True
+```
+
+İki sürekli fonksiyonun geri çekimleri zincirlendiğinde açıklık korunur:
+(g∘f)⁻¹(W) = f⁻¹(g⁻¹(W)).
+
+### Örnek 5.8 — Süreklilik Yöne Duyarlı: İnce → Kaba Sürekli, Kaba → İnce Değil
+
+Aynı `{0,1}` taşıyıcısında özdeşlik fonksiyonu, ayrık (ince) topolojiden
+Sierpiński'ye (kaba) süreklidir; ters yön sürekli değildir.
+
+```python
+fine = discrete_topology(0, 1)
+coarse = sierpinski_space()
+fine_pts, fine_topo = list(fine.carrier), list(fine.topology)
+co_pts, co_topo = list(coarse.carrier), list(coarse.topology)
+idmap = {0: 0, 1: 1}
+
+print("id: discrete -> sierpinski:", is_continuous_finite_map(fine_pts, fine_topo, co_pts, co_topo, idmap))
+print("id: sierpinski -> discrete:", is_continuous_finite_map(co_pts, co_topo, fine_pts, fine_topo, idmap))
+```
+
+```text
+id: discrete -> sierpinski: True
+id: sierpinski -> discrete: False
+```
+
+Ayrıktaki açık `{0}`'ın geri çekimi yine `{0}`'dır; bu Sierpiński τ = {∅, {1}, {0,1}}
+içinde açık olmadığından "kaba → ince" yönü süreklilik kaybeder.
+
 ---
 
 ## 6. Alıştırmalar
@@ -214,8 +283,17 @@ K2. Sierpiński uzayından kendisine giden dört fonksiyonu (sabit 0, sabit 1,
 K3. `finite_homeomorphism_result` ile {1,2,3} ayrık ve {a,b,c} ayrık
     topolojilerinin homeomorf olduğunu doğrulayın.
 
+K4. `make_topology` ile {1,2,3} üzerinde `{α}`, `{α,β}` açıklarıyla iki zincir
+    topolojisi kurun; zinciri koruyan `f` ve `g` tanımlayıp `f`, `g` ve `g∘f`
+    fonksiyonlarının üçünün de sürekli olduğunu `is_continuous_finite_map`
+    ile doğrulayın (Teorem 2.2'nin sayısal kontrolü).
+
 ### Teori
 
 T1. Her sabit fonksiyonun sürekli olduğunu ispatlayın.
 
 T2. f: X → Y ve g: Y → Z sürekli ⟹ g∘f sürekli olduğunu ispatlayın.
+
+T3. f: X → Y sürekli ve X kompakt ise f(X)'in kompakt olduğunu ispatlayın.
+    (İpucu: f(X)'in bir açık örtüsünü f ile geri çekin, X'in kompaktlığını
+    kullanın, sonlu alt-örtüyü görüntüye geri itin.)
