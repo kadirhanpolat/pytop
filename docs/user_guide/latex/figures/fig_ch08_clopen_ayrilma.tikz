@@ -1,0 +1,25 @@
+\begin{tikzpicture}[font=\small, etiket/.style={font=\scriptsize}]
+  % --- Sol: baglantili uzay (tek parca) ---
+  \node[etiket] at (1.6,2.55) {\textbf{Bağlantılı}};
+  \draw[blue!70!black, very thick, fill=blue!12, rounded corners=14pt]
+    (0.2,0.4) ellipse (1.5 and 1.0);
+  \node at (1.6,0.4) {$X$};
+  \node[etiket, align=center] at (1.6,-1.05)
+    {Tek parça: boş olmayan,\\$X$'ten farklı clopen küme \emph{yok}};
+
+  % --- Orta: ayirici ok ---
+  \draw[-{Stealth[length=2.6mm]}, thick] (3.5,0.4) -- (4.6,0.4)
+    node[midway, above, etiket] {kopar};
+
+  % --- Sag: baglantisiz uzay (iki ayri acik parca) ---
+  \node[etiket] at (7.4,2.55) {\textbf{Bağlantısız}};
+  \draw[teal!70!black, very thick, fill=teal!12, rounded corners=10pt]
+    (5.6,0.4) ellipse (0.95 and 0.85);
+  \node at (6.05,0.4) {$U$};
+  \draw[orange!80!black, very thick, fill=orange!14, rounded corners=10pt]
+    (8.4,0.4) ellipse (0.95 and 0.85);
+  \node at (8.75,0.4) {$V$};
+  \node[etiket, align=center] at (7.4,-1.05)
+    {$X = U \sqcup V$,\quad $U,V$ açık ve boş değil\\
+     ikisi de clopen $\Rightarrow$ bağlantısız};
+\end{tikzpicture}

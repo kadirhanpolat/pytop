@@ -1,0 +1,33 @@
+\begin{tikzpicture}[font=\small, etiket/.style={font=\scriptsize},
+    nokta/.style={circle, fill, inner sep=1.6pt}]
+  % ust cerceve: bir uzayin 3 ayri "ada"si = 3 baglantili bilesen
+  \draw[gray!55, thick, rounded corners=8pt] (-0.5,-1.3) rectangle (9.5,1.6);
+  \node[gray!60!black, etiket, anchor=north west] at (-0.4,1.5) {$X$};
+
+  % Bilesen 1: ucgen (baglantili)
+  \node[blue!70!black, etiket] at (1.2,1.2) {$C_1$};
+  \draw[blue!70!black, thick, fill=blue!10, rounded corners=10pt]
+    (0.0,-0.9) -- (2.4,-0.9) -- (1.2,0.9) -- cycle;
+  \node[nokta, blue!70!black] (a1) at (0.4,-0.6) {};
+  \node[nokta, blue!70!black] (a2) at (2.0,-0.6) {};
+  \node[nokta, blue!70!black] (a3) at (1.2,0.6) {};
+  \draw[blue!70!black] (a1)--(a2)--(a3)--(a1);
+
+  % Bilesen 2: tek nokta (izole)
+  \node[teal!70!black, etiket] at (4.5,1.2) {$C_2$};
+  \draw[teal!70!black, thick, fill=teal!10] (4.5,0.0) circle (0.7);
+  \node[nokta, teal!70!black] at (4.5,0.0) {};
+
+  % Bilesen 3: yol (baglantili)
+  \node[orange!80!black, etiket] at (7.6,1.2) {$C_3$};
+  \draw[orange!80!black, thick, fill=orange!10, rounded corners=10pt]
+    (6.3,-0.8) rectangle (9.0,0.7);
+  \node[nokta, orange!80!black] (b1) at (6.7,-0.3) {};
+  \node[nokta, orange!80!black] (b2) at (7.65,0.3) {};
+  \node[nokta, orange!80!black] (b3) at (8.6,-0.3) {};
+  \draw[orange!80!black] (b1)--(b2)--(b3);
+
+  \node[etiket, align=center] at (4.5,-2.0)
+    {Bağlantılı \emph{bileşenler}: $X$'i örten, en büyük bağlantılı, ayrık parçalar.\\
+     $X = C_1 \sqcup C_2 \sqcup C_3$ \quad — \quad $X$ bağlantılı $\iff$ tek bileşen ($k=1$).};
+\end{tikzpicture}
