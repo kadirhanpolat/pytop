@@ -1,0 +1,30 @@
+\begin{tikzpicture}[font=\small, etiket/.style={font=\scriptsize}]
+  % open interval (0,1) on a number line scaled to width 9
+  \def\W{9}
+  \draw[very thick] (0,0) -- (\W,0);
+  \draw[fill=white, thick] (0,0) circle (2.2pt);   % open endpoint 0
+  \draw[fill=white, thick] (\W,0) circle (2.2pt);  % open endpoint 1
+  \node[below=3pt] at (0,0) {$0$};
+  \node[below=3pt] at (\W,0) {$1$};
+  \node[etiket, align=center] at (\W/2,3.15)
+    {Açık örtü $U_n=\left(\tfrac{1}{n},\,1\right)$, \; $n=2,3,4,\dots$};
+
+  % nested intervals U_n = (1/n, 1): left endpoint at W/n
+  \foreach \n/\y/\c in {2/0.55/blue, 3/0.95/teal, 4/1.35/orange, 5/1.75/violet, 6/2.15/red} {
+    \pgfmathsetmacro\lx{\W/\n}
+    \draw[\c!75!black, very thick] (\lx,\y) -- (\W,\y);
+    \draw[\c!75!black, fill=white, thick] (\lx,\y) circle (1.8pt);
+    \node[\c!60!black, etiket, left=1pt] at (\lx,\y) {$U_{\n}$};
+  }
+  % arrow showing escape toward 0
+  \draw[-{Stealth[length=2.6mm]}, red!70!black, thick]
+    (2.0,2.45) -- (0.35,2.45);
+  \node[red!70!black, etiket, align=center] at (4.6,2.5)
+    {sol uç $\tfrac{1}{n}\to 0$ ama $0$'a hiç ulaşmaz};
+
+  \node[etiket, align=center, fill=red!6, rounded corners, inner sep=4pt]
+    at (\W/2,-1.0)
+    {Hiçbir \emph{sonlu} alt-örtü $0$'a yaklaşan kısmı kapatamaz
+     $\;\Rightarrow\;(0,1)$ kompakt \textbf{değil}.\\[2pt]
+     Kapalı $[0,1]$'de $0$ dahil olduğundan sonlu alt-örtü bulunur $\Rightarrow$ kompakt.};
+\end{tikzpicture}

@@ -1,0 +1,25 @@
+\begin{tikzpicture}[font=\small,
+    kapsul/.style={rounded corners=6pt, thick, fill opacity=0.18, draw opacity=0.9},
+    etiket/.style={font=\scriptsize}]
+  % --- Ust: sonsuz acik ortu ---
+  \node[etiket, align=left] at (-1.7,1.05) {Açık örtü\\(sonsuz olabilir)};
+  \draw[very thick] (0,0.6) -- (8,0.6);
+  \node[left] at (0,0.6) {$X$};
+  \foreach \x/\c in {0.2/blue, 1.4/red, 2.6/teal, 3.8/orange, 5.0/violet, 6.2/blue, 7.0/red} {
+    \fill[\c!60, fill opacity=0.18, rounded corners=5pt] (\x,0.35) rectangle ++(1.6,0.5);
+    \draw[\c!70!black, thick, rounded corners=5pt] (\x,0.35) rectangle ++(1.6,0.5);
+  }
+
+  % --- ok ---
+  \draw[-{Stealth[length=3mm]}, very thick] (4,-0.05) -- (4,-0.7)
+    node[midway, right=2pt, etiket] {kompakt $\Rightarrow$ sonlu alt-örtü};
+
+  % --- Alt: sonlu alt-ortu ---
+  \node[etiket, align=left] at (-1.7,-1.45) {Sonlu alt-örtü\\(3 küme yeter)};
+  \draw[very thick] (0,-1.4) -- (8,-1.4);
+  \node[left] at (0,-1.4) {$X$};
+  \foreach \x/\c in {0.2/blue, 2.8/teal, 5.6/violet} {
+    \fill[\c!60, fill opacity=0.22, rounded corners=5pt] (\x,-1.65) rectangle ++(2.6,0.5);
+    \draw[\c!70!black, very thick, rounded corners=5pt] (\x,-1.65) rectangle ++(2.6,0.5);
+  }
+\end{tikzpicture}
