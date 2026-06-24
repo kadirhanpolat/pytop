@@ -280,7 +280,17 @@ def homology_groups(complex_obj: SimplicialComplex) -> tuple[HomologyResult, ...
 
 
 def betti_numbers(complex_obj: SimplicialComplex) -> tuple[int, ...]:
-    """Return ``(b_0, ..., b_dim)``, the ranks of the integral homology groups."""
+    """Return ``(b_0, ..., b_dim)``, the ranks of the integral homology groups.
+
+    Returns a **contiguous tuple** indexed by dimension: ``result[k]`` is β_k for
+    every ``k`` from 0 up to the complex's dimension (zeros included). This is the
+    natural shape for a single finite complex whose dimensions form a dense range.
+
+    Note the deliberate contrast with :func:`pytop.persistence_betti_numbers`,
+    which returns a **sparse** ``dict[int, int]`` (only dimensions that carry an
+    essential class appear) because a filtration may realise features in scattered
+    dimensions. See ``docs/API_DESIGN.md`` (finding #1).
+    """
 
     return tuple(group.betti for group in homology_groups(complex_obj))
 

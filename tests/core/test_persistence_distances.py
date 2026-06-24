@@ -280,3 +280,21 @@ class TestPersistenceLandscape:
         ls1 = persistence_landscape(d, degree=1, num_layers=1, num_grid_points=50)
         ls0 = persistence_landscape(d, degree=0, num_layers=1, num_grid_points=50)
         assert max(ls1.layer(1)) > max(ls0.layer(1))
+
+
+def test_persistence_entropy_hand_computed():
+    """Lock the Shannon formula against a hand-computed 3-bar value (issue #6).
+
+    Three bars with lifetimes 1, 1, 2 -> total length L = 4, so the normalized
+    probabilities are p = [1/4, 1/4, 1/2]. With natural log,
+        H = -(1/4 ln 1/4 + 1/4 ln 1/4 + 1/2 ln 1/2)
+          = -(1/2 ln 1/4 + 1/2 ln 1/2)
+          = (3/2) ln 2
+          = 1.0397207708...
+    """
+    pairs = (
+        PersistencePair(0, 0.0, 1.0),
+        PersistencePair(0, 0.0, 1.0),
+        PersistencePair(1, 0.0, 2.0),
+    )
+    assert persistence_entropy(pairs) == pytest.approx(1.5 * math.log(2))

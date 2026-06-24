@@ -44,3 +44,25 @@ jobs:
 
       - name: Run tests with coverage
         run: pytest tests/ --cov=pytop --cov-report=term-missing -q
+
+      # Issue #9: execute docstring >>> examples. Runs on the deterministic
+      # subset of src/pytop. _internal/ is dev-only tooling (excluded like ruff/
+      # mypy). The listed modules are skipped because their doctests print a
+      # set/dict/frozenset whose repr order is not stable enough for a literal
+      # doctest match (a future good-first-issue can make those examples
+      # deterministic and drop the exclusion).
+      - name: Run docstring doctests
+        run: |
+          pytest --doctest-modules src/pytop -q \
+            --ignore=src/pytop/_internal \
+            --ignore=src/pytop/relations.py \
+            --ignore=src/pytop/sets.py \
+            --ignore=src/pytop/predicate_relations.py \
+            --ignore=src/pytop/predicate_functions.py \
+            --ignore=src/pytop/random_generators.py \
+            --ignore=src/pytop/covering_spaces.py \
+            --ignore=src/pytop/degree_theory.py \
+            --ignore=src/pytop/higher_categories.py \
+            --ignore=src/pytop/nerve_complex.py \
+            --ignore=src/pytop/shape_theory.py \
+            --ignore=src/pytop/topological_field_theory.py

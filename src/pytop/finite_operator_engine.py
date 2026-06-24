@@ -119,6 +119,22 @@ def closed_sets_from_topology(carrier: Iterable[Any], topology: Iterable[Iterabl
 
 
 def closure(carrier: Iterable[Any], topology: Iterable[Iterable[Any]], subset: Iterable[Any]) -> frozenset[Any]:
+    """Return the closure of ``subset``: the smallest closed set containing it.
+
+    Parameters
+    ----------
+    carrier:
+        The underlying point set of the space.
+    topology:
+        The collection of open sets (each an iterable of points of ``carrier``).
+    subset:
+        The set whose closure is computed (a subset of ``carrier``).
+
+    Returns
+    -------
+    frozenset
+        ``cl(subset)`` — the intersection of all closed sets that contain ``subset``.
+    """
     carrier_set, opens = _valid_topology_data(carrier, topology)
     subset_set = _normalize_subset(subset, carrier_set)
     closed_sets = closed_sets_from_topology(carrier_set, opens)
@@ -132,6 +148,22 @@ def closure(carrier: Iterable[Any], topology: Iterable[Iterable[Any]], subset: I
 
 
 def interior(carrier: Iterable[Any], topology: Iterable[Iterable[Any]], subset: Iterable[Any]) -> frozenset[Any]:
+    """Return the interior of ``subset``: the largest open set contained in it.
+
+    Parameters
+    ----------
+    carrier:
+        The underlying point set of the space.
+    topology:
+        The collection of open sets (each an iterable of points of ``carrier``).
+    subset:
+        The set whose interior is computed (a subset of ``carrier``).
+
+    Returns
+    -------
+    frozenset
+        ``int(subset)`` — the union of all open sets contained in ``subset``.
+    """
     carrier_set, opens = _valid_topology_data(carrier, topology)
     subset_set = _normalize_subset(subset, carrier_set)
     result: set[Any] = set()
@@ -142,17 +174,70 @@ def interior(carrier: Iterable[Any], topology: Iterable[Iterable[Any]], subset: 
 
 
 def exterior(carrier: Iterable[Any], topology: Iterable[Iterable[Any]], subset: Iterable[Any]) -> frozenset[Any]:
+    """Return the exterior of ``subset``: the interior of its complement.
+
+    Parameters
+    ----------
+    carrier:
+        The underlying point set of the space.
+    topology:
+        The collection of open sets (each an iterable of points of ``carrier``).
+    subset:
+        The set whose exterior is computed (a subset of ``carrier``).
+
+    Returns
+    -------
+    frozenset
+        ``ext(subset) = int(carrier - subset)`` — points with a neighborhood
+        disjoint from ``subset``.
+    """
     carrier_set, _ = _valid_topology_data(carrier, topology)
     subset_set = _normalize_subset(subset, carrier_set)
     return interior(carrier_set, topology, carrier_set - subset_set)
 
 
 def boundary(carrier: Iterable[Any], topology: Iterable[Iterable[Any]], subset: Iterable[Any]) -> frozenset[Any]:
+    """Return the boundary of ``subset``: its closure minus its interior.
+
+    Parameters
+    ----------
+    carrier:
+        The underlying point set of the space.
+    topology:
+        The collection of open sets (each an iterable of points of ``carrier``).
+    subset:
+        The set whose boundary is computed (a subset of ``carrier``).
+
+    Returns
+    -------
+    frozenset
+        ``∂(subset) = cl(subset) - int(subset)`` — points lying on the frontier
+        between ``subset`` and its complement.
+    """
     subset_set = _normalize_subset(subset, _normalize_carrier(carrier))
     return closure(carrier, topology, subset_set) - interior(carrier, topology, subset_set)
 
 
 def derived_set(carrier: Iterable[Any], topology: Iterable[Iterable[Any]], subset: Iterable[Any]) -> frozenset[Any]:
+    """Return the derived set of ``subset``: its set of limit (accumulation) points.
+
+    A point ``x`` is a limit point of ``subset`` when every open neighborhood of
+    ``x`` meets ``subset`` in a point other than ``x`` itself.
+
+    Parameters
+    ----------
+    carrier:
+        The underlying point set of the space.
+    topology:
+        The collection of open sets (each an iterable of points of ``carrier``).
+    subset:
+        The set whose limit points are computed (a subset of ``carrier``).
+
+    Returns
+    -------
+    frozenset
+        ``subset'`` — the limit points; ``cl(subset) = subset ∪ subset'``.
+    """
     carrier_set, opens = _valid_topology_data(carrier, topology)
     subset_set = _normalize_subset(subset, carrier_set)
     derived: set[Any] = set()

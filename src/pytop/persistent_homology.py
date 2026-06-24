@@ -1169,6 +1169,14 @@ def persistence_betti_numbers(pairs: tuple[PersistencePair, ...]) -> dict[int, i
     that survive the entire filtration.  Their count per dimension is the Betti
     number β_k of the underlying space (assuming the filtration is complete).
 
+    Returns a **sparse** ``dict[int, int]`` keyed by dimension: only dimensions
+    that actually carry an essential class appear (a dimension with β_k = 0 is
+    absent, not stored as 0). This differs on purpose from
+    :func:`pytop.betti_numbers`, which returns a **contiguous** ``tuple[int, ...]``
+    (``result[k] = β_k`` for every ``k``) because a single finite complex has a
+    dense range of dimensions, whereas a filtration may realise features in
+    scattered dimensions. See ``docs/API_DESIGN.md`` (finding #1).
+
     Parameters
     ----------
     pairs:

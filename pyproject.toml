@@ -48,6 +48,7 @@ Repository = "https://github.com/kadirhanpolat/pytop"
 package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
+"pytop" = ["py.typed"]
 "pytop.experimental" = ["_pi_base_data.json"]
 
 [tool.setuptools.packages.find]

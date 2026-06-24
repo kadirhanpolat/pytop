@@ -188,9 +188,18 @@ def signature_torus_knot(p: int, q: int) -> int:
     for general T(p,q).
     """
     if p < 2 or q < 2:
-        raise ValueError("T(p,q) requires p,q ≥ 2.")
+        raise ValueError(
+            f"T(p,q) requires p >= 2 and q >= 2, got p={p}, q={q}. The torus knot "
+            "T(p,q) is the curve winding p times one way and q times the other on a "
+            "torus; with p or q below 2 it degenerates to the unknot. Use e.g. "
+            "T(2,3) for the trefoil or T(2,5) for the cinquefoil."
+        )
     if gcd(p, q) != 1:
-        raise ValueError("p and q must be coprime.")
+        raise ValueError(
+            f"p and q must be coprime, but gcd({p},{q}) = {gcd(p, q)}. A non-coprime "
+            "(p,q) describes a torus *link* with multiple components, not a knot. "
+            "Pass coprime parameters, e.g. T(2,3) or T(3,4)."
+        )
 
     # Exact formula via counting lattice points in the Milnor fiber
     # σ(T(p,q)) = 2 * Σ_{i=1}^{p-1} Σ_{j=1}^{q-1} ((ij/pq is below diagonal))

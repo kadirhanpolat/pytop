@@ -213,11 +213,21 @@ def cech_filtration(
     length (versus the full length in Rips).
     """
     if max_dimension < 0:
-        raise ValueError("max_dimension must be nonneg.")
+        raise ValueError(
+            f"max_dimension must be >= 0, got {max_dimension}. It bounds the "
+            "highest-dimensional simplex built, so a negative value has no meaning. "
+            "Pass max_dimension=1 for edges (H_1 loops) or 2 for triangles "
+            "(H_2 voids)."
+        )
     pts: list[_Pt] = [tuple(float(x) for x in p) for p in points]
     n = len(pts)
     if n == 0:
-        raise ValueError("cech_filtration requires at least one point.")
+        raise ValueError(
+            "cech_filtration requires at least one point, but the point cloud is "
+            "empty. A filtration is built from the pairwise geometry of the points, "
+            "so there is nothing to filter. Pass a non-empty sequence, e.g. "
+            "cech_filtration([(0.0, 0.0), (1.0, 0.0)])."
+        )
 
     # 0-simplices always enter at radius 0
     entries: list[tuple[float, int, tuple[int, ...]]] = [
