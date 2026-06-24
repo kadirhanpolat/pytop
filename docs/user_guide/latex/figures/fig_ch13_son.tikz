@@ -1,0 +1,32 @@
+\begin{tikzpicture}[font=\small]
+  % Source X_1 (top left)
+  \draw[rounded corners=6pt, thick] (-0.4,0.5) rectangle (1.8,1.9);
+  \node at (0.7,2.15) {$(X_1,\sigma_1)$};
+  \draw[blue!70!black, thick, fill=blue!12]
+    (0.7,1.2) ellipse [x radius=0.55, y radius=0.32];
+
+  % Source X_2 (bottom left)
+  \draw[rounded corners=6pt, thick] (-0.4,-1.9) rectangle (1.8,-0.5);
+  \node at (0.7,-2.2) {$(X_2,\sigma_2)$};
+  \draw[red!70!black, thick, fill=red!12]
+    (0.7,-1.2) ellipse [x radius=0.55, y radius=0.32];
+
+  % Target Y (right)
+  \draw[rounded corners=6pt, thick] (5.2,-1.5) rectangle (7.7,1.6);
+  \node at (6.45,1.85) {$Y$ (taşıyıcı)};
+  \draw[violet!75!black, thick, fill=violet!10]
+    (6.45,0.0) ellipse [x radius=0.85, y radius=0.55];
+  \node[violet!75!black, font=\scriptsize] at (6.45,0.0) {$V$};
+  \node[violet!75!black, font=\scriptsize, align=center] at (6.45,-1.05)
+    {$V$ açık $\iff$\\$g_i^{-1}(V)\in\sigma_i$};
+
+  % Maps
+  \draw[blue!70!black, -{Stealth[length=2.4mm]}, thick]
+    (1.4,1.2) to[bend left=12] node[above, font=\scriptsize, pos=0.5] {$g_1$} (5.55,0.45);
+  \draw[red!70!black, -{Stealth[length=2.4mm]}, thick]
+    (1.4,-1.2) to[bend right=12] node[below, font=\scriptsize, pos=0.5] {$g_2$} (5.55,-0.45);
+
+  \node[font=\scriptsize, align=center] at (3.3,-2.9)
+    {İleri itme: $\tau_{\mathrm{fin}}$ her $g_i$'yi sürekli kılan \emph{en ince} topoloji;\\
+     bölüm topolojisi tek surjektif $q$'nun son topolojisidir.};
+\end{tikzpicture}
