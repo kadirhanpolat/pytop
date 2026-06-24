@@ -1,30 +1,32 @@
-"""Example: Complete TDA Pipeline on Rips Complex
+"""Example: Complete TDA Pipeline on a Rips Complex
 
 Problem:
-  Apply full TDA pipeline (Rips -> Persistence -> Descriptor) to a dataset.
+  Apply the full TDA pipeline (Rips filtration -> reduction -> barcode) to a
+  random 2D dataset.
 
 Solution:
-  Use pytop.TDAPipeline for end-to-end computation.
+  pytop.TDAPipeline is an immutable fluent builder. Feed points to .rips(),
+  choose a reduction with .reduce(), then read off barcodes per dimension.
+
+Expected:
+  H_0 has one bar per connected component (30 points -> 30 H_0 bars);
+  H_1 collects loop features (mostly short-lived noise at this scale).
 """
 
-import pytop
 import random
 
-random.seed(42)
+import pytop
 
-# Generate random points in 2D
+random.seed(42)
 points = [(random.random(), random.random()) for _ in range(30)]
 
-# Build and analyze TDA pipeline
-pipeline = (pytop.TDAPipeline()
-    .rips(max_radius=0.5)
+pipeline = (
+    pytop.TDAPipeline()
+    .rips(points, max_dimension=1, max_scale=0.5)
     .reduce(method="twist")
-    .pairs()
-    .barcode()
 )
 
-result = pipeline.run(points)
-
 print("TDA Pipeline Result:")
-print(f"  H_0 count: {len([p for p in result.barcode if p[0] == 0])}")
-print(f"  H_1 count: {len([p for p in result.barcode if p[0] == 1])}")
+print(f"  H_0 bars: {len(pipeline.barcode(dimension=0))}")
+print(f"  H_1 bars: {len(pipeline.barcode(dimension=1))}")
+print(f"  Betti numbers: {pytop.persistence_betti_numbers(pipeline.pairs())}")

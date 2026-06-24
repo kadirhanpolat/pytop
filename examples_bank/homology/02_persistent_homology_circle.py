@@ -1,30 +1,40 @@
 """Example: Persistent Homology of a Circle
 
 Problem:
-  Construct a Vietoris-Rips filtration on points sampled from a circle
-  and compute persistent homology.
+  Sample points from a circle and recover its loop with persistent homology.
 
 Solution:
-  Use pytop.vietoris_rips_filtration and pytop.persistent_homology to
-  track H_0 and H_1 barcodes as filtration parameter grows.
+  Wrap the points in a FiniteMetricSpace and call pytop.persistent_homology to
+  build a Vietoris-Rips filtration and track H_0/H_1 features across scales.
+
+Expected:
+  A single long-lived (essential) H_1 bar — the circle's loop — alongside many
+  short-lived bars that are sampling noise.
 """
 
-import pytop
+import math
 
-# Sample points on a unit circle
+import pytop
+from pytop import FiniteMetricSpace
+
+# 12 points evenly spaced on the unit circle.
 points = [
-    (1.0, 0.0), (0.71, 0.71), (0.0, 1.0), (-0.71, 0.71),
-    (-1.0, 0.0), (-0.71, -0.71), (0.0, -1.0), (0.71, -0.71)
+    (math.cos(2 * math.pi * k / 12), math.sin(2 * math.pi * k / 12))
+    for k in range(12)
 ]
 
-# Build Rips filtration
-filtration = pytop.vietoris_rips_filtration(points, max_radius=2.5)
+# Finite metric space with Euclidean distance.
+space = FiniteMetricSpace(carrier=tuple(points), distance=math.dist)
 
-# Compute persistent homology
-pairs = pytop.persistent_homology(filtration)
+# Vietoris-Rips persistence up to dimension 1, scale 2.5.
+pairs = pytop.persistent_homology(space, max_dimension=1, max_scale=2.5)
 
-print("Circle (8 points) - Persistent Homology:")
-h0_count = len([p for p in pairs if p[0] == 0])
-h1_count = len([p for p in pairs if p[0] == 1])
-print(f"  H_0 bars: {h0_count}")
-print(f"  H_1 bars: {h1_count}")
+h1 = [p for p in pairs if p.dimension == 1]
+loop = max(h1, key=lambda p: p.persistence)
+
+print("Circle (12 points) - Persistent Homology:")
+print(f"  total H_1 bars: {len(h1)} (most are short-lived sampling noise)")
+print(
+    f"  dominant loop: birth={loop.birth:.3f}, death={loop.death}, "
+    f"essential={loop.is_essential}"
+)
