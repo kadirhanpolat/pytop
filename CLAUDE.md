@@ -280,7 +280,7 @@ Validate computational results against established external systems and curated 
 
 **Current Status:** 
 - P16.1 ✅ complete (37 tests: 4 minimal triangulations, 6 small graphs, 8 knot invariants, 5 large graphs, 8 performance benchmarks)
-- P16.2 ✅ framework complete (OracleAgreement/AgreementMatrix, extended knot table 51 primes (50+ target met), SnapPy H₁ oracle, K-theory AHSS validation; 9 oracle tests; 104 validation tests pass, 6 skip). Next: populate full oracle agreement matrix.
+- P16.2 ✅ framework complete (OracleAgreement/AgreementMatrix, extended knot table 51 primes (50+ target met), SnapPy H₁ oracle, K-theory AHSS validation; 9 oracle tests; 107 validation tests pass, 6 skip). Next: populate full oracle agreement matrix.
 - P16.3 ✅ complete — 10K run cross-validated against GUDHI: 10,000/10,000 complexes, **pytop = GUDHI parity 100.0%**, 0 outliers, avg 4.35ms/complex
 
 ### Phase 17: Performance & Scale

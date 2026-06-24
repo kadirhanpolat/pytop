@@ -222,7 +222,7 @@ calling `compute_persistence(persistence_dim_max=True)` then `betti_numbers()`
 fixes it. An always-on `test_500_random_complexes_gudhi_parity` guard now asserts
 100% pytop=GUDHI in the default suite. Ripser is not applicable to abstract
 1-skeleta (point-cloud parity stays in `test_betti_parity.py`). Validation suite
-79 → 104 passing.
+79 → 107 passing.
 
 **P17.3 — Inductive Vietoris–Rips construction (~14–19× faster builds).** Profiling
 showed the *filtration build* — not the reduction — dominated the truncated-scale
