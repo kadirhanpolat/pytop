@@ -1,0 +1,21 @@
+\begin{tikzpicture}[font=\small]
+  % --- Q dogrusu (ustte): limit yok ---
+  \draw[-{Stealth[length=2.4mm]}] (-0.3,2.4) -- (6.6,2.4) node[right] {$\mathbb{Q}$};
+  \draw[red!70!black, dashed] (4.2,2.05) -- (4.2,2.75);
+  \node[red!70!black, font=\scriptsize] at (4.2,3.05) {$\sqrt{2}\notin\mathbb{Q}$};
+  \foreach \x in {1.0, 2.0, 2.8, 3.4, 3.8, 4.0}
+    \fill[blue!70!black] (\x,2.4) circle (1.5pt);
+  \node[blue!70!black, font=\scriptsize] at (1.7,2.0) {$x_n\to\sqrt{2}$};
+  \node[red!70!black] at (5.7,2.95) {limit \emph{yok}};
+
+  % --- R dogrusu (altta): limit var ---
+  \draw[-{Stealth[length=2.4mm]}] (-0.3,0.4) -- (6.6,0.4) node[right] {$\mathbb{R}$};
+  \fill[green!45!black] (4.2,0.4) circle (2.2pt);
+  \node[green!45!black, font=\scriptsize] at (4.2,0.05) {$\sqrt{2}$};
+  \foreach \x in {1.0, 2.0, 2.8, 3.4, 3.8, 4.0}
+    \fill[blue!70!black] (\x,0.4) circle (1.5pt);
+  \node[green!45!black] at (5.7,0.95) {limit \emph{var}};
+
+  % ayrim
+  \node[font=\scriptsize] at (3.1,1.4) {aynı Cauchy dizisi};
+\end{tikzpicture}

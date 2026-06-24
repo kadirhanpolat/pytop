@@ -1,0 +1,23 @@
+\begin{tikzpicture}[font=\small,
+    kutu/.style={draw, rounded corners, align=center, inner sep=8pt}]
+  % delikli uzay
+  \node[kutu, fill=orange!8] (q) at (0,0)
+    {$\mathbb{Q}$ (tam değil)\\[3pt] \emph{boşluklar} var};
+  % delikleri temsil eden noktalar + bosluklar
+  \foreach \x in {-0.9, -0.3, 0.4} \fill[blue!70!black] (\x,-0.95) circle (1.3pt);
+  \draw[red!70!black, thick] (-0.6,-0.95) ++(-0.05,0.18) -- ++(0.1,-0.36);
+  \draw[red!70!black, thick] (0.05,-0.95) ++(-0.05,0.18) -- ++(0.1,-0.36);
+  \node[red!70!black, font=\scriptsize] at (0,-1.45) {eksik limitler};
+
+  % tam uzay
+  \node[kutu, fill=green!8] (r) at (7.6,0)
+    {$\mathbb{R}=\widehat{\mathbb{Q}}$ (tam)\\[3pt] her Cauchy yakınsar};
+
+  % tamlama oku (iki kutu arasi)
+  \draw[-{Stealth[length=3mm]}, thick]
+    (q.east) -- node[above] {tamlama $\widehat{\;\cdot\;}$}
+                node[below, font=\scriptsize] {boşlukları doldur} (r.west);
+
+  \foreach \x in {6.7, 7.3, 7.6, 7.9, 8.5} \fill[green!45!black] (\x,-0.95) circle (1.3pt);
+  \node[green!45!black, font=\scriptsize] at (7.6,-1.45) {süreklilik};
+\end{tikzpicture}
