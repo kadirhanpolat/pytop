@@ -1,0 +1,30 @@
+\begin{tikzpicture}[font=\small,
+    nokta/.style={circle, draw, minimum size=7mm, inner sep=1pt},
+    ic/.style={nokta, fill=green!18},
+    sin/.style={nokta, fill=orange!22},
+    dis/.style={nokta, fill=blue!10}]
+  % X = {1,2,3,4,5}; A = {1,2,3}
+  % int(A)={1,2} (yesil), bd(A)={3} (turuncu), ext(A)={4,5} (mavi)
+  \node[ic]  (n1) at (0,0)   {$1$};
+  \node[ic]  (n2) at (1.5,0) {$2$};
+  \node[sin] (n3) at (3,0)   {$3$};
+  \node[dis] (n4) at (4.5,0) {$4$};
+  \node[dis] (n5) at (6,0)   {$5$};
+
+  % A kapanis cercevesi cl(A) = {1,2,3}
+  \draw[red!70!black, thick, rounded corners]
+    ($(n1.north west)+(-0.25,0.55)$) rectangle ($(n3.south east)+(0.25,-0.55)$);
+  \node[red!70!black] at (1.5,1.05) {$\mathrm{cl}(A)=\{1,2,3\}$};
+
+  % int(A) cercevesi
+  \draw[green!55!black, thick, dashed, rounded corners]
+    ($(n1.north west)+(-0.15,0.3)$) rectangle ($(n2.south east)+(0.15,-0.3)$);
+
+  % Etiketler
+  \node[green!45!black, font=\scriptsize] at (0.75,-1.0) {iç: $A^\circ=\{1,2\}$};
+  \node[orange!75!black, font=\scriptsize] at (3,-1.0) {sınır: $\partial A=\{3\}$};
+  \node[blue!65!black, font=\scriptsize] at (5.25,-1.0) {dış: $\mathrm{ext}(A)=\{4,5\}$};
+
+  \node[font=\scriptsize, align=center] at (3,-1.7)
+    {$X = A^\circ \;\cup\; \partial A \;\cup\; \mathrm{ext}(A)$ (ayrık parçalanış)};
+\end{tikzpicture}
