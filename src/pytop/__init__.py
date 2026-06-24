@@ -2983,12 +2983,15 @@ from .persistent_homology import (
     euler_characteristic_curve,
 )
 from .persistent_homology_optimized import (
+    AUTO_COHOMOLOGY_THRESHOLD,
     ReductionStats,
+    persistence_pairs_auto,
     persistence_pairs_cohomology,
     persistence_pairs_cohomology_with_stats,
     persistence_pairs_twist,
     persistence_pairs_twist_with_stats,
     persistent_homology_optimized,
+    select_reduction_method,
 )
 from .cubical_homology import (
     CubicalComplex,

@@ -234,6 +234,20 @@ materialized complex, not `C(n, k+1)`: **n=500 went from 22.7 s → 1.65 s**, ou
 test suite). No API change. The Z/2 reduction is now the dominant cost for dense,
 high-n complexes (the next, inherently sequential, target).
 
+**P17.3 — Size-aware auto reduction routing (now the default, up to ~12× faster
+end-to-end).** With the build phase fixed, the Z/2 reduction became the bottleneck.
+The planned SciPy CSR path was dropped after profiling — the bigint-bitmask Twist
+kernel already beats it (native integer XOR). The real win was routing to the de
+Silva dual **cohomology** reduction, which does *hundreds* of cochain additions
+where Twist does *millions* of column XORs on Rips (e.g. m=107k: 399 vs 1.8M). Twist
+still wins on tiny complexes, so the new `persistence_pairs_auto` switches at
+`AUTO_COHOMOLOGY_THRESHOLD = 1024` simplices, and `persistent_homology(method="auto")`
+is now the **default**. Output is **byte-identical** to twist/cohomology/standard
+on every input (universal cross-validation test; 11,921 tests pass + GUDHI parity
+unchanged). End-to-end speedup **1.7× (n=150) → 3.3× (n=250) → 12.2× (n=350, 22.4 s
+→ 1.8 s)**. New API: `persistence_pairs_auto`, `select_reduction_method`,
+`AUTO_COHOMOLOGY_THRESHOLD`.
+
 **P19.2 / P19.3 / P20.3 — API maturity & onboarding.** Reusable `@deprecated`
 decorator (`pytop._deprecation`) emitting consistent WHY-HOW-THEN
 `DeprecationWarning`s, plus `DEPRECATIONS.md` (18-month / next-major policy +

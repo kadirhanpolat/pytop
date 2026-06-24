@@ -410,8 +410,64 @@ def persistence_pairs_cohomology(
     return pairs
 
 
+# ---------------------------------------------------------------------------
+# Size-aware auto routing (P17.3)
+# ---------------------------------------------------------------------------
+
+AUTO_COHOMOLOGY_THRESHOLD = 1024
+"""Simplex count at/above which :func:`persistence_pairs_auto` uses cohomology.
+
+Empirically (P17.3 benchmarks, see ``docs/P17_3_PARALLEL_SCALING.md``) the de
+Silva–Morozov–Vejdemo-Johansson dual algorithm overtakes Twist+Clearing on
+Vietoris–Rips filtrations once the *materialized* complex exceeds ~1k simplices,
+after which its lead grows super-linearly (≈1.5× at m≈7k, ≈2.8× at m≈55k, ≈3.8×
+at m≈108k) because it performs hundreds of cochain additions where Twist
+performs millions of column XORs. Below the threshold Twist's lower constant
+factor wins, so tiny complexes stay on Twist. The crossover is broad and flat,
+so the exact value is not sensitive — 1024 sits safely inside the gap measured
+between m≈520 (Twist faster) and m≈2850 (cohomology faster).
+"""
+
+
+def select_reduction_method(n_simplices: int) -> str:
+    """Return the reduction method auto-routing picks for a complex of this size.
+
+    ``"cohomology"`` when ``n_simplices >= AUTO_COHOMOLOGY_THRESHOLD``, else
+    ``"twist"``. Exposed separately so callers (and tests) can inspect the routing
+    decision without running a reduction.
+    """
+    return "cohomology" if n_simplices >= AUTO_COHOMOLOGY_THRESHOLD else "twist"
+
+
+def persistence_pairs_auto(
+    filtered: FilteredComplex,
+    *,
+    include_zero_persistence: bool = False,
+) -> tuple[PersistencePair, ...]:
+    """Compute persistence pairs via the faster reduction for the input size.
+
+    Routes small complexes (``< AUTO_COHOMOLOGY_THRESHOLD`` simplices) to the
+    Twist algorithm and larger ones to persistent cohomology, which scales far
+    better on Vietoris–Rips filtrations. The output is **identical** to
+    :func:`persistence_pairs_twist`, :func:`persistence_pairs_cohomology`, and the
+    standard reduction on every input — only the wall-clock time differs. This is
+    the routing used by :func:`~pytop.persistent_homology.persistent_homology`'s
+    default ``method="auto"``.
+    """
+    if select_reduction_method(filtered.size()) == "cohomology":
+        return persistence_pairs_cohomology(
+            filtered, include_zero_persistence=include_zero_persistence
+        )
+    return persistence_pairs_twist(
+        filtered, include_zero_persistence=include_zero_persistence
+    )
+
+
 __all__ = [
     "ReductionStats",
+    "AUTO_COHOMOLOGY_THRESHOLD",
+    "select_reduction_method",
+    "persistence_pairs_auto",
     "persistence_pairs_twist",
     "persistence_pairs_twist_with_stats",
     "persistence_pairs_cohomology",

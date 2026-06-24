@@ -1,9 +1,52 @@
-# Phase 17 P17.3: Scaling (Construction Optimization + Parallel Planning)
+# Phase 17 P17.3: Scaling (Construction Optimization + Auto Reduction Routing)
 
-**Status:** 🚧 In Progress — **first scaling win shipped** (inductive Rips construction)  
-**Date:** 2026-06-23  
+**Status:** ✅ Core scaling wins shipped — **(1)** inductive Rips construction (build phase)
+and **(2)** size-aware auto reduction routing (reduce phase, now the default).  
+**Date:** 2026-06-24  
 **Target:** Rips n=500 in <1s (current ~5.1s with n=350)  
-**Challenge:** Reduction algorithms are inherently sequential
+**Challenge:** Reduction algorithms are inherently sequential — addressed by *choosing*
+the right sequential algorithm per input size rather than parallelizing one.
+
+## Shipped: size-aware auto reduction routing (`method="auto"`, now default)
+
+Profiling overturned the planned Strategy 3 (scipy CSR sparse acceleration): the
+Z/2 reduction already uses a **bigint bitmask** column representation whose XOR is
+a native C-level integer op, so a SciPy CSR layer adds overhead without beating it.
+The genuine win was already in the codebase but off the default path — the de Silva
+dual **cohomology** reduction performs *hundreds* of cochain additions where Twist
+performs *millions* of column XORs on Rips filtrations:
+
+| m (simplices) | Twist XORs | cohomology XORs | reduce speedup |
+|---------------|-----------|-----------------|----------------|
+| 7,273  (n=100) | 47,247 | 151 | 1.51× |
+| 55,333 (n=200) | 789,091 | 331 | 2.81× |
+| 107,615 (n=250)| 1,807,781 | 399 | 3.83× |
+
+Twist still wins on *tiny* complexes (lower constant factor): measured crossover is
+broad and flat between m≈520 (Twist faster) and m≈2,850 (cohomology faster). So
+`persistence_pairs_auto` routes on materialized complex size with a threshold of
+**1,024 simplices** (`AUTO_COHOMOLOGY_THRESHOLD`), and `persistent_homology(method="auto")`
+is now the **default**. Output is **byte-identical** to Twist / cohomology / standard
+on every input — a universal cross-validation test enforces this, and the full suite
+(11,921 tests) plus the GUDHI parity validation suite pass unchanged.
+
+**Measured end-to-end speedup (old `method="twist"` → new `method="auto"`, identical output):**
+
+| n   | twist (old default) | auto (new default) | speedup |
+|-----|---------------------|--------------------|---------|
+| 150 | 147 ms | 85 ms | 1.7× |
+| 250 | 1,411 ms | 422 ms | 3.3× |
+| 350 | 22,426 ms | 1,843 ms | **12.2×** |
+
+New public API: `persistence_pairs_auto`, `select_reduction_method`,
+`AUTO_COHOMOLOGY_THRESHOLD` (`pytop.persistent_homology_optimized`).
+
+**Remaining bottleneck:** for very dense, high-`n` complexes the *filtration build*
+becomes co-dominant again (e.g. n=500 dense: build 2.3 s of 5.6 s total). Pushing
+n=500 fully under 1 s at high density needs either cheaper construction or the GPU
+cohomology path (Strategy 2) — tracked for P17.4 / future phases.
+
+## Earlier win: inductive Vietoris–Rips construction (filtration build, not reduction)
 
 ## Shipped: Inductive Vietoris–Rips construction (filtration build, not reduction)
 
@@ -82,7 +125,12 @@ Pre-optimize matrix representation:
 - Leverage NumPy/SciPy optimized BLAS
 - **Effect:** 2–3× speedup without changing algorithm
 
-**Decision for P17.3:** Implement Strategy 3 (sparse optimization) + document Strategies 1 & 2 for future phases.
+**Decision for P17.3:** ~~Implement Strategy 3 (sparse optimization)~~ **— superseded.**
+Profiling showed the bigint-bitmask Twist kernel already beats a SciPy CSR layer (native
+integer XOR), so Strategy 3 was dropped in favor of **size-aware auto routing to the de
+Silva dual cohomology reduction** (see the "size-aware auto reduction routing" section at
+the top of this document — the actual shipped work). Strategies 1 & 2 remain documented for
+future phases.
 
 ## P17.3 Deliverables
 
