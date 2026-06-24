@@ -11,8 +11,10 @@ from typing import Any
 import pytest
 
 from pytop import (
+    cech_filtration,
     euler_characteristic_simplicial,
     is_planar,
+    persistent_homology_cech,
     simplicial_homology,
 )
 
@@ -311,6 +313,23 @@ class TestPerformanceBenchmarks:
             _ = simplicial_homology(sc, degree=1)
             _ = simplicial_homology(sc, degree=2)
         assert timer.elapsed < 0.1
+
+    def test_cech_filtration_timing(self):
+        """Čech micro-benchmark (issue #8): filtration build + persistence on a
+        small circle point cloud, recorded alongside the homology baselines."""
+        import math
+
+        points = [
+            (math.cos(2 * math.pi * k / 12), math.sin(2 * math.pi * k / 12))
+            for k in range(12)
+        ]
+        with BenchmarkTimer("Čech filtration + persistence (circle, 12pt)") as timer:
+            _ = cech_filtration(points, max_dimension=2, max_scale=1.5)
+            pairs = persistent_homology_cech(points, max_dimension=1, max_scale=1.5)
+        # one essential loop (H_1) is recovered from the circle sample
+        assert any(p.dimension == 1 and p.is_essential for p in pairs)
+        # Baseline: comfortably under 1s for a 12-point cloud
+        assert timer.elapsed < 1.0, f"Čech: {timer.elapsed:.4f}s (expected <1s)"
 
     def test_graph_k5_planarity_timing(self):
         """Measure time to check K₅ non-planarity."""

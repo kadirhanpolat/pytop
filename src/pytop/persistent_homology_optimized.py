@@ -29,6 +29,15 @@ persistence_pairs_twist           — Twist reduction (same signature / output a
                                     persistence_pairs)
 persistence_pairs_twist_with_stats — same but also returns ReductionStats
 persistent_homology_optimized     — convenience: VR filtration → Twist reduction
+                                    (soft-deprecation candidate — see below)
+
+Deprecation note
+----------------
+``persistent_homology_optimized`` is a **soft-deprecation candidate**
+(``DEPRECATIONS.md`` → *Candidates*; ``docs/API_DESIGN.md`` finding #3). It is a
+historical alias for ``persistent_homology(space, method="auto")`` and produces
+identical barcodes. New code should prefer the latter. No ``DeprecationWarning``
+is emitted yet.
 """
 
 from __future__ import annotations
