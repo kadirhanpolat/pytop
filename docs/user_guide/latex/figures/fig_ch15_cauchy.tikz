@@ -1,0 +1,16 @@
+\begin{tikzpicture}[font=\small]
+  % eksen
+  \draw[-{Stealth[length=2.4mm]}] (-0.4,0) -- (9.2,0) node[right] {$n$};
+  % limit cizgisi
+  \draw[gray!55, dashed] (0,2.1) -- (8.6,2.1) node[right, black] {$L$};
+  % Cauchy dizisinin terimleri: L'ye yaklasan, salinim azalan
+  \foreach \n/\y in {0/3.5, 1/0.8, 2/3.0, 3/1.2, 4/2.6, 5/1.7, 6/2.35, 7/1.9, 8/2.18}
+    \fill[blue!70!black] (\n,\y) circle (1.6pt);
+  % kuyrugun capi -> 0 vurgusu (saga dogru daralan bant)
+  \fill[orange!18] (5.5,1.55) -- (8.5,2.0) -- (8.5,2.2) -- (5.5,1.85) -- cycle;
+  \node[orange!75!black, font=\scriptsize] at (7.0,1.15) {kuyruğun çapı $\to 0$};
+  % ilk terimler arasi buyuk mesafe
+  \draw[<->, red!70!black] (0,3.5) -- node[right, font=\scriptsize] {büyük} (0,0.8);
+  \node[font=\scriptsize] at (1.6,-0.5) {$x_n$ terimleri};
+  \node[blue!70!black] at (7.3,3.4) {$\{x_n\}$ Cauchy};
+\end{tikzpicture}
