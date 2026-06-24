@@ -21,6 +21,9 @@ since v1.6.0 and establishes the automated publishing pipeline.
   builds clean, passes `twine check`, and imports in a zero-dependency clean room
   (runtime stays dependency-free). Release process documented in
   `docs/P20_RELEASE_READINESS.md`.
+  - **Distribution name is `pytopology`** — the bare `pytop` name is taken on PyPI
+    by an unrelated abandoned project. The **import name stays `pytop`**
+    (`pip install pytopology` → `import pytop`, like `scikit-learn`/`sklearn`).
 - **P16.2 — Oracle agreement matrix populated & persisted.** A Docker-free internal
   oracle cross-checks 9 torus-knot Alexander polynomials (pytop reduced-Burau vs the
   Sage-verified table) and GUDHI persistent-Betti rows; `generate_oracle_matrix()` /

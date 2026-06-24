@@ -64,9 +64,13 @@ API tokens are stored in the repository. See `.github/workflows/publish.yml`.
 Register a **pending publisher** on PyPI (and, optionally, TestPyPI):
 Account → *Publishing* → *Add a new pending publisher*, matching exactly:
 
+> **Distribution name:** `pytopology` (the bare name `pytop` is already taken on
+> PyPI by an unrelated abandoned project). The **import name stays `pytop`** —
+> users `pip install pytopology` then `import pytop`, like `scikit-learn`/`sklearn`.
+
 | Field | Value |
 |-------|-------|
-| PyPI project name | `pytop` |
+| PyPI project name | `pytopology` |
 | Owner | `kadirhanpolat` |
 | Repository | `pytop` |
 | Workflow filename | `publish.yml` |
@@ -103,7 +107,7 @@ twine upload dist/*                         # production
 
 ```python
 [project]
-name = "pytop"
+name = "pytopology"  # distribution name; import name stays `pytop`
 version = "1.7.0"
 description = "Mathematical topology library: ..."
 readme = "README.md"
@@ -178,11 +182,11 @@ gpu = ["cupy-cuda12x"]                     # GPU acceleration
 
 Install variants:
 ```bash
-pip install pytop                    # Minimal
-pip install pytop[dev]              # Development
-pip install pytop[fast]             # FLINT backend
-pip install pytop[gpu]              # GPU (CUDA 12.x)
-pip install pytop[dev,fast,gpu]     # All
+pip install pytopology                 # Minimal   (then: import pytop)
+pip install pytopology[dev]            # Development
+pip install pytopology[fast]           # FLINT backend
+pip install pytopology[gpu]            # GPU (CUDA 12.x)
+pip install pytopology[dev,fast,gpu]   # All
 ```
 
 ---

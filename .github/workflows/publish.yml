@@ -9,7 +9,7 @@ name: Publish to PyPI
 #
 # One-time setup on PyPI / TestPyPI (Account -> Publishing -> Add a new pending
 # publisher), matching exactly:
-#   PyPI project name : pytop
+#   PyPI project name : pytopology   (distribution name; the import name stays `pytop`)
 #   Owner             : kadirhanpolat
 #   Repository        : pytop
 #   Workflow filename : publish.yml
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: testpypi
-      url: https://test.pypi.org/p/pytop
+      url: https://test.pypi.org/p/pytopology
     permissions:
       id-token: write
     steps:
@@ -91,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/pytop
+      url: https://pypi.org/p/pytopology
     permissions:
       id-token: write
     steps:
