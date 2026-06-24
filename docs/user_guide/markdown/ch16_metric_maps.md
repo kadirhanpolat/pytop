@@ -23,11 +23,39 @@ f: (M₁,d₁) → (M₂,d₂) fonksiyonu:
 
 **Sıralama:** İzometri ⟹ Genişlemez ⟹ Lipschitz ⟹ Üniform sürekli ⟹ Sürekli
 
+![İzometri: f, x ile y arasındaki mesafeyi korur — d₂(f(x),f(y)) = d₁(x,y).](../assets/ch16/fig_ch16_izometri.png)
+
+> 💡 **Sezgi:** Bir izometriyi, bir kâğıt parçasını **buruşturmadan ve germeden**
+> başka bir yere taşıyan bir hareket gibi düşünün: döndürebilir, kaydırabilir,
+> yansıtabilirsiniz, ama iki nokta arasındaki mesafe asla değişmez. Düzlemde
+> öteleme, dönme ve yansıma izometridir. Benzerlik ise kâğıdı oranını koruyarak
+> büyüten/küçülten bir fotokopi makinesidir (c=2 → her mesafe iki katına çıkar);
+> c=1 alındığında benzerlik tekrar izometriye iner.
+
 ### Lipschitz Sabiti
 
     K = sup_{x≠y} d₂(f(x),f(y)) / d₁(x,y)
 
 İzometri: K=1 ve eşitlik; benzerlik: K=c sabit.
+
+![Büzülme: K<1 olduğunda f, noktaları birbirine yaklaştırır — d₂(f(x),f(y)) ≤ k·d₁(x,y).](../assets/ch16/fig_ch16_buzulme.png)
+
+> 💡 **Sezgi:** Lipschitz sabiti K, fonksiyonun "en dik eğimi" gibidir: hiçbir
+> nokta çiftinde mesafeyi K katından fazla büyütemez. K<1 olduğunda her adımda
+> mesafe **kesin** olarak küçülür — buna **büzülme (contraction)** denir. Büzülme
+> bir haritayı tekrar tekrar uyguladığınızda, tüm noktalar tek bir noktaya
+> (sabit noktaya) doğru hunilenir; Banach sabit-nokta teoreminin kalbi budur.
+
+![Düzgün süreklilik: aynı δ tüm noktalarda iş görür (ε önceden verildiğinde).](../assets/ch16/fig_ch16_duzgun_sureklilik.png)
+
+> ❌ **Karşı-örnek:** Her sürekli fonksiyon düzgün (üniform) sürekli **değildir**.
+> ℝ⁺ üzerinde `f(x) = 1/x` süreklidir, ama düzgün sürekli değildir: x sıfıra
+> yaklaştıkça eğim sınırsız diklenir, bu yüzden verilen bir ε için **tek** bir δ
+> bütün noktalarda iş göremez (`x=0.001` civarında çok küçük bir δ gerekirken
+> `x=10` civarında çok daha büyüğü yeterlidir). Aynı şekilde ℝ üzerinde
+> `f(x) = x²` süreklidir ama düzgün sürekli değildir. Düzgün süreklilik δ'nın
+> **noktadan bağımsız** seçilebilmesini ister; Lipschitz fonksiyonlar bunu
+> δ=ε/K ile otomatik sağlar.
 
 > **Neden bu konu?** Büzülme dönüşümleri (contraction) ve Lipschitz koşulları sabit nokta teoremlerinin temelidir.
 
@@ -45,10 +73,23 @@ f: (M₁,d₁) → (M₂,d₂) fonksiyonu:
 
 **Teorem 2.1.** İzometri ⟹ homeomorfizma. (Bijektif izometri bir homeomorfizma.)
 
+> **İspat eskizi.** Önce **injektiflik**: f bir izometri ve f(x)=f(y) olsun. O
+> zaman `d₁(x,y) = d₂(f(x),f(y)) = d₂(f(x),f(x)) = 0`, dolayısıyla metriğin
+> ayırma aksiyomundan x=y. Demek ki izometri **daima injektiftir**. Bijektif
+> kabul edersek f⁻¹ vardır ve o da bir izometridir (`d₁(f⁻¹u,f⁻¹v) = d₂(u,v)`).
+> İzometri her mesafeyi koruduğu için ε-δ sürekliliğini δ=ε ile sağlar: hem f
+> hem f⁻¹ süreklidir. Bijektif + sürekli + sürekli ters = homeomorfizma. ∎
+
 **Teorem 2.2.** Benzerlik: c=1 ⟹ İzometri.
 
 **Teorem 2.3.** Lipschitz ⟹ Üniform sürekli ⟹ Sürekli.
-*(Kanıt: δ=ε/K alarak Lipschitz → ünif. süreklilik; her nokta için lokal olarak.)*
+
+> **İspat eskizi.** f, sabiti K>0 olan bir Lipschitz fonksiyon olsun:
+> `d₂(f(x),f(y)) ≤ K·d₁(x,y)`. Verilen herhangi bir ε>0 için **δ = ε/K** seçin.
+> O zaman `d₁(x,y) < δ` olduğunda `d₂(f(x),f(y)) ≤ K·d₁(x,y) < K·(ε/K) = ε`.
+> Seçilen δ yalnızca ε ve K'ye bağlıdır, x noktasına bağlı **değildir** —
+> dolayısıyla f düzgün (üniform) süreklidir. Düzgün süreklilik özel olarak her
+> noktada (lokal) sürekliliği de içerir, dolayısıyla f süreklidir. ∎
 
 **Teorem 2.4.** Kompakt metrik uzaydan metrik uzaya her sürekli fonksiyon
 üniform süreklidir.
@@ -214,6 +255,80 @@ Ozdeslik  K: 1.0 | isometry: True | ratio: 1.0
 Sabit     K: 0.0 | isometry: False
 ```
 
+### Örnek 5.6 — Büzülme (Contraction): K = 1/2
+
+Öklid doğrusu üzerinde her mesafeyi yarıya indiren `f(x) = x/2` türünden bir
+eşleme tanımlayalım. Bu bir **büzülmedir** (K<1): Banach teoreminin gerektirdiği
+sözleşme koşulunu sağlar.
+
+```python
+from pytop.metric_spaces import FiniteMetricSpace
+from pytop.metric_map_taxonomy import classify_finite_metric_map
+
+src = [0, 2, 4, 6]
+img = [0, 1, 2, 3]
+d_src = {(a, b): abs(a - b) for a in src for b in src}
+d_img = {(a, b): abs(a - b) for a in img for b in img}
+M_src = FiniteMetricSpace(carrier=tuple(src), distance=d_src)
+M_img = FiniteMetricSpace(carrier=tuple(img), distance=d_img)
+
+f_half = {0: 0, 2: 1, 4: 2, 6: 3}
+prof_half = classify_finite_metric_map(M_src, M_img, f_half)
+
+print("lipschitz_constant:", prof_half.lipschitz_constant)
+print("non_expansive:", prof_half.non_expansive)
+print("similarity:", prof_half.similarity)
+print("similarity_ratio:", prof_half.similarity_ratio)
+print("isometry:", prof_half.isometry)
+print("uniformly_continuous:", prof_half.uniformly_continuous)
+```
+
+```text
+lipschitz_constant: 0.5
+non_expansive: True
+similarity: True
+similarity_ratio: 0.5
+isometry: False
+uniformly_continuous: True
+```
+
+K = 0.5 < 1: büzülme. Her mesafe tam yarıya indiği için aynı zamanda
+oran c=0.5 olan bir benzerliktir. İzometri değildir (mesafeleri korumaz), ama
+genişlemez ve (Lipschitz olduğundan) üniform süreklidir.
+
+### Örnek 5.7 — Ayrık Metrikte Döngü: İzometri ve Homeomorfizma
+
+Ayrık metrikte (farklı noktalar arası mesafe daima 1) bir **permütasyon**
+herhangi iki nokta arası mesafeyi değiştiremez: her bijeksiyon bir izometridir.
+{1,2,3} üzerinde döngü f(1)=2, f(2)=3, f(3)=1'i sınıflandıralım.
+
+```python
+from pytop.metric_spaces import FiniteMetricSpace
+from pytop.metric_map_taxonomy import classify_finite_metric_map
+
+dp = [1, 2, 3]
+d_disc = {(a, b): (0 if a == b else 1) for a in dp for b in dp}
+M_disc = FiniteMetricSpace(carrier=tuple(dp), distance=d_disc)
+
+f_cycle = {1: 2, 2: 3, 3: 1}
+prof_cycle = classify_finite_metric_map(M_disc, M_disc, f_cycle)
+
+print("isometry:", prof_cycle.isometry)
+print("bijective:", prof_cycle.bijective)
+print("homeomorphism:", prof_cycle.homeomorphism)
+print("lipschitz_constant:", prof_cycle.lipschitz_constant)
+```
+
+```text
+isometry: True
+bijective: True
+homeomorphism: True
+lipschitz_constant: 1.0
+```
+
+Döngü bir bijeksiyon ve ayrık metrikte izometridir (K=1, mesafe korunur);
+Teorem 2.1 gereği bijektif izometri olarak bir homeomorfizmadır.
+
 ---
 
 ## 6. Alıştırmalar
@@ -229,8 +344,22 @@ K2. Öklid metrikli {0,1,2,3,4} uzayında f(x) = x+1 (4'e kadar) gibi bir kaydı
 K3. Bir ezme (contracting) fonksiyon tanımlayın: f(x) = 1 (sabit). Lipschitz
     sabitinin 0 olduğunu doğrulayın.
 
+K4. Öklid doğrusunda {0,2,4,6} → {0,1,2,3} büzülmesini (f(x)=x/2) kurun ve
+    `lipschitz_constant`, `similarity_ratio`, `non_expansive` alanlarını yazdırın.
+    Lipschitz sabitinin 1'den küçük olduğunu doğrulayın.
+
+K5. {1,2,3} üzerinde **özdeşlik olmayan** bir döngü permütasyonunu hem ayrık
+    metrikte hem de Öklid (mesafe = |a−b|) metrikte sınıflandırın. Hangi metrikte
+    izometri olur, hangisinde olmaz? `isometry` alanlarını karşılaştırın.
+
 ### Teori
 
 T1. İzometri ⟹ genişlemez ⟹ Lipschitz (K=1) zincirini ispatlayın.
 
 T2. Lipschitz ⟹ üniform sürekli olduğunu δ=ε/K seçimi ile ispatlayın.
+
+T3. İzometrinin daima injektif olduğunu ispatlayın. (İpucu: f(x)=f(y) ise
+    d₂(f(x),f(y))=0; izometri eşitliğini ve metriğin ayırma aksiyomunu kullanın.)
+    Ardından düzlemde sabit (constant) bir fonksiyonun neden izometri olamadığını
+    açıklayın.
+```
