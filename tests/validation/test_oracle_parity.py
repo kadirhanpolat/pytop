@@ -316,6 +316,39 @@ class TestOracleParity:
                 f"(alexander_poly={knot.alexander_poly!r})"
             )
 
+    def test_genus_matches_alexander_span(self):
+        """Universal guard: 2·genus = span(Δ) for every table entry.
+
+        deg Δ_K ≤ 2·genus always; equality holds for alternating knots
+        (Crowell–Murasugi) and for the torus knots in the table, which is every
+        entry here. So the genus field must equal half the Alexander span — this
+        catches the legacy genus errors (e.g. 8_1 was listed genus 3, the twist
+        knot is genus 1).
+        """
+
+        def alex_span(poly: str) -> int:
+            s = poly.strip()
+            if s[0] in "+-":
+                s = s[1:].strip()
+            terms = [re.split(r"\s([+-])\s", s)[0]] + re.split(r"\s([+-])\s", s)[2::2]
+            exps = []
+            for term in terms:
+                term = term.strip()
+                if "t" not in term:
+                    exps.append(0)
+                else:
+                    em = re.search(r"t(?:\^\{(-?\d+)\}|\^(-?\d+))?", term)
+                    g = em.group(1) or em.group(2)
+                    exps.append(int(g) if g is not None else 1)
+            return max(exps) - min(exps)
+
+        for knot in KnotTable.KNOTS:
+            span = alex_span(knot.alexander_poly)
+            assert 2 * knot.genus == span, (
+                f"{knot.name}: 2·genus = {2 * knot.genus} != span(Δ) = {span} "
+                f"(genus={knot.genus}, alexander_poly={knot.alexander_poly!r})"
+            )
+
     def test_oracle_integrations_available(self):
         """P16.2: Verify oracle adapter framework is accessible."""
         from tests.validation.oracle_integrations import (
