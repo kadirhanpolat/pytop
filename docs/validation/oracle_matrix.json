@@ -1,0 +1,163 @@
+{
+  "timestamp": "2026-06-24T10:57:10.958316",
+  "pytop_version": "1.6.1.dev0",
+  "total_tests": 15,
+  "passed_tests": 15,
+  "failed_tests": 0,
+  "agreement_rate": "100.00%",
+  "oracles": [
+    "GUDHI",
+    "pytop_internal"
+  ],
+  "test_types": [
+    "alexander_poly",
+    "jones_poly",
+    "persistent_betti",
+    "alexander_torus"
+  ],
+  "summary": {
+    "pytop_internal": {
+      "alexander_torus": "9/9"
+    },
+    "GUDHI": {
+      "persistent_betti": "6/6"
+    }
+  },
+  "comparisons": [
+    {
+      "oracle": "pytop_internal",
+      "test_type": "alexander_torus",
+      "subject": "trefoil_3_1",
+      "pytop_result": "T(2,3) reduced-Burau",
+      "oracle_result": "-t^{-1} + 1 - t",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "pytop_internal",
+      "test_type": "alexander_torus",
+      "subject": "cinquefoil_5_1",
+      "pytop_result": "T(2,5) reduced-Burau",
+      "oracle_result": "t^{-2} - t^{-1} + 1 - t + t^2",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "pytop_internal",
+      "test_type": "alexander_torus",
+      "subject": "septafoil_7_1",
+      "pytop_result": "T(2,7) reduced-Burau",
+      "oracle_result": "t^{-3} - t^{-2} + t^{-1} - 1 + t - t^2 + t^3",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "pytop_internal",
+      "test_type": "alexander_torus",
+      "subject": "8_19",
+      "pytop_result": "T(3,4) reduced-Burau",
+      "oracle_result": "t^{-3} - t^{-2} + 1 - t^2 + t^3",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "pytop_internal",
+      "test_type": "alexander_torus",
+      "subject": "10_124",
+      "pytop_result": "T(3,5) reduced-Burau",
+      "oracle_result": "t^{-4} - t^{-3} + t^{-1} - 1 + t - t^3 + t^4",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "pytop_internal",
+      "test_type": "alexander_torus",
+      "subject": "11_1",
+      "pytop_result": "T(2,11) reduced-Burau",
+      "oracle_result": "t^{-5} - t^{-4} + t^{-3} - t^{-2} + t^{-1} - 1 + t - t^2 + t^3 - t^4 + t^5",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "pytop_internal",
+      "test_type": "alexander_torus",
+      "subject": "13_1",
+      "pytop_result": "T(2,13) reduced-Burau",
+      "oracle_result": "t^{-6} - t^{-5} + t^{-4} - t^{-3} + t^{-2} - t^{-1} + 1 - t + t^2 - t^3 + t^4 - t^5 + t^6",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "pytop_internal",
+      "test_type": "alexander_torus",
+      "subject": "15_1",
+      "pytop_result": "T(2,15) reduced-Burau",
+      "oracle_result": "t^{-7} - t^{-6} + t^{-5} - t^{-4} + t^{-3} - t^{-2} + t^{-1} - 1 + t - t^2 + t^3 - t^4 + t^5 - t^6 + t^7",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "pytop_internal",
+      "test_type": "alexander_torus",
+      "subject": "17_1",
+      "pytop_result": "T(2,17) reduced-Burau",
+      "oracle_result": "t^{-8} - t^{-7} + t^{-6} - t^{-5} + t^{-4} - t^{-3} + t^{-2} - t^{-1} + 1 - t + t^2 - t^3 + t^4 - t^5 + t^6 - t^7 + t^8",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "GUDHI",
+      "test_type": "persistent_betti",
+      "subject": "circle_6pt_H0",
+      "pytop_result": "betti_curve",
+      "oracle_result": "betti_curve",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "GUDHI",
+      "test_type": "persistent_betti",
+      "subject": "circle_6pt_H1",
+      "pytop_result": "betti_curve",
+      "oracle_result": "betti_curve",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "GUDHI",
+      "test_type": "persistent_betti",
+      "subject": "circle_12pt_H0",
+      "pytop_result": "betti_curve",
+      "oracle_result": "betti_curve",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "GUDHI",
+      "test_type": "persistent_betti",
+      "subject": "circle_12pt_H1",
+      "pytop_result": "betti_curve",
+      "oracle_result": "betti_curve",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "GUDHI",
+      "test_type": "persistent_betti",
+      "subject": "circle_24pt_H0",
+      "pytop_result": "betti_curve",
+      "oracle_result": "betti_curve",
+      "agree": true,
+      "confidence": 1.0
+    },
+    {
+      "oracle": "GUDHI",
+      "test_type": "persistent_betti",
+      "subject": "circle_24pt_H1",
+      "pytop_result": "betti_curve",
+      "oracle_result": "betti_curve",
+      "agree": true,
+      "confidence": 1.0
+    }
+  ]
+}

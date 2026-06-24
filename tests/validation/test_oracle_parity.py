@@ -391,6 +391,58 @@ class TestOracleParity:
             assert report.total_tests > 0, "No tests run despite available knot oracles"
         # Otherwise, skip is graceful (no oracles support knot polynomials)
 
+    def test_torus_alexander_internal_oracle(self):
+        """P16.2 (Docker-free): pytop's live torus engine == curated table.
+
+        Recomputes 9 torus-knot Alexander polynomials with pytop's reduced-Burau
+        engine and asserts agreement (up to the unit ambiguity) with the
+        Sage-verified reference table. Runs in any environment -- no SnapPy/Sage.
+        """
+        from tests.validation.oracle_agreement_builder import (
+            TORUS_KNOT_PARAMS,
+            OracleAgreementBuilder,
+        )
+
+        builder = OracleAgreementBuilder()
+        builder.test_torus_knot_alexander_internal()
+        internal = [c for c in builder.comparisons if c.oracle_name == "pytop_internal"]
+
+        assert len(internal) == len(TORUS_KNOT_PARAMS), (
+            f"expected {len(TORUS_KNOT_PARAMS)} torus comparisons, got {len(internal)}"
+        )
+        disagreements = [c.subject for c in internal if not c.agree]
+        assert not disagreements, f"pytop disagrees with table on: {disagreements}"
+
+    def test_oracle_matrix_generated_and_persisted(self, tmp_path):
+        """P16.2: the agreement matrix is populated and persisted to JSON + MD.
+
+        Turns the matrix *framework* into a concrete, regenerable artifact. The
+        Docker-free internal oracle alone guarantees a populated, 100%-agreement
+        matrix; external oracles add rows when present.
+        """
+        import json as _json
+
+        from tests.validation.oracle_agreement_builder import (
+            generate_oracle_matrix,
+            persist_oracle_matrix,
+        )
+
+        report = generate_oracle_matrix()
+        internal = [c for c in report.agreements if c.oracle_name == "pytop_internal"]
+        assert len(internal) >= 9, "internal torus oracle did not populate the matrix"
+        assert all(c.agree for c in internal), "internal oracle found a disagreement"
+
+        json_path, md_path = persist_oracle_matrix(report, tmp_path)
+        assert json_path.exists() and md_path.exists()
+
+        data = _json.loads(json_path.read_text(encoding="utf-8"))
+        assert data["total_tests"] >= 9
+        assert "pytop_internal" in data["summary"]
+        assert "alexander_torus" in data["summary"]["pytop_internal"]
+        assert data["summary"]["pytop_internal"]["alexander_torus"].endswith(
+            f"/{len(internal)}"
+        )
+
     def test_oracle_agreement_persistent_betti_gudhi(self):
         """P16.2: pytop vs GUDHI persistent Betti agreement on a sample circle.
 
