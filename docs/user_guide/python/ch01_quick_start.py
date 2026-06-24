@@ -4,6 +4,8 @@
 
 pytop kurulumu, temel uzay nesneleri, `Result` tipi ve tag sistemi —
 kılavuzun geri kalanını okumadan önce bu bölümü çalıştırın.
+
+---
 """
 
 # %% [markdown]
@@ -15,14 +17,37 @@ pip install -e .   # git kökünden
 ```
 
 Her bölümde ihtiyaç duyulan semboller doğrudan `pytop`'tan import edilir.
+Bu bölüm bir _tur_ olduğundan, ilk hücrede sonraki tüm hücrelerin kullanacağı
+sembolleri tek seferde içe aktarıyoruz:
 """
 
 # %%
 import pytop
-print("pytop sürümü:", pytop.__version__)
+from pytop import (
+    discrete_topology, indiscrete_topology, sierpinski_space, make_topology,
+    is_compact, is_connected, is_t0, is_t1, is_t2,
+    count_topologies_on_n_points,
+    simplicial_complex, simplicial_homology, betti_numbers,
+    FiniteMetricSpace, persistent_homology, persistence_betti_numbers,
+)
+from pytop.experimental.spaces import finite_circle, pi1_space
+print("pytop surumu:", pytop.__version__)
 
 # %% [markdown]
 """
+```text
+pytop surumu: 1.7.0
+```
+
+> 💡 **Sezgi:** pytop'u iki katlı bir bina gibi düşünün. Alt kat **betimsel**
+> (descriptive) katmandır: ünlü uzayların ve teoremlerin kayıtlı, kaynaklı
+> bilgisini tutar — bilir ama hesaplamaz. Üst kat **yapıcı** (constructive)
+> katmandır: ham girdiden invaryantları _hesaplar_ — homoloji, kalıcı homoloji,
+> düğüm polinomları. Bu bölüm her iki kata da kısa bir tur attırır; Bölüm 9
+> doğrudan hesaplamalı çekirdeğe iner.
+
+![pytop'un iki katmanı: betimsel kayıtlar ve yapıcı motorlar](../assets/ch01/fig_ch01_katmanlar.png)
+
 > **Neden bu konu?** pytop'un temel nesnelerini tanımadan diğer bölümler okunamaz.
 
 > 🔍 **Kendin dene:** `discrete_topology(0,1,2)` oluşturduktan sonra `topology` listesini elle inceleyerek tüm alt kümelerin açık olup olmadığını sayın.
@@ -32,13 +57,13 @@ print("pytop sürümü:", pytop.__version__)
 > ↗️ **Bkz.:** Bölüm 4 (uzay aksiyomları), Bölüm 5 (kapalı kümeler/kapanış).
 
 > 💭 **Öz-yansıtma:** `make_topology`'nin farkı nedir? Neden `Result` bir `bool` değil?
+
+---
 """
 
 # %% [markdown]
 """
 ## 2. Uzay Nesneleri
-
-pytop dört temel kurucuya sahiptir:
 
 | Kurucu | Topoloji | Sonuç |
 |--------|----------|-------|
@@ -49,26 +74,20 @@ pytop dört temel kurucuya sahiptir:
 """
 
 # %%
-from pytop import (
-    discrete_topology, indiscrete_topology, sierpinski_space, make_topology,
-    is_compact, is_connected, is_t0, is_t1, is_t2, count_topologies_on_n_points,
-)
-
 d = discrete_topology(0, 1, 2)
-print("Ayrık — carrier:", sorted(d.carrier))
-print("Ayrık — topoloji boyutu:", len(d.topology))
-print("Ayrık — etiketler:", sorted(d.tags))
+print("carrier:", sorted(d.carrier))
+print("topoloji boyutu:", len(d.topology))
+print("etiketler:", sorted(d.tags))
 
 # %% [markdown]
 """
 ```text
-Ayrık — carrier: [0, 1, 2]
-Ayrık — topoloji boyutu: 8
-Ayrık — etiketler: ['discrete', 'finite', 'hausdorff', 'metrizable', 'normal', 'regular']
+carrier: [0, 1, 2]
+topoloji boyutu: 8
+etiketler: ['discrete', 'finite', 'hausdorff', 'metrizable', 'normal', 'regular']
 ```
 
-`tags` kümesi uzayın bilinen topolojik özelliklerini depolar; yüklem fonksiyonları
-bu etiketten hızlı sonuç üretebilir.
+---
 """
 
 # %% [markdown]
@@ -79,33 +98,26 @@ pytop'un çoğu yüklemi bir `Result` nesnesi döner.
 """
 
 # %%
-from pytop import sierpinski_space, is_t2, is_compact, is_connected
-
 s = sierpinski_space()
 r = is_t2(s)
-
-print("Result alanları:")
-print("  .status      :", r.status)        # 'true' | 'false' | 'unknown'
-print("  .value       :", r.value)         # özelliğin adı
-print("  .mode        :", r.mode)          # 'exact' | 'corridor' | 'assumed'
-print("  .justification:", r.justification)
-print("  .assumptions  :", r.assumptions)
-print("  .metadata     :", r.metadata)
+print(".status      :", r.status)        # 'true' | 'false' | 'unknown'
+print(".value       :", r.value)
+print(".mode        :", r.mode)          # 'exact' | 'corridor' | 'assumed'
+print(".justification:", r.justification)
 
 # %% [markdown]
 """
 ```text
-Result alanları:
-  .status      : false
-  .value       : hausdorff
-  .mode        : exact
-  .justification: ['The explicit finite topology fails hausdorff.']
-  .assumptions  : []
-  .metadata     : {'representation': 'finite', 'property': 'hausdorff', ...}
+.status      : false
+.value       : hausdorff
+.mode        : exact
+.justification: ['The explicit finite topology fails hausdorff.']
 ```
 
-`.status` her zaman `'true'`, `'false'` veya `'unknown'` dizesidir — Python
+`.status` her zaman `'true'`, `'false'` veya `'unknown'` **dizesidir** — Python
 bool'u değil. Karşılaştırmada `r.status == 'true'` kullanın.
+
+---
 """
 
 # %% [markdown]
@@ -121,24 +133,20 @@ spaces = {
 }
 
 print(f"{'Uzay':<22} {'kompakt':>8} {'bağlantılı':>11} {'T0':>4} {'T1':>4} {'T2':>4}")
-print("-" * 58)
 for name, sp in spaces.items():
-    c  = is_compact(sp).status
-    co = is_connected(sp).status
-    t0 = is_t0(sp).status
-    t1 = is_t1(sp).status
-    t2 = is_t2(sp).status
-    print(f"{name:<22} {c:>8} {co:>11} {t0:>4} {t1:>4} {t2:>4}")
+    print(f"{name:<22} {is_compact(sp).status:>8} {is_connected(sp).status:>11} "
+          f"{is_t0(sp).status:>4} {is_t1(sp).status:>4} {is_t2(sp).status:>4}")
 
 # %% [markdown]
 """
 ```text
-Uzay                   kompakt  bağlantılı   T0   T1   T2
-----------------------------------------------------------
-Ayrık D(0,1,2)            true       false true true true
-İndiscrete I(0,1,2)       true        true false false false
-Sierpinski S              true        true  true false false
+Uzay                    kompakt  bağlantılı   T0   T1   T2
+Ayrık D(0,1,2)             true       false true true true
+İndiscrete I(0,1,2)        true        true false false false
+Sierpinski S               true        true true false false
 ```
+
+---
 """
 
 # %% [markdown]
@@ -150,32 +158,23 @@ Sierpinski S              true        true  true false false
 X = [1, 2, 3, 4]
 tau = [set(), {1,2}, {3,4}, {1,2,3,4}]
 fts = make_topology(X, *tau)
-
-print("carrier:", sorted(fts.carrier))
-print("topoloji:")
-for u in sorted([sorted(list(v)) for v in fts.topology], key=lambda x: (len(x), x)):
-    print(" ", u if u else "empty")
+print("topoloji:", sorted([sorted(list(u)) for u in fts.topology],
+                          key=lambda x: (len(x), x)))
 print("kompakt:", is_compact(fts).status)
-print("T0:", is_t0(fts).status)
 print("T2:", is_t2(fts).status)
 
 # %% [markdown]
 """
 ```text
-carrier: [1, 2, 3, 4]
-topoloji:
-  ∅
-  [1, 2]
-  [3, 4]
-  [1, 2, 3, 4]
+topoloji: [[], [1, 2], [3, 4], [1, 2, 3, 4]]
 kompakt: true
-T0: false
 T2: false
 ```
 
-`make_topology` verilen açık kümelerin birleşim ve kesişim kapatmasını
-otomatik tamamlar. Burada {1,2} ve {3,4} X'in bölümtüsünü oluşturduğundan
-ek açık küme gerekmez.
+`make_topology` verilen açık kümelerin birleşim ve kesişim kapatmasını otomatik
+tamamlar.
+
+---
 """
 
 # %% [markdown]
@@ -184,24 +183,22 @@ ek açık küme gerekmez.
 """
 
 # %%
-d3 = discrete_topology(0, 1, 2)
-ind3 = indiscrete_topology(0, 1, 2)
-s = sierpinski_space()
-
-print("Ayrık etiketleri:     ", sorted(d3.tags))
-print("İndiscrete etiketleri:", sorted(ind3.tags))
-print("Sierpinski etiketleri:", sorted(s.tags))
+print("Ayrık:     ", sorted(discrete_topology(0,1,2).tags))
+print("Indiscrete:", sorted(indiscrete_topology(0,1,2).tags))
+print("Sierpinski:", sorted(sierpinski_space().tags))
 
 # %% [markdown]
 """
 ```text
-Ayrık etiketleri:      ['discrete', 'finite', 'hausdorff', 'metrizable', 'normal', 'regular']
-İndiscrete etiketleri: ['finite', 'indiscrete']
-Sierpinski etiketleri: ['finite', 'sierpinski']
+Ayrık:      ['discrete', 'finite', 'hausdorff', 'metrizable', 'normal', 'regular']
+Indiscrete: ['compact', 'connected', 'finite', 'indiscrete']
+Sierpinski: ['compact', 'connected', 'finite', 't0']
 ```
 
 Etiketler yüklem fonksiyonlarının karar mekanizmasını hızlandırır:
-`is_t2(d3)` açık küme taraması yerine `'hausdorff' in d3.tags` kontrolüyle sonuç verir.
+`is_t2(d)` açık küme taraması yerine `'hausdorff' in d.tags` kontrolüyle sonuç verir.
+
+---
 """
 
 # %% [markdown]
@@ -210,42 +207,188 @@ Etiketler yüklem fonksiyonlarının karar mekanizmasını hızlandırır:
 """
 
 # %%
-print(f"{'n':>3}  {'topoloji sayısı':>16}")
-print("-" * 22)
 for n in range(1, 5):
-    cnt = count_topologies_on_n_points(n)
-    print(f"{n:>3}  {cnt:>16}")
+    print(f"n={n}: {count_topologies_on_n_points(n)}")
 
 # %% [markdown]
 """
 ```text
-  n  topoloji sayısı
-----------------------
-  1                 1
-  2                 4
-  3                29
-  4               355
-  5              6942
+n=1: 1
+n=2: 4
+n=3: 29
+n=4: 355
 ```
 
-Topoloji sayısı hızla büyür; sonlu uzayların tüm topolojileri üzerinde
-kaba kuvvet taraması yalnızca küçük n için pratiktir.
+---
 """
 
 # %% [markdown]
 """
-## 8. Sıradaki Adım
+## 8. pytop Ne Hesaplar? — Genel Harita
 
-Bu bölümden sonra kılavuzu sırayla okuyun:
+Önceki bölümler **betimsel/sonlu** katmanı gezdirdi (uzaylar, etiketler,
+yüklemler). pytop'un asıl gücü ise **yapıcı çekirdektir**: ham bir kompleks
+ya da nokta bulutundan başlayıp cebirsel invaryantları gerçekten _hesaplar_.
+Aşağıdaki harita bir girdinin hangi yollardan invaryanta dönüştüğünü özetler.
 
-- **Bölüm 4** — Topolojik uzay aksiyomları, baz, alt-baz
-- **Bölüm 5** — Açık/kapalı/clopen altkümeler, kapanış, iç, sınır
-- **Bölüm 6** — Ayrılma aksiyomları T0–T4
+![pytop hesaplama haritası: girdiden invaryanta](../assets/ch01/fig_ch01_harita.png)
 
-Herhangi bir bölümdeki `from pytop import (...)` satırı
-o bölümde kullanılan tüm fonksiyonları listeler.
+---
+"""
+
+# %% [markdown]
+"""
+## 9. Hesaplamalı Çekirdek: İlk Bakış
+
+Bu bölümdeki üç örnek, kılavuzun ileriki bölümlerinin temelini önizler:
+sonlu modellerden π₁, ham kompleksten homoloji ve nokta bulutundan kalıcı
+homoloji.
+"""
+
+# %% [markdown]
+"""
+### Örnek 9.1 — Sonlu Bir Çember Modeli ve π₁ = ℤ
+
+`finite_circle()` yalnızca 4 noktalı sonlu bir uzaydır, ama McCord düzen
+kompleksi üzerinden temel grubu hesaplandığında çıkan sonuç tam da S¹'inkidir:
+sonsuz devirli grup ℤ.
 """
 
 # %%
-if __name__ == "__main__":
-    pass
+fc = finite_circle()
+r = pi1_space(fc)
+print("uzay adi   :", r.space_name)
+print("grup tipi  :", r.group_type)
+print("uretec say :", len(r.presentation.generators))
+print("baginti say:", len(r.presentation.relators))
+print("serbest mi :", r.is_free())
+print("H1 betti   :", r.abelianization_betti)
+
+# %% [markdown]
+"""
+```text
+uzay adi   : S^1
+grup tipi  : infinite_cyclic
+uretec say : 1
+baginti say: 0
+serbest mi : True
+H1 betti   : 1
+```
+
+Yalnız 4 nokta, hiç bağıntısı olmayan tek üreteç: π₁ = ⟨a⟩ = ℤ. Sonlu bir
+topolojik uzay, sürekli bir çemberle aynı temel grubu taşıyabilir — finite
+modellerin gücü budur.
+"""
+
+# %% [markdown]
+"""
+### Örnek 9.2 — Üçgen Kenarından Çemberin Homolojisi
+
+Bir üçgenin kenar çerçevesi (içi doldurulmamış) topolojik olarak bir çemberdir.
+Köşeleri ve kenarları `simplicial_complex` ile verip homolojiyi hesaplayalım:
+"""
+
+# %%
+circle = simplicial_complex([[0], [1], [2], [0, 1], [1, 2], [0, 2]])
+for k in (0, 1):
+    h = simplicial_homology(circle, k)
+    print(f"H{k}: betti={h.betti} torsion={h.torsion}")
+print("betti_numbers:", betti_numbers(circle))
+
+# %% [markdown]
+"""
+```text
+H0: betti=1 torsion=()
+H1: betti=1 torsion=()
+betti_numbers: (1, 1)
+```
+
+`H_0 = Z` (tek bağlantılı bileşen), `H_1 = Z` (bir delik). Bu, çemberin klasik
+Betti imzası `(1, 1)`'dir — pytop bunu ham simpleks listesinden, tamsayı sınır
+matrisi → Smith normal formu yoluyla _hesaplar_.
+
+> ⚠️ **Sık hata:** `simplicial_complex` yüz-kapalı (face-closed) girdi bekler;
+> kenarları `[0,1]` verip köşeleri `[0]` eklemeyi unutursanız hata alırsınız.
+> Üçgenin kendisini `[0,1,2]` olarak eklerseniz içi dolar ve `H_1 = 0` olur.
+"""
+
+# %% [markdown]
+"""
+### Örnek 9.3 — Nokta Bulutundan Kalıcı Homoloji
+
+Geometrik veriden topolojiye köprü kuran araç **kalıcı homolojidir** (TDA).
+Çember üzerinden örneklenmiş 8 noktalık bir bulut alıp, üzerine bir
+Vietoris–Rips filtrasyonu kurar ve hangi deliklerin "hayatta kaldığını"
+sayarız.
+"""
+
+# %%
+import math
+
+pts = tuple(
+    (round(math.cos(2 * math.pi * k / 8), 4),
+     round(math.sin(2 * math.pi * k / 8), 4))
+    for k in range(8)
+)
+space = FiniteMetricSpace(carrier=pts, distance=math.dist)
+pairs = persistent_homology(space, max_dimension=1, max_scale=1.0)
+
+essential = [p for p in pairs if p.is_essential]
+print("toplam cift :", len(pairs))
+print("kalici H0   :", sum(1 for p in essential if p.dimension == 0))
+print("kalici H1   :", sum(1 for p in essential if p.dimension == 1))
+print("betti       :", persistence_betti_numbers(pairs))
+
+# %% [markdown]
+"""
+```text
+toplam cift : 9
+kalici H0   : 1
+kalici H1   : 1
+betti       : {0: 1, 1: 1}
+```
+
+Kalıcı (essential) sınıflar yine `(1, 1)`'i verir: bir bileşen ve bir delik.
+Sadece sıralı noktalardan, hiçbir bağlantı bilgisi vermeden, pytop çemberin
+şeklini geri kurtarır — `analyze` etmeden önce veri _gerçekten_ bir çember mi
+sorusunu yanıtlayan araç budur.
+
+---
+"""
+
+# %% [markdown]
+"""
+## 10. Alıştırmalar
+"""
+
+# %% [markdown]
+"""
+### Kodlama
+
+K1. `simplicial_complex` ile içi **dolu** üçgeni (`[[0,1,2]]` facet'i, tüm
+    yüzleriyle) kurun ve `betti_numbers` çıktısını boş üçgeninkiyle
+    karşılaştırın. `H_1` neden kayboldu?
+
+K2. Örnek 9.3'teki nokta sayısını 8'den 4'e düşürün. Kalıcı `H_1` hâlâ `1`
+    mi? Çıkan sonucu çemberin örnekleme yoğunluğuyla ilişkilendirin.
+"""
+
+# %% [markdown]
+"""
+### Teori
+
+T1. Sonlu bir uzayın (Örnek 9.1) sürekli bir çemberle aynı π₁'e sahip
+    olması nasıl mümkün? McCord teoreminin ne söylediğini bir cümleyle
+    açıklayın.
+
+---
+"""
+
+# %% [markdown]
+"""
+## 11. Sıradaki Adım
+
+- **Bölüm 3** — Küme teorisi ve fonksiyon temelleri (matematiksel ön koşullar)
+- **Bölüm 4** — Topolojik uzay aksiyomları, baz, alt-baz
+- **Bölüm 5** — Açık/kapalı altkümeler, kapanış, iç, sınır
+"""
