@@ -12,6 +12,14 @@ As of **v1.6.0** (released; development continues at `1.6.1.dev0`), pytop ships 
 ## Installation
 
 ```bash
+pip install pytopology      # then: import pytop
+```
+
+The distribution is published as **`pytopology`** (the bare `pytop` name is taken
+on PyPI by an unrelated project); the import name is `pytop`. For a local
+development checkout:
+
+```bash
 pip install -e .
 ```
 
@@ -330,7 +338,7 @@ Extends practical input limits of existing engines and adds approximate / stream
 - **`_gpu_backend` (P10.5)** — Optional cupy-accelerated Twist+Clearing via `gpu_twist_reduce`.
   Columns stored as cupy boolean arrays; XOR is GPU-native.  Falls back silently to `_twist_reduce`
   when cupy is absent or the filtration is below `GPU_MIN_SIZE = 500`.
-  Install with `pip install 'pytop[gpu]'`.
+  Install with `pip install 'pytopology[gpu]'`.
 
 ```python
 from pytop import sparse_smith_normal_form, matrix_density

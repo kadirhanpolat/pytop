@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.0] — 2026-06-24
+
+First PyPI-published release. Bundles the Phase 16–20 maturity work completed
+since v1.6.0 and establishes the automated publishing pipeline.
+
+### Added
+
+- **P20.2 — PyPI publishing pipeline.** Automated release via GitHub Actions
+  **Trusted Publishing** (OIDC, no stored API tokens): `.github/workflows/publish.yml`
+  builds the sdist + wheel, runs `twine check`, and uploads to PyPI on every
+  `v*` tag (with a manual `workflow_dispatch` TestPyPI dry-run path). The package
+  builds clean, passes `twine check`, and imports in a zero-dependency clean room
+  (runtime stays dependency-free). Release process documented in
+  `docs/P20_RELEASE_READINESS.md`.
+  - **Distribution name is `pytopology`** — the bare `pytop` name is taken on PyPI
+    by an unrelated abandoned project. The **import name stays `pytop`**
+    (`pip install pytopology` → `import pytop`, like `scikit-learn`/`sklearn`).
+- **P16.2 — Oracle agreement matrix populated & persisted.** A Docker-free internal
+  oracle cross-checks 9 torus-knot Alexander polynomials (pytop reduced-Burau vs the
+  Sage-verified table) and GUDHI persistent-Betti rows; `generate_oracle_matrix()` /
+  `persist_oracle_matrix()` emit `docs/validation/oracle_matrix.{json,md}` (15/15 = 100%).
+- **P16.3 — GUDHI cross-validation wired** into the statistical validation suite
+  (`persistence_dim_max=True` so top-dimension H₁ is computed); always-on
+  500-complex GUDHI parity guard in the default suite.
+
+### Changed
+
+- **P17.3 — Size-aware auto reduction routing.** `persistent_homology(method="auto")`
+  is now the default; small complexes route to Twist, large Rips to the de Silva dual
+  cohomology. Output byte-identical to twist/cohomology/standard.
+- **Knot table expanded to 51 primes** (unknot–17_1) with Alexander/Jones/genus
+  fields backfilled from the SageMath oracle and locked by det/Δ(1)/V(1) guards.
+- **Development status** promoted to `Production/Stable` — the 1.x line carries the
+  Phase 19 API-stability guarantees (18-month deprecation window).
+- **P19/P20 maturity items closed** (deprecation policy, API-consistency audit,
+  community onboarding) and roadmap reconciled.
+
 ## [1.6.0] — 2026-06-23
 
 ### Added
