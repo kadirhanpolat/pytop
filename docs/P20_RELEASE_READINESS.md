@@ -1,7 +1,7 @@
 # Phase 20: Ecosystem & Release Maturity
 
-**Status:** 🚧 In Progress  
-**Date:** 2026-06-23  
+**Status:** ✅ Ready to publish (v1.7.0)  
+**Date:** 2026-06-24  
 **Scope:** PyPI publishing, CI/CD hardening, community onboarding
 
 ## Phase 20.1: CI/CD Hardening ✅
@@ -44,37 +44,59 @@ All tests pass on Python 3.14 (current development version).
 
 ---
 
-## Phase 20.2: PyPI Publishing (Planned)
+## Phase 20.2: PyPI Publishing ✅
 
-### Pre-Release Checklist
+Publishing is automated via GitHub Actions **Trusted Publishing** (OIDC) — no
+API tokens are stored in the repository. See `.github/workflows/publish.yml`.
 
-- [ ] Version bumped in `pyproject.toml` and `src/pytop/__init__.py`
-- [ ] `CHANGELOG.md` updated with release notes
-- [ ] All CI checks passing on 4 Python versions
-- [ ] Documentation build succeeds
-- [ ] `build` and `twine` installed: `pip install build twine`
+### Verified (v1.7.0)
 
-### Release Process
+- ✅ `python -m build` produces a clean sdist + wheel
+- ✅ `twine check dist/*` — **PASSED** on both artifacts
+- ✅ `_pi_base_data.json` ships in both the wheel and the sdist
+- ✅ Clean-room install (fresh venv) imports `pytop`, `pytop.experimental.pi_base`,
+  and the computational core with **zero runtime dependencies**
+- ✅ Version is single-sourced and synced (`pyproject.toml` == `__init__.py` == tag),
+  enforced by a guard step in the publish workflow
+
+### One-time maintainer setup (required before the first publish)
+
+Register a **pending publisher** on PyPI (and, optionally, TestPyPI):
+Account → *Publishing* → *Add a new pending publisher*, matching exactly:
+
+| Field | Value |
+|-------|-------|
+| PyPI project name | `pytop` |
+| Owner | `kadirhanpolat` |
+| Repository | `pytop` |
+| Workflow filename | `publish.yml` |
+| Environment name | `pypi` (and `testpypi` for the dry-run publisher) |
+
+### Release process (after merge to master)
 
 ```bash
-# 1. Bump version (e.g., v1.6.0 → v1.7.0)
-# Update pyproject.toml and __init__.py
+# 1. Version is already bumped in pyproject.toml + __init__.py (this PR)
+# 2. CHANGELOG.md is updated (this PR)
+# 3. Merge the release PR to master; CI must be green on all 4 Python versions
 
-# 2. Build distribution
-python -m build
+# 4. (optional) TestPyPI dry run — trigger the workflow manually:
+#    GitHub → Actions → "Publish to PyPI" → Run workflow
 
-# 3. Test locally (optional)
-pip install --force-reinstall dist/pytop-1.7.0-py3-none-any.whl
-
-# 4. Upload to TestPyPI (dry run)
-twine upload --repository testpypi dist/*
-
-# 5. Upload to PyPI (production)
-twine upload dist/*
-
-# 6. Tag release
+# 5. Tag the release — this triggers the production PyPI upload automatically:
 git tag v1.7.0
 git push origin v1.7.0
+```
+
+The workflow rejects a tag whose version does not match `pyproject.toml`, so a
+mistyped tag fails fast instead of publishing the wrong version.
+
+### Manual fallback (token-based, if Actions is unavailable)
+
+```bash
+python -m build
+twine check dist/*
+twine upload --repository testpypi dist/*   # dry run
+twine upload dist/*                         # production
 ```
 
 ### PyPI Metadata
@@ -82,8 +104,8 @@ git push origin v1.7.0
 ```python
 [project]
 name = "pytop"
-version = "1.7.0"  # Bumped
-description = "Mathematical topology library"
+version = "1.7.0"
+description = "Mathematical topology library: ..."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = []  # Zero runtime dependencies
@@ -189,8 +211,8 @@ Breaking changes and deprecations:
 
 ## Success Criteria (Phase 20)
 
-- [ ] **P20.1 ✅** CI/CD hardened (4 Python versions, all checks green)
-- [ ] **P20.2** PyPI workflow documented and tested (dry-run on TestPyPI)
+- [x] **P20.1 ✅** CI/CD hardened (4 Python versions, all checks green)
+- [x] **P20.2 ✅** PyPI publishing automated (Trusted Publishing workflow; build + `twine check` + clean-room import verified)
 - [ ] **P20.3** Contributing guide + issue templates created
 - [ ] **P20.4** Ecosystem extras verified (dev/fast/gpu installs work)
 - [ ] **Response SLA** 48-hour response on issues/PRs (achievable with 1–2 maintainers)
