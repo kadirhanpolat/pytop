@@ -1,0 +1,26 @@
+\begin{tikzpicture}[font=\small, etiket/.style={font=\scriptsize}]
+  % --- Ucgen esitsizligi: d(x,z) <= d(x,y) + d(y,z) ---
+  \coordinate (x) at (0,0);
+  \coordinate (y) at (5.2,1.9);
+  \coordinate (z) at (6.6,-0.6);
+
+  % dolayli yol x -> y -> z
+  \draw[teal!70!black, very thick] (x) -- (y)
+    node[midway, above left, etiket, teal!60!black] {$d(x,y)$};
+  \draw[teal!70!black, very thick] (y) -- (z)
+    node[midway, right, etiket, teal!60!black] {$d(y,z)$};
+  % dogrudan yol x -> z (kestirme)
+  \draw[red!75!black, very thick, dashed] (x) -- (z)
+    node[midway, below, etiket, red!60!black] {$d(x,z)$};
+
+  % noktalar
+  \foreach \p/\pos in {x/{below left}, y/{above}, z/{right}} {
+    \fill[black] (\p) circle (1.8pt);
+    \node[\pos=2pt] at (\p) {$\p$};
+  }
+
+  \node[etiket, align=center, fill=red!6, rounded corners, inner sep=4pt]
+    at (3.2,-2.0)
+    {\textbf{Üçgen eşitsizliği:}\;\;$d(x,z)\;\le\;d(x,y)+d(y,z)$\\[2pt]
+     Doğrudan yol (kesikli kırmızı), $y$ üzerinden geçen dolaylı yoldan kısadır.};
+\end{tikzpicture}
