@@ -30,6 +30,7 @@ Produces comprehensive agreement matrix + JSON/Markdown reports on successful ru
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass
 from typing import NamedTuple
 
@@ -252,6 +253,101 @@ class TestOracleParity:
         assert by_name["11_1"].genus == 5
         assert "t^5" in by_name["11_1"].alexander_poly
         assert "t^{-5}" in by_name["11_1"].alexander_poly
+
+    def test_all_jones_satisfy_v1_equals_one(self):
+        """Universal guard: every knot's Jones polynomial satisfies V(1) = 1.
+
+        For a knot (one component) V_L(1) = 1 always. Summing the signed
+        coefficients of the LaTeX ``q``-polynomial evaluates it at q=1, so this
+        catches any corrupted/placeholder entry cheaply (the legacy 8ₓ/9ₓ/10ₓ
+        Jones strings summed to 2 and would have failed here).
+        """
+
+        def v_at_one(jones: str) -> int:
+            s = jones.strip()
+            lead = -1 if s[0] == "-" else 1
+            if s[0] in "+-":
+                s = s[1:].strip()
+            parts = re.split(r"\s([+-])\s", s)  # term0, op, term1, op, term2, ...
+
+            def coef(term: str) -> int:
+                m = re.match(r"(\d+)", term)
+                return int(m.group(1)) if m else 1
+
+            total = lead * coef(parts[0])
+            for i in range(1, len(parts), 2):
+                total += (1 if parts[i] == "+" else -1) * coef(parts[i + 1])
+            return total
+
+        for knot in KnotTable.KNOTS:
+            assert v_at_one(knot.jones_poly) == 1, (
+                f"{knot.name}: V(1) = {v_at_one(knot.jones_poly)} != 1 "
+                f"(jones_poly={knot.jones_poly!r})"
+            )
+
+    def test_all_alexander_satisfy_delta1_unit(self):
+        """Universal guard: every knot's Alexander polynomial has |Δ(1)| = 1.
+
+        Δ_K(1) = ±1 for any knot. At t=1 every t^e = 1, so the signed-coefficient
+        sum equals Δ(1); this catches corrupted/placeholder entries (several legacy
+        8ₓ/9ₓ/10ₓ Alexander strings had |Δ(1)| ≠ 1).
+        """
+
+        def coef_sum(poly: str) -> int:
+            s = poly.strip()
+            lead = -1 if s[0] == "-" else 1
+            if s[0] in "+-":
+                s = s[1:].strip()
+            parts = re.split(r"\s([+-])\s", s)
+
+            def coef(term: str) -> int:
+                m = re.match(r"(\d+)", term)
+                return int(m.group(1)) if m else 1
+
+            total = lead * coef(parts[0])
+            for i in range(1, len(parts), 2):
+                total += (1 if parts[i] == "+" else -1) * coef(parts[i + 1])
+            return total
+
+        for knot in KnotTable.KNOTS:
+            d1 = coef_sum(knot.alexander_poly)
+            assert abs(d1) == 1, (
+                f"{knot.name}: Δ(1) = {d1}, |Δ(1)| != 1 "
+                f"(alexander_poly={knot.alexander_poly!r})"
+            )
+
+    def test_genus_matches_alexander_span(self):
+        """Universal guard: 2·genus = span(Δ) for every table entry.
+
+        deg Δ_K ≤ 2·genus always; equality holds for alternating knots
+        (Crowell–Murasugi) and for the torus knots in the table, which is every
+        entry here. So the genus field must equal half the Alexander span — this
+        catches the legacy genus errors (e.g. 8_1 was listed genus 3, the twist
+        knot is genus 1).
+        """
+
+        def alex_span(poly: str) -> int:
+            s = poly.strip()
+            if s[0] in "+-":
+                s = s[1:].strip()
+            terms = [re.split(r"\s([+-])\s", s)[0]] + re.split(r"\s([+-])\s", s)[2::2]
+            exps = []
+            for term in terms:
+                term = term.strip()
+                if "t" not in term:
+                    exps.append(0)
+                else:
+                    em = re.search(r"t(?:\^\{(-?\d+)\}|\^(-?\d+))?", term)
+                    g = em.group(1) or em.group(2)
+                    exps.append(int(g) if g is not None else 1)
+            return max(exps) - min(exps)
+
+        for knot in KnotTable.KNOTS:
+            span = alex_span(knot.alexander_poly)
+            assert 2 * knot.genus == span, (
+                f"{knot.name}: 2·genus = {2 * knot.genus} != span(Δ) = {span} "
+                f"(genus={knot.genus}, alexander_poly={knot.alexander_poly!r})"
+            )
 
     def test_oracle_integrations_available(self):
         """P16.2: Verify oracle adapter framework is accessible."""

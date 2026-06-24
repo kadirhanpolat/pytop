@@ -28,14 +28,22 @@ Reference knot database with polynomial invariants:
 | Trefoil (3₁) | 3 | 1 | -t⁻¹ + 1 - t | q + q³ - q⁴ |
 | Figure-8 (4₁) | 4 | 1 | t⁻¹ - 3 + t | q⁻² - q⁻¹ + 1 - q + q² |
 | Cinquefoil (5₁) | 5 | 2 | t⁻² - t⁻¹ + 1 - t + t² | q² + q⁴ - q⁵ + q⁶ - q⁷ |
-| Stevedore (6₁) | 6 | 2 | t⁻² - t⁻¹ + 1 - t + t² | q⁻⁴ - q⁻² + 1 - q² + q⁴ |
+| Stevedore (6₁) | 6 | 1 | -2t⁻¹ + 5 - 2t | q⁻² - q⁻¹ + 2 - 2q + q² - q³ + q⁴ |
 | Septafoil (7₁) | 7 | 3 | t⁻³ - t⁻² + t⁻¹ - 1 + t - t² + t³ | q³ + q⁵ - q⁶ + q⁷ - q⁸ + q⁹ - q¹⁰ |
 
 The table now holds **51 primes** (unknot–17_1). The torus-knot tail (T(3,5)=10_124,
 T(2,11..17)) and the corrected low-crossing entries above carry pytop-recomputed
 invariants — Burau Alexander + braid-closure→PD Kauffman Jones — each triple-checksummed
-against the knot determinant (|Δ(−1)| = |V(−1)| = det, V(1)=1). Stevedore (6₁) and the
-legacy 8ₓ/9ₓ/10ₓ Jones entries still await a Sage/KnotInfo backfill.
+against the knot determinant (|Δ(−1)| = |V(−1)| = det, V(1)=1). The 8ₓ/9ₓ/10ₓ Jones
+(plus Stevedore 6₁ and 7₂–7₇) were **backfilled from the SageMath oracle**
+(`Knots().from_table(n,k).jones_polynomial()`), mirror-calibrated to the table convention
+and each verified |V(−1)| = det and V(1) = 1; a universal `test_all_jones_satisfy_v1_equals_one`
+guard now locks every entry. The matching **Alexander** polynomials for those entries were also
+backfilled from Sage (`alexander_polynomial()`, canonical Δ(1)=+1, det-verified), locked by a
+universal `test_all_alexander_satisfy_delta1_unit` guard (|Δ(1)| = 1). The **genus** fields were
+then set to `span(Δ)/2` — the exact Seifert 3-genus for alternating and torus knots, which is
+every entry here (32 were wrong, e.g. the 8₁ twist knot was listed genus 3, actually 1) — locked
+by `test_genus_matches_alexander_span` (2·genus = Alexander span).
 
 **Validation:** Polynomials against Sage/SnapPy oracles (P16.2 in progress).
 

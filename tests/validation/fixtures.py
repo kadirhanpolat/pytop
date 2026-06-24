@@ -199,9 +199,9 @@ class KnotTable:
     STEVEDORE = KnotEntry(
         name="stevedore_6_1",
         crossing_number=6,
-        genus=2,
-        alexander_poly="t^{-2} - t^{-1} + 1 - t + t^2",
-        jones_poly="q^{-4} - q^{-2} + 1 - q^2 + q^4",
+        genus=1,
+        alexander_poly="-2t^{-1} + 5 - 2t",
+        jones_poly="q^{-2} - q^{-1} + 2 - 2q + q^2 - q^3 + q^4",
     )
 
     SEPTAFOIL = KnotEntry(
@@ -218,7 +218,7 @@ class KnotTable:
     KNOT_5_2 = KnotEntry(
         name="5_2",
         crossing_number=5,
-        genus=2,
+        genus=1,
         # verified |Delta(-1)| = |V(-1)| = 7, V(1)=1
         alexander_poly="2t^{-1} - 3 + 2t",
         jones_poly="q - q^2 + 2q^3 - q^4 + q^5 - q^6",
@@ -245,193 +245,193 @@ class KnotTable:
     KNOT_7_2 = KnotEntry(
         name="7_2",
         crossing_number=7,
-        genus=3,
-        alexander_poly="t^{-3} - t^{-2} + 1 - t + t^2",
-        jones_poly="q^{-3} + q^{-2} + q^{-1} - 1 - q - q^2 + q^3",
+        genus=1,
+        alexander_poly="3t^{-1} - 5 + 3t",
+        jones_poly="q - q^2 + 2q^3 - 2q^4 + 2q^5 - q^6 + q^7 - q^8",
     )
 
     KNOT_7_3 = KnotEntry(
         name="7_3",
         crossing_number=7,
-        genus=3,
-        alexander_poly="-t^{-3} + t^{-2} - 1 + t - t^2",
-        jones_poly="-q^{-4} + q^{-3} - 1 + q - q^3 + q^4",
+        genus=2,
+        alexander_poly="2t^{-2} - 3t^{-1} + 3 - 3t + 2t^2",
+        jones_poly="-q^{-9} + q^{-8} - 2q^{-7} + 3q^{-6} - 2q^{-5} + 2q^{-4} - q^{-3} + q^{-2}",
     )
 
     KNOT_7_4 = KnotEntry(
         name="7_4",
         crossing_number=7,
-        genus=3,
-        alexander_poly="t^{-3} - t^{-1} + 1 - t + t^3",
-        jones_poly="-q^{-5} + q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
+        genus=1,
+        alexander_poly="4t^{-1} - 7 + 4t",
+        jones_poly="-q^{-8} + q^{-7} - 2q^{-6} + 3q^{-5} - 2q^{-4} + 3q^{-3} - 2q^{-2} + q^{-1}",
     )
 
     KNOT_7_5 = KnotEntry(
         name="7_5",
         crossing_number=7,
-        genus=3,
-        alexander_poly="-t^{-3} + 1 - t^3",
-        jones_poly="q^{-6} - q^{-5} + q^{-4} - q^{-2} + 1 - q^2 + q^4",
+        genus=2,
+        alexander_poly="2t^{-2} - 4t^{-1} + 5 - 4t + 2t^2",
+        jones_poly="q^2 - q^3 + 3q^4 - 3q^5 + 3q^6 - 3q^7 + 2q^8 - q^9",
     )
 
     KNOT_7_6 = KnotEntry(
         name="7_6",
         crossing_number=7,
-        genus=3,
-        alexander_poly="t^{-3} - t^{-2} + t^{-1} - 1 + t - t^2 + t^3",
-        jones_poly="-q^{-4} + q^{-3} + 1 - q^3 + q^4",
+        genus=2,
+        alexander_poly="-t^{-2} + 5t^{-1} - 7 + 5t - t^2",
+        jones_poly="q^{-1} - 2 + 3q - 3q^2 + 4q^3 - 3q^4 + 2q^5 - q^6",
     )
 
     KNOT_7_7 = KnotEntry(
         name="7_7",
         crossing_number=7,
-        genus=3,
-        alexander_poly="-t^{-3} - t^{-1} + 1 + t + t^3",
-        jones_poly="q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
+        genus=2,
+        alexander_poly="t^{-2} - 5t^{-1} + 9 - 5t + t^2",
+        jones_poly="q^{-4} - 2q^{-3} + 3q^{-2} - 4q^{-1} + 4 - 3q + 3q^2 - q^3",
     )
 
     KNOT_8_1 = KnotEntry(
         name="8_1",
         crossing_number=8,
-        genus=3,
-        alexander_poly="-t^{-3} - t^{-1} + 1 + t + t^3",
-        jones_poly="q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
+        genus=1,
+        alexander_poly="-3t^{-1} + 7 - 3t",
+        jones_poly="q^{-2} - q^{-1} + 2 - 2q + 2q^2 - 2q^3 + q^4 - q^5 + q^6",
     )
 
     KNOT_8_2 = KnotEntry(
         name="8_2",
         crossing_number=8,
-        genus=4,
-        alexander_poly="t^{-4} - t^{-3} + t^{-2} - t^{-1} + 1 - t + t^2 - t^3 + t^4",
-        jones_poly="-q^{-5} + q^{-4} - q^{-3} + q^{-2} - 1 + q^2 - q^3 + q^4",
+        genus=3,
+        alexander_poly="-t^{-3} + 3t^{-2} - 3t^{-1} + 3 - 3t + 3t^2 - t^3",
+        jones_poly="1 - q + 2q^2 - 2q^3 + 3q^4 - 3q^5 + 2q^6 - 2q^7 + q^8",
     )
 
     KNOT_8_3 = KnotEntry(
         name="8_3",
         crossing_number=8,
-        genus=3,
-        alexander_poly="-t^{-4} + t^{-3} - t^{-1} + 1 - t + t^3",
-        jones_poly="q^{-6} - q^{-5} + q^{-3} - q^{-1} + 1 - q + q^3",
+        genus=1,
+        alexander_poly="-4t^{-1} + 9 - 4t",
+        jones_poly="q^{-4} - q^{-3} + 2q^{-2} - 3q^{-1} + 3 - 3q + 2q^2 - q^3 + q^4",
     )
 
     KNOT_8_4 = KnotEntry(
         name="8_4",
         crossing_number=8,
-        genus=3,
-        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
-        jones_poly="-q^{-4} + q^{-3} - q^{-2} + 1 - q^2 + q^3",
+        genus=2,
+        alexander_poly="-2t^{-2} + 5t^{-1} - 5 + 5t - 2t^2",
+        jones_poly="q^{-3} - q^{-2} + 2q^{-1} - 3 + 3q - 3q^2 + 3q^3 - 2q^4 + q^5",
     )
 
     KNOT_8_5 = KnotEntry(
         name="8_5",
         crossing_number=8,
         genus=3,
-        alexander_poly="-t^{-4} + t^{-2} - 1 + t^2",
-        jones_poly="q^{-8} - q^{-7} + q^{-6} - q^{-4} + 1 - q^4 + q^6",
+        alexander_poly="-t^{-3} + 3t^{-2} - 4t^{-1} + 5 - 4t + 3t^2 - t^3",
+        jones_poly="q^{-8} - 2q^{-7} + 3q^{-6} - 4q^{-5} + 3q^{-4} - 3q^{-3} + 3q^{-2} - q^{-1} + 1",
     )
 
     KNOT_8_6 = KnotEntry(
         name="8_6",
         crossing_number=8,
-        genus=4,
-        alexander_poly="t^{-4} - t^{-3} + t^{-1} - 1 + t - t^3 + t^4",
-        jones_poly="-q^{-6} + q^{-5} - q^{-3} + 1 - q^3 + q^5",
+        genus=2,
+        alexander_poly="-2t^{-2} + 6t^{-1} - 7 + 6t - 2t^2",
+        jones_poly="q^{-1} - 1 + 3q - 4q^2 + 4q^3 - 4q^4 + 3q^5 - 2q^6 + q^7",
     )
 
     KNOT_8_7 = KnotEntry(
         name="8_7",
         crossing_number=8,
-        genus=4,
-        alexander_poly="-t^{-4} + t^{-2} - 1 + t^2",
-        jones_poly="q^{-6} - q^{-5} + q^{-4} - q^{-2} + 1 - q^2 + q^4",
+        genus=3,
+        alexander_poly="t^{-3} - 3t^{-2} + 5t^{-1} - 5 + 5t - 3t^2 + t^3",
+        jones_poly="-q^{-6} + 2q^{-5} - 3q^{-4} + 4q^{-3} - 4q^{-2} + 4q^{-1} - 2 + 2q - q^2",
     )
 
     KNOT_8_8 = KnotEntry(
         name="8_8",
         crossing_number=8,
-        genus=4,
-        alexander_poly="t^{-4} - t^{-3} + t^{-2} - t^{-1} + 1 - t + t^2 - t^3 + t^4",
-        jones_poly="q^{-6} - q^{-5} + q^{-3} - q^{-1} + 1 - q + q^3",
+        genus=2,
+        alexander_poly="2t^{-2} - 6t^{-1} + 9 - 6t + 2t^2",
+        jones_poly="-q^{-5} + 2q^{-4} - 3q^{-3} + 4q^{-2} - 4q^{-1} + 5 - 3q + 2q^2 - q^3",
     )
 
     KNOT_8_9 = KnotEntry(
         name="8_9",
         crossing_number=8,
         genus=3,
-        alexander_poly="-t^{-4} + t^{-3} - t^{-2} + 1 - t^2 + t^3",
-        jones_poly="-q^{-4} + q^{-3} - q^{-1} + 1 - q + q^3",
+        alexander_poly="-t^{-3} + 3t^{-2} - 5t^{-1} + 7 - 5t + 3t^2 - t^3",
+        jones_poly="q^{-4} - 2q^{-3} + 3q^{-2} - 4q^{-1} + 5 - 4q + 3q^2 - 2q^3 + q^4",
     )
 
     KNOT_8_10 = KnotEntry(
         name="8_10",
         crossing_number=8,
         genus=3,
-        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
-        jones_poly="q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
+        alexander_poly="t^{-3} - 3t^{-2} + 6t^{-1} - 7 + 6t - 3t^2 + t^3",
+        jones_poly="-q^{-6} + 2q^{-5} - 4q^{-4} + 5q^{-3} - 4q^{-2} + 5q^{-1} - 3 + 2q - q^2",
     )
 
     KNOT_8_11 = KnotEntry(
         name="8_11",
         crossing_number=8,
-        genus=4,
-        alexander_poly="-t^{-4} + t^{-3} - t^{-1} + 1 - t + t^3",
-        jones_poly="q^{-6} - q^{-5} + q^{-3} - q^{-1} + 1 - q + q^3",
+        genus=2,
+        alexander_poly="-2t^{-2} + 7t^{-1} - 9 + 7t - 2t^2",
+        jones_poly="q^{-1} - 2 + 4q - 4q^2 + 5q^3 - 5q^4 + 3q^5 - 2q^6 + q^7",
     )
 
     KNOT_8_12 = KnotEntry(
         name="8_12",
         crossing_number=8,
-        genus=3,
-        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
-        jones_poly="-q^{-4} + q^{-3} - q^{-1} + 1 - q + q^3",
+        genus=2,
+        alexander_poly="t^{-2} - 7t^{-1} + 13 - 7t + t^2",
+        jones_poly="q^{-4} - 2q^{-3} + 4q^{-2} - 5q^{-1} + 5 - 5q + 4q^2 - 2q^3 + q^4",
     )
 
     KNOT_8_13 = KnotEntry(
         name="8_13",
         crossing_number=8,
-        genus=4,
-        alexander_poly="-t^{-4} + t^{-2} - 1 + t^2",
-        jones_poly="q^{-8} - q^{-7} + q^{-6} - q^{-4} + 1 - q^4 + q^6",
+        genus=2,
+        alexander_poly="2t^{-2} - 7t^{-1} + 11 - 7t + 2t^2",
+        jones_poly="-q^{-5} + 2q^{-4} - 3q^{-3} + 5q^{-2} - 5q^{-1} + 5 - 4q + 3q^2 - q^3",
     )
 
     KNOT_8_14 = KnotEntry(
         name="8_14",
         crossing_number=8,
-        genus=3,
-        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
-        jones_poly="q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
+        genus=2,
+        alexander_poly="-2t^{-2} + 8t^{-1} - 11 + 8t - 2t^2",
+        jones_poly="q^{-1} - 2 + 4q - 5q^2 + 6q^3 - 5q^4 + 4q^5 - 3q^6 + q^7",
     )
 
     KNOT_8_15 = KnotEntry(
         name="8_15",
         crossing_number=8,
-        genus=3,
-        alexander_poly="-t^{-4} + t^{-3} - t^{-1} + 1 - t + t^3",
-        jones_poly="q^{-6} - q^{-5} + q^{-3} - q^{-1} + 1 - q + q^3",
+        genus=2,
+        alexander_poly="3t^{-2} - 8t^{-1} + 11 - 8t + 3t^2",
+        jones_poly="q^2 - 2q^3 + 5q^4 - 5q^5 + 6q^6 - 6q^7 + 4q^8 - 3q^9 + q^{10}",
     )
 
     KNOT_8_16 = KnotEntry(
         name="8_16",
         crossing_number=8,
-        genus=4,
-        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
-        jones_poly="-q^{-4} + q^{-3} - q^{-1} + 1 - q + q^3",
+        genus=3,
+        alexander_poly="t^{-3} - 4t^{-2} + 8t^{-1} - 9 + 8t - 4t^2 + t^3",
+        jones_poly="-q^{-2} + 3q^{-1} - 4 + 6q - 6q^2 + 6q^3 - 5q^4 + 3q^5 - q^6",
     )
 
     KNOT_8_17 = KnotEntry(
         name="8_17",
         crossing_number=8,
         genus=3,
-        alexander_poly="-t^{-4} + t^{-2} - 1 + t^2",
-        jones_poly="q^{-8} - q^{-7} + q^{-6} - q^{-4} + 1 - q^4 + q^6",
+        alexander_poly="-t^{-3} + 4t^{-2} - 8t^{-1} + 11 - 8t + 4t^2 - t^3",
+        jones_poly="q^{-4} - 3q^{-3} + 5q^{-2} - 6q^{-1} + 7 - 6q + 5q^2 - 3q^3 + q^4",
     )
 
     KNOT_8_18 = KnotEntry(
         name="8_18",
         crossing_number=8,
         genus=3,
-        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
-        jones_poly="q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
+        alexander_poly="-t^{-3} + 5t^{-2} - 10t^{-1} + 13 - 10t + 5t^2 - t^3",
+        jones_poly="q^{-4} - 4q^{-3} + 6q^{-2} - 7q^{-1} + 9 - 7q + 6q^2 - 4q^3 + q^4",
     )
 
     KNOT_8_19 = KnotEntry(
@@ -446,98 +446,98 @@ class KnotTable:
     KNOT_8_20 = KnotEntry(
         name="8_20",
         crossing_number=8,
-        genus=3,
-        alexander_poly="t^{-4} - t^{-3} + t^{-2} - 1 + t^2 - t^3 + t^4",
-        jones_poly="q^{-4} - q^{-3} + q^{-1} + 1 - q + q^3",
+        genus=2,
+        alexander_poly="t^{-2} - 2t^{-1} + 3 - 2t + t^2",
+        jones_poly="-q^{-1} + 2 - q + 2q^2 - q^3 + q^4 - q^5",
     )
 
     KNOT_8_21 = KnotEntry(
         name="8_21",
         crossing_number=8,
-        genus=3,
-        alexander_poly="-t^{-4} + t^{-3} - t^{-1} + 1 - t + t^3",
-        jones_poly="q^{-6} - q^{-5} + q^{-3} - q^{-1} + 1 - q + q^3",
+        genus=2,
+        alexander_poly="-t^{-2} + 4t^{-1} - 5 + 4t - t^2",
+        jones_poly="2q - 2q^2 + 3q^3 - 3q^4 + 2q^5 - 2q^6 + q^7",
     )
 
     KNOT_9_1 = KnotEntry(
         name="9_1",
         crossing_number=9,
         genus=4,
-        alexander_poly="-t^{-4} - t^{-2} + 1 + t^2 + t^4",
-        jones_poly="q^{-4} + q^{-2} - 1 - q^2 + q^4",
+        alexander_poly="t^{-4} - t^{-3} + t^{-2} - t^{-1} + 1 - t + t^2 - t^3 + t^4",
+        jones_poly="q^4 + q^6 - q^7 + q^8 - q^9 + q^{10} - q^{11} + q^{12} - q^{13}",
     )
 
     KNOT_9_2 = KnotEntry(
         name="9_2",
         crossing_number=9,
-        genus=4,
-        alexander_poly="t^{-4} + t^{-2} - 1 - t^2 + t^4",
-        jones_poly="-q^{-4} - q^{-2} + 1 + q^2 - q^4",
+        genus=1,
+        alexander_poly="4t^{-1} - 7 + 4t",
+        jones_poly="q - q^2 + 2q^3 - 2q^4 + 2q^5 - 2q^6 + 2q^7 - q^8 + q^9 - q^{10}",
     )
 
     KNOT_9_3 = KnotEntry(
         name="9_3",
         crossing_number=9,
-        genus=4,
-        alexander_poly="-t^{-4} + t^{-2} - 1 + t^2",
-        jones_poly="q^{-8} - q^{-7} + q^{-6} - q^{-4} + 1 - q^4 + q^6",
+        genus=3,
+        alexander_poly="2t^{-3} - 3t^{-2} + 3t^{-1} - 3 + 3t - 3t^2 + 2t^3",
+        jones_poly="-q^{-12} + q^{-11} - 2q^{-10} + 3q^{-9} - 3q^{-8} + 3q^{-7} - 2q^{-6} + 2q^{-5} - q^{-4} + q^{-3}",
     )
 
     KNOT_9_4 = KnotEntry(
         name="9_4",
         crossing_number=9,
-        genus=4,
-        alexander_poly="t^{-4} - t^{-2} + 1 - t^2 + t^4",
-        jones_poly="q^{-4} + q^{-2} - 1 - q^2 + q^4",
+        genus=2,
+        alexander_poly="3t^{-2} - 5t^{-1} + 5 - 5t + 3t^2",
+        jones_poly="q^2 - q^3 + 2q^4 - 3q^5 + 4q^6 - 3q^7 + 3q^8 - 2q^9 + q^{10} - q^{11}",
     )
 
     KNOT_9_5 = KnotEntry(
         name="9_5",
         crossing_number=9,
-        genus=4,
-        alexander_poly="-t^{-4} - t^{-2} + 1 + t^2 + t^4",
-        jones_poly="-q^{-4} - q^{-2} + 1 + q^2 - q^4",
+        genus=1,
+        alexander_poly="6t^{-1} - 11 + 6t",
+        jones_poly="-q^{-10} + q^{-9} - 2q^{-8} + 3q^{-7} - 3q^{-6} + 4q^{-5} - 3q^{-4} + 3q^{-3} - 2q^{-2} + q^{-1}",
     )
 
     # 10-crossing knots (expanded P16.2 oracle table to 50+)
     KNOT_10_1 = KnotEntry(
         name="10_1",
         crossing_number=10,
-        genus=4,
-        alexander_poly="t^{-5} + t^{-3} - t^{-1} - 1 - t + t^3 + t^5",
-        jones_poly="-q^{-8} - q^{-6} + q^{-4} + 1 - q^4 + q^6",
+        genus=1,
+        alexander_poly="-4t^{-1} + 9 - 4t",
+        jones_poly="q^{-2} - q^{-1} + 2 - 2q + 2q^2 - 2q^3 + 2q^4 - 2q^5 + q^6 - q^7 + q^8",
     )
 
     KNOT_10_2 = KnotEntry(
         name="10_2",
         crossing_number=10,
-        genus=5,
-        alexander_poly="-t^{-5} + t^{-3} - t^{-1} + 1 - t + t^3",
-        jones_poly="q^{-6} - q^{-5} + q^{-4} - q^{-3} + q^{-2} - q^{-1} + 1 - q + q^2",
+        genus=4,
+        alexander_poly="-t^{-4} + 3t^{-3} - 3t^{-2} + 3t^{-1} - 3 + 3t - 3t^2 + 3t^3 - t^4",
+        jones_poly="q - q^2 + 2q^3 - 2q^4 + 3q^5 - 3q^6 + 3q^7 - 3q^8 + 2q^9 - 2q^{10} + q^{11}",
     )
 
     KNOT_10_3 = KnotEntry(
         name="10_3",
         crossing_number=10,
-        genus=4,
-        alexander_poly="t^{-5} - t^{-3} + t^{-1} + 1 + t - t^3 + t^5",
-        jones_poly="-q^{-8} + q^{-6} - q^{-4} - 1 + q^4 - q^6",
+        genus=1,
+        alexander_poly="-6t^{-1} + 13 - 6t",
+        jones_poly="q^{-4} - q^{-3} + 2q^{-2} - 3q^{-1} + 4 - 4q + 3q^2 - 3q^3 + 2q^4 - q^5 + q^6",
     )
 
     KNOT_10_4 = KnotEntry(
         name="10_4",
         crossing_number=10,
-        genus=4,
-        alexander_poly="-t^{-5} - t^{-3} + t^{-1} + 1 + t + t^3",
-        jones_poly="q^{-6} - q^{-4} - 1 + q^4 - q^6",
+        genus=2,
+        alexander_poly="-3t^{-2} + 7t^{-1} - 7 + 7t - 3t^2",
+        jones_poly="q^{-5} - q^{-4} + 2q^{-3} - 3q^{-2} + 3q^{-1} - 4 + 4q - 3q^2 + 3q^3 - 2q^4 + q^5",
     )
 
     KNOT_10_5 = KnotEntry(
         name="10_5",
         crossing_number=10,
-        genus=5,
-        alexander_poly="t^{-5} + t^{-3} - t^{-1} + 1 - t - t^3 + t^5",
-        jones_poly="-q^{-8} - q^{-6} + q^{-2} + 1 - q^2 + q^6",
+        genus=4,
+        alexander_poly="t^{-4} - 3t^{-3} + 5t^{-2} - 5t^{-1} + 5 - 5t + 5t^2 - 3t^3 + t^4",
+        jones_poly="-q^{-9} + 2q^{-8} - 3q^{-7} + 4q^{-6} - 5q^{-5} + 5q^{-4} - 4q^{-3} + 4q^{-2} - 2q^{-1} + 2 - q",
     )
 
     # Torus knots T(m, n) — verified reference data (expands table past 50 primes).

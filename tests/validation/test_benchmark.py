@@ -160,10 +160,10 @@ class TestKnotTable:
         assert cinq.genus == 2
 
     def test_stevedore_properties(self):
-        """Stevedore knot 6₁: crossing 6, genus 2."""
+        """Stevedore knot 6₁: crossing 6, genus 1 (twist knot)."""
         steve = KnotTable.STEVEDORE
         assert steve.crossing_number == 6
-        assert steve.genus == 2
+        assert steve.genus == 1
 
     def test_septafoil_properties(self):
         """Septafoil 7₁: crossing 7, genus 3."""
@@ -189,14 +189,18 @@ class TestKnotTable:
         assert len(trefoils) == 1
 
     def test_knots_by_genus(self):
-        """Query knots by genus."""
+        """Query knots by genus (Seifert 3-genus, = span(Alexander)/2)."""
         genus_1 = KnotTable.by_genus(1)
-        assert len(genus_1) == 2  # Trefoil, Figure-8
+        # Trefoil, Figure-8, and the twist knots 5_2/6_1/7_2/7_4/8_1/8_3/9_2/9_5/10_1/10_3
+        assert len(genus_1) == 12
         assert all(k.genus == 1 for k in genus_1)
+        names_1 = {k.name for k in genus_1}
+        assert {"trefoil_3_1", "figure8_4_1", "stevedore_6_1"} <= names_1
 
-        # P16.2 extended: genus-2 knots now include Cinquefoil, Stevedore, 5_2, 6_2, 6_3
         genus_2 = KnotTable.by_genus(2)
-        assert len(genus_2) >= 2  # At least Cinquefoil, Stevedore (P16.1 baseline)
+        assert len(genus_2) >= 2
+        assert all(k.genus == 2 for k in genus_2)
+        assert any(k.name == "cinquefoil_5_1" for k in genus_2)
 
 
 class TestLargeGraphLibrary:
