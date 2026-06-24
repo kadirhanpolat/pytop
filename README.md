@@ -24,6 +24,10 @@ development checkout:
 pip install -e .
 ```
 
+**New here?** Start with the [Getting Started guide](docs/GETTING_STARTED.md) —
+install to four working computations (homology, persistent homology, knot
+invariants, graph planarity) in a few minutes.
+
 Requires Python 3.11+.
 
 ## Quick Start
