@@ -1,5 +1,11 @@
 """Optimized persistent homology: Twist algorithm with the Clearing Lemma.
 
+Soft-deprecation candidate: ``persistent_homology_optimized`` is listed in the
+*Candidates* table of the top-level ``DEPRECATIONS.md`` registry. Prefer
+``persistent_homology(space, method="auto")`` in new code; this module remains a
+historical alias until the future deprecation window opens, with no behavior
+change in the meantime.
+
 Standard column reduction (left-to-right sweep over Z/2) runs in O(n³) worst
 case.  The Twist algorithm (Chen–Kerber 2011) processes boundary columns
 dimension by dimension from highest to lowest.  As each finite persistence
@@ -261,8 +267,9 @@ def persistent_homology_optimized(
     :func:`persistence_pairs_twist`.
 
     .. note::
-       Soft-deprecation candidate (see ``DEPRECATIONS.md`` and
-       ``docs/API_DESIGN.md`` finding #3). Since :func:`persistent_homology`
+       Soft-deprecation candidate; see the ``persistent_homology_optimized`` row
+       in the *Candidates* table of the top-level ``DEPRECATIONS.md`` registry
+       and ``docs/API_DESIGN.md`` finding #3. Since :func:`persistent_homology`
        already routes to the twist method by default — and to the size-aware
        ``"auto"`` router as of P17.3 — this wrapper is effectively a historical
        alias. Prefer ``persistent_homology(space, method="auto")`` in new code.
