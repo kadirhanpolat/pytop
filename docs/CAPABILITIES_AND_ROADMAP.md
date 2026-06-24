@@ -586,7 +586,7 @@ Cross-validates pytop against independent gold-standard external systems via uni
 | Phase 17 milestones complete | 3 / 3 ✅ (P17.1 profiling ✅; P17.2 method selection ✅; **P17.3 ✅ — inductive Rips build ~14–19× + size-aware auto reduction routing now default, up to ~12× faster end-to-end, byte-identical output**) |
 | Phase 18 milestones complete | 3 / 3 ✅ (user guide, API ref, example bank) |
 | Phase 19 milestones complete | 3 / 3 ✅ (P19.1 error messages, P19.2 deprecation policy + `@deprecated` + `DEPRECATIONS.md` *Candidates*, P19.3 API design audit — finding #3 resolved via soft-deprecated `persistent_homology_optimized` → `persistent_homology(method="auto")`) |
-| Phase 20 milestones complete | 2 / 3 ✅⬜ (P20.1 CI matrix ✅, P20.3 community onboarding ✅ — `CONTRIBUTING.md`, issue/PR templates, `docs/GOOD_FIRST_ISSUES.md` 12-task backlog; P20.2 PyPI publishing pending) |
+| Phase 20 milestones complete | 2 / 3 ✅⬜ (P20.1 CI matrix ✅, P20.3 community onboarding ✅ — `CONTRIBUTING.md`, issue/PR templates, `docs/GOOD_FIRST_ISSUES.md` 12-task backlog opened as issues #35–#46; P20.2 PyPI publishing pending) |
 | **Current version** | **v1.6.0** released; dev at **`1.6.1.dev0`** |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
