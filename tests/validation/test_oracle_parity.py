@@ -484,3 +484,43 @@ class TestOracleParity:
 
 # Convenience: export test fixtures for downstream (P16.3, etc.)
 __all__ = ["OracleAgreement", "AgreementMatrix", "TestOracleParity"]
+
+
+# ---------------------------------------------------------------------------
+# Good-first-issue #5: parametrized knot-determinant identity over all entries.
+# For every knot the determinant satisfies |Δ(-1)| = |V(-1)| = det. The existing
+# V(1)=1 / |Δ(1)|=1 guards only probe the point t=q=1; this checks t=q=-1 (which
+# exercises the exponents, not just the coefficient sum) for *every* table entry.
+# ---------------------------------------------------------------------------
+
+def _laurent_at(poly: str, x: int, var: str) -> int:
+    """Evaluate a LaTeX single-variable Laurent polynomial at integer ``x``."""
+    s = poly.strip()
+    lead = -1 if s and s[0] == "-" else 1
+    if s and s[0] in "+-":
+        s = s[1:].strip()
+    parts = re.split(r"\s([+-])\s", s)
+    signed = [(lead, parts[0])]
+    for i in range(1, len(parts), 2):
+        signed.append((1 if parts[i] == "+" else -1, parts[i + 1]))
+
+    total = 0.0
+    for sign, term in signed:
+        m = re.fullmatch(rf"(\d+)?(?:{re.escape(var)})?(?:\^\{{?(-?\d+)\}}?)?", term.strip())
+        assert m is not None, f"unparsable term {term!r} in {poly!r}"
+        coef = int(m.group(1)) if m.group(1) else 1
+        has_var = var in term
+        exp = (int(m.group(2)) if m.group(2) else 1) if has_var else 0
+        total += sign * coef * (x ** exp)
+    return round(total)
+
+
+@pytest.mark.parametrize("knot", KnotTable.KNOTS, ids=lambda k: k.name)
+def test_knot_determinant_identity(knot):
+    """|Δ(-1)| = |V(-1)| (the knot determinant) for every table entry."""
+    det_alexander = abs(_laurent_at(knot.alexander_poly, -1, "t"))
+    det_jones = abs(_laurent_at(knot.jones_poly, -1, "q"))
+    assert det_alexander == det_jones, (
+        f"{knot.name}: |Δ(-1)|={det_alexander} != |V(-1)|={det_jones} "
+        f"(alexander={knot.alexander_poly!r}, jones={knot.jones_poly!r})"
+    )
