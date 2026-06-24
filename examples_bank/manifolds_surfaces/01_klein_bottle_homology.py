@@ -1,27 +1,29 @@
-"""Example: Homology of Klein Bottle
+"""Example: Homology of the Klein Bottle
 
 Problem:
-  Compute homology of the Klein bottle K.
+  Compute the homology of the Klein bottle K, including its torsion.
+
+Solution:
+  pytop.klein_bottle_filtration provides a minimal triangulation. Turn its
+  simplices into a SimplicialComplex and compute homology degree by degree —
+  simplicial_homology reports both Betti numbers and torsion coefficients.
 
 Expected:
-  H_0(K) = Z        (connected)
-  H_1(K) = Z ⊕ Z/2  (one generator + torsion)
-  H_2(K) = 0        (non-orientable)
+  H_0(K) = Z            (connected)
+  H_1(K) = Z (+) Z/2    (one free generator + 2-torsion)
+  H_2(K) = 0            (non-orientable)
 """
 
 import pytop
 
+# Minimal triangulation of the Klein bottle, as a face-closed complex.
 filtration = pytop.klein_bottle_filtration()
-H = pytop.homology(filtration)
+K = pytop.SimplicialComplex(filtration.simplices)
 
 print("Klein Bottle:")
-for dim in range(len(H.betti_numbers)):
-    betti = H.betti_numbers[dim]
-    torsion = H.torsion_coefficients[dim] if dim < len(H.torsion_coefficients) else []
-    print(f"  H_{dim} = Z^{betti}", end="")
-    if torsion:
-        print(f" ⊕ {torsion}")
-    else:
-        print()
-
-print(f"  Euler characteristic: {H.euler_characteristic}")
+for degree in range(3):
+    H = pytop.simplicial_homology(K, degree)
+    line = f"  H_{degree}(K) = Z^{H.betti}"
+    if H.torsion:
+        line += " (+) " + " (+) ".join(f"Z/{t}" for t in H.torsion)
+    print(line)

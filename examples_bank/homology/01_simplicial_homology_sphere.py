@@ -2,52 +2,32 @@
 
 Problem:
   Compute the homology groups H_0(S²), H_1(S²), H_2(S²) using the standard
-  triangulation of the 2-sphere (tetrahedron).
+  triangulation of the 2-sphere (boundary of a tetrahedron).
 
 Solution:
-  Use pytop's simplicial_complex and homology modules to build S² as the
-  boundary of a tetrahedron and compute its homology.
+  Build S² as a face-closed SimplicialComplex (simplices given as tuples) and
+  compute homology one degree at a time with pytop.simplicial_homology.
 
 Expected:
-  H_0(S²) = Z        (connected)
-  H_1(S²) = 0        (simply connected)
-  H_2(S²) = Z        (2-dimensional void)
+  H_0(S²) = Z   (connected)
+  H_1(S²) = 0   (simply connected)
+  H_2(S²) = Z   (one enclosed 2-dimensional void)
 """
 
 import pytop
 
-# Build S² as boundary of tetrahedron: 4 vertices, 6 edges, 4 triangles
-vertices = frozenset(range(4))
+# S² as the boundary of a tetrahedron: 4 vertices, 6 edges, 4 triangles.
+# Simplices are iterables of vertices; the complex must be face-closed.
+vertices = [(0,), (1,), (2,), (3,)]
+edges = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
+triangles = [(0, 1, 2), (0, 1, 3), (0, 2, 3), (1, 2, 3)]
 
-edges = frozenset([
-    frozenset([0, 1]),
-    frozenset([0, 2]),
-    frozenset([0, 3]),
-    frozenset([1, 2]),
-    frozenset([1, 3]),
-    frozenset([2, 3]),
-])
-
-triangles = frozenset([
-    frozenset([0, 1, 2]),
-    frozenset([0, 1, 3]),
-    frozenset([0, 2, 3]),
-    frozenset([1, 2, 3]),
-])
-
-simplex_list = list(vertices) + list(edges) + list(triangles)
-S2 = pytop.SimplicialComplex(simplex_list)
-
-# Compute homology
-H = pytop.homology(S2)
+S2 = pytop.SimplicialComplex(vertices + edges + triangles)
 
 print("S² Homology:")
-for dim, (betti, torsion) in enumerate(zip(H.betti_numbers, H.torsion_coefficients)):
-    print(f"  H_{dim}(S²) = Z^{betti}", end="")
-    if torsion:
-        print(f" ⊕ {torsion}")
-    else:
-        print()
-
-print("\nVerification:")
-print(f"  χ(S²) = {H.euler_characteristic} (expected: 2)")
+for degree in range(3):
+    H = pytop.simplicial_homology(S2, degree)
+    line = f"  H_{degree}(S²) = Z^{H.betti}"
+    if H.torsion:
+        line += f" (+) {H.torsion}"
+    print(line)
