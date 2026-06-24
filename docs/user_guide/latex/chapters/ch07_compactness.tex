@@ -6,6 +6,27 @@ Açık örtü tanımı temel alınarak incelenmekte; varyantlar ve lokal kompakt
 %-------------------------------------------------------------------
 \section{Konu}
 
+\subsection{Sezgisel Giriş — ``Gizli Sonluluk''}
+
+Kompaktlığı tek cümlede özetlemek gerekirse: \emph{sonsuz bir uzayın, sonlu bir
+uzay gibi davranmasıdır.} Sonlu bir kümede her şey kolaydır; kompaktlık bu
+``sonluluk konforunu'' sonsuz uzaylara taşıyan köprüdür: uzayı ne kadar çok açık
+kümeyle örtersek örtelim, \textbf{her zaman sonlu sayıda tanesi yeter.}
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch07_acik_ortu.tikz}
+  \caption{Açık örtü $\to$ sonlu alt-örtü: uzayı sonsuz çoklukta açık kümeyle
+    örtsek bile, kompaktsa sonlu sayıda tanesi onu kapatmaya yeter.}
+\end{figure}
+
+\begin{sezgi}
+``Açık örtü'' uzayı kaplayan açık küme ailesidir; ``sonlu alt-örtü'' bu aileden
+seçilmiş, hâlâ kaplamayı başaran sonlu bir parçadır. Kompakt olmak, bunu
+\emph{her} örtü için yapabilmektir. Bu özellik, analizdeki maksimum değer
+teoremi, düzgün süreklilik ve Heine-Borel'in arkasındaki sessiz kahramandır.
+\end{sezgi}
+
 \subsection{Kompaktlık Tanımı}
 
 \begin{definition}[Kompakt Uzay]
@@ -17,6 +38,33 @@ X \subseteq \bigcup_{\alpha} U_\alpha
 \exists \text{ sonlu } I:\; X \subseteq \bigcup_{\alpha \in I} U_\alpha.
 \]
 \end{definition}
+
+\subsection{Neden ``kapalı ve sınırlı'' yetmez? — Karşı-örnekler}
+
+Reel doğruda kompaktlık tam olarak ``kapalı + sınırlı''ya denktir (Heine-Borel).
+Bu denkliğin neden \emph{hem} kapalılığa \emph{hem} sınırlılığa ihtiyaç
+duyduğunu en iyi açık aralık gösterir.
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch07_kacan_ortu.tikz}
+  \caption{Kaçan örtü: $(0,1)$ açık aralığını $U_n=(1/n,1)$ ailesi örter; sol
+    uçlar $0$'a yaklaşır ama $0$'a hiç ulaşmaz, bu yüzden hiçbir sonlu alt-örtü
+    işe yaramaz.}
+\end{figure}
+
+\begin{karsiornek}
+\textbf{$(0,1)$ kompakt değil.} $U_n = \left(\tfrac{1}{n}, 1\right)$ ailesi
+$(0,1)$'i örter. Sonlu bir alt-aile $\{U_{n_1}, \dots, U_{n_k}\}$ seçersek, en
+büyük indis $N=\max n_i$ için birleşim yalnızca $\left(\tfrac{1}{N}, 1\right)$
+olur; $0$'a yakın noktalar açıkta kalır. Sonlu alt-örtü yoktur. Kapalı $[0,1]$'de
+$0$ dahil olduğundan sonlu alt-örtü her zaman bulunur.
+
+\medskip
+\textbf{$\mathbb{R}$ kompakt değil.} $V_n = (-n, n)$ ailesi $\mathbb{R}$'yi örter
+ama hiçbir sonlu alt-aile sınırsız $\mathbb{R}$'yi kaplayamaz. Burada sorun
+\emph{sınırsızlık}.
+\end{karsiornek}
 
 \subsection{Kompaktlık Varyantları}
 
@@ -38,7 +86,18 @@ Lokal kompakt & Her noktanın kompakt komşuluğu var \\
 \caption{Kompaktlık varyantları}
 \end{table}
 
-\textbf{Sıralama:} Kompakt $\Rightarrow$ Sayılabilir kompakt $\Rightarrow$ Ardışımlı kompakt $\Rightarrow$ Lindelöf.
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch07_varyant_implikasyon.tikz}
+  \caption{Kompaktlık varyantları arasındaki implikasyonlar: Kompakt
+    $\Rightarrow$ Lindelöf ve Kompakt $\Rightarrow$ Sayılabilir kompakt her zaman
+    geçer; Kompakt $\Leftrightarrow$ Ardışımlı kompakt yalnız metrik uzaylarda.}
+\end{figure}
+
+\textbf{Her zaman geçen implikasyonlar:} Kompakt $\Rightarrow$ Sayılabilir
+kompakt, Kompakt $\Rightarrow$ Lindelöf, Ardışımlı kompakt $\Rightarrow$
+Sayılabilir kompakt. \textbf{Metrik uzaylarda} üç kavram (kompakt, sayılabilir
+kompakt, ardışımlı kompakt) çakışır.
 
 %-------------------------------------------------------------------
 \section{Teoremler}
@@ -47,9 +106,29 @@ Lokal kompakt & Her noktanın kompakt komşuluğu var \\
 $\mathbb{R}^n$'de kompakt $\Leftrightarrow$ kapalı ve sınırlı.
 \end{theorem}
 
+\begin{proof}[İspat eskizi]
+($\Leftarrow$) $[a,b]$ aralığını ele alalım ve sonlu alt-örtüsü olmayan bir açık
+örtü bulunduğunu varsayalım. Aralığı ikiye böleriz; en az bir yarısının da sonlu
+alt-örtüsü yoktur. Bunu yineleyerek uzunluğu $0$'a giden iç içe kapalı aralıklar
+dizisi elde ederiz; kesişimleri tek bir $p$ noktasıdır. $p$'yi içeren bir örtü
+elemanı $U$, yeterince küçük aralıkları tümüyle içerir --- çelişki. $\mathbb{R}^n$
+için Tychonoff ile $[a,b]^n$'e geçilir. ($\Rightarrow$) Kompakt küme Hausdorff
+uzayda kapalıdır; sınırlılık, $\{(-n,n)^n\}$ örtüsünün sonlu alt-örtüsünden gelir.
+\end{proof}
+
 \begin{theorem}
 Kompakt $+$ Hausdorff $\Rightarrow$ Normal (T4).
 \end{theorem}
+
+\begin{proof}[İspat eskizi]
+$A, B$ ayrık kapalı kümeler olsun (kompakt uzayda kapalı $\Rightarrow$ kompakt).
+Sabit $a\in A$ için Hausdorff'luk her $b\in B$'yi $a$'dan açık $U_b \ni a$,
+$V_b \ni b$ ile ayırır. $\{V_b\}$, kompakt $B$'yi örter; sonlu alt-örtü
+$V_{b_1},\dots,V_{b_k}$ alıp $U_a=\bigcap U_{b_i}$, $V_a=\bigcup V_{b_i}$ koyarız.
+Burada \emph{sonlu} kesişimin açık kalması kritiktir --- bu yüzden $B$'nin kompakt
+olması şarttır. Sonra $\{U_a\}_{a\in A}$ kompakt $A$'yı örter; yine sonlu
+alt-örtüden $A$ ile $B$'yi ayıran açıklar kurulur.
+\end{proof}
 
 \begin{theorem}
 Kompakt uzaydan Hausdorff uzaya sürekli bijeksiyon $\Rightarrow$ homeomorfizma.
@@ -60,8 +139,20 @@ Keyfi kompakt uzayların kartezyen çarpımı kompakttır.
 \end{theorem}
 
 \begin{theorem}[Alexandroff Tek-Nokta Kompaktifikasyonu]
-Her lokal kompakt Hausdorff uzay $X$ için $X^* = X \cup \{\infty\}$ kompakt Hausdorff'tur.
+Her lokal kompakt Hausdorff uzay $X$ için $X^* = X \cup \{\infty\}$ kompakt
+Hausdorff'tur. (Örn.\ $\mathbb{R}^* \cong S^1$, $(\mathbb{R}^2)^* \cong S^2$.)
 \end{theorem}
+
+\begin{theorem}[Kompakt görüntü]
+$f: X \to Y$ sürekli ve $X$ kompakt ise $f(X)$ kompakttır.
+\end{theorem}
+
+\begin{proof}[İspat eskizi]
+$\{V_\alpha\}$, $f(X)$'i örten açık aile olsun. Süreklilikten
+$\{f^{-1}(V_\alpha)\}$, $X$'i örten açık ailedir; $X$ kompakt olduğundan sonlu
+alt-örtü $f^{-1}(V_{\alpha_1}),\dots,f^{-1}(V_{\alpha_k})$ vardır. O hâlde
+$V_{\alpha_1},\dots,V_{\alpha_k}$, $f(X)$'i örter.
+\end{proof}
 
 %-------------------------------------------------------------------
 \section{Algoritmalar}
@@ -96,6 +187,9 @@ from pytop import (
     is_compact,
     is_lindelof,
     is_locally_compact,
+    naturals_cofinite,
+    one_point_compactification_of_reals,
+    one_point_compactification_of_N,
 )
 from pytop.compactness_variants import (
     is_countably_compact,
@@ -160,6 +254,57 @@ for key, val in r.value.items():
   lindelof                 : true
 \end{verbatim}
 
+\subsection*{Örnek 5.4 — Sonsuz Ama Kompakt: Kosonlu Topoloji}
+
+Kompaktlık sınırlılığa değil, \emph{örtü davranışına} bağlıdır. Sonsuz bir küme
+üzerindeki kosonlu topoloji buna örnektir: bir açık örtüde tek bir eleman
+seçtiğimizde dışarıda yalnız sonlu çoklukta nokta kalır; onları da sonlu sayıda
+elemanla kapatırız.
+
+\begin{lstlisting}[language=Python]
+from pytop import naturals_cofinite, is_compact, is_lindelof
+from pytop.compactness_variants import is_countably_compact
+
+nc = naturals_cofinite()
+print("compact?", is_compact(nc).status)
+print("lindelof?", is_lindelof(nc).status)
+print("countably?", is_countably_compact(nc).status)
+\end{lstlisting}
+
+\begin{verbatim}
+compact?   true
+lindelof?  true
+countably? true
+\end{verbatim}
+
+Sonsuz olmasına karşın kompakt --- ``kompakt $=$ sonlu'' sezgisinin neden yalnız
+\emph{metrik} uzaylarda işlediğini gösterir.
+
+\subsection*{Örnek 5.5 — Tek-Nokta Kompaktifikasyon (Alexandroff)}
+
+Lokal kompakt ama kompakt olmayan bir uzaya tek bir $\infty$ noktası ekleyerek onu
+kompakt hâle getirebiliriz. $\mathbb{R}$ için sonuç çembere ($S^1$) denktir.
+
+\begin{lstlisting}[language=Python]
+from pytop import (
+    one_point_compactification_of_reals,
+    one_point_compactification_of_N,
+    is_compact,
+)
+
+r_star = one_point_compactification_of_reals()   # R u {inf} ~= S^1
+n_star = one_point_compactification_of_N()
+print("R* compact?", is_compact(r_star).status)
+print("N* compact?", is_compact(n_star).status)
+\end{lstlisting}
+
+\begin{verbatim}
+R* compact? true
+N* compact? true
+\end{verbatim}
+
+$\mathbb{R}$ kompakt değildi (Örnek 5.2); tek bir nokta eklemek onu kompakt yaptı.
+
 %-------------------------------------------------------------------
 \section{Alıştırmalar}
 
@@ -172,6 +317,10 @@ for key, val in r.value.items():
       \texttt{is\_countably\_compact} hesaplayın.
 \item \texttt{closed\_unit\_interval\_metric()} ile \texttt{real\_line\_metric()} için
       \texttt{analyze\_compactness\_variants} çalıştırıp karşılaştırın.
+\item \texttt{real\_line\_metric()} kompakt değildi.
+      \texttt{one\_point\_compactification\_of\_reals()} çıktısının
+      \texttt{is\_compact} durumunu kontrol edip tek noktanın kompaktlığı nasıl
+      kurtardığını açıklayın.
 \end{enumerate}
 
 \subsection*{Teori}
@@ -179,5 +328,8 @@ for key, val in r.value.items():
 \begin{enumerate}[label=T\arabic*.]
 \item Kompakt + sürekli $\Rightarrow$ görüntü kompakt olduğunu ispatlayın.
 \item Heine-Borel teoreminin neden geçerli olduğunu: $[0,1]$ neden kompakt,
-      $(0,1)$ neden kompakt değil?
+      $(0,1)$ neden kompakt değil? (İpucu: kaçan örtü $U_n=(1/n,1)$.)
+\item Kompakt $+$ Hausdorff $\Rightarrow$ Normal ispatında, $B$'yi örten
+      $\{V_b\}$ ailesinden sonlu alt-örtü çekme adımının neden kompaktlığa
+      ihtiyaç duyduğunu açıklayın.
 \end{enumerate}

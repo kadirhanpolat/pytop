@@ -215,3 +215,130 @@ açıktır: topoloji ayrıktır.
 
 **(<=)** Ayrık topolojide her `{x}` açıktır; `x ≠ y` için `{x}` ve `{y}` iki
 yönlü ayrımı doğrudan verir, T1 (hatta T2) sağlanır. ∎
+
+---
+
+## Bölüm 7: Kompaktlık
+
+### K1 — Sonlu uzaylar: zincir vs ayrık
+
+(ch07 K1 alıştırmasına dön)
+
+```python
+from pytop import finite_chain_space, discrete_topology, is_compact
+
+print("chain(5)   compact?", is_compact(finite_chain_space(5)).status)
+print("discrete(5) compact?", is_compact(discrete_topology(1, 2, 3, 4, 5)).status)
+```
+
+```
+chain(5)   compact? true
+discrete(5) compact? true
+```
+
+Her ikisi de kompakttır — topolojinin inceliğinden bağımsız olarak **sonlu** her
+uzay kompakttır: bir açık örtüde uzayı kaplayan elemanları seçersek zaten sonlu
+çoklukta eleman almış oluruz.
+
+### K2 — Kosonlu doğal sayılar
+
+(ch07 K2 alıştırmasına dön)
+
+```python
+from pytop import naturals_cofinite, is_compact, is_lindelof
+from pytop.compactness_variants import is_countably_compact
+
+nc = naturals_cofinite()
+print("compact?  ", is_compact(nc).status)
+print("lindelof? ", is_lindelof(nc).status)
+print("countably?", is_countably_compact(nc).status)
+```
+
+```
+compact?   true
+lindelof?  true
+countably? true
+```
+
+Sonsuz olmasına rağmen kompakt: herhangi bir açık örtüden tek bir `U` seçtiğimizde
+tümleyeni `X \ U` sonludur (kosonlu topolojinin tanımı); kalan sonlu çoklukta
+noktayı kapatacak sonlu sayıda eleman eklenir. Bu, "kompakt = sınırlı" sezgisinin
+yalnız metrik uzaylara özgü olduğunu gösterir.
+
+### K3 — [0,1] vs ℝ karşılaştırması
+
+(ch07 K3 alıştırmasına dön)
+
+```python
+from pytop import closed_unit_interval_metric, real_line_metric
+from pytop.compactness_variants import analyze_compactness_variants
+
+for name, space in [("[0,1]", closed_unit_interval_metric()),
+                    ("R", real_line_metric())]:
+    r = analyze_compactness_variants(space)
+    lind = r.value["lindelof"]
+    print(f"{name:6s} lindelof = {getattr(lind, 'status', lind)}")
+```
+
+```
+[0,1]  lindelof = true
+R      lindelof = true
+```
+
+İki uzay da Lindelöf'tür, ama temel fark `is_compact`'tedir: `[0,1]` kompakt
+(kapalı + sınırlı), `ℝ` değil (sınırsız). Lindelöf, kompaktlıktan zayıf bir
+özelliktir — sayılabilir alt-örtü garanti eder, sonlu değil.
+
+### K4 — Tek-nokta kompaktifikasyon
+
+(ch07 K4 alıştırmasına dön)
+
+```python
+from pytop import real_line_metric, one_point_compactification_of_reals, is_compact
+
+print("R  compact?", is_compact(real_line_metric()).status)
+print("R* compact?", is_compact(one_point_compactification_of_reals()).status)
+```
+
+```
+R  compact? false
+R* compact? true
+```
+
+ℝ lokal kompakt Hausdorff'tur ama kompakt değildir (Örnek 5.2). Alexandroff
+inşası tek bir `∞` noktası ekler: sınırsız "kaçan" diziler artık `∞`'da yakınsar,
+böylece her açık örtü `∞`'u içeren bir elemana — ve onun tümleyenindeki kompakt
+parçaya sonlu alt-örtüye — sahip olur. Sonuç ℝ\* ≅ S¹ kompakttır.
+
+### T1 — Kompakt + sürekli ⟹ görüntü kompakt
+
+(ch07 T1 alıştırmasına dön)
+
+`f: X → Y` sürekli, `X` kompakt olsun. `{V_α}`, `f(X)`'i örten açık aile olsun.
+Süreklilikten her `f⁻¹(V_α)` açıktır ve `{f⁻¹(V_α)}`, `X`'i örter. `X` kompakt
+olduğundan sonlu alt-örtü `f⁻¹(V_{α₁}), …, f⁻¹(V_{αₖ})` vardır. Bu kümeler `X`'i
+kapladığından, görüntüleri `V_{α₁}, …, V_{αₖ}` de `f(X)`'i kaplar. Demek ki keyfi
+açık örtünün sonlu alt-örtüsü var: `f(X)` kompakt. ∎
+
+### T2 — Heine-Borel: [0,1] vs (0,1)
+
+(ch07 T2 alıştırmasına dön)
+
+`[0,1]` **kapalı ve sınırlıdır**, dolayısıyla Heine-Borel ile kompakttır. `(0,1)`
+sınırlıdır ama **kapalı değildir** (uç noktaları içermez). Kapalılığın eksikliği
+$U_n = (1/n, 1)$ "kaçan örtüsüyle" görünür hale gelir: bu aile `(0,1)`'i örter,
+fakat herhangi sonlu alt-aile yalnız en büyük indis `N` için `(1/N, 1)`'i kaplar
+ve `0`'a yakın noktalar dışarıda kalır. Sonlu alt-örtü olmadığından `(0,1)`
+kompakt değildir. `[0,1]`'de `0` dahil olduğundan bu kaçış engellenir.
+
+### T3 — Neden kompaktlık gerekir (T4 ispatında)
+
+(ch07 T3 alıştırmasına dön)
+
+Teorem 2.2 ispatında, sabit `a` için `{V_b}_{b∈B}` ailesi `B`'yi örten açık
+kümelerden oluşur. `a` ile `B`'yi ayıran tek bir açık küme elde etmek için bu
+aileden **sonlu** bir alt-örtü seçip `V_a = V_{b₁} ∪ … ∪ V_{bₖ}` ve
+`U_a = U_{b₁} ∩ … ∩ U_{bₖ}` kurarız. Kesişimin açık kalması **sonluluğa**
+bağlıdır: sonsuz çoklukta açık kümenin kesişimi açık olmak zorunda değildir. İşte
+bu yüzden `B`'nin (ve sonra `A`'nın) **kompakt** olması şarttır — kompaktlık, bu
+kritik sonlu-kesişim adımını mümkün kılar. ∎
