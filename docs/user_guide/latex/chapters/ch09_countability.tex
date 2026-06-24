@@ -31,11 +31,60 @@ Lindelöf & Her açık örtünün sayılabilir alt-örtüsü \\
   \item Ayrılabilir metrik $\Rightarrow$ $2^{\text{nd}}$ sayılabilir
 \end{itemize}
 
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch09_sayilabilirlik_implikasyon.tikz}
+  \caption{Sayılabilirlik aksiyomları arasındaki implikasyonlar: düz oklar
+    $2^{\text{nd}}$ sayılabilirden $1^{\text{st}}$ sayılabilir, ayrılabilir ve
+    Lindelöf'e gider; metrik uzaylar $1^{\text{st}}$ sayılabilirdir. Kesikli
+    kırmızı ok terslerin geçmediği kanonik karşı-örneği (Sorgenfrey doğrusu)
+    işaretler.}
+  \label{fig:ch09:implikasyon}
+\end{figure}
+
+\begin{sezgi}
+Sayılabilirlik aksiyomları, bir uzayı ``sayılabilir bir sözlükle'' anlatabilme
+sorusudur. $2^{\text{nd}}$ sayılabilirlik uzayın \emph{tüm} açıklarını sayılabilir
+bir baz listesinden kurar --- tek bir küresel sözlük. $1^{\text{st}}$ sayılabilirlik
+ise yalnızca \emph{her nokta için ayrı} sayılabilir bir komşuluk listesi ister ---
+yerel sözlükler. Küresel liste her noktaya yerel liste verdiğinden
+$2^{\text{nd}}\Rightarrow 1^{\text{st}}$; tersi her zaman doğru değildir.
+\end{sezgi}
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch09_yerel_baz.tikz}
+  \caption{Bir $x$ noktası çevresinde iç içe küçülen $B_1\supseteq B_2\supseteq B_3$
+    komşulukları: sayılabilir bir \emph{yerel baz}. $x$'in her komşuluğu bir $B_n$
+    içerir.}
+  \label{fig:ch09:yerelbaz}
+\end{figure}
+
+\begin{karsiornek}
+\textbf{Sorgenfrey doğrusu.} $[a,b)$ biçimli yarı-açık aralıklarla üretilen
+Sorgenfrey doğrusu $1^{\text{st}}$ sayılabilir, ayrılabilir \emph{ve} Lindelöf'tür
+ama $2^{\text{nd}}$ sayılabilir \emph{değildir}. Her $x$ için
+$\{[x, x+1/n) : n\in\mathbb{N}\}$ sayılabilir yerel baz verir; $\mathbb{Q}$
+yoğundur. Ama herhangi bir baz, her $x$ için tam $x$'te başlayan bir eleman
+içermek zorundadır; farklı $x$'ler farklı eleman gerektirir, dolayısıyla baz en
+az continuum büyüklükte --- sayılamaz. Yani
+``$2^{\text{nd}}\Leftarrow 1^{\text{st}}\wedge$ ayrılabilir $\wedge$ Lindelöf''
+çıkarımı geçersizdir. \texttt{sorgenfrey\_line\_like()} ile test edilir.
+\end{karsiornek}
+
 %-------------------------------------------------------------------
 \section{Teoremler}
 
 \begin{theorem}
 $2^{\text{nd}}$ sayılabilir $\Rightarrow$ ayrılabilir $\wedge$ Lindelöf.
+\begin{proof}[İspat eskizi]
+$\mathcal{B}=\{B_n\}$ sayılabilir baz olsun. \textbf{Ayrılabilir:} her boş olmayan
+$B_n$'den bir $d_n$ seç; $D=\{d_n\}$ sayılabilirdir ve her boş olmayan açık $U$ bir
+$B_n\subseteq U$ içerdiğinden $d_n\in U\cap D$ --- yani $\overline{D}=X$.
+\textbf{Lindelöf:} keyfi açık örtü $\{U_\alpha\}$'da kullanılan her noktayı içeren
+bir $B_n$'i, onu kapsayan bir $U_\alpha$ ile eşle; kullanılan $B_n$'ler sayılabilir
+olduğundan seçilen $U_\alpha$'lar sayılabilir bir alt-örtü verir.
+\end{proof}
 \end{theorem}
 
 \begin{theorem}
@@ -53,8 +102,31 @@ $D \subseteq X$ yoğun sayılabilir; $\{B(d, 1/n) : d \in D,\, n \in \mathbb{N}\
 \end{theorem}
 
 \begin{theorem}[Sorgenfrey Karşı Örneği]
-Sorgenfrey doğrusu ayrılabilir ve Lindelöf'tür ama $2^{\text{nd}}$ sayılabilir değildir.
+Sorgenfrey doğrusu ayrılabilir ve Lindelöf'tür ama $2^{\text{nd}}$ sayılabilir
+değildir. (Yukarıdaki karşı-örnek kutusuna bakın.)
 \end{theorem}
+
+\begin{theorem}[Sayılamaz Ayrık Uzay --- İkinci Karşı Örnek]
+Sayılamaz taşıyıcı üzerindeki ayrık topoloji $1^{\text{st}}$ sayılabilirdir ama
+ayrılabilir, Lindelöf ve $2^{\text{nd}}$ sayılabilir \emph{değildir}.
+\begin{proof}[İspat eskizi]
+Her $\{x\}$ açık olduğundan $\{\{x\}\}$ tek elemanlı yerel bazdır
+($1^{\text{st}}$ sayılabilir). Yoğun bir küme her $\{x\}$'i kesmek zorunda olduğundan
+taşıyıcının tamamını içermelidir; taşıyıcı sayılamaz olduğundan ayrılabilir değildir.
+$\{\{x\}\}_{x\in X}$ örtüsünün sayılabilir alt-örtüsü yoktur (Lindelöf değil) ve her
+baz tüm $\{x\}$'leri içermek zorunda olduğundan sayılamaz ($2^{\text{nd}}$ sayılabilir
+değil). \texttt{uncountable\_discrete\_space()} ile doğrulanır.
+\end{proof}
+\end{theorem}
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch09_ayrilabilirlik.tikz}
+  \caption{Ayrılabilirlik: $\mathbb{Q}$ (kırmızı noktalar) sayılabilirdir ve
+    $\overline{\mathbb{Q}}=\mathbb{R}$. Her boş olmayan açık aralık $(a,b)$ bir
+    rasyonel içerdiğinden $\mathbb{R}$ ayrılabilirdir.}
+  \label{fig:ch09:ayrilabilirlik}
+\end{figure}
 
 %-------------------------------------------------------------------
 \section{Algoritmalar}
@@ -81,7 +153,13 @@ from pytop import (
     is_separable,
     is_lindelof,
 )
+# Yardimcilar:
+from pytop import countability_report, is_dense_subset
 \end{lstlisting}
+
+\texttt{countability\_report(space)} dört aksiyomu bir \texttt{dict} içinde
+toplar; \texttt{is\_dense\_subset(space, subset)} ayrılabilirliği somut bir
+tanıkla gösterir.
 
 %-------------------------------------------------------------------
 \section{Örnekler}
@@ -119,6 +197,54 @@ print("separable?", is_separable(sl).status)
 separable?       true
 \end{verbatim}
 
+\subsection*{Örnek 5.6 — Toplu Rapor + Yoğunluk Tanığı}
+
+\begin{lstlisting}[language=Python]
+from pytop import countability_report, is_dense_subset
+from pytop import sorgenfrey_line_like, discrete_topology
+
+rep = countability_report(sorgenfrey_line_like())
+for key in ['first_countable','second_countable','separable','lindelof']:
+    print(f"  {key:<17}: {rep[key].status}")
+
+d = discrete_topology(1, 2, 3)
+print("dense {1,2,3}?", is_dense_subset(d, {1, 2, 3}).status)
+print("dense {1,2}?  ", is_dense_subset(d, {1, 2}).status)
+\end{lstlisting}
+
+\begin{verbatim}
+  first_countable  : true
+  second_countable : false
+  separable        : true
+  lindelof         : true
+dense {1,2,3}? true
+dense {1,2}?   false
+\end{verbatim}
+
+\subsection*{Örnek 5.7 — Sayılamaz Ayrık Uzay: İkinci Karşı Örnek}
+
+\begin{lstlisting}[language=Python]
+from pytop import uncountable_discrete_space
+from pytop import (is_first_countable, is_second_countable,
+                   is_separable, is_lindelof)
+
+u = uncountable_discrete_space()
+print("1st countable?", is_first_countable(u).status)
+print("2nd countable?", is_second_countable(u).status)
+print("separable?    ", is_separable(u).status)
+print("lindelof?     ", is_lindelof(u).status)
+\end{lstlisting}
+
+\begin{verbatim}
+1st countable? true
+2nd countable? false
+separable?     false
+lindelof?      false
+\end{verbatim}
+
+Her tekil $\{x\}$ açık olduğundan yerel baz tek elemanlıdır ($1^{\text{st}}$
+sayılabilir), ama yoğun sayılabilir alt küme ve sayılabilir alt-örtü yoktur.
+
 %-------------------------------------------------------------------
 \section{Alıştırmalar}
 
@@ -129,6 +255,10 @@ separable?       true
       \texttt{is\_second\_countable} hesaplayın.
 \item İki noktalı ayrık ve indiscrete uzaylar üzerinde \texttt{is\_separable} karşılaştırın.
 \item \texttt{integers\_discrete()} için $2^{\text{nd}}$ sayılabilir mi?
+\item \texttt{uncountable\_discrete\_space()} üzerinde dört aksiyomu
+      \texttt{countability\_report} ile hesaplayıp \texttt{integers\_discrete()}
+      ile karşılaştırın. Hangi aksiyom(lar)da ayrışıyorlar?
+      \ipucu{Fark, taşıyıcının sayılabilir olup olmamasındadır.}
 \end{enumerate}
 
 \subsection*{Teori}
@@ -136,4 +266,7 @@ separable?       true
 \begin{enumerate}[label=T\arabic*.]
 \item $2^{\text{nd}}$ sayılabilir $\Rightarrow$ ayrılabilir olduğunu ispatlayın.
 \item Sorgenfrey doğrusunun $2^{\text{nd}}$ sayılabilir olmadığını gösterin.
+\item ``$1^{\text{st}}$ sayılabilir $\Rightarrow$ ayrılabilir'' çıkarımının yanlış
+      olduğunu bir karşı-örnekle gösterin.
+      \ipucu{Sayılamaz ayrık uzay; yoğun küme her $\{x\}$'i kesmek zorundadır.}
 \end{enumerate}

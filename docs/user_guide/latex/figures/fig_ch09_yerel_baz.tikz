@@ -1,0 +1,15 @@
+\begin{tikzpicture}[font=\small]
+  % carrier box
+  \draw[rounded corners=8pt, thick] (-0.4,-1.4) rectangle (6.6,2.2);
+  \node at (6.15,1.9) {$X$};
+  % nested neighborhoods around x  (countable local base)
+  \fill (2.1,0.4) circle (1.8pt) node[below=2pt, font=\scriptsize] {$x$};
+  \draw[blue!70!black, thick, fill=blue!12, fill opacity=0.45] (2.1,0.4) circle (1.55);
+  \draw[blue!75!black, thick, fill=blue!18, fill opacity=0.55] (2.1,0.4) circle (1.05);
+  \draw[blue!80!black, thick, fill=blue!26, fill opacity=0.65] (2.1,0.4) circle (0.6);
+  \node[blue!70!black, font=\scriptsize] at (2.1,1.72) {$B_1$};
+  \node[blue!75!black, font=\scriptsize] at (2.1,1.2)  {$B_2$};
+  \node[blue!80!black, font=\scriptsize] at (2.1,0.85) {$B_3$};
+  \node[align=left, anchor=west, font=\scriptsize] at (4.0,0.4)
+    {$\{B_n\}_{n\in\mathbb{N}}$\\ sayılabilir\\ \emph{yerel baz}:\\ $x$'in her\\ komşuluğu bir\\ $B_n$ içerir.};
+\end{tikzpicture}
