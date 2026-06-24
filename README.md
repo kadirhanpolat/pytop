@@ -1,13 +1,14 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.6.1.dev0-blue)
+![Version](https://img.shields.io/badge/version-1.7.0-blue)
+![PyPI](https://img.shields.io/pypi/v/pytopology)
 ![Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11--3.14-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.6.0** (released; development continues at `1.6.1.dev0`), pytop ships **20 phases** with 11,921 tests passing (22 skipped: opt-in Ripser/SnapPy/Sage oracles) on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, and **oracle parity now wired to GUDHI** — P16.2 cross-checks pytop's persistent Betti numbers against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures), and **P16.3 cross-validates the full 10 000-complex statistical run against GUDHI at 100.0% parity** (0 outliers, avg 4.35 ms/complex). **Phase 17** ✅ **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 ✅** scaling — **inductive Vietoris–Rips construction (~14–19× filtration-build speedup) + size-aware auto reduction routing now the default** (`method="auto"`: Twist for small complexes, de Silva dual cohomology for large Rips; up to ~12× faster end-to-end at n=350, byte-identical output). **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** 🔄 **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** 🔄 **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 🚧** PyPI publishing; **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates).
+As of **v1.7.0** (live on PyPI — `pip install pytopology`, then `import pytop`), pytop ships **20 phases** with 11,921 tests passing (22 skipped: opt-in Ripser/SnapPy/Sage oracles) on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, and **oracle parity now wired to GUDHI** — P16.2 cross-checks pytop's persistent Betti numbers against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures), and **P16.3 cross-validates the full 10 000-complex statistical run against GUDHI at 100.0% parity** (0 outliers, avg 4.35 ms/complex). **Phase 17** ✅ **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 ✅** scaling — **inductive Vietoris–Rips construction (~14–19× filtration-build speedup) + size-aware auto reduction routing now the default** (`method="auto"`: Twist for small complexes, de Silva dual cohomology for large Rips; up to ~12× faster end-to-end at n=350, byte-identical output). **Phase 18 ✅** documentation & pedagogy (16-chapter user guide, 225-module API ref, 36+ examples). **Phase 19** ✅ **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** ✅ **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 ✅** PyPI publishing (**live on PyPI** via GitHub Actions Trusted Publishing — `pip install pytopology`); **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates).
 
 ## Installation
 
@@ -206,6 +207,26 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New in v1.7.0
+
+**First PyPI publication (P20.2).** `pytopology 1.7.0` is **live on PyPI**:
+
+```bash
+pip install pytopology      # then: import pytop
+```
+
+The bare `pytop` name was already taken on PyPI by an unrelated abandoned project,
+so the **distribution name is `pytopology`** while the **import name stays `pytop`**
+(like `scikit-learn` → `import sklearn`). Publishing is fully automated via GitHub
+Actions **Trusted Publishing** (OIDC, no stored API tokens): `.github/workflows/publish.yml`
+builds the sdist + wheel, runs `twine check`, guards that the tag matches
+`pyproject.toml`, and uploads to PyPI on every `v*` tag (a manual run targets
+TestPyPI for a dry run). pytop has **zero runtime dependencies** — verified
+end-to-end with a fresh-venv install from PyPI. The development status is now
+`Production/Stable`. This release bundles the post-1.6.0 maturity work: P16.2 oracle
+matrix, P16.3 GUDHI wiring, P17.3 auto reduction routing, the 51-prime knot table,
+and the P19/P20 API-stability and onboarding items.
 
 ## What's New in v1.6.0
 
