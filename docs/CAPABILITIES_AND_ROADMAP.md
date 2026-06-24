@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-24 (v1.6.0 released; development at `1.6.1.dev0`):** Phases 1–15 complete; **Phase 16 ✅** (P16.1 benchmark suite, P16.2 oracle parity **wired to GUDHI**, P16.3 statistical validation **cross-validated against GUDHI: 10K complexes at 100.0% parity**); **Phase 17 ✅** P17.1 ✅ profiling + P17.2 ✅ method selection + **P17.3 ✅ inductive Vietoris–Rips build (~14–19×) + size-aware auto reduction routing now default (up to ~12× faster end-to-end, byte-identical output)**; **Phase 18 ✅** docs/pedagogy; **Phase 19 ✅** (P19.1–P19.3: error messages, deprecation policy, API audit); **Phase 20** P20.1 ✅ CI + P20.3 ✅ onboarding (P20.2 PyPI pending). **11,921 tests** (22 skipped: opt-in oracles); `src/pytop` ruff-clean + mypy-clean; release tags backfilled through v1.6.0.
+> **Status as of 2026-06-24 (v1.7.0 — live on PyPI as `pytopology`):** Phases 1–15 complete; **Phase 16 ✅** (P16.1 benchmark suite, P16.2 oracle parity **wired to GUDHI**, P16.3 statistical validation **cross-validated against GUDHI: 10K complexes at 100.0% parity**); **Phase 17 ✅** P17.1 ✅ profiling + P17.2 ✅ method selection + **P17.3 ✅ inductive Vietoris–Rips build (~14–19×) + size-aware auto reduction routing now default (up to ~12× faster end-to-end, byte-identical output)**; **Phase 18 ✅** docs/pedagogy — the 16-chapter user guide is now enriched across all four formats (LaTeX/Markdown/Python/Notebook) with intuition + counter-example boxes, proof sketches, verified pytop examples and **46 figures**; **Phase 19 ✅** (P19.1–P19.3: error messages, deprecation policy, API audit); **Phase 20 ✅ COMPLETE** — P20.1 ✅ CI matrix, **P20.2 ✅ PyPI publishing live** (`pip install pytopology` → `import pytop`, via GitHub Actions Trusted Publishing; ships `py.typed` + a `python -m pytop` CLI), P20.3 ✅ onboarding (the 12 curated good-first-issues #35–#46 were all **resolved & closed**). Docstring doctests now run in CI. `src/pytop` ruff-clean + mypy-clean; release tags through v1.7.0.
 > (set-theoretic topology) substantive; Phase 2–7 computational core (homology,
 > cohomology, Mayer–Vietoris, van Kampen, Khovanov, combinatorial topology);
 > Phase 8 advanced algebra (6 modules); Phase 9 computable-space expansion (19 reps);
@@ -584,10 +584,10 @@ Cross-validates pytop against independent gold-standard external systems via uni
 | Phase 15 milestones complete | 5 / 5 ✅ (4-manifold topology) |
 | Phase 16 milestones complete | 3 / 3 ✅ (P16.1–P16.3: benchmark, oracle parity, statistical validation — **GUDHI cross-validation wired & passing: 10K-complex run at 100.0% pytop=GUDHI parity**) |
 | Phase 17 milestones complete | 3 / 3 ✅ (P17.1 profiling ✅; P17.2 method selection ✅; **P17.3 ✅ — inductive Rips build ~14–19× + size-aware auto reduction routing now default, up to ~12× faster end-to-end, byte-identical output**) |
-| Phase 18 milestones complete | 3 / 3 ✅ (user guide, API ref, example bank) |
+| Phase 18 milestones complete | 3 / 3 ✅ (user guide, API ref, example bank) — the 16-chapter user guide is now **enriched across all four formats** (LaTeX/Markdown/Python/Notebook): intuition + counter-example boxes, proof sketches, verified pytop examples, exercises with solutions, and **46 figures** (8 → 46) |
 | Phase 19 milestones complete | 3 / 3 ✅ (P19.1 error messages, P19.2 deprecation policy + `@deprecated` + `DEPRECATIONS.md` *Candidates*, P19.3 API design audit — finding #3 resolved via soft-deprecated `persistent_homology_optimized` → `persistent_homology(method="auto")`) |
-| Phase 20 milestones complete | 2 / 3 ✅⬜ (P20.1 CI matrix ✅, P20.3 community onboarding ✅ — `CONTRIBUTING.md`, issue/PR templates, `docs/GOOD_FIRST_ISSUES.md` 12-task backlog opened as issues #35–#46; P20.2 PyPI publishing pending) |
-| **Current version** | **v1.6.0** released; dev at **`1.6.1.dev0`** |
+| Phase 20 milestones complete | 3 / 3 ✅ (P20.1 CI matrix ✅; **P20.2 PyPI publishing ✅ — `pytopology` live on PyPI** via GitHub Actions Trusted Publishing, ships `py.typed` + `python -m pytop` CLI; P20.3 community onboarding ✅ — `CONTRIBUTING.md`, issue/PR templates, and the 12 curated good-first-issues #35–#46 all **resolved & closed**) |
+| **Current version** | **v1.7.0** — live on PyPI as **`pytopology`** (`import pytop`) |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 
