@@ -1,0 +1,26 @@
+\begin{tikzpicture}[font=\small, node distance=11mm,
+    box/.style={draw, rounded corners, fill=blue!7, inner sep=6pt, minimum width=20mm},
+    denk/.style={draw=green!55!black, rounded corners, fill=green!8, inner sep=6pt, minimum width=20mm}]
+
+  % --- Ust satir: dogru denklik p->q  <=>  ¬q->¬p ---
+  \node[box]  (pq)  {$p \to q$};
+  \node[denk, right=28mm of pq] (cp) {$\neg q \to \neg p$};
+  \draw[{Stealth[length=2.6mm]}-{Stealth[length=2.6mm]}, thick, green!45!black]
+    (pq) -- node[above=1pt, font=\scriptsize, green!45!black] {denk} (cp);
+  \node[font=\scriptsize, green!45!black, above=9mm] at ($(pq)!0.5!(cp)$) {kontrapozitif};
+
+  % --- Alt satir: yanlis denklik p->q  ⇏  q->p ---
+  \node[box, below=20mm of pq]  (pq2)  {$p \to q$};
+  \node[box, right=28mm of pq2] (qp)   {$q \to p$};
+  \draw[{Stealth[length=2.6mm]}-{Stealth[length=2.6mm]}, thick, red!65!black, dashed]
+    (pq2) -- node[below=1pt, font=\scriptsize, red!65!black] {denk \emph{değil}} (qp);
+  \node[font=\scriptsize, red!65!black, below=9mm] at ($(pq2)!0.5!(qp)$)
+    {tersi (converse) — yaygın hata};
+
+  % --- Karsi-ornek aciklamasi ---
+  \node[anchor=west, font=\scriptsize, align=left, draw=red!40, fill=red!4,
+        rounded corners, inner sep=5pt] at (6.7, -1.45)
+    {Karşı-örnek: $p$=``kare'', $q$=``dikdörtgen''.\\
+     $p\to q$ doğru, ama $q\to p$ yanlış\\
+     (her dikdörtgen kare değildir).};
+\end{tikzpicture}
