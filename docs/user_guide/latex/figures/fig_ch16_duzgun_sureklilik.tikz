@@ -1,0 +1,24 @@
+\begin{tikzpicture}[font=\small]
+  % eksenler
+  \draw[-{Stealth[length=2.2mm]}] (-0.3,0) -- (9.3,0) node[right] {$x$};
+  \draw[-{Stealth[length=2.2mm]}] (0,-0.3) -- (0,3.4) node[above] {$f(x)$};
+  % egim sinirli (Lipschitz) bir egri: tum noktalarda ayni delta is gorur
+  \draw[blue!70!black, very thick] (0.2,0.4) .. controls (3.0,1.0) and (5.5,2.2) .. (9.0,2.9);
+  % iki ornek nokta + ortak delta bandi
+  \def\dx{0.9}
+  % nokta A
+  \draw[gray!55,dashed] (2.0,0) -- (2.0,1.05);
+  \fill[red!75!black] (2.0,1.05) circle (1.6pt);
+  \draw[orange!75!black,thick] (2.0-\dx,-0.18) -- (2.0+\dx,-0.18)
+       node[midway,below,font=\scriptsize]{$\delta$};
+  % nokta B (cok daha saglarda) -- AYNI delta
+  \draw[gray!55,dashed] (7.0,0) -- (7.0,2.55);
+  \fill[red!75!black] (7.0,2.55) circle (1.6pt);
+  \draw[orange!75!black,thick] (7.0-\dx,-0.18) -- (7.0+\dx,-0.18)
+       node[midway,below,font=\scriptsize]{$\delta$};
+  % aciklama
+  \node[font=\scriptsize, align=center, blue!70!black] at (5.0,3.25)
+    {tüm noktalar için \emph{ortak} $\delta$ ($\varepsilon$ verildi)};
+  \node[font=\scriptsize, align=center] at (4.6,-0.95)
+    {düzgün süreklilik: $\delta$ noktadan bağımsız seçilebilir};
+\end{tikzpicture}

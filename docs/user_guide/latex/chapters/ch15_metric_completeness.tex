@@ -20,6 +20,21 @@ m,n \geq N \Rightarrow d(x_m, x_n) < \varepsilon.
 $(M, d)$ \textbf{tam} ise: Her Cauchy dizisi $M$'de bir limite yakınsır.
 \end{definition}
 
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch15_cauchy.tikz}
+\caption{Cauchy dizisinin terimleri birbirine yaklaşır: kuyruğun çapı sıfıra gider.}
+\end{figure}
+
+\begin{sezgi}
+Bir Cauchy dizisini, ilerledikçe birbirine sokulan bir terim kalabalığı gibi
+düşünün. İlk terimler birbirinden uzaktayken, yeterince ileri gidildiğinde tüm
+terimler bir noktada toplanır: ``kuyruğun çapı''
+$\bigl(\sup_{m,n\geq N} d(x_m, x_n)\bigr)$ sıfıra iner. \textbf{Tam} uzayda bu
+kalabalığın sıkıştığı yerde gerçekten bir nokta (limit) durur; tam olmayan
+uzayda ise o yerde bir \emph{boşluk} olabilir.
+\end{sezgi}
+
 \subsection{Tamamen Sınırlılık}
 
 $A \subseteq M$ \textbf{tamamen sınırlı} ise: her $\varepsilon>0$ için $A$'nın
@@ -53,6 +68,35 @@ Sonlu metrik & \checkmark & \checkmark & \checkmark \\
 \caption{Tamlık ve kompaktlık örnekleri}
 \end{table}
 
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch15_tam_degil.tikz}
+\caption{$\mathbb{Q}$'da $\sqrt{2}$'ye yakınsayan Cauchy dizisinin limiti yoktur;
+aynı dizi $\mathbb{R}$'de yakınsar.}
+\end{figure}
+
+\begin{karsiornek}
+Rasyonel sayılar $\mathbb{Q}$, Öklid metriğiyle \textbf{tam değildir}.
+$x_1 = 1,\ x_2 = 1.4,\ x_3 = 1.41,\ x_4 = 1.414,\ \ldots$ dizisi $\sqrt{2}$'nin
+ondalık açılımıdır: her terim rasyoneldir ve dizi Cauchy'dir
+($d(x_m, x_n) \to 0$). Ama limit $\sqrt{2} \notin \mathbb{Q}$ olduğundan dizi
+$\mathbb{Q}$ içinde \emph{hiçbir} noktaya yakınsamaz. Aynı dizi $\mathbb{R}$'de
+$\sqrt{2}$'ye yakınsar --- fark uzayda ``boşluk'' olup olmamasıdır.
+\end{karsiornek}
+
+\paragraph{Tamlama (completion).}
+Her metrik uzay $(M, d)$ bir \textbf{tam} uzayın $(\widehat{M}, \widehat{d})$
+yoğun alt-uzayı olarak gömülebilir; $\widehat{M}$'ye $M$'nin \emph{tamlaması}
+denir. Sezgisel olarak tamlama, eksik limitleri (``boşlukları'') ekleyerek uzayı
+kapatır: $\mathbb{R} = \widehat{\mathbb{Q}}$ bu inşanın klasik örneğidir.
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch15_tamlama.tikz}
+\caption{Tamlama: $\mathbb{Q}$'nun boşlukları doldurularak tam uzay $\mathbb{R}$
+elde edilir.}
+\end{figure}
+
 %-------------------------------------------------------------------
 \section{Teoremler}
 
@@ -64,6 +108,32 @@ Metrik uzayda kompaktlık $\Leftrightarrow$ tamlık $\wedge$ tamamen sınırlıl
 $(M, d)$ tam metrik uzay; $T: M \to M$ büzülme ($K < 1$)
 $\Rightarrow$ $T$'nin eşsiz sabit noktası $x^*$ vardır: $T(x^*) = x^*$.
 \end{theorem}
+
+\begin{proof}[İspat eskizi]
+$K < 1$ büzülme sabiti olsun. Herhangi bir $x_0$ alıp $x_{n+1} = T(x_n)$
+iterasyonunu kurun. Büzülmeden
+$d(x_{n+1}, x_n) \leq K\, d(x_n, x_{n-1}) \leq K^n\, d(x_1, x_0)$. Üçgen
+eşitsizliği ve geometrik seri ile
+$d(x_{n+m}, x_n) \leq \tfrac{K^n}{1-K}\, d(x_1, x_0)$; $K < 1$ olduğundan bu
+ifade $n \to \infty$ iken sıfıra gider, yani $\{x_n\}$ Cauchy'dir.
+\textbf{Tamlık} kullanılarak dizi bir $x^*$'ye yakınsar. $T$ sürekli (Lipschitz)
+olduğundan $T(x^*) = T(\lim x_n) = \lim x_{n+1} = x^*$: $x^*$ sabit noktadır.
+\emph{Eşsizlik:} $T(p) = p$, $T(q) = q$ olsaydı
+$d(p,q) = d(Tp, Tq) \leq K\, d(p,q)$, $K < 1$ ile bu ancak $d(p,q) = 0$, yani
+$p = q$ ise mümkündür.
+\end{proof}
+
+\begin{theorem}[Tam Uzayın Kapalı Alt-Uzayı Tamdır]
+$(M, d)$ tam ve $A \subseteq M$ kapalı ise $(A, d)$ de tamdır.
+\end{theorem}
+
+\begin{proof}[İspat eskizi]
+$\{a_n\} \subseteq A$ bir Cauchy dizisi olsun. $\{a_n\}$ aynı zamanda $M$ içinde
+Cauchy'dir ve $M$ tam olduğundan bir $a \in M$ limitine yakınsar. $A$
+\textbf{kapalı} olduğundan kendi limit noktalarını içerir; $a_n \to a$ ve
+$a_n \in A$ olması $a \in \overline{A} = A$ demektir. Böylece her Cauchy dizisi
+$A$ içinde bir limite yakınsar: $A$ tamdır.
+\end{proof}
 
 \begin{theorem}[Baire Kategorisi Teoremi]
 Tam metrik uzay 1.\ kategoriden değildir.
@@ -136,6 +206,59 @@ status: true
 value: {'is_complete': True, 'is_totally_bounded': True, 'metric_compact': True}
 \end{verbatim}
 
+\subsection*{Örnek 5.6 — Rasyoneller $\mathbb{Q}$: Tam Olmayan Uzay (Karşı-Örnek)}
+
+\texttt{rationals\_metric()} sembolik bir uzaydır; \texttt{is\_complete} ondalık
+taramayla karara bağlanamadığı için \texttt{unknown} döner --- fakat uzayın
+\textbf{etiketleri} (tags) $\mathbb{Q}$'nun tam olmadığını kayıt altına alır
+(\texttt{'not\_complete'}).
+
+\begin{lstlisting}[language=Python]
+from pytop import rationals_metric
+from pytop.metric_completeness import is_complete
+
+qm = rationals_metric()
+res = is_complete(qm)
+print("is_complete:", res.status)
+print("'not_complete' tag:", 'not_complete' in qm.tags)
+print("justification:", res.justification[0])
+\end{lstlisting}
+
+\begin{verbatim}
+is_complete: unknown
+'not_complete' tag: True
+justification: Completeness has exact support only for explicit finite metric spaces.
+\end{verbatim}
+
+\subsection*{Örnek 5.7 — Banach ve Sabit-Nokta Profilleri}
+
+\texttt{get\_fixed\_point\_profiles()} sabit-nokta teorisinin küratörlü
+profillerini verir; \texttt{fixed\_point\_stability\_summary()} bunları
+kararlılığa göre gruplar. Banach büzülme teoremi \textbf{çekici (attracting)}
+sabit nokta profiline karşılık gelir.
+
+\begin{lstlisting}[language=Python]
+from pytop import get_fixed_point_profiles, fixed_point_stability_summary
+
+profiles = get_fixed_point_profiles()
+print("profil sayisi:", len(profiles))
+for p in profiles:
+    print(f"  {p.key:24s}: {p.stability}")
+
+summary = fixed_point_stability_summary()
+print("stable:", summary['stable'])
+\end{lstlisting}
+
+\begin{verbatim}
+profil sayisi: 5
+  attracting_fixed_point  : stable
+  repelling_fixed_point   : unstable
+  neutral_fixed_point     : neutral
+  brouwer_fixed_point     : not_applicable
+  periodic_point_n        : not_applicable
+stable: ['attracting_fixed_point']
+\end{verbatim}
+
 %-------------------------------------------------------------------
 \section{Alıştırmalar}
 
@@ -147,6 +270,12 @@ value: {'is_complete': True, 'is_totally_bounded': True, 'metric_compact': True}
 \item Kendi 4-noktalı metrik uzayınızı oluşturun ve \texttt{metric\_compactness\_check}
       uygulayın.
 \item \texttt{analyze\_metric\_completeness} çalıştırın ve \texttt{value} sözlüğünü inceleyin.
+\item \texttt{rationals\_metric()} oluşturun; \texttt{is\_complete(...).status} ile
+      \texttt{'not\_complete'} etiketinin uzayın \texttt{tags} kümesinde olup olmadığını
+      yazdırın. Statü neden \texttt{unknown}, etiket neden \texttt{True}?
+\item \texttt{get\_fixed\_point\_profiles()} listesini gezin ve
+      \texttt{stability == 'stable'} olan profilin \texttt{key} alanını yazdırın.
+      Bu profil hangi teoreme (Banach mı?) karşılık gelir?
 \end{enumerate}
 
 \subsection*{Teori}
@@ -155,4 +284,12 @@ value: {'is_complete': True, 'is_totally_bounded': True, 'metric_compact': True}
 \item Banach sabit-nokta teoremini sözlü olarak açıklayın ve bir uygulama verin.
 \item Kapalı $[0,1]$'in tam, açık $(0,1)$'in tam olmadığını gösterin.
       (Hint: $1/n$ dizisi Cauchy ama $0 \notin (0,1)$.)
+\item ``Tam uzayın kapalı alt-uzayı tamdır'' teoremini ispatlayın. Ayrıca tam bir
+      uzayda \textbf{açık} bir alt-uzayın tam olması gerekmediğini bir örnekle
+      gösterin. (Hint: $\mathbb{R}$ tam, ama $(0,1) \subseteq \mathbb{R}$ açık ve
+      tam değil.)
+\item $\mathbb{Q}$'nun tam olmadığını $\sqrt{2}$'nin ondalık açılımı üzerinden
+      ispatlayın: dizinin Cauchy olduğunu, fakat $\mathbb{Q}$ içinde limitinin
+      bulunmadığını gösterin. Tamlama kavramıyla bu ``boşluğun'' nasıl
+      kapatıldığını açıklayın.
 \end{enumerate}

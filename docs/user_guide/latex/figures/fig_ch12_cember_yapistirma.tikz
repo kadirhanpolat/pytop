@@ -1,0 +1,27 @@
+\begin{tikzpicture}[font=\small, etiket/.style={font=\scriptsize}]
+  % SOL: [0,1] serit -- uclar 0 ve 1 isaretli
+  \draw[blue!70!black, very thick] (0,0) -- (4,0);
+  \fill[red!75!black] (0,0) circle (2.2pt);
+  \fill[red!75!black] (4,0) circle (2.2pt);
+  \node[red!70!black, etiket, below=3pt] at (0,0) {$0$};
+  \node[red!70!black, etiket, below=3pt] at (4,0) {$1$};
+  \node[etiket, above=4pt] at (2,0) {$[0,1]$ şerit};
+
+  % yapistirma oku
+  \draw[-{Stealth[length=2.6mm]}, orange!85!black, very thick]
+    (4.6,0) -- (6.2,0);
+  \node[orange!80!black, etiket, align=center, above=2pt] at (5.4,0.1)
+    {$0 \sim 1$\\yapıştır};
+
+  % SAG: cember S^1, yapistirma noktasi tek
+  \draw[blue!70!black, very thick] (8.4,0) circle (1.1);
+  \fill[red!75!black] (8.4,1.1) circle (2.4pt);
+  \node[red!70!black, etiket, above=3pt] at (8.4,1.1) {$[0]=[1]$};
+  \node[etiket, below=4pt] at (8.4,-1.15) {$S^1 = [0,1]/{\sim}$};
+
+  % q haritasi etiketi (cemberin altindaki etikete carpmasin diye sola hizali)
+  \node[etiket, align=center, fill=blue!5, rounded corners, inner sep=4pt,
+    text width=6.2cm, anchor=north west] at (-0.2,-2.3)
+    {Bölüm haritası $q$ her noktayı sınıfına gönderir; \emph{tek} fark, iki ucun
+     tek bir noktada (\,$[0]=[1]$\,) çakışmasıdır.};
+\end{tikzpicture}

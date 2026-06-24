@@ -76,6 +76,32 @@ p <-> p : True
 durumunda yanlıştır; diğer üç kombinasyonda boş doğruluk (vacuous truth)
 nedeniyle doğrudur.
 
+Aşağıdaki görsel beş bağlacın dört satırlık doğruluk değerlerini bir arada
+özetler: yeşil hücre \emph{doğru} (D), kırmızı hücre \emph{yanlış} (Y).
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch02_baglac_dogruluk.tikz}
+\caption{Beş temel bağlacın doğruluk tablosu: $\neg p$, $p\wedge q$,
+$p\vee q$, $p\to q$, $p\leftrightarrow q$. $p\to q$ yalnızca tek satırda
+($p$=D, $q$=Y) yanlıştır.}
+\label{fig:ch02_baglac_dogruluk}
+\end{figure}
+
+\begin{sezgi}
+Bağlaçları ``kapı'' olarak düşünün. $\wedge$ (ve) her iki girdi de doğruyken
+akım geçirir; $\vee$ (veya) en az biri doğru olunca geçirir; $\to$ (ise)
+yalnızca ``doğru bir öncülden yanlış bir sonuç'' çıkarılırsa kapanır. İşte bu
+yüzden $p\to q$ sütununda yalnızca tek bir satır ($p$=D, $q$=Y) yanlıştır —
+diğer her şey, mantığın ``verdiğin sözü bozmadın'' kuralıdır.
+\end{sezgi}
+
+\begin{karsiornek}
+$p\to q$ ile $p\leftrightarrow q$ aynı şey değildir. $p$=Y, $q$=D alındığında
+$p\to q$ \textbf{doğru} (D), ama $p\leftrightarrow q$ \textbf{yanlış} (Y)
+döner: içerme tek yönlüdür, çift-koşul iki yönü birden ister.
+\end{karsiornek}
+
 % -----------------------------------------------------------------------
 \section{Algoritmalar}
 \label{sec:logic_algorithms}
@@ -162,6 +188,55 @@ False  False   True  False  False   True   True
 \label{thm:contrapositive}
 $(p \to q) \leftrightarrow (\neg q \to \neg p)$
 \end{theorem}
+
+En sık yapılan mantık hatası, bir içermeyi \textbf{tersiyle (converse)}
+karıştırmaktır. $p\to q$'nin doğru biçimde denk olduğu ifade
+\emph{kontrapozitiftir}: $\neg q\to\neg p$. Buna karşılık $q\to p$ (tersi)
+genellikle denk \emph{değildir}.
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch02_kontrapozitif.tikz}
+\caption{Kontrapozitif denkliği $p\to q \Leftrightarrow \neg q\to\neg p$
+(yeşil) ile denk \emph{olmayan} tersi $q\to p$ (kırmızı kesikli).}
+\label{fig:ch02_kontrapozitif}
+\end{figure}
+
+\begin{karsiornek}
+$p$ = ``$x$ bir karedir'', $q$ = ``$x$ bir dikdörtgendir'' olsun. $p\to q$
+doğrudur (her kare dikdörtgendir), ama tersi $q\to p$ yanlıştır (her dikdörtgen
+kare değildir). Kontrapozitif $\neg q\to\neg p$ = ``dikdörtgen değilse kare de
+değildir'' ise yine doğrudur — çünkü o $p\to q$ ile denktir.
+\end{karsiornek}
+
+\paragraph{İspat eskizi (kontrapozitif).}
+$p\to q$ ile $\neg q\to\neg p$ aynı doğruluk sütununu üretir; dört satırda da
+çakışırlar, dolayısıyla $(p\to q)\leftrightarrow(\neg q\to\neg p)$ tautolojidir.
+\[
+\begin{array}{cc|cc}
+p & q & p\to q & \neg q\to\neg p \\ \hline
+\text{D} & \text{D} & \text{D} & \text{D} \\
+\text{D} & \text{Y} & \text{Y} & \text{Y} \\
+\text{Y} & \text{D} & \text{D} & \text{D} \\
+\text{Y} & \text{Y} & \text{D} & \text{D}
+\end{array}
+\]
+
+\paragraph{İspat eskizi (De Morgan).}
+$p\wedge q$ yalnızca her ikisi doğruyken doğrudur; öyleyse $\neg(p\wedge q)$
+``en az biri yanlış'' demektir. $\neg p\vee\neg q$ de tam olarak bunu söyler.
+İki sütun her atamada çakıştığından $\neg(p\wedge q)\leftrightarrow\neg p\vee\neg q$
+tautolojidir; ikincil yasa $\neg(p\vee q)\leftrightarrow\neg p\wedge\neg q$
+$\wedge$ ile $\vee$ rolleri değiştirilerek aynı şekilde gösterilir.
+\[
+\begin{array}{cc|ccc}
+p & q & p\wedge q & \neg(p\wedge q) & \neg p\vee\neg q \\ \hline
+\text{D} & \text{D} & \text{D} & \text{Y} & \text{Y} \\
+\text{D} & \text{Y} & \text{Y} & \text{D} & \text{D} \\
+\text{Y} & \text{D} & \text{Y} & \text{D} & \text{D} \\
+\text{Y} & \text{Y} & \text{Y} & \text{D} & \text{D}
+\end{array}
+\]
 
 \begin{lstlisting}[language=Python]
 def check_tautology(name, func):
@@ -264,4 +339,16 @@ Indiscrete  T0=False  T1=False
 
   \item \textit{(Teori)} De Morgan yasalarını önerme mantığı için ispatlayın:
         $\neg(p \wedge q) \leftrightarrow \neg p \vee \neg q$.
+
+  \item \texttt{check\_tautology} yardımcı fonksiyonunu kullanarak
+        \textbf{dağılma yasasını} doğrulayın:
+        $p \wedge (q \vee r) \leftrightarrow (p \wedge q) \vee (p \wedge r)$.
+        Üç değişken olduğundan sekiz $(p, q, r)$ atamasının tümünü gezmeniz
+        gerekir; \texttt{iff}'in her atamada \texttt{True} döndüğünü gösterin.
+
+  \item \textit{(Teori)} Bir öğrenci ``$p \to q$ doğruysa $q \to p$ de
+        doğrudur'' diyor. Bu iddianın neden yanlış olduğunu, kontrapozitif
+        $\neg q \to \neg p$ ile tersi $q \to p$ arasındaki farkı vurgulayan
+        somut bir karşı-örnekle açıklayın. \ipucu{$p$ = ``tam sayı 4'e bölünür'',
+        $q$ = ``tam sayı çifttir''.}
 \end{enumerate}

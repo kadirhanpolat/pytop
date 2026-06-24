@@ -15,6 +15,12 @@ Alt uzay topolojisi bir uzayın alt kümesine "miras kalan" topolojiyi tanımlar
 
 (A, τ_A) bir topolojik uzaydır; dahil etme i: A → X süreklidir.
 
+> 💡 **Sezgi:** A'yı X'ten kesilen bir "pencere" gibi düşünün. A üzerindeki
+> açıkları sıfırdan tanımlamayız; X'in hazır açıklarını A ile keser, "ne kadarı
+> A'ya düşüyorsa" onu açık sayarız. Bu yüzden τ_A, τ'dan **miras** alınır.
+
+![A ⊆ X alt uzayında açık kümeler U ∩ A biçimindedir](../assets/ch11/fig_ch11_altuzay.png)
+
 ### Çarpım Topolojisi
 
 (X, τ_X) ve (Y, τ_Y) verilsin. **Çarpım topolojisi** X × Y üzerinde
@@ -22,6 +28,21 @@ Alt uzay topolojisi bir uzayın alt kümesine "miras kalan" topolojiyi tanımlar
 
 Projeksiyon π_X: X × Y → X ve π_Y: X × Y → Y süreklidir.
 τ_{X×Y} her iki projektiyonu sürekli kılan **en kaba** topolojidir.
+
+> 💡 **Sezgi:** Çarpım topolojisinin bazı, düzlemdeki açık dikdörtgenlere benzer:
+> bir "yatay" açık U ile bir "dikey" açık V'yi çarparak U × V kutusunu kurarız.
+> Bu kutular tüm açıkların *bazıdır* — açıklar bu kutuların birleşimleridir.
+
+![Çarpım topolojisinin baz elemanı: U × V dikdörtgen kutusu](../assets/ch11/fig_ch11_carpim_baz.png)
+
+İki projeksiyon, çarpımdaki bir noktayı bileşenlerine "düşürür":
+
+![π_X ve π_Y projeksiyonları (x,y) noktasını x ve y'ye gönderir](../assets/ch11/fig_ch11_izdusum.png)
+
+> ❌ **Karşı-örnek:** "U × V biçiminde olmayan açık yok" demek yanlıştır. Açık
+> birim disk D(0,1) × D(0,1) içinde bir dairesel bölge, hiçbir tek U × V
+> kutusuna eşit olmasa da açıktır — çünkü açıklar kutuların *birleşimidir*,
+> kendileri değil. {U × V} yalnızca **baz**'dır, topolojinin tamamı değil.
 
 ### Topolojik Özelliklerin Kalıtımı
 
@@ -48,16 +69,39 @@ Projeksiyon π_X: X × Y → X ve π_Y: X × Y → Y süreklidir.
 
 **Teorem 2.1.** Hausdorff uzayın her alt uzayı Hausdorff'tur.
 
+> **İspat eskizi.** x ≠ y noktaları A ⊆ X içinde olsun. X Hausdorff olduğundan
+> X'te ayrık açıklar U ∋ x, V ∋ y vardır. O hâlde U ∩ A ve V ∩ A, A'da açık,
+> x ile y'yi ayıran ve kesişmeyen komşuluklardır: (U ∩ A) ∩ (V ∩ A) = (U ∩ V) ∩ A = ∅.
+
 **Teorem 2.2.** Kompakt uzayın kapalı alt uzayı kompakttır.
 
+> **İspat eskizi.** A ⊆ X kapalı, X kompakt olsun. A'nın bir açık örtüsü
+> {U_α ∩ A} verilsin. Her U_α'yı, açık olan X∖A ile birlikte alırsak X'in bir
+> açık örtüsünü elde ederiz. X kompakt olduğundan sonlu alt-örtü vardır; bundan
+> X∖A'yı atınca A'yı örten sonlu sayıda U_α ∩ A kalır.
+
 **Teorem 2.3.** X ve Y bağlantılı ⟹ X × Y bağlantılıdır.
+
+> **İspat eskizi.** Sabit y₀ için X × {y₀} ≅ X bağlantılıdır; her x için {x} × Y ≅ Y
+> bağlantılıdır. Her {x} × Y dilimi, ortak nokta (x, y₀) üzerinden X × {y₀}
+> ile kesişir. Ortak noktalı bağlantılı kümelerin birleşimi bağlantılıdır;
+> bu birleşim tüm X × Y'yi kapsar.
 
 **Teorem 2.4.** X ve Y kompakt ⟹ X × Y kompakt. (Tychonoff, n=2)
 
 **Teorem 2.5.** X ve Y Hausdorff ⟹ X × Y Hausdorff.
 
+> **İspat eskizi.** (x₁,y₁) ≠ (x₂,y₂) ise ya x₁ ≠ x₂ ya da y₁ ≠ y₂. Diyelim
+> x₁ ≠ x₂; X'te ayrık U₁ ∋ x₁, U₂ ∋ x₂ seçilir. O zaman U₁ × Y ve U₂ × Y çarpımda
+> açık, ayrık ve iki noktayı ayırır. Bunlar baz elemanı (U × V) biçimindedir.
+
 **Teorem 2.6 (Evrensel Özellik — Çarpım).**
 f: Z → X × Y sürekli ⟺ π_X∘f ve π_Y∘f süreklidir.
+
+> **İspat eskizi.** (⟹) Projeksiyonlar sürekli, sürekli fonksiyonların bileşkesi
+> süreklidir. (⟸) Bir baz elemanı U × V'nin ön-görüntüsü
+> f⁻¹(U × V) = (π_X∘f)⁻¹(U) ∩ (π_Y∘f)⁻¹(V) olup, iki açık ön-görüntünün
+> kesişimi olarak Z'de açıktır; baz üzerinde süreklilik tüm topolojide sürekliliği verir.
 
 ---
 
@@ -93,15 +137,21 @@ from pytop import (
     discrete_topology,
     indiscrete_topology,
     make_topology,
+    make_set,
+    empty_set,
     is_compact,
     is_connected,
     is_t2,
+    separation_inherited_by_subspace,
 )
 ```
 
 `finite_subspace(space, subset)` → `FiniteTopologicalSpace`
 
 `binary_product(left, right)` → `FiniteTopologicalSpace` (carrier: tuple çiftleri)
+
+`separation_inherited_by_subspace(subspace_obj, feature="hausdorff")` → `Result`
+(alt uzayın bir ayırma özelliğini miras alıp almadığını bildirir)
 
 ---
 
@@ -134,16 +184,22 @@ print("carrier {1}:", sub1.carrier, "| topology:", list(sub1.topology))
 ```
 
 ```text
-carrier {0}: (0,)  | topology: [set(), {0}]
-carrier {1}: (1,)  | topology: [set(), {1}]
+carrier {0}: (0,) | topology: [set(), {0}]
+carrier {1}: (1,) | topology: [set(), {1}]
 ```
 
 ### Örnek 5.3 — Alt Uzay: Özel Topoloji
 
 ```python
 X = [1, 2, 3, 4, 5]
-tau_X = [set(), {1,2}, {3,4}, {1,2,3,4}, {1,2,3,4,5}]
-fts = make_topology(X, *tau_X)
+fts = make_topology(
+    X,
+    empty_set(),
+    make_set(1, 2),
+    make_set(3, 4),
+    make_set(1, 2, 3, 4),
+    make_set(1, 2, 3, 4, 5),
+)
 sub_A = finite_subspace(fts, [2, 3, 4])
 print("carrier:", sub_A.carrier)
 print("tau_A:", sorted([sorted(list(u)) for u in sub_A.topology], key=lambda x: (len(x),x)))
@@ -216,6 +272,50 @@ T2: false
 
 İndiscrete bağlantılı ama D ayrık → çarpım bağlantısız. D T2 ama Ind değil → çarpım T2 değil.
 
+### Örnek 5.7 — Alt Uzay: İndiscrete'in Alt Uzayı İndiscrete'tir
+
+```python
+ind4 = indiscrete_topology(1, 2, 3, 4)
+sub_ind = finite_subspace(ind4, [1, 2])
+print("carrier:", sub_ind.carrier)
+print("topology:", sorted([sorted(list(u)) for u in sub_ind.topology], key=lambda x: (len(x), x)))
+print("connected:", is_connected(sub_ind).status)
+```
+
+```text
+carrier: (1, 2)
+topology: [[], [1, 2]]
+connected: true
+```
+
+İndiscrete uzayın yalnızca ∅ ve X açıkları vardır; bunları A ile kesince
+∅ ∩ A = ∅ ve X ∩ A = A elde edilir. Yani alt uzay yine yalnız {∅, A} taşır:
+indiscrete topoloji alt uzaya **miras kalır** ve bağlantılı kalır.
+
+### Örnek 5.8 — Hausdorff Kalıtımı ve Çarpıma Etkisi
+
+```python
+d4 = discrete_topology(1, 2, 3, 4)
+sub_d = finite_subspace(d4, [1, 2])
+inh = separation_inherited_by_subspace(sub_d, "hausdorff")
+print("subspace Hausdorff inherited:", inh.status)
+
+prod_T2 = binary_product(d2, d2)
+print("D(0,1) x D(0,1) T2:", is_t2(prod_T2).status)
+prod_notT2 = binary_product(d2, indiscrete_topology(0, 1))
+print("D(0,1) x Ind(0,1) T2:", is_t2(prod_notT2).status)
+```
+
+```text
+subspace Hausdorff inherited: true
+D(0,1) x D(0,1) T2: true
+D(0,1) x Ind(0,1) T2: false
+```
+
+Hausdorff'luk alt uzaya kalıtır (Teorem 2.1). Çarpımda ise ancak **her iki**
+çarpan Hausdorff ise sonuç Hausdorff'tur (Teorem 2.5): bir çarpan indiscrete
+olunca T2 bozulur.
+
 ---
 
 ## 6. Alıştırmalar
@@ -231,6 +331,14 @@ K2. `make_topology([1,2,3,4], set(), {1,2}, {3,4}, {1,2,3,4})` ile bir uzay
 K3. `binary_product(sierpinski_space(), discrete_topology(0,1))` için
     `is_compact` ve `is_connected` kontrol edin.
 
+K4. `indiscrete_topology(1,2,3,4)` uzayının `[1,2]` alt uzayını oluşturun.
+    Taşıdığı açık küme sayısını ve `is_connected` çıktısını bulun; sonucu
+    Örnek 5.7 ile karşılaştırın.
+
+K5. `separation_inherited_by_subspace` ile `discrete_topology(1,2,3)`'ten
+    alınan `[1,2]` alt uzayının Hausdorff özelliğini miras alıp almadığını
+    kontrol edin.
+
 ### Teori
 
 T1. Alt uzay topolojisinde i: A → X dahil etme fonksiyonunun sürekli
@@ -238,3 +346,7 @@ T1. Alt uzay topolojisinde i: A → X dahil etme fonksiyonunun sürekli
 
 T2. X ve Y bağlantılı ⟹ X × Y bağlantılı olduğunu ispatlayın.
     (İpucu: {x₀} × Y ve X × {y₀} gibi bağlantılı dilimleri kullanın.)
+
+T3. Çarpımın evrensel özelliğini ispatlayın: f: Z → X × Y sürekli ⟺
+    π_X∘f ve π_Y∘f süreklidir. (İpucu: bir baz elemanı U × V'nin ön-görüntüsünü
+    iki projeksiyonun ön-görüntülerinin kesişimi olarak yazın.)

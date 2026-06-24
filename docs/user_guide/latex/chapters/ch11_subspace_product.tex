@@ -13,12 +13,49 @@ $(X, \tau)$ uzayı ve $A \subseteq X$ verilsin. \textbf{Alt uzay topolojisi:}
 \]
 \end{definition}
 
+\begin{sezgi}
+$A$'yı $X$'ten kesilen bir ``pencere'' gibi düşünün. $A$ üzerindeki açıkları
+sıfırdan tanımlamayız; $X$'in hazır açıklarını $A$ ile keser, ne kadarı $A$'ya
+düşüyorsa onu açık sayarız. Bu yüzden $\tau_A$, $\tau$'dan \emph{miras} alınır.
+\end{sezgi}
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch11_altuzay.tikz}
+\caption{Alt uzay topolojisi: $A \subseteq X$'te açıklar $U \cap A$ biçimindedir.}
+\end{figure}
+
 \begin{definition}[Çarpım Topolojisi]
 $(X, \tau_X)$ ve $(Y, \tau_Y)$ verilsin. Çarpım topolojisi $X \times Y$ üzerinde
 $\{U \times V : U \in \tau_X,\, V \in \tau_Y\}$ bazından üretilir.
 \end{definition}
 
 Projeksiyon $\pi_X: X \times Y \to X$ ve $\pi_Y: X \times Y \to Y$ süreklidir.
+
+\begin{sezgi}
+Çarpım topolojisinin bazı, düzlemdeki açık dikdörtgenlere benzer: bir ``yatay''
+açık $U$ ile bir ``dikey'' açık $V$'yi çarparak $U \times V$ kutusunu kurarız.
+Bu kutular tüm açıkların \emph{bazıdır} --- açıklar bu kutuların birleşimleridir.
+\end{sezgi}
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch11_carpim_baz.tikz}
+\caption{Çarpım topolojisinin baz elemanı: $U \times V$ dikdörtgen kutusu.}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch11_izdusum.tikz}
+\caption{$\pi_X$ ve $\pi_Y$ projeksiyonları $(x,y)$ noktasını bileşenlerine düşürür.}
+\end{figure}
+
+\begin{karsiornek}
+``$U \times V$ biçiminde olmayan açık yok'' demek yanlıştır. Birim diskte
+$D(0,1) \times D(0,1)$ içindeki dairesel bir bölge, hiçbir tek $U \times V$
+kutusuna eşit olmasa da açıktır; çünkü açıklar kutuların \emph{birleşimidir}.
+$\{U \times V\}$ yalnızca \textbf{baz}'dır, topolojinin tamamı değil.
+\end{karsiornek}
 
 \begin{table}[h]
 \centering
@@ -40,10 +77,23 @@ T0/T1/T2 & \checkmark & \checkmark \\
 
 \begin{theorem}
 Hausdorff uzayın her alt uzayı Hausdorff'tur.
+\begin{proof}[İspat eskizi]
+$x \ne y$ noktaları $A \subseteq X$ içinde olsun. $X$ Hausdorff olduğundan
+$X$'te ayrık açıklar $U \ni x$, $V \ni y$ vardır. O hâlde $U \cap A$ ve
+$V \cap A$, $A$'da açık, $x$ ile $y$'yi ayıran komşuluklardır ve
+$(U \cap A) \cap (V \cap A) = (U \cap V) \cap A = \emptyset$.
+\end{proof}
 \end{theorem}
 
 \begin{theorem}
 Kompakt uzayın kapalı alt uzayı kompakttır.
+\begin{proof}[İspat eskizi]
+$A \subseteq X$ kapalı, $X$ kompakt olsun. $A$'nın bir açık örtüsü
+$\{U_\alpha \cap A\}$ verilsin. Her $U_\alpha$'yı açık olan $X \setminus A$ ile
+birlikte alırsak $X$'in açık örtüsünü elde ederiz; $X$ kompakt olduğundan
+sonlu alt-örtü vardır. $X \setminus A$'yı atınca $A$'yı örten sonlu sayıda
+$U_\alpha \cap A$ kalır.
+\end{proof}
 \end{theorem}
 
 \begin{theorem}
@@ -57,8 +107,24 @@ $\{x_0\} \times Y$ ve $X \times \{y_0\}$ bağlantılı dilimler; kesişimleri ü
 $X$ ve $Y$ kompakt $\Rightarrow X \times Y$ kompakttır.
 \end{theorem}
 
+\begin{theorem}
+$X$ ve $Y$ Hausdorff $\Rightarrow X \times Y$ Hausdorff'tur.
+\begin{proof}[İspat eskizi]
+$(x_1,y_1) \ne (x_2,y_2)$ ise $x_1 \ne x_2$ veya $y_1 \ne y_2$. Diyelim
+$x_1 \ne x_2$; $X$'te ayrık $U_1 \ni x_1$, $U_2 \ni x_2$ seçilir. O zaman
+$U_1 \times Y$ ve $U_2 \times Y$ çarpımda açık, ayrık ve iki noktayı ayırır.
+\end{proof}
+\end{theorem}
+
 \begin{theorem}[Evrensel Özellik — Çarpım]
 $f: Z \to X \times Y$ sürekli $\Leftrightarrow \pi_X \circ f$ ve $\pi_Y \circ f$ süreklidir.
+\begin{proof}[İspat eskizi]
+($\Rightarrow$) Projeksiyonlar sürekli, sürekli fonksiyonların bileşkesi
+süreklidir. ($\Leftarrow$) Bir baz elemanı $U \times V$'nin ön-görüntüsü
+$f^{-1}(U \times V) = (\pi_X \circ f)^{-1}(U) \cap (\pi_Y \circ f)^{-1}(V)$
+olup iki açık ön-görüntünün kesişimi olarak $Z$'de açıktır; baz üzerinde
+süreklilik tüm topolojide sürekliliği verir.
+\end{proof}
 \end{theorem}
 
 %-------------------------------------------------------------------
@@ -98,15 +164,20 @@ from pytop import (
     discrete_topology,
     indiscrete_topology,
     make_topology,
+    make_set,
+    empty_set,
     is_compact,
     is_connected,
     is_t2,
+    separation_inherited_by_subspace,
 )
 \end{lstlisting}
 
 \texttt{finite\_subspace(space, subset)} $\to$ \texttt{FiniteTopologicalSpace}
 
 \texttt{binary\_product(left, right)} $\to$ \texttt{FiniteTopologicalSpace} (carrier: çift-demetler)
+
+\texttt{separation\_inherited\_by\_subspace(subspace\_obj, feature="hausdorff")} $\to$ \texttt{Result}
 
 %-------------------------------------------------------------------
 \section{Örnekler}
@@ -159,6 +230,43 @@ compact: true
 connected: true
 \end{verbatim}
 
+\subsection*{Örnek 5.7 — İndiscrete'in Alt Uzayı İndiscrete'tir}
+
+\begin{lstlisting}[language=Python]
+ind4 = indiscrete_topology(1, 2, 3, 4)
+sub_ind = finite_subspace(ind4, [1, 2])
+print("carrier:", sub_ind.carrier)
+print("topology:", sorted([sorted(list(u)) for u in sub_ind.topology],
+                          key=lambda x: (len(x), x)))
+print("connected:", is_connected(sub_ind).status)
+\end{lstlisting}
+
+\begin{verbatim}
+carrier: (1, 2)
+topology: [[], [1, 2]]
+connected: true
+\end{verbatim}
+
+\subsection*{Örnek 5.8 — Hausdorff Kalıtımı ve Çarpıma Etkisi}
+
+\begin{lstlisting}[language=Python]
+d4 = discrete_topology(1, 2, 3, 4)
+sub_d = finite_subspace(d4, [1, 2])
+inh = separation_inherited_by_subspace(sub_d, "hausdorff")
+print("subspace Hausdorff inherited:", inh.status)
+
+prod_T2 = binary_product(d2, d2)
+print("D(0,1) x D(0,1) T2:", is_t2(prod_T2).status)
+prod_notT2 = binary_product(d2, indiscrete_topology(0, 1))
+print("D(0,1) x Ind(0,1) T2:", is_t2(prod_notT2).status)
+\end{lstlisting}
+
+\begin{verbatim}
+subspace Hausdorff inherited: true
+D(0,1) x D(0,1) T2: true
+D(0,1) x Ind(0,1) T2: false
+\end{verbatim}
+
 %-------------------------------------------------------------------
 \section{Alıştırmalar}
 
@@ -170,6 +278,12 @@ connected: true
 \item 4-noktalı özel bir uzayda $\{2,3\}$ alt uzayını bulun.
 \item \texttt{binary\_product(sierpinski\_space(), discrete\_topology(0,1))}
       için \texttt{is\_compact} ve \texttt{is\_connected} kontrol edin.
+\item \texttt{indiscrete\_topology(1,2,3,4)} uzayının \texttt{[1,2]} alt uzayını
+      oluşturup açık küme sayısı ile \texttt{is\_connected} çıktısını bulun;
+      Örnek~5.7 ile karşılaştırın.
+\item \texttt{separation\_inherited\_by\_subspace} ile
+      \texttt{discrete\_topology(1,2,3)}'ten alınan \texttt{[1,2]} alt uzayının
+      Hausdorff özelliğini miras alıp almadığını kontrol edin.
 \end{enumerate}
 
 \subsection*{Teori}
@@ -177,4 +291,6 @@ connected: true
 \begin{enumerate}[label=T\arabic*.]
 \item Alt uzay topolojisinde dahil etme $i: A \to X$'in sürekli olduğunu ispatlayın.
 \item $X$ ve $Y$ bağlantılı $\Rightarrow X \times Y$ bağlantılı olduğunu ispatlayın.
+\item Çarpımın evrensel özelliğini ispatlayın: $f: Z \to X \times Y$ sürekli
+      $\Leftrightarrow \pi_X \circ f$ ve $\pi_Y \circ f$ süreklidir.
 \end{enumerate}

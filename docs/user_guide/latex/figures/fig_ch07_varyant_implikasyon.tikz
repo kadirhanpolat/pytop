@@ -1,0 +1,20 @@
+\begin{tikzpicture}[font=\small, node distance=12mm and 18mm,
+    kut/.style={draw, rounded corners, fill=blue!6, inner sep=6pt, align=center},
+    vurgu/.style={draw, rounded corners, fill=green!8, inner sep=6pt, align=center, very thick}]
+  \node[vurgu] (k) {Kompakt};
+  \node[kut, above right=of k] (lind) {Lindelöf};
+  \node[kut, below right=of k] (say) {Sayılabilir\\kompakt};
+  \node[kut, right=28mm of k] (ard) {Ardışımlı\\kompakt};
+
+  \draw[-{Stealth[length=2.6mm]}, thick] (k) -- (lind);
+  \draw[-{Stealth[length=2.6mm]}, thick] (k) -- (say);
+  \draw[-{Stealth[length=2.6mm]}, thick] (ard) -- (say);
+
+  % metric equivalence
+  \draw[{Stealth[length=2.4mm]}-{Stealth[length=2.4mm]}, dashed, teal!70!black]
+    (k.east) to[bend left=10] node[above, font=\scriptsize, align=center] {metrikte\\ $\Leftrightarrow$} (ard.west);
+
+  \node[font=\scriptsize, align=left, anchor=north west] at (-2.2,-2.0)
+    {Oklar: $\Rightarrow$ (her zaman geçer).\\
+     Kesik çift ok: yalnız \emph{metrik} uzaylarda denklik.};
+\end{tikzpicture}

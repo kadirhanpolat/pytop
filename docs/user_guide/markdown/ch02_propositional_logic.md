@@ -76,6 +76,21 @@ p <-> p    : True
 `implies(p, q)` yalnızca `p=True, q=False` durumunda yanlıştır; diğer
 üç durumda doğrudur (boş doğruluk / vacuous truth).
 
+Aşağıdaki görsel beş bağlacın dört satırlık doğruluk değerlerini bir arada
+özetler: yeşil hücre `doğru` (D), kırmızı hücre `yanlış` (Y) anlamına gelir.
+
+![Beş bağlacın doğruluk tablosu: ¬p, p∧q, p∨q, p→q, p↔q](../assets/ch02/fig_ch02_baglac_dogruluk.png)
+
+> 💡 **Sezgi:** Bağlaçları "kapı" olarak düşünün. `∧` (ve) her iki girdi de
+> doğruyken akım geçirir; `∨` (veya) en az biri doğru olunca geçirir; `→`
+> (ise) yalnızca "doğru bir öncülden yanlış bir sonuç" çıkarılırsa kapanır.
+> İşte bu yüzden `p → q` sütununda yalnızca tek bir satır (`p`=D, `q`=Y)
+> yanlıştır — diğer her şey, mantığın "verdiğin sözü bozmadın" kuralıdır.
+
+> ❌ **Karşı-örnek:** `p → q` ile `p ↔ q` aynı şey değildir. `p`=Y, `q`=D
+> alındığında `p → q` **doğru** (D), ama `p ↔ q` **yanlış** (Y) döner: içerme
+> tek yönlüdür, çift-koşul iki yönü birden ister. Tabloda 3. satırı karşılaştırın.
+
 ---
 
 ## 3. Doğruluk Tablosu
@@ -99,7 +114,7 @@ for tv_p in (True, False):
 ```
 
 ```text
-    p      q  neg_p    p&q    p|q   p->q  p<->q
+    p      q  neg_p    p&q    p|q    p->q   p<->q
 ----------------------------------------------------
  True   True  False   True   True   True   True
  True  False  False  False   True  False  False
@@ -112,6 +127,46 @@ False  False   True  False  False   True   True
 ## 4. Önemli Tautolojiler
 
 Tautoloji: her doğruluk değeri atamasında doğru olan önerme.
+
+### Kontrapozitif ve "tersi" hatası
+
+En sık yapılan mantık hatası, bir içermeyi **tersiyle (converse)** karıştırmaktır.
+`p → q`'nin doğru biçimde denk olduğu ifade **kontrapozitiftir**: `¬q → ¬p`.
+Buna karşılık `q → p` (tersi) genellikle denk **değildir**.
+
+![Kontrapozitif denkliği p→q ⟺ ¬q→¬p, ve denk olmayan tersi q→p](../assets/ch02/fig_ch02_kontrapozitif.png)
+
+> ❌ **Karşı-örnek:** `p` = "x bir karedir", `q` = "x bir dikdörtgendir" olsun.
+> `p → q` doğrudur (her kare dikdörtgendir), ama tersi `q → p` yanlıştır
+> (her dikdörtgen kare değildir). Kontrapozitif `¬q → ¬p` = "dikdörtgen
+> değilse kare de değildir" ise yine doğrudur — çünkü o `p → q` ile denktir.
+
+**İspat eskizi (kontrapozitif, doğruluk tablosu kanıtı).** `p → q` ile
+`¬q → ¬p` aynı sütunu üretir; dolayısıyla `iff` her satırda `True` döner:
+
+| p | q | p → q | ¬q → ¬p |
+|---|---|-------|---------|
+| D | D |   D   |    D    |
+| D | Y |   Y   |    Y    |
+| Y | D |   D   |    D    |
+| Y | Y |   D   |    D    |
+
+Dört satırda da iki sütun çakışır, yani `(p → q) ↔ (¬q → ¬p)` bir tautolojidir. ∎
+
+**İspat eskizi (De Morgan, `¬(p ∧ q) ↔ ¬p ∨ ¬q`).** `p ∧ q` yalnızca her ikisi
+doğruyken doğrudur; öyleyse `¬(p ∧ q)` "en az biri yanlış" demektir. `¬p ∨ ¬q`
+de tam olarak "en az biri yanlış" anlamına gelir. İki taraf her atamada aynı
+değeri aldığından denklik tautolojidir:
+
+| p | q | p ∧ q | ¬(p ∧ q) | ¬p ∨ ¬q |
+|---|---|-------|----------|---------|
+| D | D |   D   |    Y     |    Y    |
+| D | Y |   Y   |    D     |    D    |
+| Y | D |   Y   |    D     |    D    |
+| Y | Y |   Y   |    D     |    D    |
+
+`¬(p ∧ q)` ve `¬p ∨ ¬q` sütunları aynıdır. ∎ İkincil yasa
+`¬(p ∨ q) ↔ ¬p ∧ ¬q` de aynı yöntemle (∨ ve ∧ rollerini değiştirerek) gösterilir.
 
 ```python
 pairs = [(True, True), (True, False), (False, True), (False, False)]
@@ -139,10 +194,10 @@ neg(p|q) <-> neg_p&neg_q: tautoloji
 
 ## 5. Niceleyiciler
 
-```python
-for_all(carrier, predicate)       # ∀x ∈ carrier : P(x)
-there_exists(carrier, predicate)  # ∃x ∈ carrier : P(x)
-unique_exists(carrier, predicate) # ∃!x ∈ carrier : P(x)
+```text
+for_all(carrier, predicate)       # tum x: P(x)
+there_exists(carrier, predicate)  # bazi x: P(x)
+unique_exists(carrier, predicate) # tam bir x: P(x)
 ```
 
 ```python
@@ -218,9 +273,9 @@ for name, sp in spaces.items():
 ```text
 Uzay          T0     T1
 --------------------------
-Sierpinski    True   False
-Discrete      True   True
-Indiscrete    False  False
+Sierpinski  True   False
+Discrete    True   True 
+Indiscrete  False  False
 ```
 
 `for_all`/`there_exists` ile yazılan T0/T1 tanımları, `pytop`'un `is_t0`
@@ -246,3 +301,13 @@ tanımını çalıştırılabilir kod olarak belgeler.
 
 5. *(Teori)* De Morgan yasalarını önerme mantığı için ispatlayın:
    $\neg(p \wedge q) \leftrightarrow \neg p \vee \neg q$.
+
+6. `check_tautology` yardımcı fonksiyonunu kullanarak **dağılma yasasını**
+   doğrulayın: $p \wedge (q \vee r) \leftrightarrow (p \wedge q) \vee (p \wedge r)$.
+   Üç değişken olduğu için sekiz $(p, q, r)$ atamasının tümünü gezdirmeniz
+   gerekir; `iff`'in her atamada `True` döndüğünü gösterin.
+
+7. *(Teori)* Bir öğrenci "$p \to q$ doğruysa $q \to p$ de doğrudur" diyor.
+   Bu iddianın neden yanlış olduğunu, kontrapozitif `¬q → ¬p` ile tersi
+   `q → p` arasındaki farkı vurgulayan somut bir karşı-örnekle açıklayın.
+   (İpucu: $p$ = "tam sayı 4'e bölünür", $q$ = "tam sayı çifttir".)

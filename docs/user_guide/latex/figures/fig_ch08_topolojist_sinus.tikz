@@ -1,0 +1,22 @@
+\begin{tikzpicture}[font=\small, etiket/.style={font=\scriptsize}]
+  % topolojist sinus egrisi: y = sin(1/x), x in (0, ~0.9], + dikey segment {0}x[-1,1]
+  % dikey limit segmenti
+  \draw[blue!70!black, very thick] (0,-1) -- (0,1);
+  \node[blue!60!black, etiket, left=2pt] at (0,0) {$\{0\}\times[-1,1]$};
+
+  % sin(1/x) egrisi: gercek x in (0, 0.9], yatay olcek 3.3 -> grafik x ekseni
+  % yakin x=0 icin yogun ornekleme (sonsuz salinim gorunur olsun)
+  \draw[orange!80!black, very thick, domain=0.028:0.9, samples=900, smooth, variable=\x]
+    plot ({\x*3.3},{sin((1/\x) r)});
+  \node[orange!75!black, etiket] at (2.05,1.45) {$y=\sin\!\left(\tfrac{1}{x}\right),\; x>0$};
+
+  % salinim oku
+  \draw[-{Stealth[length=2.4mm]}, red!70!black, thick] (0.95,-1.35) -- (0.2,-1.35);
+  \node[red!70!black, etiket, align=center] at (1.7,-1.45)
+    {$x\to 0^+$ iken sonsuz salınım};
+
+  \node[etiket, align=center, fill=blue!5, rounded corners, inner sep=4pt]
+    at (1.5,-2.35)
+    {\textbf{Bağlantılı} ama \textbf{yol-bağlantılı değil:} sağdaki eğri ile soldaki
+     dikey segmenti\\ birleştiren \emph{sürekli} bir yol yoktur (salınım yakınsamayı engeller).};
+\end{tikzpicture}

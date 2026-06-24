@@ -1,0 +1,39 @@
+\begin{tikzpicture}[font=\small, x=1.05cm, y=0.72cm,
+    D/.style={fill=green!16, draw=green!55!black, rounded corners=2pt,
+              minimum width=15pt, minimum height=13pt},
+    Y/.style={fill=red!12,  draw=red!55!black, rounded corners=2pt,
+              minimum width=15pt, minimum height=13pt}]
+  % --- Sutun basliklari ---
+  \foreach \i/\lbl in {0/$p$, 1/$q$, 2/$\neg p$, 3/$p\wedge q$, 4/$p\vee q$, 5/$p\to q$, 6/$p\leftrightarrow q$} {
+    \node[anchor=center] at (\i, 4) {\lbl};
+  }
+  % --- Baslik / sol blok ayrac cizgileri ---
+  \draw[thick] (-0.55, 3.5) -- (6.55, 3.5);
+  \draw[thick] (1.55, 4.6) -- (1.55, -0.5);
+
+  % --- Satir 0: p=D q=D ---
+  \node[D] at (0,3){\scriptsize D}; \node[D] at (1,3){\scriptsize D};
+  \node[Y] at (2,3){\scriptsize Y}; \node[D] at (3,3){\scriptsize D};
+  \node[D] at (4,3){\scriptsize D}; \node[D] at (5,3){\scriptsize D};
+  \node[D] at (6,3){\scriptsize D};
+  % --- Satir 1: p=D q=Y ---
+  \node[D] at (0,2){\scriptsize D}; \node[Y] at (1,2){\scriptsize Y};
+  \node[Y] at (2,2){\scriptsize Y}; \node[Y] at (3,2){\scriptsize Y};
+  \node[D] at (4,2){\scriptsize D}; \node[Y] at (5,2){\scriptsize Y};
+  \node[Y] at (6,2){\scriptsize Y};
+  % --- Satir 2: p=Y q=D ---
+  \node[Y] at (0,1){\scriptsize Y}; \node[D] at (1,1){\scriptsize D};
+  \node[D] at (2,1){\scriptsize D}; \node[Y] at (3,1){\scriptsize Y};
+  \node[D] at (4,1){\scriptsize D}; \node[D] at (5,1){\scriptsize D};
+  \node[Y] at (6,1){\scriptsize Y};
+  % --- Satir 3: p=Y q=Y ---
+  \node[Y] at (0,0){\scriptsize Y}; \node[Y] at (1,0){\scriptsize Y};
+  \node[D] at (2,0){\scriptsize D}; \node[Y] at (3,0){\scriptsize Y};
+  \node[Y] at (4,0){\scriptsize Y}; \node[D] at (5,0){\scriptsize D};
+  \node[D] at (6,0){\scriptsize D};
+
+  \node[anchor=west, font=\scriptsize, align=left] at (7.0, 3.0)
+    {D = doğru\\ Y = yanlış};
+  \node[anchor=west, font=\scriptsize, align=left, red!60!black] at (7.0, 1.4)
+    {$p\to q$ yalnızca\\ $p$=D,\,$q$=Y'de\\ yanlıştır};
+\end{tikzpicture}

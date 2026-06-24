@@ -1,0 +1,37 @@
+\begin{tikzpicture}[font=\small, etiket/.style={font=\scriptsize},
+  nokta/.style={circle, fill=blue!70!black, inner sep=1.8pt}]
+  % SOL: X = {a,b,c,d}, sinif kutulariyla gruplanmis
+  \node[etiket, above] at (1.3,2.2) {$X = \{a,b,c,d\}$};
+
+  % {a,b} kutusu
+  \draw[violet!60!black, thick, rounded corners, fill=violet!7]
+    (-0.1,1.0) rectangle (1.2,2.0);
+  \node[nokta, label={[etiket]left:$a$}] (a) at (0.25,1.5) {};
+  \node[nokta, label={[etiket]right:$b$}] (b) at (0.85,1.5) {};
+  \node[violet!60!black, etiket, below=1pt] at (0.55,1.0) {$\{a,b\}$};
+
+  % {c}
+  \draw[teal!55!black, thick, rounded corners, fill=teal!7]
+    (1.7,1.15) rectangle (2.5,1.85);
+  \node[nokta, label={[etiket]above:$c$}] (c) at (2.1,1.5) {};
+
+  % {d}
+  \draw[orange!75!black, thick, rounded corners, fill=orange!7]
+    (3.0,1.15) rectangle (3.8,1.85);
+  \node[nokta, label={[etiket]above:$d$}] (d) at (3.4,1.5) {};
+
+  % q oklari asagi
+  \draw[-{Stealth[length=2.2mm]}, gray!70] (0.55,0.95) -- (0.55,-0.05);
+  \draw[-{Stealth[length=2.2mm]}, gray!70] (2.1,1.1) -- (2.1,-0.05);
+  \draw[-{Stealth[length=2.2mm]}, gray!70] (3.4,1.1) -- (3.4,-0.05);
+  \node[etiket, right] at (3.55,0.55) {$q$};
+
+  % SAG/ALT: X/~ = uc nokta
+  \node[etiket, below] at (1.95,-0.9) {$X/{\sim} = \{[a],[c],[d]\}$ (üç nokta)};
+  \node[circle, draw=violet!60!black, fill=violet!18, inner sep=2.6pt,
+    label={[etiket]below:$[a]$}] at (0.55,-0.45) {};
+  \node[circle, draw=teal!55!black, fill=teal!18, inner sep=2.6pt,
+    label={[etiket]below:$[c]$}] at (2.1,-0.45) {};
+  \node[circle, draw=orange!75!black, fill=orange!18, inner sep=2.6pt,
+    label={[etiket]below:$[d]$}] at (3.4,-0.45) {};
+\end{tikzpicture}

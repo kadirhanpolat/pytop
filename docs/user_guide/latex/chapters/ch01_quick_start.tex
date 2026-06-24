@@ -11,6 +11,40 @@ pip install -e .   # git kokundan
 \end{lstlisting}
 
 Her bolumde ihtiyac duyulan semboller dogrudan \texttt{pytop}'tan import edilir.
+Bu bolum bir \emph{tur} oldugundan, ilk hucrede sonraki tum hucrelerin
+kullanacagi sembolleri tek seferde ice aktariyoruz:
+
+\begin{lstlisting}[language=Python]
+import pytop
+from pytop import (
+    discrete_topology, indiscrete_topology, sierpinski_space, make_topology,
+    is_compact, is_connected, is_t0, is_t1, is_t2,
+    count_topologies_on_n_points,
+    simplicial_complex, simplicial_homology, betti_numbers,
+    FiniteMetricSpace, persistent_homology, persistence_betti_numbers,
+)
+from pytop.experimental.spaces import finite_circle, pi1_space
+print("pytop surumu:", pytop.__version__)
+\end{lstlisting}
+
+\begin{verbatim}
+pytop surumu: 1.7.0
+\end{verbatim}
+
+\begin{sezgi}
+pytop'u iki katlı bir bina gibi düşünün. Alt kat \textbf{betimsel}
+(descriptive) katmandır: ünlü uzayların ve teoremlerin kayıtlı, kaynaklı
+bilgisini tutar --- bilir ama hesaplamaz. Üst kat \textbf{yapıcı}
+(constructive) katmandır: ham girdiden invaryantları \emph{hesaplar} ---
+homoloji, kalıcı homoloji, düğüm polinomları. Bu bölüm her iki kata da
+kısa bir tur attırır.
+\end{sezgi}
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch01_katmanlar.tikz}
+\caption{pytop'un iki katmanı: betimsel kayıtlar ile yapıcı motorlar.}
+\end{figure}
 
 %-------------------------------------------------------------------
 \section{Uzay Nesneleri}
@@ -117,9 +151,9 @@ print("Sierpinski:", sorted(sierpinski_space().tags))
 \end{lstlisting}
 
 \begin{verbatim}
-Ayrik:     ['discrete', 'finite', 'hausdorff', 'metrizable', 'normal', 'regular']
-Indiscrete: ['finite', 'indiscrete']
-Sierpinski: ['finite', 'sierpinski']
+Ayrik:      ['discrete', 'finite', 'hausdorff', 'metrizable', 'normal', 'regular']
+Indiscrete: ['compact', 'connected', 'finite', 'indiscrete']
+Sierpinski: ['compact', 'connected', 'finite', 't0']
 \end{verbatim}
 
 Etiketler yüklem fonksiyonlarının karar mekanizmasını hızlandırır:
@@ -144,3 +178,120 @@ n=5: 6942
 
 Topoloji sayısı hızla büyür; sonlu uzayların tüm topolojileri üzerinde kaba
 kuvvet taraması yalnızca küçük $n$ için pratiktir.
+
+%-------------------------------------------------------------------
+\section{pytop Ne Hesaplar? — Genel Harita}
+
+Önceki bölümler \textbf{betimsel/sonlu} katmanı gezdirdi. pytop'un asıl gücü
+\textbf{yapıcı çekirdektir}: ham bir kompleks ya da nokta bulutundan cebirsel
+invaryantları gerçekten \emph{hesaplar}.
+
+\begin{figure}[ht]
+\centering
+\input{figures/fig_ch01_harita.tikz}
+\caption{pytop hesaplama haritası: girdiden invaryanta giden yollar.}
+\end{figure}
+
+%-------------------------------------------------------------------
+\section{Hesaplamalı Çekirdek: İlk Bakış}
+
+\subsection*{Örnek 9.1 — Sonlu Bir Çember Modeli ve $\pi_1 = \mathbb{Z}$}
+
+\begin{lstlisting}[language=Python]
+fc = finite_circle()
+r = pi1_space(fc)
+print("uzay adi   :", r.space_name)
+print("grup tipi  :", r.group_type)
+print("uretec say :", len(r.presentation.generators))
+print("baginti say:", len(r.presentation.relators))
+print("serbest mi :", r.is_free())
+print("H1 betti   :", r.abelianization_betti)
+\end{lstlisting}
+
+\begin{verbatim}
+uzay adi   : S^1
+grup tipi  : infinite_cyclic
+uretec say : 1
+baginti say: 0
+serbest mi : True
+H1 betti   : 1
+\end{verbatim}
+
+Yalnız 4 nokta, hiç bağıntısı olmayan tek üreteç: $\pi_1 = \langle a \rangle
+= \mathbb{Z}$. Sonlu bir uzay, sürekli bir çemberle aynı temel grubu taşır.
+
+\subsection*{Örnek 9.2 — Üçgen Kenarından Çemberin Homolojisi}
+
+\begin{lstlisting}[language=Python]
+circle = simplicial_complex([[0], [1], [2], [0, 1], [1, 2], [0, 2]])
+for k in (0, 1):
+    h = simplicial_homology(circle, k)
+    print(f"H{k}: betti={h.betti} torsion={h.torsion}")
+print("betti_numbers:", betti_numbers(circle))
+\end{lstlisting}
+
+\begin{verbatim}
+H0: betti=1 torsion=()
+H1: betti=1 torsion=()
+betti_numbers: (1, 1)
+\end{verbatim}
+
+$H_0 = \mathbb{Z}$ (tek bileşen), $H_1 = \mathbb{Z}$ (bir delik) --- çemberin
+klasik Betti imzası $(1, 1)$, ham simpleks listesinden SNF yoluyla hesaplandı.
+
+\begin{dikkat}
+\texttt{simplicial\_complex} yüz-kapalı girdi bekler: kenarları
+\texttt{[0,1]} verip köşeleri \texttt{[0]} eklemeyi unutursanız hata alırsınız.
+Üçgeni \texttt{[0,1,2]} olarak eklerseniz içi dolar ve $H_1 = 0$ olur.
+\end{dikkat}
+
+\subsection*{Örnek 9.3 — Nokta Bulutundan Kalıcı Homoloji}
+
+\begin{lstlisting}[language=Python]
+import math
+
+pts = tuple(
+    (round(math.cos(2 * math.pi * k / 8), 4),
+     round(math.sin(2 * math.pi * k / 8), 4))
+    for k in range(8)
+)
+space = FiniteMetricSpace(carrier=pts, distance=math.dist)
+pairs = persistent_homology(space, max_dimension=1, max_scale=1.0)
+
+essential = [p for p in pairs if p.is_essential]
+print("toplam cift :", len(pairs))
+print("kalici H0   :", sum(1 for p in essential if p.dimension == 0))
+print("kalici H1   :", sum(1 for p in essential if p.dimension == 1))
+print("betti       :", persistence_betti_numbers(pairs))
+\end{lstlisting}
+
+\begin{verbatim}
+toplam cift : 9
+kalici H0   : 1
+kalici H1   : 1
+betti       : {0: 1, 1: 1}
+\end{verbatim}
+
+Kalıcı sınıflar yine $(1, 1)$'i verir: bir bileşen ve bir delik. Sadece sıralı
+noktalardan, hiçbir bağlantı bilgisi vermeden, pytop çemberin şeklini geri
+kurtarır.
+
+%-------------------------------------------------------------------
+\section{Alıştırmalar}
+
+\subsection*{Kodlama}
+
+\begin{enumerate}[label=K\arabic*.]
+\item \texttt{simplicial\_complex} ile içi \textbf{dolu} üçgeni
+      (\texttt{[0,1,2]} facet'i, tüm yüzleriyle) kurun ve \texttt{betti\_numbers}
+      çıktısını boş üçgeninkiyle karşılaştırın. $H_1$ neden kayboldu?
+\item Örnek 9.3'teki nokta sayısını 8'den 4'e düşürün. Kalıcı $H_1$ hâlâ
+      $1$ mi? Sonucu çemberin örnekleme yoğunluğuyla ilişkilendirin.
+\end{enumerate}
+
+\subsection*{Teori}
+
+\begin{enumerate}[label=T\arabic*.]
+\item Sonlu bir uzayın (Örnek 9.1) sürekli bir çemberle aynı $\pi_1$'e sahip
+      olması nasıl mümkün? McCord teoreminin ne söylediğini bir cümleyle açıklayın.
+\end{enumerate}

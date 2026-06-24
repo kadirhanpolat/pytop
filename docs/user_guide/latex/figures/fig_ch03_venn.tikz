@@ -1,0 +1,20 @@
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % evren kutusu
+  \draw[gray!60, thick] (-2.7,-2.0) rectangle (2.7,2.0);
+  \node[gray!60] at (2.35,1.7) {$X$};
+  % A ve B daireleri (kesisim taranir)
+  \begin{scope}
+    \clip (-0.9,0) circle (1.5);
+    \fill[violet!18] (0.9,0) circle (1.5);
+  \end{scope}
+  \draw[blue!70!black, thick] (-0.9,0) circle (1.5);
+  \draw[violet!80!black, thick] (0.9,0) circle (1.5);
+  \node[blue!70!black] at (-1.9,1.25) {$A$};
+  \node[violet!80!black] at (1.9,1.25) {$B$};
+  % bolgeler
+  \node at (-1.15,0) {$A\setminus B$};
+  \node at (0,0) {$A\cap B$};
+  \node at (1.15,0) {$B\setminus A$};
+  \node[align=center] at (0,-2.55)
+    {$A\cup B$ = her uc bolge\\ $A\cap B$ = orta bolge \quad $A\setminus B$ = sol bolge};
+\end{tikzpicture}
