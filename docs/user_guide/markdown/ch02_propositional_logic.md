@@ -194,7 +194,7 @@ neg(p|q) <-> neg_p&neg_q: tautoloji
 
 ## 5. Niceleyiciler
 
-```python
+```text
 for_all(carrier, predicate)       # tum x: P(x)
 there_exists(carrier, predicate)  # bazi x: P(x)
 unique_exists(carrier, predicate) # tam bir x: P(x)
