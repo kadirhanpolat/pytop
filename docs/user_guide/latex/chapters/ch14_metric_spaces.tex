@@ -6,6 +6,42 @@ doğal olarak bir topolojik uzay oluşturur; bu yapı ``indüklenen topoloji'' o
 %-------------------------------------------------------------------
 \section{Konu}
 
+\subsection{Sezgisel Giriş — ``Mesafe Topolojiyi Doğurur''}
+
+Metrik uzayı tek cümlede özetlemek gerekirse: \emph{noktalar arasındaki mesafe
+fikrinden bir topoloji üretmektir.} Elimizde yalnız ``iki nokta ne kadar uzak?''
+sorusunu yanıtlayan bir $d(x,y)$ fonksiyonu vardır; bundan ``bir noktanın yakınında
+olmak'' kavramını --- yani açık kümeleri --- kurarız. Köprü tek bir nesnedir:
+\textbf{açık yuvar.}
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch14_acik_yuvar.tikz}
+  \caption{Açık yuvar $B(x,r)$: merkez $x$'ten $r$'den daha yakın olan tüm
+    noktalar; kesikli sınır yuvara dahil değildir.}
+\end{figure}
+
+Bu yuvarları temel taş yaparak indüklenen topolojiyi kurarız: bir küme açıktır
+$\Leftrightarrow$ her noktasının etrafına tümüyle içeride kalan bir açık yuvar sığar.
+
+\begin{sezgi}
+Metrik, sayısal bir ``uzaklık cetveli''dir; topoloji ise yalnız ``yakın mı, uzak
+mı?'' sorusunu önemser. Aynı topolojiyi farklı cetveller (metrikler) üretebilir ---
+önemli olan hangi noktaların hangi yuvarın \emph{içinde} kaldığıdır, mesafenin tam
+sayısal değeri değil.
+\end{sezgi}
+
+Aynı düzlem üzerinde farklı metrikler farklı biçimde yuvarlar üretir ama çoğu zaman
+\textbf{aynı topolojiyi} indükler:
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch14_birim_yuvarlar.tikz}
+  \caption{Üç farklı metriğin birim yuvarı $B(0,1)$: Öklid çember, taksi
+    (Manhattan) elması, maksimum metrik karesi --- biçimleri farklı, indükledikleri
+    topoloji aynı.}
+\end{figure}
+
 \subsection{Metrik Aksiyomları}
 
 \begin{definition}[Metrik Uzay]
@@ -17,6 +53,24 @@ $(M, d)$ bir \textbf{metrik uzay}, $d$ ise \textbf{metrik} ise:
   \item[(M3)] \textbf{Üçgen:} $d(x,z) \leq d(x,y) + d(y,z)$
 \end{enumerate}
 \end{definition}
+
+Üçgen eşitsizliği, üç aksiyom içinde en derin olanıdır: ``$x$'ten $z$'ye doğrudan
+gitmek, $y$'ye uğrayıp gitmekten kısadır'' der.
+
+\begin{figure}[ht]
+  \centering
+  \input{figures/fig_ch14_ucgen.tikz}
+  \caption{Üçgen eşitsizliği: $x$'ten $z$'ye doğrudan mesafe, $y$ üzerinden geçen
+    dolaylı yoldan kısadır.}
+\end{figure}
+
+\begin{karsiornek}
+\textbf{Üçgen eşitsizliği şart.} $\{A,B,C\}$ üzerinde $d(A,B)=1$, $d(B,C)=1$ ama
+$d(A,C)=5$ koyalım (özdeşlik ve simetri korunsun). M1 ve M2 sağlanır, ama
+$d(A,C)=5 > d(A,B)+d(B,C)=2$ olduğundan M3 ihlal edilir. Bu fonksiyon bir
+\emph{metrik değildir}; ürettiği ``yuvarlar'' tutarlı bir topoloji vermez.
+\texttt{validate\_metric} bu durumu yakalar (Alıştırma K4).
+\end{karsiornek}
 
 \subsection{Temel Kavramlar}
 
@@ -49,18 +103,42 @@ Sınırlı (capped) & $d'(x,y) = \min(d(x,y),1)$ & Eşdeğer topoloji \\
 
 \begin{theorem}
 Her metrik uzay Hausdorff (T2) ve $1^{\text{st}}$ sayılabilirdir.
-\begin{proof}[Kanıt İskeleti]
-$B(x, d(x,y)/2)$ ve $B(y, d(x,y)/2)$ ayrık komşuluklardır; $\{B(x,1/n)\}$ yerel bazdır.
-\end{proof}
 \end{theorem}
+
+\begin{proof}[İspat eskizi]
+(T2) $x \neq y$ olsun; o hâlde $r = d(x,y) > 0$ (M1). $B(x, r/2)$ ve $B(y, r/2)$
+yuvarları ayrıktır: ortak bir $z$ noktası olsaydı, üçgen eşitsizliğinden (M3)
+$r = d(x,y) \leq d(x,z) + d(z,y) < r/2 + r/2 = r$ çelişkisi çıkardı. Demek ki $x$ ve
+$y$ açık komşuluklarla ayrılır. (1.\ sayılabilir) Her $x$ için sayılabilir
+$\{B(x, 1/n) : n \in \mathbb{N}\}$ ailesi yerel bazdır: $x \in U$ açık ise
+$B(x,\varepsilon) \subseteq U$ olacak $\varepsilon > 0$ vardır; $1/n < \varepsilon$
+seçince $B(x, 1/n) \subseteq U$.
+\end{proof}
 
 \begin{theorem}[Sınırlı Metrik Eşdeğerliği]
 $d'(x,y) = \min(d(x,y),1)$ ile $d$ aynı topolojiyi indükler.
 \end{theorem}
 
+\begin{proof}[İspat eskizi]
+İki metrik aynı topolojiyi indükler $\Leftrightarrow$ her $d$-açık yuvarın içine bir
+$d'$-açık yuvar sığar ve tersi. Yarıçapı $r \leq 1$ olan yuvarlarda
+$B_d(x, r) = B_{d'}(x, r)$ tam çakışır, çünkü $d$ ile $d'$ yalnız mesafesi $\geq 1$
+olan çiftlerde ayrışır. Topoloji ``yeterince küçük yuvarlar'' tarafından
+belirlendiğinden büyük yarıçaplı farklılık topolojiyi değiştirmez; $\tau_d = \tau_{d'}$.
+\end{proof}
+
 \begin{theorem}
 $\mathbb{R}^n$ üzerindeki max, sum ve Öklid metrikleri topolojik olarak eşdeğerdir.
 \end{theorem}
+
+\begin{proof}[İspat eskizi]
+Üç metrik karşılıklı sabit çarpanlarla sınırlanır:
+$d_\infty \leq d_2 \leq d_1 \leq n\,d_\infty$ (max $\leq$ Öklid $\leq$ taksi
+$\leq n\cdot$max). Böyle bir ``sandviç'' her metriğin yuvarının içine ötekinin
+yuvarını sığdırır (ör.\ $B_\infty(x, r/n) \subseteq B_1(x, r) \subseteq B_\infty(x, r)$).
+Karşılıklı içerme $\Rightarrow$ aynı açık kümeler $\Rightarrow$ aynı topoloji.
+Bölüm 1.0'daki birim-yuvar figürü bu üç biçimi yan yana gösterir.
+\end{proof}
 
 %-------------------------------------------------------------------
 \section{Algoritmalar}
@@ -122,6 +200,14 @@ from pytop import (
 
 \texttt{capped\_metric(distance\_fn, cap=1.0)} $\to$ \texttt{Callable} döner.
 
+\textbf{Metrik $\to$ TDA köprüsü:} Bir \texttt{FiniteMetricSpace}
+(\texttt{carrier} + \texttt{distance}) doğrudan
+\texttt{pytop.persistent\_homology(space, max\_dimension=, max\_scale=)} fonksiyonuna
+beslenebilir; bu, ham nokta bulutunu Vietoris–Rips filtrasyonuna çevirip kalıcı
+homolojiyi hesaplar. Dönen \texttt{PersistencePair} alanları: \texttt{dimension},
+\texttt{birth}, \texttt{death}, \texttt{persistence}, \texttt{is\_essential}
+(Örnek 5.8).
+
 %-------------------------------------------------------------------
 \section{Örnekler}
 
@@ -166,6 +252,73 @@ d(0,3) capped: 1.0
 d(0,1) capped: 1.0
 \end{verbatim}
 
+\subsection*{Örnek 5.7 — Üç Metrik, Üç Yuvar, Aynı Geçerlilik}
+
+Düzlemdeki aynı beş nokta üzerinde Öklid, taksi ($\ell^1$) ve maksimum
+($\ell^\infty$) metriklerini kurarız: üçü de geçerli metriktir ama aynı çift için
+farklı mesafe verir (Bölüm 1.0 birim-yuvar figürünün sayısal karşılığı).
+
+\begin{lstlisting}[language=Python]
+import math
+from pytop.metric_spaces import FiniteMetricSpace, validate_metric
+
+grid = [(0, 0), (1, 0), (0, 1), (1, 1), (2, 1)]
+carrier = tuple(range(len(grid)))
+
+def euclid(i, j):    return math.dist(grid[i], grid[j])
+def taxicab(i, j):   return abs(grid[i][0]-grid[j][0]) + abs(grid[i][1]-grid[j][1])
+def chebyshev(i, j): return max(abs(grid[i][0]-grid[j][0]), abs(grid[i][1]-grid[j][1]))
+
+for name, d in [("Oklid", euclid), ("Taksi", taxicab), ("Maksimum", chebyshev)]:
+    dist = {(i, j): d(i, j) for i in carrier for j in carrier}
+    fms = FiniteMetricSpace(carrier=carrier, distance=dist)
+    print(name, "d(0,4)=", round(dist[(0,4)], 4), "metrik?", validate_metric(fms).status)
+\end{lstlisting}
+
+\begin{verbatim}
+Oklid    d(0,4)= 2.2361 metrik? true
+Taksi    d(0,4)= 3.0    metrik? true
+Maksimum d(0,4)= 2.0    metrik? true
+\end{verbatim}
+
+Mesafeler farklı (Öklid $\sqrt5$, taksi $3$, maksimum $2$), ama üçü de aynı
+topolojiyi indükler (Teorem 2.3).
+
+\subsection*{Örnek 5.8 — Metrik $\to$ Kalıcı Homoloji (TDA Köprüsü)}
+
+Metrik uzayın hesaplama gücüne köprü: bir nokta bulutundan \texttt{FiniteMetricSpace}
+kurup doğrudan \texttt{persistent\_homology}'ye veririz. Çember üzerinde örneklenmiş
+8 nokta --- ``delik'' (1-boyutlu döngü) topolojik imza olarak ortaya çıkmalıdır.
+
+\begin{lstlisting}[language=Python]
+import math, pytop
+from pytop.metric_spaces import FiniteMetricSpace
+
+n = 8
+pts = [(math.cos(2*math.pi*k/n), math.sin(2*math.pi*k/n)) for k in range(n)]
+carrier = tuple(range(n))
+dist = {(i, j): math.dist(pts[i], pts[j]) for i in carrier for j in carrier}
+circle = FiniteMetricSpace(carrier=carrier, distance=dist)
+
+pairs = pytop.persistent_homology(circle, max_dimension=2, max_scale=2.5)
+components = [p for p in pairs if p.dimension == 0 and p.is_essential]
+loops = [p for p in pairs if p.dimension == 1]
+loop = loops[0]
+print("bilesen (H0):", len(components), " dongu (H1):", len(loops))
+print("dongu: dogum=", round(loop.birth,4), "olum=", round(loop.death,4))
+\end{lstlisting}
+
+\begin{verbatim}
+bilesen (H0): 1  dongu (H1): 1
+dongu: dogum= 0.7654 olum= 1.8478
+\end{verbatim}
+
+Tam beklenen sonuç: çember bağlantılı olduğundan tek kalıcı bileşen ($H_0$), bir
+deliği olduğundan tek kalıcı döngü ($H_1$). Döngü, komşu noktalar bağlandığında
+doğar ($\approx 0.765$) ve yarıçap deliği dolduracak kadar büyüyünce ölür
+($\approx 1.848$). Ham koordinatlardan (\texttt{math.dist}) pytop topolojik bir
+özelliği --- deliğin varlığını --- sayısal olarak çıkardı.
+
 %-------------------------------------------------------------------
 \section{Alıştırmalar}
 
@@ -177,6 +330,16 @@ d(0,1) capped: 1.0
 \item Öklid metrikli $\{0,\ldots,9\}$ üzerinde $B(5,3.0)$ ve $\bar{B}(5,3.0)$
       hesaplayın.
 \item \texttt{normalized\_metric} kullanarak bir metriği $[0,1]$'e normalleştirin.
+\item \S 1.0'daki karşı-örneği koda dökün: $\{A,B,C,D\}$ üzerinde $d(A,C)=5$,
+      $d(A,B)=d(B,C)=1$ olan bir mesafe sözlüğü kurun (geri kalanını ayrık metrikle
+      doldurun) ve \texttt{validate\_metric} ile üçgen eşitsizliğinin ihlal
+      edildiğini gösterin; \texttt{justification} alanını yazdırın.
+\item \emph{(TDA köprüsü)} Birim kareyi örnekleyen \textbf{dolu} bir $3\times 3$
+      ızgara (9 nokta) üzerinde Öklid \texttt{FiniteMetricSpace} kurun ve
+      \texttt{persistent\_homology(space, max\_dimension=2, max\_scale=2.5)}
+      çalıştırın. $H_1$ döngülerinin \texttt{persistence} değerlerine bakın:
+      Örnek 5.8'deki çemberin uzun ömürlü ($\approx 1.08$) döngüsüne benzer
+      \textbf{kalıcı} bir döngü var mı? Dolu karenin neden gerçek bir deliği yoktur?
 \end{enumerate}
 
 \subsection*{Teori}
@@ -184,4 +347,7 @@ d(0,1) capped: 1.0
 \begin{enumerate}[label=T\arabic*.]
 \item Her metrik uzayın Hausdorff olduğunu ispatlayın.
 \item $d' = \min(d,1)$ ve $d$ aynı topolojiyi indüklediğini gösterin.
+\item Üçgen eşitsizliğinin (M3) Teorem 2.1'deki Hausdorff ispatında tam olarak
+      nerede kullanıldığını açıklayın. (İpucu: $B(x, r/2)$ ve $B(y, r/2)$'nin ayrık
+      olduğunu gösteren adım hangisidir?)
 \end{enumerate}

@@ -1,0 +1,42 @@
+\begin{tikzpicture}[font=\small, etiket/.style={font=\scriptsize}]
+  % --- Uc metrigin birim yuvari B(0,1) ---
+  \def\S{1.6}  % olcek
+
+  % ---- 1) Oklid metrigi: cember ----
+  \begin{scope}[shift={(0,0)}]
+    \draw[->] (-\S-0.4,0) -- (\S+0.4,0);
+    \draw[->] (0,-\S-0.4) -- (0,\S+0.4);
+    \fill[blue!15] (0,0) circle (\S);
+    \draw[blue!70!black, very thick] (0,0) circle (\S);
+    \fill[black] (0,0) circle (1.2pt);
+    \node[etiket, align=center] at (0,-\S-1.0)
+      {\textbf{Öklid} $\ell^2$\\$\sqrt{x^2+y^2}<1$};
+  \end{scope}
+
+  % ---- 2) Taksi (Manhattan) metrigi: elmas / kare ----
+  \begin{scope}[shift={(2*\S+1.8,0)}]
+    \draw[->] (-\S-0.4,0) -- (\S+0.4,0);
+    \draw[->] (0,-\S-0.4) -- (0,\S+0.4);
+    \fill[teal!15] (\S,0) -- (0,\S) -- (-\S,0) -- (0,-\S) -- cycle;
+    \draw[teal!70!black, very thick] (\S,0) -- (0,\S) -- (-\S,0) -- (0,-\S) -- cycle;
+    \fill[black] (0,0) circle (1.2pt);
+    \node[etiket, align=center] at (0,-\S-1.0)
+      {\textbf{Taksi} $\ell^1$\\$|x|+|y|<1$};
+  \end{scope}
+
+  % ---- 3) Maksimum (Cebysev) metrigi: eksen-hizali kare ----
+  \begin{scope}[shift={(4*\S+3.6,0)}]
+    \draw[->] (-\S-0.4,0) -- (\S+0.4,0);
+    \draw[->] (0,-\S-0.4) -- (0,\S+0.4);
+    \fill[orange!18] (-\S,-\S) rectangle (\S,\S);
+    \draw[orange!80!black, very thick] (-\S,-\S) rectangle (\S,\S);
+    \fill[black] (0,0) circle (1.2pt);
+    \node[etiket, align=center] at (0,-\S-1.0)
+      {\textbf{Maksimum} $\ell^\infty$\\$\max(|x|,|y|)<1$};
+  \end{scope}
+
+  \node[etiket, align=center, fill=gray!8, rounded corners, inner sep=4pt]
+    at (2*\S+1.8,\S+1.15)
+    {Aynı düzlemde üç farklı metriğin birim yuvarı $B(0,1)$:
+     biçimleri farklı, indükledikleri \emph{topoloji} aynıdır.};
+\end{tikzpicture}
