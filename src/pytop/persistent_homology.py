@@ -1050,13 +1050,14 @@ def persistent_homology(
     max_scale: float | None = None,
     *,
     include_zero_persistence: bool = False,
-    method: str = "twist",
+    method: str = "auto",
 ) -> tuple[PersistencePair, ...]:
     """Convenience: Vietoris-Rips filtration followed by persistence reduction.
 
-    Supports multiple reduction algorithms for performance tuning. The Twist algorithm
-    (default) applies the Clearing Lemma to skip column operations on creators that
-    are guaranteed to reduce to zero.
+    Supports multiple reduction algorithms for performance tuning. The default
+    ``"auto"`` picks the empirically faster exact reduction for the materialized
+    complex size (Twist for small complexes, cohomology for large Rips
+    filtrations); every method returns identical pairs.
 
     Parameters
     ----------
@@ -1068,9 +1069,12 @@ def persistent_homology(
         If given, simplices with birth > max_scale are excluded.
     include_zero_persistence : bool, optional
         Whether to include zero-length bars (birth == death).
-    method : {'twist', 'standard', 'cohomology'}, optional
-        Reduction algorithm to use (default 'twist'):
+    method : {'auto', 'twist', 'standard', 'cohomology'}, optional
+        Reduction algorithm to use (default 'auto'):
 
+        - 'auto': Size-aware routing — Twist for small complexes, cohomology for
+          large Rips filtrations (crossover ~1k simplices). Identical output to
+          every other method; the recommended default (see P17.3).
         - 'twist': Twist algorithm (Chen–Kerber 2011) with Clearing Lemma.
           Processes dimensions high-to-low and skips cleared columns.
           Optimal for complexes with many finite pairs.
@@ -1088,7 +1092,7 @@ def persistent_homology(
     Raises
     ------
     ValueError
-        If method is not in {'twist', 'standard', 'cohomology'}.
+        If method is not in {'auto', 'twist', 'standard', 'cohomology'}.
 
     Complexity
     ----------
@@ -1102,14 +1106,17 @@ def persistent_homology(
     See ``docs/COMPLEXITY.md``.
     """
     from .persistent_homology_optimized import (
+        persistence_pairs_auto,
         persistence_pairs_cohomology,
         persistence_pairs_twist,
     )
 
-    if method not in ("twist", "standard", "cohomology"):
+    if method not in ("auto", "twist", "standard", "cohomology"):
         raise ValueError(
-            f"method must be one of 'twist', 'standard', or 'cohomology'; got {method!r}. "
-            "'twist': (default) Chen-Kerber 2011 with Clearing Lemma (~1-3x speedup). "
+            f"method must be one of 'auto', 'twist', 'standard', or 'cohomology'; got {method!r}. "
+            "'auto': (default) size-aware routing — Twist for small complexes, "
+            "cohomology for large Rips (identical output, fastest overall). "
+            "'twist': Chen-Kerber 2011 with Clearing Lemma (~1-3x speedup). "
             "'standard': Simple Z/2 reduction (for verification). "
             "'cohomology': Incremental cocycle algorithm (often faster on Rips)."
         )
@@ -1126,8 +1133,12 @@ def persistent_homology(
         return persistence_pairs_twist(
             filtered, include_zero_persistence=include_zero_persistence
         )
-    else:  # method == "cohomology"
+    elif method == "cohomology":
         return persistence_pairs_cohomology(
+            filtered, include_zero_persistence=include_zero_persistence
+        )
+    else:  # method == "auto"
+        return persistence_pairs_auto(
             filtered, include_zero_persistence=include_zero_persistence
         )
 
