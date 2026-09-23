@@ -1,14 +1,14 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.7.0-blue)
+![Version](https://img.shields.io/badge/version-1.8.0-blue)
 ![PyPI](https://img.shields.io/pypi/v/pytopology)
 ![Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11--3.14-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.7.0** (live on PyPI — `pip install pytopology`, then `import pytop`), pytop ships **20 phases** with 12,000 tests passing (22 skipped: opt-in Ripser/SnapPy/Sage oracles) on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, and **oracle parity now wired to GUDHI** — P16.2 cross-checks pytop's persistent Betti numbers against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures), and **P16.3 cross-validates the full 10 000-complex statistical run against GUDHI at 100.0% parity** (0 outliers, avg 4.35 ms/complex). **Phase 17** ✅ **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 ✅** scaling — **inductive Vietoris–Rips construction (~14–19× filtration-build speedup) + size-aware auto reduction routing now the default** (`method="auto"`: Twist for small complexes, de Silva dual cohomology for large Rips; up to ~12× faster end-to-end at n=350, byte-identical output). **Phase 18 ✅** documentation & pedagogy (16-chapter user guide — enriched across all four formats with intuition/counter-example boxes, proof sketches, verified examples and 46 figures; 225-module API ref; 36+ examples). **Phase 19** ✅ **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** ✅ **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 ✅** PyPI publishing (**live on PyPI** via GitHub Actions Trusted Publishing — `pip install pytopology`; ships `py.typed` for PEP 561 + a `python -m pytop` CLI); **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates; the 12 curated good-first-issues #35–#46 all resolved). Docstring doctests now run in CI.
+As of **v1.8.0** (live on PyPI — `pip install pytopology`, then `import pytop`), pytop ships **20 phases** with 12,120 tests passing (22 skipped: opt-in Ripser/SnapPy/Sage oracles) on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, and **oracle parity now wired to GUDHI** — P16.2 cross-checks pytop's persistent Betti numbers against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures), and **P16.3 cross-validates the full 10 000-complex statistical run against GUDHI at 100.0% parity** (0 outliers, avg 4.35 ms/complex). **Phase 17** ✅ **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 ✅** scaling — **inductive Vietoris–Rips construction (~14–19× filtration-build speedup) + size-aware auto reduction routing now the default** (`method="auto"`: Twist for small complexes, de Silva dual cohomology for large Rips; up to ~12× faster end-to-end at n=350, byte-identical output). **Phase 18 ✅** documentation & pedagogy (16-chapter user guide — enriched across all four formats with intuition/counter-example boxes, proof sketches, verified examples and 46 figures; 225-module API ref; 36+ examples). **Phase 19** ✅ **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** ✅ **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 ✅** PyPI publishing (**live on PyPI** via GitHub Actions Trusted Publishing — `pip install pytopology`; ships `py.typed` for PEP 561 + a `python -m pytop` CLI); **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates; the 12 curated good-first-issues #35–#46 all resolved). Docstring doctests now run in CI.
 
 ## Installation
 
@@ -214,6 +214,60 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New in v1.8.0
+
+**Phase 12 advances to 4/6.** Two milestones, both shaped by adversarial design review.
+
+**P12.5 — countably infinite complexes** (`pytop.experimental.infinite_complexes`).
+Integral homology of ℝP^∞, ℂP^∞, S^∞ and BZ/p, exact by the structural theorem
+(a cell of dimension `d` affects only `H_{d-1}` and `H_d`, so evaluating at index
+`degree + 1` is a proof, not a truncation). `colimit_homology` handles
+user-supplied towers: it verifies the chain-map law on *signed* cell maps, finds
+a **non-empty** window of steps adding only high-dimensional cells, and returns a
+`ConditionalHomology` that is falsy whenever anything was assumed. `rips_betti_scan`
+reports Betti numbers of Rips complexes on metric balls and makes **no claim**
+about any infinite complex.
+
+Nothing here infers stabilisation from observation. There is no `patience` or
+`budget` parameter and a test forbids reintroducing one: a direct limit is not
+determined by its groups — `ℤ --×2--> ℤ --×2--> ⋯` has colimit `ℤ[1/2]` — and no
+fixed number of consecutive isomorphisms is a proof either.
+
+```python
+from pytop.experimental import rp_infinity_homology, rips_betti_scan, z_lattice
+
+rp_infinity_homology(3).torsion          # (2,)  -- H_3(RP^inf) = Z/2
+scan = rips_betti_scan(z_lattice(2), (0, 0), eps=1.0,
+                       radii=[1, 2, 3, 4, 5], max_degree=1)
+[row[1] for row in scan.betti_z]         # [0, 4, 16, 32, 60] -- b_1 per radius, no colimit claim
+```
+
+**P12.4 — GAP bridge** (`pytop.experimental.gap_bridge`). Optional; pytop stays
+dependency-free and `gap_available()` returns `False` rather than raising when
+Docker or the image is absent. `van_kampen`'s classifier covers a fixed list and
+leaves everything else unnamed; GAP supplies order, abelian invariants and the
+SmallGroups id, and acts as an independent oracle for pytop's own SNF
+abelianization.
+
+```python
+from pytop.experimental import GapSession, gap_group_info
+from pytop.van_kampen import GroupPresentation
+
+q8 = GroupPresentation(("a", "b"),
+                       ((("a", 2), ("b", -2)),
+                        (("a", 2), ("a", -1), ("b", -1), ("a", -1), ("b", -1))))
+with GapSession() as s:
+    gap_group_info(q8, session=s).small_group_id    # (8, 4) -- Q8
+```
+
+Generated GAP source is injection-safe by two independent measures: generators
+are emitted positionally so no user-controlled name reaches GAP, **and** relator
+exponents are validated, because `GroupPresentation` does not check them and
+Python does not enforce the `int` annotation.
+
+Regina is split out as **P12.6** with evidence: no public image under three
+probed names, absent from the Sage image, no PyPI distribution.
 
 ## What's New in v1.7.0
 
