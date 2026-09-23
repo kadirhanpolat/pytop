@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **SnapPy bridge** (`pytop.experimental.snappy_bridge`), completing the bridge
+  family: GAP for groups, Regina for triangulations and normal surfaces, SnapPy
+  for hyperbolic geometry. All three share one transport and one safety posture.
+  - `snappy_manifold_info` supplies hyperbolic **volume**, census identification
+    and `H_1`. Volume has no pytop counterpart and is not planned to: it needs a
+    geometric structure, where pytop is combinatorial throughout.
+  - `snappy_surgery_homology` is an independent check on
+    `first_homology_of_surgery`, which reduces a linking matrix rather than
+    filling a triangulation. The two use different conventions at the extremes --
+    pytop rejects `q = 0` as an invalid fraction where SnapPy reads `(1, 0)` as a
+    meridian filling -- and the docstring says so.
+  - Optional, like its siblings: `snappy_available()` returns `False` rather than
+    raising, manifold names come from an allowlist and coefficients are validated
+    as genuine ints, success is detected by a sentinel rather than an exit code,
+    and the in-container interpreter is reaped on timeout.
+
+### Changed
+
+- Three stale roadmap entries corrected: the in-process SnapPy bridge is no
+  longer "deferred" (it shipped, as a container bridge rather than in-process);
+  Regina-scale normal surfaces are reachable through the Regina bridge; and
+  sheaf cohomology and persistent K-theory were removed from "deferred
+  (long-range)", having been delivered in v1.4.0.
+
 ## [1.9.0] — 2026-09-23
 
 ### Added
