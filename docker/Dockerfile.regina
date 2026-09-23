@@ -1,0 +1,14 @@
+# Image for the optional Regina bridge (pytop.experimental.regina_bridge).
+#
+# Regina is not on PyPI and publishes no official image; it is packaged for
+# Debian by its own author, so this builds from Debian rather than pulling.
+# The `regina-normal` package carries the Python bindings itself -- there is no
+# separate `python3-regina` in bookworm.
+#
+#   docker build -t pytop-regina -f docker/Dockerfile.regina .
+#
+FROM debian:bookworm-slim
+RUN apt-get update -qq \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends regina-normal \
+ && rm -rf /var/lib/apt/lists/*
+CMD ["python3", "-c", "import regina; print(regina.versionString())"]
