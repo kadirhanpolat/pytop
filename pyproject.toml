@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pytopology"
-version = "1.7.0"
+version = "1.8.0.dev0"
 description = "Mathematical topology library: degree theory, embeddings, graphs, knots, surfaces, 3-manifolds, cosmology."
 readme = "README.md"
 requires-python = ">=3.11"
