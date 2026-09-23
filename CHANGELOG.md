@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **P12.6 — Regina bridge** (`pytop.experimental.regina_bridge`), plus
+  `docker/Dockerfile.regina`. Optional, like the GAP bridge: pytop stays
+  dependency-free and `regina_available()` returns `False` rather than raising.
+  - **The image is built, not pulled.** Regina publishes no official image and is
+    not on PyPI; it is packaged for Debian by its own author, and in
+    `debian:bookworm` the `regina-normal` package carries the Python bindings
+    itself — there is no separate `python3-regina`.
+  - `regina_lens_homology` is an **independent oracle** for pytop's
+    `lens_space_first_homology`: pytop derives the group from the linking matrix
+    via Smith normal form, Regina builds and triangulates the manifold.
+  - `regina_normal_surface_count` exposes normal-surface enumeration — the
+    capability the roadmap deliberately keeps out of pure-Python pytop.
+  - Homology is read from Regina's **structured accessors** (`rank()`,
+    `countInvariantFactors()`, `invariantFactor()`), never by parsing its display
+    string: `2 Z_2` means two factors of order 2, and a regex over that notation
+    is a needless way to get it wrong.
+  - Same safety posture as the GAP bridge — integer and allowlist validation
+    before anything is interpolated, sentinel-based success detection, and
+    in-container process reaping on timeout, since a client-side timeout kills
+    only the `docker exec` client.
+
 ## [1.8.0] — 2026-09-23
 
 ### Added

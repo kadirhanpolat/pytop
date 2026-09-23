@@ -132,6 +132,18 @@ from .pi_base_atlas import (
     space_uid,
     steen_seebach_index,
 )
+from .regina_bridge import (
+    REGINA_EXAMPLES,
+    ReginaHomology,
+    ReginaSession,
+    ReginaTimeout,
+    ReginaUnavailableError,
+    regina_available,
+    regina_example_homology,
+    regina_lens_homology,
+    regina_normal_surface_count,
+    regina_version,
+)
 from .research_bridge_inventory import build_research_bridge_inventory, inventory_layer_summary
 from .research_bridge_profiles import (
     ResearchBridgeProfile,
@@ -273,4 +285,15 @@ __all__ = [
     "gap_abelian_invariants",
     "gap_available",
     "gap_group_info",
+    # P12.6 Regina bridge
+    "REGINA_EXAMPLES",
+    "ReginaHomology",
+    "ReginaSession",
+    "ReginaTimeout",
+    "ReginaUnavailableError",
+    "regina_available",
+    "regina_example_homology",
+    "regina_lens_homology",
+    "regina_normal_surface_count",
+    "regina_version",
 ]
