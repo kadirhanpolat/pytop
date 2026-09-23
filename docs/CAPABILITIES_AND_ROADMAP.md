@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-06-24 (v1.7.0 — live on PyPI as `pytopology`):** Phases 1–15 complete; **Phase 16 ✅** (P16.1 benchmark suite, P16.2 oracle parity **wired to GUDHI**, P16.3 statistical validation **cross-validated against GUDHI: 10K complexes at 100.0% parity**); **Phase 17 ✅** P17.1 ✅ profiling + P17.2 ✅ method selection + **P17.3 ✅ inductive Vietoris–Rips build (~14–19×) + size-aware auto reduction routing now default (up to ~12× faster end-to-end, byte-identical output)**; **Phase 18 ✅** docs/pedagogy — the 16-chapter user guide is now enriched across all four formats (LaTeX/Markdown/Python/Notebook) with intuition + counter-example boxes, proof sketches, verified pytop examples and **46 figures**; **Phase 19 ✅** (P19.1–P19.3: error messages, deprecation policy, API audit); **Phase 20 ✅ COMPLETE** — P20.1 ✅ CI matrix, **P20.2 ✅ PyPI publishing live** (`pip install pytopology` → `import pytop`, via GitHub Actions Trusted Publishing; ships `py.typed` + a `python -m pytop` CLI), P20.3 ✅ onboarding (the 12 curated good-first-issues #35–#46 were all **resolved & closed**). Docstring doctests now run in CI. **12,000 tests passing** (22 skipped: opt-in Ripser/SnapPy/Sage oracles); `src/pytop` ruff-clean + mypy-clean; release tags through v1.7.0.
+> **Status as of 2026-09-23 (v1.10.0 — live on PyPI as `pytopology`):** **every phase is closed and no roadmap item remains open.** Phases 1–15 complete; **Phase 16 ✅** (benchmark suite, oracle parity wired to GUDHI, 10K-complex statistical run at 100.0% parity); **Phase 17 ✅** (profiling, method selection, inductive Rips build + size-aware auto reduction routing); **Phase 18 ✅** (16-chapter user guide across four formats, 46 figures, 225-module API reference); **Phase 19 ✅** (error messages, deprecation policy, API audit); **Phase 20 ✅** (CI matrix, PyPI publishing, community onboarding); **Phase 12 ✅ COMPLETE (6/6)** — sheaf cohomology and persistent K-theory (v1.4.0), countably infinite complexes and the GAP bridge (v1.8.0), homeomorphism and the Regina bridge (v1.9.0). The **SnapPy bridge** (v1.10.0) completes the optional bridge family: GAP for groups, Regina for triangulations and normal surfaces, SnapPy for hyperbolic geometry — pytop stays dependency-free and each reports itself unavailable rather than raising. **12 278 tests passing** (37 skipped: opt-in Docker bridges and oracles); `src/pytop` ruff-clean and mypy-clean; release tags through v1.10.0.
 > (set-theoretic topology) substantive; Phase 2–7 computational core (homology,
 > cohomology, Mayer–Vietoris, van Kampen, Khovanov, combinatorial topology);
 > Phase 8 advanced algebra (6 modules); Phase 9 computable-space expansion (19 reps);
@@ -566,11 +566,13 @@ Cross-validates pytop against independent gold-standard external systems via uni
 
 ---
 
-## Part V — Summary statistics (2026-06-23)
+## Part V — Summary statistics (2026-09-23)
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **11 906** (full `pytest tests/`, 22 skipped: opt-in Ripser/SnapPy/Sage oracles) — includes 107 validation tests (oracle parity + benchmark + statistical + GUDHI betti-parity) |
+| Tests passing | **12 278** (full `pytest tests/`, 37 skipped: opt-in Docker bridges and oracles) — includes 107 validation tests (oracle parity + benchmark + statistical + GUDHI betti-parity) |
+| Optional external bridges | 3 — GAP (groups), Regina (triangulations, normal surfaces), SnapPy (hyperbolic geometry); all opt-in, none a runtime dependency |
+| Open roadmap items | **0** |
 | Representations in `experimental.spaces` | 19 |
 | Predicates (with witnesses) | 16 |
 | pi-Base spaces bridged | 222 |
