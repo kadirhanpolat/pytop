@@ -171,6 +171,17 @@ from .research_path_registry import (
     research_path_layer_summary,
     research_path_route_index,
 )
+from .snappy_bridge import (
+    SNAPPY_MANIFOLDS,
+    SnappyManifoldInfo,
+    SnappySession,
+    SnappyTimeout,
+    SnappyUnavailableError,
+    snappy_available,
+    snappy_manifold_info,
+    snappy_surgery_homology,
+    snappy_version,
+)
 from .special_example_spaces import (
     SpecialExampleProfile,
     get_named_special_example_profiles,
@@ -313,4 +324,14 @@ __all__ = [
     "homeomorphism_obstruction",
     "preorder_isomorphism",
     "specialization_preorder",
+    # SnapPy bridge
+    "SNAPPY_MANIFOLDS",
+    "SnappyManifoldInfo",
+    "SnappySession",
+    "SnappyTimeout",
+    "SnappyUnavailableError",
+    "snappy_available",
+    "snappy_manifold_info",
+    "snappy_surgery_homology",
+    "snappy_version",
 ]

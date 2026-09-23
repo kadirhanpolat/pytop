@@ -233,9 +233,12 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   `lens_space_first_homology` + lens space homeomorphism/homotopy classification.
   Verified: lens spaces ℤ/p, S¹×S² (0-surgery), T³ (0-surgery on Borromean rings),
   Poincaré homology sphere (E₈ plumbing), L(7,1)≃L(7,2) ≇.
-- `experimental/snappy_bridge.py` — in-process SnapPy bridge: ⬜ deferred
-  (superseded by the **P4.8** Docker-based SnapPy oracle, which validates
-  `dehn_surgery` without an in-process dependency)
+- `experimental/snappy_bridge.py` — ✅ **shipped** (v1.9.0+). Not in-process: a warm
+  container with a fresh interpreter per call, the same transport as the GAP and
+  Regina bridges. `snappy_manifold_info` supplies hyperbolic volume and census
+  identification (no pytop counterpart — pytop is combinatorial throughout), and
+  `snappy_surgery_homology` is an independent check on `first_homology_of_surgery`,
+  which reduces a linking matrix instead of filling a triangulation.
 
 **P3.3 — Advanced (long-term):**
 - `khovanov.py` — cube-of-resolutions → graded complex → SNF: ✅
@@ -245,7 +248,10 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   ``d²=0``; integral groups for unknot, trefoil (ℤ/2 at ``(−2,−7)``), figure-8
   (ℤ/2 at ``(−1,−3)``, ``(2,3)``), Hopf link; graded Euler characteristic =
   unnormalised Jones (cross-checked against `jones_polynomial`).
-- Normal surfaces (Regina-scale): out of scope for pure-Python pytop
+- Normal surfaces (Regina-scale): out of scope for pure-Python pytop — now
+  reachable through `experimental.regina_bridge.regina_normal_surface_count`
+  (P12.6), which is the interoperate-rather-than-reimplement answer the roadmap
+  argues for in Part IV
 
 ### Phase 4 — Performance, correctness, interoperability ✅ COMPLETE
 
@@ -350,7 +356,8 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 **Phase 7 total: 186 new tests. All P7.1–P7.6 milestones closed.**
 
-**Deferred (long-range):** sheaf cohomology, persistent K-theory.
+**Deferred (long-range):** ~~sheaf cohomology, persistent K-theory~~ — both
+delivered in v1.4.0 as P12.1 and P12.2. Nothing from Phase 7 remains deferred.
 
 ### Post-Phase 7 improvements (v1.0.6, 2026-06-22)
 
