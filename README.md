@@ -1,14 +1,14 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.9.0-blue)
+![Version](https://img.shields.io/badge/version-1.10.0-blue)
 ![PyPI](https://img.shields.io/pypi/v/pytopology)
 ![Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11--3.14-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.9.0** (live on PyPI — `pip install pytopology`, then `import pytop`), pytop ships **20 phases** with 12,259 tests passing (22 skipped: opt-in Ripser/SnapPy/Sage oracles) on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, and **oracle parity now wired to GUDHI** — P16.2 cross-checks pytop's persistent Betti numbers against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures), and **P16.3 cross-validates the full 10 000-complex statistical run against GUDHI at 100.0% parity** (0 outliers, avg 4.35 ms/complex). **Phase 17** ✅ **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 ✅** scaling — **inductive Vietoris–Rips construction (~14–19× filtration-build speedup) + size-aware auto reduction routing now the default** (`method="auto"`: Twist for small complexes, de Silva dual cohomology for large Rips; up to ~12× faster end-to-end at n=350, byte-identical output). **Phase 18 ✅** documentation & pedagogy (16-chapter user guide — enriched across all four formats with intuition/counter-example boxes, proof sketches, verified examples and 46 figures; 225-module API ref; 36+ examples). **Phase 19** ✅ **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** ✅ **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 ✅** PyPI publishing (**live on PyPI** via GitHub Actions Trusted Publishing — `pip install pytopology`; ships `py.typed` for PEP 561 + a `python -m pytop` CLI); **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates; the 12 curated good-first-issues #35–#46 all resolved). Docstring doctests now run in CI.
+As of **v1.10.0** (live on PyPI — `pip install pytopology`, then `import pytop`), pytop ships **20 phases** with 12,278 tests passing (22 skipped: opt-in Ripser/SnapPy/Sage oracles) on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15**: computational core (Phases 1–7), advanced algebra (Phase 8), 19 computable-space representations (Phase 9), scale & algorithms (Phase 10), Lean 4 formal verification (Phase 11), Čech sheaf cohomology + persistent K-theory (Phase 12), homotopy theory (Phase 13), advanced knot homology (Phase 14), 4-manifold topology (Phase 15). **Phase 16** ✅ empirical validation & oracle ecosystem: benchmark suite, and **oracle parity now wired to GUDHI** — P16.2 cross-checks pytop's persistent Betti numbers against **GUDHI** (Betti-at-scale, matching on circle/sphere/multi-component fixtures), and **P16.3 cross-validates the full 10 000-complex statistical run against GUDHI at 100.0% parity** (0 outliers, avg 4.35 ms/complex). **Phase 17** ✅ **performance & scale**: **P17.1 ✅** profiling infrastructure (86 tests); **P17.2 ✅** algorithm optimization (method selection: 'twist'/'standard'/'cohomology'); **P17.3 ✅** scaling — **inductive Vietoris–Rips construction (~14–19× filtration-build speedup) + size-aware auto reduction routing now the default** (`method="auto"`: Twist for small complexes, de Silva dual cohomology for large Rips; up to ~12× faster end-to-end at n=350, byte-identical output). **Phase 18 ✅** documentation & pedagogy (16-chapter user guide — enriched across all four formats with intuition/counter-example boxes, proof sketches, verified examples and 46 figures; 225-module API ref; 36+ examples). **Phase 19** ✅ **API stability**: **P19.1 ✅** error messages (WHY-HOW-THEN); **P19.2 ✅** deprecation policy (`@deprecated` decorator + `DEPRECATIONS.md`, 18-month window); **P19.3 ✅** API consistency audit (`docs/API_DESIGN.md`). **Phase 20** ✅ **release maturity**: **P20.1 ✅** CI/CD hardening (Python 3.11–3.14 matrix); **P20.2 ✅** PyPI publishing (**live on PyPI** via GitHub Actions Trusted Publishing — `pip install pytopology`; ships `py.typed` for PEP 561 + a `python -m pytop` CLI); **P20.3 ✅** community onboarding (`CONTRIBUTING.md`, GitHub issue/PR templates; the 12 curated good-first-issues #35–#46 all resolved). Docstring doctests now run in CI.
 
 ## Installation
 
@@ -214,6 +214,40 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New in v1.10.0
+
+**The bridge family is complete**, and with it every open item on the roadmap.
+
+pytop is pure Python with no runtime dependencies, and stays that way. Where an
+established system does something pytop has no route to, the answer is to
+interoperate rather than reimplement — Part IV of the roadmap argues for exactly
+this. Three optional bridges now do it, sharing one transport and one safety
+posture:
+
+| Bridge | Supplies | Independent check on |
+|---|---|---|
+| `gap_bridge` | group order, structure description, SmallGroups id | SNF abelianization |
+| `regina_bridge` | normal surfaces, census recognition | lens-space `H₁` |
+| `snappy_bridge` | hyperbolic volume, census identification | Dehn-surgery `H₁` |
+
+```python
+from pytop.experimental import SnappySession, snappy_manifold_info
+
+with SnappySession() as s:
+    snappy_manifold_info("4_1", session=s).volume     # 2.029883...
+```
+
+Each reports itself unavailable rather than raising when Docker or its image is
+absent, validates inputs before interpolating anything into generated code,
+detects success by a sentinel rather than an exit code, and reaps the
+in-container process on timeout — a client-side timeout kills only the
+`docker exec` client, which left processes at 100% CPU until it was fixed.
+
+Three stale roadmap entries were corrected in the process: the in-process SnapPy
+bridge is no longer "deferred" (it shipped, as a container bridge), Regina-scale
+normal surfaces are now reachable, and sheaf cohomology and persistent K-theory
+were removed from "deferred (long-range)" — both shipped in v1.4.0.
 
 ## What's New in v1.9.0
 
