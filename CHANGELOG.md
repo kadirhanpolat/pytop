@@ -9,6 +9,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **P12.4 — GAP bridge** (`pytop.experimental.gap_bridge`). Optional; pytop stays
+  dependency-free and `gap_available()` returns `False` rather than raising when
+  Docker or the image is absent.
+  - `GapSession` keeps a **warm container** and runs a **fresh GAP process per
+    call**. A single persistent GAP process is ~250x faster per call and was
+    built, measured and rejected: it has a demonstrated hang mode, and GAP's
+    parser recovery can swallow the sentinel that terminates a read.
+  - `gap_group_info` / `gap_abelian_invariants` report order, abelian invariants
+    and the SmallGroups id for presentations `van_kampen._identify_group` leaves
+    unnamed, and serve as an independent oracle for pytop's own SNF-based
+    abelianization.
+  - **Injection safety is enforced, not assumed.** Generator names are
+    user-controlled with no character restrictions, so generators are emitted
+    positionally and no name reaches GAP; and relator exponents are validated,
+    because `GroupPresentation` does not check them and Python does not enforce
+    the `int` annotation — a security review demonstrated arbitrary code
+    execution inside the container through a string exponent, returning a
+    well-formed wrong answer to the caller.
+  - A client-side timeout does not stop GAP, so the session reaps the
+    in-container process; success is detected by a sentinel, never by the exit
+    code, because GAP exits 0 on syntax errors, runtime errors and break loops
+    alike.
+  - Opt-in round trips via `PYTOP_GAP_BRIDGE=1`; 26 of the 31 tests need no
+    Docker.
+- **Regina integration deferred to P12.6** with evidence recorded: no public
+  image under three probed names, absent from the Sage image, no PyPI
+  distribution.
+
+### Added
+
 - **P12.5 — Countably infinite complexes** (`pytop.experimental.infinite_complexes`).
   Three parts, each honest about what it proves.
   - **Standard spaces:** `rp_infinity_homology`, `cp_infinity_homology`,
