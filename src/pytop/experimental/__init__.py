@@ -69,6 +69,15 @@ from .experimental_inference import (
     theorem_profile_feature_index,
     theorem_profile_index_by_profile_key,
 )
+from .gap_bridge import (
+    GapGroupInfo,
+    GapSession,
+    GapTimeout,
+    GapUnavailableError,
+    gap_abelian_invariants,
+    gap_available,
+    gap_group_info,
+)
 from .infinite_complexes import (
     Assumptions,
     ConditionalHomology,
@@ -256,4 +265,12 @@ __all__ = [
     "rp_infinity_homology",
     "s_infinity_homology",
     "z_lattice",
+    # P12.4 GAP bridge
+    "GapGroupInfo",
+    "GapSession",
+    "GapTimeout",
+    "GapUnavailableError",
+    "gap_abelian_invariants",
+    "gap_available",
+    "gap_group_info",
 ]
