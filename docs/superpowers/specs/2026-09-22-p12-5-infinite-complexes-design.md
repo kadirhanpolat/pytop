@@ -441,8 +441,13 @@ comparison stays as a separate **non-blocking** consistency test. Note
 that comparison needs an explicit adapter or it fails on shape, not mathematics.
 
 **On the lattice rows.** The metric is named: 0, 4, 16, 32, 60 is correct for the
-Euclidean disk *only* — ℓ^∞ gives 4, 16, 36, 64, 100 and ℓ¹ gives 0, 4, 12, 24, 40
-(round 2, R2-M-01), which is why `z_lattice` takes an explicit `norm`. "At the
+Euclidean disk *only*, and ℓ¹ balls give 0, 4, 12, 24, 40. Round 2's R2-M-01 also
+claimed ℓ^∞ gives 4, 16, 36, 64, 100; **that is wrong and was measured to be
+0 throughout** — under the sup norm a unit square is a 4-clique, so the flag
+complex fills it and no 1-cycle survives. 4, 16, 36, 64, 100 is the cycle rank of
+the ℓ^∞ *1-skeleton*, which is not what a Rips complex at `max_degree ≥ 1`
+reports. The correction strengthens the case for an explicit `norm`: the norm
+changes the answer qualitatively, not just numerically. "At the
 tested radii", never "at every R".
 
 ---

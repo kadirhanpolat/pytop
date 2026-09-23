@@ -332,6 +332,17 @@ def _verify_chain_map(
     count check while having no colimit at all.
     """
     top = max([*source.cell_counts, *target.cell_counts], default=0)
+
+    # Validate every degree the source occupies, degree 0 included. The
+    # chain-map loop below starts at 1 and skips empty degrees, so without this
+    # pass a malformed degree-0 entry would never be checked -- and
+    # `_added_dimensions` trusts its length, so a 2-point stage claiming three
+    # images into a 3-point stage would be accepted and report Z^2 for Z^3.
+    for k in range(top + 1):
+        _inclusion_matrix(
+            inclusion, k, source.cell_counts.get(k, 0), target.cell_counts.get(k, 0)
+        )
+
     for k in range(1, top + 1):
         src_k = source.cell_counts.get(k, 0)
         if src_k == 0:
@@ -489,8 +500,21 @@ class _ZLattice:
             return float(max(deltas, default=0))
         return math.sqrt(sum(d * d for d in deltas))
 
+    #: Candidates enumerated before filtering; guards the bounding-box scan
+    #: itself, which happens before any caller-side point cap can apply.
+    _MAX_CANDIDATES = 5_000_000
+
     def ball(self, center: Any, radius: float) -> Sequence[Any]:
         r = int(math.floor(radius))
+        candidates = (2 * r + 1) ** self.n
+        if candidates > self._MAX_CANDIDATES:
+            raise ValueError(
+                f"ball of radius {radius} in Z^{self.n} would scan "
+                f"{candidates:,} lattice points before filtering, over the "
+                f"{self._MAX_CANDIDATES:,} limit. The enumeration happens inside "
+                f"the metric, so a caller-side point cap cannot stop it. Use a "
+                f"smaller radius, or a lower dimension."
+            )
         ranges = [range(c - r, c + r + 1) for c in center]
         return [
             point
@@ -502,10 +526,14 @@ class _ZLattice:
 def z_lattice(n: int, *, norm: Norm = "l2") -> ProperMetric:
     """The integer lattice ``Z^n`` as a :class:`ProperMetric`.
 
-    The norm is explicit because reported Betti numbers depend on it: at
-    ``eps = 1`` the Euclidean disks give ``b_1 = 0, 4, 16, 32, 60`` while
-    ``linf`` balls give ``4, 16, 36, 64, 100`` and ``l1`` balls give
-    ``0, 4, 12, 24, 40``.
+    The norm is explicit because it changes the answer qualitatively, not just
+    numerically. Measured at ``eps = 1``, ``max_degree = 1``, radii 1..5: the
+    Euclidean disks give ``b_1 = 0, 4, 16, 32, 60`` and the ``l1`` balls
+    ``0, 4, 12, 24, 40``, but the ``linf`` balls give ``0`` throughout -- under
+    the sup norm a unit square is a 4-clique, so the flag complex fills every
+    square and no 1-cycle survives. (``4, 16, 36, 64, 100`` is the cycle rank of
+    the ``linf`` *1-skeleton*, which is not what a Rips complex reports at
+    ``max_degree >= 1``.)
 
     Examples
     --------

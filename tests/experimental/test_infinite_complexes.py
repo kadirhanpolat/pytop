@@ -575,3 +575,107 @@ def test_scan_density_bound_allows_the_documented_lattice_rows() -> None:
         z_lattice(2), (0, 0), eps=math.sqrt(2), radii=[1, 2, 3, 4], max_degree=3
     )
     assert dense.stopped_reason is None
+
+
+# ---------------------------------------------------------------------------
+# Defects found by plan review, each pinned so it cannot return
+# ---------------------------------------------------------------------------
+
+
+def test_degree_zero_inclusion_entries_are_validated() -> None:
+    """A malformed degree-0 entry used to be accepted and report the wrong group.
+
+    The chain-map loop starts at degree 1 and skips empty degrees, so degree 0
+    was never passed through `_inclusion_matrix`; `_added_dimensions` then
+    trusted its length. Two points claiming three images into three points was
+    accepted and reported Z^2 where the colimit is Z^3.
+    """
+    stages = [CWComplex({0: 2}, {}), CWComplex({0: 3}, {})]
+    too_many = StageInclusion(images=((0, ((0, 1), (1, 1), (2, 1))),))
+    with pytest.raises(NotATowerError, match="lists 3 cells"):
+        colimit_homology(stages, [too_many], degree=0)
+
+    not_injective = StageInclusion(images=((0, ((0, 1), (0, 1))),))
+    with pytest.raises(NotATowerError, match="not injective"):
+        colimit_homology(stages, [not_injective], degree=0)
+
+
+def test_linf_lattice_betti_is_zero_not_the_1_skeleton_cycle_rank() -> None:
+    """Pins the corrected docstring claim.
+
+    Under the sup norm a unit square is a 4-clique, so the flag complex fills it.
+    The sequence 4, 16, 36, 64, 100 is the cycle rank of the linf *1-skeleton*
+    and is not what a Rips complex at max_degree >= 1 reports.
+    """
+    linf = rips_betti_scan(
+        z_lattice(2, norm="linf"), (0, 0), eps=1.0, radii=[1, 2, 3], max_degree=1
+    )
+    assert [row[1] for row in linf.betti_z] == [0, 0, 0]
+    l1 = rips_betti_scan(
+        z_lattice(2, norm="l1"), (0, 0), eps=1.0, radii=[1, 2, 3, 4, 5], max_degree=1
+    )
+    assert [row[1] for row in l1.betti_z] == [0, 4, 12, 24, 40]
+
+
+def test_lattice_ball_enumeration_is_bounded() -> None:
+    """The bounding-box scan happens inside the metric, before any point cap."""
+    with pytest.raises(ValueError, match="before filtering"):
+        z_lattice(3).ball((0, 0, 0), 300)
+
+
+def test_cost_ceiling_z3_returns_promptly() -> None:
+    """Spec item 12: the configuration that once ran unbounded must now stop fast."""
+    import time
+
+    start = time.perf_counter()
+    scan = rips_betti_scan(
+        z_lattice(3), (0, 0, 0), eps=1.5, radii=[1.0, 2.0, 3.0], max_degree=2
+    )
+    assert time.perf_counter() - start < 30.0
+    assert scan.stopped_reason is not None
+
+
+@pytest.mark.parametrize("p", [3, 5])
+def test_infinite_lens_blocking_literals_beyond_p_2(p: int) -> None:
+    """p=2 only ever agreed with RP^inf *by construction*; p=3 and 5 need literals."""
+    for k in range(9):
+        h = infinite_lens_homology(p, k)
+        if k == 0:
+            assert (h.betti, h.torsion) == (1, ())
+        elif k % 2 == 1:
+            assert (h.betti, h.torsion) == (0, (p,))
+        else:
+            assert (h.betti, h.torsion) == (0, ())
+
+
+def test_s_infinity_explicit_boundary_vectors() -> None:
+    """Spec item 7: the two named vectors, asserted rather than implied."""
+    skeleton = _s_infinity_skeleton(3)
+    assert skeleton.boundary_maps[2] == [[1, 1], [1, 1]]
+    assert skeleton.boundary_maps[1] == [[1, -1], [-1, 1]]
+    assert skeleton.verify_chain_complex() == []
+    assert cellular_homology(_s_infinity_skeleton(2), 1).betti == 0
+
+
+def test_lens_truncation_matches_cell_counts_too() -> None:
+    assert _lens_skeleton(5, 3).cell_counts == cw_lens_space(5).cell_counts
+
+
+def test_interpretation_caveat_is_recorded_in_the_result() -> None:
+    """Spec item 5: the scope claim must be visible in what the result records."""
+    s4 = CWComplex({0: 1, 4: 1}, {})
+    cp2 = cw_complex_projective_space(2)
+    inc = StageInclusion(images=((0, ((0, 1),)), (4, ((0, 1),))))
+    result = colimit_homology([s4, cp2], [inc], degree=0)
+    assert not result
+    assert TailAssumption.INCLUSIONS_VALID in result.assumptions.assumed
+    assert TailAssumption.STAGES_EXIST in result.assumptions.assumed
+
+
+def test_scan_epsilon_sqrt2_raw_and_normalised_rows() -> None:
+    """Spec §7: (1,0,0) raw at R=1, (1,0,0,0) at R=2,3,4 -- all normalised."""
+    scan = rips_betti_scan(
+        z_lattice(2), (0, 0), eps=math.sqrt(2), radii=[1, 2, 3, 4], max_degree=3
+    )
+    assert scan.betti_z == ((1, 0, 0, 0),) * 4
+    assert scan.stopped_reason is None
