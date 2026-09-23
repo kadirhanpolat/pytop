@@ -78,6 +78,15 @@ from .gap_bridge import (
     gap_available,
     gap_group_info,
 )
+from .homeomorphism import (
+    HomeomorphismResult,
+    HomeoVerdict,
+    InvariantObstruction,
+    finite_homeomorphic,
+    homeomorphism_obstruction,
+    preorder_isomorphism,
+    specialization_preorder,
+)
 from .infinite_complexes import (
     Assumptions,
     ConditionalHomology,
@@ -296,4 +305,12 @@ __all__ = [
     "regina_lens_homology",
     "regina_normal_surface_count",
     "regina_version",
+    # P12.3 homeomorphism
+    "HomeomorphismResult",
+    "HomeoVerdict",
+    "InvariantObstruction",
+    "finite_homeomorphic",
+    "homeomorphism_obstruction",
+    "preorder_isomorphism",
+    "specialization_preorder",
 ]
