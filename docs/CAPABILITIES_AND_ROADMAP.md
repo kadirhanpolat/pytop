@@ -595,7 +595,7 @@ Cross-validates pytop against independent gold-standard external systems via uni
 | Phase 18 milestones complete | 3 / 3 ✅ (user guide, API ref, example bank) — the 16-chapter user guide is now **enriched across all four formats** (LaTeX/Markdown/Python/Notebook): intuition + counter-example boxes, proof sketches, verified pytop examples, exercises with solutions, and **46 figures** (8 → 46) |
 | Phase 19 milestones complete | 3 / 3 ✅ (P19.1 error messages, P19.2 deprecation policy + `@deprecated` + `DEPRECATIONS.md` *Candidates*, P19.3 API design audit — finding #3 resolved via soft-deprecated `persistent_homology_optimized` → `persistent_homology(method="auto")`) |
 | Phase 20 milestones complete | 3 / 3 ✅ (P20.1 CI matrix ✅; **P20.2 PyPI publishing ✅ — `pytopology` live on PyPI** via GitHub Actions Trusted Publishing, ships `py.typed` + `python -m pytop` CLI; P20.3 community onboarding ✅ — `CONTRIBUTING.md`, issue/PR templates, and the 12 curated good-first-issues #35–#46 all **resolved & closed**) |
-| **Current version** | **v1.9.0** — live on PyPI as **`pytopology`** (`import pytop`) |
+| **Current version** | **v1.10.0** — live on PyPI as **`pytopology`** (`import pytop`) |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 
