@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **P12.3 — Homeomorphism** (`pytop.experimental.homeomorphism`). **Phase 12 is
+  now complete (6/6).**
+  - The milestone was re-scoped from "heuristics" to what is actually provable.
+    `finite_homeomorphic` **decides** homeomorphism on finite spaces: for a
+    finite space the topology and its specialization preorder determine each
+    other, so the question reduces to preorder isomorphism. A positive result
+    carries the explicit bijection; a negative one is a proof, not a failed
+    search.
+  - Cross-validated against brute-force enumeration of every bijection on 100
+    space pairs, including dual posets (V and Λ) that agree on cardinality and
+    open-set count.
+  - `homeomorphism_obstruction` certifies **non**-homeomorphism from a differing
+    invariant, and reports `INCONCLUSIVE` when invariants agree. There is
+    deliberately no verdict meaning "probably homeomorphic": agreement proves
+    nothing, and homeomorphism is undecidable in general.
+  - The search is backtracking refined by up/down-set signatures, not `n!`
+    enumeration.
+  - This is the computational counterpart to the descriptive-layer
+    `finite_homeomorphism_result`, which answers `status='unknown'` for every
+    input — including two genuinely homeomorphic spaces.
+
+### Added
+
 - **P12.6 — Regina bridge** (`pytop.experimental.regina_bridge`), plus
   `docker/Dockerfile.regina`. Optional, like the GAP bridge: pytop stays
   dependency-free and `regina_available()` returns `False` rather than raising.
