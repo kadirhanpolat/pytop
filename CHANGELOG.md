@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **P12.5 — Countably infinite complexes** (`pytop.experimental.infinite_complexes`).
+  Three parts, each honest about what it proves.
+  - **Standard spaces:** `rp_infinity_homology`, `cp_infinity_homology`,
+    `s_infinity_homology`, `infinite_lens_homology(p, degree)` return integral
+    homology of ℝP^∞, ℂP^∞, S^∞ and BZ/p. Each evaluates a skeleton at index
+    `degree + 1`, which the structural theorem (cells added later have dimension
+    ≥ `degree + 2`) makes exact. `s_infinity_homology` uses the antipodal CW
+    structure — `cw_sphere` would not give nested stages.
+  - **User towers:** `colimit_homology(stages, inclusions, degree)` verifies the
+    chain-map law on *signed* cell maps and searches for a **non-empty** window
+    of steps adding only cells of dimension ≥ `degree + 2`. The result is a
+    `ConditionalHomology`, falsy whenever anything was assumed, carrying a
+    structured `Assumptions` record. It proves `H_degree` of the colimit of the
+    *supplied* chain complexes; equality with `H_degree(⋃ K_i)` additionally
+    needs the inclusions to come from subcomplex inclusions, which cellular
+    chain data cannot witness.
+  - **Rips scan:** `rips_betti_scan` reports integral Betti numbers of Rips
+    complexes on metric balls and **makes no claim about any infinite complex**.
+    Three stop-and-record bounds guard three stages (point count, flag-complex
+    density, boundary-matrix size); `z_lattice(n, norm=…)` supplies ℤⁿ.
+  - Nothing here ever infers stabilisation from observation: there is no
+    `patience` or `budget` parameter, and a test asserts none can reappear.
+
 ## [1.7.0] — 2026-06-24
 
 First PyPI-published release. Bundles the Phase 16–20 maturity work completed

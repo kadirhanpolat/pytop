@@ -499,7 +499,7 @@ to the main computational engines. 0-sorry rule holds throughout; corpus grows f
 | **P12.2** | Persistent K-theory | ✅ | `persistent_ktheory.py`: `KTheoryGroups`, `KBarcode`, `k_theory_groups`, `k_barcode`. Rational AHSS: K⁰⊗ℚ=⊕H_{2k}, K¹⊗ℚ=⊕H_{2k+1}; persistent barcode partitioned by dimension parity. 37 tests. |
 | **P12.3** | Homeomorphism heuristics | ⬜ | Undecidable in general; subclass algorithms require substantial new machinery |
 | **P12.4** | Native GAP / Regina integration | ⬜ | Currently only Docker oracles; in-process FFI or persistent subprocess bridge |
-| **P12.5** | Countably infinite simplicial complexes | ⬜ | Convergence algorithms for infinite Rips / infinite CW complexes |
+| **P12.5** | Countably infinite complexes | ✅ | `experimental.infinite_complexes`: integral homology of ℝP^∞/ℂP^∞/S^∞/BZ/p via the structural theorem (cells added after stage `k+1` have dimension ≥ `k+2`); `colimit_homology` for user towers — signed chain-map verification plus a **non-empty** dimension window, always returning a conditional result with a structured `Assumptions` record; `rips_betti_scan` + `z_lattice`, claim-free by construction with three stop-and-record bounds. No `patience`/`budget` knob exists and a test forbids one: stabilisation is never inferred from observation. 97 tests. Design survived three adversarial review rounds, plus a plan review that caught a false docstring value and a degree-0 validation hole (15 → 5 → 2 Criticals; registers in `docs/architecture-critique*.md`). |
 
 ### Phase 13 — Homotopy Theory (v1.5.0)
 
@@ -578,7 +578,7 @@ Cross-validates pytop against independent gold-standard external systems via uni
 | Phase 9 milestones complete | 6 / 6 ✅ (`experimental.spaces` expansion) |
 | Phase 10 milestones complete | 5 / 5 ✅ (scale & algorithm) |
 | Phase 11 milestones complete | 5 / 5 ✅ (Lean formal verification expansion) |
-| Phase 12 milestones complete | 2 / 5 ✅⬜ (sheaf cohomology, persistent K-theory done) |
+| Phase 12 milestones complete | 3 / 5 ✅⬜ (sheaf cohomology, persistent K-theory, countably infinite complexes done) |
 | Phase 13 milestones complete | 5 / 5 ✅ (homotopy theory) |
 | Phase 14 milestones complete | 5 / 5 ✅ (advanced knot homology) |
 | Phase 15 milestones complete | 5 / 5 ✅ (4-manifold topology) |
