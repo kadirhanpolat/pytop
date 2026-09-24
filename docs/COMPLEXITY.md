@@ -4,7 +4,9 @@
 > cost and the **practical input limits** of pytop's computational engines.
 >
 > pytop's design choice is a **pure-Python, exact correctness core** (no
-> floating-point homology, no hidden approximations). Exactness has a price:
+> floating-point homology, no hidden approximations) — with one carved-out
+> exception, the Seifert **signature**, which converts to `float` and branches on
+> numerical tolerances (see *Exactness carve-out* below). Exactness has a price:
 > several engines are exponential in the natural size parameter and are intended
 > for the *small, tabulated* inputs of textbooks and knot/link tables — not for
 > large-scale computation. Where an engine is exponential, that is a property of
@@ -20,7 +22,8 @@
 | Multivariable Alexander | `multivariable_alexander` | `O(2ᶜ)` memoised Laplace minor over the `n`-variable Laurent ring, `c` = crossings | links `≲ 10` crossings |
 | Alexander (reduced Burau) | `alexander_polynomial_from_braid` | `O(k · (s−1)²)` matrix products + `O((s−1)!)` cofactor determinant, `s` = strands | strands `≲ 8` |
 | Khovanov homology | `khovanov_homology` | chain dimension `Σ_v 2^{circles(v)}` (worst `~3ⁿ`), then **one SNF per differential** (memoised — each `d^{i}_j` reduced once, not three times) | knots `≲ 8–10` crossings |
-| Seifert genus/signature | `seifert_genus_bound`, `signature` | `O(c)` smoothing + `O((2g)³)` LDLT, `g` = genus | unrestricted in practice |
+| Seifert genus | `seifert_genus_bound` | `O(c)` smoothing, exact integer arithmetic | unrestricted in practice |
+| Seifert signature — **floating-point** | `signature` | `O(c)` smoothing + `O((2g)³)` LDLT on a `float` copy of `M + Mᵀ`, `g` = genus | unrestricted in practice; **not exact** — see *Exactness carve-out* |
 
 ## Homology, surgery & linear algebra
 
@@ -42,6 +45,12 @@
 | Planarity decision | `is_planar` | **`O(V+E)` left-right planarity test** (Brandes 2009); a cheap Euler edge-bound pre-reject runs first | **unrestricted** (never raises) |
 | Euler edge bound | `satisfies_planar_edge_bound` | `O(1)` | unrestricted (necessary, not sufficient) |
 | Bipartite test | `_is_bipartite` (internal) | `O(V+E)` 2-colouring | unrestricted |
+
+## Point-set & finite spaces
+
+| Engine | Entry point | Complexity | Practical limit |
+|--------|-------------|-----------|-----------------|
+| Small inductive dimension | `ind_finite_space` | **exponential** — recursion over boundaries of every open set; measured 2026-09-24 (best of 3, chain topology `opens = [frozenset(range(k)) for k in range(n+1)]`): `n=14` **0.019 s**, `n=16` **0.082 s**, `n=18` **0.345 s**, `n=20` **4.015 s** | `n ≲ 20` points |
 
 ## Notes
 
@@ -72,7 +81,13 @@
   on them. This replaces the old rotation-system decision, which raised
   `GraphPlanarityError` on sparse high-degree planar graphs (e.g. a degree-9 wheel
   hub). The decision-only port is validated against networkx's independent test on
-  **all** labelled graphs up to 6 vertices plus random larger graphs.
+  **all 1 099 labelled graphs on ≤ 5 vertices** — the sweep is
+  `tests/core/test_graph_planarity.py::test_exhaustive_all_graphs_up_to_5_vertices`,
+  whose loop is `for n in range(1, 6)` — plus random larger graphs. Note the scope:
+  this is ≤ 5 vertices, not the ≤ 6 vertices (33 867 graphs) claimed elsewhere in
+  the project docs. The sweep is also **networkx-gated**, and CI installs only
+  `.[dev]` (never the `oracles` extra), so it **skips on every CI run** and is in
+  practice a local-only check.
 - `graph_genus` still enumerates rotation systems (computing the exact *minimum*
   genus, not just whether it is 0, is genuinely harder than planarity) with
   genus-0 **early termination**: because a connected graph's face count satisfies
@@ -91,3 +106,50 @@
   and cannot accelerate the *exact* core — only a fast exact library such as
   FLINT can. (The pure-Python core stays the default and the only hard
   requirement.)
+
+## Exactness carve-out: the Seifert signature
+
+The "no floating-point" claim at the top of this document holds for every engine
+tabulated above **except one**. `signature` builds the symmetrised Seifert form
+`S = M + Mᵀ` in exact integers and then converts it entrywise to `float`
+(`seifert.py:781`) before handing it to `_sylvester_signature`, whose LDLT
+branches on the numerical tolerances `1e-10` and `1e-12`. The signature is
+therefore a **floating-point** computation, and the tolerance branch is not
+merely a rounding concern: measured against `numpy.linalg.eigvalsh` on 400 random
+symmetric matrices, `_sylvester_signature` disagrees on **17** of them. The
+smallest counterexample is
+
+```
+[[ 0,  2,  1],
+ [ 2,  0, -2],
+ [ 1, -2,  0]]
+```
+
+for which it returns `0` where the true signature is `1`; the failure mode is a
+symmetric matrix with a **zero diagonal**.
+
+The consequence is narrower than the bug, and worth stating precisely. The public
+`signature(diagram)` currently returns the **correct** value on the trefoil
+(`-2`), the figure-eight (`0`) and the cinquefoil (`-4`). It does so because
+`seifert_matrix` emits only **diagonal** matrices, so the zero-diagonal branch is
+never reached. That masking is itself the deeper problem — the figure-eight's
+Seifert matrix is `[[-1, 1], [0, 1]]` in the literature, while pytop returns
+`diag(1, -1)`, and the off-diagonal derivation in `seifert.py:400-450` is an
+unresolved comment-block argument. Any future fix to `seifert_matrix` that starts
+producing genuine off-diagonal forms will expose `_sylvester_signature`'s error.
+
+## Coverage of this document
+
+This document tabulates **18** entry points against the
+**212** top-level modules in `src/pytop`. It is a reference for the engines most
+likely to be handed an input that is too large, not a complete cost model of the
+library.
+
+Significant engines with **no row here**, whose cost is currently undocumented:
+`mapper`, `persistence_distances`, `discrete_morse`, `cech_complex`,
+`witness_complex`, `sheaf_cohomology`, `cellular_homology`, `mayer_vietoris`,
+`van_kampen`, `sparse_linalg`, and everything shipped in Phases 13–15
+(`chain_homotopy`, `eilenberg_maclane`, `massey_products`, `hopf_invariant`,
+`sullivan_models`, `khovanov_odd`, `grid_floer`, `concordance`,
+`satellite_knots`, `virtual_knots`, `intersection_forms`, `kirby_calculus`,
+`casson_invariant`, `milnor_fibers`, `rohlin_theorem`).

@@ -53,7 +53,7 @@ def symmDiff : Z2Col → Z2Col → Z2Col
 termination_by a b => a.length + b.length
 
 -- ──────────────────────────────────────────────────────────
--- 2. symmDiff özellikleri (helpers; some proved, some sorry)
+-- 2. symmDiff özellikleri (helpers; all proved -- no `sorry` remains in this file)
 -- ──────────────────────────────────────────────────────────
 
 theorem symmDiff_nil_left (l : Z2Col) : symmDiff [] l = l := by

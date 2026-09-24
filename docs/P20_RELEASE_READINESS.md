@@ -25,7 +25,9 @@ All tests pass on Python 3.14 (current development version).
 - All checks **required before merge to master**
 
 ✅ **Coverage:**
-- Current: >85% (11,685+ tests across 225 modules)
+- Current: 93.96% line coverage (12 278 passing of 12 318 collected, across 226 documented modules).
+  Note: the project gate `fail_under = 90` passes on the average; the Phase 13-15 modules sit at 69%
+  and `src/pytop/_gpu_backend.py` at 24%. Measured 2026-09-24.
 - Target: 85%+ maintained
 
 ✅ **Platforms:**

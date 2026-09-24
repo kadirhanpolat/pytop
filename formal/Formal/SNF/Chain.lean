@@ -18,7 +18,7 @@ import Mathlib.Tactic.Ring
 Temel lemma: `factor_dvd_next`.
 Dış döngünün değişmezi korunduğunda her adımda `last_d ∣ d_new` sağlanır.
 
-`pytopSNF_divisibilityChain` doğrudan sorry ile verilir; alt lemmaları
+`pytopSNF_divisibilityChain` is now fully proved (2026-06-20); its sub-lemmas
 `factor_dvd_next` ve `snfOuterStep_divides_submatrix` kullanarak
 `pytopSNFWithFuel.go` üzerinde özyinelemeli induction kanıtlanabilir
 (go fonksiyonunun where-clause parametrelerinin hoisting'i nedeniyle

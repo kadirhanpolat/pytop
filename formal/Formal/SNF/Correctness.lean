@@ -11,7 +11,12 @@ import Mathlib.Data.List.Basic
 /-!
 # SNF Correctness Theorems
 
-States and partially proves that `pytopSNF` computes genuine invariant factors.
+States and proves that `pytopSNF` computes genuine invariant factors.
+
+Scope note: `IsInvariantFactors` (see `Defs.lean`) is positivity plus the
+divisibility chain. It does **not** include the matrix-equivalence clause
+(`D = U · A · V` with `U`, `V` unimodular); that is deferred to a `Bridge.lean`
+which does not yet exist. See `formal/ROADMAP.md`, *Open items*.
 
 ## Proof strategy
 
@@ -28,14 +33,16 @@ returns true, ensuring `d_t | M[i][j]` for all i,j > t.
 
 ## Current status
 
+All proved; no `sorry` remains in the SNF module.
+
 | Theorem | Status |
 |---------|--------|
 | `clearLoop_stable`               | **proved** (in `Termination.lean`) |
 | `snfOuterStep_pos`               | **proved** (in `Positivity.lean`) |
-| `snfOuterStep_divides_submatrix` | partial (in `Divisibility.lean`) |
-| `pytopSNF_divisibilityChain`     | `sorry` (in `Chain.lean`) |
-| `pytopSNF_positive`              | `sorry` (in `Positivity.lean`) |
-| `pytopSNF_fuel_independent`      | `sorry` |
+| `snfOuterStep_divides_submatrix` | **proved**, both branches (in `Divisibility.lean`) |
+| `pytopSNF_divisibilityChain`     | **proved** (in `Chain.lean`) |
+| `pytopSNF_positive`              | **proved** (in `Positivity.lean`) |
+| `pytopSNF_fuel_independent`      | **proved** (below, in this file) |
 
 ## Termination note
 

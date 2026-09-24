@@ -68,7 +68,7 @@ def _two_points() -> SimplicialComplex:
 
 
 def _torus_filtration_complex() -> SimplicialComplex:
-    """7-vertex minimal triangulation of T² imported from simplicial_filtration."""
+    """Torus filtration imported from simplicial_filtration (a 3x3 grid triangulation: V=9, E=27, F=18 -- not minimal)."""
     from pytop.simplicial_filtration import torus_filtration
     filt = torus_filtration()
     all_simplices = [Simplex(list(vs)) for vs in filt.simplices]

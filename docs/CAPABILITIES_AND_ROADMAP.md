@@ -4,17 +4,37 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-09-23 (v1.10.0 — live on PyPI as `pytopology`):** **every phase is closed and no roadmap item remains open.** Phases 1–15 complete; **Phase 16 ✅** (benchmark suite, oracle parity wired to GUDHI, 10K-complex statistical run at 100.0% parity); **Phase 17 ✅** (profiling, method selection, inductive Rips build + size-aware auto reduction routing); **Phase 18 ✅** (16-chapter user guide across four formats, 46 figures, 225-module API reference); **Phase 19 ✅** (error messages, deprecation policy, API audit); **Phase 20 ✅** (CI matrix, PyPI publishing, community onboarding); **Phase 12 ✅ COMPLETE (6/6)** — sheaf cohomology and persistent K-theory (v1.4.0), countably infinite complexes and the GAP bridge (v1.8.0), homeomorphism and the Regina bridge (v1.9.0). The **SnapPy bridge** (v1.10.0) completes the optional bridge family: GAP for groups, Regina for triangulations and normal surfaces, SnapPy for hyperbolic geometry — pytop stays dependency-free and each reports itself unavailable rather than raising. **12 278 tests passing** (37 skipped: opt-in Docker bridges and oracles); `src/pytop` ruff-clean and mypy-clean; release tags through v1.10.0.
-> (set-theoretic topology) substantive; Phase 2–7 computational core (homology,
-> cohomology, Mayer–Vietoris, van Kampen, Khovanov, combinatorial topology);
-> Phase 8 advanced algebra (6 modules); Phase 9 computable-space expansion (19 reps);
-> Phase 10 scale & algorithms (sparse SNF, GPU optional); Phase 11 Lean formal
-> verification (11 files, 0 sorry); Phase 12 sheaf cohomology + persistent K-theory;
-> Phase 13 homotopy (Eilenberg–MacLane, Massey, Hopf); Phase 14 advanced knot
-> homology (Khovanov odd, grid Floer, concordance); Phase 15 4-manifold topology
-> (intersection forms, Kirby, Casson, Rohlin). **Phase 16 ✅ AUTONOMOUS**: P16.1 benchmark suite ✅ (37 tests, minimal triangulations, 45-knot table, large graphs); **P16.2 ✅ oracle parity** (45 primes unknot–10_5, GUDHI/Ripser/SnapPy/Sage adapters, OracleAgreementBuilder orchestration; **GUDHI persistent-Betti parity now wired & passing** via `betti_parity.py`); P16.3 statistical validation ✅ (10K ER 1-skeleta **cross-validated against GUDHI: 100.0% parity, 0 outliers**, avg 4.35 ms/complex). **Formal verification** (`formal/`): Lean 4 + Mathlib v4.31 proofs — SNF (0 sorry),
-> set topology (34 theorems + 24 alt proofs; 0 sorry), metric topology (0 sorry),
-> persistence homology (0 sorry). **11 formal files total; 0 sorry throughout.**
+> **Status as of 2026-09-24 (v1.10.0 — live on PyPI as `pytopology`):** **every named
+> milestone of Phases 0–20 has shipped code — which is breadth delivered, not correctness
+> verified.** An audit on 2026-09-24 reproduced **seven defects** in shipped modules and
+> measured **three unmet phase targets**; both are catalogued in `docs/AUDIT_2026_09_24.md`
+> and summarised at the end of Part III. Read this document as *what has been built*, and
+> the audit as *what has been checked*.
+>
+> **Breadth delivered.** Phase 1 (set-theoretic topology) substantive; Phases 2–7
+> computational core (homology, cohomology, Mayer–Vietoris, van Kampen, Khovanov,
+> combinatorial topology); Phase 8 advanced algebra (6 modules); Phase 9 computable-space
+> expansion (19 representations); Phase 10 scale & algorithms (sparse SNF, optional GPU);
+> Phase 11 Lean formal verification; Phase 12 sheaf cohomology, persistent K-theory,
+> countably infinite complexes, homeomorphism and the GAP/Regina bridges; Phase 13
+> homotopy (Eilenberg–MacLane, Massey, Hopf); Phase 14 advanced knot homology (odd
+> Khovanov, grid Floer, concordance); Phase 15 4-manifold topology (intersection forms,
+> Kirby, Casson, Rohlin); Phase 16 empirical validation (benchmark suite, oracle parity,
+> 10 000-complex GUDHI parity run at 100.0 %); Phase 17 performance (profiling, method
+> selection, inductive Rips build + size-aware auto reduction routing); Phase 18
+> documentation (16-chapter user guide across four formats, 46 figures, 226-module API
+> reference); Phase 19 API stability; Phase 20 CI matrix, PyPI publishing, community
+> onboarding. The **SnapPy bridge** (v1.10.0) completes the optional bridge family — GAP
+> for groups, Regina for triangulations and normal surfaces, SnapPy for hyperbolic
+> geometry — and pytop stays dependency-free: each bridge reports itself unavailable
+> rather than raising.
+>
+> **Measured on 2026-09-24.** **12 278 passing / 37 skipped / 3 xpassed of 12 318
+> collected**; `src/pytop` ruff-clean and mypy-clean across 250 source files; release tags
+> through v1.10.0. Formal corpus: 24 Lean files outside `.lake`, 219 theorems/lemmas,
+> **0 `sorry` tactics** — grep-verified everywhere, but kernel-verified only for SNF and
+> set topology: the five Phase-11 files have no `.olean` in this tree and no workflow runs
+> `lake`.
 
 ---
 
@@ -53,11 +73,14 @@ property-reasoning engine. Key components:
   regular, normal, compact, connected, Lindelöf, separable, first/second-countable)
   — on finite spaces computed from the topology; on infinite spaces via mathematical
   certificates; honest `UNDECIDABLE` where no route applies.
-- **10 representations**: `FiniteSpace`, `CofiniteSpace`, `OrderTopologySpace` (ℚ),
+- **19 representations**: `FiniteSpace`, `CofiniteSpace`, `OrderTopologySpace` (ℚ),
   `MetricTopologySpace`, `SorgenfreyLineSpace`, `DiscreteCountableSpace`,
   `OpaqueInfiniteSpace`, `AlexandroffSpace` (preorder → upset topology),
   `SubbaseSpace` (subbase-generated topology), `InverseLimitSpace` (finite
-  inverse system + bonding maps).
+  inverse system + bonding maps), `ProductMetricSpace`, `LexicographicSquareSpace`,
+  `CantorSpaceRepresentation` (v1.0.7), `OnePointCompactificationSpace`,
+  `StoneCechSpace` (βℕ), `HilbertCubeSpace` ([0,1]^ω), `SolenoidSpace`,
+  `UniformSpace`, `ProfiniteSpace` (v1.1.0).
 - **Construction closure** — `subspace`, `product`, `sum`, `quotient` for finite
   spaces; `ProductSpace`, `SubspaceSpace`, `SumSpace`, `QuotientSpace` provenance
   wrappers for infinite spaces.
@@ -102,28 +125,107 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
     `pseudocomplement_in_frame`, `well_inside_relation`, `is_regular_frame`,
     `is_spatial_finite_frame`), `dimension_theory` (`covering_dimension_simplicial`,
     `ind_finite_space`).
-- The remaining "advanced" modules (`topos_theory`, `noncommutative_topology`,
-  `higher_categories`, `operads`, `topological_field_theory`,
-  `derived_categories`): **tag-based classifiers**.
-  You supply semantic tags; they apply encoded theorems to classify. They do **not**
-  construct or analyze the actual mathematical object.
+- The six "advanced algebra" modules (`derived_categories`, `topos_theory`, `operads`,
+  `higher_categories`, `noncommutative_topology`, `topological_field_theory`) are no
+  longer *pure* tag classifiers: v1.0.9 gave each a computational tail that works from
+  raw input — `derived_functor_h` computes H_n of a chain complex via SNF,
+  `mapping_cone_complex` builds the cone, `associahedron_complex` builds the complex,
+  `nerve_of_category` builds the nerve of a finite category, `site_from_finite_topology`
+  and `sheafification_finite` work from a finite topology, `cobordism_from_handles` from
+  a handle list. The **predicate API sitting above that tail is still tag matching**: you
+  supply semantic tags and encoded theorems classify them, without the object ever being
+  constructed. Two of the eighteen v1.0.9 "computational" functions are also hardcoded
+  returns rather than computations — `noncommutative_topology.k0_group_matrix_algebra`
+  (line 932) and `topological_field_theory.tqft_dimension_2d` (line 585) — and
+  `shape_theory.shape_anr_check_sc` (line 1069) hardcodes `is_anr` / `is_fanr` /
+  `is_movable` to `True`. (These three reported by the audit, not independently re-run.)
 - `named_spaces`, `space_catalog`, `counterexample_atlas`, preservation tables,
   cardinal-function profiles: curated reference catalogs.
 
 ### ❌ Cannot do (real limits)
 
-- No spectral-sequence computation.
+- **Spectral sequences stop at E¹.** The E¹ page *is* computed by SNF from a filtered
+  chain complex, but `differential_d_r` (`src/pytop/spectral_sequences.py:1228`) returns
+  `min(source Betti, target Betti)` — a maximal-rank heuristic with no chain-level map —
+  and `converges_to` drops every `(p,q)` with `q < 0`, so E^∞ does not satisfy the
+  convergence theorem (E^∞ reports `H_0 = 0` for a solid triangle). All three test
+  fixtures put every simplex at filtration level 0. (Reported by the audit, not
+  independently re-run.)
 - Knots: needs a PD code (or braid word) you supply; HOMFLY-PT, multivariable
   Alexander, and Khovanov homology are available, but everything is small-diagram
   scale (the Khovanov complex is exponential in the crossing number).
-- Planarity is exact but **small-graph only** (exponential rotation-system search).
-- TDA is Z/2 and small clouds only (Phase 2 added Twist+Clearing optimisation, but
-  still single-machine, no GPU/distributed scale).
+- **`graph_genus` is the remaining exponential path, not planarity.** Since v0.9.6
+  `is_planar` is the O(V+E) left–right planarity test (Brandes 2009): it decides any
+  graph and never raises. Exact genus still searches rotation systems.
+- **The TDA limit is scale, not coefficients.** Since v1.0.2 persistence runs over F_p
+  for any prime p (not only ℤ/2), and v1.2.0 added witness complexes, streaming
+  reduction and an optional cupy backend. What remains is size: Rips on n = 500 points
+  takes **0.996 s at `max_dimension=1` but 9.06 s at `max_dimension=2`,
+  `max_scale=1.0`** (950 914 simplices; 2.24 s build + 6.82 s reduce) on this machine.
 - pi-Base inference is bounded by the vendored snapshot's vocabulary.
-- No coordinate/geometric topology, mesh processing, or general homeomorphism decision.
+- No coordinate/geometric topology, mesh processing, or general homeomorphism decision
+  beyond the finite case (`experimental.homeomorphism` decides finite spaces exactly and
+  otherwise only certifies **non**-homeomorphism).
 - Most engines are finite / brute-force — **does not scale**.
-- `experimental.spaces` predicates are limited to the 10 bundled representations;
-  user-supplied infinite spaces can only be analyzed if they implement `certificate`.
+- **`experimental.spaces` predicates do not answer on constructed spaces at all.** There
+  are 19 bundled representations, but `ProductSpace` / `SumSpace` / `SubspaceSpace` /
+  `QuotientSpace` are provenance wrappers handled by the reasoning engine, not by the
+  predicates, and `QuotientSpace.contains` raises `NotImplementedError`. User-supplied
+  infinite spaces can only be analysed if they implement `certificate`.
+
+**Verified defects (2026-09-24 audit — each one reproduced; evidence in
+`docs/AUDIT_2026_09_24.md`):**
+
+- **`khovanov_odd` is mathematically wrong on any knot with crossings.** On the trefoil
+  `khovanov_homology` gives total free rank 4 (textbook-correct) while
+  `khovanov_homology_odd` gives 25, and `compare_khovanov_parities` on the two real
+  engines returns `agree_mod_2: False` with 9 differences over 12 gradings. That is
+  impossible: odd and even Khovanov categorify the same Jones polynomial, so their graded
+  Euler characteristics must agree. The cube builder (`khovanov_odd.py:125–264`) never
+  executes under test — module coverage is 29 % and the only tests pass
+  `KnotDiagram(pd=(), signs=())`, a diagram with zero crossings.
+- **`TDAPipeline.from_points` discards its argument.** `tda_pipeline.py:104` is
+  `return cls()`; the frozen dataclass has no `points` field at all, so the argument is
+  dropped and `p.points` raises `AttributeError`. The documented `.from_points(pts).rips()`
+  chain always raises `ValueError`. `.reduce()` also rejects `'auto'`, so the P17.3
+  default routing is unreachable through the builder.
+- **`cech_filtration` is non-deterministic and mutates the global RNG.**
+  `cech_complex.py:172` calls `random.shuffle` on the module-global `random`; 12
+  identical runs on the same 7-point circle produced 3 distinct barcodes.
+- **18 of the 72 `src/pytop/_internal/` modules fail to import** — `from .result import
+  Result` where the module is at `src/pytop/result.py` (correct: `from ..result import`).
+  The broken set is precisely the release/quality tooling: `package_verifier`,
+  `manifest_checker`, `release_report_standard`, `integration_quality_gate`,
+  `api_consistency`, `archive_bundle_checker`, `packaging_checkpoint`. `_internal` is
+  excluded from ruff, mypy, coverage *and* the CI doctest step, so nothing catches it.
+- **`seifert._sylvester_signature` is wrong on symmetric matrices with a zero diagonal**
+  — 17 mismatches in 400 random symmetric matrices against `numpy.linalg.eigvalsh`;
+  `[[0,2,1],[2,0,-2],[1,-2,0]]` returns 0 where the true signature is 1. The public
+  `signature(diagram)` nevertheless returns the **correct** value on trefoil (−2),
+  figure-8 (0) and cinquefoil (−4), because `seifert_matrix` emits only **diagonal**
+  matrices, so the buggy branch is never reached. That masking is itself the deeper
+  defect: the figure-eight's Seifert matrix is `[[-1,1],[0,1]]` in the literature while
+  pytop returns `diag(1,−1)`, and the off-diagonal derivation (`seifert.py:400–450`) is
+  an unresolved comment-block argument.
+- **CI never installs the `oracles` extra.** `.github/workflows/ci.yml:37` installs only
+  `.[dev]` (pytest, pytest-cov, ruff, mypy), so numpy/sympy/networkx/gudhi/python-flint
+  are absent and all 13 differential-oracle tests plus both networkx planarity sweeps
+  skip on every CI run.
+- **The five Phase-11 Lean files have never been compiled in this tree.**
+  `formal/Formal.lean` imports MayerVietoris, VanKampen, CohomologyRing,
+  PersistencePairing and SpectralSequences; none of the five has an `.olean` (SNF and
+  SetTopology do), `SetTopologyAltProofs.lean` (27 theorems) is not imported at all, and
+  there is no `lake` job in `.github/workflows/`. "0 sorry" is therefore grep-verified,
+  not kernel-verified, for Phase 11.
+
+**Other honest gaps:**
+
+- **855 public symbols are outside the declared API surface.** `pytop.__all__` names
+  1 203 symbols while 2 058 public non-module attributes are reachable as `pytop.X` —
+  every Phase 5–15 symbol among them. They import and work; they are simply not declared.
+- **The 15 Phase 13–15 modules average 69 % coverage** against a 93.96 % project total:
+  `khovanov_odd` 29 %, `massey_products` 49 %, `concordance` 49 %, `eilenberg_maclane`
+  57 %, `chain_homotopy` 59 %, `milnor_fibers` 65 %. `_gpu_backend.py` sits at 24 %.
 
 **One-sentence summary.** pytop is a solid finite point-set core + a focused
 v0.6.0+ computational layer + a research-grade point-set reasoning system +
@@ -169,7 +271,7 @@ All five planned milestones delivered:
 
 | Milestone | Status | Delivered |
 |-----------|--------|-----------|
-| S1 — Space protocol + representations | ✅ | `Space` ABC, `Verdict`, 10 representations (7 original + Alexandroff + Subbase + InverseLimit), `is_hausdorff` with witnesses |
+| S1 — Space protocol + representations | ✅ | `Space` ABC, `Verdict`, **19 representations** (the 10 delivered through Phase 1, plus `ProductMetricSpace` / `LexicographicSquareSpace` / `CantorSpaceRepresentation` in v1.0.7 and the six Phase-9 additions `OnePointCompactificationSpace`, `StoneCechSpace`, `HilbertCubeSpace`, `SolenoidSpace`, `UniformSpace`, `ProfiniteSpace`), `is_hausdorff` with witnesses |
 | S2 — 7 predicates + finite construction closure | ✅ | is_t0/t1/t2/regular/normal/compact/connected; subspace/product/sum/quotient |
 | S3 — Property-reasoning engine | ✅ | `reasoning.py`: preservation + pi-Base closure + `Derivation` + `synthesize` |
 | S4 — Extended axioms + representations | ✅ | is_t3/t4, Lindelöf/separable/1st-2nd-countable; Sorgenfrey + discrete-ℕ |
@@ -204,7 +306,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 | Field-coefficient homology (Q, Z/p) | ✅ | `homology_coefficients`: Gaussian elim; RP² katsayı bağımlılığı |
 | Relative homology H_*(K,L; Z) | ✅ | Disk mod boundary H₂(D²,∂D²)=Z |
 | Mayer–Vietoris LES | ✅ | `mayer_vietoris`: extended SNF → explicit bases; φ,ψ,δ matrices; exactness verified (S¹,S²,interval) |
-| Cellular homology | ✅ | `cellular_homology`: CWComplex + SNF; standard spaces (S^n, RP^n, CP^n, T², Klein, L(p,q), M(Z/n,k)); cross-validated via `cw_from_simplicial` |
+| Cellular homology | ✅ | `cellular_homology`: CWComplex + SNF; standard spaces (S^n, RP^n, CP^n, T², Klein, L(p,1), M(Z/n,k)); cross-validated via `cw_from_simplicial`. Lens spaces are implemented only for q = 1 — `cw_lens_space(p)` takes no q parameter, so general L(p,q) is not available |
 | Cohomology + cup product | ✅ | `cohomology`: δ^k=(∂_{k+1})^T via extended SNF; UCT verified; Alexander-Whitney cup product; `CohomologyRing` with graded-commutativity; torus H^1⊗H^1→H^2 non-degenerate |
 | van Kampen → group presentations | ✅ | `van_kampen`: GroupPresentation + GroupHomomorphism; amalgamated free product; Tietze elimination; abelianization via SNF; group identification; CW1Complex route (spanning tree → π₁); standard spaces (S¹∨⋯∨S¹→Fₙ, S²→1, T²→ℤ², Klein→⟨a,b\|abab⁻¹⟩, RP²→ℤ/2) |
 | Optimized persistence (clearing/twist) | ✅ | `persistent_homology_optimized`: Twist algorithm (Chen–Kerber 2011) + Clearing Lemma; dimension-top-down sweep; `ReductionStats` (n_cleared, clearing_ratio, n_column_additions); cross-validated against standard reduction |
@@ -347,7 +449,7 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
 
 | Milestone | Module | Status | Delivered |
 |-----------|--------|--------|-----------|
-| **P7.1** | `simplicial_filtration` | ✅ | Standard triangulations: `torus_filtration` (7-vertex T²), `klein_bottle_filtration` (8-vertex), `rp2_filtration` (6-vertex RP²). 33 tests. |
+| **P7.1** | `simplicial_filtration` | ✅ | Standard triangulations: `torus_filtration` (T² as a 3×3 grid triangulation — V=9, E=27, F=18, **not** the 7-vertex minimal triangulation), `klein_bottle_filtration` (likewise V=9, E=27, F=18, **not** the 8-vertex minimal one), `rp2_filtration` (the genuinely minimal ℝP²: V=6, E=15, F=10). 33 tests. |
 | **P7.2** | `simplicial_maps` | ✅ | `SimplicialMap` + validation, `chain_map_matrix` (signed integer matrix), `induced_map_on_homology` (via extended SNF), `cone_complex` (contractible), `suspension_complex` (Σ(Sⁿ)≃Sⁿ⁺¹). 42 tests. |
 | **P7.3** | `nerve_complex` | ✅ | `nerve_of_cover`, `good_cover_check` (Nerve theorem preconditions), `cech_nerve` (Welzl miniball circumsphere). 30 tests. |
 | **P7.4** | `spectral_sequences` | ✅ | `SpectralPage`, `FilteredChainComplex`, `differential_d_r`, `converges_to` (E^r → E^∞ stability). 25 new tests (205 total). |
@@ -447,7 +549,7 @@ infinite spaces missing from the current suite.
 | **P9.1** | `OnePointCompactificationSpace` | Compact; T2 iff original is locally compact T2; Alexandroff extension | Wraps any existing `Space` |
 | **P9.2** | `StoneCechSpace` (βℕ) | Compact, T4, separable (ℕ dense), NOT first-countable, NOT T6 | Ultrafilter representation |
 | **P9.3** | `HilbertCubeSpace` ([0,1]^ω) | Compact, T6, second-countable; universal compact metrizable space | Cylinder-neighbourhood certificates |
-| **P9.4** | `SolenoidSpace` | Compact, connected, NOT locally connected; specialises `InverseLimitSpace` with circle bonding maps | |
+| **P9.4** | `SolenoidSpace` | Compact, connected, NOT locally connected; built from circle bonding maps as a direct `Space` subclass — it does **not** specialise `InverseLimitSpace` | |
 | **P9.5** | `UniformSpace` protocol | Uniform covers + completion; Cauchy filter; `UniformProduct`, `UniformSubspace` | New protocol layer |
 | **P9.6** | `ProfiniteSpace` | Totally disconnected, compact, T2; inverse limit of finite discrete groups | |
 
@@ -496,7 +598,12 @@ to the main computational engines. 0-sorry rule holds throughout; corpus grows f
 | **P11.4** ✅ | `PersistencePairing.lean` | `pairing_is_perfect` (= `reduce_is_reduced`); `pairs_have_distinct_births` (birth indices Nodup); key chain: `isReduced_tail` → `filterMap_getLast_nodup_of_isReduced` → `zipWith_range_filterMap_snd_eq` → `map_fst_pairs_eq` |
 | **P11.5** ✅ | `SpectralSequences.lean` | `ChainCx` (d² = 0 by construction); `d_sq_zero`; `image_sub_kernel`; `SpectralSeq`; `const_convergent`; `stabilizes_mono`; `const_pages_convergent` |
 
-**0 sorry across all 11 Lean files.**
+**0 `sorry` across the formal corpus** — 24 `.lean` files outside `.lake`, 219
+theorems/lemmas — but that is **grep-verified, not kernel-verified** for these five:
+`formal/Formal.lean` imports all of MayerVietoris, VanKampen, CohomologyRing,
+PersistencePairing and SpectralSequences, yet **none of the five has an `.olean` in this
+tree** (SNF and SetTopology do), `SetTopologyAltProofs.lean` (27 theorems) is not imported
+at all, and there is no `lake` job in `.github/workflows/`.
 
 ### Phase 12 — Research Frontier ✅ COMPLETE (v1.4.0–v1.9.0)
 
@@ -551,6 +658,33 @@ Cross-validates pytop against independent gold-standard external systems via uni
 
 **Framework ready for:** PyPI publication, CI/CD matrix integration, automated cross-oracle matrix population (GUDHI vs Ripser vs SnapPy vs Sage agreement pipeline).
 
+### Post-v1.10.0 audit (2026-09-24)
+
+An audit run against the v1.10.0 tree reproduced seven defects in shipped code. Each is
+stated here in one line; `docs/AUDIT_2026_09_24.md` carries the evidence and the
+reproductions.
+
+| # | Defect | Where |
+|---|--------|-------|
+| 1 | Odd Khovanov disagrees with even Khovanov on every knot with crossings (trefoil: total free rank 25 vs 4; `compare_khovanov_parities` → `agree_mod_2: False`, 9 of 12 gradings) — the two must share a graded Euler characteristic. The cube builder is never exercised: 29 % coverage, tests use a 0-crossing diagram | `src/pytop/khovanov_odd.py:125–264` |
+| 2 | `TDAPipeline.from_points` discards its argument (`return cls()`), so `points` is `None` and the documented `.from_points(pts).rips()` chain always raises; `.reduce()` additionally rejects `'auto'` | `src/pytop/tda_pipeline.py:104` |
+| 3 | `cech_filtration` shuffles with the module-global `random`: non-deterministic output and a mutated global RNG (12 identical runs → 3 distinct barcodes) | `src/pytop/cech_complex.py:172` |
+| 4 | 18 of 72 `_internal` modules fail to import (`from .result import Result` instead of `from ..result import`); the broken set is exactly the release/quality tooling, and `_internal` is excluded from ruff, mypy, coverage and the CI doctest step | `src/pytop/_internal/` |
+| 5 | `_sylvester_signature` is wrong when the diagonal contains zeros (17 of 400 random symmetric matrices disagree with `numpy.linalg.eigvalsh`). The public `signature` is currently correct on trefoil/figure-8/cinquefoil only because `seifert_matrix` emits diagonal matrices — which is the deeper defect: figure-8 should be `[[-1,1],[0,1]]`, pytop gives `diag(1,−1)` | `src/pytop/seifert.py:400–450` |
+| 6 | CI installs only `.[dev]`, never the `oracles` extra, so all 13 differential-oracle tests and both networkx planarity sweeps skip on every run | `.github/workflows/ci.yml:37` |
+| 7 | The five Phase-11 Lean files have no `.olean` in this tree and no workflow runs `lake`; `SetTopologyAltProofs.lean` (27 theorems) is not imported at all — "0 sorry" is grep-verified, not kernel-verified, for Phase 11 | `formal/Formal.lean` |
+
+**Two phase targets are unmet.**
+
+- **Phase 17** targeted "Rips n=500 in <1 s". Measured: **0.996 s at `max_dimension=1`**,
+  but **9.06 s at `max_dimension=2`, `max_scale=1.0`** (950 914 simplices; 2.24 s build +
+  6.82 s reduce). The companion target "memory linear in simplex count" was never
+  measured.
+- **Phase 20** targeted "10+ external contributors" and "<48 h issue response". Measured:
+  **1 human contributor** (under two email aliases), and **0 of 12 GitHub issues open** —
+  the 12 curated good-first-issues #35–#46 were all closed by the maintainer, so no
+  external contribution has arrived.
+
 ---
 
 ## Part IV — Hard trade-offs to decide early
@@ -566,17 +700,25 @@ Cross-validates pytop against independent gold-standard external systems via uni
 
 ---
 
-## Part V — Summary statistics (2026-09-23)
+## Part V — Summary statistics (2026-09-24)
 
 | Metric | Value |
 |--------|-------|
-| Tests passing | **12 278** (full `pytest tests/`, 37 skipped: opt-in Docker bridges and oracles) — includes 107 validation tests (oracle parity + benchmark + statistical + GUDHI betti-parity) |
+| Tests | **12 278 passing / 37 skipped / 3 xpassed of 12 318 collected** (full `pytest tests/`, ~136 s; the skips are opt-in Docker bridges and oracles) — includes 107 validation tests (oracle parity + benchmark + statistical + GUDHI betti-parity) |
+| Open roadmap items | **0 named milestones unstarted** — every milestone of Phases 0–20 has shipped code. What is open is **7 verified defects + 3 unmet phase targets**, not unwritten work; see `docs/AUDIT_2026_09_24.md` |
+| Verified defects open | **7** — odd Khovanov wrong on knots with crossings; `TDAPipeline.from_points` discards its argument; `cech_filtration` non-deterministic; 18 `_internal` modules fail to import; `_sylvester_signature` wrong on zero-diagonal matrices; CI never installs the `oracles` extra; 5 Phase-11 Lean files never compiled |
+| Coverage | **93.96 %** project total; the 15 Phase 13–15 modules total **69 %** (`khovanov_odd` 29 %, `massey_products` 49 %, `concordance` 49 %, `eilenberg_maclane` 57 %, `chain_homotopy` 59 %, `milnor_fibers` 65 %); `_gpu_backend.py` 24 % |
+| Declared public API | `pytop.__all__` names **1 203** symbols, but **2 058** public non-module attributes are reachable as `pytop.X` — **855 are missing from `__all__`**, every Phase 5–15 symbol included |
+| Lint / types | `ruff check src tests` clean; `mypy src/pytop` clean over 250 source files (`_internal/` is excluded from both — which is how defect #4 survived) |
+| Source size | 212 top-level modules in `src/pytop` + 25 in `experimental`; 120 626 source lines |
+| Lean corpus | 24 `.lean` files outside `.lake`, 219 theorems/lemmas, **0 `sorry`** — kernel-compiled (`.olean` present) for **SNF and SetTopology only**; the 5 Phase-11 files are **not** compiled and no CI job runs `lake` |
 | Optional external bridges | 3 — GAP (groups), Regina (triangulations, normal surfaces), SnapPy (hyperbolic geometry); all opt-in, none a runtime dependency |
-| Open roadmap items | **0** |
 | Representations in `experimental.spaces` | 19 |
 | Predicates (with witnesses) | 16 |
-| pi-Base spaces bridged | 222 |
+| pi-Base spaces bridged | 222 (155 of them have a concrete pytop representation) |
 | pi-Base properties / theorems / traits | 243 / 902 / 2 099 |
+| API reference pages | **226** `.rst` module stubs under `docs/api/modules/` |
+| External contributors | **1 human** (two email aliases) against the Phase-20 target of 10+; 12 GitHub issues, **0 open** — the 12 good-first-issues #35–#46 were closed by the maintainer |
 | Phase 1 milestones complete | 5 / 5 ✅ |
 | Phase 2 milestones complete | 8 / 8 ✅ |
 | Phase 3 milestones complete | 3 / 3 ✅ |
@@ -587,16 +729,16 @@ Cross-validates pytop against independent gold-standard external systems via uni
 | Phase 8 milestones complete | 6 / 6 ✅ (Profile→Computational: advanced algebra) |
 | Phase 9 milestones complete | 6 / 6 ✅ (`experimental.spaces` expansion) |
 | Phase 10 milestones complete | 5 / 5 ✅ (scale & algorithm) |
-| Phase 11 milestones complete | 5 / 5 ✅ (Lean formal verification expansion) |
+| Phase 11 milestones complete | 5 / 5 shipped (Lean formal verification expansion) — the five files are 0-sorry by grep but have never been kernel-compiled in this tree; see the Lean corpus row |
 | Phase 12 milestones complete | **6 / 6 ✅ COMPLETE** (sheaf cohomology, persistent K-theory, countably infinite complexes, homeomorphism, GAP bridge, Regina bridge) |
 | Phase 13 milestones complete | 5 / 5 ✅ (homotopy theory) |
 | Phase 14 milestones complete | 5 / 5 ✅ (advanced knot homology) |
 | Phase 15 milestones complete | 5 / 5 ✅ (4-manifold topology) |
 | Phase 16 milestones complete | 3 / 3 ✅ (P16.1–P16.3: benchmark, oracle parity, statistical validation — **GUDHI cross-validation wired & passing: 10K-complex run at 100.0% pytop=GUDHI parity**) |
-| Phase 17 milestones complete | 3 / 3 ✅ (P17.1 profiling ✅; P17.2 method selection ✅; **P17.3 ✅ — inductive Rips build ~14–19× + size-aware auto reduction routing now default, up to ~12× faster end-to-end, byte-identical output**) |
+| Phase 17 milestones complete | 3 / 3 shipped (P17.1 profiling; P17.2 method selection; P17.3 inductive Rips build + size-aware auto reduction routing, byte-identical output) — **the phase target is unmet**: Rips n=500 runs in 0.996 s at `max_dimension=1` but **9.06 s at `max_dimension=2`** against a <1 s target, and "memory linear in simplex count" was never measured |
 | Phase 18 milestones complete | 3 / 3 ✅ (user guide, API ref, example bank) — the 16-chapter user guide is now **enriched across all four formats** (LaTeX/Markdown/Python/Notebook): intuition + counter-example boxes, proof sketches, verified pytop examples, exercises with solutions, and **46 figures** (8 → 46) |
-| Phase 19 milestones complete | 3 / 3 ✅ (P19.1 error messages, P19.2 deprecation policy + `@deprecated` + `DEPRECATIONS.md` *Candidates*, P19.3 API design audit — finding #3 resolved via soft-deprecated `persistent_homology_optimized` → `persistent_homology(method="auto")`) |
-| Phase 20 milestones complete | 3 / 3 ✅ (P20.1 CI matrix ✅; **P20.2 PyPI publishing ✅ — `pytopology` live on PyPI** via GitHub Actions Trusted Publishing, ships `py.typed` + `python -m pytop` CLI; P20.3 community onboarding ✅ — `CONTRIBUTING.md`, issue/PR templates, and the 12 curated good-first-issues #35–#46 all **resolved & closed**) |
+| Phase 19 milestones complete | 3 / 3 shipped — **P19.1's stated target is unmet**: "zero ambiguous error messages", but roughly 7 of ~208 `raise ValueError`/`TypeError` sites in `src/pytop/*.py` follow WHY-HOW-THEN, and the test class the milestone doc names (`TestErrorMessages`) does not exist. (P19.1 error messages, P19.2 deprecation policy + `@deprecated` + `DEPRECATIONS.md` *Candidates*, P19.3 API design audit — finding #3 resolved via soft-deprecated `persistent_homology_optimized` → `persistent_homology(method="auto")`) |
+| Phase 20 milestones complete | 3 / 3 shipped (P20.1 CI matrix; **P20.2 PyPI publishing — `pytopology` live on PyPI** via GitHub Actions Trusted Publishing, ships `py.typed` + `python -m pytop` CLI; P20.3 `CONTRIBUTING.md`, issue/PR templates, good-first-issues #35–#46) — **the community target is unmet**: 1 contributor against the 10+ target, and all 12 issues were closed by the maintainer, leaving 0 open |
 | **Current version** | **v1.10.0** — live on PyPI as **`pytopology`** (`import pytop`) |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
