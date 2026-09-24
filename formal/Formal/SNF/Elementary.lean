@@ -111,7 +111,7 @@ theorem addCol_entry_unaffected (A : IntMatrix) (src dst k c : Nat) (factor : In
   | some r => simp [if_neg hc]
 
 /-- `addRow` at (dst, c) satisfies the expected additive formula.
-    The out-of-bounds case (c past end of row dst) is sorry'd. -/
+    The out-of-bounds case (c past end of row dst) is proved. -/
 theorem addRow_entry_dst (A : IntMatrix) (src dst c : Nat) (factor : Int)
     (hdst : dst < numRows A) (hc : c < (A.getD dst []).length) :
     entry (addRow A src dst factor) dst c =
@@ -129,7 +129,7 @@ theorem addRow_entry_dst (A : IntMatrix) (src dst c : Nat) (factor : Int)
   exact getD_eq_entry A src c
 
 /-- `addCol` at (k, dst) satisfies the expected additive formula.
-    The out-of-bounds case is sorry'd. -/
+    The out-of-bounds case is proved. -/
 theorem addCol_entry_dst (A : IntMatrix) (src dst k : Nat) (factor : Int)
     (hk : k < numRows A) (hdst : dst < (A.getD k []).length) :
     entry (addCol A src dst factor) k dst =

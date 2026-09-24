@@ -1,3 +1,5 @@
+> **⚠️ Superseded — historical snapshot of 2026-06-23 only.** Several statements below were reversed afterwards (most notably P17.3, recorded here as "Planning" with parallelisation skipped; it shipped). For current status see `docs/AUDIT_2026_09_24.md` and `CHANGELOG.md`.
+
 # Session Summary: 2026-06-23
 ## Autonomous Task Completion: Phases 17–20
 

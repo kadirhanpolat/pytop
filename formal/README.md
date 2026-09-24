@@ -9,9 +9,31 @@ Prove that `pytopSNF` (a fuel-bounded implementation of integer SNF via elementa
 row/column operations) is correct: it terminates, produces positive invariant factors,
 and the factors form a divisibility chain.
 
-## Status: **Complete**
+## Status: **Complete — but read the build caveat**
 
-All theorems proved. `lake build` passes with 0 errors, 0 sorries.
+All theorems proved: **24** `.lean` files outside `.lake`, **219** theorems/lemmas,
+**0 `sorry` tactics**.
+
+> ### ⚠️ "0 sorry" is grep-verified, not kernel-verified, for Phase 11
+>
+> The zero-sorry claim is a text search over the sources. For the SNF and
+> point-set modules it is backed by a real build. For the five Phase 11 files it
+> is **not**:
+>
+> - `Formal.lean` imports `MayerVietoris`, `VanKampen`, `CohomologyRing`,
+>   `PersistencePairing` and `SpectralSequences`. **None of the five has an
+>   `.olean` in `formal/.lake/build`** — they have never been compiled in this
+>   tree. `SetTopology` and 8 of the 9 `SNF/*` files have one (`SNF/TestLemmas.lean` is imported by nothing, so none is expected).
+> - `SetTopologyAltProofs.lean` is **not imported by `Formal.lean` at all**, so
+>   `lake build` never reaches it either.
+> - There is **no `lake` job in `.github/workflows/`**. Nothing compiles this
+>   directory on CI, so no build result is pinned to a commit.
+>
+> Until `lake build` is run over the full import graph — and ideally wired into
+> CI — treat Phase 11 as *written and sorry-free in source*, not as
+> kernel-checked. Only the Lean kernel can turn the first into the second.
+
+For the modules that *are* compiled, `lake build` passes with 0 errors, 0 sorries.
 
 ```
 pytopSNF_isInvariantFactors : IsInvariantFactors (pytopSNF A)
@@ -47,8 +69,17 @@ Formal/
                             Banach fixed-point (existence + uniqueness)
   Basic.lean              — set-theoretic utilities
   Homology.lean           — simplicial homology (descriptive layer)
+  EulerChar.lean          — Euler characteristic
   PiBase.lean             — pi-Base property reasoning
   PersHomology.lean       — persistent homology stubs
+
+Formal/  (Phase 11 — imported by Formal.lean, but NEVER COMPILED in this tree:
+          no .olean exists for any of the five; see the build caveat above)
+  MayerVietoris.lean      — connecting morphism well-definedness, snake diagram
+  VanKampen.lean          — Tietze equivalence, pushout universal property
+  CohomologyRing.lean     — cup product associativity, Leibniz rule over ℤ/2
+  PersistencePairing.lean — reduction is perfect, births are distinct
+  SpectralSequences.lean  — d∘d = 0, convergence of constant sequences
 
 tools/
   bilingual_docs.py       — generates bilingual (EN/TR) Markdown proof documentation
@@ -76,8 +107,17 @@ tools/
 | File | Theorems | Status |
 |------|----------|--------|
 | SetTopology.lean | 34 | **all proved** — T0–T4 separation, closure/interior duality, compactness, continuity, diagonal characterisation, 0 sorry |
-| SetTopologyAltProofs.lean | 24 | **all proved** — alternative strategies for SetTopology results (by contradiction, contrapositive, direct, duality, simp-heavy), 0 sorry |
-| MetricTopology.lean | ~15 | **all proved** — ε-δ ↔ topological continuity, Cauchy sequences, Banach fixed-point (1 sorry: contraction uniqueness — Cauchy completeness lemma deferred) |
+| SetTopologyAltProofs.lean | 24 | **all proved** — alternative strategies for SetTopology results (by contradiction, contrapositive, direct, duality, simp-heavy), 0 sorry. **Never compiled:** not imported by `Formal.lean`, so `lake build` never reaches it. |
+| MetricTopology.lean | ~15 | **all proved** — ε-δ ↔ topological continuity, Cauchy sequences, Banach fixed-point (existence *and* uniqueness), **0 sorry**. The previously noted "1 sorry: contraction uniqueness" is gone: the file contains no `sorry` tactic, and it is compiled (`MetricTopology.olean` is present). |
+
+### Phase 11 modules
+
+`MayerVietoris.lean`, `VanKampen.lean`, `CohomologyRing.lean`,
+`PersistencePairing.lean` and `SpectralSequences.lean` are listed in
+`formal/ROADMAP.md` with their theorems. They are **not** given a status row here
+because none of them has been compiled — see the build caveat at the top of this
+file. `formal/ROADMAP.md` also records the `Bridge.lean` gap: `IsSmithNF` is
+positivity plus divisibility chain only, with no matrix-equivalence clause.
 
 ## Building
 

@@ -1,6 +1,9 @@
 # Formal Verification Roadmap
 
-Status as of 2026-06-23. **All theorems proved. Phase 11 complete.**
+Status as of 2026-06-23, corpus figures and open items re-measured 2026-09-24.
+**All theorems proved, 0 `sorry` tactics. Phase 11 complete in source.** Two gaps
+remain open and are listed under *Open items* below: the Phase 11 files have never
+been compiled, and `IsSmithNF` is still missing its matrix-equivalence clause.
 
 ## Completed
 
@@ -66,7 +69,11 @@ Status as of 2026-06-23. **All theorems proved. Phase 11 complete.**
 
 ## Phase 11: Algebraic Topology Extensions (2026-06-23)
 
-Five new proof files extending the formal corpus to 13 files:
+Five new proof files. The corpus now stands at **24 `.lean` files outside
+`.lake`, carrying 219 theorems/lemmas** (measured 2026-09-24). Earlier revisions
+of this line said "13 files"; 13 counts only the top-level `Formal/*.lean` and
+omits the nine files under `Formal/SNF/`. None of the five files below has been
+compiled in this tree — see the build caveat in `formal/README.md`.
 
 ### MayerVietoris.lean (P11.1)
 - [x] `delta_well_defined`          — two lifts of c ∈ C differ by im(i)
@@ -104,6 +111,36 @@ Five new proof files extending the formal corpus to 13 files:
 - [x] `stabilizes_mono`             — stabilisation is upward-closed
 - [x] `same_diff_implies_same_stab` — sequences agreeing from r₀ share stabilisation
 - [x] `const_pages_convergent`      — sequence with constant pages converges
+
+## Open items
+
+### `Bridge.lean` does not exist — `IsSmithNF` is not the full specification
+
+`formal/Formal/SNF/Defs.lean:53` defines `IsSmithNF` as **positivity plus the
+divisibility chain only**. The clause that makes a Smith normal form a *normal
+form* — that the diagonal matrix is equivalent to the input under unimodular
+row/column operations, `D = U · A · V` with `det U = det V = ±1` — is deferred to
+a `Bridge.lean` that has never been written.
+
+Two consequences follow:
+
+1. `pytopSNF_isInvariantFactors` proves that the output is a positive divisibility
+   chain. It does **not** prove that the chain is the Smith normal form of `A`. A
+   function returning `[1]` for every input would satisfy the current `IsSmithNF`.
+2. Nothing pins `pytopSNF` to the shipped Python. `pytopSNF` is a Lean
+   re-implementation of the algorithm in `pytop.exact_linalg`; no extraction, no
+   differential test, and no refinement proof connects the two. A divergence
+   between the Lean model and `src/pytop/exact_linalg.py` would go undetected.
+
+Closing this needs `Bridge.lean` (the equivalence clause plus the unimodularity
+invariant the loop already maintains informally — see the loop invariant quoted in
+`Correctness.lean`) and, separately, a story for the Lean↔Python correspondence.
+
+### Phase 11 has never been compiled
+
+The five Phase 11 files are imported by `Formal.lean` but have no `.olean`, and
+there is no `lake` job in `.github/workflows/`. Their "0 sorry" status is
+grep-verified only. See `formal/README.md` for the full caveat.
 
 ## Key Proof Insights
 

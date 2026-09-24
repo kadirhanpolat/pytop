@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Documentation-truth pass after a repository-wide audit.** A 25-agent sweep
+  read every roadmap phase against the code, seven findings were reproduced by
+  hand, and the documentation was corrected to match what is actually shipped.
+  No library code changed in this pass.
+  - New: `docs/AUDIT_2026_09_24.md` -- the durable record. Method, the seven
+    hand-verified defects (each with the command that reproduces it, why the
+    suite missed it, and the smallest fix), the sweep findings that were *not*
+    re-run by hand, the three unmet phase targets, what was never started, the
+    verification gaps that let all of it through, and a prioritised order of
+    work. It is the single reference for the detail behind the corrections
+    listed below.
+  - `experimental.spaces` is described as **19** representations and 16
+    predicates wherever a count appears; the Part I limits list was rewritten
+    against the current code rather than left at its Phase-1 wording.
+  - Triangulation sizes corrected: `torus_filtration()` and
+    `klein_bottle_filtration()` are each **V=9, E=27, F=18** (3x3 grid
+    triangulations), not the "7-vertex minimal" and "8-vertex minimal"
+    triangulations previously claimed. Only `rp2_filtration()` is minimal, at
+    **V=6, E=15, F=10**. The modules' own docstrings already said so.
+  - The networkx planarity regression is `for n in range(1, 6)` -- **all 1 099
+    graphs on <=5 vertices**, in
+    `tests/core/test_graph_planarity.py::test_exhaustive_all_graphs_up_to_5_vertices`.
+    The "all <=6-vertex graphs (33 867)" claim is withdrawn. The sweep is also
+    networkx-gated, so it skips in CI today.
+  - `cellular_homology.cw_lens_space(p)` takes **no `q` parameter**: only
+    **L(p,1)** is implemented, not general L(p,q).
+  - `SolenoidSpace` is documented as `class SolenoidSpace(Space)`; it does not
+    specialise `InverseLimitSpace`.
+  - Counts refreshed against a live run: **12 318 collected / 12 278 passed /
+    37 skipped / 3 xpassed** (README said 22 skipped); **226** `.rst` module
+    stubs under `docs/api/modules/` (README said 225).
+  - Two historical figures are wrong. The v1.0.8 entry below says "4 modules,
+    13 new functions"; its own bullets enumerate **15** functions. The published
+    entry stays as released, and the correct figure is recorded here. Likewise
+    v1.0.5 (P7.2-P7.6) shipped **153** new tests, not 186 -- 186 is the
+    six-milestone Phase-7 total, and P7.1's 33 of those shipped in v1.0.4.
+  - The Lean status tables now distinguish grep-verified from kernel-verified.
+    The zero-`sorry` count holds across all 24 project-owned `.lean` files, but
+    the five Phase-11 files (`MayerVietoris`, `VanKampen`, `CohomologyRing`,
+    `PersistencePairing`, `SpectralSequences`) have no `.olean` in this tree and
+    no `lake` job exists in CI, so for those five the claim is a grep result.
+  - `.readthedocs.yml`: the stale `python.version: 3.12` key was removed. It was
+    dropped from the Read the Docs v2 schema and is superseded by the
+    `build.tools.python` entry already present.
+
 ## [1.10.0] — 2026-09-23
 
 ### Added

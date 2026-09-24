@@ -123,7 +123,7 @@ theorem dvd_natAbs_cast {a b : Int} (h : a ∣ b) : (a.natAbs : Int) ∣ b :=
 **Branch 2** (`¬ pivotDividesAll A₃ t`, `pivotDividesAll A₅ t`): M' = A₅, d = ↑(entry A₅ t t).natAbs.
   Same argument; `entry A₅ t t ≠ 0` follows from the pivot-preservation chain
   `clearLoop_preserves_pivot` + `enforceDivisibility_preserves_pivot` (which requires
-  `isCleared A₃ t`, still sorry'd pending the fuel-sufficiency argument).
+  `isCleared A₃ t`, bypassed and proved 2026-06-20 via `clearLoop_col_lt_pivot`).
 
 **Branch 3** (both false): `snfOuterStep` returns `none`, contradicting `h`. -/
 theorem snfOuterStep_divides_submatrix (A : IntMatrix) (t innerFuel : Nat)

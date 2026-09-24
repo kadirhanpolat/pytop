@@ -11,18 +11,23 @@ We prove that every factor returned by `pytopSNF` is strictly positive.
 
 ## Proof chain
 
-1. `findPivot A t = some (pi, pj)` → `entry A pi pj ≠ 0` (sorry).
-2. Swapping rows/cols moves the pivot to (t,t) (sorry).
+All six steps are proved; no `sorry` remains in this file.
+
+1. `findPivot A t = some (pi, pj)` → `entry A pi pj ≠ 0` — proved.
+2. Swapping rows/cols moves the pivot to (t,t) — proved.
 3. **`clearLoop_preserves_pivot`** — proved here by induction on fuel.
 4. Combining 1–3: the diagonal entry at (t,t) is always nonzero after setup.
-5. `snfOuterStep_pos` — sorry-scaffolded, with key structural cases.
-6. `pytopSNF_positive` — sorry; follows by induction on the `go` helper.
+5. `snfOuterStep_pos` — proved, via `clearLoop_col_lt_pivot` +
+   `enforceDivisibility_pivot_ne_zero` (see `formal/README.md`, *Positivity:
+   bypassing `isCleared`*).
+6. `pytopSNF_positive` — proved (below, in this file), by induction on the `go`
+   helper.
 -/
 
 namespace PytopSNF
 
 -- ---------------------------------------------------------------------------
--- Sub-lemmas (sorry'd algebraic steps)
+-- Sub-lemmas (all proved)
 -- ---------------------------------------------------------------------------
 
 /-- `findPivot` only returns positions with nonzero entries. -/
@@ -484,7 +489,7 @@ theorem natAbs_cast_pos {x : Int} (h : x ≠ 0) : (0 : Int) < ↑x.natAbs :=
 
 /-- Every factor returned by `snfOuterStep` is strictly positive.
 
-Proof sketch (sorry'd):
+Proof outline (fully proved below):
 - `findPivot` returns none → result is `none` → h : none = some d → contradiction.
 - `findPivot` returns `some (pi, pj)`:
   - A₂ = swapCols (swapRows A pi t) pj t:  entry A₂ t t = entry A pi pj ≠ 0
@@ -492,7 +497,7 @@ Proof sketch (sorry'd):
     entry A₃ t t = entry A₂ t t ≠ 0  (clearLoop_preserves_pivot)
   - If pivotDividesAll A₃:  d = ↑(entry A₃ t t).natAbs > 0  ✓
   - Else:  A₄ = enforceDivisibility A₃ t;  A₅ = clearLoop A₄ t innerFuel
-    entry A₄ t t = entry A₃ t t ≠ 0  (enforceDivisibility_preserves_pivot — sorry'd)
+    entry A₄ t t = entry A₃ t t ≠ 0  (enforceDivisibility_preserves_pivot)
     entry A₅ t t = entry A₄ t t ≠ 0  (clearLoop_preserves_pivot)
     If pivotDividesAll A₅:  d = ↑(entry A₅ t t).natAbs > 0  ✓
     Else:  result is none → h : none = some d → contradiction. -/

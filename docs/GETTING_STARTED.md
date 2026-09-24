@@ -160,7 +160,7 @@ graphs. For the minimal genus surface a graph *does* embed in, use
 ## Where to go next
 
 - **API reference** — every public function is documented via Sphinx autodoc
-  (225 modules). Build it locally or browse the generated reference.
+  (226 modules). Build it locally or browse the generated reference.
 - **`examples_bank/`** — a large collection of worked examples organized by topic
   (homology, knot theory, TDA pipelines, manifolds, graph topology, cardinal
   functions, combinatorial topology, advanced algebra).
