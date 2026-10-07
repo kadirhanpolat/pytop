@@ -7,6 +7,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`khovanov_odd` computes odd Khovanov homology** (audit 3.1). The engine is
+  rewritten from Ozsváth–Rasmussen–Szabó (2013): exterior-algebra merge and split
+  maps, an arrow at each crossing (rotated 90° counterclockwise in the
+  1-resolution), square faces typed A/C/X/Y with the ladybug X/Y type read off the
+  planar diagram, and a type-X edge assignment solved on a spanning-tree gauge and
+  checked on every face. The old engine used the even Koszul sign with an
+  unfinished merge map: its "complex" failed `d∘d = 0` (trefoil, bidegree (1, 5))
+  and gave rank 25 on the trefoil, where ORS §5 gives 6.
+  - **Checked against KnotInfo's integral odd Khovanov homology** (the
+    `database_knotinfo` data, column `khovanov_odd_integral_polynomial`): equal over
+    ℤ, torsion included, on all 35 prime knots through 8 crossings (in the test
+    suite; `8_19` carries ℤ/2 and ℤ/3) and on 35 more with 9–10 crossings in a
+    longer offline sweep — 34 of the 49 nine-crossing knots, among them the
+    non-quasi-alternating `9_42` and `9_46`, plus `10_2`. No mismatch, and every
+    knot came out in KnotInfo's chirality.
+  - Also matches ORS §5: reduced rational rank 3 for `8_19` and `10_124`.
+  - `tests/core/test_khovanov_odd.py` (170 tests) checks `d∘d = 0`, ORS Lemma 2.1,
+    Prop. 1.6 (mod 2 equals even Khovanov), Prop. 1.7 (unreduced is two copies of
+    reduced, over ℤ), σ-thinness of alternating knots, Reidemeister and
+    relabelling invariance, and the KnotInfo table. Module coverage 29 % → 97 %.
+    Each of six deliberately broken variants of the engine fails the suite; the two
+    variants the theory says are equivalent (type-Y signs, clockwise arrows) pass.
+- **Khovanov homology no longer hangs when python-flint is installed.**
+  `homology._smith_normal_form` now sends sparse matrices (min-dim ≥ 30, density
+  < 30 %) to the sparse path before FLINT is considered. FLINT's `snf()` falls back
+  to Kannan–Bachem on singular input: on the 443×476 even-Khovanov differential of
+  `7_2` it ran past 60 s and 5 GB, where the sparse path takes 0.13 s — so with the
+  `[fast]` or `[oracles]` extra, even and odd Khovanov homology of a 7-crossing knot
+  hung. This is the audit's §4 lead on unreachable sparse routing, with its
+  consequence. Dense matrices still go to FLINT, which is far faster on them.
+  `tests/core/test_snf_routing.py` pins the routing.
+
+### Changed
+
+- `compare_khovanov_parities(...)["agree_mod_2"]` compares `dim H(·; 𝔽₂)` by
+  universal coefficients, as its name says — by ORS Prop. 1.6 it is always true —
+  instead of comparing the integral groups. The new `mod_2_differences` key lists
+  any bidegree where the mod-2 dimensions differ. `agree_at`, `differ_at` and
+  `n_differences` still compare the integral groups.
+
+### Removed
+
+- The private helper `khovanov_odd._odd_sign`. It computed the *even* Koszul
+  sign, which is the reason the old odd engine was wrong.
+
+### Documentation
+
+- README's known-defects section is a table of what is fixed and where; it had
+  still listed the four defects fixed in v1.10.1 as open.
+- The "~5–8× faster even on sparse matrices" FLINT claim is corrected in README,
+  `docs/COMPLEXITY.md` and the roadmap: it held on the small matrices it was
+  measured on, not on large sparse singular ones.
+
 ## [1.10.1] — 2026-10-07
 
 ### Fixed
