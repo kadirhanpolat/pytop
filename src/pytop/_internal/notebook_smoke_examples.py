@@ -17,12 +17,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
-from .construction_contracts import finite_product_contract
-from .metric_contracts import finite_metric_contract
-from .metric_spaces import FiniteMetricSpace
-from .predicate_contracts import finite_subset_predicate_contract, symbolic_subset_predicate_contract
-from .result import Result
-from .result_rendering import render_result
+from ..construction_contracts import finite_product_contract
+from ..metric_contracts import finite_metric_contract
+from ..metric_spaces import FiniteMetricSpace
+from ..predicate_contracts import finite_subset_predicate_contract, symbolic_subset_predicate_contract
+from ..result import Result
+from ..result_rendering import render_result
 
 
 @dataclass(frozen=True, slots=True)

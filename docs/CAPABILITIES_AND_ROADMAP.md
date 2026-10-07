@@ -184,15 +184,15 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
   Euler characteristics must agree. The cube builder (`khovanov_odd.py:125–264`) never
   executes under test — module coverage is 29 % and the only tests pass
   `KnotDiagram(pd=(), signs=())`, a diagram with zero crossings.
-- **`TDAPipeline.from_points` discards its argument.** `tda_pipeline.py:104` is
+- **[Fixed, Unreleased]** **`TDAPipeline.from_points` discards its argument.** `tda_pipeline.py:104` is
   `return cls()`; the frozen dataclass has no `points` field at all, so the argument is
   dropped and `p.points` raises `AttributeError`. The documented `.from_points(pts).rips()`
   chain always raises `ValueError`. `.reduce()` also rejects `'auto'`, so the P17.3
   default routing is unreachable through the builder.
-- **`cech_filtration` is non-deterministic and mutates the global RNG.**
+- **[Fixed, Unreleased]** **`cech_filtration` is non-deterministic and mutates the global RNG.**
   `cech_complex.py:172` calls `random.shuffle` on the module-global `random`; 12
   identical runs on the same 7-point circle produced 3 distinct barcodes.
-- **18 of the 72 `src/pytop/_internal/` modules fail to import** — `from .result import
+- **[Fixed, Unreleased]** **18 of the 72 `src/pytop/_internal/` modules fail to import** — `from .result import
   Result` where the module is at `src/pytop/result.py` (correct: `from ..result import`).
   The broken set is precisely the release/quality tooling: `package_verifier`,
   `manifest_checker`, `release_report_standard`, `integration_quality_gate`,
@@ -207,7 +207,7 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
   defect: the figure-eight's Seifert matrix is `[[-1,1],[0,1]]` in the literature while
   pytop returns `diag(1,−1)`, and the off-diagonal derivation (`seifert.py:400–450`) is
   an unresolved comment-block argument.
-- **CI never installs the `oracles` extra.** `.github/workflows/ci.yml:37` installs only
+- **[Fixed, Unreleased]** **CI never installs the `oracles` extra.** `.github/workflows/ci.yml:37` installs only
   `.[dev]` (pytest, pytest-cov, ruff, mypy), so numpy/sympy/networkx/gudhi/python-flint
   are absent and all 13 differential-oracle tests plus both networkx planarity sweeps
   skip on every CI run.
@@ -667,11 +667,11 @@ reproductions.
 | # | Defect | Where |
 |---|--------|-------|
 | 1 | Odd Khovanov disagrees with even Khovanov on every knot with crossings (trefoil: total free rank 25 vs 4; `compare_khovanov_parities` → `agree_mod_2: False`, 9 of 12 gradings) — the two must share a graded Euler characteristic. The cube builder is never exercised: 29 % coverage, tests use a 0-crossing diagram | `src/pytop/khovanov_odd.py:125–264` |
-| 2 | `TDAPipeline.from_points` discards its argument (`return cls()`), so `points` is `None` and the documented `.from_points(pts).rips()` chain always raises; `.reduce()` additionally rejects `'auto'` | `src/pytop/tda_pipeline.py:104` |
-| 3 | `cech_filtration` shuffles with the module-global `random`: non-deterministic output and a mutated global RNG (12 identical runs → 3 distinct barcodes) | `src/pytop/cech_complex.py:172` |
-| 4 | 18 of 72 `_internal` modules fail to import (`from .result import Result` instead of `from ..result import`); the broken set is exactly the release/quality tooling, and `_internal` is excluded from ruff, mypy, coverage and the CI doctest step | `src/pytop/_internal/` |
+| 2 ✅ fixed | `TDAPipeline.from_points` discards its argument (`return cls()`), so `points` is `None` and the documented `.from_points(pts).rips()` chain always raises; `.reduce()` additionally rejects `'auto'` | `src/pytop/tda_pipeline.py:104` |
+| 3 ✅ fixed | `cech_filtration` shuffles with the module-global `random`: non-deterministic output and a mutated global RNG (12 identical runs → 3 distinct barcodes) | `src/pytop/cech_complex.py:172` |
+| 4 ✅ fixed | 18 of 72 `_internal` modules fail to import (`from .result import Result` instead of `from ..result import`); the broken set is exactly the release/quality tooling, and `_internal` is excluded from ruff, mypy, coverage and the CI doctest step | `src/pytop/_internal/` |
 | 5 | `_sylvester_signature` is wrong when the diagonal contains zeros (17 of 400 random symmetric matrices disagree with `numpy.linalg.eigvalsh`). The public `signature` is currently correct on trefoil/figure-8/cinquefoil only because `seifert_matrix` emits diagonal matrices — which is the deeper defect: figure-8 should be `[[-1,1],[0,1]]`, pytop gives `diag(1,−1)` | `src/pytop/seifert.py:400–450` |
-| 6 | CI installs only `.[dev]`, never the `oracles` extra, so all 13 differential-oracle tests and both networkx planarity sweeps skip on every run | `.github/workflows/ci.yml:37` |
+| 6 ✅ fixed | CI installs only `.[dev]`, never the `oracles` extra, so all 13 differential-oracle tests and both networkx planarity sweeps skip on every run | `.github/workflows/ci.yml:37` |
 | 7 | The five Phase-11 Lean files have no `.olean` in this tree and no workflow runs `lake`; `SetTopologyAltProofs.lean` (27 theorems) is not imported at all — "0 sorry" is grep-verified, not kernel-verified, for Phase 11 | `formal/Formal.lean` |
 
 **Two phase targets are unmet.**
@@ -705,8 +705,8 @@ reproductions.
 | Metric | Value |
 |--------|-------|
 | Tests | **12 278 passing / 37 skipped / 3 xpassed of 12 318 collected** (full `pytest tests/`, ~136 s; the skips are opt-in Docker bridges and oracles) — includes 107 validation tests (oracle parity + benchmark + statistical + GUDHI betti-parity) |
-| Open roadmap items | **0 named milestones unstarted** — every milestone of Phases 0–20 has shipped code. What is open is **7 verified defects + 3 unmet phase targets**, not unwritten work; see `docs/AUDIT_2026_09_24.md` |
-| Verified defects open | **7** — odd Khovanov wrong on knots with crossings; `TDAPipeline.from_points` discards its argument; `cech_filtration` non-deterministic; 18 `_internal` modules fail to import; `_sylvester_signature` wrong on zero-diagonal matrices; CI never installs the `oracles` extra; 5 Phase-11 Lean files never compiled |
+| Open roadmap items | **0 named milestones unstarted** — every milestone of Phases 0–20 has shipped code. What is open is **3 verified defects (4 of 7 fixed, Unreleased) + 3 unmet phase targets**, not unwritten work; see `docs/AUDIT_2026_09_24.md` |
+| Verified defects open | **3 of 7** — odd Khovanov wrong on knots with crossings; `_sylvester_signature` wrong on zero-diagonal matrices; 5 Phase-11 Lean files never compiled. **Fixed (Unreleased):** `TDAPipeline.from_points`, `cech_filtration` determinism + monotonicity, `_internal` imports, CI `oracles` job |
 | Coverage | **93.96 %** project total; the 15 Phase 13–15 modules total **69 %** (`khovanov_odd` 29 %, `massey_products` 49 %, `concordance` 49 %, `eilenberg_maclane` 57 %, `chain_homotopy` 59 %, `milnor_fibers` 65 %); `_gpu_backend.py` 24 % |
 | Declared public API | `pytop.__all__` names **1 203** symbols, but **2 058** public non-module attributes are reachable as `pytop.X` — **855 are missing from `__all__`**, every Phase 5–15 symbol included |
 | Lint / types | `ruff check src tests` clean; `mypy src/pytop` clean over 250 source files (`_internal/` is excluded from both — which is how defect #4 survived) |

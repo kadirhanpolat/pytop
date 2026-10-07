@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 from zipfile import ZIP_DEFLATED, BadZipFile, ZipFile
 
-from .result import Result
+from ..result import Result
 
 
 DEFAULT_BUNDLE_REL = "docs/archive/archive_history_bundle_v1_0_288.zip"

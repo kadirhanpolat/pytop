@@ -66,3 +66,39 @@ jobs:
             --ignore=src/pytop/nerve_complex.py \
             --ignore=src/pytop/shape_theory.py \
             --ignore=src/pytop/topological_field_theory.py
+
+  # Differential oracles (audit 2026-09-24, finding 3.5). The matrix above
+  # installs only `.[dev]`, so it tests the pure-Python core — including the
+  # pure-Python SNF, which python-flint would otherwise take over. This job
+  # installs the `oracles` extra and sets PYTOP_REQUIRE_ORACLES=1, which turns
+  # any skip caused by a missing oracle package into a failure (tests/conftest.py).
+  # Docker-based oracles (Sage, SnapPy, GAP, Regina) stay opt-in.
+  oracles:
+    name: Differential oracles (Python 3.13)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Cache pip
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-oracles-3.13-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-oracles-3.13-
+
+      - name: Install package with oracle dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,oracles]"
+
+      - name: Run the full suite with oracles required
+        env:
+          PYTOP_REQUIRE_ORACLES: "1"
+        run: pytest tests/ -q -rs

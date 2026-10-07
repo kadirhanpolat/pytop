@@ -25,7 +25,7 @@ from __future__ import annotations
 
 import math
 from collections.abc import Sequence
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Any
 
 from .cech_complex import cech_filtration
@@ -52,6 +52,7 @@ from .persistent_homology import (
 )
 from .persistent_homology_fp import is_prime, persistence_pairs_fp
 from .persistent_homology_optimized import (
+    persistence_pairs_auto,
     persistence_pairs_cohomology,
     persistence_pairs_twist,
 )
@@ -81,10 +82,14 @@ class TDAPipeline:
         The filtration, once built.
     computed_pairs : tuple[PersistencePair, ...] | None
         The persistence pairs, once reduced.
+    points : tuple[tuple[float, ...], ...] | None
+        The point cloud given to :meth:`from_points`, used by :meth:`rips`
+        and :meth:`cech` when they are called without ``points``.
     """
 
     filtered: FilteredComplex | None = field(default=None)
     computed_pairs: tuple[PersistencePair, ...] | None = field(default=None)
+    points: tuple[tuple[float, ...], ...] | None = field(default=None)
 
     # ------------------------------------------------------------------ #
     # Constructors                                                         #
@@ -101,7 +106,7 @@ class TDAPipeline:
         points : Sequence[Sequence[float]]
             A finite point cloud in R^d.
         """
-        return cls()
+        return cls(points=tuple(tuple(float(x) for x in p) for p in points))
 
     @classmethod
     def from_filtration(cls, filtered: FilteredComplex) -> TDAPipeline:
@@ -127,24 +132,25 @@ class TDAPipeline:
         Parameters
         ----------
         points :
-            The point cloud.  Required if this pipeline was created with
-            ``TDAPipeline()`` or ``TDAPipeline.from_points(pts)`` (pass
-            ``pts`` here in the latter case, or pass it to ``from_points``
-            and call ``rips()`` without arguments — but then ``points`` must
-            be stored elsewhere; passing it again here is simpler and safer).
+            The point cloud.  Defaults to the points stored by
+            :meth:`from_points`; required if the pipeline has none.
         max_dimension :
             Maximum simplex dimension.
         max_scale :
             Truncate filtration at this scale.
         """
         if points is None:
+            points = self.points
+        if points is None:
             raise ValueError(
-                "points must be supplied to .rips() when building from a point cloud."
+                "points must be supplied to .rips() when building from a point cloud. "
+                "Pass them here, or create the pipeline with "
+                "TDAPipeline.from_points(pts)."
             )
         fc = vietoris_rips_filtration(
             _PointSpace(points), max_dimension=max_dimension, max_scale=max_scale
         )
-        return TDAPipeline(filtered=fc, computed_pairs=None)
+        return replace(self, filtered=fc, computed_pairs=None)
 
     def cech(
         self,
@@ -158,18 +164,23 @@ class TDAPipeline:
         Parameters
         ----------
         points :
-            The point cloud.
+            The point cloud.  Defaults to the points stored by
+            :meth:`from_points`; required if the pipeline has none.
         max_dimension :
             Maximum simplex dimension.
         max_scale :
             Truncate at this circumradius.
         """
         if points is None:
+            points = self.points
+        if points is None:
             raise ValueError(
-                "points must be supplied to .cech() when building from a point cloud."
+                "points must be supplied to .cech() when building from a point cloud. "
+                "Pass them here, or create the pipeline with "
+                "TDAPipeline.from_points(pts)."
             )
         fc = cech_filtration(points, max_dimension=max_dimension, max_scale=max_scale)
-        return TDAPipeline(filtered=fc, computed_pairs=None)
+        return replace(self, filtered=fc, computed_pairs=None)
 
     # ------------------------------------------------------------------ #
     # Reduction step                                                       #
@@ -188,7 +199,9 @@ class TDAPipeline:
         ----------
         method :
             One of ``"standard"`` (Z/2 XOR), ``"twist"`` (Twist+Clearing),
-            ``"cohomology"`` (de Silva dual), ``"fp"`` (Z/p, requires ``prime``).
+            ``"cohomology"`` (de Silva dual), ``"auto"`` (Twist or cohomology by
+            complex size, as :func:`.persistent_homology` does by default), or
+            ``"fp"`` (Z/p, requires ``prime``).
         prime :
             The field characteristic for ``method="fp"``.  Must be prime.
             Ignored for other methods.
@@ -222,6 +235,8 @@ class TDAPipeline:
             pairs = persistence_pairs_twist(fc, **kw)
         elif method == "cohomology":
             pairs = persistence_pairs_cohomology(fc, **kw)
+        elif method == "auto":
+            pairs = persistence_pairs_auto(fc, **kw)
         elif method == "fp":
             if not is_prime(prime):
                 raise ValueError(f"prime must be a prime integer ≥ 2, got {prime!r}.")
@@ -229,10 +244,10 @@ class TDAPipeline:
         else:
             raise ValueError(
                 f"Unknown reduction method {method!r}.  "
-                "Choose from: 'standard', 'twist', 'cohomology', 'fp'."
+                "Choose from: 'standard', 'twist', 'cohomology', 'auto', 'fp'."
             )
 
-        return TDAPipeline(filtered=fc, computed_pairs=pairs)
+        return replace(self, computed_pairs=pairs)
 
     # ------------------------------------------------------------------ #
     # Multi-prime analysis                                                 #

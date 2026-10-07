@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from .package_verifier import version_to_tag
-from .result import Result
+from ..result import Result
 
 
 _ALLOWED_ARCHIVE_PREFIX = "docs/archive/archive_history_bundle_"

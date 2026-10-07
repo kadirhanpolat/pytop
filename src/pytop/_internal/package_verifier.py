@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 from zipfile import ZIP_DEFLATED, BadZipFile, ZipFile
 
-from .result import Result
+from ..result import Result
 
 
 ARCHIVE_BUNDLE_PREFIX = "docs/archive/archive_history_bundle_"

@@ -13,7 +13,7 @@ from importlib import import_module
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
-from .result import Result
+from ..result import Result
 
 
 CoreReference = str

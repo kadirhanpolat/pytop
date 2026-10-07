@@ -15,7 +15,7 @@ from .archive_bundle_checker import ArchiveBundleCheckReport, verify_archive_bun
 from .manifest_checker import ManifestCheckReport, check_manifest_surfaces
 from .package_verifier import PackageVerificationReport, verify_full_package_zip
 from .release_report_standard import ReleaseReportResult, run_release_report_standard
-from .result import Result
+from ..result import Result
 
 
 @dataclass(frozen=True, slots=True)

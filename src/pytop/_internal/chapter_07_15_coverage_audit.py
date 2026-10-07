@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
-from .result import Result
+from ..result import Result
 
 
 SURFACE_NAMES = (

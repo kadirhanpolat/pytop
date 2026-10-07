@@ -168,9 +168,9 @@ def _circumradius(points: Sequence[_Pt]) -> float:
         return 0.0
     if len(pts) == 1:
         return 0.0
-    # Randomise to achieve expected O(d! · n) time
-    import random
-    random.shuffle(pts)
+    # No shuffle: Welzl's randomisation only buys expected-time bounds on large
+    # inputs, and a simplex has at most max_dimension + 1 vertices. Shuffling made
+    # the float result order-dependent and consumed the caller's global RNG.
     _, r = _welzl(pts, [])
     return r
 
@@ -233,13 +233,23 @@ def cech_filtration(
     entries: list[tuple[float, int, tuple[int, ...]]] = [
         (0.0, 0, (i,)) for i in range(n)
     ]
+    birth_of: dict[tuple[int, ...], float] = {(i,): 0.0 for i in range(n)}
 
     for k in range(1, max_dimension + 1):
         for combo in combinations(range(n), k + 1):
-            verts = [pts[i] for i in combo]
-            r = _circumradius(verts)
+            facets = list(combinations(combo, k))
+            if any(f not in birth_of for f in facets):
+                continue
+            # The minimum enclosing ball radius is monotone under inclusion, but
+            # float rounding can put a coface ~1e-16 below a facet. Clamping keeps
+            # every face born no later than its cofaces, as a filtration requires.
+            r = max(
+                _circumradius([pts[i] for i in combo]),
+                max(birth_of[f] for f in facets),
+            )
             if max_scale is not None and r > max_scale:
                 continue
+            birth_of[combo] = r
             entries.append((r, k, combo))
 
     entries.sort(key=lambda e: (e[0], e[1], e[2]))

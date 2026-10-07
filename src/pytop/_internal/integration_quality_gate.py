@@ -21,7 +21,7 @@ from typing import Any, Mapping
 from .manuscript_integration import manuscript_integration_report
 from .notebook_smoke_examples import notebook_smoke_report
 from .questionbank_bridge import questionbank_bridge_report
-from .result import Result
+from ..result import Result
 
 
 EXPECTED_INTEGRATION_CHAPTERS: tuple[str, ...] = tuple(f"{n:02d}" for n in range(7, 16))

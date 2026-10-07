@@ -319,3 +319,56 @@ class TestComparePrimes:
             for p, pairs in result.items()
         }
         assert all(v == 1 for v in ess_h0.values()), f"H_0 counts: {ess_h0}"
+
+
+# ---------------------------------------------------------------------------
+# Audit 2026-09-24, finding 3.2 — from_points must keep its argument and the
+# P17.3 default "auto" routing must be reachable through the builder.
+# ---------------------------------------------------------------------------
+
+
+class TestFromPointsKeepsPoints:
+    def test_from_points_stores_points(self) -> None:
+        pts = _circle_points(6)
+        pipe = TDAPipeline.from_points(pts)
+        assert pipe.points == tuple(tuple(p) for p in pts)
+
+    def test_documented_chain_rips_without_arguments(self) -> None:
+        pts = _circle_points(8)
+        chained = TDAPipeline.from_points(pts).rips(max_dimension=2).reduce()
+        explicit = TDAPipeline().rips(pts, max_dimension=2).reduce()
+        assert chained.pairs() == explicit.pairs()
+
+    def test_documented_chain_cech_without_arguments(self) -> None:
+        pts = _circle_points(6)
+        chained = TDAPipeline.from_points(pts).cech(max_dimension=2).reduce()
+        explicit = TDAPipeline().cech(pts, max_dimension=2).reduce()
+        assert chained.pairs() == explicit.pairs()
+
+    def test_explicit_points_override_stored_points(self) -> None:
+        stored = _circle_points(5)
+        given = _circle_points(8)
+        pipe = TDAPipeline.from_points(stored).rips(given, max_dimension=1)
+        direct = TDAPipeline().rips(given, max_dimension=1)
+        assert pipe.filtered == direct.filtered
+
+    def test_points_survive_rips_and_reduce(self) -> None:
+        pts = _circle_points(6)
+        pipe = TDAPipeline.from_points(pts).rips(max_dimension=1).reduce()
+        assert pipe.points == tuple(tuple(p) for p in pts)
+
+    def test_rips_without_any_points_still_raises(self) -> None:
+        with pytest.raises(ValueError, match="points"):
+            TDAPipeline().rips(max_dimension=1)
+
+
+class TestReduceAuto:
+    def test_auto_is_accepted(self) -> None:
+        pipe = TDAPipeline.from_points(_circle_points(8)).rips(max_dimension=2)
+        assert pipe.reduce("auto").pairs() == pipe.reduce("twist").pairs()
+
+    def test_auto_matches_standard_barcode(self) -> None:
+        pipe = TDAPipeline.from_points(_circle_points(8)).rips(max_dimension=2)
+        assert sorted(pipe.reduce("auto").barcode()) == sorted(
+            pipe.reduce("standard").barcode()
+        )

@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from .chapter_07_15_coverage_audit import default_chapter_07_15_coverage_specs
-from .result import Result
+from ..result import Result
 
 
 API_MATRIX_VERSION = "v1.0.318"
