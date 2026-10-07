@@ -115,16 +115,9 @@ pytop has two complementary layers — keep this distinction in mind when extend
 
 ## Known defects (audited 2026-09-24)
 
-Each of the following was reproduced directly and is still open. They are shipped in v1.10.0 —
-read this list before trusting the module in question, and before writing anything that builds on it.
+Each of the following was reproduced directly and is still open — read this list before trusting
+the module in question, and before writing anything that builds on it.
 
-- **`khovanov_odd` is mathematically wrong on any knot with crossings.** On the trefoil,
-  `khovanov_homology` gives total free rank **4** (textbook-correct) while `khovanov_homology_odd`
-  gives **25**; `compare_khovanov_parities` on the two real engines returns `agree_mod_2: False`
-  with differences in 9 of 12 gradings. Odd and even Khovanov categorify the same Jones polynomial,
-  so their graded Euler characteristics must agree. The cube builder (`khovanov_odd.py:125–264`)
-  never executes: module coverage is 29% and every test passes `KnotDiagram(pd=(), signs=())`,
-  i.e. zero crossings.
 - **`seifert._sylvester_signature` is wrong on symmetric matrices with a zero diagonal** — 17
   mismatches in 400 random symmetric matrices against `numpy.linalg.eigvalsh`; the minimal
   counterexample `[[0,2,1],[2,0,-2],[1,-2,0]]` returns 0 where the true signature is 1. Note the
@@ -140,12 +133,25 @@ read this list before trusting the module in question, and before writing anythi
   (27 theorems) is not imported at all, and there is no `lake` job in `.github/workflows/`. So the
   "0 `sorry`" claim is grep-verified, not kernel-verified, for Phase 11.
 
-**Fixed since the audit (Unreleased), each behind a test that failed
-first:** `TDAPipeline.from_points` keeps its points and `.reduce("auto")` works (3.2);
-`cech_filtration` is deterministic, leaves the global RNG alone, and clamps births so no coface
-precedes its facet (3.3 — the clamp fixes `birth > death` bars the audit had not named); all 73
-`_internal` modules import, gated by `tests/core/test_internal_imports.py` (3.4); CI has an
-`oracles` job with `PYTOP_REQUIRE_ORACLES=1` (3.5).
+**Fixed since the audit, each behind a test that failed first.** In v1.10.1:
+`TDAPipeline.from_points` keeps its points and `.reduce("auto")` works (3.2); `cech_filtration` is
+deterministic, leaves the global RNG alone, and clamps births so no coface precedes its facet (3.3 —
+the clamp fixes `birth > death` bars the audit had not named); all 73 `_internal` modules import,
+gated by `tests/core/test_internal_imports.py` (3.4); CI has an `oracles` job with
+`PYTOP_REQUIRE_ORACLES=1` (3.5). Unreleased (v1.10.2): `khovanov_odd` is rewritten from
+Ozsváth–Rasmussen–Szabó and agrees with **KnotInfo's integral odd Khovanov homology on all 35 prime
+knots through 8 crossings**, torsion included (3.1; the old "complex" failed `d∘d = 0`); and
+`homology._smith_normal_form` sends sparse matrices to the sparse path *before* FLINT — FLINT's
+`snf()` falls back to Kannan–Bachem on singular input and hung (>60 s, >5 GB) on a 443×476 Khovanov
+block of `7_2` that the sparse path reduces in 0.13 s, so any Khovanov computation of 7+ crossings
+hung once python-flint was installed (the audit's §4 lead on unreachable sparse routing, now with
+its consequence).
+
+> **KnotInfo is the odd-Khovanov oracle.** The `database_knotinfo` wheel (Sage's data source, not a
+> pytop dependency) carries `khovanov_odd_integral_polynomial` — the *reduced* odd theory over ℤ, with
+> `T^(k)` marking ℤ/k — for 12 966 knots through 13 crossings, plus the even unreduced/reduced data.
+> Its braid words, read through the braid-closure helper in `tests/core/test_khovanov_odd.py`, give
+> pytop's chirality exactly.
 
 These are tracked in `docs/AUDIT_2026_09_24.md`. Do not mark any of them fixed without a test that
 fails before the fix.
@@ -295,7 +301,7 @@ feature/<topic> ← feature branches, merge to master via PR
 
 - Never commit directly to `master`
 - Tag every release: `git tag vX.Y.Z && git push origin vX.Y.Z`
-- **Latest release:** Phase 3 (PR #16, **v0.8.0**); Phase 4 P4.1–P4.6 (PR #17, **v0.9.0**) — property tests (`test_property_invariants.py`), `exact_linalg` core (SNF/rank/Bareiss det/cokernel), complexity discipline (`docs/COMPLEXITY.md`), external differential oracles (`test_external_oracles.py`: sympy/networkx/numpy/python-flint/GUDHI; test-only `oracles` extra, runtime dep-free), optional flint-accelerated SNF backend (`[fast]` extra; **~5–8× faster even on sparse boundary/Khovanov matrices**, identical results)
+- **Latest release:** Phase 3 (PR #16, **v0.8.0**); Phase 4 P4.1–P4.6 (PR #17, **v0.9.0**) — property tests (`test_property_invariants.py`), `exact_linalg` core (SNF/rank/Bareiss det/cokernel), complexity discipline (`docs/COMPLEXITY.md`), external differential oracles (`test_external_oracles.py`: sympy/networkx/numpy/python-flint/GUDHI; test-only `oracles` extra, runtime dep-free), optional flint-accelerated SNF backend (`[fast]` extra; ~5–8× faster on the 16×20 … 40×50 matrices it was measured on, identical results — **but on large sparse singular matrices FLINT's `snf()` hangs, so since v1.10.2 sparse matrices bypass it**)
 - **Released v0.9.1:** Phase 4 P4.7 — Docker-based SageMath/GAP oracle (`test_sage_oracle.py`, opt-in `PYTOP_SAGE_ORACLE=1`; Alexander/Jones vs Sage, van Kampen abelianisation vs GAP)
 - **Released v0.9.2:** Phase 4 P4.8 — Docker-based SnapPy oracle (`tests/core/test_snappy_oracle.py`, opt-in `PYTOP_SNAPPY_ORACLE=1`; `dehn_surgery` H₁ vs SnapPy Dehn-filling homology — figure-8 & Whitehead-link surgeries; needs a local `pytop-snappy` image)
 - **Released v0.9.3:** CI green — fixed 34 ruff lint errors in Phase 1/2 code (PR #20); CI runs ruff + mypy + pytest on Python 3.11/3.12/3.13

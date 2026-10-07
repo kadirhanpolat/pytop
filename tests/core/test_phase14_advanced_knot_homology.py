@@ -24,12 +24,8 @@ class TestOddKhovanov:
         assert kh.betti(0, -1) == 1
         assert kh.total_rank() == 2
 
-    def test_odd_sign_assignment(self):
-        from pytop.khovanov_odd import _odd_sign
-        # (−1)^0 = 1 when no 1s before position 0
-        assert _odd_sign((0, 0, 0), 0) == 1
-        # (−1)^1 = -1 when one 1 before position 1
-        assert _odd_sign((1, 0, 0), 1) == -1
+    # The odd sign assignment is not the even Koszul sign; it is solved on the cube
+    # from the A/C/X/Y face types. tests/core/test_khovanov_odd.py covers it.
 
     def test_compare_parities(self):
         from pytop.khovanov import KhovanovHomology

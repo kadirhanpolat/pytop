@@ -111,12 +111,12 @@ _flint = (
 
 # Above this dimension a dense integer SNF is routed to python-flint (when it is
 # installed) to avoid the pure-Python routine's coefficient blow-up. The results
-# are identical (pinned by the differential oracle tests); every matrix in the
-# test suite is below the threshold and stays on the pure-Python path.
+# are identical (pinned by the differential oracle tests). Sparse matrices never
+# get here: they take the sparse path first.
 _FLINT_SNF_MIN_DIM = 16
 
-# Sparse SNF thresholds (only used when flint is absent). Imported here, next to
-# the related dimension constants, rather than at the top of the module.
+# Sparse SNF thresholds, checked before FLINT (see _smith_normal_form). Imported
+# here, next to the related dimension constants, rather than at the top of the module.
 from .sparse_linalg import SPARSE_MAX_DENSITY as _SPARSE_MAX_DENSITY  # noqa: E402
 from .sparse_linalg import SPARSE_MIN_DIM as _SPARSE_MIN_DIM  # noqa: E402
 from .sparse_linalg import _sparse_snf_inner, _SparseMat  # noqa: E402
@@ -219,10 +219,14 @@ def _smith_normal_form_python(matrix: Matrix) -> list[int]:
 def _smith_normal_form(matrix: Matrix) -> list[int]:
     """Return the positive invariant factors of an integer matrix.
 
-    Dispatch order (fastest available):
-    1. python-flint (if installed and min-dim ≥ 16) — C-level exact SNF.
-    2. Sparse pure-Python (if min-dim ≥ 30 and density < 30 %) — avoids
-       O(m×n) dense work for Khovanov / Rips boundary matrices.
+    Dispatch order:
+    1. Sparse pure-Python (if min-dim ≥ 30 and density < 30 %) — Khovanov
+       differentials and boundary matrices.  This comes before FLINT on purpose:
+       python-flint's ``snf()`` falls back to Kannan–Bachem on singular input and
+       ran past 60 s and 5 GB on a 443×476 Khovanov block of ``7_2`` that this
+       path reduces in 0.13 s.
+    2. python-flint (if installed and min-dim ≥ 16) — dense matrices, where it
+       is far faster than either pure-Python routine.
     3. Dense pure-Python fallback.
     """
 
@@ -231,14 +235,14 @@ def _smith_normal_form(matrix: Matrix) -> list[int]:
     rows_n = len(matrix)
     cols_n = len(matrix[0]) if rows_n else 0
 
-    if _flint is not None and min(rows_n, cols_n) >= _FLINT_SNF_MIN_DIM:
-        return _smith_normal_form_flint(matrix)
-
     if min(rows_n, cols_n) >= _SPARSE_MIN_DIM:
         total = rows_n * cols_n
         nonzero = sum(1 for row in matrix for v in row if v != 0)
         if nonzero / total < _SPARSE_MAX_DENSITY:
             return _sparse_snf_inner(_SparseMat.from_dense(matrix))
+
+    if _flint is not None and min(rows_n, cols_n) >= _FLINT_SNF_MIN_DIM:
+        return _smith_normal_form_flint(matrix)
 
     return _smith_normal_form_python(matrix)
 

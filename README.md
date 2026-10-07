@@ -179,7 +179,7 @@ analyze_pi_base_space("Long line")                 # 16-property verdict dict
 | **Čech sheaf cohomology** (v1.4.0+) | `sheaf_cohomology` — `FiniteSheaf`, `constant_sheaf`, `skyscraper_sheaf`, `cech_cohomology` (Leray cover → alternating-sign coboundary → SNF), `sheaf_cohomology` (McCord minimal-neighborhood cover; H⁰ = ℤ^components) |
 | **Persistent K-theory** (v1.4.0+) | `persistent_ktheory` — `KTheoryGroups` (rational AHSS: K⁰⊗ℚ = ⊕H_{2k}, K¹⊗ℚ = ⊕H_{2k+1}), `KBarcode` (Twist barcode partitioned by parity; χ_K = rank K⁰ − rank K¹), `k_theory_groups`, `k_barcode`, `k0/k1_simplicial`, `k_betti_numbers` |
 | **Homotopy theory** (v1.5.0+) | `chain_homotopy` (∂h+h∂=f−g verification, ℚ-solver), `eilenberg_maclane` (H_*(K(G,n)) for cyclic/free/free-abelian/ℤ groups, asphericity), `massey_products` (triple products, formality), `hopf_invariant` (Hopf fibrations, Adams' theorem, π₃(S²)), `sullivan_models` (minimal models over ℚ; χ via the Hilbert series of ΛV) |
-| **Advanced knot homology** (v1.5.0+) | `khovanov_odd` (odd Khovanov homology — **wrong on any diagram with crossings**, see [Known defects](#known-defects)), `grid_floer` (grid-diagram HFK̂ over 𝔽₂), `concordance` (τ, s, σ, Tristram–Levine, algebraic sliceness), `satellite_knots` (Morton's formula, exact torus-knot Alexander division, cables, Whitehead doubles), `virtual_knots` (Gauss codes, parity, odd writhe, arrow polynomial) |
+| **Advanced knot homology** (v1.5.0+) | `khovanov_odd` (odd Khovanov homology after Ozsváth–Rasmussen–Szabó; agrees with KnotInfo over ℤ on every prime knot through 8 crossings), `grid_floer` (grid-diagram HFK̂ over 𝔽₂), `concordance` (τ, s, σ, Tristram–Levine, algebraic sliceness), `satellite_knots` (Morton's formula, exact torus-knot Alexander division, cables, Whitehead doubles), `virtual_knots` (Gauss codes, parity, odd writhe, arrow polynomial) |
 | **4-manifold topology** (v1.5.0+) | `intersection_forms` (Sylvester congruence signature, E₈/hyperbolic, Donaldson), `kirby_calculus` (handle moves → intersection form), `casson_invariant` (Neumann–Wahl λ(Σ(a,b,c)) = σ(Milnor fibre)/8), `milnor_fibers` (Brieskorn–Pham μ, signature, ADE), `rohlin_theorem` (spin + smooth ⇒ σ ≡ 0 mod 16, Kirby–Siebenmann, Freedman realisation) |
 | **Infinite complexes** (v1.8.0+) | `experimental.infinite_complexes` — `rp_infinity_homology` / `cp_infinity_homology` / `s_infinity_homology` / `infinite_lens_homology` (exact, via the structural theorem at index `degree+1`), `colimit_homology` (user towers: signed `StageInclusion`, chain-map law verified, non-empty dimension window → `ConditionalHomology`), `rips_betti_scan` + `z_lattice` (claim-free) |
 | **Homeomorphism** (v1.9.0+) | `experimental.homeomorphism` — `finite_homeomorphic` **decides** it on finite spaces (Alexandroff: topology ↔ specialization preorder) and returns the bijection; `homeomorphism_obstruction` certifies non-homeomorphism from a differing invariant and never claims the converse |
@@ -222,6 +222,24 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New in v1.10.2
+
+**Odd Khovanov homology is correct, and Khovanov homology no longer hangs with `[fast]`.**
+
+- `khovanov_homology_odd` is rewritten from Ozsváth–Rasmussen–Szabó (2013): exterior-algebra merge
+  and split maps, crossing arrows, faces typed A/C/X/Y, and a type-X sign assignment solved on the
+  cube and checked on every face. It agrees with KnotInfo's integral odd Khovanov homology on all
+  35 prime knots through 8 crossings, torsion included (`8_19` carries ℤ/2 and ℤ/3), and with ORS's
+  own computation that `8_19` and `10_124` have reduced rational rank 3.
+- `compare_khovanov_parities(...)["agree_mod_2"]` now really compares mod-2 homology (it is a
+  theorem that the two agree); before, it compared the integral groups.
+- With python-flint installed, sparse Smith normal forms take the sparse path: FLINT's `snf()` had
+  run past 60 s and 5 GB on one 443×476 Khovanov block of `7_2` that the sparse path reduces in
+  0.13 s.
+
+Still open: `seifert`'s signature helper mishandles zero diagonals, and the Phase-11 Lean files are
+not compiled in CI.
 
 ## What's New in v1.10.1
 
@@ -1081,9 +1099,10 @@ cs.point_separation((0, 1), (0, 1, 0)).decidability  # Decidability.UNDECIDABLE
 - **Phase 4 P4.5 / P4.6 — GUDHI & python-flint**: pytop's Vietoris–Rips persistence is validated
   against **GUDHI** (the gold-standard TDA library) and `exact_linalg` against **python-flint**; and
   with the optional `[fast]` extra, the integer Smith normal form — hence every homology / Khovanov /
-  surgery engine built on it — is routed to **FLINT**, which is **~5–8× faster** even on pytop's
-  *sparse* boundary/Khovanov matrices (identical results). The pure-Python core stays the default and
-  the only hard requirement (`dependencies = []`).
+  surgery engine built on it — is routed to **FLINT** for dense matrices (identical results). Sparse
+  boundary/Khovanov matrices take the sparse pure-Python path instead, because FLINT's `snf()` hangs
+  on large sparse singular input (see *What's New in v1.10.2*). The pure-Python core stays the default
+  and the only hard requirement (`dependencies = []`).
 - **Phase 4 P4.7 — SageMath oracle** (`tests/core/test_sage_oracle.py`, opt-in `PYTOP_SAGE_ORACLE=1`,
   Docker): one batched `sagemath/sagemath` run validates pytop's Alexander/Jones polynomials against
   Sage's independent algorithms and its van Kampen abelianisations against **GAP** (Klein ℤ⊕ℤ/2,
@@ -1190,43 +1209,36 @@ theorem pairs_birth_lt_death       : (∀ jcol ∈ zipWith … (reduce M), ∀ x
 
 ## Known defects
 
-An internal audit on 2026-09-24 verified the following seven defects by direct execution. Each is
-written up, with reproductions, in [`docs/AUDIT_2026_09_24.md`](docs/AUDIT_2026_09_24.md).
+An internal audit on 2026-09-24 verified seven defects by direct execution; each is written up, with
+reproductions, in [`docs/AUDIT_2026_09_24.md`](docs/AUDIT_2026_09_24.md). Five are fixed, each behind
+a test that failed before the fix:
 
-1. **`khovanov_odd` is mathematically wrong on any diagram with crossings.** On the trefoil,
-   `khovanov_homology` gives total free rank 4 (textbook-correct) and `khovanov_homology_odd` gives 25;
-   `compare_khovanov_parities` reports `agree_mod_2: False` with 9 differences across 12 gradings, yet
-   odd and even Khovanov homology categorify the same Jones polynomial. The cube builder
-   (`khovanov_odd.py:125–264`) never executes under the test suite — every test passes a crossing-free
-   diagram — and module coverage is 29 %.
-2. **`TDAPipeline.from_points` discards its argument.** `tda_pipeline.py:104` is `return cls()`, so
-   the frozen dataclass has no `points` field at all — `fields(TDAPipeline)` is `['filtered', 'computed_pairs']`, so the argument is dropped on the floor and `p.points` raises `AttributeError`. The documented `.from_points(pts).rips()` chain always raises `ValueError`.
-   `.reduce()` also rejects `'auto'`, which makes the P17.3 default routing unreachable through the
-   builder. Use `TDAPipeline.from_filtration(...)` until this is fixed.
-3. **`cech_filtration` is non-deterministic and mutates the global RNG.** `cech_complex.py:172` calls
-   `random.shuffle` on the module-global `random`; 12 identical runs on the same 7-point circle produced
-   3 distinct barcodes.
-4. **18 of the 72 `src/pytop/_internal/` modules fail to import** — they use `from .result import Result`
-   where the module lives at `src/pytop/result.py` (`from ..result import` is correct). The broken set is
-   exactly the release/quality tooling (`package_verifier`, `manifest_checker`,
-   `release_report_standard`, `integration_quality_gate`, `api_consistency`, `archive_bundle_checker`,
-   `packaging_checkpoint`). `_internal` is excluded from ruff, mypy, coverage *and* the CI doctest step,
-   so nothing catches it.
-5. **`seifert._sylvester_signature` is wrong on symmetric matrices with a zero diagonal** — 17 mismatches
-   in 400 random symmetric matrices against `numpy.linalg.eigvalsh`; `[[0,2,1],[2,0,-2],[1,-2,0]]` gives
-   0 where the signature is 1. The public `signature(diagram)` nevertheless returns the correct value on
-   the trefoil (−2), figure-eight (0) and cinquefoil (−4), because `seifert_matrix` emits only *diagonal*
-   matrices and the buggy branch is never reached. That masking is the deeper defect: the figure-eight's
-   Seifert matrix is `[[-1,1],[0,1]]` in the literature while pytop returns `diag(1,−1)`, and the
-   off-diagonal derivation in `seifert.py:400–450` is an unresolved comment-block argument.
-6. **CI never installs the `oracles` extra.** `.github/workflows/ci.yml:37` installs only `.[dev]`, so
-   numpy, sympy, networkx, GUDHI and python-flint are absent and all 13 differential-oracle tests plus
-   both networkx planarity sweeps skip on every CI run.
-7. **The five Phase-11 Lean files have never been compiled in this tree.** `formal/Formal.lean` imports
-   `MayerVietoris`, `VanKampen`, `CohomologyRing`, `PersistencePairing` and `SpectralSequences`, and none
-   of the five has an `.olean` (SNF and SetTopology do). `SetTopologyAltProofs.lean` (27 theorems) is not
-   imported at all, and there is no `lake` job in CI — so for Phase 11, "0 sorry" is grep-verified, not
-   kernel-verified.
+| # | Defect | Fixed in |
+|---|--------|----------|
+| 1 | `khovanov_odd` returned wrong groups on every diagram with crossings (trefoil rank 25 where ORS give 6; its complex did not even satisfy `d∘d = 0`) | v1.10.2 — rewritten from Ozsváth–Rasmussen–Szabó |
+| 2 | `TDAPipeline.from_points` discarded its argument; `.reduce("auto")` was rejected | v1.10.1 |
+| 3 | `cech_filtration` was non-deterministic, mutated the global RNG, and could let a simplex enter before its faces | v1.10.1 |
+| 4 | 18 `src/pytop/_internal/` modules failed to import | v1.10.1 |
+| 6 | CI never installed the `oracles` extra, so every differential-oracle test skipped | v1.10.1 |
+
+Found after the audit and fixed in v1.10.2: with python-flint installed (the `[fast]` and `[oracles]`
+extras), Khovanov homology of a 7-crossing knot hung, because FLINT's `snf()` falls back to
+Kannan–Bachem on the large sparse singular matrices Khovanov produces.
+
+Still open:
+
+- **`seifert._sylvester_signature` is wrong on symmetric matrices with a zero diagonal** — 17 mismatches
+  in 400 random symmetric matrices against `numpy.linalg.eigvalsh`; `[[0,2,1],[2,0,-2],[1,-2,0]]` gives
+  0 where the signature is 1. The public `signature(diagram)` nevertheless returns the correct value on
+  the trefoil (−2), figure-eight (0) and cinquefoil (−4), because `seifert_matrix` emits only *diagonal*
+  matrices and the buggy branch is never reached. That masking is the deeper defect: the figure-eight's
+  Seifert matrix is `[[-1,1],[0,1]]` in the literature while pytop returns `diag(1,−1)`, and the
+  off-diagonal derivation in `seifert.py:400–450` is an unresolved comment-block argument.
+- **The five Phase-11 Lean files have never been compiled in this tree.** `formal/Formal.lean` imports
+  `MayerVietoris`, `VanKampen`, `CohomologyRing`, `PersistencePairing` and `SpectralSequences`, and none
+  of the five has an `.olean` (SNF and SetTopology do). `SetTopologyAltProofs.lean` (27 theorems) is not
+  imported at all, and there is no `lake` job in CI — so for Phase 11, "0 sorry" is grep-verified, not
+  kernel-verified.
 
 Three stated phase targets are also unmet, although the milestones themselves shipped:
 
