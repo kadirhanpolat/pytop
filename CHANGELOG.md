@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.1] — 2026-10-07
+
 ### Fixed
 
 Four of the seven defects reproduced in `docs/AUDIT_2026_09_24.md`, each behind a
