@@ -4,7 +4,7 @@
 > phased roadmap toward a GAP-scale research-grade topology computation system,
 > starting from set-theoretic (point-set) topology.
 >
-> **Status as of 2026-09-24 (v1.10.0 — live on PyPI as `pytopology`; v1.10.1 on 2026-10-07 fixed 4 of the 7 audit defects):** **every named
+> **Status as of 2026-09-24 (v1.10.0 — live on PyPI as `pytopology`; v1.10.1 and v1.10.2 on 2026-10-07 fixed 5 of the 7 audit defects):** **every named
 > milestone of Phases 0–20 has shipped code — which is breadth delivered, not correctness
 > verified.** An audit on 2026-09-24 reproduced **seven defects** in shipped modules and
 > measured **three unmet phase targets**; both are catalogued in `docs/AUDIT_2026_09_24.md`
@@ -744,7 +744,7 @@ reproductions.
 | Phase 18 milestones complete | 3 / 3 ✅ (user guide, API ref, example bank) — the 16-chapter user guide is now **enriched across all four formats** (LaTeX/Markdown/Python/Notebook): intuition + counter-example boxes, proof sketches, verified pytop examples, exercises with solutions, and **46 figures** (8 → 46) |
 | Phase 19 milestones complete | 3 / 3 shipped — **P19.1's stated target is unmet**: "zero ambiguous error messages", but roughly 7 of ~208 `raise ValueError`/`TypeError` sites in `src/pytop/*.py` follow WHY-HOW-THEN, and the test class the milestone doc names (`TestErrorMessages`) does not exist. (P19.1 error messages, P19.2 deprecation policy + `@deprecated` + `DEPRECATIONS.md` *Candidates*, P19.3 API design audit — finding #3 resolved via soft-deprecated `persistent_homology_optimized` → `persistent_homology(method="auto")`) |
 | Phase 20 milestones complete | 3 / 3 shipped (P20.1 CI matrix; **P20.2 PyPI publishing — `pytopology` live on PyPI** via GitHub Actions Trusted Publishing, ships `py.typed` + `python -m pytop` CLI; P20.3 `CONTRIBUTING.md`, issue/PR templates, good-first-issues #35–#46) — **the community target is unmet**: 1 contributor against the 10+ target, and all 12 issues were closed by the maintainer, leaving 0 open |
-| **Current version** | **v1.10.1** — live on PyPI as **`pytopology`** (`import pytop`); a correctness patch closing 4 of the 7 audit defects |
+| **Current version** | **v1.10.2** — live on PyPI as **`pytopology`** (`import pytop`); v1.10.1 and v1.10.2 close 5 of the 7 audit defects |
 
 ### Phase 2 post-completion fixes & optimizations (2026-06-18)
 
