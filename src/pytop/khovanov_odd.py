@@ -139,6 +139,49 @@ def _edge_partners(pd: tuple[tuple[Any, Any, Any, Any], ...]) -> dict[Position, 
     return partner
 
 
+def _check_planar(n: int, partner: dict[Position, Position]) -> None:
+    """Reject PD codes that do not describe a diagram in the plane.
+
+    Tracing faces (along an edge, then one slot counterclockwise) gives
+    ``V − E + F = 2c`` for a planar diagram with ``c`` connected pieces.
+    """
+
+    root = list(range(n))
+
+    def find(x: int) -> int:
+        while root[x] != x:
+            root[x] = root[root[x]]
+            x = root[x]
+        return x
+
+    for (k, _), (other, _) in partner.items():
+        root[find(k)] = find(other)
+    pieces = len({find(k) for k in range(n)})
+
+    seen: set[Position] = set()
+    faces = 0
+    for start in partner:
+        if start in seen:
+            continue
+        faces += 1
+        position = start
+        while position not in seen:
+            seen.add(position)
+            crossing, slot = partner[position]
+            position = (crossing, (slot + 1) % 4)
+    euler = n - 2 * n + faces
+    if euler != 2 * pieces:
+        raise ValueError(
+            f"The PD code is not planar: its faces give V - E + F = {euler}, where a "
+            f"diagram drawn in the plane with {pieces} connected piece(s) gives "
+            f"{2 * pieces}. Odd Khovanov homology needs the planar picture, because "
+            "its ladybug faces are typed by which side of a circle each crossing's "
+            "arrow lies on. Check that every crossing lists its four edges "
+            "counterclockwise; the right-handed trefoil, for example, is "
+            "[(1, 5, 2, 4), (3, 1, 4, 6), (5, 3, 6, 2)]."
+        )
+
+
 def _resolve(n: int, partner: dict[Position, Position], state: int) -> _Resolution:
     circle_of: dict[Position, int] = {}
     circles: list[tuple[tuple[int, int, int], ...]] = []
@@ -228,6 +271,7 @@ def _apply_vector(edge: _EdgeMap, vector: dict[int, int]) -> dict[int, int]:
 def _build_cube(diagram: KnotDiagram) -> tuple[list[_Resolution], dict[Edge, _EdgeMap]]:
     n = len(diagram.pd)
     partner = _edge_partners(diagram.pd)
+    _check_planar(n, partner)
     resolutions = [_resolve(n, partner, state) for state in range(1 << n)]
     edges: dict[Edge, _EdgeMap] = {}
     for v, source in enumerate(resolutions):

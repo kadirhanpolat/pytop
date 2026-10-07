@@ -544,6 +544,62 @@ def test_matches_knotinfo_over_the_integers(name: str) -> None:
     assert {key: _as_counter(group) for key, group in groups.items()} == expected
 
 
+# KnotInfo's own PD codes: minimal diagrams rather than braid closures. Edges are
+# numbered along the orientation, so X[i,j,k,l] is positive iff j - l = 1 (mod 2n).
+KNOTINFO_PD: dict[str, list[list[int]]] = {
+    "3_1": [[1, 5, 2, 4], [3, 1, 4, 6], [5, 3, 6, 2]],
+    "4_1": [[4, 2, 5, 1], [8, 6, 1, 5], [6, 3, 7, 4], [2, 7, 3, 8]],
+    "5_2": [[1, 5, 2, 4], [3, 9, 4, 8], [5, 1, 6, 10], [7, 3, 8, 2], [9, 7, 10, 6]],
+    "7_4": [[2, 10, 3, 9], [4, 12, 5, 11], [6, 14, 7, 13], [8, 4, 9, 3], [10, 2, 11, 1],
+            [12, 8, 13, 7], [14, 6, 1, 5]],
+    "8_17": [[6, 2, 7, 1], [14, 8, 15, 7], [8, 3, 9, 4], [2, 13, 3, 14], [12, 5, 13, 6],
+             [4, 9, 5, 10], [16, 12, 1, 11], [10, 16, 11, 15]],
+    "8_19": [[2, 14, 3, 13], [5, 11, 6, 10], [7, 15, 8, 14], [9, 5, 10, 4], [11, 7, 12, 6],
+             [12, 2, 13, 1], [15, 9, 16, 8], [16, 4, 1, 3]],
+    "8_20": [[1, 7, 2, 6], [4, 13, 5, 14], [5, 9, 6, 8], [7, 3, 8, 2], [10, 15, 11, 16],
+             [12, 9, 13, 10], [14, 3, 15, 4], [16, 11, 1, 12]],
+    "8_21": [[1, 7, 2, 6], [4, 13, 5, 14], [5, 9, 6, 8], [7, 3, 8, 2], [9, 13, 10, 12],
+             [11, 1, 12, 16], [14, 3, 15, 4], [15, 11, 16, 10]],
+}
+
+
+def _pd_signs(pd: list[list[int]]) -> list[int]:
+    two_n = 2 * len(pd)
+    return [1 if (second - fourth) % two_n == 1 else -1 for (_, second, _, fourth) in pd]
+
+
+@pytest.mark.parametrize("name", sorted(KNOTINFO_PD))
+def test_matches_knotinfo_on_its_own_pd_codes(name: str) -> None:
+    pd = KNOTINFO_PD[name]
+    expected: dict[tuple[int, int], Counter] = {}
+    for (i, j), summands in _parse_knotinfo(KNOTINFO_REDUCED_ODD[name][1]).items():
+        for shift in (-1, 1):
+            expected.setdefault((i, j + shift), Counter()).update(summands)
+    groups = khovanov_homology_odd(KnotDiagram([tuple(c) for c in pd], _pd_signs(pd))).groups
+    assert {key: _as_counter(group) for key, group in groups.items()} == expected
+
+
+def test_non_planar_pd_code_is_rejected() -> None:
+    """Every label appears twice, but this code draws the curve on a torus
+    (V - E + F = 0), so the ladybug arrows have no X/Y type."""
+
+    torus = KnotDiagram([(2, 4, 3, 1), (3, 6, 5, 2), (5, 1, 6, 4)], [1, 1, 1])
+    with pytest.raises(ValueError, match="not planar"):
+        khovanov_homology_odd(torus)
+
+
+def test_split_diagram_is_accepted() -> None:
+    trefoil = KNOTINFO_PD["3_1"]
+    figure_eight = [[x + 100 for x in c] for c in KNOTINFO_PD["4_1"]]
+    split = KnotDiagram(
+        [tuple(c) for c in trefoil + figure_eight],
+        _pd_signs(trefoil) + _pd_signs(KNOTINFO_PD["4_1"]),
+        components=2,
+    )
+    result = compare_khovanov_parities(khovanov_homology(split), khovanov_homology_odd(split))
+    assert result["agree_mod_2"] is True
+
+
 def test_accessors_report_the_8_19_torsion() -> None:
     """KnotInfo: reduced Kh'(8_19) has ℤ/2 at (4, 12) and ℤ/3 at (5, 14)."""
 
