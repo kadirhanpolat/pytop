@@ -1,41 +1,44 @@
-"""Odd Khovanov homology (Phase 14.1).
+"""Odd Khovanov homology (Ozsváth–Rasmussen–Szabó 2013).
 
-Odd Khovanov homology (Ozsváth–Rasmussen–Szabó 2013) is a bigraded link
-invariant Kh_odd(L; ℤ) that differs from the even/standard Khovanov homology
-over ℤ but agrees over ℤ/2.
+Odd Khovanov homology ``Kh'(L)`` is a bigraded link invariant built on the same
+cube of resolutions as Khovanov homology, with the symmetric algebra replaced by
+the exterior algebra.  Its graded Euler characteristic is the unnormalised Jones
+polynomial and its mod-2 reduction is that of even Khovanov homology, yet over ℤ
+(and over ℚ) the two differ: the trefoil has rank 6 here and rank 4 in the even
+theory, and for the torus knot ``8_19`` the reduced theories have rational rank 3
+and 5 (ORS §5).
 
-Construction
-------------
-Same cube-of-resolutions as standard Khovanov, but the sign assignment on
-edges uses the *Koszul* (odd) convention:
-  For an edge (v → w) that changes bit at position k (v[k]=0, w[k]=1):
-    sign = (−1)^{#{j < k : v[j] = 1}}
+Construction (ORS §1)
+---------------------
+1. **Exterior algebra.**  A resolution with circles ``a_1, …, a_k`` gets
+   ``Λ*V`` where ``V`` is free on the circles; the monomial
+   ``a_{i_1} ∧ … ∧ a_{i_e}`` has quantum degree ``k − 2e``.
+2. **Arrows.**  Each crossing carries an arrow joining the two arcs of its
+   0-resolution; pytop draws it from arc ``(a, b)`` to arc ``(c, d)`` of the PD
+   tuple ``(a, b, c, d)``.  In the 1-resolution the arrow is rotated 90°
+   counterclockwise and so runs from arc ``(b, c)`` to arc ``(d, a)``.
+3. **Edge maps.**  A merge of ``a_1, a_2`` is the projection induced by
+   ``V → V/(a_1 − a_2)``.  A split into ``a_1, a_2``, with the rotated arrow
+   pointing from ``a_1`` to ``a_2``, is ``ω ↦ (a_1 − a_2) ∧ ω̃`` for any lift ``ω̃``.
+4. **Faces.**  Around each square of the cube the two composites commute
+   (type C), anticommute (type A), or both vanish — the ladybug configuration of
+   two interleaved arrows on one circle, typed X or Y by the arrows (ORS Fig. 2).
+5. **Signs.**  A type-X edge assignment ``ε`` makes every A and X face even and
+   every C and Y face odd (ORS Def. 1.1); it exists by ORS Lemma 1.2 and is
+   computed here on a spanning-tree gauge, then checked on every face.
 
-This is the same sign that appears in the standard Khovanov differential;
-the difference in ORS is in the *chain groups* (exterior algebra vs tensor
-product of V), but over ℤ the resulting homology is often isomorphic to
-the standard one for knots.  For *links*, they can differ.
-
-For this implementation, we build the odd complex by:
-  1. Using `_resolve_circles` (same as standard) to get circle counts.
-  2. Applying the ORS exterior algebra: at vertex v with k_v circles,
-     the odd chain group is ∧*(ℤ^{k_v}) (exterior algebra of rank k_v),
-     dimension 2^{k_v}.  Generator = subset S ⊆ {0,...,k_v-1}.
-  3. Edge maps have the ORS sign (−1)^{#{j<k: v[j]=1}} for the edge
-     changing bit k, plus the exterior algebra multiplication/comultiplication.
-
-References: Ozsváth–Rasmussen–Szabó 2013; Bar-Natan 2002 (even standard).
+Homology is computed per quantum grading by Smith normal form, so torsion is
+exact.  Pure Python with no dependencies; the cube has ``2ⁿ`` vertices, so this
+is meant for knot-table diagrams, not large ones.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
-from itertools import combinations
-from itertools import product as iproduct
 from typing import Any
 
 from .homology import _smith_normal_form
-from .khovanov import KhovanovHomology, _resolve_circles
+from .khovanov import KhovanovHomology
 from .knot_invariants import KnotDiagram
 
 __all__ = [
@@ -44,11 +47,18 @@ __all__ = [
     "compare_khovanov_parities",
 ]
 
-Matrix = list[list[int]]
+Position = tuple[int, int]  # (crossing index, slot 0..3 counterclockwise)
+Edge = tuple[int, int]  # (vertex bitmask, crossing flipped 0 → 1)
+Face = tuple[int, int, int]  # (vertex bitmask, j, k) with j < k, both 0 at the vertex
+
+# Smoothing arcs per state: 0 joins slots (0,1),(2,3); 1 joins (0,3),(1,2).
+_SMOOTHING = ({0: 1, 1: 0, 2: 3, 3: 2}, {0: 3, 3: 0, 1: 2, 2: 1})
+# A type-X edge assignment needs these faces odd and the rest (A, X) even.
+_ODD_FACES = frozenset({"C", "Y"})
 
 
 # ---------------------------------------------------------------------------
-# Data structure
+# Result type
 # ---------------------------------------------------------------------------
 
 
@@ -97,176 +107,285 @@ class OddKhovanovHomology:
 
 
 # ---------------------------------------------------------------------------
-# Odd sign
+# Planar resolutions
 # ---------------------------------------------------------------------------
 
 
-def _odd_sign(state: tuple[int, ...], bit_position: int) -> int:
-    """Koszul sign for the edge changing bit at `bit_position`.
+@dataclass(frozen=True)
+class _Resolution:
+    """The circles of one resolution, each a cyclic tuple of arc passages
+    ``(crossing, from_slot, to_slot)``, and the circle through every slot."""
 
-    sign = (−1)^{#{j < bit_position : state[j] = 1}}
+    passages: tuple[tuple[tuple[int, int, int], ...], ...]
+    circle_of: dict[Position, int]
+
+
+def _edge_partners(pd: tuple[tuple[Any, Any, Any, Any], ...]) -> dict[Position, Position]:
+    where: dict[Any, list[Position]] = {}
+    for k, crossing in enumerate(pd):
+        for slot, label in enumerate(crossing):
+            where.setdefault(label, []).append((k, slot))
+    partner: dict[Position, Position] = {}
+    for label, slots in where.items():
+        if len(slots) != 2:
+            raise ValueError(
+                f"Edge label {label!r} appears {len(slots)} time(s) in the PD code, but an "
+                "edge joins exactly two crossing slots, so every label must appear exactly "
+                "twice. Check the PD code; the right-handed trefoil, for example, is "
+                "[(1, 5, 2, 4), (3, 1, 4, 6), (5, 3, 6, 2)]."
+            )
+        p, q = slots
+        partner[p], partner[q] = q, p
+    return partner
+
+
+def _resolve(n: int, partner: dict[Position, Position], state: int) -> _Resolution:
+    circle_of: dict[Position, int] = {}
+    circles: list[tuple[tuple[int, int, int], ...]] = []
+    for k in range(n):
+        for slot in range(4):
+            if (k, slot) in circle_of:
+                continue
+            index, passages, position = len(circles), [], (k, slot)
+            while position not in circle_of:
+                crossing, here = position
+                there = _SMOOTHING[state >> crossing & 1][here]
+                circle_of[(crossing, here)] = circle_of[(crossing, there)] = index
+                passages.append((crossing, here, there))
+                position = partner[(crossing, there)]
+            circles.append(tuple(passages))
+    return _Resolution(tuple(circles), circle_of)
+
+
+# ---------------------------------------------------------------------------
+# Exterior algebra (monomials are bitmasks over circle indices)
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class _EdgeMap:
+    """``image`` sends each circle to its circle after the surgery (a split circle
+    to one of its halves — any lift will do); ``tail``/``head`` mark a split."""
+
+    image: tuple[int, ...]
+    tail: int = -1
+    head: int = -1
+
+
+def _wedge(i: int, monomial: int) -> tuple[int, int]:
+    """``a_i ∧ monomial`` as ``(sign, monomial)``; sign 0 if ``a_i`` already occurs."""
+
+    if monomial >> i & 1:
+        return 0, 0
+    sign = -1 if bin(monomial & ((1 << i) - 1)).count("1") % 2 else 1
+    return sign, monomial | 1 << i
+
+
+def _push_forward(monomial: int, image: tuple[int, ...]) -> tuple[int, int]:
+    """Apply ``a_i ↦ a_image[i]`` factor by factor; sign 0 if two factors collide."""
+
+    sign, out, i = 1, 0, 0
+    while monomial:
+        if monomial & 1:
+            target = image[i]
+            if out >> target & 1:
+                return 0, 0
+            if bin(out >> (target + 1)).count("1") % 2:
+                sign = -sign
+            out |= 1 << target
+        monomial >>= 1
+        i += 1
+    return sign, out
+
+
+def _apply(edge: _EdgeMap, monomial: int) -> list[tuple[int, int]]:
+    sign, lifted = _push_forward(monomial, edge.image)
+    if not sign:
+        return []
+    if edge.tail < 0:
+        return [(sign, lifted)]
+    terms = []
+    for factor, circle in ((1, edge.tail), (-1, edge.head)):
+        wedge_sign, out = _wedge(circle, lifted)
+        if wedge_sign:
+            terms.append((factor * sign * wedge_sign, out))
+    return terms
+
+
+def _apply_vector(edge: _EdgeMap, vector: dict[int, int]) -> dict[int, int]:
+    result: dict[int, int] = {}
+    for monomial, coefficient in vector.items():
+        for sign, out in _apply(edge, monomial):
+            result[out] = result.get(out, 0) + sign * coefficient
+    return {m: c for m, c in result.items() if c}
+
+
+# ---------------------------------------------------------------------------
+# The cube: edge maps, face types, edge assignment
+# ---------------------------------------------------------------------------
+
+
+def _build_cube(diagram: KnotDiagram) -> tuple[list[_Resolution], dict[Edge, _EdgeMap]]:
+    n = len(diagram.pd)
+    partner = _edge_partners(diagram.pd)
+    resolutions = [_resolve(n, partner, state) for state in range(1 << n)]
+    edges: dict[Edge, _EdgeMap] = {}
+    for v, source in enumerate(resolutions):
+        for k in range(n):
+            if v >> k & 1:
+                continue
+            target = resolutions[v | 1 << k]
+            image = tuple(target.circle_of[p[0][:2]] for p in source.passages)
+            if source.circle_of[(k, 0)] != source.circle_of[(k, 2)]:
+                edges[(v, k)] = _EdgeMap(image)
+            else:  # rotated arrow: from arc (b, c) to arc (d, a)
+                edges[(v, k)] = _EdgeMap(image, target.circle_of[(k, 1)], target.circle_of[(k, 3)])
+    return resolutions, edges
+
+
+def _ladybug_type(resolution: _Resolution, j: int, k: int) -> str:
+    """X or Y for two interleaved arrows on one circle (ORS Fig. 2).
+
+    Walk the circle with arrow ``j`` on the left; the type is X when the end met
+    right after ``j``'s tail is ``k``'s tail, and Y when it is ``k``'s head.
     """
-    return (-1) ** sum(state[j] for j in range(bit_position))
+
+    passages = resolution.passages[resolution.circle_of[(j, 0)]]
+    ends = [(c, here, there) for c, here, there in passages if c in (j, k)]
+    if len(ends) != 4 or len({there == (here + 1) % 4 for c, here, there in ends if c == j}) != 1:
+        raise RuntimeError(f"crossings {j} and {k} do not form a ladybug configuration")
+    if next(there != (here + 1) % 4 for c, here, there in ends if c == j):
+        ends.reverse()  # arrow j was on the right; walk the other way
+    roles = [(c, "tail" if here in (0, 1) else "head") for c, here, _ in ends]
+    following = roles[(roles.index((j, "tail")) + 1) % 4]
+    if following == (k, "tail"):
+        return "X"
+    if following == (k, "head"):
+        return "Y"
+    raise RuntimeError(f"arrows at crossings {j} and {k} are not interleaved")
+
+
+def _face_types(
+    n: int, resolutions: list[_Resolution], edges: dict[Edge, _EdgeMap]
+) -> dict[Face, str]:
+    unit = {0: 1}
+    first_step = {edge: _apply_vector(edge_map, unit) for edge, edge_map in edges.items()}
+    types: dict[Face, str] = {}
+    for (u, j), step in first_step.items():
+        for k in range(j + 1, n):
+            if u >> k & 1:
+                continue
+            via_j = _apply_vector(edges[(u | 1 << j, k)], step)
+            via_k = _apply_vector(edges[(u | 1 << k, j)], first_step[(u, k)])
+            if not via_j and not via_k:
+                types[(u, j, k)] = _ladybug_type(resolutions[u], j, k)
+            elif via_j == via_k:
+                types[(u, j, k)] = "C"
+            elif via_j == {m: -c for m, c in via_k.items()}:
+                types[(u, j, k)] = "A"
+            else:
+                raise RuntimeError(f"face {(u, j, k)} neither commutes nor anticommutes")
+    return types
+
+
+def _cube_face_types(diagram: KnotDiagram) -> dict[Face, str]:
+    """Type A, C, X or Y of every square face of the cube of resolutions."""
+
+    resolutions, edges = _build_cube(diagram)
+    return _face_types(len(diagram.pd), resolutions, edges)
+
+
+def _edge_assignment(n: int, types: dict[Face, str]) -> dict[Edge, int]:
+    """A type-X edge assignment, fixed to +1 on a spanning tree of the cube."""
+
+    odd: dict[Edge, int] = {}
+    for k in range(n):
+        for v in range(1 << n):
+            if v >> k & 1:
+                continue
+            below = v & ((1 << k) - 1)
+            if not below:
+                odd[(v, k)] = 0
+                continue
+            j = below.bit_length() - 1
+            u = v ^ 1 << j
+            forced = types[(u, j, k)] in _ODD_FACES
+            odd[(v, k)] = forced ^ odd[(u, j)] ^ odd[(u, k)] ^ odd[(u | 1 << k, j)]
+    for (u, j, k), kind in types.items():
+        parity = odd[(u, j)] ^ odd[(u | 1 << j, k)] ^ odd[(u, k)] ^ odd[(u | 1 << k, j)]
+        if parity != (kind in _ODD_FACES):
+            raise RuntimeError(
+                "No type-X edge assignment fits the face types, which contradicts "
+                "ORS Lemma 1.2 — this is a bug in pytop, please report it with the PD code."
+            )
+    return {edge: -1 if flag else 1 for edge, flag in odd.items()}
 
 
 # ---------------------------------------------------------------------------
-# Odd Khovanov complex
+# Complex and homology
 # ---------------------------------------------------------------------------
 
 
 def _odd_khovanov_complex(
     diagram: KnotDiagram,
-) -> tuple[dict[tuple[int, int], list[tuple]], dict[tuple[int, int], list[list[int]]]]:
-    """Build the odd Khovanov complex.
+) -> tuple[dict[tuple[int, int], list[tuple[int, int]]], dict[tuple[int, int], list[list[int]]]]:
+    """The odd Khovanov cochain complex of a diagram with ``n ≥ 1`` crossings.
 
-    Returns (elements, differentials) with the same structure as the standard
-    `_khovanov_complex`, but using the ORS odd sign assignment.
+    ``elements[(i, j)]`` lists the basis ``(vertex bitmask, monomial bitmask)`` of
+    bidegree ``(i, j)``; ``differentials[(i, j)]`` is the integer matrix of
+    ``d : C^{i}_j → C^{i+1}_j`` (rows index ``C^{i+1}_j``).
     """
-    crossings = diagram.pd
-    n = len(crossings)
+
+    n = len(diagram.pd)
+    if n == 0:
+        raise ValueError(
+            "The cube of resolutions needs at least one crossing; a crossingless "
+            "diagram is the unknot, which khovanov_homology_odd handles directly."
+        )
     n_minus = sum(1 for s in diagram.signs if s < 0)
-    n_plus = n - n_minus
+    shift = n - n_minus - 2 * n_minus  # n₊ − 2n₋
+    resolutions, edges = _build_cube(diagram)
+    signs = _edge_assignment(n, _face_types(n, resolutions, edges))
 
-    circle_cache: dict[tuple[int, ...], list[frozenset]] = {}
+    elements: dict[tuple[int, int], list[tuple[int, int]]] = {}
+    index: dict[tuple[int, int], dict[tuple[int, int], int]] = {}
+    for v, resolution in enumerate(resolutions):
+        r, circles = bin(v).count("1"), len(resolution.passages)
+        for monomial in range(1 << circles):
+            key = (r - n_minus, circles - 2 * bin(monomial).count("1") + r + shift)
+            table = index.setdefault(key, {})
+            table[(v, monomial)] = len(table)
+            elements.setdefault(key, []).append((v, monomial))
 
-    def circles_of(state: tuple[int, ...]) -> list[frozenset]:
-        cached = circle_cache.get(state)
-        if cached is None:
-            cached = _resolve_circles(crossings, state)
-            circle_cache[state] = cached
-        return cached
-
-    # In the odd complex, a vertex v with k_v circles has chain group ∧*(ℤ^{k_v}).
-    # Basis elements: (state, subset) where subset ⊆ {0,...,k_v-1}.
-    # Quantum degree of (state, subset):
-    #   j = |subset| - (k_v - |subset|) + r + n_plus - 2*n_minus
-    #     = 2|subset| - k_v + r + n_plus - 2*n_minus
-    # Homological degree: i = r - n_minus  (r = sum(state))
-
-    basis_index: dict[tuple[int, int], dict[tuple, int]] = {}
-    elements: dict[tuple[int, int], list[tuple]] = {}
-
-    def grading(state: tuple[int, ...], subset: frozenset) -> tuple[int, int]:
-        r = sum(state)
-        k_v = len(circles_of(state))
-        e = len(subset)
-        i = r - n_minus
-        j = 2 * e - k_v + r + n_plus - 2 * n_minus
-        return i, j
-
-    for state in iproduct((0, 1), repeat=n):
-        circles = circles_of(state)
-        k_v = len(circles)
-        for e in range(k_v + 1):
-            for subset_tuple in combinations(range(k_v), e):
-                subset = frozenset(subset_tuple)
-                i, j = grading(state, subset)
-                key = (i, j)
-                table = basis_index.setdefault(key, {})
-                table[(state, subset)] = len(table)
-                elements.setdefault(key, []).append((state, subset))
-
-    # Build differentials with ORS odd sign
     differentials: dict[tuple[int, int], list[list[int]]] = {}
-
     for (i, j), basis in elements.items():
-        target_key = (i + 1, j)
-        target_index = basis_index.get(target_key, {})
-        if not target_index:
+        rows = index.get((i + 1, j))
+        if not rows:
             continue
-        matrix = [[0] * len(basis) for _ in range(len(target_index))]
-
-        for col, (state, subset) in enumerate(basis):
-            circles = circles_of(state)
-            k_v = len(circles)
-
+        matrix = [[0] * len(basis) for _ in range(len(rows))]
+        for col, (v, monomial) in enumerate(basis):
             for k in range(n):
-                if state[k] != 0:
+                if v >> k & 1:
                     continue
-                # Build next state (flip bit k from 0 to 1)
-                next_state = state[:k] + (1,) + state[k + 1:]
-                next_circles = circles_of(next_state)
-                k_w = len(next_circles)
-                sign = _odd_sign(state, k)
-
-                # Determine which circles are touched by crossing k
-                touched = set(crossings[k])
-
-                # Find affected circles in current and next state
-                aff_v = [ci for ci, c in enumerate(circles) if c & touched]
-                aff_w = [ci for ci, c in enumerate(next_circles) if c & touched]
-
-                if len(aff_v) == 2 and len(aff_w) == 1:
-                    # Merge: two circles → one
-                    # Exterior algebra: ι_{aff_v[0]} ∧ ι_{aff_v[1]} → ι_{aff_w[0]}
-                    ci0, ci1 = aff_v[0], aff_v[1]
-                    cj = aff_w[0]
-                    # Map: if both ci0 and ci1 are in subset (or neither), maps to 0
-                    # If exactly one is in subset... complicated.
-                    # Simplified merge map (ORS): the merge of exterior generators:
-                    # e_{ci0} ∧ ... merge with e_{ci1} ∧ ... → result
-                    # The map is: if {ci0, ci1} both in subset → map to subset - {ci0,ci1} + {cj}
-                    # The new index of cj in next_circles
-                    if ci0 in subset and ci1 not in subset:
-                        new_subset = (subset - {ci0}) | {cj}
-                        frozenset(
-                            c if c < ci0 else c - 1 for c in new_subset if c != ci0
-                        ) | ({cj} if cj not in new_subset else set())
-                    elif ci1 in subset and ci0 not in subset:
-                        new_subset = (subset - {ci1}) | {cj}
-                        frozenset(
-                            c if c < ci1 else c - 1 for c in new_subset if c != ci1
-                        ) | ({cj} if cj not in new_subset else set())
-                    else:
-                        continue
-
-                    # Remap indices: removing two old circles and adding one new one
-                    # Simplification: map directly to the new basis element
-                    new_sub = frozenset(
-                        (s if s < min(ci0, ci1) else
-                         (s - 1 if s < max(ci0, ci1) else s - 2)
-                         if s not in {ci0, ci1} else None
-                         for s in subset
-                         ) if True else set()
-                    ) - {None}
-                    # This is complex; use a simpler model for now
-                    new_sub = frozenset(
-                        s for s in range(k_w) if s != cj
-                        and (s < min(ci0, ci1) and s in subset
-                             or s >= min(ci0, ci1) and s + 1 in subset
-                             or s >= min(ci0, ci1) and s + 2 in subset
-                             )
-                    )
-                    if cj < k_w:
-                        new_sub_with_j = new_sub | {cj}
-                        key_target = (next_state, frozenset(new_sub_with_j))
-                        if key_target in target_index:
-                            row = target_index[key_target]
-                            matrix[row][col] += sign
-
-                elif len(aff_v) == 1 and len(aff_w) == 2:
-                    # Split: one circle → two
-                    ci = aff_v[0]
-                    cj0, cj1 = sorted(aff_w)
-                    # Exterior algebra split: e_ci → e_{cj0} + e_{cj1}
-                    for new_j in [cj0, cj1]:
-                        new_sub = frozenset(
-                            (s if s < ci else s + 1) if s != ci else new_j
-                            for s in subset
-                        )
-                        key_target = (next_state, new_sub)
-                        if key_target in target_index:
-                            row = target_index[key_target]
-                            matrix[row][col] += sign
-
+                for sign, out in _apply(edges[(v, k)], monomial):
+                    matrix[rows[(v | 1 << k, out)]][col] += signs[(v, k)] * sign
         differentials[(i, j)] = matrix
-
     return elements, differentials
 
 
-# ---------------------------------------------------------------------------
-# Main computation
-# ---------------------------------------------------------------------------
+def _bigraded_homology(
+    elements: dict[tuple[int, int], list[tuple[int, int]]],
+    differentials: dict[tuple[int, int], list[list[int]]],
+) -> dict[tuple[int, int], tuple[int, tuple[int, ...]]]:
+    factors = {key: _smith_normal_form(matrix) for key, matrix in differentials.items()}
+    groups: dict[tuple[int, int], tuple[int, tuple[int, ...]]] = {}
+    for (i, j), basis in elements.items():
+        incoming = factors.get((i - 1, j), [])
+        free = len(basis) - len(factors.get((i, j), [])) - len(incoming)
+        torsion = tuple(d for d in incoming if d > 1)
+        if free or torsion:
+            groups[(i, j)] = (free, torsion)
+    return groups
 
 
 def khovanov_homology_odd(diagram: KnotDiagram) -> OddKhovanovHomology:
@@ -284,71 +403,52 @@ def khovanov_homology_odd(diagram: KnotDiagram) -> OddKhovanovHomology:
     """
     n_minus = sum(1 for s in diagram.signs if s < 0)
     n_plus = len(diagram.pd) - n_minus
-    writhe = n_plus - n_minus
 
-    # Special case: empty diagram = unknot
-    if len(diagram.pd) == 0:
+    if len(diagram.pd) == 0:  # the crossingless unknot: one circle, Λ*ℤ = ℤ ⊕ ℤ
         return OddKhovanovHomology(
             groups={(0, 1): (1, ()), (0, -1): (1, ())},
             writhe=0, n_plus=0, n_minus=0,
             jones_graded_euler={1: 1, -1: 1},
         )
 
-    elements, differentials = _odd_khovanov_complex(diagram)
-
-    # Compute homology via SNF (same as standard)
-    groups: dict[tuple[int, int], tuple[int, tuple[int, ...]]] = {}
-
-    for (i, j), basis in elements.items():
-        src_size = len(basis)
-        if src_size == 0:
-            continue
-
-        # Kernel of d_{i,j}: src → d_{i,j} target
-        d_out = differentials.get((i, j))
-
-        # Image of d_{i-1,j}: prev_src → src
-        d_in = differentials.get((i - 1, j))
-
-        # Rank of kernel = src_size - rank(d_out)
-        ker_rank = src_size
-        if d_out:
-            factors_out = _smith_normal_form(d_out)
-            ker_rank = src_size - len(factors_out)
-
-        # Image rank and torsion from d_in
-        im_rank = 0
-        tors: list[int] = []
-        if d_in and d_in[0]:
-            factors_in = _smith_normal_form(d_in)
-            for v in factors_in:
-                if v > 1:
-                    tors.append(v)
-                else:
-                    im_rank += 1
-
-        betti = max(0, ker_rank - im_rank)
-        if betti > 0 or tors:
-            groups[(i, j)] = (betti, tuple(sorted(tors)))
-
+    groups = _bigraded_homology(*_odd_khovanov_complex(diagram))
     jones: dict[int, int] = {}
-    for (i, j), (b, _) in groups.items():
-        jones[j] = jones.get(j, 0) + (-1) ** i * b
-
+    for (i, j), (free, _) in groups.items():
+        jones[j] = jones.get(j, 0) + (-1) ** i * free
     return OddKhovanovHomology(
         groups=groups,
-        writhe=writhe,
+        writhe=n_plus - n_minus,
         n_plus=n_plus,
         n_minus=n_minus,
-        jones_graded_euler=jones,
+        jones_graded_euler={j: c for j, c in jones.items() if c},
     )
+
+
+def _mod_2_dimensions(
+    groups: dict[tuple[int, int], tuple[int, tuple[int, ...]]],
+) -> dict[tuple[int, int], int]:
+    """``dim H^{i,j}(C ⊗ 𝔽₂)`` by universal coefficients:
+    ``H^i ⊗ 𝔽₂ ⊕ Tor(H^{i+1}, 𝔽₂)``."""
+
+    dims: dict[tuple[int, int], int] = {}
+    for (i, j), (free, torsion) in groups.items():
+        even = sum(1 for d in torsion if d % 2 == 0)
+        dims[(i, j)] = dims.get((i, j), 0) + free + even
+        if even:
+            dims[(i - 1, j)] = dims.get((i - 1, j), 0) + even
+    return {key: dim for key, dim in dims.items() if dim}
 
 
 def compare_khovanov_parities(
     kh_even: KhovanovHomology,
     kh_odd: OddKhovanovHomology,
 ) -> dict[str, Any]:
-    """Compare even and odd Khovanov homology groups.
+    """Compare even and odd Khovanov homology of the same diagram.
+
+    ``agree_at`` / ``differ_at`` / ``n_differences`` compare the integral groups
+    bidegree by bidegree; they differ in general (the trefoil already does).
+    ``agree_mod_2`` compares ``dim H(·; 𝔽₂)``, which must agree by ORS
+    Proposition 1.6 — ``mod_2_differences`` lists any bidegree where it does not.
 
     Parameters
     ----------
@@ -373,9 +473,16 @@ def compare_khovanov_parities(
                 "odd": odd_g,
             })
 
+    even_mod_2 = _mod_2_dimensions(kh_even.groups)
+    odd_mod_2 = _mod_2_dimensions(kh_odd.groups)
+    mod_2_differences = sorted(
+        key for key in set(even_mod_2) | set(odd_mod_2)
+        if even_mod_2.get(key, 0) != odd_mod_2.get(key, 0)
+    )
     return {
         "agree_at": agreements,
         "differ_at": differences,
-        "agree_mod_2": len(differences) == 0,
         "n_differences": len(differences),
+        "agree_mod_2": not mod_2_differences,
+        "mod_2_differences": mod_2_differences,
     }

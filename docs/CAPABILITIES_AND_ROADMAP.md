@@ -176,7 +176,9 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
 **Verified defects (2026-09-24 audit — each one reproduced; evidence in
 `docs/AUDIT_2026_09_24.md`):**
 
-- **`khovanov_odd` is mathematically wrong on any knot with crossings.** On the trefoil
+- **[Fixed in v1.10.2 — rewritten from Ozsváth–Rasmussen–Szabó; agrees with KnotInfo's integral
+  odd Khovanov homology on all 35 prime knots through 8 crossings]** **`khovanov_odd` is
+  mathematically wrong on any knot with crossings.** On the trefoil
   `khovanov_homology` gives total free rank 4 (textbook-correct) while
   `khovanov_homology_odd` gives 25, and `compare_khovanov_parities` on the two real
   engines returns `agree_mod_2: False` with 9 differences over 12 gradings. That is
@@ -184,15 +186,15 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
   Euler characteristics must agree. The cube builder (`khovanov_odd.py:125–264`) never
   executes under test — module coverage is 29 % and the only tests pass
   `KnotDiagram(pd=(), signs=())`, a diagram with zero crossings.
-- **[Fixed, Unreleased]** **`TDAPipeline.from_points` discards its argument.** `tda_pipeline.py:104` is
+- **[Fixed in v1.10.1]** **`TDAPipeline.from_points` discards its argument.** `tda_pipeline.py:104` is
   `return cls()`; the frozen dataclass has no `points` field at all, so the argument is
   dropped and `p.points` raises `AttributeError`. The documented `.from_points(pts).rips()`
   chain always raises `ValueError`. `.reduce()` also rejects `'auto'`, so the P17.3
   default routing is unreachable through the builder.
-- **[Fixed, Unreleased]** **`cech_filtration` is non-deterministic and mutates the global RNG.**
+- **[Fixed in v1.10.1]** **`cech_filtration` is non-deterministic and mutates the global RNG.**
   `cech_complex.py:172` calls `random.shuffle` on the module-global `random`; 12
   identical runs on the same 7-point circle produced 3 distinct barcodes.
-- **[Fixed, Unreleased]** **18 of the 72 `src/pytop/_internal/` modules fail to import** — `from .result import
+- **[Fixed in v1.10.1]** **18 of the 72 `src/pytop/_internal/` modules fail to import** — `from .result import
   Result` where the module is at `src/pytop/result.py` (correct: `from ..result import`).
   The broken set is precisely the release/quality tooling: `package_verifier`,
   `manifest_checker`, `release_report_standard`, `integration_quality_gate`,
@@ -207,7 +209,7 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
   defect: the figure-eight's Seifert matrix is `[[-1,1],[0,1]]` in the literature while
   pytop returns `diag(1,−1)`, and the off-diagonal derivation (`seifert.py:400–450`) is
   an unresolved comment-block argument.
-- **[Fixed, Unreleased]** **CI never installs the `oracles` extra.** `.github/workflows/ci.yml:37` installs only
+- **[Fixed in v1.10.1]** **CI never installs the `oracles` extra.** `.github/workflows/ci.yml:37` installs only
   `.[dev]` (pytest, pytest-cov, ruff, mypy), so numpy/sympy/networkx/gudhi/python-flint
   are absent and all 13 differential-oracle tests plus both networkx planarity sweeps
   skip on every CI run.
@@ -224,7 +226,7 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
   1 203 symbols while 2 058 public non-module attributes are reachable as `pytop.X` —
   every Phase 5–15 symbol among them. They import and work; they are simply not declared.
 - **The 15 Phase 13–15 modules average 69 % coverage** against a 93.96 % project total:
-  `khovanov_odd` 29 %, `massey_products` 49 %, `concordance` 49 %, `eilenberg_maclane`
+  `khovanov_odd` 29 % (97 % since its v1.10.2 rewrite), `massey_products` 49 %, `concordance` 49 %, `eilenberg_maclane`
   57 %, `chain_homotopy` 59 %, `milnor_fibers` 65 %. `_gpu_backend.py` sits at 24 %.
 
 **One-sentence summary.** pytop is a solid finite point-set core + a focused
@@ -395,10 +397,13 @@ feed into reasoning engine and construction wrappers) and **cross-validation**
   cohomology / cellular / Khovanov / surgery engine built on it — is routed to
   FLINT above a small size threshold when installed (`pip install -e .[fast]`),
   with the pure-Python routine the default fallback and only hard requirement.
-  Identical results (pinned by the oracle tests); even on pytop's *sparse*
-  boundary / Khovanov matrices FLINT's exact SNF is ~5–8× faster (measured on
-  16×20 … 40×50 matrices). `numpy`/`scipy` are floating-point and cannot
-  accelerate the exact core — only a fast exact library (FLINT) can.
+  Identical results (pinned by the oracle tests). FLINT's exact SNF was
+  measured ~5–8× faster on 16×20 … 40×50 matrices, but on large sparse singular
+  ones its Kannan–Bachem fallback hangs (the 443×476 Khovanov block of `7_2`:
+  more than 60 s and 5 GB, against 0.13 s on the sparse path), so since 2026-10
+  sparse matrices take the sparse path before FLINT is considered.
+  `numpy`/`scipy` are floating-point and cannot accelerate the exact core —
+  only a fast exact library (FLINT) can.
 - **P4.7 — SageMath oracle (knot polynomials + GAP group theory)** ✅
   (`tests/core/test_sage_oracle.py`; opt-in `PYTOP_SAGE_ORACLE=1`, Docker-based):
   one batched run of the `sagemath/sagemath` image validates pytop's Alexander
@@ -630,7 +635,7 @@ at all, and there is no `lake` job in `.github/workflows/`.
 
 | Milestone | Topic | Status | Delivered |
 |-----------|-------|--------|-----------|
-| **P14.1** | Odd Khovanov homology | ✅ | `khovanov_odd.py`: `khovanov_homology_odd`, `OddKhovanovHomology`, `compare_khovanov_parities`. |
+| **P14.1** | Odd Khovanov homology | ✅ | `khovanov_odd.py`: `khovanov_homology_odd`, `OddKhovanovHomology`, `compare_khovanov_parities`. Shipped wrong in v1.5.0, rewritten in v1.10.2 and checked against KnotInfo over ℤ. |
 | **P14.2** | Grid diagram Floer (HFK̂) | ✅ | `grid_floer.py`: `GridDiagram`, `GridState`, `HFKHat`, `hfk_hat` (𝔽₂ rectangle differential), `trefoil_grid`, `alexander_polynomial_from_hfk`. |
 | **P14.3** | Concordance invariants | ✅ | `concordance.py`: `tau_torus_knot`, `s_invariant_torus_knot`, `signature_torus_knot`, `tristram_levine_signature`, `is_algebraically_slice`, `concordance_order`. |
 | **P14.4** | Satellite / cable knots | ✅ | `satellite_knots.py`: `satellite_alexander_poly` (Morton), `cable_alexander_poly`, `torus_knot_alexander_poly` (exact polynomial division), `cable_genus`, `whitehead_double`. |
@@ -666,7 +671,7 @@ reproductions.
 
 | # | Defect | Where |
 |---|--------|-------|
-| 1 | Odd Khovanov disagrees with even Khovanov on every knot with crossings (trefoil: total free rank 25 vs 4; `compare_khovanov_parities` → `agree_mod_2: False`, 9 of 12 gradings) — the two must share a graded Euler characteristic. The cube builder is never exercised: 29 % coverage, tests use a 0-crossing diagram | `src/pytop/khovanov_odd.py:125–264` |
+| 1 ✅ fixed | Odd Khovanov disagrees with even Khovanov on every knot with crossings (trefoil: total free rank 25 vs 4; `compare_khovanov_parities` → `agree_mod_2: False`, 9 of 12 gradings) — the two must share a graded Euler characteristic. The cube builder is never exercised: 29 % coverage, tests use a 0-crossing diagram | `src/pytop/khovanov_odd.py:125–264` |
 | 2 ✅ fixed | `TDAPipeline.from_points` discards its argument (`return cls()`), so `points` is `None` and the documented `.from_points(pts).rips()` chain always raises; `.reduce()` additionally rejects `'auto'` | `src/pytop/tda_pipeline.py:104` |
 | 3 ✅ fixed | `cech_filtration` shuffles with the module-global `random`: non-deterministic output and a mutated global RNG (12 identical runs → 3 distinct barcodes) | `src/pytop/cech_complex.py:172` |
 | 4 ✅ fixed | 18 of 72 `_internal` modules fail to import (`from .result import Result` instead of `from ..result import`); the broken set is exactly the release/quality tooling, and `_internal` is excluded from ruff, mypy, coverage and the CI doctest step | `src/pytop/_internal/` |
@@ -705,9 +710,9 @@ reproductions.
 | Metric | Value |
 |--------|-------|
 | Tests | **12 278 passing / 37 skipped / 3 xpassed of 12 318 collected** (full `pytest tests/`, ~136 s; the skips are opt-in Docker bridges and oracles) — includes 107 validation tests (oracle parity + benchmark + statistical + GUDHI betti-parity) |
-| Open roadmap items | **0 named milestones unstarted** — every milestone of Phases 0–20 has shipped code. What is open is **3 verified defects (4 of 7 fixed, Unreleased) + 3 unmet phase targets**, not unwritten work; see `docs/AUDIT_2026_09_24.md` |
-| Verified defects open | **3 of 7** — odd Khovanov wrong on knots with crossings; `_sylvester_signature` wrong on zero-diagonal matrices; 5 Phase-11 Lean files never compiled. **Fixed (Unreleased):** `TDAPipeline.from_points`, `cech_filtration` determinism + monotonicity, `_internal` imports, CI `oracles` job |
-| Coverage | **93.96 %** project total; the 15 Phase 13–15 modules total **69 %** (`khovanov_odd` 29 %, `massey_products` 49 %, `concordance` 49 %, `eilenberg_maclane` 57 %, `chain_homotopy` 59 %, `milnor_fibers` 65 %); `_gpu_backend.py` 24 % |
+| Open roadmap items | **0 named milestones unstarted** — every milestone of Phases 0–20 has shipped code. What is open is **2 verified defects (5 of 7 fixed) + 3 unmet phase targets**, not unwritten work; see `docs/AUDIT_2026_09_24.md` |
+| Verified defects open | **2 of 7** — `_sylvester_signature` wrong on zero-diagonal matrices; 5 Phase-11 Lean files never compiled. **Fixed:** in v1.10.1 `TDAPipeline.from_points`, `cech_filtration` determinism + monotonicity, `_internal` imports, CI `oracles` job; in v1.10.2 `khovanov_odd` (KnotInfo-verified over ℤ through 8 crossings) and the FLINT SNF hang found while fixing it |
+| Coverage | **93.96 %** project total; the 15 Phase 13–15 modules total **69 %** (`khovanov_odd` 29 % at the audit, 97 % since its v1.10.2 rewrite; `massey_products` 49 %, `concordance` 49 %, `eilenberg_maclane` 57 %, `chain_homotopy` 59 %, `milnor_fibers` 65 %); `_gpu_backend.py` 24 % |
 | Declared public API | `pytop.__all__` names **1 203** symbols, but **2 058** public non-module attributes are reachable as `pytop.X` — **855 are missing from `__all__`**, every Phase 5–15 symbol included |
 | Lint / types | `ruff check src tests` clean; `mypy src/pytop` clean over 250 source files (`_internal/` is excluded from both — which is how defect #4 survived) |
 | Source size | 212 top-level modules in `src/pytop` + 25 in `experimental`; 120 626 source lines |

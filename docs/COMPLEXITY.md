@@ -99,13 +99,18 @@
   [`python-flint`](https://pypi.org/project/python-flint/) is installed, the
   integer Smith normal form — and therefore every homology / cohomology /
   cellular / Khovanov / surgery engine built on it — is routed to FLINT above a
-  small size threshold. Even on pytop's *sparse* boundary / Khovanov matrices
-  (entries in `{−1, 0, 1}`), FLINT's compiled exact SNF is **~5–8× faster** than
-  the pure-Python routine (measured on 16×20 … 40×50 matrices), with identical
-  results (pinned by the differential tests). `numpy`/`scipy` are floating-point
-  and cannot accelerate the *exact* core — only a fast exact library such as
-  FLINT can. (The pure-Python core stays the default and the only hard
-  requirement.)
+  small size threshold, **except for sparse matrices** (min-dim ≥ 30, density
+  < 30 %), which take the sparse pure-Python path first. FLINT's `snf()` falls
+  back to Kannan–Bachem on singular input: on the 443×476 differential of the
+  knot `7_2` it ran past 60 s and 5 GB, while the sparse path takes 0.13 s, so
+  until 2026-10 installing `[fast]` made Khovanov homology of a 7-crossing knot
+  hang. The ~5–8× speedup measured in v0.9.0 holds on the small 16×20 … 40×50
+  matrices it was measured on, and FLINT remains far faster on dense matrices
+  (a 100×100 nonsingular one: 0.2 s, against more than 45 s in pure Python).
+  Results are identical either way (pinned by the differential tests).
+  `numpy`/`scipy` are floating-point and cannot accelerate the *exact* core —
+  only a fast exact library such as FLINT can. (The pure-Python core stays the
+  default and the only hard requirement.)
 
 ## Exactness carve-out: the Seifert signature
 
