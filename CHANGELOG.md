@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `khovanov_homology_odd` rejects a PD code that does not describe a diagram in
+  the plane with a `ValueError` that reports the face count (`V − E + F` against
+  `2c` for `c` connected pieces) and the counterclockwise slot convention.
+  Before, such a code got as far as the ladybug classification and stopped with
+  an internal `RuntimeError`. The even engine never looks at the planar
+  structure and still accepts these codes.
+
+### Tests
+
+- Odd Khovanov homology is also checked on KnotInfo's own minimal PD codes
+  (`3_1`, `4_1`, `5_2`, `7_4`, `8_17`, `8_19`, `8_20`, `8_21`), not only on braid
+  closures. An offline sweep of every prime knot through 8 crossings on its
+  KnotInfo PD code matched KnotInfo in all 35 cases; the even groups from the
+  same codes matched too, which confirms the crossing-sign reading.
+
 ## [1.10.2] — 2026-10-07
 
 ### Fixed
