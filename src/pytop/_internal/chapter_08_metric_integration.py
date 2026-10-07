@@ -21,7 +21,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from .result import Result
+from ..result import Result
 
 CHAPTER_08_INTEGRATION_VERSION = "v1.0.322"
 

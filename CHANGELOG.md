@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+Four of the seven defects reproduced in `docs/AUDIT_2026_09_24.md`, each behind a
+test that failed before the fix.
+
+- **`TDAPipeline.from_points` keeps its argument** (audit 3.2). The pipeline has a
+  new `points` field; `.rips()` and `.cech()` fall back to it when called without
+  points, so the documented `TDAPipeline.from_points(pts).rips().reduce()` chain
+  works. Points survive every builder step. `.reduce("auto")` is now accepted and
+  routes exactly as `persistent_homology(method="auto")` does.
+- **`cech_filtration` is deterministic and a valid filtration** (audit 3.3). The
+  Welzl shuffle on the module-global `random` is gone (a simplex has at most
+  `max_dimension + 1` vertices, so randomisation bought nothing), and the caller's
+  RNG is no longer consumed. Measuring the fix exposed a second defect the audit had
+  not named: float rounding could put a coface ~1e-16 *below* its facet, so a
+  triangle entered the filtration before its own edge and bars with
+  `birth > death` appeared. A simplex's birth is now clamped to the maximum of its
+  facets' births. On the 7-point circle, 12 seeded runs now give 1 barcode (was 11).
+- **All 73 `pytop._internal` modules import** (audit 3.4). 18 used
+  `from .result import`; two of those (`api_consistency`,
+  `notebook_smoke_examples`) also imported five more sibling modules that live in
+  `pytop/`, not `pytop/_internal/`. `tests/core/test_internal_imports.py` imports
+  every module and is the gate `_internal` never had.
+- **CI runs the differential oracles** (audit 3.5). A new `oracles` job installs
+  `.[dev,oracles]` on Python 3.13 and runs the full suite with
+  `PYTOP_REQUIRE_ORACLES=1`, under which `tests/conftest.py` turns any skip caused
+  by a missing numpy/sympy/networkx/gudhi/python-flint into a failure. The
+  existing matrix still installs `.[dev]` only, so the pure-Python SNF path stays
+  covered (python-flint would otherwise take it over).
+
 ### Changed
 
 - **Documentation-truth pass after a repository-wide audit.** A 25-agent sweep

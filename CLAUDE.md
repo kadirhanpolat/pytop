@@ -115,8 +115,8 @@ pytop has two complementary layers — keep this distinction in mind when extend
 
 ## Known defects (audited 2026-09-24)
 
-Each of the following was reproduced directly. They are shipped in v1.10.0 — read this list before
-trusting the module in question, and before writing anything that builds on it.
+Each of the following was reproduced directly and is still open. They are shipped in v1.10.0 —
+read this list before trusting the module in question, and before writing anything that builds on it.
 
 - **`khovanov_odd` is mathematically wrong on any knot with crossings.** On the trefoil,
   `khovanov_homology` gives total free rank **4** (textbook-correct) while `khovanov_homology_odd`
@@ -125,18 +125,6 @@ trusting the module in question, and before writing anything that builds on it.
   so their graded Euler characteristics must agree. The cube builder (`khovanov_odd.py:125–264`)
   never executes: module coverage is 29% and every test passes `KnotDiagram(pd=(), signs=())`,
   i.e. zero crossings.
-- **`TDAPipeline.from_points` discards its argument.** `tda_pipeline.py:104` is `return cls()`, so
-  the frozen dataclass has no `points` field at all — `fields(TDAPipeline)` is `['filtered', 'computed_pairs']`, so the argument is dropped on the floor and `p.points` raises `AttributeError`. The documented `.from_points(pts).rips()` chain always raises
-  `ValueError`. `.reduce()` additionally rejects `'auto'`, so the P17.3 default routing is
-  unreachable through the builder.
-- **`cech_filtration` is non-deterministic and mutates the global RNG.** `cech_complex.py:172`
-  calls `random.shuffle` on the module-global `random`. Twelve identical runs on the same 7-point
-  circle produced **3 distinct barcodes**.
-- **18 of the 72 `src/pytop/_internal/` modules fail to import** — they use `from .result import
-  Result` where the module is at `src/pytop/result.py` (correct: `from ..result import`). The broken
-  set is precisely the release/quality tooling: `package_verifier`, `manifest_checker`,
-  `release_report_standard`, `integration_quality_gate`, `api_consistency`,
-  `archive_bundle_checker`, `packaging_checkpoint`.
 - **`seifert._sylvester_signature` is wrong on symmetric matrices with a zero diagonal** — 17
   mismatches in 400 random symmetric matrices against `numpy.linalg.eigvalsh`; the minimal
   counterexample `[[0,2,1],[2,0,-2],[1,-2,0]]` returns 0 where the true signature is 1. Note the
@@ -146,14 +134,18 @@ trusting the module in question, and before writing anything that builds on it.
   figure-eight's Seifert matrix is `[[-1,1],[0,1]]` in the literature while pytop returns
   `diag(1,−1)`, and the off-diagonal derivation at `seifert.py:400–450` is an unresolved
   comment-block argument.
-- **CI never installs the `oracles` extra.** `.github/workflows/ci.yml:37` installs only `.[dev]`
-  (pytest, pytest-cov, ruff, mypy), so numpy/sympy/networkx/gudhi/python-flint are absent and all 13
-  differential-oracle tests **and** both networkx planarity sweeps skip on every CI run.
 - **The 5 Phase-11 Lean files have never been compiled in this tree.** `formal/Formal.lean` imports
   `MayerVietoris`, `VanKampen`, `CohomologyRing`, `PersistencePairing` and `SpectralSequences`, and
   **none of the five has a `.olean`** (SNF and SetTopology do). `SetTopologyAltProofs.lean`
   (27 theorems) is not imported at all, and there is no `lake` job in `.github/workflows/`. So the
   "0 `sorry`" claim is grep-verified, not kernel-verified, for Phase 11.
+
+**Fixed since the audit (Unreleased), each behind a test that failed
+first:** `TDAPipeline.from_points` keeps its points and `.reduce("auto")` works (3.2);
+`cech_filtration` is deterministic, leaves the global RNG alone, and clamps births so no coface
+precedes its facet (3.3 — the clamp fixes `birth > death` bars the audit had not named); all 73
+`_internal` modules import, gated by `tests/core/test_internal_imports.py` (3.4); CI has an
+`oracles` job with `PYTOP_REQUIRE_ORACLES=1` (3.5).
 
 These are tracked in `docs/AUDIT_2026_09_24.md`. Do not mark any of them fixed without a test that
 fails before the fix.
@@ -196,10 +188,10 @@ examples_bank/          ← topic-based Markdown example files (not importable)
 docs/CAPABILITIES_AND_ROADMAP.md  ← honest capabilities assessment + phased roadmap
 ```
 
-> ⚠️ **`src/pytop/_internal/` is unguarded.** It is excluded from ruff, from mypy, from coverage
-> **and** from the CI doctest step, so nothing in the pipeline reads it. As of 2026-09-24, **18 of
-> its 72 modules fail to import** (a `from .result import Result` that should be
-> `from ..result import`). Treat anything you find there as unverified until you run it.
+> ⚠️ **`src/pytop/_internal/` is only lightly guarded.** It is excluded from ruff, from mypy, from
+> coverage **and** from the CI doctest step. The one gate it has is
+> `tests/core/test_internal_imports.py`, which imports all 73 modules (18 failed to import until
+> the post-audit fix). Treat anything beyond "it imports" as unverified until you run it.
 
 ---
 
@@ -224,16 +216,19 @@ pytest tests/experimental/ -q
 
 > **Python interpreter:** Always use `py -3.14` on this machine (not `python` or bare `py`).
 
-> **The default suite does not run the oracle tests.** CI installs only `.[dev]`
-> (`.github/workflows/ci.yml:37`), so numpy/sympy/networkx/gudhi/python-flint are missing there and
-> the 13 differential-oracle tests plus both networkx planarity sweeps **skip on every CI run** —
-> a green CI is not evidence that they passed. To run them locally:
+> **Oracle tests run in their own CI job.** The 3.11–3.14 matrix installs only `.[dev]`, so it
+> exercises the pure-Python core (python-flint would otherwise take over the SNF). The `oracles` job
+> installs `.[dev,oracles]` on 3.13 and sets `PYTOP_REQUIRE_ORACLES=1`, under which
+> `tests/conftest.py` turns any skip caused by a missing numpy/sympy/networkx/gudhi/python-flint
+> into a failure. To do the same locally:
 >
 > ```bash
 > pip install -e ".[dev,oracles]"
+> PYTOP_REQUIRE_ORACLES=1 pytest tests/ -q -rs
 > ```
 >
 > The Docker bridges (Sage, SnapPy, GAP, Regina) stay opt-in behind their own env flags on top of that.
+> `ripser` is not in the `oracles` extra, so its two Betti-parity checks still skip.
 
 ---
 

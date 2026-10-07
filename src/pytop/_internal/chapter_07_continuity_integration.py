@@ -26,7 +26,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
-from .result import Result
+from ..result import Result
 
 CHAPTER_07_INTEGRATION_VERSION = "v1.0.321"
 

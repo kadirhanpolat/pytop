@@ -13,7 +13,7 @@ from typing import Any, Iterable, Mapping
 
 from .chapter_07_15_api_matrix import ChapterApiMatrixRow, build_chapter_07_15_api_matrix
 from .questionbank_bridge import QuestionbankBridgeItem, questionbank_bridge_report
-from .result import Result
+from ..result import Result
 
 CONTRACT_ALIGNMENT_VERSION = "v1.0.319"
 

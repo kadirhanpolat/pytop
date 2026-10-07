@@ -276,3 +276,70 @@ class _DummySpace:
 
     def distance_between(self, a: tuple[float, ...], b: tuple[float, ...]) -> float:
         return math.sqrt(sum((x - y) ** 2 for x, y in zip(a, b)))
+
+
+# ---------------------------------------------------------------------------
+# Audit 2026-09-24, finding 3.3 — determinism and filtration monotonicity.
+# ---------------------------------------------------------------------------
+
+
+def _regular_polygon(n: int) -> list[tuple[float, float]]:
+    return [
+        (math.cos(2 * math.pi * i / n), math.sin(2 * math.pi * i / n))
+        for i in range(n)
+    ]
+
+
+class TestCechDeterminism:
+    def test_identical_runs_give_identical_filtrations(self) -> None:
+        import random
+
+        pts = _regular_polygon(7)
+        results = set()
+        for seed in range(12):
+            random.seed(seed)
+            results.add(cech_filtration(pts, max_dimension=2))
+        assert len(results) == 1
+
+    def test_does_not_consume_global_rng(self) -> None:
+        import random
+
+        random.seed(1234)
+        expected = random.random()
+        random.seed(1234)
+        cech_filtration(_regular_polygon(7), max_dimension=2)
+        assert random.random() == expected
+
+    def test_identical_runs_give_identical_barcodes(self) -> None:
+        import random
+
+        pts = _regular_polygon(7)
+        barcodes = set()
+        for seed in range(12):
+            random.seed(seed)
+            pairs = persistent_homology_cech(pts, max_dimension=2)
+            barcodes.add(tuple(sorted((p.dimension, p.birth, p.death) for p in pairs)))
+        assert len(barcodes) == 1
+
+
+class TestCechMonotonicity:
+    @pytest.mark.parametrize("n", [5, 6, 7, 8])
+    def test_every_face_is_born_no_later_than_its_coface(self, n: int) -> None:
+        from itertools import combinations
+
+        fc = cech_filtration(_regular_polygon(n), max_dimension=2)
+        birth = dict(zip(fc.simplices, fc.births, strict=True))
+        position = {s: i for i, s in enumerate(fc.simplices)}
+        for simplex in fc.simplices:
+            if len(simplex) < 2:
+                continue
+            for face in combinations(simplex, len(simplex) - 1):
+                assert birth[face] <= birth[simplex]
+                assert position[face] < position[simplex]
+
+    @pytest.mark.parametrize("n", [5, 6, 7, 8])
+    def test_no_bar_dies_before_it_is_born(self, n: int) -> None:
+        pairs = persistent_homology_cech(
+            _regular_polygon(n), max_dimension=2, include_zero_persistence=True
+        )
+        assert all(p.birth <= p.death for p in pairs)

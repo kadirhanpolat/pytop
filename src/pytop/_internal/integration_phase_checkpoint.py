@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from .integration_quality_gate import IntegrationQualityGateReport, integration_quality_gate_report
-from .result import Result
+from ..result import Result
 
 
 INTEGRATION_PHASE_SURFACE_SPECS: tuple[dict[str, Any], ...] = (

@@ -17,7 +17,7 @@ from .chapter_07_15_questionbank_contract_alignment import (
     ChapterQuestionbankContractRow,
     build_chapter_07_15_questionbank_contract_alignment,
 )
-from .result import Result
+from ..result import Result
 
 MANUSCRIPT_TARGET_MAP_VERSION = "v1.0.320"
 

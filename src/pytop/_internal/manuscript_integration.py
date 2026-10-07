@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from .questionbank_bridge import QUESTIONBANK_BRIDGE_ITEMS, QuestionbankBridgeItem
-from .result import Result
+from ..result import Result
 
 
 @dataclass(frozen=True, slots=True)

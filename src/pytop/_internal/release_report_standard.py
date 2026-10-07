@@ -24,7 +24,7 @@ from .package_verifier import (
     expected_root_for_version,
     verify_full_package_zip,
 )
-from .result import Result
+from ..result import Result
 
 
 # ---------------------------------------------------------------------------

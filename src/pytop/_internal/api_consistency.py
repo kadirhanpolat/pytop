@@ -11,12 +11,12 @@ from dataclasses import dataclass, field
 from importlib import import_module
 from typing import Any, Mapping, Sequence
 
-from .construction_contracts import finite_product_contract, finite_quotient_contract
-from .metric_contracts import bounded_metric_transform_contract, finite_metric_contract, finite_product_metric_contract
-from .metric_spaces import FiniteMetricSpace
-from .predicate_contracts import finite_subset_predicate_contract, symbolic_subset_predicate_contract
-from .result import Result
-from .result_rendering import render_result
+from ..construction_contracts import finite_product_contract, finite_quotient_contract
+from ..metric_contracts import bounded_metric_transform_contract, finite_metric_contract, finite_product_metric_contract
+from ..metric_spaces import FiniteMetricSpace
+from ..predicate_contracts import finite_subset_predicate_contract, symbolic_subset_predicate_contract
+from ..result import Result
+from ..result_rendering import render_result
 
 
 CORE_STRENGTHENING_API_SURFACE: tuple[str, ...] = (

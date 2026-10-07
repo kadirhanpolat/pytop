@@ -14,7 +14,7 @@ from importlib import import_module
 from typing import Any, Mapping
 
 from .api_consistency import APIConsistencyReport, api_consistency_report
-from .result import Result
+from ..result import Result
 
 
 @dataclass(frozen=True, slots=True)
