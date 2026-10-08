@@ -599,16 +599,15 @@ to the main computational engines. 0-sorry rule holds throughout; corpus grows f
 |-----------|-----------|-----------|
 | **P11.1** ✅ | `MayerVietoris.lean` | `SES` structure; `ses_p_zero_of_im`; `delta_well_defined`; `snake_delta_exists`; `snake_delta_independent` (connecting class well-defined in A') |
 | **P11.2** ✅ | `VanKampen.lean` | `Pres` + `TietzeEquiv`; `tietze_elim / add_gen`; `AmalgamDatum` + `Pushout`; `pushout_universal`; `int_hom_determined_by_one` (ℤ is initial); `int_hom_exists` |
-| **P11.3** ✅ | `CohomologyRing.lean` | Alexander–Whitney `cup` product; `cup_value_assoc` (Bool.and_assoc); `cup_comm_Z2`; `coboundary0`; `leibniz_0cochains` |
+| **P11.3** ✅ | `CohomologyRing.lean` | Alexander–Whitney `cup` product; `cup_assoc` (associativity of the cup product, faces re-indexed — since v1.10.3); `cup_comm_Z2`; `coboundary0`; `leibniz_0cochains` |
 | **P11.4** ✅ | `PersistencePairing.lean` | `pairing_is_perfect` (= `reduce_is_reduced`); `pairs_have_distinct_births` (birth indices Nodup); key chain: `isReduced_tail` → `filterMap_getLast_nodup_of_isReduced` → `zipWith_range_filterMap_snd_eq` → `map_fst_pairs_eq` |
 | **P11.5** ✅ | `SpectralSequences.lean` | `ChainCx` (d² = 0 by construction); `d_sq_zero`; `image_sub_kernel`; `SpectralSeq`; `const_convergent`; `stabilizes_mono`; `const_pages_convergent` |
 
-**0 `sorry` across the formal corpus** — 24 `.lean` files outside `.lake`, 219
-theorems/lemmas — but that is **grep-verified, not kernel-verified** for these five:
-`formal/Formal.lean` imports all of MayerVietoris, VanKampen, CohomologyRing,
-PersistencePairing and SpectralSequences, yet **none of the five has an `.olean` in this
-tree** (SNF and SetTopology do), `SetTopologyAltProofs.lean` (27 theorems) is not imported
-at all, and there is no `lake` job in `.github/workflows/`.
+**0 `sorry` across the formal corpus, kernel-checked** — 24 `.lean` files outside `.lake`.
+Until 2026-10-08 this was grep-verified only: none of these five had ever been built, and all
+five **failed** when they were. They were repaired in v1.10.3; `lakefile.toml` now globs every
+module under `Formal/` and `.github/workflows/lean.yml` runs `lake build` on each change to
+`formal/`, failing on any error or `sorry`.
 
 ### Phase 12 — Research Frontier ✅ COMPLETE (v1.4.0–v1.9.0)
 
