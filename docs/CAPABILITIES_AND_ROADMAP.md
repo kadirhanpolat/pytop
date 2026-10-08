@@ -31,10 +31,9 @@
 >
 > **Measured on 2026-09-24.** **12 278 passing / 37 skipped / 3 xpassed of 12 318
 > collected**; `src/pytop` ruff-clean and mypy-clean across 250 source files; release tags
-> through v1.10.0. Formal corpus: 24 Lean files outside `.lake`, 219 theorems/lemmas,
-> **0 `sorry` tactics** — grep-verified everywhere, but kernel-verified only for SNF and
-> set topology: the five Phase-11 files have no `.olean` in this tree and no workflow runs
-> `lake`.
+> through v1.10.0. Formal corpus: 24 Lean files outside `.lake`, **0 `sorry`** — at the
+> audit this was grep-verified only, and the five Phase-11 files turned out not to compile;
+> since 2026-10-08 they are repaired and every file is kernel-checked by the Lean workflow.
 
 ---
 
@@ -213,7 +212,8 @@ counterexample search) over the pi-Base graph (243 properties, 902 theorems,
   `.[dev]` (pytest, pytest-cov, ruff, mypy), so numpy/sympy/networkx/gudhi/python-flint
   are absent and all 13 differential-oracle tests plus both networkx planarity sweeps
   skip on every CI run.
-- **The five Phase-11 Lean files have never been compiled in this tree.**
+- **[Fixed in v1.10.3 — all five failed to compile when finally built; repaired, and `lake build`
+  over every module now runs in CI]** **The five Phase-11 Lean files have never been compiled in this tree.**
   `formal/Formal.lean` imports MayerVietoris, VanKampen, CohomologyRing,
   PersistencePairing and SpectralSequences; none of the five has an `.olean` (SNF and
   SetTopology do), `SetTopologyAltProofs.lean` (27 theorems) is not imported at all, and
@@ -677,7 +677,7 @@ reproductions.
 | 4 ✅ fixed | 18 of 72 `_internal` modules fail to import (`from .result import Result` instead of `from ..result import`); the broken set is exactly the release/quality tooling, and `_internal` is excluded from ruff, mypy, coverage and the CI doctest step | `src/pytop/_internal/` |
 | 5 | `_sylvester_signature` is wrong when the diagonal contains zeros (17 of 400 random symmetric matrices disagree with `numpy.linalg.eigvalsh`). The public `signature` is currently correct on trefoil/figure-8/cinquefoil only because `seifert_matrix` emits diagonal matrices — which is the deeper defect: figure-8 should be `[[-1,1],[0,1]]`, pytop gives `diag(1,−1)` | `src/pytop/seifert.py:400–450` |
 | 6 ✅ fixed | CI installs only `.[dev]`, never the `oracles` extra, so all 13 differential-oracle tests and both networkx planarity sweeps skip on every run | `.github/workflows/ci.yml:37` |
-| 7 | The five Phase-11 Lean files have no `.olean` in this tree and no workflow runs `lake`; `SetTopologyAltProofs.lean` (27 theorems) is not imported at all — "0 sorry" is grep-verified, not kernel-verified, for Phase 11 | `formal/Formal.lean` |
+| 7 ✅ fixed | The five Phase-11 Lean files have no `.olean` in this tree and no workflow runs `lake`; `SetTopologyAltProofs.lean` (27 theorems) is not imported at all — "0 sorry" is grep-verified, not kernel-verified, for Phase 11 | `formal/Formal.lean` |
 
 **Two phase targets are unmet.**
 
@@ -710,13 +710,13 @@ reproductions.
 | Metric | Value |
 |--------|-------|
 | Tests | **12 278 passing / 37 skipped / 3 xpassed of 12 318 collected** (full `pytest tests/`, ~136 s; the skips are opt-in Docker bridges and oracles) — includes 107 validation tests (oracle parity + benchmark + statistical + GUDHI betti-parity) |
-| Open roadmap items | **0 named milestones unstarted** — every milestone of Phases 0–20 has shipped code. What is open is **2 verified defects (5 of 7 fixed) + 3 unmet phase targets**, not unwritten work; see `docs/AUDIT_2026_09_24.md` |
-| Verified defects open | **2 of 7** — `_sylvester_signature` wrong on zero-diagonal matrices; 5 Phase-11 Lean files never compiled. **Fixed:** in v1.10.1 `TDAPipeline.from_points`, `cech_filtration` determinism + monotonicity, `_internal` imports, CI `oracles` job; in v1.10.2 `khovanov_odd` (KnotInfo-verified over ℤ through 8 crossings) and the FLINT SNF hang found while fixing it |
+| Open roadmap items | **0 named milestones unstarted** — every milestone of Phases 0–20 has shipped code. What is open is **1 verified defect (6 of 7 fixed) + 3 unmet phase targets**, not unwritten work; see `docs/AUDIT_2026_09_24.md` |
+| Verified defects open | **1 of 7** — `_sylvester_signature` wrong on zero-diagonal matrices. **Fixed:** in v1.10.1 `TDAPipeline.from_points`, `cech_filtration` determinism + monotonicity, `_internal` imports, CI `oracles` job; in v1.10.2 `khovanov_odd` (KnotInfo-verified over ℤ) and the FLINT SNF hang found while fixing it; in v1.10.3 the Phase-11 Lean files (they did not compile) and a `lake build` CI job |
 | Coverage | **93.96 %** project total; the 15 Phase 13–15 modules total **69 %** (`khovanov_odd` 29 % at the audit, 97 % since its v1.10.2 rewrite; `massey_products` 49 %, `concordance` 49 %, `eilenberg_maclane` 57 %, `chain_homotopy` 59 %, `milnor_fibers` 65 %); `_gpu_backend.py` 24 % |
 | Declared public API | `pytop.__all__` names **1 203** symbols, but **2 058** public non-module attributes are reachable as `pytop.X` — **855 are missing from `__all__`**, every Phase 5–15 symbol included |
 | Lint / types | `ruff check src tests` clean; `mypy src/pytop` clean over 250 source files (`_internal/` is excluded from both — which is how defect #4 survived) |
 | Source size | 212 top-level modules in `src/pytop` + 25 in `experimental`; 120 626 source lines |
-| Lean corpus | 24 `.lean` files outside `.lake`, 219 theorems/lemmas, **0 `sorry`** — kernel-compiled (`.olean` present) for **SNF and SetTopology only**; the 5 Phase-11 files are **not** compiled and no CI job runs `lake` |
+| Lean corpus | 24 `.lean` files outside `.lake`, **0 `sorry`**, every file compiled — `lakefile.toml` globs all of `Formal/` and `.github/workflows/lean.yml` runs `lake build` on every change to `formal/`, failing on any error or `sorry`. Until 2026-10-08 the 5 Phase-11 files had never been built, and all five failed when they were |
 | Optional external bridges | 3 — GAP (groups), Regina (triangulations, normal surfaces), SnapPy (hyperbolic geometry); all opt-in, none a runtime dependency |
 | Representations in `experimental.spaces` | 19 |
 | Predicates (with witnesses) | 16 |
@@ -734,7 +734,7 @@ reproductions.
 | Phase 8 milestones complete | 6 / 6 ✅ (Profile→Computational: advanced algebra) |
 | Phase 9 milestones complete | 6 / 6 ✅ (`experimental.spaces` expansion) |
 | Phase 10 milestones complete | 5 / 5 ✅ (scale & algorithm) |
-| Phase 11 milestones complete | 5 / 5 shipped (Lean formal verification expansion) — the five files are 0-sorry by grep but have never been kernel-compiled in this tree; see the Lean corpus row |
+| Phase 11 milestones complete | 5 / 5 shipped (Lean formal verification expansion) — written in v1.3.0 but never compiled; all five failed when first built on 2026-10-08, were repaired, and are kernel-checked in CI since v1.10.3. `CohomologyRing.cup_assoc` was strengthened to real cup-product associativity in the process |
 | Phase 12 milestones complete | **6 / 6 ✅ COMPLETE** (sheaf cohomology, persistent K-theory, countably infinite complexes, homeomorphism, GAP bridge, Regina bridge) |
 | Phase 13 milestones complete | 5 / 5 ✅ (homotopy theory) |
 | Phase 14 milestones complete | 5 / 5 ✅ (advanced knot homology) |

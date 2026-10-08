@@ -17,3 +17,6 @@ rev = "v4.31.0"
 
 [[lean_lib]]
 name = "Formal"
+# Build every module under Formal/, not only those Formal.lean imports, so a file
+# nothing imports (as SetTopologyAltProofs and SNF.TestLemmas once were) is still checked.
+globs = ["Formal.*"]

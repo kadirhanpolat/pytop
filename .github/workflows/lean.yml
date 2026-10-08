@@ -1,0 +1,49 @@
+name: Lean
+
+# The Lean 4 corpus under formal/ is checked by the Lean kernel whenever it changes.
+# Audit 2026-09-24, finding 3.6: no workflow ran `lake`, and the five Phase-11 files had
+# never been elaborated — all five failed to compile. A "0 sorry" claim means something
+# only while this job is green: it fails on any elaboration error and on any
+# "declaration uses 'sorry'" warning. lakefile.toml globs every module under Formal/,
+# so a file nothing imports is still built.
+
+on:
+  push:
+    branches: [master]
+    paths: ["formal/**", ".github/workflows/lean.yml"]
+  pull_request:
+    branches: [master]
+    paths: ["formal/**", ".github/workflows/lean.yml"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: lake build (formal/)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash  # bash -eo pipefail, so `lake build | tee` fails when lake does
+        working-directory: formal
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Fetch the Mathlib build cache
+        run: lake exe cache get
+
+      - name: Build every module
+        run: lake build 2>&1 | tee build.log
+
+      - name: Fail on sorry
+        run: |
+          if grep -n "declaration uses 'sorry'" build.log; then
+            echo "::error::a declaration in formal/ uses sorry"
+            exit 1
+          fi
+          echo "no declaration uses sorry"

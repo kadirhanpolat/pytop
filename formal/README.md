@@ -9,10 +9,28 @@ Prove that `pytopSNF` (a fuel-bounded implementation of integer SNF via elementa
 row/column operations) is correct: it terminates, produces positive invariant factors,
 and the factors form a divisibility chain.
 
-## Status: **Complete — but read the build caveat**
+## Status: **Complete and kernel-checked**
 
-All theorems proved: **24** `.lean` files outside `.lake`, **219** theorems/lemmas,
-**0 `sorry` tactics**.
+**24** `.lean` files outside `.lake`, **0 `sorry`**, and every one of them is compiled:
+`lakefile.toml` globs all modules under `Formal/`, and the **Lean** workflow
+(`.github/workflows/lean.yml`) runs `lake build` on every change to `formal/` and fails on
+any error or any `declaration uses 'sorry'` warning. (298 `theorem`/`lemma` declarations,
+counting private and attributed ones.)
+
+> ### History: Phase 11 did not compile until 2026-10-08
+>
+> The five Phase 11 files below were written in v1.3.0 and imported by `Formal.lean`, but
+> nothing built them, and when they were finally built on 2026-10-08 **all five failed**:
+> tactics that were never imported (`use`, `ring`), `ℕ`/`ℤ` silently auto-bound as type
+> variables, `Nat.le.trans`, an induction hypothesis applied to an extra argument, and
+> `a && b = c && d` parsing as `a && (b = c) && d`. "0 sorry" had been a text search. They
+> were repaired, and two statements changed so they say what their names claim:
+> `CohomologyRing.cup_assoc` is now associativity of the cup product itself (it had been
+> `Bool.and_assoc` on three free variables), and `uct_bool_0`, a tautology named after the
+> universal coefficient theorem, was removed. `VanKampen`, `SpectralSequences` and
+> `MayerVietoris` now carry scope notes saying what they do not formalise.
+>
+> The original caveat, kept for the record:
 
 > ### ⚠️ "0 sorry" is grep-verified, not kernel-verified, for Phase 11
 >
@@ -33,7 +51,7 @@ All theorems proved: **24** `.lean` files outside `.lake`, **219** theorems/lemm
 > CI — treat Phase 11 as *written and sorry-free in source*, not as
 > kernel-checked. Only the Lean kernel can turn the first into the second.
 
-For the modules that *are* compiled, `lake build` passes with 0 errors, 0 sorries.
+Today `lake build` passes over all 24 files with 0 errors and 0 sorries.
 
 ```
 pytopSNF_isInvariantFactors : IsInvariantFactors (pytopSNF A)
@@ -73,8 +91,8 @@ Formal/
   PiBase.lean             — pi-Base property reasoning
   PersHomology.lean       — persistent homology stubs
 
-Formal/  (Phase 11 — imported by Formal.lean, but NEVER COMPILED in this tree:
-          no .olean exists for any of the five; see the build caveat above)
+Formal/  (Phase 11 — compiled and kernel-checked since 2026-10-08; see the history
+          note above)
   MayerVietoris.lean      — connecting morphism well-definedness, snake diagram
   VanKampen.lean          — Tietze equivalence, pushout universal property
   CohomologyRing.lean     — cup product associativity, Leibniz rule over ℤ/2

@@ -19,6 +19,11 @@ structure with exactness witnessed at every position.
 * `snake_delta_exists`       : given a commutative square of SES's and c ∈ ker h,
                                a unique preimage in A' exists via the snake diagram.
 * `snake_delta_independent`  : the choice of lift b does not affect the A'-class.
+
+## Scope
+
+These are the element-chasing lemmas the connecting map rests on. The file does not construct δ
+as a homomorphism of homology groups or prove exactness of the long sequence.
 -/
 
 namespace MayerVietoris
@@ -110,7 +115,7 @@ theorem snake_delta_independent (ses : SES A B C) (ses' : SES A' B' C')
     ∃ a : A, f a = a₁ - a₂ := by
   -- b₁ - b₂ ∈ ker p, so ∃ a, i(a) = b₁ - b₂
   obtain ⟨a, ha⟩ := mv_connecting_indep ses c b₁ b₂ hb₁ hb₂
-  use a
+  refine ⟨a, ?_⟩
   apply ses'.i_inj
   -- i'(f(a)) = g(i(a)) = g(b₁ - b₂) = g(b₁) - g(b₂) = i'(a₁) - i'(a₂) = i'(a₁ - a₂)
   calc ses'.i (f a)

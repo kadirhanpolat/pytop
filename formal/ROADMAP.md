@@ -1,9 +1,9 @@
 # Formal Verification Roadmap
 
 Status as of 2026-06-23, corpus figures and open items re-measured 2026-09-24.
-**All theorems proved, 0 `sorry` tactics. Phase 11 complete in source.** Two gaps
-remain open and are listed under *Open items* below: the Phase 11 files have never
-been compiled, and `IsSmithNF` is still missing its matrix-equivalence clause.
+**All theorems proved, 0 `sorry`, and the whole corpus is kernel-checked in CI** (since
+2026-10-08: `.github/workflows/lean.yml`). One gap remains open and is listed under *Open
+items* below: `IsSmithNF` is still missing its matrix-equivalence clause.
 
 ## Completed
 
@@ -136,11 +136,11 @@ Closing this needs `Bridge.lean` (the equivalence clause plus the unimodularity
 invariant the loop already maintains informally — see the loop invariant quoted in
 `Correctness.lean`) and, separately, a story for the Lean↔Python correspondence.
 
-### Phase 11 has never been compiled
+### Phase 11 compiled — closed 2026-10-08
 
-The five Phase 11 files are imported by `Formal.lean` but have no `.olean`, and
-there is no `lake` job in `.github/workflows/`. Their "0 sorry" status is
-grep-verified only. See `formal/README.md` for the full caveat.
+The five Phase 11 files had never been built, and all five failed when they were. They are
+repaired and `lake build` runs in CI over every module under `Formal/`. See the history note
+in `formal/README.md`.
 
 ## Key Proof Insights
 

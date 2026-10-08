@@ -13,6 +13,13 @@ Every chain complex satisfies d ∘ d = 0 **by construction**; the file proves c
 * `const_convergent`       : the constant spectral sequence converges.
 * `stabilizes_mono`        : stabilisation is upward-closed in the page index.
 * `same_diff_implies_same_stab` : two sequences agreeing from r₀ onward share stabilisation.
+
+## Scope
+
+`SpectralSeq` is an ℕ-indexed family of chain complexes with no relation between pages —
+`E_{r+1}` is not required to be the homology of `E_r` — so these are the stabilisation and
+convergence bookkeeping facts and the `d ∘ d = 0` consequences, not a formalisation of the
+spectral sequence of a filtered complex.
 -/
 
 namespace SpectralSequences
@@ -76,7 +83,7 @@ theorem const_convergent (c : ChainCx α) :
 theorem stabilizes_mono (ss : SpectralSeq α) {r₀ r₁ : ℕ} (h : r₀ ≤ r₁)
     (hs : StabilizesAt ss r₀) : StabilizesAt ss r₁ := by
   intro r hr
-  rw [hs r (h.trans hr), hs r₁ h]
+  rw [hs r (Nat.le_trans h hr), hs r₁ h]
 
 /-- If two spectral sequences agree on all pages ≥ r₀ and one stabilises at r₀,
     so does the other. -/
@@ -84,7 +91,7 @@ theorem same_diff_implies_same_stab (ss₁ ss₂ : SpectralSeq α) (r₀ : ℕ)
     (hpage : ∀ r : ℕ, r₀ ≤ r → ss₁.page r = ss₂.page r)
     (hs₁ : StabilizesAt ss₁ r₀) : StabilizesAt ss₂ r₀ := by
   intro r hr
-  rw [← hpage r hr, hs₁ r hr, hpage r₀ le_rfl]
+  rw [← hpage r hr, hs₁ r hr, hpage r₀ (Nat.le_refl r₀)]
 
 /-- If a spectral sequence stabilises at r₀, it converges. -/
 theorem stabilizes_implies_convergent (ss : SpectralSeq α) (r₀ : ℕ)
