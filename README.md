@@ -1,14 +1,14 @@
 # pytop
 
 [![CI](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml/badge.svg)](https://github.com/kadirhanpolat/pytop/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-1.10.2-blue)
+![Version](https://img.shields.io/badge/version-1.10.3-blue)
 ![PyPI](https://img.shields.io/pypi/v/pytopology)
 ![Coverage](https://img.shields.io/badge/coverage-93.96%25-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.11--3.14-blue)
 
 A mathematical topology library for Python, covering point-set topology, knot theory, graph topology, surface classification, 3-manifolds, higher categories, operads, spectral sequences, topological field theory, and more.
 
-As of **v1.10.2** (live on PyPI — `pip install pytopology`, then `import pytop`), pytop ships **20 phases**: 12 542 passing / 37 skipped / 3 xpassed of 12 582 collected tests, on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15** build the library itself — computational core (1–7), advanced algebra (8), 19 computable-space representations (9), scale & algorithms (10), Lean 4 formal verification (11), Čech sheaf cohomology + persistent K-theory (12), homotopy theory (13), advanced knot homology (14), 4-manifold topology (15). **Phase 16** is empirical validation: a benchmark suite plus GUDHI oracle parity — P16.2 cross-checks pytop's persistent Betti numbers against GUDHI, and P16.3 cross-validates a 10 000-complex statistical run at 100.0 % parity (0 outliers, avg 4.35 ms/complex). **Phase 17** is performance: profiling infrastructure (P17.1), persistence method selection (P17.2), and inductive Vietoris–Rips construction plus size-aware auto reduction routing, now the default (P17.3: `method="auto"` picks Twist for small complexes and the de Silva dual cohomology for large Rips, byte-identical output). **Phase 18** is documentation (16-chapter user guide in four formats with 46 figures; 226-module API reference; 36+ examples), **Phase 19** API stability (WHY-HOW-THEN error messages, an 18-month deprecation policy, `docs/API_DESIGN.md`), and **Phase 20** release maturity (Python 3.11–3.14 CI matrix, PyPI Trusted Publishing, `CONTRIBUTING.md` and issue templates; docstring doctests run in CI).
+As of **v1.10.3** (live on PyPI — `pip install pytopology`, then `import pytop`), pytop ships **20 phases**: 12 552 passing / 37 skipped / 3 xpassed of 12 592 collected tests, on a ruff-clean and mypy-clean `src/pytop`. **Phases 1–15** build the library itself — computational core (1–7), advanced algebra (8), 19 computable-space representations (9), scale & algorithms (10), Lean 4 formal verification (11), Čech sheaf cohomology + persistent K-theory (12), homotopy theory (13), advanced knot homology (14), 4-manifold topology (15). **Phase 16** is empirical validation: a benchmark suite plus GUDHI oracle parity — P16.2 cross-checks pytop's persistent Betti numbers against GUDHI, and P16.3 cross-validates a 10 000-complex statistical run at 100.0 % parity (0 outliers, avg 4.35 ms/complex). **Phase 17** is performance: profiling infrastructure (P17.1), persistence method selection (P17.2), and inductive Vietoris–Rips construction plus size-aware auto reduction routing, now the default (P17.3: `method="auto"` picks Twist for small complexes and the de Silva dual cohomology for large Rips, byte-identical output). **Phase 18** is documentation (16-chapter user guide in four formats with 46 figures; 226-module API reference; 36+ examples), **Phase 19** API stability (WHY-HOW-THEN error messages, an 18-month deprecation policy, `docs/API_DESIGN.md`), and **Phase 20** release maturity (Python 3.11–3.14 CI matrix, PyPI Trusted Publishing, `CONTRIBUTING.md` and issue templates; docstring doctests run in CI).
 
 An internal audit on 2026-09-24 found seven verified defects and three unmet phase targets. They are listed under [Known defects](#known-defects) below and written up in full in [`docs/AUDIT_2026_09_24.md`](docs/AUDIT_2026_09_24.md).
 
@@ -222,6 +222,23 @@ Chapters 4 and 6 feature guided proofs, "Ne oldu?" walkthroughs, trace tables, T
 and color-coded pedagogical boxes (sezgi / dikkat / nedenonemli / karşı-örnek).
 Exercise solutions are in `docs/user_guide/{markdown,python,notebook}/solutions.*` and
 `docs/user_guide/latex/appendix/solutions.tex`.
+
+## What's New in v1.10.3
+
+**The Lean proofs are checked by the Lean kernel, in CI.**
+
+- The five Phase-11 Lean files (`MayerVietoris`, `VanKampen`, `CohomologyRing`,
+  `PersistencePairing`, `SpectralSequences`) had never been compiled; built for the first time,
+  all five failed. They are repaired, and a new **Lean** workflow runs `lake build` over every
+  module under `formal/` on each change and fails on any `sorry`. Along the way
+  `CohomologyRing.cup_assoc` became genuine associativity of the cup product, and a tautology named
+  after the universal coefficient theorem was removed.
+- `khovanov_homology_odd` rejects a non-planar PD code with a `ValueError` that explains the face
+  count, instead of failing deep inside with an internal error.
+- Odd Khovanov homology is also checked against KnotInfo on KnotInfo's own minimal PD codes, not
+  only on braid closures.
+
+Still open from the audit: `seifert`'s signature helper mishandles zero diagonals.
 
 ## What's New in v1.10.2
 
