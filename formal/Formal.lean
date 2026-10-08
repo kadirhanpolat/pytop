@@ -5,6 +5,7 @@ import Formal.EulerChar
 import Formal.PersHomology
 import Formal.PiBase
 import Formal.SetTopology
+import Formal.SetTopologyAltProofs
 import Formal.MetricTopology
 -- Phase 11: Algebraic topology extensions
 import Formal.MayerVietoris

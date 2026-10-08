@@ -692,7 +692,7 @@ Extends the `formal/` corpus from 6 to **11 Lean files**. The zero-sorry rule ho
   `const_convergent`; `stabilizes_mono`; `same_diff_implies_same_stab`;
   `const_pages_convergent`.
 
-**0 sorry across all 11 Lean files.**
+**0 sorry across all 11 Lean files.** *(Correction, 2026-10-08: that was a text search. None of the five new files compiled; they were repaired in v1.10.3 and are now kernel-checked in CI.)*
 
 ---
 
@@ -1158,7 +1158,7 @@ See [CHANGELOG.md](CHANGELOG.md) for full details.
 
 The `formal/` directory contains **Lean 4 + Mathlib v4.31** machine-checked proofs
 for the core algorithms and topological foundations.  
-Build: `cd formal && lake build`
+Build: `cd formal && lake exe cache get && lake build` — run on every change to `formal/` by the **Lean** workflow, which fails on any `sorry`.
 
 ### Verified paths
 
@@ -1173,7 +1173,7 @@ Build: `cd formal && lake build`
 | `MetricTopology.lean` | Metric space, open balls, ε-δ ↔ topological continuity, Cauchy sequences, completeness, `fixedPoint_unique`, Banach fixed-point theorem | **0** |
 | `MayerVietoris.lean` _(Phase 11)_ | `SES` structure; `ses_p_zero_of_im`; `delta_well_defined`; `snake_delta_exists`; `snake_delta_independent` | **0** |
 | `VanKampen.lean` _(Phase 11)_ | `Pres` + `TietzeEquiv`; `tietze_elim/add_gen`; `AmalgamDatum` + `Pushout`; `pushout_universal`; `int_hom_determined_by_one`; `int_hom_exists` | **0** |
-| `CohomologyRing.lean` _(Phase 11)_ | Alexander–Whitney `cup` (`⌣`); `cup_value_assoc`; `cup_comm_Z2`; `coboundary0`; `leibniz_0cochains` | **0** |
+| `CohomologyRing.lean` _(Phase 11)_ | Alexander–Whitney `cup` (`⌣`); `cup_assoc` (associativity of the cup product, faces re-indexed); `cup_comm_Z2`; `coboundary0`; `leibniz_0cochains` | **0** |
 | `PersistencePairing.lean` _(Phase 11)_ | `pairing_is_perfect`; `pairs_have_distinct_births`; lemma chain via `isReduced_tail` + `filterMap_getLast_nodup_of_isReduced` + `List.mem_iff_getElem` | **0** |
 | `SpectralSequences.lean` _(Phase 11)_ | `ChainCx` (d²=0); `d_sq_zero`; `image_sub_kernel`; `SpectralSeq`; `const_convergent`; `stabilizes_mono`; `const_pages_convergent` | **0** |
 
@@ -1210,8 +1210,8 @@ theorem pairs_birth_lt_death       : (∀ jcol ∈ zipWith … (reduce M), ∀ x
 ## Known defects
 
 An internal audit on 2026-09-24 verified seven defects by direct execution; each is written up, with
-reproductions, in [`docs/AUDIT_2026_09_24.md`](docs/AUDIT_2026_09_24.md). Five are fixed, each behind
-a test that failed before the fix:
+reproductions, in [`docs/AUDIT_2026_09_24.md`](docs/AUDIT_2026_09_24.md). Six are fixed, each behind
+a test or a check that failed before the fix:
 
 | # | Defect | Fixed in |
 |---|--------|----------|
@@ -1220,6 +1220,7 @@ a test that failed before the fix:
 | 3 | `cech_filtration` was non-deterministic, mutated the global RNG, and could let a simplex enter before its faces | v1.10.1 |
 | 4 | 18 `src/pytop/_internal/` modules failed to import | v1.10.1 |
 | 6 | CI never installed the `oracles` extra, so every differential-oracle test skipped | v1.10.1 |
+| 7 | The five Phase-11 Lean files had never been compiled — and when they were, all five failed | v1.10.3 — repaired; `lake build` over every module runs in CI and fails on any `sorry` |
 
 Found after the audit and fixed in v1.10.2: with python-flint installed (the `[fast]` and `[oracles]`
 extras), Khovanov homology of a 7-crossing knot hung, because FLINT's `snf()` falls back to
@@ -1234,11 +1235,6 @@ Still open:
   matrices and the buggy branch is never reached. That masking is the deeper defect: the figure-eight's
   Seifert matrix is `[[-1,1],[0,1]]` in the literature while pytop returns `diag(1,−1)`, and the
   off-diagonal derivation in `seifert.py:400–450` is an unresolved comment-block argument.
-- **The five Phase-11 Lean files have never been compiled in this tree.** `formal/Formal.lean` imports
-  `MayerVietoris`, `VanKampen`, `CohomologyRing`, `PersistencePairing` and `SpectralSequences`, and none
-  of the five has an `.olean` (SNF and SetTopology do). `SetTopologyAltProofs.lean` (27 theorems) is not
-  imported at all, and there is no `lake` job in CI — so for Phase 11, "0 sorry" is grep-verified, not
-  kernel-verified.
 
 Three stated phase targets are also unmet, although the milestones themselves shipped:
 

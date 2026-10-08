@@ -22,7 +22,7 @@ lemma isReduced_pivot_injective {R : Z2Matrix} (hred : isReduced R)
     (h1 : (R.get j1).getLast? = some i)
     (h2 : (R.get j2).getLast? = some i) : False := by
   rcases hred j1 j2 hne with h | h
-  · simp [h] at h1
+  · exact Option.some_ne_none i (h1.symm.trans h)
   · exact h (h1.trans h2.symm)
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -43,8 +43,8 @@ theorem pairing_is_perfect (M : Z2Matrix)
 private lemma isReduced_tail {col : Z2Col} {R' : Z2Matrix}
     (hred : isReduced (col :: R')) : isReduced R' := by
   intro j1 j2 hne
-  have h := hred ⟨j1.val + 1, by simp; omega⟩ ⟨j2.val + 1, by simp; omega⟩
-    (by simp only [Fin.mk.injEq]; exact Fin.val_ne_of_ne hne)
+  have h := hred ⟨j1.val + 1, by simp⟩ ⟨j2.val + 1, by simp⟩
+    (fun heq => hne (Fin.ext (Nat.succ.inj (congrArg Fin.val heq))))
   simpa [List.get_cons_succ] using h
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -62,9 +62,9 @@ private lemma filterMap_getLast_nodup_of_isReduced :
     intro hred
     simp only [List.filterMap_cons]
     rcases hpiv : col.getLast? with _ | i
-    · exact ih R' (isReduced_tail hred)
+    · exact ih (isReduced_tail hred)
     · simp only [List.nodup_cons]
-      refine ⟨?_, ih R' (isReduced_tail hred)⟩
+      refine ⟨?_, ih (isReduced_tail hred)⟩
       -- Show pivot i does not appear in R'.filterMap getLast?
       intro hi
       rw [List.mem_filterMap] at hi
@@ -74,7 +74,7 @@ private lemma filterMap_getLast_nodup_of_isReduced :
       obtain ⟨k, hk, hkeq⟩ := hcol'_mem
       -- R'[k] = col', so R'[k].getLast? = some i
       have hk_piv : (R'.get ⟨k, hk⟩).getLast? = some i := by
-        rw [List.get_eq_getElem]; rw [← hkeq]; exact hcol'_some
+        rw [show R'.get ⟨k, hk⟩ = col' from hkeq]; exact hcol'_some
       -- In R = col :: R', column 0 and column k+1 both have pivot i
       have hcontra := hred ⟨0, by simp⟩ ⟨k + 1, by simp; omega⟩
         (by simp [Fin.ext_iff])
@@ -100,7 +100,6 @@ private lemma zipWith_filterMap_snd_eq_aux (l : List Nat) (R : Z2Matrix) :
     | cons j t =>
       simp only [List.zipWith_cons_cons, List.filterMap_cons, List.length_cons,
                  List.take_succ_cons, ih t]
-      rcases col.getLast? with _ | i <;> simp
 
 private lemma zipWith_range_filterMap_snd_eq (R : Z2Matrix) :
     (List.zipWith Prod.mk (List.range R.length) R).filterMap (fun p => p.2.getLast?) =

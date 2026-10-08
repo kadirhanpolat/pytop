@@ -1,4 +1,5 @@
 import Mathlib.Algebra.Group.Hom.Basic
+import Mathlib.Data.Int.Cast.Lemmas
 
 /-!
 # P11.2 — Van Kampen: Amalgamated Free Product
@@ -12,14 +13,20 @@ product) and **Tietze moves** on group presentations.
 
 ## Main results
 
-* `tietze_add_gen`          : adding a redundant generator preserves the group.
-* `tietze_elim`             : eliminating a generator expressed by a relator.
-* `tietze_equiv_symm`       : Tietze equivalence is symmetric.
-* `tietze_equiv_refl`       : Tietze equivalence is reflexive.
-* `tietze_equiv_trans`      : Tietze equivalence is transitive.
-* `pushout_universal`       : the amalgamated product satisfies the UP.
-* `pushout_compat_preserved`: factorings through the pushout respect the amalgamation.
-* `int_hom_determined_by_one`: a group hom out of ℤ is determined by f(1).
+* `tietze_equiv_refl` / `tietze_equiv_symm` / `tietze_equiv_trans` : `TietzeEquiv` is an
+  equivalence relation (symmetry is the content: each move has an inverse move).
+* `tietze_add_gen`, `tietze_elim` : the two generating moves, as constructors.
+* `pushout_compat_preserved` : a map out of a pushout respects the amalgamation.
+* `pushout_universal` : bookkeeping — a map `u` that agrees with `f₁` and `f₂` on the two
+  inclusions does so for every pair of elements.
+* `int_hom_determined_by_one`, `int_hom_exists` : ℤ is free abelian on `1`.
+
+## Scope
+
+`Pres` and `TietzeEquiv` are syntactic — no group is attached to a presentation — so nothing
+here says Tietze moves preserve the presented group, and `Pushout` is a cocone rather than a
+constructed amalgamated free product. pytop's computational van Kampen lives in
+`src/pytop/van_kampen.py`; this file formalises only the relational bookkeeping around it.
 -/
 
 namespace VanKampen
@@ -119,18 +126,12 @@ theorem pushout_compat_preserved (datum : AmalgamDatum H G₁ G₂) (po : Pushou
 /-- Any group homomorphism ℤ →+ K is completely determined by its value at 1.
     This is the **universal property** of ℤ as the free abelian group on one generator. -/
 theorem int_hom_determined_by_one {K : Type*} [AddCommGroup K] (f g : ℤ →+ K)
-    (h : f 1 = g 1) : f = g := by
-  ext n
-  have eq1 : n • (1 : ℤ) = n := by ring
-  rw [show n = n • (1 : ℤ) from eq1.symm]
-  rw [f.map_zsmul, g.map_zsmul, h]
+    (h : f 1 = g 1) : f = g :=
+  AddMonoidHom.ext_int h
 
 /-- Existence part: every element k ∈ K is the image of 1 under some ℤ →+ K. -/
 theorem int_hom_exists {K : Type*} [AddCommGroup K] (k : K) :
     ∃ f : ℤ →+ K, f 1 = k :=
-  ⟨{ toFun    := fun n => n • k
-     map_zero' := zero_smul ℤ k
-     map_add'  := fun m n => add_smul m n k },
-   one_smul k⟩
+  ⟨zmultiplesHom K k, by simp⟩
 
 end VanKampen

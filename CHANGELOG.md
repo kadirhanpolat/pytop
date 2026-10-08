@@ -15,6 +15,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Before, such a code got as far as the ladybug classification and stopped with
   an internal `RuntimeError`. The even engine never looks at the planar
   structure and still accepts these codes.
+- **The Phase-11 Lean files compile** (audit 3.6). `MayerVietoris`, `VanKampen`,
+  `CohomologyRing`, `PersistencePairing` and `SpectralSequences` were written in
+  v1.3.0 and imported by `Formal.lean`, but nothing ever built them, and when
+  they were built **all five failed**: tactics that were never imported (`use`,
+  `ring`), `ℕ`/`ℤ` silently auto-bound as type variables because their notation
+  was not imported, `Nat.le.trans`, an induction hypothesis given an extra
+  argument, and `a && b = c && d` parsing as `a && (b = c) && d`. "0 sorry" had
+  been a text search. All five are repaired. Two statements changed to say what
+  their names claim: `CohomologyRing.cup_assoc` (formerly `cup_assoc_eq`) is now
+  associativity of the cup product on every (p+q+r)-simplex — it had been
+  `Bool.and_assoc` on three free variables — and `uct_bool_0`, a tautology named
+  after the universal coefficient theorem, is removed. `VanKampen`,
+  `SpectralSequences` and `MayerVietoris` gained scope notes stating what they do
+  not formalise. Full build: 1 080 jobs, 0 errors, 0 `sorry`; no `axiom`,
+  `native_decide` or `admit` anywhere in `formal/`.
+
+### Added
+
+- **A `lake build` CI job** (`.github/workflows/lean.yml`): on every change to
+  `formal/`, installs elan, fetches the Mathlib cache, builds every module and
+  fails on any error or any `declaration uses 'sorry'` warning. `lakefile.toml`
+  now globs all of `Formal/`, so files nothing imports (`SetTopologyAltProofs`,
+  `SNF.TestLemmas`) are built too; `Formal.lean` imports `SetTopologyAltProofs`.
 
 ### Tests
 
